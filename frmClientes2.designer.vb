@@ -87,6 +87,8 @@ Partial Class frmClientes2
         Me.txtFAX = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.Button2 = New System.Windows.Forms.Button()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -198,6 +200,7 @@ Partial Class frmClientes2
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.Button2)
         Me.GroupBox2.Controls.Add(Me.DataGridView2)
         Me.GroupBox2.Controls.Add(Me.GroupBox3)
         Me.GroupBox2.Controls.Add(Me.TextBox2)
@@ -972,16 +975,36 @@ Partial Class frmClientes2
         Me.Label10.TabIndex = 95
         Me.Label10.Text = "Fax"
         '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(0, 0)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 23)
+        Me.Button1.TabIndex = 64
+        Me.Button1.Text = "Button1"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'Button2
+        '
+        Me.Button2.Location = New System.Drawing.Point(1041, 382)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(124, 23)
+        Me.Button2.TabIndex = 299
+        Me.Button2.Text = "no hago nada"
+        Me.Button2.UseVisualStyleBackColor = True
+        '
         'frmClientes2
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1370, 568)
+        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.GroupBox1)
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "frmClientes2"
         Me.Text = "Clientes"
         Me.Controls.SetChildIndex(Me.GroupBox1, 0)
+        Me.Controls.SetChildIndex(Me.Button1, 0)
         Me.ContextMenuStrip1.ResumeLayout(False)
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
@@ -1086,5 +1109,6 @@ Partial Class frmClientes2
     Friend WithEvents NumericUpDown1 As System.Windows.Forms.NumericUpDown
     Friend WithEvents DataGridView2 As System.Windows.Forms.DataGridView
     Friend WithEvents ScanButton As System.Windows.Forms.Button
-
+    Friend WithEvents Button2 As Button
+    Friend WithEvents Button1 As Button
 End Class
