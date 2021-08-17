@@ -21,8 +21,6 @@ Partial Class frmClientes2
         Me.BorrarElItemToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox1 = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.Button3 = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
         Me.DataGridView2 = New System.Windows.Forms.DataGridView()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.ScanButton = New System.Windows.Forms.Button()
@@ -201,8 +199,6 @@ Partial Class frmClientes2
         '
         'GroupBox2
         '
-        Me.GroupBox2.Controls.Add(Me.Button3)
-        Me.GroupBox2.Controls.Add(Me.Button2)
         Me.GroupBox2.Controls.Add(Me.DataGridView2)
         Me.GroupBox2.Controls.Add(Me.GroupBox3)
         Me.GroupBox2.Controls.Add(Me.TextBox2)
@@ -222,24 +218,6 @@ Partial Class frmClientes2
         Me.GroupBox2.TabIndex = 288
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "GroupBox2"
-        '
-        'Button3
-        '
-        Me.Button3.Location = New System.Drawing.Point(1041, 421)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(197, 23)
-        Me.Button3.TabIndex = 300
-        Me.Button3.Text = "tampoco hago nada"
-        Me.Button3.UseVisualStyleBackColor = True
-        '
-        'Button2
-        '
-        Me.Button2.Location = New System.Drawing.Point(1041, 382)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(124, 23)
-        Me.Button2.TabIndex = 299
-        Me.Button2.Text = "no hago nada"
-        Me.Button2.UseVisualStyleBackColor = True
         '
         'DataGridView2
         '
@@ -1120,7 +1098,5 @@ Partial Class frmClientes2
     Friend WithEvents NumericUpDown1 As System.Windows.Forms.NumericUpDown
     Friend WithEvents DataGridView2 As System.Windows.Forms.DataGridView
     Friend WithEvents ScanButton As System.Windows.Forms.Button
-    Friend WithEvents Button2 As Button
     Friend WithEvents Button1 As Button
-    Friend WithEvents Button3 As Button
 End Class
