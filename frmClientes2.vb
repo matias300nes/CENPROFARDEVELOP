@@ -1787,6 +1787,7 @@ Public Class frmClientes2
 
     End Sub
 
+
     Private Sub ScanButton_Click(sender As Object, e As EventArgs) Handles ScanButton.Click
         Scan_columns()
     End Sub
