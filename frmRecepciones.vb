@@ -730,21 +730,14 @@ Public Class frmRecepciones
 
 #Region "   Procedimientos"
 
+    Private Sub btnOpenExcelWindow_Click(sender As Object, e As EventArgs) Handles btnOpenExcelWindow.Click
+        GroupPanelDetalleLiquidacion.Visible = True
+    End Sub
+
     Dim tables As DataTableCollection
 
-    Private Sub btnImportarExcel_Click(sender As Object, e As EventArgs) Handles btnImportarExcel.Click
-        GroupPanelDetalleLiquidacion.Visible = True
-        'Dim openFD As New OpenFileDialog()
-        'openFD.Filter = "Excel Files|.xls;.xlsx;*.xlsm"
+    Private Sub btnImportExcel_Click(sender As Object, e As EventArgs) Handles btnImportExcel.Click
 
-        'With openFD
-        '    .Title = "Seleccionar archivos a Adjuntar"
-        '    .Multiselect = False
-        '    .InitialDirectory = My.Computer.FileSystem.SpecialDirectories.Desktop
-        '    If .ShowDialog = Windows.Forms.DialogResult.OK Then
-        '        FileName.Text = .FileName
-        '    End If
-        'End With
         Using ofd As OpenFileDialog = New OpenFileDialog() With {.Filter = "Excel Files |*.xls; *.xlsx"}
             If ofd.ShowDialog = DialogResult.OK Then
                 FileName.Text = ofd.FileName
@@ -817,33 +810,11 @@ Public Class frmRecepciones
     End Sub
 
     Private Sub grdDetalleLiquidacion_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles grdDetalleLiquidacion.CellContentClick
-        SelectionValue.Text = grdDetalleLiquidacion.Rows(e.RowIndex).Cells(e.ColumnIndex).Value
-        txtfila.Text = e.RowIndex
-        NumericColumn.Value = e.ColumnIndex
+        FilaLabel.Text = e.RowIndex
+        ColLabel.Text = e.ColumnIndex
 
     End Sub
-    Private Sub grdDetalleLiquidacion_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles grdDetalleLiquidacion.CellClick
-        'MsgBox(cellvaluescount.ToString)
-        Dim j As Integer
-        For j = e.RowIndex To grdDetalleLiquidacion.Rows.Count - 1
-            If TypeOf grdDetalleLiquidacion.Rows(j).Cells(e.ColumnIndex).Value Is DBNull = False Then
-                'If grdFacturasConsumos.Rows(j).Cells(ColumnasDelGridFacturasConsumos.Deuda).Value < 0 Then
-                '    deudanegativa = deudanegativa + grdFacturasConsumos.Rows(j).Cells(ColumnasDelGridFacturasConsumos.Deuda).Value
-                'End If
-                columnaprueba = e.ColumnIndex
-                MsgBox(grdDetalleLiquidacion.Rows(j).Cells(e.ColumnIndex).Value)
-                'grdDatosCargados.Rows.Add(grdDetalleLiquidacion.Rows(j).Cells(e.ColumnIndex).Value)
-            End If
-        Next
 
-
-        Dim max As Integer = grdDetalleLiquidacion.Columns.Count
-        NumericUpDown1.Maximum = max
-        NumericUpDown2.Maximum = max
-        NumericUpDown3.Maximum = max
-        NumericUpDown4.Maximum = max
-        NumericUpDown5.Maximum = max
-    End Sub
 
     Private Sub Scan_columns()
         'toma las columnas

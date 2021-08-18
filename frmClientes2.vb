@@ -1705,14 +1705,8 @@ Public Class frmClientes2
     End Sub
 
     Private Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
-        SelectionValue.Text = DataGridView1.Rows(e.RowIndex).Cells(e.ColumnIndex).Value
         TextBox1.Text = e.RowIndex
         TextBox2.Text = e.ColumnIndex
-
-
-
-
-
     End Sub
 
     Private Sub NumericUpDown1_ValueChanged(sender As Object, e As EventArgs) Handles NumericUpDown1.ValueChanged
