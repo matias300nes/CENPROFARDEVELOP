@@ -758,9 +758,8 @@ Public Class frmRecepciones
             End If
         End Using
 
-        grdDetalleLiquidacion.BringToFront()
-        '.ReadHeaderRow = Function(rowReader) rowReader.Read,
-        '.FilterRow = Function(rowReader) rowReader.Depth > 6
+
+        ScanButton.Enabled = True
     End Sub
 
 
@@ -770,35 +769,12 @@ Public Class frmRecepciones
 
         grdDetalleLiquidacion.DataSource = dt
 
-        grdDetalleLiquidacion.BringToFront()
-        Dim cellvaluescount As Integer = 0
-        For Each cell As DataGridViewCell In grdDetalleLiquidacion.CurrentRow.Cells
-            If TypeOf cell.Value Is DBNull = False Then 'if not a null or (blank/empty) value
-                'cell has a value in it
-                cellvaluescount += 1
-            End If
-        Next
-
         grdDetalleLiquidacionFiltrada.Columns.Add("Codigo", "Codigo")
         grdDetalleLiquidacionFiltrada.Columns.Add("Recetas", "Recetas")
         grdDetalleLiquidacionFiltrada.Columns.Add("Recaudado", "Recaudado")
         grdDetalleLiquidacionFiltrada.Columns.Add("A cargo OS", "A cargo OS")
         grdDetalleLiquidacionFiltrada.Columns.Add("Bonificacion", "Bonificacion")
         grdDetalleLiquidacionFiltrada.Columns.Add("Total", "Total")
-
-        Dim j As Integer
-        For j = 0 To grdDetalleLiquidacion.Rows.Count - 1
-            If TypeOf grdDetalleLiquidacion.Rows(j).Cells(3).Value Is DBNull = False Then
-                'If grdFacturasConsumos.Rows(j).Cells(ColumnasDelGridFacturasConsumos.Deuda).Value < 0 Then
-                '    deudanegativa = deudanegativa + grdFacturasConsumos.Rows(j).Cells(ColumnasDelGridFacturasConsumos.Deuda).Value
-                'End If
-                'grdDetalleLiquidacionFiltrada.Rows.Add(grdDetalleLiquidacion.Rows(j).Cells(3).Value)
-                'grdDetalleLiquidacionFiltrada.Rows(j).Cells(3).Value = grdDetalleLiquidacion.Rows(j).Cells(3).Value
-
-
-            End If
-        Next
-
 
         Dim max As Integer = grdDetalleLiquidacion.Columns.Count
         NumericUpDown1.Maximum = max
@@ -871,6 +847,8 @@ Public Class frmRecepciones
 
     Private Sub ScanButton_Click(sender As Object, e As EventArgs) Handles ScanButton.Click
         Scan_columns()
+
+        btnListo.Enabled = True
     End Sub
 
 
@@ -4129,29 +4107,10 @@ ContinuarTransaccion:
 
 
 
-    Private Sub btnComparar_Click(sender As Object, e As EventArgs) Handles btnComparar.Click
-        Dim prueba = grdItems.Rows(1).Cells(ColumnasDelGridItems.Total).Value.ToString
+    Private Sub btnListo_Click(sender As Object, e As EventArgs) Handles btnListo.Click
 
-        'For i As Integer = 0 To grdItems.RowCount() - 1
-        '    Dim recetaP, recetaOS
+        GroupPanelDetalleLiquidacion.Visible = False
 
-        '    recetaP = grdItems.Rows(i).Cells("NUMSOC").Value
-
-
-        '    For A As Integer = 0 To grdDetLiquidacionOs.RowCount() - 1
-        '        recetaOS = grdDetLiquidacionOs.Rows(A).Cells("NUM_SOCIO").Value()
-
-        '        If (recetaP = recetaOS) Then
-        '            grdItems.Rows(i).DefaultCellStyle.BackColor = Color.LightBlue
-        '        End If
-
-        '        If grdItems.Rows(i).DefaultCellStyle.BackColor <> Color.LightBlue Then
-        '            grdItems.Rows(i).DefaultCellStyle.BackColor = Color.Red
-        '        End If
-
-
-        '    Next
-        'Next
     End Sub
 
     Private Sub Label25_Click(sender As Object, e As EventArgs) Handles lblPeriodo.Click
@@ -4162,9 +4121,4 @@ ContinuarTransaccion:
 
     End Sub
 
-
-
-    'Private Sub btnImportarExcel_Click(sender As Object, e As EventArgs)
-    '    ImportarExcel()
-    'End Sub
 End Class
