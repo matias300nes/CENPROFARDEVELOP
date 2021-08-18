@@ -730,10 +730,13 @@ Public Class frmRecepciones
 
 #Region "   Procedimientos"
 
+    Private Sub btnOpenExcelWindow_Click(sender As Object, e As EventArgs) Handles btnOpenExcelWindow.Click
+        GroupPanelDetalleLiquidacion.Visible = True
+    End Sub
+
     Dim tables As DataTableCollection
 
-    Private Sub btnImportarExcel_Click(sender As Object, e As EventArgs) Handles btnImportarExcel.Click
-        GroupPanelDetalleLiquidacion.Visible = True
+    Private Sub btnImportExcel_Click(sender As Object, e As EventArgs) Handles btnImportExcel.Click
 
         Using ofd As OpenFileDialog = New OpenFileDialog() With {.Filter = "Excel Files |*.xls; *.xlsx"}
             If ofd.ShowDialog = DialogResult.OK Then

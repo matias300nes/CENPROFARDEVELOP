@@ -29,7 +29,7 @@ Partial Class frmRecepciones
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.GroupPanelDetalleLiquidacion = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.btnImportExcel = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.FileName = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.Label9 = New System.Windows.Forms.Label()
@@ -78,11 +78,10 @@ Partial Class frmRecepciones
         Me.grdImpuestos = New System.Windows.Forms.DataGridView()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.cmbAlmacenes = New System.Windows.Forms.ComboBox()
-        Me.btnImportarExcel = New System.Windows.Forms.Button()
+        Me.btnOpenExcelWindow = New System.Windows.Forms.Button()
         Me.lblMontoIva = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.txtidpago = New TextBoxConFormatoVB.FormattedTextBoxVB()
-        Me.txtIdGasto = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.txtIdProveedor = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.txtID = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.txtNota = New TextBoxConFormatoVB.FormattedTextBoxVB()
@@ -94,6 +93,7 @@ Partial Class frmRecepciones
         Me.dtpFECHA = New System.Windows.Forms.DateTimePicker()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.chkAnuladas = New System.Windows.Forms.CheckBox()
+        Me.txtIdGasto = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.chkGrillaInferior = New System.Windows.Forms.CheckBox()
         Me.Label19 = New System.Windows.Forms.Label()
         Me.lblCantidadFilas = New System.Windows.Forms.Label()
@@ -140,7 +140,7 @@ Partial Class frmRecepciones
         Me.GroupBox1.Controls.Add(Me.grdImpuestos)
         Me.GroupBox1.Controls.Add(Me.Label16)
         Me.GroupBox1.Controls.Add(Me.cmbAlmacenes)
-        Me.GroupBox1.Controls.Add(Me.btnImportarExcel)
+        Me.GroupBox1.Controls.Add(Me.btnOpenExcelWindow)
         Me.GroupBox1.Controls.Add(Me.lblMontoIva)
         Me.GroupBox1.Controls.Add(Me.Label7)
         Me.GroupBox1.Controls.Add(Me.txtidpago)
@@ -215,7 +215,7 @@ Partial Class frmRecepciones
         '
         'GroupBox3
         '
-        Me.GroupBox3.Controls.Add(Me.Button1)
+        Me.GroupBox3.Controls.Add(Me.btnImportExcel)
         Me.GroupBox3.Controls.Add(Me.Label1)
         Me.GroupBox3.Controls.Add(Me.FileName)
         Me.GroupBox3.Controls.Add(Me.Label9)
@@ -227,15 +227,15 @@ Partial Class frmRecepciones
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Importar Archivo"
         '
-        'Button1
+        'btnImportExcel
         '
-        Me.Button1.Location = New System.Drawing.Point(130, 43)
-        Me.Button1.Margin = New System.Windows.Forms.Padding(2)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(61, 23)
-        Me.Button1.TabIndex = 370
-        Me.Button1.Text = "Importar Excel"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.btnImportExcel.Location = New System.Drawing.Point(130, 43)
+        Me.btnImportExcel.Margin = New System.Windows.Forms.Padding(2)
+        Me.btnImportExcel.Name = "btnImportExcel"
+        Me.btnImportExcel.Size = New System.Drawing.Size(61, 23)
+        Me.btnImportExcel.TabIndex = 370
+        Me.btnImportExcel.Text = "Importar Excel"
+        Me.btnImportExcel.UseVisualStyleBackColor = True
         '
         'Label1
         '
@@ -772,15 +772,15 @@ Partial Class frmRecepciones
         Me.cmbAlmacenes.Size = New System.Drawing.Size(91, 21)
         Me.cmbAlmacenes.TabIndex = 2
         '
-        'btnImportarExcel
+        'btnOpenExcelWindow
         '
-        Me.btnImportarExcel.Location = New System.Drawing.Point(1236, 475)
-        Me.btnImportarExcel.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnImportarExcel.Name = "btnImportarExcel"
-        Me.btnImportarExcel.Size = New System.Drawing.Size(83, 26)
-        Me.btnImportarExcel.TabIndex = 352
-        Me.btnImportarExcel.Text = "Importar Excel"
-        Me.btnImportarExcel.UseVisualStyleBackColor = True
+        Me.btnOpenExcelWindow.Location = New System.Drawing.Point(1236, 475)
+        Me.btnOpenExcelWindow.Margin = New System.Windows.Forms.Padding(2)
+        Me.btnOpenExcelWindow.Name = "btnOpenExcelWindow"
+        Me.btnOpenExcelWindow.Size = New System.Drawing.Size(83, 26)
+        Me.btnOpenExcelWindow.TabIndex = 352
+        Me.btnOpenExcelWindow.Text = "Importar Excel"
+        Me.btnOpenExcelWindow.UseVisualStyleBackColor = True
         '
         'lblMontoIva
         '
@@ -821,25 +821,6 @@ Partial Class frmRecepciones
         Me.txtidpago.Text_4 = Nothing
         Me.txtidpago.UserValues = Nothing
         Me.txtidpago.Visible = False
-        '
-        'txtIdGasto
-        '
-        Me.txtIdGasto.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtIdGasto.Decimals = CType(2, Byte)
-        Me.txtIdGasto.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
-        Me.txtIdGasto.Enabled = False
-        Me.txtIdGasto.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
-        Me.txtIdGasto.Location = New System.Drawing.Point(1071, 30)
-        Me.txtIdGasto.MaxLength = 8
-        Me.txtIdGasto.Name = "txtIdGasto"
-        Me.txtIdGasto.Size = New System.Drawing.Size(35, 20)
-        Me.txtIdGasto.TabIndex = 191
-        Me.txtIdGasto.Text_1 = Nothing
-        Me.txtIdGasto.Text_2 = Nothing
-        Me.txtIdGasto.Text_3 = Nothing
-        Me.txtIdGasto.Text_4 = Nothing
-        Me.txtIdGasto.UserValues = Nothing
-        Me.txtIdGasto.Visible = False
         '
         'txtIdProveedor
         '
@@ -992,6 +973,25 @@ Partial Class frmRecepciones
         Me.chkAnuladas.TabIndex = 28
         Me.chkAnuladas.Text = "Ver Recepciones Anuladas"
         Me.chkAnuladas.UseVisualStyleBackColor = True
+        '
+        'txtIdGasto
+        '
+        Me.txtIdGasto.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtIdGasto.Decimals = CType(2, Byte)
+        Me.txtIdGasto.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
+        Me.txtIdGasto.Enabled = False
+        Me.txtIdGasto.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
+        Me.txtIdGasto.Location = New System.Drawing.Point(1071, 30)
+        Me.txtIdGasto.MaxLength = 8
+        Me.txtIdGasto.Name = "txtIdGasto"
+        Me.txtIdGasto.Size = New System.Drawing.Size(35, 20)
+        Me.txtIdGasto.TabIndex = 191
+        Me.txtIdGasto.Text_1 = Nothing
+        Me.txtIdGasto.Text_2 = Nothing
+        Me.txtIdGasto.Text_3 = Nothing
+        Me.txtIdGasto.Text_4 = Nothing
+        Me.txtIdGasto.UserValues = Nothing
+        Me.txtIdGasto.Visible = False
         '
         'chkGrillaInferior
         '
@@ -1153,7 +1153,7 @@ Partial Class frmRecepciones
     Friend WithEvents Total As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents lblcuit As System.Windows.Forms.Label
     Friend WithEvents lblPeriodo As System.Windows.Forms.Label
-    Friend WithEvents btnImportarExcel As System.Windows.Forms.Button
+    Friend WithEvents btnOpenExcelWindow As System.Windows.Forms.Button
     Friend WithEvents FileName As TextBoxConFormatoVB.FormattedTextBoxVB
     Friend WithEvents grdDetalleLiquidacion As System.Windows.Forms.DataGridView
     Friend WithEvents cboSheet As System.Windows.Forms.ComboBox
@@ -1180,5 +1180,5 @@ Partial Class frmRecepciones
     Friend WithEvents ColLabel As Label
     Friend WithEvents FilaLabel As Label
     Friend WithEvents GroupBox3 As GroupBox
-    Friend WithEvents Button1 As Button
+    Friend WithEvents btnImportExcel As Button
 End Class
