@@ -758,13 +758,7 @@ Public Class frmRecepciones
             End If
         End Using
 
-
-        ScanButton.Enabled = True
-    End Sub
-
-
-
-    Private Sub cboSheet_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboSheet.SelectedIndexChanged
+        cboSheet.SelectedIndex = 0
         Dim dt As DataTable = tables(cboSheet.SelectedItem.ToString())
 
         grdDetalleLiquidacion.DataSource = dt
@@ -776,7 +770,15 @@ Public Class frmRecepciones
         grdDetalleLiquidacionFiltrada.Columns.Add("Bonificacion", "Bonificacion")
         grdDetalleLiquidacionFiltrada.Columns.Add("Total", "Total")
 
-        Dim max As Integer = grdDetalleLiquidacion.Columns.Count
+        ScanButton.Enabled = True
+    End Sub
+
+    Private Sub cboSheet_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboSheet.SelectedIndexChanged
+        Dim dt As DataTable = tables(cboSheet.SelectedItem.ToString())
+
+        grdDetalleLiquidacion.DataSource = dt
+
+        Dim max As Integer = grdDetalleLiquidacion.Columns.Count - 1
         NumericUpDown1.Maximum = max
         NumericUpDown2.Maximum = max
         NumericUpDown3.Maximum = max
