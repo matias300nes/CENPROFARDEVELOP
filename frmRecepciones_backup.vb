@@ -9,10 +9,10 @@ Imports ExcelDataReader
 
 
 
-Public Class frmRecepciones
-    Dim hojacargada
+Public Class frmRecepciones_backup
+
     Dim bolpoliticas As Boolean
-    Dim columnaprueba As Integer
+
     Dim permitir_evento_CellChanged As Boolean
 
     'Variables para la grilla
@@ -178,17 +178,59 @@ Public Class frmRecepciones
 
     Private Sub frmRecepciones_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         lblPeriodo.Visible = False
-
+        grdDetalleLiquidacionOs.Visible = False
         cmbAlmacenes.Visible = False
         Label16.Visible = False
-        GroupPanelDetalleLiquidacion.Visible = False
-
+        cmbProveedor.Visible = False
+        cmbOrdenDeCompra.Visible = False
         Label7.Visible = False
         lblTotal.Visible = False
+        label40.Visible = False
+        lblImpuestos.Visible = False
+        txtMontoIVA27.Visible = False
+        Label1.Visible = False
+        txtMontoIVA21.Visible = False
+        Label15.Visible = False
+        txtMontoIVA10.Visible = False
+        Label18.Visible = False
+        txtCantIVA.Visible = False
+        Label21.Visible = False
+        txtSubtotal.Visible = False
+        Label12.Visible = False
+        txtSubtotalExento.Visible = False
+        lblSubtotalExento.Visible = False
+        txtValorCambio.Visible = False
+        Label20.Visible = False
+        txtTipoMoneda.Visible = False
+        Label17.Visible = False
+        txtNroFacturaCompleto.Visible = False
+        Label13.Visible = False
+        txtNroFactura.Visible = False
+        Label11.Visible = False
+        cmbTipoComprobante.Visible = False
+        chkCargarFactura.Visible = False
+        txtPtoVta.Visible = False
+        Label10.Visible = False
+        txtNroRemitoCompleto.Visible = False
+        Label6.Visible = False
+        txtNroCompRemito.Visible = False
+        Label22.Visible = False
+        txtPtoVtaRemito.Visible = False
+        Label23.Visible = False
+        chkGastos.Visible = False
+        cmbGastos.Visible = False
+        txtOC.Visible = False
+        Label5.Visible = False
+        txtProveedor.Visible = False
+        Label9.Visible = False
         cmbObraSocial.Visible = True
         lblcmbObrasSociales.Visible = True
-
-
+        btnRecibirTodos.Visible = False
+        chkFacturaCancelada.Visible = False
+        txtOC.Visible = False
+        txtProveedor.Visible = False
+        cmbProveedor.Visible = False
+        cmbOrdenDeCompra.Visible = False
 
         Cursor = Cursors.WaitCursor
 
@@ -212,8 +254,8 @@ Public Class frmRecepciones
 
         LlenarcmbAlmacenes()
         LlenarcmbUsuarioGasto()
-
-
+        LlenarComboProveedores()
+        LlenarcmbTipoFacturas_APP(cmbTipoComprobante, ConnStringSEI)
 
         SQL = "exec spPresentaciones_Select_All  @Eliminado = 0"
 
@@ -247,7 +289,7 @@ Public Class frmRecepciones
 
         End If
 
-
+        cmbProveedor.Visible = bolModo
         'cmbProveedor.SelectedIndex = 0
 
 
@@ -310,7 +352,8 @@ Public Class frmRecepciones
     End Sub
 
     Private Sub txtid_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) _
-    Handles txtID.KeyPress, txtCODIGO.KeyPress, txtNota.KeyPress
+    Handles txtID.KeyPress, txtCODIGO.KeyPress, txtNota.KeyPress, txtPtoVta.KeyPress, txtNroFactura.KeyPress, _
+             txtSubtotal.KeyPress
         If e.KeyChar = ChrW(Keys.Enter) Then
             e.Handled = True
             SendKeys.Send("{TAB}")
@@ -414,7 +457,7 @@ Public Class frmRecepciones
 
     End Sub
 
-    Private Sub cmbOrdenDeCompra_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    Private Sub cmbOrdenDeCompra_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmbOrdenDeCompra.SelectedIndexChanged
         If band = 1 Then
             If llenandoCombo = False Then
                 btnLlenarGrilla_Click(sender, e)
@@ -422,7 +465,7 @@ Public Class frmRecepciones
         End If
     End Sub
 
-    Private Sub cmbOrdenDeCompra_SelectionChangeCommitted(ByVal sender As Object, ByVal e As System.EventArgs)
+    Private Sub cmbOrdenDeCompra_SelectionChangeCommitted(ByVal sender As Object, ByVal e As System.EventArgs) Handles cmbOrdenDeCompra.SelectionChangeCommitted
         If band = 1 Then
             If llenandoCombo = False Then
                 btnLlenarGrilla_Click(sender, e)
@@ -430,94 +473,98 @@ Public Class frmRecepciones
         End If
     End Sub
 
-    Private Sub cmbProveedor_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    Private Sub cmbProveedor_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmbProveedor.SelectedIndexChanged
         If band = 1 And bolModo = True Then
             LimpiarGridItems(grdItems)
-
-
+            LlenarComboOrdenDeCompra()
+            LlenarcomboGastos(cmbGastos)
             btnLlenarGrilla_Click(sender, e)
         End If
     End Sub
 
-    Private Sub cmbTipoComprobante_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    Private Sub cmbTipoComprobante_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmbTipoComprobante.SelectedIndexChanged
 
-
+        txtMontoIVA10.Text = "0"
+        txtMontoIVA21.Text = "0"
+        txtMontoIVA27.Text = "0"
+        txtSubtotal.Text = "0"
+        txtSubtotalExento.Text = "0"
         lblTotal.Text = "0"
+        txtValorCambio.Text = "1"
 
-
-        'If cmbTipoComprobante.Text = "FACTURAS A" Or _
-        '    cmbTipoComprobante.Text = "NOTAS DE CREDITO A" Or _
-        '    cmbTipoComprobante.Text = "NOTAS DE DEBITO A" Or _
-        '    cmbTipoComprobante.Text = "RECIBOS A" Or _
-        '    cmbTipoComprobante.Text = "FACTURAS M" Or _
-        '    cmbTipoComprobante.Text = "NOTAS DE CREDITO M" Or _
-        '    cmbTipoComprobante.Text = "NOTAS DE DEBITO M" Or _
-        '    cmbTipoComprobante.Text = "RECIBOS M" Or _
-        '    cmbTipoComprobante.Text = "TIQUE FACTURA A" Then
-        '    txtCantIVA.Enabled = True
-        '    txtCantIVA.Value = 1
-        '    txtMontoIVA10.Enabled = True
-        '    txtMontoIVA21.Enabled = True
-        '    txtMontoIVA27.Enabled = True
-        'Else
-        '    txtCantIVA.Enabled = False
-        '    txtCantIVA.Value = 0
-        '    txtMontoIVA10.Enabled = False
-        '    txtMontoIVA21.Enabled = False
-        '    txtMontoIVA27.Enabled = False
-        'End If
+        If cmbTipoComprobante.Text = "FACTURAS A" Or _
+            cmbTipoComprobante.Text = "NOTAS DE CREDITO A" Or _
+            cmbTipoComprobante.Text = "NOTAS DE DEBITO A" Or _
+            cmbTipoComprobante.Text = "RECIBOS A" Or _
+            cmbTipoComprobante.Text = "FACTURAS M" Or _
+            cmbTipoComprobante.Text = "NOTAS DE CREDITO M" Or _
+            cmbTipoComprobante.Text = "NOTAS DE DEBITO M" Or _
+            cmbTipoComprobante.Text = "RECIBOS M" Or _
+            cmbTipoComprobante.Text = "TIQUE FACTURA A" Then
+            txtCantIVA.Enabled = True
+            txtCantIVA.Value = 1
+            txtMontoIVA10.Enabled = True
+            txtMontoIVA21.Enabled = True
+            txtMontoIVA27.Enabled = True
+        Else
+            txtCantIVA.Enabled = False
+            txtCantIVA.Value = 0
+            txtMontoIVA10.Enabled = False
+            txtMontoIVA21.Enabled = False
+            txtMontoIVA27.Enabled = False
+        End If
 
     End Sub
 
-    Private Sub txtSubtotal_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs)
+    Private Sub txtSubtotal_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtSubtotal.LostFocus
         If band = 1 Then
-            'If txtSubtotal.Text <> "" Then
+            If txtSubtotal.Text <> "" Then
 
-            '    'If cmbTipoComprobante.Text = "FACTURAS A" Or _
-            '    '    cmbTipoComprobante.Text = "NOTAS DE CREDITO A" Or _
-            '    '    cmbTipoComprobante.Text = "NOTAS DE DEBITO A" Or _
-            '    '    cmbTipoComprobante.Text = "RECIBOS A" Or _
-            '    '    cmbTipoComprobante.Text = "FACTURAS M" Or _
-            '    '    cmbTipoComprobante.Text = "NOTAS DE CREDITO M" Or _
-            '    '    cmbTipoComprobante.Text = "NOTAS DE DEBITO M" Or _
-            '    '    cmbTipoComprobante.Text = "RECIBOS M" Or _
-            '    '    cmbTipoComprobante.Text = "TIQUE FACTURA A" Then
+                If cmbTipoComprobante.Text = "FACTURAS A" Or _
+                    cmbTipoComprobante.Text = "NOTAS DE CREDITO A" Or _
+                    cmbTipoComprobante.Text = "NOTAS DE DEBITO A" Or _
+                    cmbTipoComprobante.Text = "RECIBOS A" Or _
+                    cmbTipoComprobante.Text = "FACTURAS M" Or _
+                    cmbTipoComprobante.Text = "NOTAS DE CREDITO M" Or _
+                    cmbTipoComprobante.Text = "NOTAS DE DEBITO M" Or _
+                    cmbTipoComprobante.Text = "RECIBOS M" Or _
+                    cmbTipoComprobante.Text = "TIQUE FACTURA A" Then
 
-            '    '    txtMontoIVA21.Text = Format(txtSubtotal.Text * 0.21, "###0.00")
+                    txtMontoIVA21.Text = Format(txtSubtotal.Text * 0.21, "###0.00")
 
-            '    '    CalcularMontoIVA()
+                    CalcularMontoIVA()
 
-            '    'End If
+                End If
 
-            '    If lblImpuestos.Text = "" Then lblImpuestos.Text = "0"
-            '    If lblMontoIva.Text = "" Then lblMontoIva.Text = "0"
-            '    If txtSubtotal.Text = "" Then txtSubtotal.Text = "0"
-            '    If txtSubtotalExento.Text = "" Then txtSubtotalExento.Text = "0"
+                If lblImpuestos.Text = "" Then lblImpuestos.Text = "0"
+                If lblMontoIva.Text = "" Then lblMontoIva.Text = "0"
+                If txtSubtotal.Text = "" Then txtSubtotal.Text = "0"
+                If txtSubtotalExento.Text = "" Then txtSubtotalExento.Text = "0"
 
-            '    lblTotal.Text = CDbl(txtSubtotalExento.Text) + CDbl(txtSubtotal.Text) + CDbl(lblMontoIva.Text) + CDbl(lblImpuestos.Text)
+                lblTotal.Text = CDbl(txtSubtotalExento.Text) + CDbl(txtSubtotal.Text) + CDbl(lblMontoIva.Text) + CDbl(lblImpuestos.Text)
 
-            'End If
+            End If
 
         End If
     End Sub
 
-    Private Sub txtsubtotalNoGravado_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)
+    Private Sub txtsubtotalNoGravado_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtSubtotalExento.KeyPress
         If e.KeyChar = ChrW(Keys.Enter) Then
             e.Handled = True
             SendKeys.Send("{TAB}")
         End If
     End Sub
 
-    Private Sub txtSubtotalNoGravado_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs)
+    Private Sub txtSubtotalNoGravado_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtSubtotalExento.LostFocus
         If band = 1 Then
-            'If txtSubtotalExento.Text <> "" Then
+            If txtSubtotalExento.Text <> "" Then
 
-            '    If lblImpuestos.Text = "" Then lblImpuestos.Text = "0"
-            '    If lblMontoIva.Text = "" Then lblMontoIva.Text = "0"
-            '    If txtSubtotal.Text = "" Then txtSubtotal.Text = "0"
+                If lblImpuestos.Text = "" Then lblImpuestos.Text = "0"
+                If lblMontoIva.Text = "" Then lblMontoIva.Text = "0"
+                If txtSubtotal.Text = "" Then txtSubtotal.Text = "0"
 
-            '    lblTotal.Text = CDbl(txtSubtotalExento.Text) + CDbl(txtSubtotal.Text) + CDbl(lblMontoIva.Text) + CDbl(lblImpuestos.Text)
-            'End If
+                lblTotal.Text = CDbl(txtSubtotalExento.Text) + CDbl(txtSubtotal.Text) + CDbl(lblMontoIva.Text) + CDbl(lblImpuestos.Text)
+            End If
         End If
     End Sub
 
@@ -527,8 +574,13 @@ Public Class frmRecepciones
 
         If Permitir Then
             Try
+                chkFacturaCancelada.Enabled = Not CBool(grd.CurrentRow.Cells(20).Value)
 
-
+                If bolModo = False Then
+                    If cmbTipoComprobante.SelectedIndex = -1 Then
+                        cmbTipoComprobante.SelectedIndex = 0
+                    End If
+                End If
 
                 LlenarGrid_IVA(CLng(txtIdGasto.Text))
 
@@ -536,6 +588,16 @@ Public Class frmRecepciones
 
                 Contar_Filas()
 
+                txtProveedor.Enabled = bolModo
+                cmbTipoComprobante.Enabled = bolModo
+                txtNroRemitoCompleto.Enabled = bolModo
+                txtPtoVta.Enabled = bolModo
+                txtNroFactura.Enabled = bolModo
+                txtSubtotalExento.Enabled = bolModo
+                txtSubtotal.Enabled = bolModo
+                txtMontoIVA10.Enabled = bolModo
+                txtMontoIVA21.Enabled = bolModo
+                txtMontoIVA27.Enabled = bolModo
                 grdImpuestos.Enabled = bolModo
 
 
@@ -566,8 +628,8 @@ Public Class frmRecepciones
 
     End Sub
 
-    Private Sub validar_NumerosReales_Impuestos(
-       ByVal sender As Object,
+    Private Sub validar_NumerosReales_Impuestos( _
+       ByVal sender As Object, _
        ByVal e As System.Windows.Forms.KeyPressEventArgs)
 
         ' obtener indice de la columna  
@@ -583,9 +645,9 @@ Public Class frmRecepciones
 
             ' comprobar si es un número con isNumber, si es el backspace, si el caracter  
             ' es el separador decimal, y que no contiene ya el separador  
-            If (Char.IsNumber(caracter)) Or
-               (caracter = ChrW(Keys.Back)) Or
-               (caracter = ".") And
+            If (Char.IsNumber(caracter)) Or _
+               (caracter = ChrW(Keys.Back)) Or _
+               (caracter = ".") And _
                (txt.Text.Contains(".") = False) Then
                 e.Handled = False
             Else
@@ -594,11 +656,29 @@ Public Class frmRecepciones
         End If
     End Sub
 
+    Private Sub txtPtoVta_LostFocus(sender As Object, e As EventArgs) Handles txtPtoVta.LostFocus
+        If band = 1 And bolModo = True Then
+            txtNroFacturaCompleto.Text = txtPtoVta.Text.Trim.PadLeft(4, "0") & "-" & txtNroFactura.Text.Trim.PadLeft(8, "0")
+        End If
+    End Sub
 
+    Private Sub txtNroFactura_LostFocus(sender As Object, e As EventArgs) Handles txtNroFactura.LostFocus
+        If band = 1 And bolModo = True Then
+            txtNroFacturaCompleto.Text = txtPtoVta.Text.Trim.PadLeft(4, "0") & "-" & txtNroFactura.Text.Trim.PadLeft(8, "0")
+        End If
+    End Sub
 
+    Private Sub txtPtoVtaRemito_LostFocus(sender As Object, e As EventArgs) Handles txtPtoVtaRemito.LostFocus
+        If band = 1 Then 'And bolModo = True Then
+            txtNroRemitoCompleto.Text = txtPtoVtaRemito.Text.Trim.PadLeft(4, "0") & "-" & txtNroCompRemito.Text.Trim.PadLeft(8, "0")
+        End If
+    End Sub
 
-
-
+    Private Sub txtNroCompRemito_LostFocus(sender As Object, e As EventArgs) Handles txtNroCompRemito.LostFocus
+        If band = 1 Then 'And bolModo = True Then
+            txtNroRemitoCompleto.Text = txtPtoVtaRemito.Text.Trim.PadLeft(4, "0") & "-" & txtNroCompRemito.Text.Trim.PadLeft(8, "0")
+        End If
+    End Sub
 
     Private Sub chkGrillaInferior_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkGrillaInferior.CheckedChanged
         Dim xgrd As Long, ygrd As Long, hgrd As Long, variableajuste As Long
@@ -635,20 +715,20 @@ Public Class frmRecepciones
     Private Sub grdImpuestos_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles grdImpuestos.CellEndEdit
         Try
             If e.ColumnIndex = ColumnasDelGridImpuestos.Monto Then
-                If grdImpuestos.CurrentRow.Cells(ColumnasDelGridImpuestos.Monto).Value Is DBNull.Value Or
+                If grdImpuestos.CurrentRow.Cells(ColumnasDelGridImpuestos.Monto).Value Is DBNull.Value Or _
                     grdImpuestos.CurrentRow.Cells(ColumnasDelGridImpuestos.Monto).Value = Nothing Then
                     grdImpuestos.CurrentRow.Cells(ColumnasDelGridImpuestos.Monto).Value = 0
                 End If
 
                 Dim i As Integer
 
-                'lblImpuestos.Text = "0"
+                lblImpuestos.Text = "0"
 
                 For i = 0 To grdImpuestos.Rows.Count - 1
-                    'lblImpuestos.Text = CDbl(lblImpuestos.Text) + CDbl(grdImpuestos.Rows(i).Cells(ColumnasDelGridImpuestos.Monto).Value)
+                    lblImpuestos.Text = CDbl(lblImpuestos.Text) + CDbl(grdImpuestos.Rows(i).Cells(ColumnasDelGridImpuestos.Monto).Value)
                 Next
 
-
+                lblTotal.Text = CDbl(txtSubtotal.Text) + CDbl(lblImpuestos.Text) + CDbl(lblMontoIva.Text)
 
             End If
         Catch ex As Exception
@@ -667,19 +747,19 @@ Public Class frmRecepciones
 
     End Sub
 
-    Private Sub txtMontoIVA21_LostFocus(sender As Object, e As EventArgs)
+    Private Sub txtMontoIVA21_LostFocus(sender As Object, e As EventArgs) Handles txtMontoIVA21.LostFocus
         CalcularMontoIVA()
     End Sub
 
-    Private Sub txtMontoIVA10_LostFocus(sender As Object, e As EventArgs)
+    Private Sub txtMontoIVA10_LostFocus(sender As Object, e As EventArgs) Handles txtMontoIVA10.LostFocus
         CalcularMontoIVA()
     End Sub
 
-    Private Sub txtMontoIVA27_LostFocus(sender As Object, e As EventArgs)
+    Private Sub txtMontoIVA27_LostFocus(sender As Object, e As EventArgs) Handles txtMontoIVA27.LostFocus
         CalcularMontoIVA()
     End Sub
 
-    Private Sub txtMontoIVA21_KeyPress(sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)
+    Private Sub txtMontoIVA21_KeyPress(sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtMontoIVA21.KeyPress
         If e.KeyChar = ChrW(Keys.Enter) Then
             CalcularMontoIVA()
             e.Handled = True
@@ -687,7 +767,7 @@ Public Class frmRecepciones
         End If
     End Sub
 
-    Private Sub txtMontoIVA10_KeyPress(sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)
+    Private Sub txtMontoIVA10_KeyPress(sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtMontoIVA10.KeyPress
         If e.KeyChar = ChrW(Keys.Enter) Then
             CalcularMontoIVA()
             e.Handled = True
@@ -695,7 +775,7 @@ Public Class frmRecepciones
         End If
     End Sub
 
-    Private Sub txtMontoIVA27_KeyPress(sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)
+    Private Sub txtMontoIVA27_KeyPress(sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtMontoIVA27.KeyPress
         If e.KeyChar = ChrW(Keys.Enter) Then
             CalcularMontoIVA()
             e.Handled = True
@@ -703,28 +783,101 @@ Public Class frmRecepciones
         End If
     End Sub
 
-    Private Sub txtCantIVA_ValueChanged(sender As Object, e As EventArgs)
-        'If cmbTipoComprobante.Text = "FACTURAS A" Or _
-        '    cmbTipoComprobante.Text = "NOTAS DE CREDITO A" Or _
-        '    cmbTipoComprobante.Text = "NOTAS DE DEBITO A" Or _
-        '    cmbTipoComprobante.Text = "RECIBOS A" Or _
-        '    cmbTipoComprobante.Text = "FACTURAS M" Or _
-        '    cmbTipoComprobante.Text = "NOTAS DE CREDITO M" Or _
-        '    cmbTipoComprobante.Text = "NOTAS DE DEBITO M" Or _
-        '    cmbTipoComprobante.Text = "RECIBOS M" Or _
-        '    cmbTipoComprobante.Text = "TIQUE FACTURA A" Then
+    Private Sub txtCantIVA_ValueChanged(sender As Object, e As EventArgs) Handles txtCantIVA.ValueChanged
+        If cmbTipoComprobante.Text = "FACTURAS A" Or _
+            cmbTipoComprobante.Text = "NOTAS DE CREDITO A" Or _
+            cmbTipoComprobante.Text = "NOTAS DE DEBITO A" Or _
+            cmbTipoComprobante.Text = "RECIBOS A" Or _
+            cmbTipoComprobante.Text = "FACTURAS M" Or _
+            cmbTipoComprobante.Text = "NOTAS DE CREDITO M" Or _
+            cmbTipoComprobante.Text = "NOTAS DE DEBITO M" Or _
+            cmbTipoComprobante.Text = "RECIBOS M" Or _
+            cmbTipoComprobante.Text = "TIQUE FACTURA A" Then
 
-        '    If txtCantIVA.Value = 0 Then
-        '        txtCantIVA.Value = 1
-        '    End If
+            If txtCantIVA.Value = 0 Then
+                txtCantIVA.Value = 1
+            End If
+        End If
+    End Sub
+
+    Private Sub chkCargarFactura_CheckedChanged(sender As Object, e As EventArgs) Handles chkCargarFactura.CheckedChanged
+
+        cmbTipoComprobante.Enabled = chkCargarFactura.Checked
+        Label10.Enabled = chkCargarFactura.Checked
+        txtPtoVta.Enabled = chkCargarFactura.Checked
+        Label14.Enabled = chkCargarFactura.Checked
+        Label11.Enabled = chkCargarFactura.Checked
+        txtNroFactura.Enabled = chkCargarFactura.Checked
+        Label13.Enabled = chkCargarFactura.Checked
+        txtNroFacturaCompleto.Enabled = chkCargarFactura.Checked
+        Label17.Enabled = chkCargarFactura.Checked
+        txtTipoMoneda.Enabled = chkCargarFactura.Enabled
+        Label20.Enabled = chkCargarFactura.Checked
+        'If txtTipoMoneda.Text = "Pe" Then
+        '    txtValorCambio.Enabled = False
+        'Else
+        '    txtValorCambio.Enabled = True
         'End If
+        lblSubtotalExento.Enabled = chkCargarFactura.Checked
+        txtSubtotalExento.Enabled = chkCargarFactura.Checked
+        Label12.Enabled = chkCargarFactura.Checked
+        txtSubtotal.Enabled = chkCargarFactura.Checked
+        Label21.Enabled = chkCargarFactura.Checked
+        Label15.Enabled = chkCargarFactura.Checked
+        Label18.Enabled = chkCargarFactura.Checked
+        Label1.Enabled = chkCargarFactura.Checked
+        label40.Enabled = chkCargarFactura.Checked
+        Label7.Enabled = chkCargarFactura.Checked
+        Label4.Enabled = chkCargarFactura.Checked
+
+        txtCantIVA.Enabled = chkCargarFactura.Checked
+        txtMontoIVA10.Enabled = chkCargarFactura.Checked
+        txtMontoIVA21.Enabled = chkCargarFactura.Checked
+        txtMontoIVA27.Enabled = chkCargarFactura.Checked
+        lblImpuestos.Enabled = chkCargarFactura.Checked
+        lblTotal.Enabled = chkCargarFactura.Checked
+        grdImpuestos.Enabled = chkCargarFactura.Checked
+
+        chkFacturaCancelada.Enabled = chkCargarFactura.Checked
+
     End Sub
 
+    Private Sub chkRecepcion_CheckedChanged(sender As Object, e As EventArgs) Handles chkGastos.CheckedChanged
+        cmbGastos.Enabled = chkGastos.Checked
+        txtPtoVtaRemito.Enabled = Not chkGastos.Checked
+        txtNroCompRemito.Enabled = Not chkGastos.Checked
+
+        chkCargarFactura.Enabled = Not chkGastos.Checked
 
 
+        'txtValorCambio.Enabled = chkGastos.Checked
 
+        'Label4.Enabled = Not chkGastos.Checked
 
+        If chkGastos.Checked = False And bolModo = True Then
+            txtPtoVtaRemito.Text = ""
+            txtNroCompRemito.Text = ""
+            txtNroRemitoCompleto.Text = ""
+        End If
 
+        cmbGastos_SelectedIndexChanged(sender, e)
+
+    End Sub
+
+    Private Sub cmbGastos_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cmbGastos.SelectedIndexChanged
+        If band = 1 And chkGastos.Checked = True And bolModo = True Then
+            BuscarRemito()
+            txtIdGastoAsociar.Text = cmbGastos.SelectedValue
+        Else
+            If chkGastos.Checked = False And bolModo = True Then
+                txtNroRemitoCompleto.Text = ""
+                txtIdGastoAsociar.Text = ""
+                txtIdMoneda.Text = "1"
+                txtValorCambio.Text = "1"
+                txtTipoMoneda.Text = "Pe"
+            End If
+        End If
+    End Sub
 
 #End Region
 
@@ -732,8 +885,8 @@ Public Class frmRecepciones
 
     Dim tables As DataTableCollection
 
-    Private Sub btnImportarExcel_Click(sender As Object, e As EventArgs) Handles btnImportarExcel.Click
-        GroupPanelDetalleLiquidacion.Visible = True
+    Private Sub ImportExcel_Click(sender As Object, e As EventArgs) Handles ImportExcel.Click
+
         'Dim openFD As New OpenFileDialog()
         'openFD.Filter = "Excel Files|.xls;.xlsx;*.xlsm"
 
@@ -745,15 +898,14 @@ Public Class frmRecepciones
         '        FileName.Text = .FileName
         '    End If
         'End With
-        Using ofd As OpenFileDialog = New OpenFileDialog() With {.Filter = "Excel Files |*.xls; *.xlsx"}
+        Using ofd As OpenFileDialog = New OpenFileDialog() With {.Filter = "Excel Files |*.xls"}
             If ofd.ShowDialog = DialogResult.OK Then
                 FileName.Text = ofd.FileName
                 Using stream = File.Open(ofd.FileName, FileMode.Open, FileAccess.Read)
                     Using reader As IExcelDataReader = ExcelReaderFactory.CreateReader(stream)
                         Dim result As DataSet = reader.AsDataSet(New ExcelDataSetConfiguration() With {
                                                                  .ConfigureDataTable = Function(__) New ExcelDataTableConfiguration() With {
-                                                                 .UseHeaderRow = True
-                                                             }})
+                                                                 .UseHeaderRow = True}})
                         tables = result.Tables
                         cboSheet.Items.Clear()
                         For Each table As DataTable In tables
@@ -765,143 +917,13 @@ Public Class frmRecepciones
             End If
         End Using
 
-        grdDetalleLiquidacion.BringToFront()
-        '.ReadHeaderRow = Function(rowReader) rowReader.Read,
-        '.FilterRow = Function(rowReader) rowReader.Depth > 6
     End Sub
-
 
 
     Private Sub cboSheet_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboSheet.SelectedIndexChanged
         Dim dt As DataTable = tables(cboSheet.SelectedItem.ToString())
-
-        grdDetalleLiquidacion.DataSource = dt
-
-        grdDetalleLiquidacion.BringToFront()
-        Dim cellvaluescount As Integer = 0
-        For Each cell As DataGridViewCell In grdDetalleLiquidacion.CurrentRow.Cells
-            If TypeOf cell.Value Is DBNull = False Then 'if not a null or (blank/empty) value
-                'cell has a value in it
-                cellvaluescount += 1
-            End If
-        Next
-
-        grdDetalleLiquidacionFiltrada.Columns.Add("Codigo", "Codigo")
-        grdDetalleLiquidacionFiltrada.Columns.Add("Recetas", "Recetas")
-        grdDetalleLiquidacionFiltrada.Columns.Add("Recaudado", "Recaudado")
-        grdDetalleLiquidacionFiltrada.Columns.Add("A cargo OS", "A cargo OS")
-        grdDetalleLiquidacionFiltrada.Columns.Add("Bonificacion", "Bonificacion")
-        grdDetalleLiquidacionFiltrada.Columns.Add("Total", "Total")
-
-        Dim j As Integer
-        For j = 0 To grdDetalleLiquidacion.Rows.Count - 1
-            If TypeOf grdDetalleLiquidacion.Rows(j).Cells(3).Value Is DBNull = False Then
-                'If grdFacturasConsumos.Rows(j).Cells(ColumnasDelGridFacturasConsumos.Deuda).Value < 0 Then
-                '    deudanegativa = deudanegativa + grdFacturasConsumos.Rows(j).Cells(ColumnasDelGridFacturasConsumos.Deuda).Value
-                'End If
-                'grdDetalleLiquidacionFiltrada.Rows.Add(grdDetalleLiquidacion.Rows(j).Cells(3).Value)
-                'grdDetalleLiquidacionFiltrada.Rows(j).Cells(3).Value = grdDetalleLiquidacion.Rows(j).Cells(3).Value
-
-
-            End If
-        Next
-
-
-        Dim max As Integer = grdDetalleLiquidacion.Columns.Count
-        NumericUpDown1.Maximum = max
-        NumericUpDown2.Maximum = max
-        NumericUpDown3.Maximum = max
-        NumericUpDown4.Maximum = max
-        NumericUpDown5.Maximum = max
-
+        DataGridView1.DataSource = dt
     End Sub
-
-    Private Sub grdDetalleLiquidacion_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles grdDetalleLiquidacion.CellContentClick
-        SelectionValue.Text = grdDetalleLiquidacion.Rows(e.RowIndex).Cells(e.ColumnIndex).Value
-        txtfila.Text = e.RowIndex
-        NumericColumn.Value = e.ColumnIndex
-
-    End Sub
-    Private Sub grdDetalleLiquidacion_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles grdDetalleLiquidacion.CellClick
-        'MsgBox(cellvaluescount.ToString)
-        Dim j As Integer
-        For j = e.RowIndex To grdDetalleLiquidacion.Rows.Count - 1
-            If TypeOf grdDetalleLiquidacion.Rows(j).Cells(e.ColumnIndex).Value Is DBNull = False Then
-                'If grdFacturasConsumos.Rows(j).Cells(ColumnasDelGridFacturasConsumos.Deuda).Value < 0 Then
-                '    deudanegativa = deudanegativa + grdFacturasConsumos.Rows(j).Cells(ColumnasDelGridFacturasConsumos.Deuda).Value
-                'End If
-                columnaprueba = e.ColumnIndex
-                MsgBox(grdDetalleLiquidacion.Rows(j).Cells(e.ColumnIndex).Value)
-                'grdDatosCargados.Rows.Add(grdDetalleLiquidacion.Rows(j).Cells(e.ColumnIndex).Value)
-            End If
-        Next
-
-
-        Dim max As Integer = grdDetalleLiquidacion.Columns.Count
-        NumericUpDown1.Maximum = max
-        NumericUpDown2.Maximum = max
-        NumericUpDown3.Maximum = max
-        NumericUpDown4.Maximum = max
-        NumericUpDown5.Maximum = max
-    End Sub
-
-    Private Sub Scan_columns()
-        'toma las columnas
-        Dim RecetasIndex As Integer = NumericUpDown1.Value
-        Dim RecaudadoIndex As Integer = NumericUpDown2.Value
-        Dim AcargoOSIndex As Integer = NumericUpDown3.Value
-        Dim BonificacionIndex As Integer = NumericUpDown4.Value
-        Dim TotalIndex As Integer = NumericUpDown5.Value
-
-        Dim Row As DataGridViewRow = Nothing
-        Dim rowIndex As Integer 'index of the row
-
-        Me.grdDetalleLiquidacionFiltrada.Rows.Clear()
-
-        Dim j As Integer
-        Dim FirstColumnCell As String
-        For j = 0 To grdDetalleLiquidacion.Rows.Count - 1
-
-            FirstColumnCell = IIf(grdDetalleLiquidacion.Rows(j).Cells(0).Value IsNot Nothing, grdDetalleLiquidacion.Rows(j).Cells(0).Value.ToString, "")
-            Try
-                If FirstColumnCell <> "" Then
-                    If FirstColumnCell.Contains("F0") Then
-
-                        '/////Create a new row and get its index/////
-                        rowIndex = grdDetalleLiquidacionFiltrada.Rows.Add()
-
-                        '//////Get a reference to the new row ///////
-                        Row = grdDetalleLiquidacionFiltrada.Rows(rowIndex)
-
-
-
-                        With Row
-                            'This won't fail since the columns exist 
-                            .Cells("Codigo").Value = grdDetalleLiquidacion.Rows(j).Cells(0).Value
-                            .Cells("Recetas").Value = grdDetalleLiquidacion.Rows(j).Cells(RecetasIndex).Value
-                            .Cells("Recaudado").Value = grdDetalleLiquidacion.Rows(j).Cells(RecaudadoIndex).Value
-                            .Cells("A cargo OS").Value = grdDetalleLiquidacion.Rows(j).Cells(AcargoOSIndex).Value
-                            .Cells("Bonificacion").Value = grdDetalleLiquidacion.Rows(j).Cells(BonificacionIndex).Value
-                            .Cells("Total").Value = grdDetalleLiquidacion.Rows(j).Cells(TotalIndex).Value
-                            '.Cells("OrderDateColumn").Value = RowValues.Created
-                            '.Cells("CreatedByColumn").Value = RowValues.OwnerName
-                        End With
-                    End If
-                End If
-            Catch ex As Exception
-            End Try
-
-        Next
-
-
-
-    End Sub
-
-
-    Private Sub ScanButton_Click(sender As Object, e As EventArgs) Handles ScanButton.Click
-        Scan_columns()
-    End Sub
-
 
 
     'Private Sub ImportarExcel()
@@ -1201,8 +1223,8 @@ Public Class frmRecepciones
     End Sub
     Private Sub LlenarGrid_grdDetLiquidacionOs()
 
-        If grdDetalleLiquidacionFiltrada.Columns.Count > 0 Then
-            grdDetalleLiquidacionFiltrada.Columns.Clear()
+        If grdDetalleLiquidacionOs.Columns.Count > 0 Then
+            grdDetalleLiquidacionOs.Columns.Clear()
         End If
 
         If txtID.Text = "" Then
@@ -1213,13 +1235,13 @@ Public Class frmRecepciones
             SQL = "select * from osdetalleliquidacion"
         End If
 
-        GetDatasetItems(grdDetalleLiquidacionFiltrada)
+        GetDatasetItems(grdDetalleLiquidacionOs)
 
-        grdDetalleLiquidacionFiltrada.Columns(ColumnasDelGridItems1.IDRecepcion_Det).Visible = False
+        grdDetalleLiquidacionOs.Columns(ColumnasDelGridItems1.IDRecepcion_Det).Visible = False
 
         'grdFarmacias.Columns(ColumnasDelGridItems1.Cod_RecepcionDet).Visible = False
 
-        grdDetalleLiquidacionFiltrada.Columns(ColumnasDelGridItems1.IDMaterial).Visible = False
+        grdDetalleLiquidacionOs.Columns(ColumnasDelGridItems1.IDMaterial).Visible = False
 
         'grdFarmacias.Columns(ColumnasDelGridItems1.Cod_Material).ReadOnly = True 'Codigo material
         'grdFarmacias.Columns(ColumnasDelGridItems1.Cod_Material).Width = 110
@@ -1230,12 +1252,12 @@ Public Class frmRecepciones
         'grdFarmacias.Columns(5).ReadOnly = True
         'grdFarmacias.Columns(5).Width = 60
 
-        grdDetalleLiquidacionFiltrada.Columns(6).Visible = False
+        grdDetalleLiquidacionOs.Columns(6).Visible = False
         'grdFarmacias.Columns(8).Visible = False
-        grdDetalleLiquidacionFiltrada.Columns(9).Visible = False
-        grdDetalleLiquidacionFiltrada.Columns(10).Visible = False
+        grdDetalleLiquidacionOs.Columns(9).Visible = False
+        grdDetalleLiquidacionOs.Columns(10).Visible = False
 
-        With grdDetalleLiquidacionFiltrada
+        With grdDetalleLiquidacionOs
             .VirtualMode = False
             .AllowUserToAddRows = False
             .AlternatingRowsDefaultCellStyle.BackColor = Color.AliceBlue
@@ -1244,12 +1266,12 @@ Public Class frmRecepciones
             .SelectionMode = DataGridViewSelectionMode.CellSelect
             .ForeColor = Color.Black
         End With
-        With grdDetalleLiquidacionFiltrada.ColumnHeadersDefaultCellStyle
+        With grdDetalleLiquidacionOs.ColumnHeadersDefaultCellStyle
             .BackColor = Color.Black  'Color.BlueViolet
             .ForeColor = Color.White
             .Font = New Font("TAHOMA", 8, FontStyle.Bold)
         End With
-        grdDetalleLiquidacionFiltrada.Font = New Font("TAHOMA", 8, FontStyle.Regular)
+        grdDetalleLiquidacionOs.Font = New Font("TAHOMA", 8, FontStyle.Regular)
         'grdEnsayos.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells)
 
         'Volver la fuente de datos a como estaba...
@@ -1395,21 +1417,21 @@ Public Class frmRecepciones
         grdItems.Columns(ColumnasDelGridItems1.Bonif1).Width = 50
         grdItems.Columns(ColumnasDelGridItems1.Bonif1).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
 
-        'grdItems.Columns(ColumnasDelGridItems1.Bonif2).Width = 50
-        'grdItems.Columns(ColumnasDelGridItems1.Bonif2).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
-        'grdItems.Columns(ColumnasDelGridItems1.Bonif2).Visible = chkMostarColumnas.Checked
+        grdItems.Columns(ColumnasDelGridItems1.Bonif2).Width = 50
+        grdItems.Columns(ColumnasDelGridItems1.Bonif2).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+        grdItems.Columns(ColumnasDelGridItems1.Bonif2).Visible = chkMostarColumnas.Checked
 
-        'grdItems.Columns(ColumnasDelGridItems1.Bonif3).Width = 50
-        'grdItems.Columns(ColumnasDelGridItems1.Bonif3).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
-        'grdItems.Columns(ColumnasDelGridItems1.Bonif3).Visible = chkMostarColumnas.Checked
+        grdItems.Columns(ColumnasDelGridItems1.Bonif3).Width = 50
+        grdItems.Columns(ColumnasDelGridItems1.Bonif3).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+        grdItems.Columns(ColumnasDelGridItems1.Bonif3).Visible = chkMostarColumnas.Checked
 
-        'grdItems.Columns(ColumnasDelGridItems1.Bonif4).Width = 50
-        'grdItems.Columns(ColumnasDelGridItems1.Bonif4).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
-        'grdItems.Columns(ColumnasDelGridItems1.Bonif4).Visible = chkMostarColumnas.Checked
+        grdItems.Columns(ColumnasDelGridItems1.Bonif4).Width = 50
+        grdItems.Columns(ColumnasDelGridItems1.Bonif4).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+        grdItems.Columns(ColumnasDelGridItems1.Bonif4).Visible = chkMostarColumnas.Checked
 
-        'grdItems.Columns(ColumnasDelGridItems1.Bonif5).Width = 50
-        'grdItems.Columns(ColumnasDelGridItems1.Bonif5).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
-        'grdItems.Columns(ColumnasDelGridItems1.Bonif5).Visible = chkMostarColumnas.Checked
+        grdItems.Columns(ColumnasDelGridItems1.Bonif5).Width = 50
+        grdItems.Columns(ColumnasDelGridItems1.Bonif5).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+        grdItems.Columns(ColumnasDelGridItems1.Bonif5).Visible = chkMostarColumnas.Checked
 
         grdItems.Columns(ColumnasDelGridItems1.IVA).Visible = False
         grdItems.Columns(ColumnasDelGridItems1.IVA).ReadOnly = True
@@ -1558,7 +1580,7 @@ Public Class frmRecepciones
 
         Try
 
-            ds_IVAs = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT gd.PorcIva, gd.MontoIva " &
+            ds_IVAs = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT gd.PorcIva, gd.MontoIva " & _
                                                                             " FROM Gastos g JOIN Gastos_det gd ON gd.idgasto = g.id WHERE IdGasto = " & IIf(txtIdGasto.Text = "", 0, txtIdGasto.Text))
 
             ds_IVAs.Dispose()
@@ -1568,17 +1590,17 @@ Public Class frmRecepciones
 
             For i = 0 To ds_IVAs.Tables(0).Rows.Count - 1
                 valor = ds_IVAs.Tables(0).Rows(i)(1)
-                'If CDbl(ds_IVAs.Tables(0).Rows(i)(0)) < 11 Then
-                '    'txtMontoIVA10.Text = valor
-                'Else
-                '    If CDbl(ds_IVAs.Tables(0).Rows(i)(0)) = 21 Then
-                '        txtMontoIVA21.Text = ds_IVAs.Tables(0).Rows(i)(1)
-                '    Else
-                '        If CDbl(ds_IVAs.Tables(0).Rows(i)(0)) > 21 Then
-                '            txtMontoIVA27.Text = valor
-                '        End If
-                '    End If
-                'End If
+                If CDbl(ds_IVAs.Tables(0).Rows(i)(0)) < 11 Then
+                    txtMontoIVA10.Text = valor
+                Else
+                    If CDbl(ds_IVAs.Tables(0).Rows(i)(0)) = 21 Then
+                        txtMontoIVA21.Text = ds_IVAs.Tables(0).Rows(i)(1)
+                    Else
+                        If CDbl(ds_IVAs.Tables(0).Rows(i)(0)) > 21 Then
+                            txtMontoIVA27.Text = valor
+                        End If
+                    End If
+                End If
             Next
 
         Catch ex As Exception
@@ -1591,7 +1613,7 @@ Public Class frmRecepciones
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             If Not connection Is Nothing Then
@@ -1677,7 +1699,7 @@ Public Class frmRecepciones
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             If Not connection Is Nothing Then
@@ -1708,7 +1730,54 @@ Public Class frmRecepciones
         'End With
     End Sub
 
+    Private Sub LlenarComboProveedores()
+        Dim ds_Cli As Data.DataSet
+        Dim connection As SqlClient.SqlConnection = Nothing
 
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+        Catch ex As Exception
+            MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End Try
+
+        Try
+            ds_Cli = SqlHelper.ExecuteDataset(connection, CommandType.Text, "select DISTINCT p.Codigo, ltrim(rtrim(p.nombre)) as Nombre " & _
+                        " from OrdendeCompra o JOIN Proveedores p ON p.Codigo = o.IdProveedor where STATUS = 'P' AND o.eliminado=0 order by ltrim(rtrim(p.nombre)) ") 'AND Status = 'P' 
+            ds_Cli.Dispose()
+
+            With Me.cmbProveedor
+                .DataSource = ds_Cli.Tables(0).DefaultView
+                .DisplayMember = "nombre"
+                .ValueMember = "Codigo"
+                '.AutoCompleteMode = AutoCompleteMode.Suggest
+                '.AutoCompleteSource = AutoCompleteSource.ListItems
+                '.DropDownStyle = ComboBoxStyle.DropDown
+            End With
+
+            If ds_Cli.Tables(0).Rows.Count > 0 Then
+                cmbProveedor.SelectedIndex = 0
+            End If
+
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If Not connection Is Nothing Then
+                CType(connection, IDisposable).Dispose()
+            End If
+        End Try
+
+    End Sub
 
     Private Sub LlenarcmbUsuarioGasto()
         Dim connection As SqlClient.SqlConnection = Nothing
@@ -1742,7 +1811,7 @@ Public Class frmRecepciones
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             If Not connection Is Nothing Then
@@ -1751,7 +1820,58 @@ Public Class frmRecepciones
         End Try
     End Sub
 
+    Private Sub LlenarComboOrdenDeCompra()
+        Dim ds_OC As Data.DataSet
+        Dim connection As SqlClient.SqlConnection = Nothing
 
+        llenandoCombo = True
+
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+        Catch ex As Exception
+            MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            llenandoCombo = False
+            Exit Sub
+        End Try
+
+        Try
+
+            ds_OC = SqlHelper.ExecuteDataset(connection, CommandType.Text, "select id , codigo from ordendecompra where " & _
+                                            " idproveedor = " & cmbProveedor.SelectedValue & "  and eliminado=0 and solicitud = 0 and status in ('P') order by id desc")
+            ds_OC.Dispose()
+
+            With Me.cmbOrdenDeCompra
+                .DataSource = ds_OC.Tables(0).DefaultView
+                .DisplayMember = "codigo"
+                .ValueMember = "id"
+                '.AutoCompleteMode = AutoCompleteMode.Suggest
+                '.AutoCompleteSource = AutoCompleteSource.ListItems
+                '.DropDownStyle = ComboBoxStyle.DropDown
+            End With
+
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            llenandoCombo = False
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If Not connection Is Nothing Then
+                CType(connection, IDisposable).Dispose()
+            End If
+        End Try
+
+        llenandoCombo = False
+
+    End Sub
 
     'Private Sub LlenarComboFacturasAsociadas()
 
@@ -1807,18 +1927,66 @@ Public Class frmRecepciones
     End Sub
 
     Private Sub CalcularMontoIVA()
-        'If band = 1 Then
-        '    If txtMontoIVA21.Text = "" Then txtMontoIVA21.Text = "0"
-        '    If txtMontoIVA10.Text = "" Then txtMontoIVA10.Text = "0"
-        '    If txtMontoIVA27.Text = "" Then txtMontoIVA27.Text = "0"
-        '    If txtSubtotal.Text = "" Then txtSubtotal.Text = "0"
-        '    If txtSubtotalExento.Text = "" Then txtSubtotalExento.Text = "0"
-        '    lblMontoIva.Text = Format(CDbl(txtMontoIVA10.Text) + CDbl(txtMontoIVA21.Text) + CDbl(txtMontoIVA27.Text), "###0.00")
-        '    lblTotal.Text = Format(CDbl(txtSubtotalExento.Text) + CDbl(txtSubtotal.Text) + CDbl(lblMontoIva.Text) + CDbl(lblImpuestos.Text), "###0.00")
-        'End If
+        If band = 1 Then
+            If txtMontoIVA21.Text = "" Then txtMontoIVA21.Text = "0"
+            If txtMontoIVA10.Text = "" Then txtMontoIVA10.Text = "0"
+            If txtMontoIVA27.Text = "" Then txtMontoIVA27.Text = "0"
+            If txtSubtotal.Text = "" Then txtSubtotal.Text = "0"
+            If txtSubtotalExento.Text = "" Then txtSubtotalExento.Text = "0"
+            lblMontoIva.Text = Format(CDbl(txtMontoIVA10.Text) + CDbl(txtMontoIVA21.Text) + CDbl(txtMontoIVA27.Text), "###0.00")
+            lblTotal.Text = Format(CDbl(txtSubtotalExento.Text) + CDbl(txtSubtotal.Text) + CDbl(lblMontoIva.Text) + CDbl(lblImpuestos.Text), "###0.00")
+        End If
     End Sub
 
+    Private Sub BuscarMoneda_OC()
+        Dim connection As SqlClient.SqlConnection = Nothing
+        Dim dsMoneda As Data.DataSet
 
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+        Catch ex As Exception
+            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End Try
+
+        Try
+
+            dsMoneda = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT mo.Codigo, o.ValorCambio, o.idmoneda FROM OrdenDeCompra o JOIN Monedas mo	ON mo.id = o.IdMoneda WHERE o.codigo = " & cmbOrdenDeCompra.Text.ToString)
+
+            dsMoneda.Dispose()
+
+            If dsMoneda.Tables(0).Rows.Count > 0 Then
+                txtTipoMoneda.Text = dsMoneda.Tables(0).Rows(0).Item(0)
+                txtValorCambio.Text = dsMoneda.Tables(0).Rows(0).Item(1)
+                txtIdMoneda.Text = dsMoneda.Tables(0).Rows(0).Item(2)
+
+                If chkCargarFactura.Checked = True And txtTipoMoneda.Text = "Do" Then
+                    txtValorCambio.Enabled = True
+                Else
+                    txtValorCambio.Enabled = False
+                End If
+            End If
+
+
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If Not connection Is Nothing Then
+                CType(connection, IDisposable).Dispose()
+            End If
+        End Try
+
+    End Sub
 
     Private Sub LlenarcmbAlmacenes()
         Dim connection As SqlClient.SqlConnection = Nothing
@@ -1857,7 +2025,7 @@ Public Class frmRecepciones
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             If Not connection Is Nothing Then
@@ -1866,9 +2034,113 @@ Public Class frmRecepciones
         End Try
     End Sub
 
+    Private Sub LlenarcomboGastos(ByVal cmb As System.Windows.Forms.ComboBox)
+        Dim ds_Proveedores As Data.DataSet
+        Dim connection As SqlClient.SqlConnection = Nothing
 
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+        Catch ex As Exception
+            MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End Try
 
+        llenandoCombo = True
 
+        Try
+
+            ds_Proveedores = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT id, ('Mov Nro: ' + CONVERT(VARCHAR(50),codigo) + ' - Remito: ' + Nroremito) AS Codigo from gastos where IdRecepcion is null and convert(int, ptovtaremito) > 0 and convert(int, nrocomprobanteremito) >0 and IdProveedor = " & cmbProveedor.SelectedValue & " ORDER BY id asc")
+            ds_Proveedores.Dispose()
+
+            With cmb
+                .DataSource = ds_Proveedores.Tables(0).DefaultView
+                .DisplayMember = "codigo"
+                .ValueMember = "id"
+                .AutoCompleteMode = AutoCompleteMode.Suggest
+                .AutoCompleteSource = AutoCompleteSource.ListItems
+                .DropDownStyle = ComboBoxStyle.DropDownList
+                .TabStop = True
+            End With
+
+            If ds_Proveedores.Tables(0).Rows.Count > 0 Then
+                chkGastos.Enabled = True
+                'chkGastos.Checked = True
+            Else
+                chkGastos.Enabled = False
+                chkGastos.Checked = False
+                txtNroRemitoCompleto.Text = ""
+                cmbGastos.Text = ""
+            End If
+
+            'If bolModo = False Then
+            '    cmbGastos.Text = grd.CurrentRow.Cells(22).Value
+            'End If
+
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            llenandoCombo = False
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If Not connection Is Nothing Then
+                CType(connection, IDisposable).Dispose()
+            End If
+        End Try
+
+        llenandoCombo = False
+
+    End Sub
+
+    Private Sub BuscarRemito()
+        Dim ds_OCReq As Data.DataSet
+        Dim connection As SqlClient.SqlConnection = Nothing
+
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+        Catch ex As Exception
+            MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End Try
+
+        Try
+
+            ds_OCReq = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT ISNULL(NroRemito, '') a, ISNULL(nrocomprobanteremito, '0') AS NroCompRemito, ISNULL(ptovtaremito, '0') AS PtovtaRemito FROM Gastos WHERE id = " & IIf(cmbGastos.SelectedValue Is Nothing, 0, cmbGastos.SelectedValue))
+
+            ds_OCReq.Dispose()
+
+            If ds_OCReq.Tables(0).Rows.Count > 0 Then
+                txtNroRemitoCompleto.Text = ds_OCReq.Tables(0).Rows(0)(0)
+                txtNroCompRemito.Text = ds_OCReq.Tables(0).Rows(0)(1)
+                txtPtoVtaRemito.Text = ds_OCReq.Tables(0).Rows(0)(2)
+            End If
+
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If Not connection Is Nothing Then
+                CType(connection, IDisposable).Dispose()
+            End If
+        End Try
+    End Sub
 
 #End Region
 
@@ -1922,9 +2194,24 @@ Public Class frmRecepciones
                 param_idMoneda.Value = If(txtIdMoneda.Text = "", 0, txtIdMoneda.Text)
                 param_idMoneda.Direction = ParameterDirection.Input
 
+                Dim param_idOC As New SqlClient.SqlParameter
+                param_idOC.ParameterName = "@idOC"
+                param_idOC.SqlDbType = SqlDbType.BigInt
+                param_idOC.Value = cmbOrdenDeCompra.SelectedValue
+                param_idOC.Direction = ParameterDirection.Input
 
+                Dim param_NroOC As New SqlClient.SqlParameter
+                param_NroOC.ParameterName = "@NroOC"
+                param_NroOC.SqlDbType = SqlDbType.VarChar
+                param_NroOC.Size = 25
+                param_NroOC.Value = cmbOrdenDeCompra.Text
+                param_NroOC.Direction = ParameterDirection.Input
 
-
+                Dim param_PendienteGasto As New SqlClient.SqlParameter
+                param_PendienteGasto.ParameterName = "@PendienteGasto"
+                param_PendienteGasto.SqlDbType = SqlDbType.BigInt
+                param_PendienteGasto.Value = Not chkCargarFactura.Checked
+                param_PendienteGasto.Direction = ParameterDirection.Input
 
                 Dim param_fecha As New SqlClient.SqlParameter
                 param_fecha.ParameterName = "@fecha"
@@ -1932,6 +2219,49 @@ Public Class frmRecepciones
                 param_fecha.Value = dtpFECHA.Value
                 param_fecha.Direction = ParameterDirection.Input
 
+                Dim param_idproveedor As New SqlClient.SqlParameter
+                param_idproveedor.ParameterName = "@idproveedor"
+                param_idproveedor.SqlDbType = SqlDbType.VarChar
+                param_idproveedor.Size = 25
+                param_idproveedor.Value = cmbProveedor.SelectedValue
+                param_idproveedor.Direction = ParameterDirection.Input
+
+                Dim param_ptovtaRemito As New SqlClient.SqlParameter
+                param_ptovtaRemito.ParameterName = "@PtoVtaRemito"
+                param_ptovtaRemito.SqlDbType = SqlDbType.VarChar
+                param_ptovtaRemito.Size = 4
+                param_ptovtaRemito.Value = LTrim(RTrim(IIf(txtPtoVtaRemito.Text = "", "0", txtPtoVtaRemito.Text)))
+                param_ptovtaRemito.Direction = ParameterDirection.Input
+
+                Dim param_nrocomprRemito As New SqlClient.SqlParameter
+                param_nrocomprRemito.ParameterName = "@NroComprRemito"
+                param_nrocomprRemito.SqlDbType = SqlDbType.VarChar
+                param_nrocomprRemito.Size = 8
+                param_nrocomprRemito.Value = LTrim(RTrim(IIf(txtNroCompRemito.Text = "", "0", txtNroCompRemito.Text)))
+                param_nrocomprRemito.Direction = ParameterDirection.Input
+
+                Dim param_remito As New SqlClient.SqlParameter
+                param_remito.ParameterName = "@Nroremito"
+                param_remito.SqlDbType = SqlDbType.VarChar
+                param_remito.Size = 30
+                param_remito.Value = txtPtoVtaRemito.Text.Trim.PadLeft(4, "0") & "-" & txtNroCompRemito.Text.Trim.PadLeft(8, "0")
+                'txtNroRemitoCompleto.Text
+                param_remito.Direction = ParameterDirection.Input
+
+                Dim param_tipofactura As New SqlClient.SqlParameter
+                param_tipofactura.ParameterName = "@comprobantetipo"
+                param_tipofactura.SqlDbType = SqlDbType.VarChar
+                param_tipofactura.Size = 5
+                param_tipofactura.Value = cmbTipoComprobante.SelectedValue
+                param_tipofactura.Direction = ParameterDirection.Input
+
+                Dim param_factura As New SqlClient.SqlParameter
+                param_factura.ParameterName = "@Nrofactura"
+                param_factura.SqlDbType = SqlDbType.VarChar
+                param_factura.Size = 30
+                param_factura.Value = txtPtoVta.Text.Trim.PadLeft(4, "0") & "-" & txtNroFactura.Text.Trim.PadLeft(8, "0")
+                'txtNroFacturaCompleto.Text
+                param_factura.Direction = ParameterDirection.Input
 
                 Dim param_nota As New SqlClient.SqlParameter
                 param_nota.ParameterName = "@nota"
@@ -1940,7 +2270,17 @@ Public Class frmRecepciones
                 param_nota.Value = txtNota.Text
                 param_nota.Direction = ParameterDirection.Input
 
+                Dim param_asociargasto As New SqlClient.SqlParameter
+                param_asociargasto.ParameterName = "@AsociarGasto"
+                param_asociargasto.SqlDbType = SqlDbType.Bit
+                param_asociargasto.Value = chkGastos.Checked
+                param_asociargasto.Direction = ParameterDirection.Input
 
+                Dim param_IdGastoAsociar As New SqlClient.SqlParameter
+                param_IdGastoAsociar.ParameterName = "@IdGastoAsociar"
+                param_IdGastoAsociar.SqlDbType = SqlDbType.BigInt
+                param_IdGastoAsociar.Value = IIf(txtIdGastoAsociar.Text = "", 0, txtIdGastoAsociar.Text)
+                param_IdGastoAsociar.Direction = ParameterDirection.Input
 
                 Dim param_ControlRemito As New SqlClient.SqlParameter
                 param_ControlRemito.ParameterName = "@ControlRemito"
@@ -1972,16 +2312,19 @@ Public Class frmRecepciones
 
                 Try
                     If bolModo = True Then
-                        SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spRecepciones_Insert",
-                                              param_id, param_codigo, param_idAlmacen, param_idMoneda,
-                                               param_fecha, param_nota, param_useradd, param_res)
+                        SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spRecepciones_Insert", _
+                                              param_id, param_codigo, param_idAlmacen, param_idMoneda, param_idOC, param_NroOC, _
+                                              param_PendienteGasto, param_fecha, param_idproveedor, _
+                                              param_tipofactura, param_ptovtaRemito, param_nrocomprRemito, param_remito, _
+                                              param_factura, param_nota, param_asociargasto, param_IdGastoAsociar, param_useradd, param_res)
 
                         txtID.Text = param_id.Value
                         txtCODIGO.Text = param_codigo.Value
                     Else
-                        SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spRecepciones_Update",
-                                              param_id, param_ControlRemito, param_ControlFactura,
-                                              param_fecha, param_nota, param_useradd, param_res)
+                        SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spRecepciones_Update", _
+                                              param_id, param_idproveedor, param_ControlRemito, param_ControlFactura, _
+                                              param_fecha, param_ptovtaRemito, param_nrocomprRemito, param_remito, _
+                                              param_factura, param_nota, param_useradd, param_res)
                     End If
 
                     AgregarActualizar_Registro_Recepciones = param_res.Value
@@ -2002,7 +2345,7 @@ Public Class frmRecepciones
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         End Try
@@ -2092,7 +2435,12 @@ Public Class frmRecepciones
                         param_Codigo_Mat_Prov.Value = grdItems.Rows(i).Cells(ColumnasDelGridItems1.Cod_Mat_Prov).Value
                         param_Codigo_Mat_Prov.Direction = ParameterDirection.Input
 
-
+                        Dim param_idproveedor As New SqlClient.SqlParameter
+                        param_idproveedor.ParameterName = "@idproveedor"
+                        param_idproveedor.SqlDbType = SqlDbType.VarChar
+                        param_idproveedor.Size = 25
+                        param_idproveedor.Value = cmbProveedor.SelectedValue
+                        param_idproveedor.Direction = ParameterDirection.Input
 
                         Dim param_qty As New SqlClient.SqlParameter
                         param_qty.ParameterName = "@qty"
@@ -2109,7 +2457,12 @@ Public Class frmRecepciones
                         param_idunidad.Value = IIf(grdItems.Rows(i).Cells(ColumnasDelGridItems1.IdUnidad).Value Is DBNull.Value, "U", grdItems.Rows(i).Cells(ColumnasDelGridItems1.IdUnidad).Value)
                         param_idunidad.Direction = ParameterDirection.Input
 
-
+                        Dim param_remito As New SqlClient.SqlParameter
+                        param_remito.ParameterName = "@remito"
+                        param_remito.SqlDbType = SqlDbType.VarChar
+                        param_remito.Size = 25
+                        param_remito.Value = txtNroRemitoCompleto.Text
+                        param_remito.Direction = ParameterDirection.Input
 
                         Dim param_useradd As New SqlClient.SqlParameter
                         param_useradd.ParameterName = "@useradd"
@@ -2349,15 +2702,15 @@ Public Class frmRecepciones
                         param_msg.Direction = ParameterDirection.InputOutput
 
                         Try
-                            SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spRecepciones_Det_Insert2",
-                                                    param_id, param_codigo, param_idAlmacen, param_idRecepcion, param_idmaterial, param_idmaterial_prov,
-                                                    param_Codigo_Mat_Prov, param_preciorevendedor, param_precioyamila, param_preciolista4,
-                                                    param_qty, param_idunidad, param_useradd, param_Nuevo,
-                                                    param_idordendecompra, param_idordendecompradet, param_material,
-                                                    param_idmoneda, param_bonificacion1, param_bonificacion2, param_bonificacion3,
-                                                    param_bonificacion4, param_bonificacion5, param_ganancia, param_pesoxunidad, param_precioventa,
-                                                    param_preciolista, param_preciovtasiniva, param_iva, param_ActualizarPrecio,
-                                                    param_precioperon, param_precioperonmayo,
+                            SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spRecepciones_Det_Insert2", _
+                                                    param_id, param_codigo, param_idAlmacen, param_idRecepcion, param_idmaterial, param_idmaterial_prov, _
+                                                    param_Codigo_Mat_Prov, param_idproveedor, param_preciorevendedor, param_precioyamila, param_preciolista4, _
+                                                    param_qty, param_idunidad, param_remito, param_useradd, param_Nuevo, _
+                                                    param_idordendecompra, param_idordendecompradet, param_material, _
+                                                    param_idmoneda, param_bonificacion1, param_bonificacion2, param_bonificacion3, _
+                                                    param_bonificacion4, param_bonificacion5, param_ganancia, param_pesoxunidad, param_precioventa, _
+                                                    param_preciolista, param_preciovtasiniva, param_iva, param_ActualizarPrecio, _
+                                                    param_precioperon, param_precioperonmayo, _
                                                     param_IdStockMov, param_Comprob, param_Stock, param_res, param_msg)
 
                             'MsgBox(param_msg.Value.ToString)
@@ -2467,7 +2820,7 @@ Public Class frmRecepciones
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Function
@@ -2518,7 +2871,11 @@ Public Class frmRecepciones
                 param_tipogasto.Value = 2
                 param_tipogasto.Direction = ParameterDirection.Input
 
-
+                Dim param_proveedor As New SqlClient.SqlParameter
+                param_proveedor.ParameterName = "@idproveedor"
+                param_proveedor.SqlDbType = SqlDbType.BigInt
+                param_proveedor.Value = IIf(cmbProveedor.SelectedValue = Nothing, txtIdProveedor.Text, cmbProveedor.SelectedValue)
+                param_proveedor.Direction = ParameterDirection.Input
 
                 Dim param_IdMoneda As New SqlClient.SqlParameter
                 param_IdMoneda.ParameterName = "@idmoneda"
@@ -2526,8 +2883,54 @@ Public Class frmRecepciones
                 param_IdMoneda.Value = IIf(txtIdMoneda.Text = "", 0, txtIdMoneda.Text)
                 param_IdMoneda.Direction = ParameterDirection.Input
 
+                Dim param_valorCambio As New SqlClient.SqlParameter
+                param_valorCambio.ParameterName = "@ValorCambio"
+                param_valorCambio.SqlDbType = SqlDbType.Decimal
+                param_valorCambio.Precision = 18
+                param_valorCambio.Scale = 3
+                param_valorCambio.Value = txtValorCambio.Text
+                param_valorCambio.Direction = ParameterDirection.Input
 
+                Dim param_tipofactura As New SqlClient.SqlParameter
+                param_tipofactura.ParameterName = "@comprobantetipo"
+                param_tipofactura.SqlDbType = SqlDbType.VarChar
+                param_tipofactura.Size = 5
+                param_tipofactura.Value = cmbTipoComprobante.SelectedValue
+                param_tipofactura.Direction = ParameterDirection.Input
 
+                Dim param_nrofactura As New SqlClient.SqlParameter
+                param_nrofactura.ParameterName = "@nrofactura"
+                param_nrofactura.SqlDbType = SqlDbType.VarChar
+                param_nrofactura.Size = 20
+                param_nrofactura.Value = LTrim(RTrim(txtNroFacturaCompleto.Text))
+                param_nrofactura.Direction = ParameterDirection.Input
+
+                Dim param_remito As New SqlClient.SqlParameter
+                param_remito.ParameterName = "@nroremito"
+                param_remito.SqlDbType = SqlDbType.VarChar
+                param_remito.Size = 20
+                param_remito.Value = LTrim(RTrim(txtNroRemitoCompleto.Text))
+                param_remito.Direction = ParameterDirection.Input
+
+                Dim param_CantIVA As New SqlClient.SqlParameter
+                param_CantIVA.ParameterName = "@cantIVA"
+                param_CantIVA.SqlDbType = SqlDbType.SmallInt
+                param_CantIVA.Value = txtCantIVA.Value
+                param_CantIVA.Direction = ParameterDirection.Input
+
+                Dim param_ptovta As New SqlClient.SqlParameter
+                param_ptovta.ParameterName = "@ptovta"
+                param_ptovta.SqlDbType = SqlDbType.VarChar
+                param_ptovta.Size = 4
+                param_ptovta.Value = LTrim(RTrim(txtPtoVta.Text))
+                param_ptovta.Direction = ParameterDirection.Input
+
+                Dim param_nrocompr As New SqlClient.SqlParameter
+                param_nrocompr.ParameterName = "@nrocompr"
+                param_nrocompr.SqlDbType = SqlDbType.VarChar
+                param_nrocompr.Size = 8
+                param_nrocompr.Value = LTrim(RTrim(txtNroFactura.Text))
+                param_nrocompr.Direction = ParameterDirection.Input
 
                 Dim param_MontoIVA As New SqlClient.SqlParameter
                 param_MontoIVA.ParameterName = "@MontoIVA"
@@ -2536,6 +2939,19 @@ Public Class frmRecepciones
                 param_MontoIVA.Value = IIf(lblMontoIva.Text = "", 0, lblMontoIva.Text)
                 param_MontoIVA.Direction = ParameterDirection.Input
 
+                Dim param_Subtotal As New SqlClient.SqlParameter
+                param_Subtotal.ParameterName = "@Subtotal"
+                param_Subtotal.SqlDbType = SqlDbType.Decimal
+                param_Subtotal.Size = 18
+                param_Subtotal.Value = IIf(txtSubtotal.Text = "", 0, txtSubtotal.Text)
+                param_Subtotal.Direction = ParameterDirection.Input
+
+                Dim param_SubtotalExento As New SqlClient.SqlParameter
+                param_SubtotalExento.ParameterName = "@SubtotalExento"
+                param_SubtotalExento.SqlDbType = SqlDbType.Decimal
+                param_SubtotalExento.Size = 18
+                param_SubtotalExento.Value = IIf(txtSubtotalExento.Text = "", 0, txtSubtotalExento.Text)
+                param_SubtotalExento.Direction = ParameterDirection.Input
 
                 Dim param_Total As New SqlClient.SqlParameter
                 param_Total.ParameterName = "@Total"
@@ -2552,8 +2968,27 @@ Public Class frmRecepciones
                 param_totalPesos.Value = lblTotal.Text
                 param_totalPesos.Direction = ParameterDirection.Input
 
+                Dim param_deuda As New SqlClient.SqlParameter
+                param_deuda.ParameterName = "@deuda"
+                param_deuda.SqlDbType = SqlDbType.Decimal
+                param_deuda.Precision = 18
+                param_deuda.Scale = 2
+                param_deuda.Value = IIf(chkFacturaCancelada.Checked = False, lblTotal.Text, 0)
+                param_deuda.Direction = ParameterDirection.Input
 
+                Dim param_cancelada As New SqlClient.SqlParameter
+                param_cancelada.ParameterName = "@Cancelado"
+                param_cancelada.SqlDbType = SqlDbType.Bit
+                param_cancelada.Value = chkFacturaCancelada.Checked
+                param_cancelada.Direction = ParameterDirection.Input
 
+                Dim param_Impuestos As New SqlClient.SqlParameter
+                param_Impuestos.ParameterName = "@Impuestos"
+                param_Impuestos.SqlDbType = SqlDbType.Decimal
+                param_Impuestos.Precision = 18
+                param_Impuestos.Scale = 2
+                param_Impuestos.Value = IIf(lblImpuestos.Text = "", 0, lblImpuestos.Text)
+                param_Impuestos.Direction = ParameterDirection.Input
 
                 Dim param_descripcion As New SqlClient.SqlParameter
                 param_descripcion.ParameterName = "@descripcion"
@@ -2586,7 +3021,19 @@ Public Class frmRecepciones
                 param_ControlFactura.Value = ControlFactura
                 param_ControlFactura.Direction = ParameterDirection.Input
 
+                Dim param_ptovtaRemito As New SqlClient.SqlParameter
+                param_ptovtaRemito.ParameterName = "@PtoVtaRemito"
+                param_ptovtaRemito.SqlDbType = SqlDbType.VarChar
+                param_ptovtaRemito.Size = 4
+                param_ptovtaRemito.Value = LTrim(RTrim(IIf(txtPtoVtaRemito.Text = "", "0", txtPtoVtaRemito.Text)))
+                param_ptovtaRemito.Direction = ParameterDirection.Input
 
+                Dim param_nrocomprRemito As New SqlClient.SqlParameter
+                param_nrocomprRemito.ParameterName = "@NroComprRemito"
+                param_nrocomprRemito.SqlDbType = SqlDbType.VarChar
+                param_nrocomprRemito.Size = 8
+                param_nrocomprRemito.Value = LTrim(RTrim(IIf(txtNroCompRemito.Text = "", "0", txtNroCompRemito.Text)))
+                param_nrocomprRemito.Direction = ParameterDirection.Input
 
                 Dim param_UsuarioGasto As New SqlClient.SqlParameter
                 param_UsuarioGasto.ParameterName = "@UsuarioGasto"
@@ -2614,25 +3061,25 @@ Public Class frmRecepciones
                 Try
 
                     If bolModo = True Then
-                        SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spGastos_Insert",
-                                            param_id, param_idrecepcion, param_codigo, param_fechagasto,
-                                            param_tipogasto, param_IdMoneda,
-                                            param_MontoIVA,
-                                            param_Total, param_totalPesos, param_descripcion,
-                                            param_imputarotroperiodo, param_periodo,
-                                            param_UsuarioGasto,
+                        SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spGastos_Insert", _
+                                            param_id, param_idrecepcion, param_codigo, param_fechagasto, _
+                                            param_tipogasto, param_proveedor, param_IdMoneda, param_valorCambio, param_tipofactura, _
+                                            param_nrofactura, param_remito, param_CantIVA, param_MontoIVA, param_Subtotal, param_SubtotalExento, _
+                                            param_Total, param_totalPesos, param_deuda, param_cancelada, param_descripcion, _
+                                            param_Impuestos, param_imputarotroperiodo, param_periodo, _
+                                            param_ptovta, param_nrocompr, param_ptovtaRemito, param_nrocomprRemito, param_UsuarioGasto, _
                                             param_useradd, param_res)
 
                         txtCODIGO.Text = param_codigo.Value
 
                     Else
-                        SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spGastos_Update",
-                                            param_id, param_fechagasto,
-                                            param_tipogasto, param_IdMoneda,
-                                            param_MontoIVA,
-                                            param_Total, param_totalPesos, param_descripcion,
-                                            param_imputarotroperiodo, param_periodo,
-                                            param_ControlFactura, param_ControlRemito,
+                        SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spGastos_Update", _
+                                            param_id, param_fechagasto, _
+                                            param_tipogasto, param_proveedor, param_IdMoneda, param_valorCambio, param_tipofactura, _
+                                            param_nrofactura, param_remito, param_CantIVA, param_MontoIVA, param_Subtotal, param_SubtotalExento, _
+                                            param_Total, param_totalPesos, param_descripcion, _
+                                            param_Impuestos, param_imputarotroperiodo, param_periodo, _
+                                            param_ptovta, param_nrocompr, param_ptovtaRemito, param_nrocomprRemito, param_ControlFactura, param_ControlRemito, _
                                             param_useradd, param_res)
 
                     End If
@@ -2658,7 +3105,7 @@ Public Class frmRecepciones
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
@@ -2697,7 +3144,11 @@ Public Class frmRecepciones
             param_fecha.Value = dtpFECHA.Value
             param_fecha.Direction = ParameterDirection.Input
 
-
+            Dim param_idProveedor As New SqlClient.SqlParameter
+            param_idProveedor.ParameterName = "@idProveedor"
+            param_idProveedor.SqlDbType = SqlDbType.BigInt
+            param_idProveedor.Value = cmbProveedor.SelectedValue
+            param_idProveedor.Direction = ParameterDirection.Input
 
             Dim param_nota As New SqlClient.SqlParameter
             param_nota.ParameterName = "@Nota"
@@ -2799,6 +3250,13 @@ Public Class frmRecepciones
             param_montoiva.Value = IIf(lblMontoIva.Text = "", 0, lblMontoIva.Text)
             param_montoiva.Direction = ParameterDirection.Input
 
+            Dim param_subtotal As New SqlClient.SqlParameter
+            param_subtotal.ParameterName = "@subtotal"
+            param_subtotal.SqlDbType = SqlDbType.Decimal
+            param_subtotal.Precision = 18
+            param_subtotal.Scale = 2
+            param_subtotal.Value = CDbl(txtSubtotal.Text)
+            param_subtotal.Direction = ParameterDirection.Input
 
             Dim param_total As New SqlClient.SqlParameter
             param_total.ParameterName = "@total"
@@ -2835,19 +3293,19 @@ Public Class frmRecepciones
             Try
 
                 If bolModo = True Then
-                    SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spPagos_Insert",
-                                            param_id, param_codigo, param_fecha, param_contado, param_montoContado,
-                                            param_tarjeta, param_montotarjeta, param_cheque, param_montocheque, param_montochequepropio,
-                                            param_transferencia, param_montotransf, param_impuestos, param_montoimpuesto,
-                                            param_montoiva, param_total, param_Redondeo, param_nota,
+                    SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spPagos_Insert", _
+                                            param_id, param_codigo, param_idProveedor, param_fecha, param_contado, param_montoContado, _
+                                            param_tarjeta, param_montotarjeta, param_cheque, param_montocheque, param_montochequepropio, _
+                                            param_transferencia, param_montotransf, param_impuestos, param_montoimpuesto, _
+                                            param_montoiva, param_subtotal, param_total, param_Redondeo, param_nota, _
                                             param_useradd, param_res)
 
                 Else
-                    SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spPagos_Update",
-                                            param_id, param_codigo, param_fecha, param_contado, param_montoContado,
-                                            param_tarjeta, param_montotarjeta, param_cheque, param_montocheque, param_montochequepropio,
-                                            param_transferencia, param_montotransf, param_impuestos, param_montoimpuesto,
-                                            param_montoiva, param_total, param_Redondeo, param_nota,
+                    SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spPagos_Update", _
+                                            param_id, param_codigo, param_idProveedor, param_fecha, param_contado, param_montoContado, _
+                                            param_tarjeta, param_montotarjeta, param_cheque, param_montocheque, param_montochequepropio, _
+                                            param_transferencia, param_montotransf, param_impuestos, param_montoimpuesto, _
+                                            param_montoiva, param_subtotal, param_total, param_Redondeo, param_nota, _
                                             param_useradd, param_res)
 
                 End If
@@ -2870,7 +3328,7 @@ Public Class frmRecepciones
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         End Try
@@ -2915,7 +3373,7 @@ Public Class frmRecepciones
             param_res.Direction = ParameterDirection.InputOutput
 
             Try
-                SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spPagos_Gastos_Insert",
+                SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spPagos_Gastos_Insert", _
                                           param_idPago, param_idGasto, param_DEUDA, param_CancelarTodo, param_res)
 
                 res = param_res.Value
@@ -2936,7 +3394,7 @@ Public Class frmRecepciones
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Function
@@ -3001,15 +3459,15 @@ Public Class frmRecepciones
                     Try
                         If bolModo = True Then
 
-                            SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spGastos_Impuestos_Insert",
-                                param_IdGasto, param_CodigoImpuesto, param_NroDocumento,
+                            SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spGastos_Impuestos_Insert", _
+                                param_IdGasto, param_CodigoImpuesto, param_NroDocumento, _
                                  param_Monto, param_res)
 
                             res = param_res.Value
 
                         Else
 
-                            SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spGastos_Impuestos_Update",
+                            SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spGastos_Impuestos_Update", _
                                  param_Id, param_NroDocumento, param_Monto, param_MENSAJE, param_res)
 
                             'MsgBox(param_MENSAJE.Value)
@@ -3045,7 +3503,7 @@ Public Class frmRecepciones
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         End Try
@@ -3123,7 +3581,7 @@ Public Class frmRecepciones
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         End Try
@@ -3152,7 +3610,7 @@ Public Class frmRecepciones
 
             Try
 
-                SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spGastos_Delete",
+                SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spGastos_Delete", _
                                           param_idGasto, param_userdel, param_res)
 
                 EliminarRegistro_Gasto = param_res.Value
@@ -3171,7 +3629,7 @@ Public Class frmRecepciones
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         End Try
@@ -3201,11 +3659,11 @@ Public Class frmRecepciones
                     param_subtotal.Scale = 2
                     Select Case i
                         Case 0
-                            ' param_subtotal.Value = CDbl(txtMontoIVA10.Text) / 0.105
+                            param_subtotal.Value = CDbl(txtMontoIVA10.Text) / 0.105
                         Case 1
-                            'param_subtotal.Value = CDbl(txtMontoIVA21.Text) / 0.21
+                            param_subtotal.Value = CDbl(txtMontoIVA21.Text) / 0.21
                         Case 2
-                            'param_subtotal.Value = CDbl(txtMontoIVA27.Text) / 0.27
+                            param_subtotal.Value = CDbl(txtMontoIVA27.Text) / 0.27
                     End Select
                     param_subtotal.Direction = ParameterDirection.Input
 
@@ -3231,11 +3689,11 @@ Public Class frmRecepciones
                     param_MontoIva.Scale = 2
                     Select Case i
                         Case 0
-                            'param_MontoIva.Value = CDbl(txtMontoIVA10.Text)
+                            param_MontoIva.Value = CDbl(txtMontoIVA10.Text)
                         Case 1
-                            'param_MontoIva.Value = CDbl(txtMontoIVA21.Text)
+                            param_MontoIva.Value = CDbl(txtMontoIVA21.Text)
                         Case 2
-                            'param_MontoIva.Value = CDbl(txtMontoIVA27.Text)
+                            param_MontoIva.Value = CDbl(txtMontoIVA27.Text)
                     End Select
                     param_MontoIva.Direction = ParameterDirection.Input
 
@@ -3247,12 +3705,12 @@ Public Class frmRecepciones
 
                     Try
                         If bolModo = True Then
-                            SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spGastos_Det_Insert",
-                                                 param_idGasto, param_subtotal, param_PorcIva, param_MontoIva,
+                            SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spGastos_Det_Insert", _
+                                                 param_idGasto, param_subtotal, param_PorcIva, param_MontoIva, _
                                                  param_res)
                         Else
-                            SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spGastos_Det_Update",
-                                                 param_idGasto, param_PorcIva, param_MontoIva,
+                            SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spGastos_Det_Update", _
+                                                 param_idGasto, param_PorcIva, param_MontoIva, _
                                                  param_res)
                         End If
 
@@ -3285,7 +3743,7 @@ Public Class frmRecepciones
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Function
@@ -3306,7 +3764,7 @@ Public Class frmRecepciones
             param_res.Value = DBNull.Value
             param_res.Direction = ParameterDirection.InputOutput
 
-            SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spGastos_Det_Delete",
+            SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spGastos_Det_Delete", _
                                         param_idGasto, param_res)
 
             EliminarItems_Gastos_Det = param_res.Value
@@ -3321,7 +3779,7 @@ Public Class frmRecepciones
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
             'Finally
             '    If Not connection Is Nothing Then
@@ -3490,6 +3948,9 @@ Public Class frmRecepciones
 
         chkEliminado.Checked = False
 
+        chkFacturaCancelada.Enabled = True
+        chkFacturaCancelada.Checked = False
+
         grdItems.Enabled = True
         dtpFECHA.Enabled = True
         txtNota.Enabled = True
@@ -3497,14 +3958,44 @@ Public Class frmRecepciones
         Util.LimpiarTextBox(Me.Controls)
         PrepararGridItems()
 
+        cmbProveedor.Visible = bolModo
+        txtProveedor.Visible = Not bolModo
 
+        cmbOrdenDeCompra.Visible = bolModo
+        txtOC.Visible = Not bolModo
 
+        txtSubtotal.Text = "0"
+        txtSubtotalExento.Text = "0"
+        txtMontoIVA10.Text = "0"
+        txtMontoIVA21.Text = "0"
+        txtMontoIVA27.Text = "0"
         lblMontoIva.Text = "0"
         lblTotal.Text = "0"
+        lblImpuestos.Text = "0"
+        txtNroRemitoCompleto.Text = ""
+        txtNroFacturaCompleto.Text = ""
+
+        chkCargarFactura.Enabled = True
+        chkCargarFactura.Checked = False
+        chkCargarFactura_CheckedChanged(sender, e)
+
+        txtNroRemitoCompleto.Enabled = True
+
+        txtProveedor.Enabled = True
 
         LlenarGrid_Impuestos()
 
         cmbAlmacenes.SelectedIndex = 0
+        cmbTipoComprobante.SelectedIndex = 0
+
+        txtCantIVA.Enabled = False
+        txtMontoIVA10.Enabled = False
+        txtMontoIVA21.Enabled = False
+        txtMontoIVA27.Enabled = False
+
+        chkGastos.Enabled = True
+        chkGastos.Checked = False
+
         dtpFECHA.Value = Date.Today
         dtpFECHA.Focus()
 
@@ -3525,7 +4016,211 @@ Public Class frmRecepciones
         Dim ControlRemito As Boolean
         Dim ControlFactura As Boolean
 
+        If txtNroRemitoCompleto.Text <> txtNroRemitoControl.Text Then
+            ControlRemito = True
+        Else
+            ControlRemito = False
+        End If
 
+        If txtNroFacturaCompleto.Text <> txtNroFacturaCompletoControl.Text Then
+            ControlFactura = True
+        Else
+            ControlFactura = False
+        End If
+
+        If cmbProveedor.Text.ToString.Contains("SCHNEI") Or cmbProveedor.Text.ToString.ToUpper.Contains("FINNI") Then
+
+            If txtPtoVtaRemito.Text = "" Then
+                Util.MsgStatus(Status1, "Debe cargar el Pto de Vta para continuar", My.Resources.Resources.stop_error.ToBitmap)
+                Util.MsgStatus(Status1, "Debe cargar el Pto de Vta para continuar", My.Resources.Resources.stop_error.ToBitmap, True)
+                txtPtoVtaRemito.Focus()
+                Exit Sub
+            End If
+
+            If txtNroCompRemito.Text = "" Then
+                Util.MsgStatus(Status1, "Debe cargar el Nro de Factura para continuar", My.Resources.Resources.stop_error.ToBitmap)
+                Util.MsgStatus(Status1, "Debe cargar el Nro de Factura para continuar", My.Resources.Resources.stop_error.ToBitmap, True)
+                txtNroCompRemito.Focus()
+                Exit Sub
+            End If
+        Else
+            If txtPtoVtaRemito.Text = "" Then txtPtoVtaRemito.Text = "0"
+            If txtNroCompRemito.Text = "" Then txtNroCompRemito.Text = "0"
+
+            If CInt(txtPtoVtaRemito.Text) = 0 And CInt(txtNroCompRemito.Text) > 0 Then
+                Util.MsgStatus(Status1, "Debe cargar el Pto de Vta del Remito para continuar", My.Resources.Resources.stop_error.ToBitmap)
+                Util.MsgStatus(Status1, "Debe cargar el Pto de Vta del Remito para continuar", My.Resources.Resources.stop_error.ToBitmap, True)
+                txtPtoVtaRemito.Focus()
+                Exit Sub
+            End If
+
+            If CInt(txtPtoVtaRemito.Text) > 0 And CInt(txtNroCompRemito.Text) = 0 Then
+                Util.MsgStatus(Status1, "Debe cargar el Nro de Comprobante del Remito para continuar", My.Resources.Resources.stop_error.ToBitmap)
+                Util.MsgStatus(Status1, "Debe cargar el Nro de Comprobante del Remito para continuar", My.Resources.Resources.stop_error.ToBitmap, True)
+                txtNroCompRemito.Focus()
+                Exit Sub
+            End If
+
+        End If
+
+        If chkCargarFactura.Checked = True Then
+
+            If txtPtoVta.Text = "" Then
+                Util.MsgStatus(Status1, "Debe cargar el Pto de Vta para continuar", My.Resources.Resources.stop_error.ToBitmap)
+                Util.MsgStatus(Status1, "Debe cargar el Pto de Vta para continuar", My.Resources.Resources.stop_error.ToBitmap, True)
+                txtPtoVta.Focus()
+                Exit Sub
+            End If
+
+            If txtNroFactura.Text = "" Then
+                Util.MsgStatus(Status1, "Debe cargar el Nro de Factura para continuar", My.Resources.Resources.stop_error.ToBitmap)
+                Util.MsgStatus(Status1, "Debe cargar el Nro de Factura para continuar", My.Resources.Resources.stop_error.ToBitmap, True)
+                txtNroFactura.Focus()
+                Exit Sub
+            End If
+
+            If txtNroFacturaCompleto.Text = "" Then
+                Util.MsgStatus(Status1, "Debe cargar el Nro de Factura para continuar", My.Resources.Resources.stop_error.ToBitmap)
+                Util.MsgStatus(Status1, "Debe cargar el Nro de Factura para continuar", My.Resources.Resources.stop_error.ToBitmap, True)
+                txtPtoVta.Focus()
+                Exit Sub
+            End If
+
+            If CInt(txtPtoVta.Text) = 0 And CInt(txtNroFactura.Text) > 0 Then
+                Util.MsgStatus(Status1, "Debe cargar el Pto de Vta de la Factura para continuar", My.Resources.Resources.stop_error.ToBitmap)
+                Util.MsgStatus(Status1, "Debe cargar el Pto de Vta de la Factura para continuar", My.Resources.Resources.stop_error.ToBitmap, True)
+                txtPtoVta.Focus()
+                Exit Sub
+            End If
+
+            If CInt(txtPtoVta.Text) > 0 And CInt(txtNroFactura.Text) = 0 Then
+                Util.MsgStatus(Status1, "Debe cargar el Nro de Factura para continuar", My.Resources.Resources.stop_error.ToBitmap)
+                Util.MsgStatus(Status1, "Debe cargar el Nro de Factura para continuar", My.Resources.Resources.stop_error.ToBitmap, True)
+                txtNroFactura.Focus()
+                Exit Sub
+            End If
+
+            If txtSubtotal.Text = "" And txtSubtotalExento.Text = "" Then
+                Util.MsgStatus(Status1, "Debe ingresar un monto para el gasto que está cargando.", My.Resources.Resources.stop_error.ToBitmap)
+                Util.MsgStatus(Status1, "Debe ingresar un monto para el gasto que está cargando.", My.Resources.Resources.stop_error.ToBitmap, True)
+                txtSubtotal.Focus()
+                Exit Sub
+            Else
+                If CDbl(txtSubtotal.Text) = 0 And CDbl(txtSubtotalExento.Text) = 0 Then
+                    Util.MsgStatus(Status1, "Debe ingresar un monto para el gasto que está cargando.", My.Resources.Resources.stop_error.ToBitmap)
+                    Util.MsgStatus(Status1, "Debe ingresar un monto para el gasto que está cargando.", My.Resources.Resources.stop_error.ToBitmap, True)
+                    txtSubtotal.Focus()
+                    Exit Sub
+                End If
+            End If
+
+            If CDbl(txtValorCambio.Text) <= 0 Then
+                Util.MsgStatus(Status1, "Debe ingresar un monto válido para el tipo de cambio.", My.Resources.Resources.stop_error.ToBitmap)
+                Util.MsgStatus(Status1, "Debe ingresar un monto válido para el tipo de cambio.", My.Resources.Resources.stop_error.ToBitmap, True)
+                txtValorCambio.Focus()
+                Exit Sub
+            End If
+
+            If txtTipoMoneda.Text = "Pe" And CInt(txtValorCambio.Text) <> 1 Then
+                Util.MsgStatus(Status1, "El tipo de cambio para la Moneda Pesos debe ser 1.", My.Resources.Resources.stop_error.ToBitmap)
+                Util.MsgStatus(Status1, "El tipo de cambio para la Moneda Pesos debe ser 1.", My.Resources.Resources.stop_error.ToBitmap, True)
+                txtValorCambio.Focus()
+                Exit Sub
+            End If
+
+            txtMontoIVA10.Text = IIf(txtMontoIVA10.Text = "", 0, txtMontoIVA10.Text)
+            txtMontoIVA21.Text = IIf(txtMontoIVA21.Text = "", 0, txtMontoIVA21.Text)
+            txtMontoIVA27.Text = IIf(txtMontoIVA27.Text = "", 0, txtMontoIVA27.Text)
+
+            If txtCantIVA.Value > 0 Or cmbTipoComprobante.Text = "FACTURAS A" Then
+                If txtSubtotal.Text <> "" And CDbl(txtSubtotal.Text) > 0 Then
+                    If CDbl(txtMontoIVA10.Text) = "0" Or CDbl(txtMontoIVA10.Text) = "0.00" Then
+                        If CDbl(txtMontoIVA21.Text) = "0" Or CDbl(txtMontoIVA21.Text) = "0.00" Then
+                            If CDbl(txtMontoIVA27.Text) = "0" Or CDbl(txtMontoIVA27.Text) = "0.00" Then
+                                Util.MsgStatus(Status1, "Debe ingresar el monto del IVA", My.Resources.Resources.stop_error.ToBitmap)
+                                Util.MsgStatus(Status1, "Debe ingresar el monto del IVA", My.Resources.Resources.stop_error.ToBitmap, True)
+                                txtMontoIVA21.Focus()
+                                Exit Sub
+                            End If
+                        End If
+                    End If
+                End If
+            End If
+
+            If txtCantIVA.Value = 1 And (txtSubtotal.Text <> "" And CDbl(txtSubtotal.Text) > 0) Then
+                If CDbl(txtMontoIVA21.Text) > 0 And (CDbl(txtMontoIVA10.Text > 0) Or CDbl(txtMontoIVA27.Text) > 0) Then
+                    Util.MsgStatus(Status1, "El campo Cant IVA no coincide con la cantidad de alícuotas ingresadas.", My.Resources.Resources.stop_error.ToBitmap)
+                    Util.MsgStatus(Status1, "El campo Cant IVA no coincide con la cantidad de alícuotas ingresadas.", My.Resources.Resources.stop_error.ToBitmap, True)
+                    txtMontoIVA21.Focus()
+                    Exit Sub
+                Else
+                    If CDbl(txtMontoIVA10.Text) > 0 And (CDbl(txtMontoIVA21.Text > 0) Or CDbl(txtMontoIVA27.Text) > 0) Then
+                        Util.MsgStatus(Status1, "El campo Cant IVA no coincide con la cantidad de alícuotas ingresadas.", My.Resources.Resources.stop_error.ToBitmap)
+                        Util.MsgStatus(Status1, "El campo Cant IVA no coincide con la cantidad de alícuotas ingresadas.", My.Resources.Resources.stop_error.ToBitmap, True)
+                        txtMontoIVA10.Focus()
+                        Exit Sub
+                    Else
+                        If CDbl(txtMontoIVA27.Text) > 0 And (CDbl(txtMontoIVA10.Text > 0) Or CDbl(txtMontoIVA21.Text) > 0) Then
+                            Util.MsgStatus(Status1, "El campo Cant IVA no coincide con la cantidad de alícuotas ingresadas.", My.Resources.Resources.stop_error.ToBitmap)
+                            Util.MsgStatus(Status1, "El campo Cant IVA no coincide con la cantidad de alícuotas ingresadas.", My.Resources.Resources.stop_error.ToBitmap, True)
+                            txtMontoIVA27.Focus()
+                            Exit Sub
+                        End If
+                    End If
+                End If
+
+                If Format(CDbl(txtMontoIVA10.Text), "###0.00") > 0 Then
+                    If (txtMontoIVA10.Text - Format(CDbl(txtSubtotal.Text) * 0.105, "###0.00")) > 0.03 Or (txtMontoIVA10.Text - Format(CDbl(txtSubtotal.Text) * 0.105, "###0.00")) < -0.03 Then
+                        Util.MsgStatus(Status1, "El monto IVA del 10,5% no corresponde a la base imponible ingresada. Hay una diferencia superior a los 3 centavos. Por favor, revise estos datos", My.Resources.Resources.stop_error.ToBitmap)
+                        Util.MsgStatus(Status1, "El monto IVA del 10,5% no corresponde a la base imponible ingresada. Hay una diferencia superior a los 3 centavos. Por favor, revise estos datos", My.Resources.Resources.stop_error.ToBitmap, True)
+                        txtMontoIVA10.Focus()
+                        Exit Sub
+                    End If
+                End If
+
+                If Format(CDbl(txtMontoIVA21.Text), "###0.00") > 0 Then
+                    If (txtMontoIVA21.Text - Format(CDbl(txtSubtotal.Text) * 0.21, "###0.00")) > 0.03 Or (txtMontoIVA21.Text - Format(CDbl(txtSubtotal.Text) * 0.21, "###0.00")) < -0.03 Then
+                        Util.MsgStatus(Status1, "El monto IVA del 21% no corresponde a la base imponible ingresada. Hay una diferencia superior a los 3 centavos. Por favor, revise estos datos", My.Resources.Resources.stop_error.ToBitmap)
+                        Util.MsgStatus(Status1, "El monto IVA del 21% no corresponde a la base imponible ingresada. Hay una diferencia superior a los 3 centavos. Por favor, revise estos datos", My.Resources.Resources.stop_error.ToBitmap, True)
+                        txtMontoIVA21.Focus()
+                        Exit Sub
+                    End If
+                End If
+
+                If Format(CDbl(txtMontoIVA27.Text), "###0.00") > 0 Then
+                    If (txtMontoIVA27.Text - Format(CDbl(txtSubtotal.Text) * 0.27, "###0.00")) > 0.03 Or (txtMontoIVA27.Text - Format(CDbl(txtSubtotal.Text) * 0.27, "###0.00")) < -0.03 Then
+                        Util.MsgStatus(Status1, "El monto IVA del 27% no corresponde a la base imponible ingresada. Hay una diferencia superior a los 3 centavos. Por favor, revise estos datos", My.Resources.Resources.stop_error.ToBitmap)
+                        Util.MsgStatus(Status1, "El monto IVA del 27% no corresponde a la base imponible ingresada. Hay una diferencia superior a los 3 centavos. Por favor, revise estos datos", My.Resources.Resources.stop_error.ToBitmap, True)
+                        txtMontoIVA27.Focus()
+                        Exit Sub
+                    End If
+                End If
+            End If
+
+            Dim a As Double, b As Double, c As Double, d As Double
+
+            a = Format(CDbl(txtMontoIVA10.Text) / 0.105, "###0.00")
+            b = Format(CDbl(txtMontoIVA21.Text) / 0.21, "###0.00")
+            c = Format(CDbl(txtMontoIVA27.Text) / 0.27, "###0.00")
+
+            d = a + b + c
+
+            d = Format(d - CDbl(txtSubtotal.Text), "###0.00")
+
+            If d > 0.05 Then
+                Util.MsgStatus(Status1, "El o los montos imponibles difieren de las alícuotas ingresadas. Hay una diferencia superior a los 5 centavos. Por favor, revise estos datos", My.Resources.Resources.stop_error.ToBitmap)
+                Util.MsgStatus(Status1, "El o los montos imponibles difieren de las alícuotas ingresadas. Hay una diferencia superior a los 5 centavos. Por favor, revise estos datos", My.Resources.Resources.stop_error.ToBitmap, True)
+                txtMontoIVA21.Focus()
+                Exit Sub
+            End If
+
+        End If
+
+        If txtTipoMoneda.Text = "Do" And CDbl(txtValorCambio.Text) < BuscarDiferenciaCambio(ConnStringSEI) Then
+            If MessageBox.Show("El valor del cambio ingresado está por debajo del valor de cambio estipulado por sistema, considerando un porcentaje de variación. ¿Desea continuar?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
+                Exit Sub
+            End If
+        End If
 
         If ReglasNegocio() Then
             If bolModo Then
@@ -3619,111 +4314,111 @@ Public Class frmRecepciones
 
                         End If
 
-                        'If chkCargarFactura.Checked = True Then
+                        If chkCargarFactura.Checked = True Then
 
-                        '    res = AgregarActualizar_Registro_Gastos(ControlFactura, ControlRemito)
-                        '    Select Case res
-                        '        Case -20
-                        '            Util.MsgStatus(Status1, "El nuevo total ingresado para el gasto es menor que el cargado originalmente. " & vbCrLf & "Debe anular el pago asociado para luego modificar este Gasto.", My.Resources.Resources.stop_error.ToBitmap)
-                        '            Util.MsgStatus(Status1, "El nuevo total ingresado para el gasto es menor que el cargado originalmente. " & vbCrLf & "Debe anular el pago asociado para luego modificar este Gasto.", My.Resources.Resources.stop_error.ToBitmap, True)
-                        '            Cancelar_Tran()
-                        '            Exit Sub
-                        '        Case -8
-                        '            Util.MsgStatus(Status1, "Ya existe un movimiento que incluye el nro de factura, tipo y cliente que desea ingresar ahora.", My.Resources.Resources.stop_error.ToBitmap)
-                        '            Util.MsgStatus(Status1, "Ya existe un movimiento que incluye el nro de factura, tipo y cliente que desea ingresar ahora.", My.Resources.Resources.stop_error.ToBitmap, True)
-                        '            Cancelar_Tran()
-                        '            Exit Sub
-                        '        Case -1
-                        '            Util.MsgStatus(Status1, "No se pudo agregar el registro. Error en la transacción.", My.Resources.Resources.stop_error.ToBitmap)
-                        '            Util.MsgStatus(Status1, "No se pudo agregar el registro. Error en la transacción.", My.Resources.Resources.stop_error.ToBitmap, True)
-                        '            Cancelar_Tran()
-                        '            Exit Sub
-                        '        Case 0
-                        '            Util.MsgStatus(Status1, "No se pudo agregar el registro.", My.Resources.Resources.stop_error.ToBitmap)
-                        '            Cancelar_Tran()
-                        '            Exit Sub
-                        '        Case Else
-                        '            If bolModo = False Then
-                        '                EliminarItems_Gastos_Det()
-                        '            End If
-                        '            res = AgregarActualizar_Registro_Items_IVA()
-                        '            Select Case res
-                        '                Case -20
-                        '                    Util.MsgStatus(Status1, "El nuevo total ingresado para el gasto es menor que el cargado originalmente. " & vbCrLf & "Debe anular el pago asociado para luego modificar este Gasto.", My.Resources.Resources.stop_error.ToBitmap)
-                        '                    Util.MsgStatus(Status1, "El nuevo total ingresado para el gasto es menor que el cargado originalmente. " & vbCrLf & "Debe anular el pago asociado para luego modificar este Gasto.", My.Resources.Resources.stop_error.ToBitmap, True)
-                        '                    Cancelar_Tran()
-                        '                    Exit Sub
-                        '                Case -1
-                        '                    Util.MsgStatus(Status1, "No se pudo agregar el registro. Error en la transacción.", My.Resources.Resources.stop_error.ToBitmap)
-                        '                    Util.MsgStatus(Status1, "No se pudo agregar el registro. Error en la transacción.", My.Resources.Resources.stop_error.ToBitmap, True)
-                        '                    Cancelar_Tran()
-                        '                    Exit Sub
-                        '                Case 0
-                        '                    Util.MsgStatus(Status1, "No se pudo agregar el registro.", My.Resources.Resources.stop_error.ToBitmap)
-                        '                    Util.MsgStatus(Status1, "No se pudo agregar el registro.", My.Resources.Resources.stop_error.ToBitmap, True)
-                        '                    Cancelar_Tran()
-                        '                    Exit Sub
-                        '                Case Else
-                        '                    res = AgregarRegistro_Impuestos()
-                        '                    Select Case res
-                        '                        Case Is <= 0
-                        '                            Util.MsgStatus(Status1, "No se pudieron actualizar los registros de los Impuestos.", My.Resources.Resources.stop_error.ToBitmap)
-                        '                            Util.MsgStatus(Status1, "No se pudieron actualizar los registros de los Impuestos.", My.Resources.Resources.stop_error.ToBitmap, True)
-                        '                            Cancelar_Tran()
-                        '                            Exit Sub
-                        '                        Case Else
-                        '                            Util.MsgStatus(Status1, "Guardando la información en la cuenta...", My.Resources.Resources.indicator_white)
-                        '                    End Select
+                            res = AgregarActualizar_Registro_Gastos(ControlFactura, ControlRemito)
+                            Select Case res
+                                Case -20
+                                    Util.MsgStatus(Status1, "El nuevo total ingresado para el gasto es menor que el cargado originalmente. " & vbCrLf & "Debe anular el pago asociado para luego modificar este Gasto.", My.Resources.Resources.stop_error.ToBitmap)
+                                    Util.MsgStatus(Status1, "El nuevo total ingresado para el gasto es menor que el cargado originalmente. " & vbCrLf & "Debe anular el pago asociado para luego modificar este Gasto.", My.Resources.Resources.stop_error.ToBitmap, True)
+                                    Cancelar_Tran()
+                                    Exit Sub
+                                Case -8
+                                    Util.MsgStatus(Status1, "Ya existe un movimiento que incluye el nro de factura, tipo y cliente que desea ingresar ahora.", My.Resources.Resources.stop_error.ToBitmap)
+                                    Util.MsgStatus(Status1, "Ya existe un movimiento que incluye el nro de factura, tipo y cliente que desea ingresar ahora.", My.Resources.Resources.stop_error.ToBitmap, True)
+                                    Cancelar_Tran()
+                                    Exit Sub
+                                Case -1
+                                    Util.MsgStatus(Status1, "No se pudo agregar el registro. Error en la transacción.", My.Resources.Resources.stop_error.ToBitmap)
+                                    Util.MsgStatus(Status1, "No se pudo agregar el registro. Error en la transacción.", My.Resources.Resources.stop_error.ToBitmap, True)
+                                    Cancelar_Tran()
+                                    Exit Sub
+                                Case 0
+                                    Util.MsgStatus(Status1, "No se pudo agregar el registro.", My.Resources.Resources.stop_error.ToBitmap)
+                                    Cancelar_Tran()
+                                    Exit Sub
+                                Case Else
+                                    If bolModo = False Then
+                                        EliminarItems_Gastos_Det()
+                                    End If
+                                    res = AgregarActualizar_Registro_Items_IVA()
+                                    Select Case res
+                                        Case -20
+                                            Util.MsgStatus(Status1, "El nuevo total ingresado para el gasto es menor que el cargado originalmente. " & vbCrLf & "Debe anular el pago asociado para luego modificar este Gasto.", My.Resources.Resources.stop_error.ToBitmap)
+                                            Util.MsgStatus(Status1, "El nuevo total ingresado para el gasto es menor que el cargado originalmente. " & vbCrLf & "Debe anular el pago asociado para luego modificar este Gasto.", My.Resources.Resources.stop_error.ToBitmap, True)
+                                            Cancelar_Tran()
+                                            Exit Sub
+                                        Case -1
+                                            Util.MsgStatus(Status1, "No se pudo agregar el registro. Error en la transacción.", My.Resources.Resources.stop_error.ToBitmap)
+                                            Util.MsgStatus(Status1, "No se pudo agregar el registro. Error en la transacción.", My.Resources.Resources.stop_error.ToBitmap, True)
+                                            Cancelar_Tran()
+                                            Exit Sub
+                                        Case 0
+                                            Util.MsgStatus(Status1, "No se pudo agregar el registro.", My.Resources.Resources.stop_error.ToBitmap)
+                                            Util.MsgStatus(Status1, "No se pudo agregar el registro.", My.Resources.Resources.stop_error.ToBitmap, True)
+                                            Cancelar_Tran()
+                                            Exit Sub
+                                        Case Else
+                                            res = AgregarRegistro_Impuestos()
+                                            Select Case res
+                                                Case Is <= 0
+                                                    Util.MsgStatus(Status1, "No se pudieron actualizar los registros de los Impuestos.", My.Resources.Resources.stop_error.ToBitmap)
+                                                    Util.MsgStatus(Status1, "No se pudieron actualizar los registros de los Impuestos.", My.Resources.Resources.stop_error.ToBitmap, True)
+                                                    Cancelar_Tran()
+                                                    Exit Sub
+                                                Case Else
+                                                    Util.MsgStatus(Status1, "Guardando la información en la cuenta...", My.Resources.Resources.indicator_white)
+                                            End Select
 
-                        '                    If chkFacturaCancelada.Checked = True Then 'And grd.CurrentRow.Cells(14).Value = False Then
-                        '                        res = AgregarActualizar_Pago()
-                        '                        Select Case res
-                        '                            Case -1
-                        '                                Cancelar_Tran()
-                        '                                Util.MsgStatus(Status1, "No se pudo registrar el Pago del Gasto", My.Resources.Resources.stop_error.ToBitmap)
-                        '                                Util.MsgStatus(Status1, "No se pudo registrar el Pago del Gasto", My.Resources.Resources.stop_error.ToBitmap, True)
-                        '                                Exit Sub
-                        '                            Case 0
-                        '                                Cancelar_Tran()
-                        '                                Util.MsgStatus(Status1, "No se pudo registrar el Pago del Gasto", My.Resources.Resources.stop_error.ToBitmap)
-                        '                                Util.MsgStatus(Status1, "No se pudo registrar el Pago del Gasto", My.Resources.Resources.stop_error.ToBitmap, True)
-                        '                                Exit Sub
-                        '                            Case Else
-                        '                                Util.MsgStatus(Status1, "Guardando el detalle del pago...", My.Resources.Resources.indicator_white)
-                        '                                res = AgregarRegistro_PagosGastos()
-                        '                                Select Case res
-                        '                                    Case -3
-                        '                                        Cancelar_Tran()
-                        '                                        Util.MsgStatus(Status1, "No se pudo realizar la inserción del Pago (Detalle). Actualización en la tabla Gastos", My.Resources.Resources.stop_error.ToBitmap)
-                        '                                        Util.MsgStatus(Status1, "No se pudo realizar la inserción del Pago (Detalle). Actualización en la tabla Gastos", My.Resources.Resources.stop_error.ToBitmap, True)
-                        '                                        Exit Sub
-                        '                                    Case -2
-                        '                                        Cancelar_Tran()
-                        '                                        Util.MsgStatus(Status1, "No pudo registrar la inserción del Pago (Detalle).", My.Resources.Resources.stop_error.ToBitmap)
-                        '                                        Util.MsgStatus(Status1, "No pudo registrar la inserción del Pago (Detalle).", My.Resources.Resources.stop_error.ToBitmap, True)
-                        '                                        Exit Sub
-                        '                                    Case -1
-                        '                                        Cancelar_Tran()
-                        '                                        Util.MsgStatus(Status1, "Error Desconocido.", My.Resources.Resources.stop_error.ToBitmap)
-                        '                                        Util.MsgStatus(Status1, "Error Desconocido.", My.Resources.Resources.stop_error.ToBitmap, True)
-                        '                                        Exit Sub
-                        '                                    Case 0
-                        '                                        Cancelar_Tran()
-                        '                                        Util.MsgStatus(Status1, "No pudo registrar la inserción del Pago (Detalle).", My.Resources.Resources.stop_error.ToBitmap)
-                        '                                        Util.MsgStatus(Status1, "No pudo registrar la inserción del Pago (Detalle).", My.Resources.Resources.stop_error.ToBitmap, True)
-                        '                                        Exit Sub
-                        '                                    Case Else
-                        '                                        Util.MsgStatus(Status1, "Se guardó correctamente el movimiento", My.Resources.Resources.stop_error.ToBitmap)
+                                            If chkFacturaCancelada.Checked = True Then 'And grd.CurrentRow.Cells(14).Value = False Then
+                                                res = AgregarActualizar_Pago()
+                                                Select Case res
+                                                    Case -1
+                                                        Cancelar_Tran()
+                                                        Util.MsgStatus(Status1, "No se pudo registrar el Pago del Gasto", My.Resources.Resources.stop_error.ToBitmap)
+                                                        Util.MsgStatus(Status1, "No se pudo registrar el Pago del Gasto", My.Resources.Resources.stop_error.ToBitmap, True)
+                                                        Exit Sub
+                                                    Case 0
+                                                        Cancelar_Tran()
+                                                        Util.MsgStatus(Status1, "No se pudo registrar el Pago del Gasto", My.Resources.Resources.stop_error.ToBitmap)
+                                                        Util.MsgStatus(Status1, "No se pudo registrar el Pago del Gasto", My.Resources.Resources.stop_error.ToBitmap, True)
+                                                        Exit Sub
+                                                    Case Else
+                                                        Util.MsgStatus(Status1, "Guardando el detalle del pago...", My.Resources.Resources.indicator_white)
+                                                        res = AgregarRegistro_PagosGastos()
+                                                        Select Case res
+                                                            Case -3
+                                                                Cancelar_Tran()
+                                                                Util.MsgStatus(Status1, "No se pudo realizar la inserción del Pago (Detalle). Actualización en la tabla Gastos", My.Resources.Resources.stop_error.ToBitmap)
+                                                                Util.MsgStatus(Status1, "No se pudo realizar la inserción del Pago (Detalle). Actualización en la tabla Gastos", My.Resources.Resources.stop_error.ToBitmap, True)
+                                                                Exit Sub
+                                                            Case -2
+                                                                Cancelar_Tran()
+                                                                Util.MsgStatus(Status1, "No pudo registrar la inserción del Pago (Detalle).", My.Resources.Resources.stop_error.ToBitmap)
+                                                                Util.MsgStatus(Status1, "No pudo registrar la inserción del Pago (Detalle).", My.Resources.Resources.stop_error.ToBitmap, True)
+                                                                Exit Sub
+                                                            Case -1
+                                                                Cancelar_Tran()
+                                                                Util.MsgStatus(Status1, "Error Desconocido.", My.Resources.Resources.stop_error.ToBitmap)
+                                                                Util.MsgStatus(Status1, "Error Desconocido.", My.Resources.Resources.stop_error.ToBitmap, True)
+                                                                Exit Sub
+                                                            Case 0
+                                                                Cancelar_Tran()
+                                                                Util.MsgStatus(Status1, "No pudo registrar la inserción del Pago (Detalle).", My.Resources.Resources.stop_error.ToBitmap)
+                                                                Util.MsgStatus(Status1, "No pudo registrar la inserción del Pago (Detalle).", My.Resources.Resources.stop_error.ToBitmap, True)
+                                                                Exit Sub
+                                                            Case Else
+                                                                Util.MsgStatus(Status1, "Se guardó correctamente el movimiento", My.Resources.Resources.stop_error.ToBitmap)
 
-                        '                                        GoTo ContinuarTransaccion
+                                                                GoTo ContinuarTransaccion
 
-                        '                                End Select
-                        '                        End Select
-                        '                    End If
-                        '            End Select
-                        '    End Select
+                                                        End Select
+                                                End Select
+                                            End If
+                                    End Select
+                            End Select
 
-                        'End If
+                        End If
 
 ContinuarTransaccion:
                         'Me fijo si la recepción es para otra sucursales (WEB)
@@ -3776,6 +4471,12 @@ ContinuarTransaccion:
                         btnActualizar_Click(sender, e)
 
                         Setear_Grilla()
+                        chkCargarFactura.Enabled = False
+                        cmbProveedor.Visible = False
+                        txtProveedor.Visible = True
+                        cmbOrdenDeCompra.Visible = False
+                        txtOC.Visible = True
+                        btnRecibirTodos.Enabled = False
 
                         Util.MsgStatus(Status1, "Se ha actualizado el registro.", My.Resources.Resources.ok.ToBitmap)
 
@@ -3797,11 +4498,11 @@ ContinuarTransaccion:
         ' ademas, no se puede borrar un vale ya eliminado de antes.
         ' La eliminacion es lógica...y se reversan los items para ajustar el inventario
 
-        'If chkFacturaCancelada.Checked = True Then
-        '    Util.MsgStatus(Status1, "No se puede anular la recepción porque está asociada a un pago que se efectuó. Anule el pago asociado y luego anule esta recepción.", My.Resources.stop_error.ToBitmap)
-        '    Util.MsgStatus(Status1, "No se puede anular la recepción porque está asociada a un pago que se efectuó." & vbCrLf & "Anule el pago asociado y luego anule esta recepción.", My.Resources.stop_error.ToBitmap, True)
-        '    Exit Sub
-        'End If
+        If chkFacturaCancelada.Checked = True Then
+            Util.MsgStatus(Status1, "No se puede anular la recepción porque está asociada a un pago que se efectuó. Anule el pago asociado y luego anule esta recepción.", My.Resources.stop_error.ToBitmap)
+            Util.MsgStatus(Status1, "No se puede anular la recepción porque está asociada a un pago que se efectuó." & vbCrLf & "Anule el pago asociado y luego anule esta recepción.", My.Resources.stop_error.ToBitmap, True)
+            Exit Sub
+        End If
 
         Dim res As Integer
 
@@ -3902,14 +4603,41 @@ ContinuarTransaccion:
         'Dim i As Integer
 
         If bolModo Then 'SOLO LLENA LA GRILLA EN MODO NUEVO...
+            If Me.cmbOrdenDeCompra.Text <> "" Then
+                PrepararGridItems()
+                Try
+                    LlenarGridItemsPorOC(CType(Me.cmbOrdenDeCompra.SelectedValue, Long))
 
+                    BuscarMoneda_OC()
+
+                    Contar_Filas()
+
+                Catch ex As Exception
+
+                End Try
+                btnRecibirTodos.Enabled = True
+                With (grdItems)
+                    .Columns(ColumnasDelGridItems1.Cod_Material).ReadOnly = False 'Codigo material
+                End With
+            End If
         End If
 
     End Sub
 
     Private Overloads Sub btnCancelar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCancelar.Click
+        btnRecibirTodos.Enabled = False
+        chkCargarFactura.Checked = False
+        chkCargarFactura.Enabled = False
 
         'chkAnulados.Enabled = Not bolModo
+        cmbProveedor.Visible = bolModo
+        cmbOrdenDeCompra.Visible = bolModo
+        txtProveedor.Visible = Not bolModo
+        txtOC.Visible = Not bolModo
+
+        cmbGastos.Enabled = False
+        chkGastos.Enabled = False
+
         grd_CurrentCellChanged(sender, e)
 
         LlenarGrid_IVA(CType(txtIdGasto.Text, Long))
@@ -3920,7 +4648,7 @@ ContinuarTransaccion:
 
     End Sub
 
-    Private Sub btnRecibirTodos_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    Private Sub btnRecibirTodos_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRecibirTodos.Click
 
         'If MessageBox.Show("Está seguro que desea copiar los valores de la columna Cant. Saldo y Precio Pedido a las columnas Cant. Recepc y Precio Real?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
         If MessageBox.Show("Está seguro que desea copiar los valores de la columna Cant. Saldo a la columna Cant. Recepc?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
@@ -4186,12 +4914,6 @@ ContinuarTransaccion:
     Private Sub Label25_Click(sender As Object, e As EventArgs) Handles lblPeriodo.Click
 
     End Sub
-
-    Private Sub GroupPanel1_Click(sender As Object, e As EventArgs) Handles GroupPanelDetalleLiquidacion.Click
-
-    End Sub
-
-
 
     'Private Sub btnImportarExcel_Click(sender As Object, e As EventArgs)
     '    ImportarExcel()

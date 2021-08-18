@@ -1750,7 +1750,7 @@ Public Class frmClientes2
 
         Dim j As Integer
         Dim FirstColumnCell As String
-        For j = 0 To DataGridView1.Rows.Count - 2
+        For j = 0 To DataGridView1.Rows.Count - 1
 
             FirstColumnCell = IIf(DataGridView1.Rows(j).Cells(0).Value IsNot Nothing, DataGridView1.Rows(j).Cells(0).Value.ToString, "")
             Try
@@ -1786,8 +1786,9 @@ Public Class frmClientes2
 
 
     End Sub
+    Dim nohagonada
 
-    Private Sub ScanButton_Click(sender As Object, e As EventArgs) Handles ScanButton.Click
-        Scan_columns()
-    End Sub
+    'Private Sub ScanButton_Click(sender As Object, e As EventArgs) Handles ScanButton.Click
+    '    Scan_columns()
+    'End Sub
 End Class
