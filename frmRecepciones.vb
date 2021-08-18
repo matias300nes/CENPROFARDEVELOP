@@ -261,7 +261,7 @@ Public Class frmRecepciones
     End Sub
 
     Private Sub txtid_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) _
-    Handles txtID.KeyPress, txtCODIGO.KeyPress, txtNota.KeyPress, txtPtoVta.KeyPress, txtNroFactura.KeyPress, _
+    Handles txtID.KeyPress, txtCODIGO.KeyPress, txtNota.KeyPress, txtPtoVta.KeyPress, txtNroFactura.KeyPress,
              txtSubtotal.KeyPress
         If e.KeyChar = ChrW(Keys.Enter) Then
             e.Handled = True
@@ -401,14 +401,14 @@ Public Class frmRecepciones
         lblTotal.Text = "0"
         txtValorCambio.Text = "1"
 
-        If cmbTipoComprobante.Text = "FACTURAS A" Or _
-            cmbTipoComprobante.Text = "NOTAS DE CREDITO A" Or _
-            cmbTipoComprobante.Text = "NOTAS DE DEBITO A" Or _
-            cmbTipoComprobante.Text = "RECIBOS A" Or _
-            cmbTipoComprobante.Text = "FACTURAS M" Or _
-            cmbTipoComprobante.Text = "NOTAS DE CREDITO M" Or _
-            cmbTipoComprobante.Text = "NOTAS DE DEBITO M" Or _
-            cmbTipoComprobante.Text = "RECIBOS M" Or _
+        If cmbTipoComprobante.Text = "FACTURAS A" Or
+            cmbTipoComprobante.Text = "NOTAS DE CREDITO A" Or
+            cmbTipoComprobante.Text = "NOTAS DE DEBITO A" Or
+            cmbTipoComprobante.Text = "RECIBOS A" Or
+            cmbTipoComprobante.Text = "FACTURAS M" Or
+            cmbTipoComprobante.Text = "NOTAS DE CREDITO M" Or
+            cmbTipoComprobante.Text = "NOTAS DE DEBITO M" Or
+            cmbTipoComprobante.Text = "RECIBOS M" Or
             cmbTipoComprobante.Text = "TIQUE FACTURA A" Then
             txtCantIVA.Enabled = True
             txtCantIVA.Value = 1
@@ -429,14 +429,14 @@ Public Class frmRecepciones
         If band = 1 Then
             If txtSubtotal.Text <> "" Then
 
-                If cmbTipoComprobante.Text = "FACTURAS A" Or _
-                    cmbTipoComprobante.Text = "NOTAS DE CREDITO A" Or _
-                    cmbTipoComprobante.Text = "NOTAS DE DEBITO A" Or _
-                    cmbTipoComprobante.Text = "RECIBOS A" Or _
-                    cmbTipoComprobante.Text = "FACTURAS M" Or _
-                    cmbTipoComprobante.Text = "NOTAS DE CREDITO M" Or _
-                    cmbTipoComprobante.Text = "NOTAS DE DEBITO M" Or _
-                    cmbTipoComprobante.Text = "RECIBOS M" Or _
+                If cmbTipoComprobante.Text = "FACTURAS A" Or
+                    cmbTipoComprobante.Text = "NOTAS DE CREDITO A" Or
+                    cmbTipoComprobante.Text = "NOTAS DE DEBITO A" Or
+                    cmbTipoComprobante.Text = "RECIBOS A" Or
+                    cmbTipoComprobante.Text = "FACTURAS M" Or
+                    cmbTipoComprobante.Text = "NOTAS DE CREDITO M" Or
+                    cmbTipoComprobante.Text = "NOTAS DE DEBITO M" Or
+                    cmbTipoComprobante.Text = "RECIBOS M" Or
                     cmbTipoComprobante.Text = "TIQUE FACTURA A" Then
 
                     txtMontoIVA21.Text = Format(txtSubtotal.Text * 0.21, "###0.00")
@@ -537,8 +537,8 @@ Public Class frmRecepciones
 
     End Sub
 
-    Private Sub validar_NumerosReales_Impuestos( _
-       ByVal sender As Object, _
+    Private Sub validar_NumerosReales_Impuestos(
+       ByVal sender As Object,
        ByVal e As System.Windows.Forms.KeyPressEventArgs)
 
         ' obtener indice de la columna  
@@ -554,9 +554,9 @@ Public Class frmRecepciones
 
             ' comprobar si es un número con isNumber, si es el backspace, si el caracter  
             ' es el separador decimal, y que no contiene ya el separador  
-            If (Char.IsNumber(caracter)) Or _
-               (caracter = ChrW(Keys.Back)) Or _
-               (caracter = ".") And _
+            If (Char.IsNumber(caracter)) Or
+               (caracter = ChrW(Keys.Back)) Or
+               (caracter = ".") And
                (txt.Text.Contains(".") = False) Then
                 e.Handled = False
             Else
@@ -624,7 +624,7 @@ Public Class frmRecepciones
     Private Sub grdImpuestos_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles grdImpuestos.CellEndEdit
         Try
             If e.ColumnIndex = ColumnasDelGridImpuestos.Monto Then
-                If grdImpuestos.CurrentRow.Cells(ColumnasDelGridImpuestos.Monto).Value Is DBNull.Value Or _
+                If grdImpuestos.CurrentRow.Cells(ColumnasDelGridImpuestos.Monto).Value Is DBNull.Value Or
                     grdImpuestos.CurrentRow.Cells(ColumnasDelGridImpuestos.Monto).Value = Nothing Then
                     grdImpuestos.CurrentRow.Cells(ColumnasDelGridImpuestos.Monto).Value = 0
                 End If
@@ -693,14 +693,14 @@ Public Class frmRecepciones
     End Sub
 
     Private Sub txtCantIVA_ValueChanged(sender As Object, e As EventArgs) Handles txtCantIVA.ValueChanged
-        If cmbTipoComprobante.Text = "FACTURAS A" Or _
-            cmbTipoComprobante.Text = "NOTAS DE CREDITO A" Or _
-            cmbTipoComprobante.Text = "NOTAS DE DEBITO A" Or _
-            cmbTipoComprobante.Text = "RECIBOS A" Or _
-            cmbTipoComprobante.Text = "FACTURAS M" Or _
-            cmbTipoComprobante.Text = "NOTAS DE CREDITO M" Or _
-            cmbTipoComprobante.Text = "NOTAS DE DEBITO M" Or _
-            cmbTipoComprobante.Text = "RECIBOS M" Or _
+        If cmbTipoComprobante.Text = "FACTURAS A" Or
+            cmbTipoComprobante.Text = "NOTAS DE CREDITO A" Or
+            cmbTipoComprobante.Text = "NOTAS DE DEBITO A" Or
+            cmbTipoComprobante.Text = "RECIBOS A" Or
+            cmbTipoComprobante.Text = "FACTURAS M" Or
+            cmbTipoComprobante.Text = "NOTAS DE CREDITO M" Or
+            cmbTipoComprobante.Text = "NOTAS DE DEBITO M" Or
+            cmbTipoComprobante.Text = "RECIBOS M" Or
             cmbTipoComprobante.Text = "TIQUE FACTURA A" Then
 
             If txtCantIVA.Value = 0 Then
@@ -1298,7 +1298,7 @@ Public Class frmRecepciones
 
         Try
 
-            ds_IVAs = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT gd.PorcIva, gd.MontoIva " & _
+            ds_IVAs = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT gd.PorcIva, gd.MontoIva " &
                                                                             " FROM Gastos g JOIN Gastos_det gd ON gd.idgasto = g.id WHERE IdGasto = " & IIf(txtIdGasto.Text = "", 0, txtIdGasto.Text))
 
             ds_IVAs.Dispose()
@@ -1331,7 +1331,7 @@ Public Class frmRecepciones
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             If Not connection Is Nothing Then
@@ -1417,7 +1417,7 @@ Public Class frmRecepciones
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             If Not connection Is Nothing Then
@@ -1460,7 +1460,7 @@ Public Class frmRecepciones
         End Try
 
         Try
-            ds_Cli = SqlHelper.ExecuteDataset(connection, CommandType.Text, "select DISTINCT p.Codigo, ltrim(rtrim(p.nombre)) as Nombre " & _
+            ds_Cli = SqlHelper.ExecuteDataset(connection, CommandType.Text, "select DISTINCT p.Codigo, ltrim(rtrim(p.nombre)) as Nombre " &
                         " from OrdendeCompra o JOIN Proveedores p ON p.Codigo = o.IdProveedor where STATUS = 'P' AND o.eliminado=0 order by ltrim(rtrim(p.nombre)) ") 'AND Status = 'P' 
             ds_Cli.Dispose()
 
@@ -1487,7 +1487,7 @@ Public Class frmRecepciones
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             If Not connection Is Nothing Then
@@ -1529,7 +1529,7 @@ Public Class frmRecepciones
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             If Not connection Is Nothing Then
@@ -1554,7 +1554,7 @@ Public Class frmRecepciones
 
         Try
 
-            ds_OC = SqlHelper.ExecuteDataset(connection, CommandType.Text, "select id , codigo from ordendecompra where " & _
+            ds_OC = SqlHelper.ExecuteDataset(connection, CommandType.Text, "select id , codigo from ordendecompra where " &
                                             " idproveedor = " & cmbProveedor.SelectedValue & "  and eliminado=0 and solicitud = 0 and status in ('P') order by id desc")
             ds_OC.Dispose()
 
@@ -1579,7 +1579,7 @@ Public Class frmRecepciones
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             If Not connection Is Nothing Then
@@ -1696,7 +1696,7 @@ Public Class frmRecepciones
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             If Not connection Is Nothing Then
@@ -1743,7 +1743,7 @@ Public Class frmRecepciones
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             If Not connection Is Nothing Then
@@ -1806,7 +1806,7 @@ Public Class frmRecepciones
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             If Not connection Is Nothing Then
@@ -1851,7 +1851,7 @@ Public Class frmRecepciones
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             If Not connection Is Nothing Then
@@ -2030,18 +2030,18 @@ Public Class frmRecepciones
 
                 Try
                     If bolModo = True Then
-                        SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spRecepciones_Insert", _
-                                              param_id, param_codigo, param_idAlmacen, param_idMoneda, param_idOC, param_NroOC, _
-                                              param_PendienteGasto, param_fecha, param_idproveedor, _
-                                              param_tipofactura, param_ptovtaRemito, param_nrocomprRemito, param_remito, _
+                        SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spRecepciones_Insert",
+                                              param_id, param_codigo, param_idAlmacen, param_idMoneda, param_idOC, param_NroOC,
+                                              param_PendienteGasto, param_fecha, param_idproveedor,
+                                              param_tipofactura, param_ptovtaRemito, param_nrocomprRemito, param_remito,
                                               param_factura, param_nota, param_asociargasto, param_IdGastoAsociar, param_useradd, param_res)
 
                         txtID.Text = param_id.Value
                         txtCODIGO.Text = param_codigo.Value
                     Else
-                        SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spRecepciones_Update", _
-                                              param_id, param_idproveedor, param_ControlRemito, param_ControlFactura, _
-                                              param_fecha, param_ptovtaRemito, param_nrocomprRemito, param_remito, _
+                        SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spRecepciones_Update",
+                                              param_id, param_idproveedor, param_ControlRemito, param_ControlFactura,
+                                              param_fecha, param_ptovtaRemito, param_nrocomprRemito, param_remito,
                                               param_factura, param_nota, param_useradd, param_res)
                     End If
 
@@ -2063,7 +2063,7 @@ Public Class frmRecepciones
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         End Try
@@ -2420,15 +2420,15 @@ Public Class frmRecepciones
                         param_msg.Direction = ParameterDirection.InputOutput
 
                         Try
-                            SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spRecepciones_Det_Insert2", _
-                                                    param_id, param_codigo, param_idAlmacen, param_idRecepcion, param_idmaterial, param_idmaterial_prov, _
-                                                    param_Codigo_Mat_Prov, param_idproveedor, param_preciorevendedor, param_precioyamila, param_preciolista4, _
-                                                    param_qty, param_idunidad, param_remito, param_useradd, param_Nuevo, _
-                                                    param_idordendecompra, param_idordendecompradet, param_material, _
-                                                    param_idmoneda, param_bonificacion1, param_bonificacion2, param_bonificacion3, _
-                                                    param_bonificacion4, param_bonificacion5, param_ganancia, param_pesoxunidad, param_precioventa, _
-                                                    param_preciolista, param_preciovtasiniva, param_iva, param_ActualizarPrecio, _
-                                                    param_precioperon, param_precioperonmayo, _
+                            SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spRecepciones_Det_Insert2",
+                                                    param_id, param_codigo, param_idAlmacen, param_idRecepcion, param_idmaterial, param_idmaterial_prov,
+                                                    param_Codigo_Mat_Prov, param_idproveedor, param_preciorevendedor, param_precioyamila, param_preciolista4,
+                                                    param_qty, param_idunidad, param_remito, param_useradd, param_Nuevo,
+                                                    param_idordendecompra, param_idordendecompradet, param_material,
+                                                    param_idmoneda, param_bonificacion1, param_bonificacion2, param_bonificacion3,
+                                                    param_bonificacion4, param_bonificacion5, param_ganancia, param_pesoxunidad, param_precioventa,
+                                                    param_preciolista, param_preciovtasiniva, param_iva, param_ActualizarPrecio,
+                                                    param_precioperon, param_precioperonmayo,
                                                     param_IdStockMov, param_Comprob, param_Stock, param_res, param_msg)
 
                             'MsgBox(param_msg.Value.ToString)
@@ -2538,7 +2538,7 @@ Public Class frmRecepciones
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Function
@@ -2779,25 +2779,25 @@ Public Class frmRecepciones
                 Try
 
                     If bolModo = True Then
-                        SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spGastos_Insert", _
-                                            param_id, param_idrecepcion, param_codigo, param_fechagasto, _
-                                            param_tipogasto, param_proveedor, param_IdMoneda, param_valorCambio, param_tipofactura, _
-                                            param_nrofactura, param_remito, param_CantIVA, param_MontoIVA, param_Subtotal, param_SubtotalExento, _
-                                            param_Total, param_totalPesos, param_deuda, param_cancelada, param_descripcion, _
-                                            param_Impuestos, param_imputarotroperiodo, param_periodo, _
-                                            param_ptovta, param_nrocompr, param_ptovtaRemito, param_nrocomprRemito, param_UsuarioGasto, _
+                        SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spGastos_Insert",
+                                            param_id, param_idrecepcion, param_codigo, param_fechagasto,
+                                            param_tipogasto, param_proveedor, param_IdMoneda, param_valorCambio, param_tipofactura,
+                                            param_nrofactura, param_remito, param_CantIVA, param_MontoIVA, param_Subtotal, param_SubtotalExento,
+                                            param_Total, param_totalPesos, param_deuda, param_cancelada, param_descripcion,
+                                            param_Impuestos, param_imputarotroperiodo, param_periodo,
+                                            param_ptovta, param_nrocompr, param_ptovtaRemito, param_nrocomprRemito, param_UsuarioGasto,
                                             param_useradd, param_res)
 
                         txtCODIGO.Text = param_codigo.Value
 
                     Else
-                        SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spGastos_Update", _
-                                            param_id, param_fechagasto, _
-                                            param_tipogasto, param_proveedor, param_IdMoneda, param_valorCambio, param_tipofactura, _
-                                            param_nrofactura, param_remito, param_CantIVA, param_MontoIVA, param_Subtotal, param_SubtotalExento, _
-                                            param_Total, param_totalPesos, param_descripcion, _
-                                            param_Impuestos, param_imputarotroperiodo, param_periodo, _
-                                            param_ptovta, param_nrocompr, param_ptovtaRemito, param_nrocomprRemito, param_ControlFactura, param_ControlRemito, _
+                        SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spGastos_Update",
+                                            param_id, param_fechagasto,
+                                            param_tipogasto, param_proveedor, param_IdMoneda, param_valorCambio, param_tipofactura,
+                                            param_nrofactura, param_remito, param_CantIVA, param_MontoIVA, param_Subtotal, param_SubtotalExento,
+                                            param_Total, param_totalPesos, param_descripcion,
+                                            param_Impuestos, param_imputarotroperiodo, param_periodo,
+                                            param_ptovta, param_nrocompr, param_ptovtaRemito, param_nrocomprRemito, param_ControlFactura, param_ControlRemito,
                                             param_useradd, param_res)
 
                     End If
@@ -2823,7 +2823,7 @@ Public Class frmRecepciones
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
@@ -3011,19 +3011,19 @@ Public Class frmRecepciones
             Try
 
                 If bolModo = True Then
-                    SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spPagos_Insert", _
-                                            param_id, param_codigo, param_idProveedor, param_fecha, param_contado, param_montoContado, _
-                                            param_tarjeta, param_montotarjeta, param_cheque, param_montocheque, param_montochequepropio, _
-                                            param_transferencia, param_montotransf, param_impuestos, param_montoimpuesto, _
-                                            param_montoiva, param_subtotal, param_total, param_Redondeo, param_nota, _
+                    SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spPagos_Insert",
+                                            param_id, param_codigo, param_idProveedor, param_fecha, param_contado, param_montoContado,
+                                            param_tarjeta, param_montotarjeta, param_cheque, param_montocheque, param_montochequepropio,
+                                            param_transferencia, param_montotransf, param_impuestos, param_montoimpuesto,
+                                            param_montoiva, param_subtotal, param_total, param_Redondeo, param_nota,
                                             param_useradd, param_res)
 
                 Else
-                    SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spPagos_Update", _
-                                            param_id, param_codigo, param_idProveedor, param_fecha, param_contado, param_montoContado, _
-                                            param_tarjeta, param_montotarjeta, param_cheque, param_montocheque, param_montochequepropio, _
-                                            param_transferencia, param_montotransf, param_impuestos, param_montoimpuesto, _
-                                            param_montoiva, param_subtotal, param_total, param_Redondeo, param_nota, _
+                    SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spPagos_Update",
+                                            param_id, param_codigo, param_idProveedor, param_fecha, param_contado, param_montoContado,
+                                            param_tarjeta, param_montotarjeta, param_cheque, param_montocheque, param_montochequepropio,
+                                            param_transferencia, param_montotransf, param_impuestos, param_montoimpuesto,
+                                            param_montoiva, param_subtotal, param_total, param_Redondeo, param_nota,
                                             param_useradd, param_res)
 
                 End If
@@ -3046,7 +3046,7 @@ Public Class frmRecepciones
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         End Try
@@ -3091,7 +3091,7 @@ Public Class frmRecepciones
             param_res.Direction = ParameterDirection.InputOutput
 
             Try
-                SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spPagos_Gastos_Insert", _
+                SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spPagos_Gastos_Insert",
                                           param_idPago, param_idGasto, param_DEUDA, param_CancelarTodo, param_res)
 
                 res = param_res.Value
@@ -3112,7 +3112,7 @@ Public Class frmRecepciones
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Function
@@ -3177,15 +3177,15 @@ Public Class frmRecepciones
                     Try
                         If bolModo = True Then
 
-                            SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spGastos_Impuestos_Insert", _
-                                param_IdGasto, param_CodigoImpuesto, param_NroDocumento, _
+                            SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spGastos_Impuestos_Insert",
+                                param_IdGasto, param_CodigoImpuesto, param_NroDocumento,
                                  param_Monto, param_res)
 
                             res = param_res.Value
 
                         Else
 
-                            SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spGastos_Impuestos_Update", _
+                            SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spGastos_Impuestos_Update",
                                  param_Id, param_NroDocumento, param_Monto, param_MENSAJE, param_res)
 
                             'MsgBox(param_MENSAJE.Value)
@@ -3221,7 +3221,7 @@ Public Class frmRecepciones
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         End Try
@@ -3299,7 +3299,7 @@ Public Class frmRecepciones
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         End Try
@@ -3328,7 +3328,7 @@ Public Class frmRecepciones
 
             Try
 
-                SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spGastos_Delete", _
+                SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spGastos_Delete",
                                           param_idGasto, param_userdel, param_res)
 
                 EliminarRegistro_Gasto = param_res.Value
@@ -3347,7 +3347,7 @@ Public Class frmRecepciones
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         End Try
@@ -3423,12 +3423,12 @@ Public Class frmRecepciones
 
                     Try
                         If bolModo = True Then
-                            SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spGastos_Det_Insert", _
-                                                 param_idGasto, param_subtotal, param_PorcIva, param_MontoIva, _
+                            SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spGastos_Det_Insert",
+                                                 param_idGasto, param_subtotal, param_PorcIva, param_MontoIva,
                                                  param_res)
                         Else
-                            SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spGastos_Det_Update", _
-                                                 param_idGasto, param_PorcIva, param_MontoIva, _
+                            SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spGastos_Det_Update",
+                                                 param_idGasto, param_PorcIva, param_MontoIva,
                                                  param_res)
                         End If
 
@@ -3461,7 +3461,7 @@ Public Class frmRecepciones
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Function
@@ -3482,7 +3482,7 @@ Public Class frmRecepciones
             param_res.Value = DBNull.Value
             param_res.Direction = ParameterDirection.InputOutput
 
-            SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spGastos_Det_Delete", _
+            SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spGastos_Det_Delete",
                                         param_idGasto, param_res)
 
             EliminarItems_Gastos_Det = param_res.Value
@@ -3497,7 +3497,7 @@ Public Class frmRecepciones
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
             'Finally
             '    If Not connection Is Nothing Then
@@ -4449,10 +4449,10 @@ ContinuarTransaccion:
 
             End If
 
-            If e.ColumnIndex = ColumnasDelGridItems.Bonif1 Or e.ColumnIndex = ColumnasDelGridItems.Bonif2 Or _
-                e.ColumnIndex = ColumnasDelGridItems.Bonif3 Or e.ColumnIndex = ColumnasDelGridItems.Bonif4 Or _
-                e.ColumnIndex = ColumnasDelGridItems.Bonif5 Or _
-                e.ColumnIndex = ColumnasDelGridItems.Ganancia Or _
+            If e.ColumnIndex = ColumnasDelGridItems.Bonif1 Or e.ColumnIndex = ColumnasDelGridItems.Bonif2 Or
+                e.ColumnIndex = ColumnasDelGridItems.Bonif3 Or e.ColumnIndex = ColumnasDelGridItems.Bonif4 Or
+                e.ColumnIndex = ColumnasDelGridItems.Bonif5 Or
+                e.ColumnIndex = ColumnasDelGridItems.Ganancia Or
                 e.ColumnIndex = ColumnasDelGridItems.PrecioListaReal Then
 
                 Dim Bonif1 As Double, Bonif2 As Double, Bonif3 As Double, Bonif4 As Double, Bonif5 As Double
