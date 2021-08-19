@@ -35,7 +35,7 @@ Partial Class frmRecepciones
         Me.Label9 = New System.Windows.Forms.Label()
         Me.cboSheet = New System.Windows.Forms.ComboBox()
         Me.ColLabel = New System.Windows.Forms.Label()
-        Me.btnComparar = New System.Windows.Forms.Button()
+        Me.btnListo = New System.Windows.Forms.Button()
         Me.FilaLabel = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.Label18 = New System.Windows.Forms.Label()
@@ -169,7 +169,7 @@ Partial Class frmRecepciones
         Me.GroupPanelDetalleLiquidacion.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007
         Me.GroupPanelDetalleLiquidacion.Controls.Add(Me.GroupBox3)
         Me.GroupPanelDetalleLiquidacion.Controls.Add(Me.ColLabel)
-        Me.GroupPanelDetalleLiquidacion.Controls.Add(Me.btnComparar)
+        Me.GroupPanelDetalleLiquidacion.Controls.Add(Me.btnListo)
         Me.GroupPanelDetalleLiquidacion.Controls.Add(Me.FilaLabel)
         Me.GroupPanelDetalleLiquidacion.Controls.Add(Me.GroupBox2)
         Me.GroupPanelDetalleLiquidacion.Controls.Add(Me.Label11)
@@ -293,16 +293,17 @@ Partial Class frmRecepciones
         Me.ColLabel.TabIndex = 379
         Me.ColLabel.Text = "0"
         '
-        'btnComparar
+        'btnListo
         '
-        Me.btnComparar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.3!)
-        Me.btnComparar.Location = New System.Drawing.Point(1141, 448)
-        Me.btnComparar.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnComparar.Name = "btnComparar"
-        Me.btnComparar.Size = New System.Drawing.Size(105, 36)
-        Me.btnComparar.TabIndex = 348
-        Me.btnComparar.Text = "Listo"
-        Me.btnComparar.UseVisualStyleBackColor = True
+        Me.btnListo.Enabled = False
+        Me.btnListo.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.3!)
+        Me.btnListo.Location = New System.Drawing.Point(1141, 448)
+        Me.btnListo.Margin = New System.Windows.Forms.Padding(2)
+        Me.btnListo.Name = "btnListo"
+        Me.btnListo.Size = New System.Drawing.Size(105, 36)
+        Me.btnListo.TabIndex = 348
+        Me.btnListo.Text = "Listo"
+        Me.btnListo.UseVisualStyleBackColor = True
         '
         'FilaLabel
         '
@@ -346,6 +347,7 @@ Partial Class frmRecepciones
         '
         Me.NumericUpDown1.Location = New System.Drawing.Point(25, 43)
         Me.NumericUpDown1.Margin = New System.Windows.Forms.Padding(2)
+        Me.NumericUpDown1.Maximum = New Decimal(New Integer() {0, 0, 0, 0})
         Me.NumericUpDown1.Name = "NumericUpDown1"
         Me.NumericUpDown1.Size = New System.Drawing.Size(63, 20)
         Me.NumericUpDown1.TabIndex = 357
@@ -372,6 +374,7 @@ Partial Class frmRecepciones
         '
         Me.NumericUpDown2.Location = New System.Drawing.Point(25, 87)
         Me.NumericUpDown2.Margin = New System.Windows.Forms.Padding(2)
+        Me.NumericUpDown2.Maximum = New Decimal(New Integer() {0, 0, 0, 0})
         Me.NumericUpDown2.Name = "NumericUpDown2"
         Me.NumericUpDown2.Size = New System.Drawing.Size(63, 20)
         Me.NumericUpDown2.TabIndex = 358
@@ -389,6 +392,7 @@ Partial Class frmRecepciones
         '
         Me.NumericUpDown3.Location = New System.Drawing.Point(25, 132)
         Me.NumericUpDown3.Margin = New System.Windows.Forms.Padding(2)
+        Me.NumericUpDown3.Maximum = New Decimal(New Integer() {0, 0, 0, 0})
         Me.NumericUpDown3.Name = "NumericUpDown3"
         Me.NumericUpDown3.Size = New System.Drawing.Size(63, 20)
         Me.NumericUpDown3.TabIndex = 359
@@ -406,6 +410,7 @@ Partial Class frmRecepciones
         '
         Me.NumericUpDown4.Location = New System.Drawing.Point(128, 43)
         Me.NumericUpDown4.Margin = New System.Windows.Forms.Padding(2)
+        Me.NumericUpDown4.Maximum = New Decimal(New Integer() {0, 0, 0, 0})
         Me.NumericUpDown4.Name = "NumericUpDown4"
         Me.NumericUpDown4.Size = New System.Drawing.Size(63, 20)
         Me.NumericUpDown4.TabIndex = 360
@@ -414,12 +419,14 @@ Partial Class frmRecepciones
         '
         Me.NumericUpDown5.Location = New System.Drawing.Point(128, 87)
         Me.NumericUpDown5.Margin = New System.Windows.Forms.Padding(2)
+        Me.NumericUpDown5.Maximum = New Decimal(New Integer() {0, 0, 0, 0})
         Me.NumericUpDown5.Name = "NumericUpDown5"
         Me.NumericUpDown5.Size = New System.Drawing.Size(63, 20)
         Me.NumericUpDown5.TabIndex = 361
         '
         'ScanButton
         '
+        Me.ScanButton.Enabled = False
         Me.ScanButton.Location = New System.Drawing.Point(65, 178)
         Me.ScanButton.Margin = New System.Windows.Forms.Padding(2)
         Me.ScanButton.Name = "ScanButton"
@@ -1140,7 +1147,7 @@ Partial Class frmRecepciones
     Friend WithEvents lblcmbObrasSociales As System.Windows.Forms.Label
     Friend WithEvents cmbObraSocial As System.Windows.Forms.ComboBox
     Friend WithEvents grdDetalleLiquidacionFiltrada As System.Windows.Forms.DataGridView
-    Friend WithEvents btnComparar As System.Windows.Forms.Button
+    Friend WithEvents btnListo As System.Windows.Forms.Button
     Friend WithEvents grdItems As System.Windows.Forms.DataGridView
     Friend WithEvents DataGridViewTextBoxColumn1 As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents IdFarmacia As System.Windows.Forms.DataGridViewTextBoxColumn

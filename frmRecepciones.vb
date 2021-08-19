@@ -803,18 +803,10 @@ Public Class frmRecepciones
 
 
     Private Sub cboSheet_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboSheet.SelectedIndexChanged
+        cboSheet.SelectedIndex = 0
         Dim dt As DataTable = tables(cboSheet.SelectedItem.ToString())
 
         grdDetalleLiquidacion.DataSource = dt
-
-        grdDetalleLiquidacion.BringToFront()
-        Dim cellvaluescount As Integer = 0
-        For Each cell As DataGridViewCell In grdDetalleLiquidacion.CurrentRow.Cells
-            If TypeOf cell.Value Is DBNull = False Then 'if not a null or (blank/empty) value
-                'cell has a value in it
-                cellvaluescount += 1
-            End If
-        Next
 
         grdDetalleLiquidacionFiltrada.Columns.Add("Codigo", "Codigo")
         grdDetalleLiquidacionFiltrada.Columns.Add("Recetas", "Recetas")
@@ -823,21 +815,15 @@ Public Class frmRecepciones
         grdDetalleLiquidacionFiltrada.Columns.Add("Bonificacion", "Bonificacion")
         grdDetalleLiquidacionFiltrada.Columns.Add("Total", "Total")
 
-        Dim j As Integer
-        For j = 0 To grdDetalleLiquidacion.Rows.Count - 1
-            If TypeOf grdDetalleLiquidacion.Rows(j).Cells(3).Value Is DBNull = False Then
-                'If grdFacturasConsumos.Rows(j).Cells(ColumnasDelGridFacturasConsumos.Deuda).Value < 0 Then
-                '    deudanegativa = deudanegativa + grdFacturasConsumos.Rows(j).Cells(ColumnasDelGridFacturasConsumos.Deuda).Value
-                'End If
-                'grdDetalleLiquidacionFiltrada.Rows.Add(grdDetalleLiquidacion.Rows(j).Cells(3).Value)
-                'grdDetalleLiquidacionFiltrada.Rows(j).Cells(3).Value = grdDetalleLiquidacion.Rows(j).Cells(3).Value
+        ScanButton.Enabled = True
+    End Sub
 
+    Private Sub cboSheet_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboSheet.SelectedIndexChanged
+        Dim dt As DataTable = tables(cboSheet.SelectedItem.ToString())
 
-            End If
-        Next
+        grdDetalleLiquidacion.DataSource = dt
 
-
-        Dim max As Integer = grdDetalleLiquidacion.Columns.Count
+        Dim max As Integer = grdDetalleLiquidacion.Columns.Count - 1
         NumericUpDown1.Maximum = max
         NumericUpDown2.Maximum = max
         NumericUpDown3.Maximum = max
@@ -908,6 +894,8 @@ Public Class frmRecepciones
 
     Private Sub ScanButton_Click(sender As Object, e As EventArgs) Handles ScanButton.Click
         Scan_columns()
+
+        btnListo.Enabled = True
     End Sub
 
 
@@ -4011,10 +3999,10 @@ ContinuarTransaccion:
 
             End If
 
-            If e.ColumnIndex = ColumnasDelGridItems1.Bonif1 Or e.ColumnIndex = ColumnasDelGridItems1.Bonif2 Or _
-                e.ColumnIndex = ColumnasDelGridItems1.Bonif3 Or e.ColumnIndex = ColumnasDelGridItems1.Bonif4 Or _
-                e.ColumnIndex = ColumnasDelGridItems1.Bonif5 Or _
-                e.ColumnIndex = ColumnasDelGridItems1.Ganancia Or _
+            If e.ColumnIndex = ColumnasDelGridItems1.Bonif1 Or e.ColumnIndex = ColumnasDelGridItems1.Bonif2 Or
+                e.ColumnIndex = ColumnasDelGridItems1.Bonif3 Or e.ColumnIndex = ColumnasDelGridItems1.Bonif4 Or
+                e.ColumnIndex = ColumnasDelGridItems1.Bonif5 Or
+                e.ColumnIndex = ColumnasDelGridItems1.Ganancia Or
                 e.ColumnIndex = ColumnasDelGridItems1.PrecioListaReal Then
 
                 Dim Bonif1 As Double, Bonif2 As Double, Bonif3 As Double, Bonif4 As Double, Bonif5 As Double
@@ -4178,17 +4166,6 @@ ContinuarTransaccion:
         '    For A As Integer = 0 To grdDetLiquidacionOs.RowCount() - 1
         '        recetaOS = grdDetLiquidacionOs.Rows(A).Cells("NUM_SOCIO").Value()
 
-        '        If (recetaP = recetaOS) Then
-        '            grdItems.Rows(i).DefaultCellStyle.BackColor = Color.LightBlue
-        '        End If
-
-        '        If grdItems.Rows(i).DefaultCellStyle.BackColor <> Color.LightBlue Then
-        '            grdItems.Rows(i).DefaultCellStyle.BackColor = Color.Red
-        '        End If
-
-
-        '    Next
-        'Next
     End Sub
 
     Private Sub Label25_Click(sender As Object, e As EventArgs) Handles lblPeriodo.Click
@@ -4199,9 +4176,4 @@ ContinuarTransaccion:
 
     End Sub
 
-
-
-    'Private Sub btnImportarExcel_Click(sender As Object, e As EventArgs)
-    '    ImportarExcel()
-    'End Sub
 End Class
