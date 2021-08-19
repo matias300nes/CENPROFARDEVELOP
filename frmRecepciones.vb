@@ -759,6 +759,10 @@ Public Class frmRecepciones
         End Using
 
         grdDetalleLiquidacion.BringToFront()
+
+        cboSheet.SelectedIndex = 0
+
+        btnScan.Enabled = True
         '.ReadHeaderRow = Function(rowReader) rowReader.Read,
         '.FilterRow = Function(rowReader) rowReader.Depth > 6
     End Sub
@@ -766,7 +770,6 @@ Public Class frmRecepciones
     Private Sub comparar()
 
         Dim j, i As Integer
-        Dim FirstColumnCell As String
         Dim recetasGrdItems, recetasGrdDetalleLiquidacion As Integer
         For j = 0 To grdItems.Rows.Count - 1
             Dim codigoGrdItems = grdItems.Rows(j).Cells(1).Value
@@ -787,26 +790,21 @@ Public Class frmRecepciones
 
         Next
 
-        'FirstColumnCell = IIf(grdItems.Rows(j).Cells(0).Value IsNot Nothing, grdDetalleLiquidacion.Rows(j).Cells(0).Value.ToString, "")
-        'Try
-        '    If FirstColumnCell <> "" Then
-        '        grdItems.Rows(j).Cells(0).Value
-        '    End If
-        'Catch ex As Exception
-        'End Try
-
     End Sub
 
 
 
-
-
-
-    Private Sub cboSheet_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboSheet.SelectedIndexChanged
-        cboSheet.SelectedIndex = 0
+    Private Sub CboSheet_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboSheet.SelectedIndexChanged
         Dim dt As DataTable = tables(cboSheet.SelectedItem.ToString())
 
         grdDetalleLiquidacion.DataSource = dt
+
+        Dim max As Integer = grdDetalleLiquidacion.Columns.Count - 1
+        NumericUpDown1.Maximum = max
+        NumericUpDown2.Maximum = max
+        NumericUpDown3.Maximum = max
+        NumericUpDown4.Maximum = max
+        NumericUpDown5.Maximum = max
 
         grdDetalleLiquidacionFiltrada.Columns.Add("Codigo", "Codigo")
         grdDetalleLiquidacionFiltrada.Columns.Add("Recetas", "Recetas")
@@ -815,9 +813,7 @@ Public Class frmRecepciones
         grdDetalleLiquidacionFiltrada.Columns.Add("Bonificacion", "Bonificacion")
         grdDetalleLiquidacionFiltrada.Columns.Add("Total", "Total")
 
-        ScanButton.Enabled = True
     End Sub
-
 
     Private Sub grdDetalleLiquidacion_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles grdDetalleLiquidacion.CellContentClick
         FilaLabel.Text = e.RowIndex
@@ -845,29 +841,27 @@ Public Class frmRecepciones
 
             FirstColumnCell = IIf(grdDetalleLiquidacion.Rows(j).Cells(0).Value IsNot Nothing, grdDetalleLiquidacion.Rows(j).Cells(0).Value.ToString, "")
             Try
-                If FirstColumnCell <> "" Then
-                    If FirstColumnCell.Contains("F0") Then
+                If FirstColumnCell.Contains("F0") Then
 
-                        '/////Create a new row and get its index/////
-                        rowIndex = grdDetalleLiquidacionFiltrada.Rows.Add()
+                    '/////Create a new row and get its index/////
+                    rowIndex = grdDetalleLiquidacionFiltrada.Rows.Add()
 
-                        '//////Get a reference to the new row ///////
-                        Row = grdDetalleLiquidacionFiltrada.Rows(rowIndex)
-
+                    '//////Get a reference to the new row ///////
+                    Row = grdDetalleLiquidacionFiltrada.Rows(rowIndex)
 
 
-                        With Row
-                            'This won't fail since the columns exist 
-                            .Cells("Codigo").Value = grdDetalleLiquidacion.Rows(j).Cells(0).Value
-                            .Cells("Recetas").Value = grdDetalleLiquidacion.Rows(j).Cells(RecetasIndex).Value
-                            .Cells("Recaudado").Value = grdDetalleLiquidacion.Rows(j).Cells(RecaudadoIndex).Value
-                            .Cells("A cargo OS").Value = grdDetalleLiquidacion.Rows(j).Cells(AcargoOSIndex).Value
-                            .Cells("Bonificacion").Value = grdDetalleLiquidacion.Rows(j).Cells(BonificacionIndex).Value
-                            .Cells("Total").Value = grdDetalleLiquidacion.Rows(j).Cells(TotalIndex).Value
-                            '.Cells("OrderDateColumn").Value = RowValues.Created
-                            '.Cells("CreatedByColumn").Value = RowValues.OwnerName
-                        End With
-                    End If
+
+                    With Row
+                        'This won't fail since the columns exist 
+                        .Cells("Codigo").Value = grdDetalleLiquidacion.Rows(j).Cells(0).Value
+                        .Cells("Recetas").Value = grdDetalleLiquidacion.Rows(j).Cells(RecetasIndex).Value
+                        .Cells("Recaudado").Value = grdDetalleLiquidacion.Rows(j).Cells(RecaudadoIndex).Value
+                        .Cells("A cargo OS").Value = grdDetalleLiquidacion.Rows(j).Cells(AcargoOSIndex).Value
+                        .Cells("Bonificacion").Value = grdDetalleLiquidacion.Rows(j).Cells(BonificacionIndex).Value
+                        .Cells("Total").Value = grdDetalleLiquidacion.Rows(j).Cells(TotalIndex).Value
+                        '.Cells("OrderDateColumn").Value = RowValues.Created
+                        '.Cells("CreatedByColumn").Value = RowValues.OwnerName
+                    End With
                 End If
             Catch ex As Exception
             End Try
@@ -879,7 +873,7 @@ Public Class frmRecepciones
     End Sub
 
 
-    Private Sub ScanButton_Click(sender As Object, e As EventArgs) Handles ScanButton.Click
+    Private Sub BtnScan_Click(sender As Object, e As EventArgs) Handles btnScan.Click
         Scan_columns()
 
         btnListo.Enabled = True
