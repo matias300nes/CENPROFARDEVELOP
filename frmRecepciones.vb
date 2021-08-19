@@ -765,6 +765,7 @@ Public Class frmRecepciones
         btnScan.Enabled = True
         '.ReadHeaderRow = Function(rowReader) rowReader.Read,
         '.FilterRow = Function(rowReader) rowReader.Depth > 6
+        Get_excel_templates()
     End Sub
 
     Private Sub comparar()
@@ -818,6 +819,42 @@ Public Class frmRecepciones
     Private Sub grdDetalleLiquidacion_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles grdDetalleLiquidacion.CellContentClick
         FilaLabel.Text = e.RowIndex
         ColLabel.Text = e.ColumnIndex
+
+    End Sub
+
+    Private Sub Get_excel_templates()
+        Dim connection As SqlClient.SqlConnection = Nothing
+
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+        Catch ex As Exception
+            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End Try
+
+        Try
+
+            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, " SELECT RecetasCol, RecaudadoCol, ACargoOSCol, BonificacionCol, TotalCol FROM ExcelTemplates as t where t.name = 'JERARQUICOS ORIGINAL'")
+            ds.Dispose()
+
+
+            'Dim valor
+            'Dim i As Integer
+            'For i = 0 To ds.Tables(0).Columns.Count - 1
+            '    valor = ds.Tables(0).Rows(0)(i)
+            'Next
+            NumericUpDown1.Value = ds.Tables(0).Rows(0)(0)
+            NumericUpDown2.Value = ds.Tables(0).Rows(0)(1)
+            NumericUpDown3.Value = ds.Tables(0).Rows(0)(2)
+            NumericUpDown4.Value = ds.Tables(0).Rows(0)(3)
+            NumericUpDown5.Value = ds.Tables(0).Rows(0)(4)
+
+            Scan_columns()
+            btnListo.Enabled = True
+
+        Catch ex As Exception
+            MsgBox("el error es" & ex.Message)
+        End Try
 
     End Sub
 
