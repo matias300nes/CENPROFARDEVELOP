@@ -818,19 +818,6 @@ Public Class frmRecepciones
         ScanButton.Enabled = True
     End Sub
 
-    Private Sub cboSheet_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboSheet.SelectedIndexChanged
-        Dim dt As DataTable = tables(cboSheet.SelectedItem.ToString())
-
-        grdDetalleLiquidacion.DataSource = dt
-
-        Dim max As Integer = grdDetalleLiquidacion.Columns.Count - 1
-        NumericUpDown1.Maximum = max
-        NumericUpDown2.Maximum = max
-        NumericUpDown3.Maximum = max
-        NumericUpDown4.Maximum = max
-        NumericUpDown5.Maximum = max
-
-    End Sub
 
     Private Sub grdDetalleLiquidacion_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles grdDetalleLiquidacion.CellContentClick
         FilaLabel.Text = e.RowIndex
@@ -4154,7 +4141,7 @@ ContinuarTransaccion:
 
 
 
-    Private Sub btnComparar_Click(sender As Object, e As EventArgs) Handles btnComparar.Click
+    Private Sub btnListo_Click(sender As Object, e As EventArgs) Handles btnListo.Click
         Dim prueba = grdItems.Rows(1).Cells(ColumnasDelGridItems.Total).Value.ToString
         comparar()
         'For i As Integer = 0 To grdItems.RowCount() - 1
