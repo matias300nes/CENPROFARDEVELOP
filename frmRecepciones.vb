@@ -763,6 +763,43 @@ Public Class frmRecepciones
         '.FilterRow = Function(rowReader) rowReader.Depth > 6
     End Sub
 
+    Private Sub comparar()
+
+        Dim j, i As Integer
+        Dim FirstColumnCell As String
+        Dim recetasGrdItems, recetasGrdDetalleLiquidacion As Integer
+        For j = 0 To grdItems.Rows.Count - 1
+            Dim codigoGrdItems = grdItems.Rows(j).Cells(1).Value
+
+            For i = 0 To grdDetalleLiquidacionFiltrada.Rows.Count - 1
+                Dim codigoGrdDetalleLiquidacion = grdDetalleLiquidacionFiltrada.Rows(i).Cells(0).Value
+                If codigoGrdDetalleLiquidacion = codigoGrdItems Then
+                    recetasGrdItems = grdItems.Rows(j).Cells("Recetas").Value
+                    recetasGrdDetalleLiquidacion = grdDetalleLiquidacionFiltrada.Rows(i).Cells("Recetas").Value
+                    If recetasGrdItems <> recetasGrdDetalleLiquidacion Then
+                        MsgBox("Existe diferencia en j = ")
+                        MsgBox(codigoGrdDetalleLiquidacion)
+                    End If
+                End If
+
+
+            Next
+
+        Next
+
+        'FirstColumnCell = IIf(grdItems.Rows(j).Cells(0).Value IsNot Nothing, grdDetalleLiquidacion.Rows(j).Cells(0).Value.ToString, "")
+        'Try
+        '    If FirstColumnCell <> "" Then
+        '        grdItems.Rows(j).Cells(0).Value
+        '    End If
+        'Catch ex As Exception
+        'End Try
+
+    End Sub
+
+
+
+
 
 
     Private Sub cboSheet_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboSheet.SelectedIndexChanged
@@ -4131,7 +4168,7 @@ ContinuarTransaccion:
 
     Private Sub btnComparar_Click(sender As Object, e As EventArgs) Handles btnComparar.Click
         Dim prueba = grdItems.Rows(1).Cells(ColumnasDelGridItems.Total).Value.ToString
-
+        comparar()
         'For i As Integer = 0 To grdItems.RowCount() - 1
         '    Dim recetaP, recetaOS
 
