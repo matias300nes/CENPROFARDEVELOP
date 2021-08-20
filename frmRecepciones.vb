@@ -867,6 +867,8 @@ Public Class frmRecepciones
         Dim Row As DataGridViewRow = Nothing
         Dim rowIndex As Integer 'index of the row
 
+        Dim DiscountIndex As Integer
+
         grdDetalleLiquidacionFiltrada.Columns.Clear()
         grdDetalleLiquidacionFiltrada.Rows.Clear()
 
@@ -922,6 +924,23 @@ Public Class frmRecepciones
                         .Cells("Recetas").Value = grdDetalleLiquidacion.Rows(j).Cells(RecetasIndex).Value
                         .Cells("Recaudado").Value = grdDetalleLiquidacion.Rows(j).Cells(RecaudadoIndex).Value
                         .Cells("A cargo OS").Value = grdDetalleLiquidacion.Rows(j).Cells(AcargoOSIndex).Value
+
+                        If cboDescuentos1.SelectedItem <> "" Then
+                            DiscountIndex = numericDescuentos1.Value
+                            .Cells(cboDescuentos1.SelectedItem).Value = grdDetalleLiquidacion.Rows(j).Cells(DiscountIndex).Value
+                        End If
+                        If cboDescuentos2.SelectedItem <> "" Then
+                            DiscountIndex = numericDescuentos2.Value
+                            .Cells(cboDescuentos2.SelectedItem).Value = grdDetalleLiquidacion.Rows(j).Cells(DiscountIndex).Value
+                        End If
+                        If cboDescuentos3.SelectedItem <> "" Then
+                            DiscountIndex = numericDescuentos3.Value
+                            .Cells(cboDescuentos3.SelectedItem).Value = grdDetalleLiquidacion.Rows(j).Cells(DiscountIndex).Value
+                        End If
+                        If cboDescuentos4.SelectedItem <> "" Then
+                            DiscountIndex = numericDescuentos4.Value
+                            .Cells(cboDescuentos4.SelectedItem).Value = grdDetalleLiquidacion.Rows(j).Cells(DiscountIndex).Value
+                        End If
                         '.Cells("Bonificacion").Value = grdDetalleLiquidacion.Rows(j).Cells(BonificacionIndex).Value
                         '.Cells("Total").Value = grdDetalleLiquidacion.Rows(j).Cells(TotalIndex).Value
                         '.Cells("OrderDateColumn").Value = RowValues.Created
