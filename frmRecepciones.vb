@@ -4186,12 +4186,6 @@ ContinuarTransaccion:
 
     End Sub
 
-    Private Sub Label25_Click(sender As Object, e As EventArgs) Handles lblPeriodo.Click
 
-    End Sub
-
-    Private Sub GroupPanel1_Click(sender As Object, e As EventArgs) Handles GroupPanelDetalleLiquidacion.Click
-
-    End Sub
 
 End Class
