@@ -20,12 +20,12 @@ Partial Class frmRecepciones
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.GroupPanelDetalleLiquidacion = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
@@ -38,15 +38,15 @@ Partial Class frmRecepciones
         Me.btnListo = New System.Windows.Forms.Button()
         Me.FilaLabel = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.ComboBox4 = New System.Windows.Forms.ComboBox()
-        Me.ComboBox3 = New System.Windows.Forms.ComboBox()
-        Me.ComboBox2 = New System.Windows.Forms.ComboBox()
+        Me.cboDescuentos4 = New System.Windows.Forms.ComboBox()
+        Me.cboDescuentos3 = New System.Windows.Forms.ComboBox()
+        Me.cboDescuentos2 = New System.Windows.Forms.ComboBox()
         Me.Label14 = New System.Windows.Forms.Label()
-        Me.NumericUpDown9 = New System.Windows.Forms.NumericUpDown()
-        Me.NumericUpDown8 = New System.Windows.Forms.NumericUpDown()
-        Me.NumericUpDown7 = New System.Windows.Forms.NumericUpDown()
-        Me.NumericUpDown6 = New System.Windows.Forms.NumericUpDown()
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
+        Me.numericDescuentos4 = New System.Windows.Forms.NumericUpDown()
+        Me.numericDescuentos3 = New System.Windows.Forms.NumericUpDown()
+        Me.numericDescuentos2 = New System.Windows.Forms.NumericUpDown()
+        Me.numericDescuentos1 = New System.Windows.Forms.NumericUpDown()
+        Me.cboDescuentos1 = New System.Windows.Forms.ComboBox()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.Label18 = New System.Windows.Forms.Label()
         Me.NumericUpDown1 = New System.Windows.Forms.NumericUpDown()
@@ -118,10 +118,10 @@ Partial Class frmRecepciones
         Me.GroupPanelDetalleLiquidacion.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
-        CType(Me.NumericUpDown9, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.NumericUpDown8, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.NumericUpDown7, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.NumericUpDown6, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numericDescuentos4, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numericDescuentos3, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numericDescuentos2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numericDescuentos1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDown3, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -330,15 +330,15 @@ Partial Class frmRecepciones
         '
         'GroupBox2
         '
-        Me.GroupBox2.Controls.Add(Me.ComboBox4)
-        Me.GroupBox2.Controls.Add(Me.ComboBox3)
-        Me.GroupBox2.Controls.Add(Me.ComboBox2)
+        Me.GroupBox2.Controls.Add(Me.cboDescuentos4)
+        Me.GroupBox2.Controls.Add(Me.cboDescuentos3)
+        Me.GroupBox2.Controls.Add(Me.cboDescuentos2)
         Me.GroupBox2.Controls.Add(Me.Label14)
-        Me.GroupBox2.Controls.Add(Me.NumericUpDown9)
-        Me.GroupBox2.Controls.Add(Me.NumericUpDown8)
-        Me.GroupBox2.Controls.Add(Me.NumericUpDown7)
-        Me.GroupBox2.Controls.Add(Me.NumericUpDown6)
-        Me.GroupBox2.Controls.Add(Me.ComboBox1)
+        Me.GroupBox2.Controls.Add(Me.numericDescuentos4)
+        Me.GroupBox2.Controls.Add(Me.numericDescuentos3)
+        Me.GroupBox2.Controls.Add(Me.numericDescuentos2)
+        Me.GroupBox2.Controls.Add(Me.numericDescuentos1)
+        Me.GroupBox2.Controls.Add(Me.cboDescuentos1)
         Me.GroupBox2.Controls.Add(Me.Label13)
         Me.GroupBox2.Controls.Add(Me.Label18)
         Me.GroupBox2.Controls.Add(Me.NumericUpDown1)
@@ -358,32 +358,32 @@ Partial Class frmRecepciones
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Columnas a filtrar"
         '
-        'ComboBox4
+        'cboDescuentos4
         '
-        Me.ComboBox4.FormattingEnabled = True
-        Me.ComboBox4.Items.AddRange(New Object() {"", "Bonificacion", "N. Credito", "Debitos", "Ajustes", "Recupero. Aj", "Recupero Gs"})
-        Me.ComboBox4.Location = New System.Drawing.Point(52, 187)
-        Me.ComboBox4.Name = "ComboBox4"
-        Me.ComboBox4.Size = New System.Drawing.Size(90, 21)
-        Me.ComboBox4.TabIndex = 389
+        Me.cboDescuentos4.FormattingEnabled = True
+        Me.cboDescuentos4.Items.AddRange(New Object() {"", "Bonificacion", "N. Credito", "Debitos", "Ajustes", "Recupero. Aj", "Recupero Gs"})
+        Me.cboDescuentos4.Location = New System.Drawing.Point(52, 187)
+        Me.cboDescuentos4.Name = "cboDescuentos4"
+        Me.cboDescuentos4.Size = New System.Drawing.Size(90, 21)
+        Me.cboDescuentos4.TabIndex = 389
         '
-        'ComboBox3
+        'cboDescuentos3
         '
-        Me.ComboBox3.FormattingEnabled = True
-        Me.ComboBox3.Items.AddRange(New Object() {"", "Bonificacion", "N. Credito", "Debitos", "Ajustes", "Recupero. Aj", "Recupero Gs"})
-        Me.ComboBox3.Location = New System.Drawing.Point(52, 161)
-        Me.ComboBox3.Name = "ComboBox3"
-        Me.ComboBox3.Size = New System.Drawing.Size(90, 21)
-        Me.ComboBox3.TabIndex = 388
+        Me.cboDescuentos3.FormattingEnabled = True
+        Me.cboDescuentos3.Items.AddRange(New Object() {"", "Bonificacion", "N. Credito", "Debitos", "Ajustes", "Recupero. Aj", "Recupero Gs"})
+        Me.cboDescuentos3.Location = New System.Drawing.Point(52, 161)
+        Me.cboDescuentos3.Name = "cboDescuentos3"
+        Me.cboDescuentos3.Size = New System.Drawing.Size(90, 21)
+        Me.cboDescuentos3.TabIndex = 388
         '
-        'ComboBox2
+        'cboDescuentos2
         '
-        Me.ComboBox2.FormattingEnabled = True
-        Me.ComboBox2.Items.AddRange(New Object() {" ", "Bonificacion", "N. Credito", "Debitos", "Ajustes", "Recupero. Aj", "Recupero Gs"})
-        Me.ComboBox2.Location = New System.Drawing.Point(52, 134)
-        Me.ComboBox2.Name = "ComboBox2"
-        Me.ComboBox2.Size = New System.Drawing.Size(90, 21)
-        Me.ComboBox2.TabIndex = 387
+        Me.cboDescuentos2.FormattingEnabled = True
+        Me.cboDescuentos2.Items.AddRange(New Object() {"", "Bonificacion", "N. Credito", "Debitos", "Ajustes", "Recupero. Aj", "Recupero Gs"})
+        Me.cboDescuentos2.Location = New System.Drawing.Point(52, 134)
+        Me.cboDescuentos2.Name = "cboDescuentos2"
+        Me.cboDescuentos2.Size = New System.Drawing.Size(90, 21)
+        Me.cboDescuentos2.TabIndex = 387
         '
         'Label14
         '
@@ -394,42 +394,42 @@ Partial Class frmRecepciones
         Me.Label14.TabIndex = 386
         Me.Label14.Text = "col"
         '
-        'NumericUpDown9
+        'numericDescuentos4
         '
-        Me.NumericUpDown9.Location = New System.Drawing.Point(148, 188)
-        Me.NumericUpDown9.Name = "NumericUpDown9"
-        Me.NumericUpDown9.Size = New System.Drawing.Size(40, 20)
-        Me.NumericUpDown9.TabIndex = 385
+        Me.numericDescuentos4.Location = New System.Drawing.Point(148, 188)
+        Me.numericDescuentos4.Name = "numericDescuentos4"
+        Me.numericDescuentos4.Size = New System.Drawing.Size(40, 20)
+        Me.numericDescuentos4.TabIndex = 385
         '
-        'NumericUpDown8
+        'numericDescuentos3
         '
-        Me.NumericUpDown8.Location = New System.Drawing.Point(148, 161)
-        Me.NumericUpDown8.Name = "NumericUpDown8"
-        Me.NumericUpDown8.Size = New System.Drawing.Size(40, 20)
-        Me.NumericUpDown8.TabIndex = 383
+        Me.numericDescuentos3.Location = New System.Drawing.Point(148, 161)
+        Me.numericDescuentos3.Name = "numericDescuentos3"
+        Me.numericDescuentos3.Size = New System.Drawing.Size(40, 20)
+        Me.numericDescuentos3.TabIndex = 383
         '
-        'NumericUpDown7
+        'numericDescuentos2
         '
-        Me.NumericUpDown7.Location = New System.Drawing.Point(148, 134)
-        Me.NumericUpDown7.Name = "NumericUpDown7"
-        Me.NumericUpDown7.Size = New System.Drawing.Size(40, 20)
-        Me.NumericUpDown7.TabIndex = 381
+        Me.numericDescuentos2.Location = New System.Drawing.Point(148, 134)
+        Me.numericDescuentos2.Name = "numericDescuentos2"
+        Me.numericDescuentos2.Size = New System.Drawing.Size(40, 20)
+        Me.numericDescuentos2.TabIndex = 381
         '
-        'NumericUpDown6
+        'numericDescuentos1
         '
-        Me.NumericUpDown6.Location = New System.Drawing.Point(148, 107)
-        Me.NumericUpDown6.Name = "NumericUpDown6"
-        Me.NumericUpDown6.Size = New System.Drawing.Size(40, 20)
-        Me.NumericUpDown6.TabIndex = 379
+        Me.numericDescuentos1.Location = New System.Drawing.Point(148, 107)
+        Me.numericDescuentos1.Name = "numericDescuentos1"
+        Me.numericDescuentos1.Size = New System.Drawing.Size(40, 20)
+        Me.numericDescuentos1.TabIndex = 379
         '
-        'ComboBox1
+        'cboDescuentos1
         '
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Items.AddRange(New Object() {"", "Bonificacion", "N. Credito", "Debitos", "Ajustes", "Recupero. Aj", "Recupero Gs"})
-        Me.ComboBox1.Location = New System.Drawing.Point(52, 107)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(90, 21)
-        Me.ComboBox1.TabIndex = 378
+        Me.cboDescuentos1.FormattingEnabled = True
+        Me.cboDescuentos1.Items.AddRange(New Object() {"", "Bonificacion", "N. Credito", "Debitos", "Ajustes", "Recupero. Aj", "Recupero Gs"})
+        Me.cboDescuentos1.Location = New System.Drawing.Point(52, 107)
+        Me.cboDescuentos1.Name = "cboDescuentos1"
+        Me.cboDescuentos1.Size = New System.Drawing.Size(90, 21)
+        Me.cboDescuentos1.TabIndex = 378
         '
         'Label13
         '
@@ -609,24 +609,24 @@ Partial Class frmRecepciones
         '
         Me.grdItems.AllowUserToAddRows = False
         Me.grdItems.AllowUserToDeleteRows = False
-        DataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
-        DataGridViewCellStyle7.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black
-        Me.grdItems.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black
+        Me.grdItems.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.grdItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.grdItems.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.IdFarmacia, Me.Farmacia, Me.IdPresentacion, Me.Recetas, Me.Recaudado, Me.AcargoOS, Me.Bonificacion, Me.Total})
         Me.grdItems.Location = New System.Drawing.Point(3, 211)
         Me.grdItems.Name = "grdItems"
         Me.grdItems.RowHeadersWidth = 51
-        DataGridViewCellStyle9.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grdItems.RowsDefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grdItems.RowsDefaultCellStyle = DataGridViewCellStyle3
         Me.grdItems.Size = New System.Drawing.Size(1102, 245)
         Me.grdItems.TabIndex = 351
         '
         'DataGridViewTextBoxColumn1
         '
-        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DataGridViewTextBoxColumn1.DefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DataGridViewTextBoxColumn1.DefaultCellStyle = DataGridViewCellStyle2
         Me.DataGridViewTextBoxColumn1.HeaderText = "Id"
         Me.DataGridViewTextBoxColumn1.MinimumWidth = 6
         Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
@@ -835,33 +835,33 @@ Partial Class frmRecepciones
         '
         Me.grdImpuestos.AllowUserToAddRows = False
         Me.grdImpuestos.AllowUserToDeleteRows = False
-        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.grdImpuestos.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle10
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.grdImpuestos.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
         Me.grdImpuestos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle11.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle11.ForeColor = System.Drawing.Color.Blue
-        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.grdImpuestos.DefaultCellStyle = DataGridViewCellStyle11
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.Blue
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.grdImpuestos.DefaultCellStyle = DataGridViewCellStyle5
         Me.grdImpuestos.Location = New System.Drawing.Point(657, 323)
         Me.grdImpuestos.Name = "grdImpuestos"
-        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle12.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.grdImpuestos.RowHeadersDefaultCellStyle = DataGridViewCellStyle12
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.grdImpuestos.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
         Me.grdImpuestos.RowHeadersWidth = 51
         Me.grdImpuestos.Size = New System.Drawing.Size(448, 133)
         Me.grdImpuestos.TabIndex = 25
@@ -1206,10 +1206,10 @@ Partial Class frmRecepciones
         Me.GroupBox3.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
-        CType(Me.NumericUpDown9, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.NumericUpDown8, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.NumericUpDown7, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.NumericUpDown6, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numericDescuentos4, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numericDescuentos3, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numericDescuentos2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numericDescuentos1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NumericUpDown3, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1304,13 +1304,13 @@ Partial Class frmRecepciones
     Friend WithEvents GroupBox3 As GroupBox
     Friend WithEvents btnImportExcel As Button
     Friend WithEvents Label13 As Label
-    Friend WithEvents NumericUpDown6 As NumericUpDown
-    Friend WithEvents ComboBox1 As ComboBox
-    Friend WithEvents ComboBox4 As ComboBox
-    Friend WithEvents ComboBox3 As ComboBox
-    Friend WithEvents ComboBox2 As ComboBox
+    Friend WithEvents numericDescuentos1 As NumericUpDown
+    Friend WithEvents cboDescuentos1 As ComboBox
+    Friend WithEvents cboDescuentos4 As ComboBox
+    Friend WithEvents cboDescuentos3 As ComboBox
+    Friend WithEvents cboDescuentos2 As ComboBox
     Friend WithEvents Label14 As Label
-    Friend WithEvents NumericUpDown9 As NumericUpDown
-    Friend WithEvents NumericUpDown8 As NumericUpDown
-    Friend WithEvents NumericUpDown7 As NumericUpDown
+    Friend WithEvents numericDescuentos4 As NumericUpDown
+    Friend WithEvents numericDescuentos3 As NumericUpDown
+    Friend WithEvents numericDescuentos2 As NumericUpDown
 End Class

@@ -806,13 +806,10 @@ Public Class frmRecepciones
         NumericUpDown3.Maximum = max
         NumericUpDown4.Maximum = max
         NumericUpDown5.Maximum = max
-
-        grdDetalleLiquidacionFiltrada.Columns.Add("Codigo", "Codigo")
-        grdDetalleLiquidacionFiltrada.Columns.Add("Recetas", "Recetas")
-        grdDetalleLiquidacionFiltrada.Columns.Add("Recaudado", "Recaudado")
-        grdDetalleLiquidacionFiltrada.Columns.Add("A cargo OS", "A cargo OS")
-        grdDetalleLiquidacionFiltrada.Columns.Add("Bonificacion", "Bonificacion")
-        grdDetalleLiquidacionFiltrada.Columns.Add("Total", "Total")
+        numericDescuentos1.Maximum = max
+        numericDescuentos2.Maximum = max
+        numericDescuentos3.Maximum = max
+        numericDescuentos4.Maximum = max
 
     End Sub
 
@@ -870,7 +867,38 @@ Public Class frmRecepciones
         Dim Row As DataGridViewRow = Nothing
         Dim rowIndex As Integer 'index of the row
 
-        Me.grdDetalleLiquidacionFiltrada.Rows.Clear()
+        grdDetalleLiquidacionFiltrada.Columns.Clear()
+        grdDetalleLiquidacionFiltrada.Rows.Clear()
+
+        grdDetalleLiquidacionFiltrada.Columns.Add("Codigo", "Codigo")
+        grdDetalleLiquidacionFiltrada.Columns.Add("Recetas", "Recetas")
+        grdDetalleLiquidacionFiltrada.Columns.Add("Recaudado", "Recaudado")
+        grdDetalleLiquidacionFiltrada.Columns.Add("A cargo OS", "A cargo OS")
+        With cboDescuentos1
+            If .SelectedItem <> "" Then
+                grdDetalleLiquidacionFiltrada.Columns.Add(.SelectedItem, .SelectedItem)
+            End If
+        End With
+        With cboDescuentos2
+            If .SelectedItem <> "" Then
+                grdDetalleLiquidacionFiltrada.Columns.Add(.SelectedItem, .SelectedItem)
+            End If
+        End With
+        With cboDescuentos3
+            If .SelectedItem <> "" Then
+                grdDetalleLiquidacionFiltrada.Columns.Add(.SelectedItem, .SelectedItem)
+            End If
+        End With
+        With cboDescuentos4
+            If .SelectedItem <> "" Then
+                grdDetalleLiquidacionFiltrada.Columns.Add(.SelectedItem, .SelectedItem)
+            End If
+        End With
+
+        'grdDetalleLiquidacionFiltrada.Columns.Add("Bonificacion", "Bonificacion")
+        'grdDetalleLiquidacionFiltrada.Columns.Add("Total", "Total")
+
+
 
         Dim j As Integer
         Dim FirstColumnCell As String
@@ -894,8 +922,8 @@ Public Class frmRecepciones
                         .Cells("Recetas").Value = grdDetalleLiquidacion.Rows(j).Cells(RecetasIndex).Value
                         .Cells("Recaudado").Value = grdDetalleLiquidacion.Rows(j).Cells(RecaudadoIndex).Value
                         .Cells("A cargo OS").Value = grdDetalleLiquidacion.Rows(j).Cells(AcargoOSIndex).Value
-                        .Cells("Bonificacion").Value = grdDetalleLiquidacion.Rows(j).Cells(BonificacionIndex).Value
-                        .Cells("Total").Value = grdDetalleLiquidacion.Rows(j).Cells(TotalIndex).Value
+                        '.Cells("Bonificacion").Value = grdDetalleLiquidacion.Rows(j).Cells(BonificacionIndex).Value
+                        '.Cells("Total").Value = grdDetalleLiquidacion.Rows(j).Cells(TotalIndex).Value
                         '.Cells("OrderDateColumn").Value = RowValues.Created
                         '.Cells("CreatedByColumn").Value = RowValues.OwnerName
                     End With
