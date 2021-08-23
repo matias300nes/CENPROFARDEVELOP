@@ -824,6 +824,7 @@ Public Class frmRecepciones
 
     Private Sub Get_excel_templates(TemplateName)
         Dim connection As SqlClient.SqlConnection = Nothing
+        Dim WorkingOnTemplate = False
 
         Try
             connection = SqlHelper.GetConnection(ConnStringSEI)
@@ -833,23 +834,47 @@ Public Class frmRecepciones
         End Try
 
         Try
-
-            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $" SELECT RecetasCol, RecaudadoCol, ACargoOSCol, BonificacionCol, TotalCol FROM ExcelTemplates as t where t.name = '{TemplateName}'")
+            Dim SQL = $" SELECT Recetas, Recaudado, ACargoOS, Bonificacion, [N. Credito], Debitos, Ajustes, [Recupero Aj], [Recupero Gs], Total FROM ExcelTemplates as t where t.name = '{TemplateName}'"
+            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, SQL)
             ds.Dispose()
 
             If ds.Tables(0).Rows.Count > 0 Then
+                WorkingOnTemplate = True
                 RecognitionLabel.Visible = True
                 RecognitionLabel.Text = $"Se reconoció: {TemplateName}"
 
                 NumericUpDown1.Value = ds.Tables(0).Rows(0)(0)
                 NumericUpDown2.Value = ds.Tables(0).Rows(0)(1)
                 NumericUpDown3.Value = ds.Tables(0).Rows(0)(2)
-                NumericUpDown4.Value = ds.Tables(0).Rows(0)(3)
-                NumericUpDown5.Value = ds.Tables(0).Rows(0)(4)
+                ''NumericUpDown4.Value = ds.Tables(0).Rows(0)(3)
+                ''NumericUpDown5.Value = ds.Tables(0).Rows(0)(4)
+                Dim i As Integer
+
+
+                Dim cbolist As New List(Of ComboBox)
+                Dim numericlist As New List(Of NumericUpDown)
+                For Each obj As Object In PanelDescuentos.Controls
+                    If TypeOf obj Is ComboBox Then
+                        cbolist.Add(obj)
+                    End If
+                    If TypeOf obj Is NumericUpDown Then
+                        numericlist.Add(obj)
+                    End If
+                Next
+
+                Dim j As Integer
+                For i = 3 To ds.Tables(0).Columns.Count - 2
+                    j = i - 3
+                    If ds.Tables(0).Rows(0)(i) IsNot DBNull.Value Then
+                        cbolist(j).SelectedItem = ds.Tables(0).Columns(i).ColumnName
+                        numericlist(numericlist.Count - 1 - j).Value = ds.Tables(0).Rows(0)(i)
+                    End If
+                Next
 
                 Scan_columns()
                 btnListo.Enabled = True
             Else
+                WorkingOnTemplate = False
                 RecognitionLabel.Visible = False
                 grdDetalleLiquidacionFiltrada.Columns.Clear()
                 grdDetalleLiquidacionFiltrada.Rows.Clear()
@@ -4238,7 +4263,5 @@ ContinuarTransaccion:
         '        recetaOS = grdDetLiquidacionOs.Rows(A).Cells("NUM_SOCIO").Value()
 
     End Sub
-
-
 
 End Class
