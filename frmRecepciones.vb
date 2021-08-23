@@ -737,7 +737,7 @@ Public Class frmRecepciones
     Dim tables As DataTableCollection
 
     Private Sub btnImportExcel_Click(sender As Object, e As EventArgs) Handles btnImportExcel.Click
-        Dim TemplateName
+        Dim TemplateName = ""
         Using ofd As OpenFileDialog = New OpenFileDialog() With {.Filter = "Excel Files |*.xls; *.xlsx"}
             If ofd.ShowDialog = DialogResult.OK Then
 
