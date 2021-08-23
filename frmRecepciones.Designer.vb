@@ -20,12 +20,12 @@ Partial Class frmRecepciones
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle19 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle21 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle20 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle22 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle23 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle24 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.GroupPanelDetalleLiquidacion = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
@@ -114,6 +114,7 @@ Partial Class frmRecepciones
         Me.ContextMenuStripIVA = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BorrarElItemToolStripMenuItemIVA = New System.Windows.Forms.ToolStripMenuItem()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
+        Me.RecognitionLabel = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.GroupPanelDetalleLiquidacion.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -193,10 +194,10 @@ Partial Class frmRecepciones
         Me.GroupPanelDetalleLiquidacion.Controls.Add(Me.grdDetalleLiquidacionFiltrada)
         Me.GroupPanelDetalleLiquidacion.Controls.Add(Me.grdDetalleLiquidacion)
         Me.GroupPanelDetalleLiquidacion.DisabledBackColor = System.Drawing.Color.Empty
-        Me.GroupPanelDetalleLiquidacion.Location = New System.Drawing.Point(-7, 0)
+        Me.GroupPanelDetalleLiquidacion.Location = New System.Drawing.Point(-1, 0)
         Me.GroupPanelDetalleLiquidacion.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupPanelDetalleLiquidacion.Name = "GroupPanelDetalleLiquidacion"
-        Me.GroupPanelDetalleLiquidacion.Size = New System.Drawing.Size(1370, 531)
+        Me.GroupPanelDetalleLiquidacion.Size = New System.Drawing.Size(2000, 531)
         '
         '
         '
@@ -234,16 +235,16 @@ Partial Class frmRecepciones
         Me.GroupBox3.Controls.Add(Me.FileName)
         Me.GroupBox3.Controls.Add(Me.Label9)
         Me.GroupBox3.Controls.Add(Me.cboSheet)
-        Me.GroupBox3.Location = New System.Drawing.Point(1078, 30)
+        Me.GroupBox3.Location = New System.Drawing.Point(1046, 28)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(236, 125)
+        Me.GroupBox3.Size = New System.Drawing.Size(269, 125)
         Me.GroupBox3.TabIndex = 380
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Importar Archivo"
         '
         'btnImportExcel
         '
-        Me.btnImportExcel.Location = New System.Drawing.Point(144, 41)
+        Me.btnImportExcel.Location = New System.Drawing.Point(159, 41)
         Me.btnImportExcel.Margin = New System.Windows.Forms.Padding(2)
         Me.btnImportExcel.Name = "btnImportExcel"
         Me.btnImportExcel.Size = New System.Drawing.Size(61, 23)
@@ -254,7 +255,7 @@ Partial Class frmRecepciones
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(26, 26)
+        Me.Label1.Location = New System.Drawing.Point(41, 26)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(33, 13)
         Me.Label1.TabIndex = 356
@@ -268,7 +269,7 @@ Partial Class frmRecepciones
         Me.FileName.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.FileName.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FileName.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.FileName.Location = New System.Drawing.Point(29, 43)
+        Me.FileName.Location = New System.Drawing.Point(44, 43)
         Me.FileName.MaxLength = 25
         Me.FileName.Name = "FileName"
         Me.FileName.ReadOnly = True
@@ -283,7 +284,7 @@ Partial Class frmRecepciones
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(26, 70)
+        Me.Label9.Location = New System.Drawing.Point(41, 70)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(29, 13)
         Me.Label9.TabIndex = 370
@@ -293,7 +294,7 @@ Partial Class frmRecepciones
         '
         Me.cboSheet.AccessibleName = "*OrdenCompra"
         Me.cboSheet.FormattingEnabled = True
-        Me.cboSheet.Location = New System.Drawing.Point(29, 87)
+        Me.cboSheet.Location = New System.Drawing.Point(44, 87)
         Me.cboSheet.Name = "cboSheet"
         Me.cboSheet.Size = New System.Drawing.Size(176, 21)
         Me.cboSheet.TabIndex = 354
@@ -311,7 +312,7 @@ Partial Class frmRecepciones
         '
         Me.btnListo.Enabled = False
         Me.btnListo.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.3!)
-        Me.btnListo.Location = New System.Drawing.Point(1141, 448)
+        Me.btnListo.Location = New System.Drawing.Point(1130, 448)
         Me.btnListo.Margin = New System.Windows.Forms.Padding(2)
         Me.btnListo.Name = "btnListo"
         Me.btnListo.Size = New System.Drawing.Size(105, 36)
@@ -330,6 +331,7 @@ Partial Class frmRecepciones
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.RecognitionLabel)
         Me.GroupBox2.Controls.Add(Me.cboDescuentos4)
         Me.GroupBox2.Controls.Add(Me.cboDescuentos3)
         Me.GroupBox2.Controls.Add(Me.cboDescuentos2)
@@ -351,9 +353,9 @@ Partial Class frmRecepciones
         Me.GroupBox2.Controls.Add(Me.NumericUpDown4)
         Me.GroupBox2.Controls.Add(Me.NumericUpDown5)
         Me.GroupBox2.Controls.Add(Me.btnScan)
-        Me.GroupBox2.Location = New System.Drawing.Point(1078, 178)
+        Me.GroupBox2.Location = New System.Drawing.Point(1046, 178)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(236, 255)
+        Me.GroupBox2.Size = New System.Drawing.Size(269, 255)
         Me.GroupBox2.TabIndex = 377
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Columnas a filtrar"
@@ -362,7 +364,7 @@ Partial Class frmRecepciones
         '
         Me.cboDescuentos4.FormattingEnabled = True
         Me.cboDescuentos4.Items.AddRange(New Object() {"", "Bonificacion", "N. Credito", "Debitos", "Ajustes", "Recupero. Aj", "Recupero Gs"})
-        Me.cboDescuentos4.Location = New System.Drawing.Point(52, 187)
+        Me.cboDescuentos4.Location = New System.Drawing.Point(69, 187)
         Me.cboDescuentos4.Name = "cboDescuentos4"
         Me.cboDescuentos4.Size = New System.Drawing.Size(90, 21)
         Me.cboDescuentos4.TabIndex = 389
@@ -371,7 +373,7 @@ Partial Class frmRecepciones
         '
         Me.cboDescuentos3.FormattingEnabled = True
         Me.cboDescuentos3.Items.AddRange(New Object() {"", "Bonificacion", "N. Credito", "Debitos", "Ajustes", "Recupero. Aj", "Recupero Gs"})
-        Me.cboDescuentos3.Location = New System.Drawing.Point(52, 161)
+        Me.cboDescuentos3.Location = New System.Drawing.Point(69, 161)
         Me.cboDescuentos3.Name = "cboDescuentos3"
         Me.cboDescuentos3.Size = New System.Drawing.Size(90, 21)
         Me.cboDescuentos3.TabIndex = 388
@@ -380,7 +382,7 @@ Partial Class frmRecepciones
         '
         Me.cboDescuentos2.FormattingEnabled = True
         Me.cboDescuentos2.Items.AddRange(New Object() {"", "Bonificacion", "N. Credito", "Debitos", "Ajustes", "Recupero. Aj", "Recupero Gs"})
-        Me.cboDescuentos2.Location = New System.Drawing.Point(52, 134)
+        Me.cboDescuentos2.Location = New System.Drawing.Point(69, 134)
         Me.cboDescuentos2.Name = "cboDescuentos2"
         Me.cboDescuentos2.Size = New System.Drawing.Size(90, 21)
         Me.cboDescuentos2.TabIndex = 387
@@ -388,7 +390,7 @@ Partial Class frmRecepciones
         'Label14
         '
         Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(156, 91)
+        Me.Label14.Location = New System.Drawing.Point(171, 91)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(21, 13)
         Me.Label14.TabIndex = 386
@@ -396,28 +398,28 @@ Partial Class frmRecepciones
         '
         'numericDescuentos4
         '
-        Me.numericDescuentos4.Location = New System.Drawing.Point(148, 188)
+        Me.numericDescuentos4.Location = New System.Drawing.Point(165, 188)
         Me.numericDescuentos4.Name = "numericDescuentos4"
         Me.numericDescuentos4.Size = New System.Drawing.Size(40, 20)
         Me.numericDescuentos4.TabIndex = 385
         '
         'numericDescuentos3
         '
-        Me.numericDescuentos3.Location = New System.Drawing.Point(148, 161)
+        Me.numericDescuentos3.Location = New System.Drawing.Point(165, 161)
         Me.numericDescuentos3.Name = "numericDescuentos3"
         Me.numericDescuentos3.Size = New System.Drawing.Size(40, 20)
         Me.numericDescuentos3.TabIndex = 383
         '
         'numericDescuentos2
         '
-        Me.numericDescuentos2.Location = New System.Drawing.Point(148, 134)
+        Me.numericDescuentos2.Location = New System.Drawing.Point(165, 134)
         Me.numericDescuentos2.Name = "numericDescuentos2"
         Me.numericDescuentos2.Size = New System.Drawing.Size(40, 20)
         Me.numericDescuentos2.TabIndex = 381
         '
         'numericDescuentos1
         '
-        Me.numericDescuentos1.Location = New System.Drawing.Point(148, 107)
+        Me.numericDescuentos1.Location = New System.Drawing.Point(165, 107)
         Me.numericDescuentos1.Name = "numericDescuentos1"
         Me.numericDescuentos1.Size = New System.Drawing.Size(40, 20)
         Me.numericDescuentos1.TabIndex = 379
@@ -426,7 +428,7 @@ Partial Class frmRecepciones
         '
         Me.cboDescuentos1.FormattingEnabled = True
         Me.cboDescuentos1.Items.AddRange(New Object() {"", "Bonificacion", "N. Credito", "Debitos", "Ajustes", "Recupero. Aj", "Recupero Gs"})
-        Me.cboDescuentos1.Location = New System.Drawing.Point(52, 107)
+        Me.cboDescuentos1.Location = New System.Drawing.Point(69, 107)
         Me.cboDescuentos1.Name = "cboDescuentos1"
         Me.cboDescuentos1.Size = New System.Drawing.Size(90, 21)
         Me.cboDescuentos1.TabIndex = 378
@@ -435,7 +437,7 @@ Partial Class frmRecepciones
         '
         Me.Label13.AutoSize = True
         Me.Label13.ForeColor = System.Drawing.Color.Black
-        Me.Label13.Location = New System.Drawing.Point(12, 78)
+        Me.Label13.Location = New System.Drawing.Point(12, 80)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(121, 13)
         Me.Label13.TabIndex = 377
@@ -444,7 +446,7 @@ Partial Class frmRecepciones
         'Label18
         '
         Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(12, 28)
+        Me.Label18.Location = New System.Drawing.Point(38, 37)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(47, 13)
         Me.Label18.TabIndex = 372
@@ -452,7 +454,7 @@ Partial Class frmRecepciones
         '
         'NumericUpDown1
         '
-        Me.NumericUpDown1.Location = New System.Drawing.Point(15, 43)
+        Me.NumericUpDown1.Location = New System.Drawing.Point(41, 52)
         Me.NumericUpDown1.Margin = New System.Windows.Forms.Padding(2)
         Me.NumericUpDown1.Maximum = New Decimal(New Integer() {0, 0, 0, 0})
         Me.NumericUpDown1.Name = "NumericUpDown1"
@@ -462,7 +464,7 @@ Partial Class frmRecepciones
         'Label22
         '
         Me.Label22.AutoSize = True
-        Me.Label22.Location = New System.Drawing.Point(218, 178)
+        Me.Label22.Location = New System.Drawing.Point(236, 178)
         Me.Label22.Name = "Label22"
         Me.Label22.Size = New System.Drawing.Size(31, 13)
         Me.Label22.TabIndex = 376
@@ -472,7 +474,7 @@ Partial Class frmRecepciones
         'Label21
         '
         Me.Label21.AutoSize = True
-        Me.Label21.Location = New System.Drawing.Point(76, 28)
+        Me.Label21.Location = New System.Drawing.Point(102, 37)
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(63, 13)
         Me.Label21.TabIndex = 375
@@ -480,7 +482,7 @@ Partial Class frmRecepciones
         '
         'NumericUpDown2
         '
-        Me.NumericUpDown2.Location = New System.Drawing.Point(85, 43)
+        Me.NumericUpDown2.Location = New System.Drawing.Point(111, 52)
         Me.NumericUpDown2.Margin = New System.Windows.Forms.Padding(2)
         Me.NumericUpDown2.Maximum = New Decimal(New Integer() {0, 0, 0, 0})
         Me.NumericUpDown2.Name = "NumericUpDown2"
@@ -490,7 +492,7 @@ Partial Class frmRecepciones
         'Label20
         '
         Me.Label20.AutoSize = True
-        Me.Label20.Location = New System.Drawing.Point(145, 28)
+        Me.Label20.Location = New System.Drawing.Point(171, 37)
         Me.Label20.Name = "Label20"
         Me.Label20.Size = New System.Drawing.Size(62, 13)
         Me.Label20.TabIndex = 374
@@ -498,7 +500,7 @@ Partial Class frmRecepciones
         '
         'NumericUpDown3
         '
-        Me.NumericUpDown3.Location = New System.Drawing.Point(153, 43)
+        Me.NumericUpDown3.Location = New System.Drawing.Point(179, 52)
         Me.NumericUpDown3.Margin = New System.Windows.Forms.Padding(2)
         Me.NumericUpDown3.Maximum = New Decimal(New Integer() {0, 0, 0, 0})
         Me.NumericUpDown3.Name = "NumericUpDown3"
@@ -508,7 +510,7 @@ Partial Class frmRecepciones
         'Label12
         '
         Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(218, 134)
+        Me.Label12.Location = New System.Drawing.Point(236, 134)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(65, 13)
         Me.Label12.TabIndex = 373
@@ -517,7 +519,7 @@ Partial Class frmRecepciones
         '
         'NumericUpDown4
         '
-        Me.NumericUpDown4.Location = New System.Drawing.Point(220, 149)
+        Me.NumericUpDown4.Location = New System.Drawing.Point(238, 149)
         Me.NumericUpDown4.Margin = New System.Windows.Forms.Padding(2)
         Me.NumericUpDown4.Maximum = New Decimal(New Integer() {0, 0, 0, 0})
         Me.NumericUpDown4.Name = "NumericUpDown4"
@@ -527,7 +529,7 @@ Partial Class frmRecepciones
         '
         'NumericUpDown5
         '
-        Me.NumericUpDown5.Location = New System.Drawing.Point(220, 193)
+        Me.NumericUpDown5.Location = New System.Drawing.Point(238, 193)
         Me.NumericUpDown5.Margin = New System.Windows.Forms.Padding(2)
         Me.NumericUpDown5.Maximum = New Decimal(New Integer() {0, 0, 0, 0})
         Me.NumericUpDown5.Name = "NumericUpDown5"
@@ -538,7 +540,7 @@ Partial Class frmRecepciones
         'btnScan
         '
         Me.btnScan.Enabled = False
-        Me.btnScan.Location = New System.Drawing.Point(79, 221)
+        Me.btnScan.Location = New System.Drawing.Point(95, 221)
         Me.btnScan.Margin = New System.Windows.Forms.Padding(2)
         Me.btnScan.Name = "btnScan"
         Me.btnScan.Size = New System.Drawing.Size(83, 26)
@@ -609,24 +611,24 @@ Partial Class frmRecepciones
         '
         Me.grdItems.AllowUserToAddRows = False
         Me.grdItems.AllowUserToDeleteRows = False
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black
-        Me.grdItems.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle19.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
+        DataGridViewCellStyle19.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle19.ForeColor = System.Drawing.Color.Black
+        Me.grdItems.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle19
         Me.grdItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.grdItems.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.IdFarmacia, Me.Farmacia, Me.IdPresentacion, Me.Recetas, Me.Recaudado, Me.AcargoOS, Me.Bonificacion, Me.Total})
         Me.grdItems.Location = New System.Drawing.Point(3, 211)
         Me.grdItems.Name = "grdItems"
         Me.grdItems.RowHeadersWidth = 51
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grdItems.RowsDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle21.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grdItems.RowsDefaultCellStyle = DataGridViewCellStyle21
         Me.grdItems.Size = New System.Drawing.Size(1102, 245)
         Me.grdItems.TabIndex = 351
         '
         'DataGridViewTextBoxColumn1
         '
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DataGridViewTextBoxColumn1.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle20.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DataGridViewTextBoxColumn1.DefaultCellStyle = DataGridViewCellStyle20
         Me.DataGridViewTextBoxColumn1.HeaderText = "Id"
         Me.DataGridViewTextBoxColumn1.MinimumWidth = 6
         Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
@@ -835,33 +837,33 @@ Partial Class frmRecepciones
         '
         Me.grdImpuestos.AllowUserToAddRows = False
         Me.grdImpuestos.AllowUserToDeleteRows = False
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.grdImpuestos.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle22.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle22.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle22.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle22.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle22.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.grdImpuestos.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle22
         Me.grdImpuestos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.Blue
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.grdImpuestos.DefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle23.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle23.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle23.ForeColor = System.Drawing.Color.Blue
+        DataGridViewCellStyle23.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.grdImpuestos.DefaultCellStyle = DataGridViewCellStyle23
         Me.grdImpuestos.Location = New System.Drawing.Point(657, 323)
         Me.grdImpuestos.Name = "grdImpuestos"
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.grdImpuestos.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle24.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle24.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle24.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle24.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle24.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.grdImpuestos.RowHeadersDefaultCellStyle = DataGridViewCellStyle24
         Me.grdImpuestos.RowHeadersWidth = 51
         Me.grdImpuestos.Size = New System.Drawing.Size(448, 133)
         Me.grdImpuestos.TabIndex = 25
@@ -1182,6 +1184,18 @@ Partial Class frmRecepciones
         Me.BorrarElItemToolStripMenuItemIVA.Size = New System.Drawing.Size(145, 22)
         Me.BorrarElItemToolStripMenuItemIVA.Text = "Borrar el Item"
         '
+        'RecognitionLabel
+        '
+        Me.RecognitionLabel.AutoSize = True
+        Me.RecognitionLabel.ForeColor = System.Drawing.Color.Gray
+        Me.RecognitionLabel.Location = New System.Drawing.Point(9, 19)
+        Me.RecognitionLabel.MaximumSize = New System.Drawing.Size(260, 0)
+        Me.RecognitionLabel.Name = "RecognitionLabel"
+        Me.RecognitionLabel.Size = New System.Drawing.Size(151, 13)
+        Me.RecognitionLabel.TabIndex = 381
+        Me.RecognitionLabel.Text = "Se reconoció: Template Name"
+        Me.RecognitionLabel.Visible = False
+        '
         'frmRecepciones
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1313,4 +1327,5 @@ Partial Class frmRecepciones
     Friend WithEvents numericDescuentos4 As NumericUpDown
     Friend WithEvents numericDescuentos3 As NumericUpDown
     Friend WithEvents numericDescuentos2 As NumericUpDown
+    Friend WithEvents RecognitionLabel As Label
 End Class

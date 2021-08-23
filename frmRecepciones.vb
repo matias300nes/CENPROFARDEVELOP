@@ -737,10 +737,12 @@ Public Class frmRecepciones
     Dim tables As DataTableCollection
 
     Private Sub btnImportExcel_Click(sender As Object, e As EventArgs) Handles btnImportExcel.Click
-
+        Dim TemplateName
         Using ofd As OpenFileDialog = New OpenFileDialog() With {.Filter = "Excel Files |*.xls; *.xlsx"}
             If ofd.ShowDialog = DialogResult.OK Then
+
                 FileName.Text = ofd.FileName
+                TemplateName = ofd.SafeFileName.Split("-")(0).ToString
                 Using stream = File.Open(ofd.FileName, FileMode.Open, FileAccess.Read)
                     Using reader As IExcelDataReader = ExcelReaderFactory.CreateReader(stream)
                         Dim result As DataSet = reader.AsDataSet(New ExcelDataSetConfiguration() With {
@@ -765,7 +767,8 @@ Public Class frmRecepciones
         btnScan.Enabled = True
         '.ReadHeaderRow = Function(rowReader) rowReader.Read,
         '.FilterRow = Function(rowReader) rowReader.Depth > 6
-        Get_excel_templates()
+
+        Get_excel_templates(TemplateName)
     End Sub
 
     Private Sub comparar()
@@ -819,7 +822,7 @@ Public Class frmRecepciones
 
     End Sub
 
-    Private Sub Get_excel_templates()
+    Private Sub Get_excel_templates(TemplateName)
         Dim connection As SqlClient.SqlConnection = Nothing
 
         Try
@@ -831,26 +834,29 @@ Public Class frmRecepciones
 
         Try
 
-            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, " SELECT RecetasCol, RecaudadoCol, ACargoOSCol, BonificacionCol, TotalCol FROM ExcelTemplates as t where t.name = 'JERARQUICOS ORIGINAL'")
+            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $" SELECT RecetasCol, RecaudadoCol, ACargoOSCol, BonificacionCol, TotalCol FROM ExcelTemplates as t where t.name = '{TemplateName}'")
             ds.Dispose()
 
+            If ds.Tables(0).Rows.Count > 0 Then
+                RecognitionLabel.Visible = True
+                RecognitionLabel.Text = $"Se reconoció: {TemplateName}"
 
-            'Dim valor
-            'Dim i As Integer
-            'For i = 0 To ds.Tables(0).Columns.Count - 1
-            '    valor = ds.Tables(0).Rows(0)(i)
-            'Next
-            NumericUpDown1.Value = ds.Tables(0).Rows(0)(0)
-            NumericUpDown2.Value = ds.Tables(0).Rows(0)(1)
-            NumericUpDown3.Value = ds.Tables(0).Rows(0)(2)
-            NumericUpDown4.Value = ds.Tables(0).Rows(0)(3)
-            NumericUpDown5.Value = ds.Tables(0).Rows(0)(4)
+                NumericUpDown1.Value = ds.Tables(0).Rows(0)(0)
+                NumericUpDown2.Value = ds.Tables(0).Rows(0)(1)
+                NumericUpDown3.Value = ds.Tables(0).Rows(0)(2)
+                NumericUpDown4.Value = ds.Tables(0).Rows(0)(3)
+                NumericUpDown5.Value = ds.Tables(0).Rows(0)(4)
 
-            Scan_columns()
-            btnListo.Enabled = True
+                Scan_columns()
+                btnListo.Enabled = True
+            Else
+                RecognitionLabel.Visible = False
+                grdDetalleLiquidacionFiltrada.Columns.Clear()
+                grdDetalleLiquidacionFiltrada.Rows.Clear()
+            End If
 
         Catch ex As Exception
-            MsgBox("el error es" & ex.Message)
+            MsgBox("Se produjo un error al intentar completar las columnas" & ex.Message)
         End Try
 
     End Sub
