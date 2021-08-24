@@ -834,7 +834,7 @@ Public Class frmRecepciones
         End Try
 
         Try
-            Dim SQL = $" SELECT Recetas, Recaudado, ACargoOS, Bonificacion, [N. Credito], Debitos, Ajustes, [Recupero Aj], [Recupero Gs], Total FROM ExcelTemplates as t where t.name = '{TemplateName}'"
+            Dim SQL = $" SELECT Recetas, Recaudado, ACargoOS, Bonificacion, [N. Credito], Debitos, Ajustes, [Recupero Aj], [Recupero Gs] FROM ExcelTemplates as t where t.name = '{TemplateName}'"
             ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, SQL)
             ds.Dispose()
 
@@ -863,7 +863,7 @@ Public Class frmRecepciones
                 Next
 
                 Dim j As Integer
-                For i = 3 To ds.Tables(0).Columns.Count - 2
+                For i = 3 To ds.Tables(0).Columns.Count - 1
                     j = i - 3
                     If ds.Tables(0).Rows(0)(i) IsNot DBNull.Value Then
                         cbolist.Find(Function(x) x.Tag = j).SelectedItem = ds.Tables(0).Columns(i).ColumnName
