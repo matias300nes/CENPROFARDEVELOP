@@ -866,8 +866,8 @@ Public Class frmRecepciones
                 For i = 3 To ds.Tables(0).Columns.Count - 2
                     j = i - 3
                     If ds.Tables(0).Rows(0)(i) IsNot DBNull.Value Then
-                        cbolist(j).SelectedItem = ds.Tables(0).Columns(i).ColumnName
-                        numericlist(numericlist.Count - 1 - j).Value = ds.Tables(0).Rows(0)(i)
+                        cbolist.Find(Function(x) x.Tag = j).SelectedItem = ds.Tables(0).Columns(i).ColumnName
+                        numericlist.Find(Function(x) x.Tag = j).Value = ds.Tables(0).Rows(0)(i)
                     End If
                 Next
 
