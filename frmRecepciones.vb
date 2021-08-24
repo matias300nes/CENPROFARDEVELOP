@@ -737,10 +737,12 @@ Public Class frmRecepciones
     Dim tables As DataTableCollection
 
     Private Sub btnImportExcel_Click(sender As Object, e As EventArgs) Handles btnImportExcel.Click
-
+        Dim TemplateName = ""
         Using ofd As OpenFileDialog = New OpenFileDialog() With {.Filter = "Excel Files |*.xls; *.xlsx"}
             If ofd.ShowDialog = DialogResult.OK Then
+
                 FileName.Text = ofd.FileName
+                TemplateName = ofd.SafeFileName.Split("-")(0).ToString
                 Using stream = File.Open(ofd.FileName, FileMode.Open, FileAccess.Read)
                     Using reader As IExcelDataReader = ExcelReaderFactory.CreateReader(stream)
                         Dim result As DataSet = reader.AsDataSet(New ExcelDataSetConfiguration() With {
@@ -759,59 +761,128 @@ Public Class frmRecepciones
         End Using
 
         grdDetalleLiquidacion.BringToFront()
+
+        cboSheet.SelectedIndex = 0
+
+        btnScan.Enabled = True
         '.ReadHeaderRow = Function(rowReader) rowReader.Read,
         '.FilterRow = Function(rowReader) rowReader.Depth > 6
+
+        Get_excel_templates(TemplateName)
+    End Sub
+
+    Private Sub comparar()
+
+        Dim j, i As Integer
+        Dim recetasGrdItems, recetasGrdDetalleLiquidacion As Integer
+        For j = 0 To grdItems.Rows.Count - 1
+            Dim codigoGrdItems = grdItems.Rows(j).Cells(1).Value
+
+            For i = 0 To grdDetalleLiquidacionFiltrada.Rows.Count - 1
+                Dim codigoGrdDetalleLiquidacion = grdDetalleLiquidacionFiltrada.Rows(i).Cells(0).Value
+                If codigoGrdDetalleLiquidacion = codigoGrdItems Then
+                    recetasGrdItems = grdItems.Rows(j).Cells("Recetas").Value
+                    recetasGrdDetalleLiquidacion = grdDetalleLiquidacionFiltrada.Rows(i).Cells("Recetas").Value
+                    If recetasGrdItems <> recetasGrdDetalleLiquidacion Then
+                        MsgBox("Existe diferencia en j = ")
+                        MsgBox(codigoGrdDetalleLiquidacion)
+                    End If
+                End If
+
+
+            Next
+
+        Next
+
     End Sub
 
 
 
-    Private Sub cboSheet_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboSheet.SelectedIndexChanged
+    Private Sub CboSheet_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboSheet.SelectedIndexChanged
         Dim dt As DataTable = tables(cboSheet.SelectedItem.ToString())
 
         grdDetalleLiquidacion.DataSource = dt
 
-        grdDetalleLiquidacion.BringToFront()
-        Dim cellvaluescount As Integer = 0
-        For Each cell As DataGridViewCell In grdDetalleLiquidacion.CurrentRow.Cells
-            If TypeOf cell.Value Is DBNull = False Then 'if not a null or (blank/empty) value
-                'cell has a value in it
-                cellvaluescount += 1
-            End If
-        Next
-
-        grdDetalleLiquidacionFiltrada.Columns.Add("Codigo", "Codigo")
-        grdDetalleLiquidacionFiltrada.Columns.Add("Recetas", "Recetas")
-        grdDetalleLiquidacionFiltrada.Columns.Add("Recaudado", "Recaudado")
-        grdDetalleLiquidacionFiltrada.Columns.Add("A cargo OS", "A cargo OS")
-        grdDetalleLiquidacionFiltrada.Columns.Add("Bonificacion", "Bonificacion")
-        grdDetalleLiquidacionFiltrada.Columns.Add("Total", "Total")
-
-        Dim j As Integer
-        For j = 0 To grdDetalleLiquidacion.Rows.Count - 1
-            If TypeOf grdDetalleLiquidacion.Rows(j).Cells(3).Value Is DBNull = False Then
-                'If grdFacturasConsumos.Rows(j).Cells(ColumnasDelGridFacturasConsumos.Deuda).Value < 0 Then
-                '    deudanegativa = deudanegativa + grdFacturasConsumos.Rows(j).Cells(ColumnasDelGridFacturasConsumos.Deuda).Value
-                'End If
-                'grdDetalleLiquidacionFiltrada.Rows.Add(grdDetalleLiquidacion.Rows(j).Cells(3).Value)
-                'grdDetalleLiquidacionFiltrada.Rows(j).Cells(3).Value = grdDetalleLiquidacion.Rows(j).Cells(3).Value
-
-
-            End If
-        Next
-
-
-        Dim max As Integer = grdDetalleLiquidacion.Columns.Count
+        Dim max As Integer = grdDetalleLiquidacion.Columns.Count - 1
         NumericUpDown1.Maximum = max
         NumericUpDown2.Maximum = max
         NumericUpDown3.Maximum = max
         NumericUpDown4.Maximum = max
         NumericUpDown5.Maximum = max
+        numericDescuentos1.Maximum = max
+        numericDescuentos2.Maximum = max
+        numericDescuentos3.Maximum = max
+        numericDescuentos4.Maximum = max
 
     End Sub
 
     Private Sub grdDetalleLiquidacion_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles grdDetalleLiquidacion.CellContentClick
         FilaLabel.Text = e.RowIndex
         ColLabel.Text = e.ColumnIndex
+
+    End Sub
+
+    Private Sub Get_excel_templates(TemplateName)
+        Dim connection As SqlClient.SqlConnection = Nothing
+        Dim WorkingOnTemplate = False
+
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+        Catch ex As Exception
+            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End Try
+
+        Try
+            Dim SQL = $" SELECT Recetas, Recaudado, ACargoOS, Bonificacion, [N. Credito], Debitos, Ajustes, [Recupero Aj], [Recupero Gs], Total FROM ExcelTemplates as t where t.name = '{TemplateName}'"
+            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, SQL)
+            ds.Dispose()
+
+            If ds.Tables(0).Rows.Count > 0 Then
+                WorkingOnTemplate = True
+                RecognitionLabel.Visible = True
+                RecognitionLabel.Text = $"Se reconoció: {TemplateName}"
+
+                NumericUpDown1.Value = ds.Tables(0).Rows(0)(0)
+                NumericUpDown2.Value = ds.Tables(0).Rows(0)(1)
+                NumericUpDown3.Value = ds.Tables(0).Rows(0)(2)
+                ''NumericUpDown4.Value = ds.Tables(0).Rows(0)(3)
+                ''NumericUpDown5.Value = ds.Tables(0).Rows(0)(4)
+                Dim i As Integer
+
+
+                Dim cbolist As New List(Of ComboBox)
+                Dim numericlist As New List(Of NumericUpDown)
+                For Each obj As Object In PanelDescuentos.Controls
+                    If TypeOf obj Is ComboBox Then
+                        cbolist.Add(obj)
+                    End If
+                    If TypeOf obj Is NumericUpDown Then
+                        numericlist.Add(obj)
+                    End If
+                Next
+
+                Dim j As Integer
+                For i = 3 To ds.Tables(0).Columns.Count - 2
+                    j = i - 3
+                    If ds.Tables(0).Rows(0)(i) IsNot DBNull.Value Then
+                        cbolist(j).SelectedItem = ds.Tables(0).Columns(i).ColumnName
+                        numericlist(numericlist.Count - 1 - j).Value = ds.Tables(0).Rows(0)(i)
+                    End If
+                Next
+
+                Scan_columns()
+                btnListo.Enabled = True
+            Else
+                WorkingOnTemplate = False
+                RecognitionLabel.Visible = False
+                grdDetalleLiquidacionFiltrada.Columns.Clear()
+                grdDetalleLiquidacionFiltrada.Rows.Clear()
+            End If
+
+        Catch ex As Exception
+            MsgBox("Se produjo un error al intentar completar las columnas" & ex.Message)
+        End Try
 
     End Sub
 
@@ -827,7 +898,40 @@ Public Class frmRecepciones
         Dim Row As DataGridViewRow = Nothing
         Dim rowIndex As Integer 'index of the row
 
-        Me.grdDetalleLiquidacionFiltrada.Rows.Clear()
+        Dim DiscountIndex As Integer
+
+        grdDetalleLiquidacionFiltrada.Columns.Clear()
+        grdDetalleLiquidacionFiltrada.Rows.Clear()
+
+        grdDetalleLiquidacionFiltrada.Columns.Add("Codigo", "Codigo")
+        grdDetalleLiquidacionFiltrada.Columns.Add("Recetas", "Recetas")
+        grdDetalleLiquidacionFiltrada.Columns.Add("Recaudado", "Recaudado")
+        grdDetalleLiquidacionFiltrada.Columns.Add("A cargo OS", "A cargo OS")
+        With cboDescuentos1
+            If .SelectedItem <> "" Then
+                grdDetalleLiquidacionFiltrada.Columns.Add(.SelectedItem, .SelectedItem)
+            End If
+        End With
+        With cboDescuentos2
+            If .SelectedItem <> "" Then
+                grdDetalleLiquidacionFiltrada.Columns.Add(.SelectedItem, .SelectedItem)
+            End If
+        End With
+        With cboDescuentos3
+            If .SelectedItem <> "" Then
+                grdDetalleLiquidacionFiltrada.Columns.Add(.SelectedItem, .SelectedItem)
+            End If
+        End With
+        With cboDescuentos4
+            If .SelectedItem <> "" Then
+                grdDetalleLiquidacionFiltrada.Columns.Add(.SelectedItem, .SelectedItem)
+            End If
+        End With
+
+        'grdDetalleLiquidacionFiltrada.Columns.Add("Bonificacion", "Bonificacion")
+        'grdDetalleLiquidacionFiltrada.Columns.Add("Total", "Total")
+
+
 
         Dim j As Integer
         Dim FirstColumnCell As String
@@ -835,29 +939,44 @@ Public Class frmRecepciones
 
             FirstColumnCell = IIf(grdDetalleLiquidacion.Rows(j).Cells(0).Value IsNot Nothing, grdDetalleLiquidacion.Rows(j).Cells(0).Value.ToString, "")
             Try
-                If FirstColumnCell <> "" Then
-                    If FirstColumnCell.Contains("F0") Then
+                If FirstColumnCell.Contains("F0") Then
 
-                        '/////Create a new row and get its index/////
-                        rowIndex = grdDetalleLiquidacionFiltrada.Rows.Add()
+                    '/////Create a new row and get its index/////
+                    rowIndex = grdDetalleLiquidacionFiltrada.Rows.Add()
 
-                        '//////Get a reference to the new row ///////
-                        Row = grdDetalleLiquidacionFiltrada.Rows(rowIndex)
-
+                    '//////Get a reference to the new row ///////
+                    Row = grdDetalleLiquidacionFiltrada.Rows(rowIndex)
 
 
-                        With Row
-                            'This won't fail since the columns exist 
-                            .Cells("Codigo").Value = grdDetalleLiquidacion.Rows(j).Cells(0).Value
-                            .Cells("Recetas").Value = grdDetalleLiquidacion.Rows(j).Cells(RecetasIndex).Value
-                            .Cells("Recaudado").Value = grdDetalleLiquidacion.Rows(j).Cells(RecaudadoIndex).Value
-                            .Cells("A cargo OS").Value = grdDetalleLiquidacion.Rows(j).Cells(AcargoOSIndex).Value
-                            .Cells("Bonificacion").Value = grdDetalleLiquidacion.Rows(j).Cells(BonificacionIndex).Value
-                            .Cells("Total").Value = grdDetalleLiquidacion.Rows(j).Cells(TotalIndex).Value
-                            '.Cells("OrderDateColumn").Value = RowValues.Created
-                            '.Cells("CreatedByColumn").Value = RowValues.OwnerName
-                        End With
-                    End If
+
+                    With Row
+                        'This won't fail since the columns exist 
+                        .Cells("Codigo").Value = grdDetalleLiquidacion.Rows(j).Cells(0).Value
+                        .Cells("Recetas").Value = grdDetalleLiquidacion.Rows(j).Cells(RecetasIndex).Value
+                        .Cells("Recaudado").Value = grdDetalleLiquidacion.Rows(j).Cells(RecaudadoIndex).Value
+                        .Cells("A cargo OS").Value = grdDetalleLiquidacion.Rows(j).Cells(AcargoOSIndex).Value
+
+                        If cboDescuentos1.SelectedItem <> "" Then
+                            DiscountIndex = numericDescuentos1.Value
+                            .Cells(cboDescuentos1.SelectedItem).Value = grdDetalleLiquidacion.Rows(j).Cells(DiscountIndex).Value
+                        End If
+                        If cboDescuentos2.SelectedItem <> "" Then
+                            DiscountIndex = numericDescuentos2.Value
+                            .Cells(cboDescuentos2.SelectedItem).Value = grdDetalleLiquidacion.Rows(j).Cells(DiscountIndex).Value
+                        End If
+                        If cboDescuentos3.SelectedItem <> "" Then
+                            DiscountIndex = numericDescuentos3.Value
+                            .Cells(cboDescuentos3.SelectedItem).Value = grdDetalleLiquidacion.Rows(j).Cells(DiscountIndex).Value
+                        End If
+                        If cboDescuentos4.SelectedItem <> "" Then
+                            DiscountIndex = numericDescuentos4.Value
+                            .Cells(cboDescuentos4.SelectedItem).Value = grdDetalleLiquidacion.Rows(j).Cells(DiscountIndex).Value
+                        End If
+                        '.Cells("Bonificacion").Value = grdDetalleLiquidacion.Rows(j).Cells(BonificacionIndex).Value
+                        '.Cells("Total").Value = grdDetalleLiquidacion.Rows(j).Cells(TotalIndex).Value
+                        '.Cells("OrderDateColumn").Value = RowValues.Created
+                        '.Cells("CreatedByColumn").Value = RowValues.OwnerName
+                    End With
                 End If
             Catch ex As Exception
             End Try
@@ -869,8 +988,10 @@ Public Class frmRecepciones
     End Sub
 
 
-    Private Sub ScanButton_Click(sender As Object, e As EventArgs) Handles ScanButton.Click
+    Private Sub BtnScan_Click(sender As Object, e As EventArgs) Handles btnScan.Click
         Scan_columns()
+
+        btnListo.Enabled = True
     End Sub
 
 
@@ -3974,10 +4095,10 @@ ContinuarTransaccion:
 
             End If
 
-            If e.ColumnIndex = ColumnasDelGridItems1.Bonif1 Or e.ColumnIndex = ColumnasDelGridItems1.Bonif2 Or _
-                e.ColumnIndex = ColumnasDelGridItems1.Bonif3 Or e.ColumnIndex = ColumnasDelGridItems1.Bonif4 Or _
-                e.ColumnIndex = ColumnasDelGridItems1.Bonif5 Or _
-                e.ColumnIndex = ColumnasDelGridItems1.Ganancia Or _
+            If e.ColumnIndex = ColumnasDelGridItems1.Bonif1 Or e.ColumnIndex = ColumnasDelGridItems1.Bonif2 Or
+                e.ColumnIndex = ColumnasDelGridItems1.Bonif3 Or e.ColumnIndex = ColumnasDelGridItems1.Bonif4 Or
+                e.ColumnIndex = ColumnasDelGridItems1.Bonif5 Or
+                e.ColumnIndex = ColumnasDelGridItems1.Ganancia Or
                 e.ColumnIndex = ColumnasDelGridItems1.PrecioListaReal Then
 
                 Dim Bonif1 As Double, Bonif2 As Double, Bonif3 As Double, Bonif4 As Double, Bonif5 As Double
@@ -4129,9 +4250,9 @@ ContinuarTransaccion:
 
 
 
-    Private Sub btnComparar_Click(sender As Object, e As EventArgs) Handles btnComparar.Click
+    Private Sub btnListo_Click(sender As Object, e As EventArgs) Handles btnListo.Click
         Dim prueba = grdItems.Rows(1).Cells(ColumnasDelGridItems.Total).Value.ToString
-
+        comparar()
         'For i As Integer = 0 To grdItems.RowCount() - 1
         '    Dim recetaP, recetaOS
 
@@ -4141,30 +4262,6 @@ ContinuarTransaccion:
         '    For A As Integer = 0 To grdDetLiquidacionOs.RowCount() - 1
         '        recetaOS = grdDetLiquidacionOs.Rows(A).Cells("NUM_SOCIO").Value()
 
-        '        If (recetaP = recetaOS) Then
-        '            grdItems.Rows(i).DefaultCellStyle.BackColor = Color.LightBlue
-        '        End If
-
-        '        If grdItems.Rows(i).DefaultCellStyle.BackColor <> Color.LightBlue Then
-        '            grdItems.Rows(i).DefaultCellStyle.BackColor = Color.Red
-        '        End If
-
-
-        '    Next
-        'Next
     End Sub
 
-    Private Sub Label25_Click(sender As Object, e As EventArgs) Handles lblPeriodo.Click
-
-    End Sub
-
-    Private Sub GroupPanel1_Click(sender As Object, e As EventArgs) Handles GroupPanelDetalleLiquidacion.Click
-
-    End Sub
-
-
-
-    'Private Sub btnImportarExcel_Click(sender As Object, e As EventArgs)
-    '    ImportarExcel()
-    'End Sub
 End Class
