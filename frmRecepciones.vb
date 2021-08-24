@@ -889,6 +889,7 @@ Public Class frmRecepciones
     End Sub
 
     Private Sub Template_On_Sumbit(TemplateName)
+        Dim connection As SqlClient.SqlConnection = Nothing
         If WorkingOnTemplate Then
             MsgBox("working on a template")
 
@@ -923,7 +924,15 @@ Public Class frmRecepciones
 
             Dim SQL = $"INSERT INTO [CENPROFAR].[dbo].[ExcelTemplates] ({StrCols}) VALUES ({StrValues})"
 
-            MsgBox(SQL)
+            Try
+                connection = SqlHelper.GetConnection(ConnStringSEI)
+                ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, SQL)
+                ds.Dispose()
+
+            Catch ex As Exception
+                MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Exit Sub
+            End Try
 
         End If
     End Sub
