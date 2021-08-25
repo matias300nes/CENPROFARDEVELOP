@@ -13,7 +13,7 @@ Public Class frmRecepciones
     Dim bolpoliticas As Boolean
     Dim columnaprueba As Integer
     Dim permitir_evento_CellChanged As Boolean
-
+    Dim RowofError As Integer 'Variable en la que guardo la fila con valores distintos
     'Variables para la grilla
     Dim editando_celda As Boolean
 
@@ -795,14 +795,15 @@ Public Class frmRecepciones
     '    Next
 
     'End Sub
-
+    Dim listFilas As New List(Of Integer)
     Private Sub comparar()
         'Genero el datatable con sus columnas
         Dim dt As New DataTable
+
         dt.Columns.Add("Farmacia")
         dt.Columns.Add("Receta")
         dt.Columns.Add("ACargoOS")
-        Dim j, i, k, rowIndex, Row As Integer
+        Dim j, i, k, rowIndex As Integer
 
         Dim Farmacia As String
         Dim recetasGrdItems, recetasGrdDetalleLiquidacion As Integer
@@ -833,7 +834,8 @@ Public Class frmRecepciones
 
 
                     If recetasGrdItems <> recetasGrdDetalleLiquidacion Then
-
+                        RowofError = i
+                        listFilas.Add(RowofError)
                         grdDetalleLiquidacionFiltrada.Rows(i).Cells("Recetas").Style.ForeColor = Color.AliceBlue
 
                         'With SuperGrdResultado
@@ -851,8 +853,14 @@ Public Class frmRecepciones
 
                     dt.Rows.Add(f)
                     SuperGrdResultado.PrimaryGrid.DataSource = dt
-                    Dim sty As New DataGridTableStyle
-                    sty.BackColor = Color.AliceBlue
+                    Dim indiceSp = SuperGrdResultado.PrimaryGrid.FirstOnScreenRow
+                    Dim prueba1 = SuperGrdResultado.PrimaryGrid.FirstOnScreenRowIndex
+                    Dim prueba2 = SuperGrdResultado.PrimaryGrid.FirstVisibleRow
+                    Dim prueba3 = SuperGrdResultado.PrimaryGrid.FullIndex
+                    Dim prueba4 = SuperGrdResultado.PrimaryGrid.GridIndex
+                    Dim prueba5 = SuperGrdResultado.PrimaryGrid.Index
+                    'Dim sty As New DataGridTableStyle
+                    'sty.BackColor = Color.AliceBlue
                     'SuperGrdResultado.PrimaryGrid.GetCell(0, 0).CellStyles.Default.Background.Color1 = Color.Aqua
 
 
@@ -4390,26 +4398,31 @@ ContinuarTransaccion:
     End Sub
 
     Private Sub SuperGrdResultado_DataBindingComplete(sender As Object, e As GridDataBindingCompleteEventArgs) Handles SuperGrdResultado.DataBindingComplete
-        Dim panel As DevComponents.DotNetBar.SuperGrid.GridPanel
-        Dim var
-        panel = e.GridPanel
-        'panel.
-        var = panel.RowIndex
-        SuperGrdResultado.PrimaryGrid.GetCell(0, 0).CellStyles.Default.Background.Color1 = Color.Aqua
-        'For Each panel.Rows In 
+        Dim RowsCount = SuperGrdResultado.PrimaryGrid.Rows.Count
+        RowsCount = RowsCount - 1
+
+        'Controlo si el error esta en la ultima fila
+        If RowofError = RowsCount Then
+            RowofError = RowofError - 1
+        End If
+
+        For Each fila As Integer In listFilas
+            For Column As Integer = 0 To 2
+                SuperGrdResultado.PrimaryGrid.GetCell(fila, Column).CellStyles.Default.Background.Color1 = Color.Aqua
+
+            Next
+        Next
+
+
+        'For Column As Integer = 0 To 2
+        '    SuperGrdResultado.PrimaryGrid.GetCell(RowofError, Column).CellStyles.Default.Background.Color1 = Color.Aqua
 
         'Next
 
 
 
 
-    End Sub
-
-    Private Sub SuperGrdResultado_GetRowStyle(sender As Object, e As GridGetRowStyleEventArgs) Handles SuperGrdResultado.GetRowStyle
 
     End Sub
 
-    Private Sub SuperGrdResultado_GetRowCellStyle(sender As Object, e As GridGetRowCellStyleEventArgs) Handles SuperGrdResultado.GetRowCellStyle
-
-    End Sub
 End Class
