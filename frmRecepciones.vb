@@ -735,9 +735,9 @@ Public Class frmRecepciones
 
     Dim tables As DataTableCollection
     Dim WorkingOnTemplate As Boolean = False
+    Dim TemplateName = ""
 
     Private Sub btnImportExcel_Click(sender As Object, e As EventArgs) Handles btnImportExcel.Click
-        Dim TemplateName = ""
         Using ofd As OpenFileDialog = New OpenFileDialog() With {.Filter = "Excel Files |*.xls; *.xlsx"}
             If ofd.ShowDialog = DialogResult.OK Then
 
@@ -752,7 +752,9 @@ Public Class frmRecepciones
                         tables = result.Tables
                         cboSheet.Items.Clear()
                         For Each table As DataTable In tables
-                            cboSheet.Items.Add(table.TableName)
+                            If table.Columns.Count > 0 Then
+                                cboSheet.Items.Add(table.TableName)
+                            End If
                         Next
                     End Using
                 End Using
@@ -765,10 +767,7 @@ Public Class frmRecepciones
         cboSheet.SelectedIndex = 0
 
         btnScan.Enabled = True
-        '.ReadHeaderRow = Function(rowReader) rowReader.Read,
-        '.FilterRow = Function(rowReader) rowReader.Depth > 6
 
-        Get_excel_templates(TemplateName)
     End Sub
 
     'Private Sub comparar()
@@ -883,19 +882,33 @@ Public Class frmRecepciones
 
     Private Sub CboSheet_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboSheet.SelectedIndexChanged
         Dim dt As DataTable = tables(cboSheet.SelectedItem.ToString())
-
         grdDetalleLiquidacion.DataSource = dt
 
+        Dim discounts As String() = New String(6) {"", "Bonificacion", "N. Credito", "Debitos", "Ajustes", "Recupero Aj", "Recupero Gs"}
+
         Dim max As Integer = grdDetalleLiquidacion.Columns.Count - 1
-        NumericUpDown1.Maximum = max
-        NumericUpDown2.Maximum = max
-        NumericUpDown3.Maximum = max
-        NumericUpDown4.Maximum = max
-        NumericUpDown5.Maximum = max
-        numericDescuentos1.Maximum = max
-        numericDescuentos2.Maximum = max
-        numericDescuentos3.Maximum = max
-        numericDescuentos4.Maximum = max
+        For Each obj As Object In GroupBox2.Controls
+            If TypeOf obj Is NumericUpDown Then
+                obj.Value = 0
+                obj.Maximum = max
+            End If
+        Next
+
+        For Each obj As Object In PanelDescuentos.Controls
+            If TypeOf obj Is NumericUpDown Then
+                obj.Value = 0
+                obj.Maximum = max
+            End If
+            If TypeOf obj Is ComboBox Then
+                obj.Items.Clear()
+                For Each discount As String In discounts
+                    obj.Items.add(discount)
+                Next
+                obj.SelectedIndex = 0
+            End If
+        Next
+
+        Get_excel_templates()
 
     End Sub
 
@@ -905,7 +918,7 @@ Public Class frmRecepciones
 
     End Sub
 
-    Private Sub Get_excel_templates(TemplateName)
+    Private Sub Get_excel_templates()
         Dim connection As SqlClient.SqlConnection = Nothing
 
         Try
@@ -928,28 +941,27 @@ Public Class frmRecepciones
                 NumericUpDown1.Value = ds.Tables(0).Rows(0)(0)
                 NumericUpDown2.Value = ds.Tables(0).Rows(0)(1)
                 NumericUpDown3.Value = ds.Tables(0).Rows(0)(2)
-                ''NumericUpDown4.Value = ds.Tables(0).Rows(0)(3)
-                ''NumericUpDown5.Value = ds.Tables(0).Rows(0)(4)
-                Dim i As Integer
-
 
                 Dim cbolist As New List(Of ComboBox)
                 Dim numericlist As New List(Of NumericUpDown)
                 For Each obj As Object In PanelDescuentos.Controls
                     If TypeOf obj Is ComboBox Then
                         cbolist.Add(obj)
+                        obj.SelectedIndex = 0
                     End If
                     If TypeOf obj Is NumericUpDown Then
                         numericlist.Add(obj)
+                        obj.Value = 0
                     End If
                 Next
 
-                Dim j As Integer
+                Dim i As Integer
+                Dim j As Integer = 0
                 For i = 3 To ds.Tables(0).Columns.Count - 1
-                    j = i - 3
                     If ds.Tables(0).Rows(0)(i) IsNot DBNull.Value Then
                         cbolist.Find(Function(x) x.Tag = j).SelectedItem = ds.Tables(0).Columns(i).ColumnName
                         numericlist.Find(Function(x) x.Tag = j).Value = ds.Tables(0).Rows(0)(i)
+                        j += 1
                     End If
                 Next
 
@@ -966,17 +978,15 @@ Public Class frmRecepciones
             MsgBox("Se produjo un error al intentar completar las columnas" & ex.Message)
         End Try
 
-        Template_On_Sumbit(TemplateName)
+
 
     End Sub
 
-    Private Sub Template_On_Sumbit(TemplateName)
+    Public Sub Template_On_Sumbit()
         Dim connection As SqlClient.SqlConnection = Nothing
         If WorkingOnTemplate Then
-            MsgBox("working on a template")
-
+            MsgBox($"Template {TemplateName}")
         Else
-            MsgBox("working without template, we'll save it")
             Dim StrCols = "Name, Recetas, Recaudado, ACargoOS"
             Dim StrValues = $"'{TemplateName}', {NumericUpDown1.Value}, {NumericUpDown2.Value}, {NumericUpDown3.Value}"
 
@@ -1000,8 +1010,8 @@ Public Class frmRecepciones
 
             Dim i As Integer
             For i = 0 To cbolist.Count - 1
-                StrCols = StrCols + $", {cbolist(i).SelectedItem}"
-                StrValues = StrValues + $", {numericlist(i).Value}"
+                StrCols = StrCols + $", [{cbolist(i).SelectedItem}]"
+                StrValues += $", {numericlist(i).Value}"
             Next
 
             Dim SQL = $"INSERT INTO [CENPROFAR].[dbo].[ExcelTemplates] ({StrCols}) VALUES ({StrValues})"
@@ -1012,7 +1022,7 @@ Public Class frmRecepciones
                 ds.Dispose()
 
             Catch ex As Exception
-                MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show($"No se pudo conectar con la base de datos {ex.Message}", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End Try
 
@@ -1105,10 +1115,7 @@ Public Class frmRecepciones
                             DiscountIndex = numericDescuentos4.Value
                             .Cells(cboDescuentos4.SelectedItem).Value = grdDetalleLiquidacion.Rows(j).Cells(DiscountIndex).Value
                         End If
-                        '.Cells("Bonificacion").Value = grdDetalleLiquidacion.Rows(j).Cells(BonificacionIndex).Value
-                        '.Cells("Total").Value = grdDetalleLiquidacion.Rows(j).Cells(TotalIndex).Value
-                        '.Cells("OrderDateColumn").Value = RowValues.Created
-                        '.Cells("CreatedByColumn").Value = RowValues.OwnerName
+
                     End With
                 End If
             Catch ex As Exception
@@ -1126,64 +1133,6 @@ Public Class frmRecepciones
 
         btnListo.Enabled = True
     End Sub
-
-
-
-    'Private Sub ImportarExcel()
-
-    '    Dim ds As New DataSet
-    '    Dim da As OleDbDataAdapter
-    '    'Permitir conectarnos con nuestro archivo de excel'
-    '    Dim conn As OleDbConnection
-
-
-    '    'Permitir conectarnos a nuestra base de datos sqlserver'
-    '    Dim cnn As SqlConnection
-    '    Dim sqlBC As SqlBulkCopy
-
-    '    Dim connection As SqlClient.SqlConnection = Nothing
-
-    '    Try
-    '        connection = SqlHelper.GetConnection(ConnStringSEI)
-    '    Catch ex As Exception
-    '        MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-    '        Exit Sub
-    '    End Try
-
-
-    '    Dim myFileDialog As New OpenFileDialog()
-    '    Dim xSheet As String = ""
-
-    '    With myFileDialog
-    '        .Filter = "Excel Files |*.xls"
-    '        .Title = "Open File"
-    '        .ShowDialog()
-    '    End With
-
-    '    If myFileDialog.FileName.ToString <> "" Then
-    '        Dim ExcelFile As String = myFileDialog.FileName.ToString
-    '        xSheet = InputBox("Digite el nombre de la Hoja que desea importar", "Complete")
-    '        conn = New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;" & "data source=" & ExcelFile & "; " & "Extended Properties='Excel 12.0 Xml;HDR=Yes'")
-    '        'conn = New OleDbConnection("Provider=Microsoft SQL Server;" & "data source=" & ExcelFile & "; " & "Extended Properties='Excel 12.0 Xml;HDR=Yes'")
-
-    '        Try
-    '            conn.Open()
-    '            da = New OleDbDataAdapter("SELECT * FROM  [" & xSheet & "$]", conn)
-    '            ds = New DataSet
-    '            da.Fill(ds)
-
-    '            sqlBC = New SqlBulkCopy(connection)
-    '            sqlBC.DestinationTableName = "TablaPresentacionesPrueba"
-    '            sqlBC.WriteToServer(ds.Tables(0))
-    '        Catch ex As Exception
-    '            MsgBox("Error: " + ex.ToString, MsgBoxStyle.Information, "Informacion")
-    '        Finally
-    '            conn.Close()
-    '        End Try
-    '    End If
-
-    'End Sub
-
 
 
     Private Sub configurarform()
@@ -4385,6 +4334,9 @@ ContinuarTransaccion:
 
     Private Sub btnListo_Click(sender As Object, e As EventArgs) Handles btnListo.Click
         Dim prueba = grdItems.Rows(1).Cells(ColumnasDelGridItems.Total).Value.ToString
+
+        Template_On_Sumbit()
+
         comparar()
         'For i As Integer = 0 To grdItems.RowCount() - 1
         '    Dim recetaP, recetaOS
