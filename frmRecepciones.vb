@@ -752,7 +752,9 @@ Public Class frmRecepciones
                         tables = result.Tables
                         cboSheet.Items.Clear()
                         For Each table As DataTable In tables
-                            cboSheet.Items.Add(table.TableName)
+                            If table.Columns.Count > 0 Then
+                                cboSheet.Items.Add(table.TableName)
+                            End If
                         Next
                     End Using
                 End Using
@@ -765,10 +767,7 @@ Public Class frmRecepciones
         cboSheet.SelectedIndex = 0
 
         btnScan.Enabled = True
-        '.ReadHeaderRow = Function(rowReader) rowReader.Read,
-        '.FilterRow = Function(rowReader) rowReader.Depth > 6
 
-        Get_excel_templates()
     End Sub
 
     'Private Sub comparar()
@@ -875,19 +874,33 @@ Public Class frmRecepciones
 
     Private Sub CboSheet_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboSheet.SelectedIndexChanged
         Dim dt As DataTable = tables(cboSheet.SelectedItem.ToString())
-
         grdDetalleLiquidacion.DataSource = dt
 
+        Dim discounts As String() = New String(6) {"", "Bonificacion", "N. Credito", "Debitos", "Ajustes", "Recupero Aj", "Recupero Gs"}
+
         Dim max As Integer = grdDetalleLiquidacion.Columns.Count - 1
-        NumericUpDown1.Maximum = max
-        NumericUpDown2.Maximum = max
-        NumericUpDown3.Maximum = max
-        NumericUpDown4.Maximum = max
-        NumericUpDown5.Maximum = max
-        numericDescuentos1.Maximum = max
-        numericDescuentos2.Maximum = max
-        numericDescuentos3.Maximum = max
-        numericDescuentos4.Maximum = max
+        For Each obj As Object In GroupBox2.Controls
+            If TypeOf obj Is NumericUpDown Then
+                obj.Value = 0
+                obj.Maximum = max
+            End If
+        Next
+
+        For Each obj As Object In PanelDescuentos.Controls
+            If TypeOf obj Is NumericUpDown Then
+                obj.Value = 0
+                obj.Maximum = max
+            End If
+            If TypeOf obj Is ComboBox Then
+                obj.Items.Clear()
+                For Each discount As String In discounts
+                    obj.Items.add(discount)
+                Next
+                obj.SelectedIndex = 0
+            End If
+        Next
+
+        Get_excel_templates()
 
     End Sub
 
@@ -920,22 +933,21 @@ Public Class frmRecepciones
                 NumericUpDown1.Value = ds.Tables(0).Rows(0)(0)
                 NumericUpDown2.Value = ds.Tables(0).Rows(0)(1)
                 NumericUpDown3.Value = ds.Tables(0).Rows(0)(2)
-                ''NumericUpDown4.Value = ds.Tables(0).Rows(0)(3)
-                ''NumericUpDown5.Value = ds.Tables(0).Rows(0)(4)
-                Dim i As Integer
-
 
                 Dim cbolist As New List(Of ComboBox)
                 Dim numericlist As New List(Of NumericUpDown)
                 For Each obj As Object In PanelDescuentos.Controls
                     If TypeOf obj Is ComboBox Then
                         cbolist.Add(obj)
+                        obj.SelectedIndex = 0
                     End If
                     If TypeOf obj Is NumericUpDown Then
                         numericlist.Add(obj)
+                        obj.Value = 0
                     End If
                 Next
 
+                Dim i As Integer
                 Dim j As Integer = 0
                 For i = 3 To ds.Tables(0).Columns.Count - 1
                     If ds.Tables(0).Rows(0)(i) IsNot DBNull.Value Then
