@@ -734,6 +734,7 @@ Public Class frmRecepciones
     End Sub
 
     Dim tables As DataTableCollection
+    Dim WorkingOnTemplate As Boolean = False
 
     Private Sub btnImportExcel_Click(sender As Object, e As EventArgs) Handles btnImportExcel.Click
         Dim TemplateName = ""
@@ -898,7 +899,6 @@ Public Class frmRecepciones
 
     Private Sub Get_excel_templates(TemplateName)
         Dim connection As SqlClient.SqlConnection = Nothing
-        Dim WorkingOnTemplate = False
 
         Try
             connection = SqlHelper.GetConnection(ConnStringSEI)
@@ -908,7 +908,7 @@ Public Class frmRecepciones
         End Try
 
         Try
-            Dim SQL = $" SELECT Recetas, Recaudado, ACargoOS, Bonificacion, [N. Credito], Debitos, Ajustes, [Recupero Aj], [Recupero Gs], Total FROM ExcelTemplates as t where t.name = '{TemplateName}'"
+            Dim SQL = $" SELECT Recetas, Recaudado, ACargoOS, Bonificacion, [N. Credito], Debitos, Ajustes, [Recupero Aj], [Recupero Gs] FROM ExcelTemplates as t where t.name = '{TemplateName}'"
             ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, SQL)
             ds.Dispose()
 
@@ -937,11 +937,11 @@ Public Class frmRecepciones
                 Next
 
                 Dim j As Integer
-                For i = 3 To ds.Tables(0).Columns.Count - 2
+                For i = 3 To ds.Tables(0).Columns.Count - 1
                     j = i - 3
                     If ds.Tables(0).Rows(0)(i) IsNot DBNull.Value Then
-                        cbolist(j).SelectedItem = ds.Tables(0).Columns(i).ColumnName
-                        numericlist(numericlist.Count - 1 - j).Value = ds.Tables(0).Rows(0)(i)
+                        cbolist.Find(Function(x) x.Tag = j).SelectedItem = ds.Tables(0).Columns(i).ColumnName
+                        numericlist.Find(Function(x) x.Tag = j).Value = ds.Tables(0).Rows(0)(i)
                     End If
                 Next
 
@@ -958,6 +958,57 @@ Public Class frmRecepciones
             MsgBox("Se produjo un error al intentar completar las columnas" & ex.Message)
         End Try
 
+        Template_On_Sumbit(TemplateName)
+
+    End Sub
+
+    Private Sub Template_On_Sumbit(TemplateName)
+        Dim connection As SqlClient.SqlConnection = Nothing
+        If WorkingOnTemplate Then
+            MsgBox("working on a template")
+
+        Else
+            MsgBox("working without template, we'll save it")
+            Dim StrCols = "Name, Recetas, Recaudado, ACargoOS"
+            Dim StrValues = $"'{TemplateName}', {NumericUpDown1.Value}, {NumericUpDown2.Value}, {NumericUpDown3.Value}"
+
+            Dim cbolist As New List(Of ComboBox)
+            Dim numericlist As New List(Of NumericUpDown)
+            For Each obj As Object In PanelDescuentos.Controls
+                If TypeOf obj Is ComboBox Then
+                    If obj.SelectedItem <> "" Then
+                        cbolist.Add(obj)
+                    End If
+                End If
+                If TypeOf obj Is NumericUpDown Then
+                    If obj.Value <> 0 Then
+                        numericlist.Add(obj)
+                    End If
+                End If
+            Next
+
+            cbolist.Sort(Function(x, y) x.Tag.CompareTo(y.Tag))
+            numericlist.Sort(Function(x, y) x.Tag.CompareTo(y.Tag))
+
+            Dim i As Integer
+            For i = 0 To cbolist.Count - 1
+                StrCols = StrCols + $", {cbolist(i).SelectedItem}"
+                StrValues = StrValues + $", {numericlist(i).Value}"
+            Next
+
+            Dim SQL = $"INSERT INTO [CENPROFAR].[dbo].[ExcelTemplates] ({StrCols}) VALUES ({StrValues})"
+
+            Try
+                connection = SqlHelper.GetConnection(ConnStringSEI)
+                ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, SQL)
+                ds.Dispose()
+
+            Catch ex As Exception
+                MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Exit Sub
+            End Try
+
+        End If
     End Sub
 
 
