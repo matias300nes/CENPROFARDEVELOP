@@ -61,9 +61,11 @@
   <ItemGroup>
     <Reference Include="DevComponents.DotNetBar.Keyboard, Version=12.5.0.6, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL" />
     <Reference Include="DevComponents.DotNetBar.Schedule, Version=12.5.0.6, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL" />
+    <Reference Include="DevComponents.DotNetBar.SuperGrid, Version=12.5.0.6, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL" />
     <Reference Include="DevComponents.DotNetBar2_2015">
       <HintPath>Utiles\bin\Debug\DevComponents.DotNetBar2_2015.dll</HintPath>
     </Reference>
+    <Reference Include="DevComponents.Instrumentation, Version=12.5.0.6, Culture=neutral, PublicKeyToken=f90dc37c26666a67" />
     <Reference Include="ExcelDataReader, Version=3.6.0.0, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
       <HintPath>packages\ExcelDataReader.3.6.0\lib\net20\ExcelDataReader.dll</HintPath>
       <Private>True</Private>

@@ -6,8 +6,7 @@ Imports ReportesNet
 Imports System.Data.OleDb
 Imports System.IO
 Imports ExcelDataReader
-
-
+Imports DevComponents.DotNetBar.SuperGrid
 
 Public Class frmRecepciones
     Dim hojacargada
@@ -771,22 +770,92 @@ Public Class frmRecepciones
         Get_excel_templates(TemplateName)
     End Sub
 
-    Private Sub comparar()
+    'Private Sub comparar()
 
-        Dim j, i As Integer
+    '    Dim j, i As Integer
+    '    Dim recetasGrdItems, recetasGrdDetalleLiquidacion As Integer
+    '    For j = 0 To grdItems.Rows.Count - 1
+    '        Dim codigoGrdItems = grdItems.Rows(j).Cells(1).Value
+
+    '        For i = 0 To grdDetalleLiquidacionFiltrada.Rows.Count - 1
+    '            Dim codigoGrdDetalleLiquidacion = grdDetalleLiquidacionFiltrada.Rows(i).Cells(0).Value
+    '            If codigoGrdDetalleLiquidacion = codigoGrdItems Then
+    '                recetasGrdItems = grdItems.Rows(j).Cells("Recetas").Value
+    '                recetasGrdDetalleLiquidacion = grdDetalleLiquidacionFiltrada.Rows(i).Cells("Recetas").Value
+    '                If recetasGrdItems <> recetasGrdDetalleLiquidacion Then
+    '                    MsgBox("Existe diferencia en j = ")
+    '                    MsgBox(codigoGrdDetalleLiquidacion)
+    '                End If
+    '            End If
+
+
+    '        Next
+
+    '    Next
+
+    'End Sub
+
+    Private Sub comparar()
+        'Genero el datatable con sus columnas
+        Dim dt As New DataTable
+        dt.Columns.Add("Farmacia")
+        dt.Columns.Add("Receta")
+        dt.Columns.Add("ACargoOS")
+        Dim j, i, k, rowIndex, Row As Integer
+
+        Dim Farmacia As String
         Dim recetasGrdItems, recetasGrdDetalleLiquidacion As Integer
+        Dim aCargoOsGrdItems, aCargoOsGrdDetalleLiquidacion, recaudadoGrdItems, recaudadoGrdDetalleLiquidacion, totalAPagar As Double
         For j = 0 To grdItems.Rows.Count - 1
             Dim codigoGrdItems = grdItems.Rows(j).Cells(1).Value
 
             For i = 0 To grdDetalleLiquidacionFiltrada.Rows.Count - 1
                 Dim codigoGrdDetalleLiquidacion = grdDetalleLiquidacionFiltrada.Rows(i).Cells(0).Value
                 If codigoGrdDetalleLiquidacion = codigoGrdItems Then
+                    'valores para comparar
                     recetasGrdItems = grdItems.Rows(j).Cells("Recetas").Value
                     recetasGrdDetalleLiquidacion = grdDetalleLiquidacionFiltrada.Rows(i).Cells("Recetas").Value
+                    aCargoOsGrdItems = grdItems.Rows(j).Cells("ACargoOS").Value
+                    aCargoOsGrdDetalleLiquidacion = grdDetalleLiquidacionFiltrada.Rows(i).Cells("A cargo OS").Value
+                    recaudadoGrdItems = grdItems.Rows(j).Cells("Recaudado").Value
+                    recaudadoGrdDetalleLiquidacion = grdDetalleLiquidacionFiltrada.Rows(i).Cells("Recaudado").Value
+                    Farmacia = grdItems.Rows(j).Cells("Farmacia").Value
+                    'totalAPagar = grdDetalleLiquidacion.Rows(j).Cells(17).Value
+
+                    'Agrego los datos de los grid al datatable
+                    Dim f As DataRow = dt.NewRow()
+                    f("Farmacia") = Farmacia
+                    f("Receta") = recetasGrdDetalleLiquidacion
+                    f("ACargoOS") = aCargoOsGrdDetalleLiquidacion
+
+
+
+
                     If recetasGrdItems <> recetasGrdDetalleLiquidacion Then
-                        MsgBox("Existe diferencia en j = ")
-                        MsgBox(codigoGrdDetalleLiquidacion)
+
+                        grdDetalleLiquidacionFiltrada.Rows(i).Cells("Recetas").Style.ForeColor = Color.AliceBlue
+
+                        'With SuperGrdResultado
+                        '    '.BackColor = Color.Red
+                        '    .DefaultVisualStyles.CellStyles.Default.Background.Color1 = Color.Red
+
+                        '    '.DefaultVisualStyles.RowStyles.Default.Background.Color1 = Color.Red
+                        '    '.ActiveRow.Rows.
+                        '    '.AlternatingRowsDefaultCellStyle.BackColor = Color.PaleGreen
+                        '    '.RowsDefaultCellStyle.BackColor = Color.White
+                        'End With
+
                     End If
+
+
+                    dt.Rows.Add(f)
+                    SuperGrdResultado.PrimaryGrid.DataSource = dt
+                    Dim sty As New DataGridTableStyle
+                    sty.BackColor = Color.AliceBlue
+                    'SuperGrdResultado.PrimaryGrid.GetCell(0, 0).CellStyles.Default.Background.Color1 = Color.Aqua
+
+
+
                 End If
 
 
@@ -794,6 +863,11 @@ Public Class frmRecepciones
 
         Next
 
+        'SuperGrdResultado.PrimaryGrid.DataSource = dt
+
+
+
+        SuperGrdResultado.BringToFront()
     End Sub
 
 
@@ -4264,4 +4338,27 @@ ContinuarTransaccion:
 
     End Sub
 
+    Private Sub SuperGrdResultado_DataBindingComplete(sender As Object, e As GridDataBindingCompleteEventArgs) Handles SuperGrdResultado.DataBindingComplete
+        Dim panel As DevComponents.DotNetBar.SuperGrid.GridPanel
+        Dim var
+        panel = e.GridPanel
+        'panel.
+        var = panel.RowIndex
+        SuperGrdResultado.PrimaryGrid.GetCell(0, 0).CellStyles.Default.Background.Color1 = Color.Aqua
+        'For Each panel.Rows In 
+
+        'Next
+
+
+
+
+    End Sub
+
+    Private Sub SuperGrdResultado_GetRowStyle(sender As Object, e As GridGetRowStyleEventArgs) Handles SuperGrdResultado.GetRowStyle
+
+    End Sub
+
+    Private Sub SuperGrdResultado_GetRowCellStyle(sender As Object, e As GridGetRowCellStyleEventArgs) Handles SuperGrdResultado.GetRowCellStyle
+
+    End Sub
 End Class
