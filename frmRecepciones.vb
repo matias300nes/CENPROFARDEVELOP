@@ -1003,7 +1003,7 @@ Public Class frmRecepciones
             Dim i As Integer
             For i = 0 To cbolist.Count - 1
                 StrCols = StrCols + $", [{cbolist(i).SelectedItem}]"
-                StrValues = StrValues + $", {numericlist(i).Value}"
+                StrValues += $", {numericlist(i).Value}"
             Next
 
             Dim SQL = $"INSERT INTO [CENPROFAR].[dbo].[ExcelTemplates] ({StrCols}) VALUES ({StrValues})"
@@ -1107,10 +1107,7 @@ Public Class frmRecepciones
                             DiscountIndex = numericDescuentos4.Value
                             .Cells(cboDescuentos4.SelectedItem).Value = grdDetalleLiquidacion.Rows(j).Cells(DiscountIndex).Value
                         End If
-                        '.Cells("Bonificacion").Value = grdDetalleLiquidacion.Rows(j).Cells(BonificacionIndex).Value
-                        '.Cells("Total").Value = grdDetalleLiquidacion.Rows(j).Cells(TotalIndex).Value
-                        '.Cells("OrderDateColumn").Value = RowValues.Created
-                        '.Cells("CreatedByColumn").Value = RowValues.OwnerName
+
                     End With
                 End If
             Catch ex As Exception
@@ -1128,64 +1125,6 @@ Public Class frmRecepciones
 
         btnListo.Enabled = True
     End Sub
-
-
-
-    'Private Sub ImportarExcel()
-
-    '    Dim ds As New DataSet
-    '    Dim da As OleDbDataAdapter
-    '    'Permitir conectarnos con nuestro archivo de excel'
-    '    Dim conn As OleDbConnection
-
-
-    '    'Permitir conectarnos a nuestra base de datos sqlserver'
-    '    Dim cnn As SqlConnection
-    '    Dim sqlBC As SqlBulkCopy
-
-    '    Dim connection As SqlClient.SqlConnection = Nothing
-
-    '    Try
-    '        connection = SqlHelper.GetConnection(ConnStringSEI)
-    '    Catch ex As Exception
-    '        MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-    '        Exit Sub
-    '    End Try
-
-
-    '    Dim myFileDialog As New OpenFileDialog()
-    '    Dim xSheet As String = ""
-
-    '    With myFileDialog
-    '        .Filter = "Excel Files |*.xls"
-    '        .Title = "Open File"
-    '        .ShowDialog()
-    '    End With
-
-    '    If myFileDialog.FileName.ToString <> "" Then
-    '        Dim ExcelFile As String = myFileDialog.FileName.ToString
-    '        xSheet = InputBox("Digite el nombre de la Hoja que desea importar", "Complete")
-    '        conn = New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;" & "data source=" & ExcelFile & "; " & "Extended Properties='Excel 12.0 Xml;HDR=Yes'")
-    '        'conn = New OleDbConnection("Provider=Microsoft SQL Server;" & "data source=" & ExcelFile & "; " & "Extended Properties='Excel 12.0 Xml;HDR=Yes'")
-
-    '        Try
-    '            conn.Open()
-    '            da = New OleDbDataAdapter("SELECT * FROM  [" & xSheet & "$]", conn)
-    '            ds = New DataSet
-    '            da.Fill(ds)
-
-    '            sqlBC = New SqlBulkCopy(connection)
-    '            sqlBC.DestinationTableName = "TablaPresentacionesPrueba"
-    '            sqlBC.WriteToServer(ds.Tables(0))
-    '        Catch ex As Exception
-    '            MsgBox("Error: " + ex.ToString, MsgBoxStyle.Information, "Informacion")
-    '        Finally
-    '            conn.Close()
-    '        End Try
-    '    End If
-
-    'End Sub
-
 
 
     Private Sub configurarform()
