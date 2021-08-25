@@ -735,9 +735,9 @@ Public Class frmRecepciones
 
     Dim tables As DataTableCollection
     Dim WorkingOnTemplate As Boolean = False
+    Dim TemplateName = ""
 
     Private Sub btnImportExcel_Click(sender As Object, e As EventArgs) Handles btnImportExcel.Click
-        Dim TemplateName = ""
         Using ofd As OpenFileDialog = New OpenFileDialog() With {.Filter = "Excel Files |*.xls; *.xlsx"}
             If ofd.ShowDialog = DialogResult.OK Then
 
@@ -768,7 +768,7 @@ Public Class frmRecepciones
         '.ReadHeaderRow = Function(rowReader) rowReader.Read,
         '.FilterRow = Function(rowReader) rowReader.Depth > 6
 
-        Get_excel_templates(TemplateName)
+        Get_excel_templates()
     End Sub
 
     'Private Sub comparar()
@@ -897,7 +897,7 @@ Public Class frmRecepciones
 
     End Sub
 
-    Private Sub Get_excel_templates(TemplateName)
+    Private Sub Get_excel_templates()
         Dim connection As SqlClient.SqlConnection = Nothing
 
         Try
@@ -936,12 +936,12 @@ Public Class frmRecepciones
                     End If
                 Next
 
-                Dim j As Integer
+                Dim j As Integer = 0
                 For i = 3 To ds.Tables(0).Columns.Count - 1
-                    j = i - 3
                     If ds.Tables(0).Rows(0)(i) IsNot DBNull.Value Then
                         cbolist.Find(Function(x) x.Tag = j).SelectedItem = ds.Tables(0).Columns(i).ColumnName
                         numericlist.Find(Function(x) x.Tag = j).Value = ds.Tables(0).Rows(0)(i)
+                        j += 1
                     End If
                 Next
 
@@ -958,17 +958,15 @@ Public Class frmRecepciones
             MsgBox("Se produjo un error al intentar completar las columnas" & ex.Message)
         End Try
 
-        Template_On_Sumbit(TemplateName)
+
 
     End Sub
 
-    Private Sub Template_On_Sumbit(TemplateName)
+    Public Sub Template_On_Sumbit()
         Dim connection As SqlClient.SqlConnection = Nothing
         If WorkingOnTemplate Then
-            MsgBox("working on a template")
-
+            MsgBox($"Template {TemplateName}")
         Else
-            MsgBox("working without template, we'll save it")
             Dim StrCols = "Name, Recetas, Recaudado, ACargoOS"
             Dim StrValues = $"'{TemplateName}', {NumericUpDown1.Value}, {NumericUpDown2.Value}, {NumericUpDown3.Value}"
 
@@ -992,7 +990,7 @@ Public Class frmRecepciones
 
             Dim i As Integer
             For i = 0 To cbolist.Count - 1
-                StrCols = StrCols + $", {cbolist(i).SelectedItem}"
+                StrCols = StrCols + $", [{cbolist(i).SelectedItem}]"
                 StrValues = StrValues + $", {numericlist(i).Value}"
             Next
 
@@ -1004,7 +1002,7 @@ Public Class frmRecepciones
                 ds.Dispose()
 
             Catch ex As Exception
-                MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show($"No se pudo conectar con la base de datos {ex.Message}", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End Try
 
@@ -4377,6 +4375,9 @@ ContinuarTransaccion:
 
     Private Sub btnListo_Click(sender As Object, e As EventArgs) Handles btnListo.Click
         Dim prueba = grdItems.Rows(1).Cells(ColumnasDelGridItems.Total).Value.ToString
+
+        Template_On_Sumbit()
+
         comparar()
         'For i As Integer = 0 To grdItems.RowCount() - 1
         '    Dim recetaP, recetaOS
