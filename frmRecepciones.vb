@@ -1046,7 +1046,6 @@ Public Class frmRecepciones
                 connection = SqlHelper.GetConnection(ConnStringSEI)
                 ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, SQL)
                 ds.Dispose()
-
             Catch ex As Exception
                 MessageBox.Show($"No se pudo conectar con la base de datos {ex.Message}", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
@@ -1098,8 +1097,6 @@ Public Class frmRecepciones
                 MsgBox($"El descuento {cbo.SelectedItem} no puede repetirse más de una vez")
                 Return
             End If
-
-
         Next
 
         cbolist.Sort(Function(x, y) x.Tag.CompareTo(y.Tag))
@@ -1118,35 +1115,21 @@ Public Class frmRecepciones
         grdDetalleLiquidacionFiltrada.Columns.Add("Recetas", "Recetas")
         grdDetalleLiquidacionFiltrada.Columns.Add("Recaudado", "Recaudado")
         grdDetalleLiquidacionFiltrada.Columns.Add("A cargo OS", "A cargo OS")
-        With cboDescuentos1
-            If .SelectedItem <> "" Then
-                grdDetalleLiquidacionFiltrada.Columns.Add(.SelectedItem, .SelectedItem)
-            End If
-        End With
-        With cboDescuentos2
-            If .SelectedItem <> "" Then
-                grdDetalleLiquidacionFiltrada.Columns.Add(.SelectedItem, .SelectedItem)
-            End If
-        End With
-        With cboDescuentos3
-            If .SelectedItem <> "" Then
-                grdDetalleLiquidacionFiltrada.Columns.Add(.SelectedItem, .SelectedItem)
-            End If
-        End With
-        With cboDescuentos4
-            If .SelectedItem <> "" Then
-                grdDetalleLiquidacionFiltrada.Columns.Add(.SelectedItem, .SelectedItem)
-            End If
-        End With
 
-        'grdDetalleLiquidacionFiltrada.Columns.Add("Bonificacion", "Bonificacion")
-        'grdDetalleLiquidacionFiltrada.Columns.Add("Total", "Total")
+        For Each cbo As ComboBox In cbolist
+            With cbo
+                grdDetalleLiquidacionFiltrada.Columns.Add(.SelectedItem, .SelectedItem)
+            End With
+        Next
 
-
+        grdDetalleLiquidacionFiltrada.Columns.Add("Total", "Total")
 
         Dim j As Integer
         Dim FirstColumnCell As String
+        Dim subtotal As Decimal
         For j = 0 To grdDetalleLiquidacion.Rows.Count - 1
+
+            subtotal = 0
 
             FirstColumnCell = IIf(grdDetalleLiquidacion.Rows(j).Cells(0).Value IsNot Nothing, grdDetalleLiquidacion.Rows(j).Cells(0).Value.ToString, "")
             Try
@@ -1158,31 +1141,21 @@ Public Class frmRecepciones
                     '//////Get a reference to the new row ///////
                     Row = grdDetalleLiquidacionFiltrada.Rows(rowIndex)
 
-
-
                     With Row
                         'This won't fail since the columns exist 
                         .Cells("Codigo").Value = grdDetalleLiquidacion.Rows(j).Cells(0).Value
                         .Cells("Recetas").Value = grdDetalleLiquidacion.Rows(j).Cells(RecetasIndex).Value
                         .Cells("Recaudado").Value = grdDetalleLiquidacion.Rows(j).Cells(RecaudadoIndex).Value
                         .Cells("A cargo OS").Value = grdDetalleLiquidacion.Rows(j).Cells(AcargoOSIndex).Value
+                        subtotal = Decimal.Parse(grdDetalleLiquidacion.Rows(j).Cells(AcargoOSIndex).Value)
 
-                        If cboDescuentos1.SelectedItem <> "" Then
-                            DiscountIndex = numericDescuentos1.Value
-                            .Cells(cboDescuentos1.SelectedItem).Value = grdDetalleLiquidacion.Rows(j).Cells(DiscountIndex).Value
-                        End If
-                        If cboDescuentos2.SelectedItem <> "" Then
-                            DiscountIndex = numericDescuentos2.Value
-                            .Cells(cboDescuentos2.SelectedItem).Value = grdDetalleLiquidacion.Rows(j).Cells(DiscountIndex).Value
-                        End If
-                        If cboDescuentos3.SelectedItem <> "" Then
-                            DiscountIndex = numericDescuentos3.Value
-                            .Cells(cboDescuentos3.SelectedItem).Value = grdDetalleLiquidacion.Rows(j).Cells(DiscountIndex).Value
-                        End If
-                        If cboDescuentos4.SelectedItem <> "" Then
-                            DiscountIndex = numericDescuentos4.Value
-                            .Cells(cboDescuentos4.SelectedItem).Value = grdDetalleLiquidacion.Rows(j).Cells(DiscountIndex).Value
-                        End If
+                        For i = 0 To cbolist.Count() - 1
+                            DiscountIndex = numericlist(i).Value
+                            subtotal -= Decimal.Parse(grdDetalleLiquidacion.Rows(j).Cells(DiscountIndex).Value)
+                            .Cells(cbolist(i).SelectedItem).Value = grdDetalleLiquidacion.Rows(j).Cells(DiscountIndex).Value
+                        Next
+
+                        .Cells("Total").Value = subtotal
 
                     End With
                 End If
