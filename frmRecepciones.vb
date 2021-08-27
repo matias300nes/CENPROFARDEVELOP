@@ -884,6 +884,7 @@ Public Class frmRecepciones
         Dim dt As DataTable = tables(cboSheet.SelectedItem.ToString())
         grdDetalleLiquidacion.DataSource = dt
 
+
         Dim discounts As String() = New String(6) {"", "Bonificacion", "N. Credito", "Debitos", "Ajustes", "Recupero Aj", "Recupero Gs"}
 
         Dim max As Integer = grdDetalleLiquidacion.Columns.Count - 1
@@ -907,7 +908,6 @@ Public Class frmRecepciones
                 obj.SelectedIndex = 0
             End If
         Next
-
         Get_excel_templates()
 
     End Sub
@@ -968,6 +968,7 @@ Public Class frmRecepciones
                 Scan_columns()
                 btnListo.Enabled = True
             Else
+                btnListo.Enabled = False
                 WorkingOnTemplate = False
                 RecognitionLabel.Visible = False
                 grdDetalleLiquidacionFiltrada.Columns.Clear()
@@ -975,7 +976,7 @@ Public Class frmRecepciones
             End If
 
         Catch ex As Exception
-            MsgBox("Se produjo un error al intentar completar las columnas" & ex.Message)
+            MsgBox("Se produjo un error al intentar completar las columnas " & ex.Message)
         End Try
 
 
@@ -1035,16 +1036,58 @@ Public Class frmRecepciones
         Dim RecetasIndex As Integer = NumericUpDown1.Value
         Dim RecaudadoIndex As Integer = NumericUpDown2.Value
         Dim AcargoOSIndex As Integer = NumericUpDown3.Value
-        Dim BonificacionIndex As Integer = NumericUpDown4.Value
-        Dim TotalIndex As Integer = NumericUpDown5.Value
-
         Dim Row As DataGridViewRow = Nothing
         Dim rowIndex As Integer 'index of the row
 
         Dim DiscountIndex As Integer
 
+        Dim cbolist As New List(Of ComboBox)
+        Dim numericlist As New List(Of NumericUpDown)
+
         grdDetalleLiquidacionFiltrada.Columns.Clear()
         grdDetalleLiquidacionFiltrada.Rows.Clear()
+
+        If NumericUpDown1.Value = 0 Or NumericUpDown2.Value = 0 Or NumericUpDown3.Value = 0 Then
+            btnListo.Enabled = False
+            MsgBox($"Las columnas de receta, recaudado y a cargo son obligatorias")
+            Return
+        End If
+
+        For Each obj As Object In PanelDescuentos.Controls
+            If TypeOf obj Is ComboBox Then
+                If obj.SelectedItem <> "" Then
+                    cbolist.Add(obj)
+                End If
+            End If
+            If TypeOf obj Is NumericUpDown Then
+                numericlist.Add(obj)
+            End If
+        Next
+
+        Dim ocupied As New List(Of String)
+        For Each cbo As ComboBox In cbolist
+            If Not ocupied.Contains(cbo.SelectedItem) Then
+                ocupied.Add(cbo.SelectedItem)
+            Else
+                btnListo.Enabled = False
+                MsgBox($"El descuento {cbo.SelectedItem} no puede repetirse más de una vez")
+                Return
+            End If
+
+
+        Next
+
+        cbolist.Sort(Function(x, y) x.Tag.CompareTo(y.Tag))
+        numericlist.Sort(Function(x, y) x.Tag.CompareTo(y.Tag))
+        Dim i As Integer
+
+        For i = 0 To cbolist.Count() - 1
+            If numericlist(i).Value = 0 Then
+                btnListo.Enabled = False
+                MsgBox($"No puede seleccionarse la columna 0 para {cbolist(i).SelectedItem}")
+                Return
+            End If
+        Next
 
         grdDetalleLiquidacionFiltrada.Columns.Add("Codigo", "Codigo")
         grdDetalleLiquidacionFiltrada.Columns.Add("Recetas", "Recetas")
@@ -1123,15 +1166,13 @@ Public Class frmRecepciones
 
         Next
 
-
+        btnListo.Enabled = True
 
     End Sub
 
 
     Private Sub BtnScan_Click(sender As Object, e As EventArgs) Handles btnScan.Click
         Scan_columns()
-
-        btnListo.Enabled = True
     End Sub
 
 
@@ -1242,7 +1283,7 @@ Public Class frmRecepciones
                 'idmaterial es valido?
                 If grdItems.Rows(i).Cells(ColumnasDelGridItems1.IDMaterial).Value Is System.DBNull.Value Then
                     Util.MsgStatus(Status1, "Falta completar el material en la fila: " & (i + 1).ToString, My.Resources.Resources.alert.ToBitmap)
-                    Util.MsgStatus(Status1, "Falta completar el material en la fila: " & (i + 1).ToString, My.Resources.Resources.alert.ToBitmap, True)
+                Util.MsgStatus(Status1, "Falta completar el material en la fila: " & (i + 1).ToString, My.Resources.Resources.alert.ToBitmap, True)
                     Exit Sub
                 End If
                 'Descripcion del material es válida ?
@@ -4374,6 +4415,10 @@ ContinuarTransaccion:
 
 
 
+
+    End Sub
+
+    Private Sub cboDescuentos1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboDescuentos1.SelectedIndexChanged
 
     End Sub
 
