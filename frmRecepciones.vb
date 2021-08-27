@@ -9,7 +9,7 @@ Imports ExcelDataReader
 Imports DevComponents.DotNetBar.SuperGrid
 
 Public Class frmRecepciones
-    Dim hojacargada
+    Dim DataBindingComplete As Boolean = False
     Dim bolpoliticas As Boolean
     Dim columnaprueba As Integer
     Dim permitir_evento_CellChanged As Boolean
@@ -811,18 +811,20 @@ Public Class frmRecepciones
         dtDetalle.Columns.Add("Bonificacion")
         dtDetalle.Columns.Add("N Credito")
         dtDetalle.Columns.Add("Debitos")
+        dtDetalle.Columns.Add("Recupero Gs")
 
         Dim j, i, k, rowIndex As Integer
         Dim Farmacia As String
         Dim recetasGrdItems, recetasGrdDetalleLiquidacion As Integer
         Dim aCargoOsGrdItems, aCargoOsGrdDetalleLiquidacion, recaudadoGrdItems, recaudadoGrdDetalleLiquidacion, totalAPagar As Double
-        Dim Bonificacion, NCredito, Debitos As Double
+        Dim Bonificacion, NCredito, Debitos, RecuperoGs As Double
         For j = 0 To grdItems.Rows.Count - 1
             Dim codigoGrdItems = grdItems.Rows(j).Cells(1).Value
 
             For i = 0 To grdDetalleLiquidacionFiltrada.Rows.Count - 1
                 Dim codigoGrdDetalleLiquidacion = grdDetalleLiquidacionFiltrada.Rows(i).Cells(0).Value
                 If codigoGrdDetalleLiquidacion = codigoGrdItems Then
+
                     'valores para comparar
                     recetasGrdItems = grdItems.Rows(j).Cells("Recetas").Value
                     recetasGrdDetalleLiquidacion = grdDetalleLiquidacionFiltrada.Rows(i).Cells("Recetas").Value
@@ -835,6 +837,8 @@ Public Class frmRecepciones
                     Bonificacion = grdDetalleLiquidacionFiltrada.Rows(i).Cells("Bonificacion").Value
                     NCredito = grdDetalleLiquidacionFiltrada.Rows(i).Cells("N. Credito").Value
                     Debitos = grdDetalleLiquidacionFiltrada.Rows(i).Cells("Debitos").Value
+                    RecuperoGs = grdDetalleLiquidacionFiltrada.Rows(i).Cells("Recupero Gs").Value
+
                     'Agrego los datos de los grid al dtEncabezado
                     Dim filaEncabezado As DataRow = dtEncabezado.NewRow()
                     Dim filaDetalle As DataRow = dtDetalle.NewRow()
@@ -842,18 +846,20 @@ Public Class frmRecepciones
                     filaEncabezado("Farmacia") = Farmacia
                     filaEncabezado("Receta") = recetasGrdDetalleLiquidacion
                     filaEncabezado("ACargoOS") = aCargoOsGrdDetalleLiquidacion
+
                     'Agrego los datos del grdDetalleLiquidacionFiltrada al dtDetalle
                     filaDetalle("IDFarm") = codigoGrdDetalleLiquidacion
                     filaDetalle("Bonificacion") = Bonificacion
                     filaDetalle("N Credito") = NCredito
                     filaDetalle("Debitos") = Debitos
+                    filaDetalle("Recupero Gs") = RecuperoGs
 
 
 
                     If recetasGrdItems <> recetasGrdDetalleLiquidacion Then
                         RowofError = i
                         listFilas.Add(RowofError)
-                        grdDetalleLiquidacionFiltrada.Rows(i).Cells("Recetas").Style.ForeColor = Color.AliceBlue
+
 
                     End If
 
@@ -883,14 +889,18 @@ Public Class frmRecepciones
             )
         'Envio el dataset con la relacion al SuperGrid
         SuperGrdResultado.PrimaryGrid.DataSource = dataset
-
-        ' customerOrders.Relations.Add("CustOrders", _
-        '   customerOrders.Tables("Customers").Columns("CustID"), _
-        '   customerOrders.Tables("Orders").Columns("CustID"))
-
-
-
+        'SuperGrdResultado.PrimaryGrid.DataMember = "DetalleLiquidacion"
         SuperGrdResultado.BringToFront()
+        DataBindingComplete = True
+        CalcularDetalleSuperGrd(dataset)
+    End Sub
+
+    Private Sub CalcularDetalleSuperGrd(datasetLiquidacion As DataSet)
+        If DataBindingComplete = True Then
+            'SuperGrdResultado.PrimaryGrid.Footer.Text = "Prueba"
+            'SuperGrdResultado.PrimaryGrid.GetParentPanel.GetParentPanel()
+            'SuperGrdResultado.PrimaryGrid.GridPanel.Footer.Text = "prueba"
+        End If
     End Sub
 
 
@@ -4375,21 +4385,14 @@ ContinuarTransaccion:
 
         For Each fila As Integer In listFilas
             For Column As Integer = 0 To 2
-                SuperGrdResultado.PrimaryGrid.GetCell(fila, Column).CellStyles.Default.Background.Color1 = Color.Aqua
+                SuperGrdResultado.PrimaryGrid.GetCell(fila, Column).CellStyles.Default.Background.Color1 = Color.OrangeRed
 
             Next
         Next
 
 
-        'For Column As Integer = 0 To 2
-        '    SuperGrdResultado.PrimaryGrid.GetCell(RowofError, Column).CellStyles.Default.Background.Color1 = Color.Aqua
-
-        'Next
-
-
-
-
 
     End Sub
+
 
 End Class
