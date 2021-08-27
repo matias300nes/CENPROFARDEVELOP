@@ -1121,9 +1121,14 @@ Public Class frmRecepciones
             End With
         Next
 
+        grdDetalleLiquidacionFiltrada.Columns.Add("Total", "Total")
+
         Dim j As Integer
         Dim FirstColumnCell As String
+        Dim subtotal As Decimal
         For j = 0 To grdDetalleLiquidacion.Rows.Count - 1
+
+            subtotal = 0
 
             FirstColumnCell = IIf(grdDetalleLiquidacion.Rows(j).Cells(0).Value IsNot Nothing, grdDetalleLiquidacion.Rows(j).Cells(0).Value.ToString, "")
             Try
@@ -1141,11 +1146,15 @@ Public Class frmRecepciones
                         .Cells("Recetas").Value = grdDetalleLiquidacion.Rows(j).Cells(RecetasIndex).Value
                         .Cells("Recaudado").Value = grdDetalleLiquidacion.Rows(j).Cells(RecaudadoIndex).Value
                         .Cells("A cargo OS").Value = grdDetalleLiquidacion.Rows(j).Cells(AcargoOSIndex).Value
+                        subtotal = Decimal.Parse(grdDetalleLiquidacion.Rows(j).Cells(AcargoOSIndex).Value)
 
                         For i = 0 To cbolist.Count() - 1
                             DiscountIndex = numericlist(i).Value
+                            subtotal -= Decimal.Parse(grdDetalleLiquidacion.Rows(j).Cells(DiscountIndex).Value)
                             .Cells(cbolist(i).SelectedItem).Value = grdDetalleLiquidacion.Rows(j).Cells(DiscountIndex).Value
                         Next
+
+                        .Cells("Total").Value = subtotal
 
                     End With
                 End If
