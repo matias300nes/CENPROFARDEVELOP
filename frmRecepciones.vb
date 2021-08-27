@@ -9,7 +9,7 @@ Imports ExcelDataReader
 Imports DevComponents.DotNetBar.SuperGrid
 
 Public Class frmRecepciones
-    Dim hojacargada
+    Dim DataBindingComplete As Boolean = False
     Dim bolpoliticas As Boolean
     Dim columnaprueba As Integer
     Dim permitir_evento_CellChanged As Boolean
@@ -795,24 +795,36 @@ Public Class frmRecepciones
 
     'End Sub
     Dim listFilas As New List(Of Integer)
+
+
+
     Private Sub comparar()
         'Genero el datatable con sus columnas
-        Dim dt As New DataTable
+        Dim dtEncabezado As New DataTable
+        Dim dtDetalle As New DataTable
+        Dim dataset As New DataSet
+        dtEncabezado.Columns.Add("IDFarmacia")
+        dtEncabezado.Columns.Add("Farmacia")
+        dtEncabezado.Columns.Add("Receta")
+        dtEncabezado.Columns.Add("ACargoOS")
+        dtDetalle.Columns.Add("IDFarm")
+        dtDetalle.Columns.Add("Bonificacion")
+        dtDetalle.Columns.Add("N Credito")
+        dtDetalle.Columns.Add("Debitos")
+        dtDetalle.Columns.Add("Recupero Gs")
 
-        dt.Columns.Add("Farmacia")
-        dt.Columns.Add("Receta")
-        dt.Columns.Add("ACargoOS")
         Dim j, i, k, rowIndex As Integer
-
         Dim Farmacia As String
         Dim recetasGrdItems, recetasGrdDetalleLiquidacion As Integer
         Dim aCargoOsGrdItems, aCargoOsGrdDetalleLiquidacion, recaudadoGrdItems, recaudadoGrdDetalleLiquidacion, totalAPagar As Double
+        Dim Bonificacion, NCredito, Debitos, RecuperoGs As Double
         For j = 0 To grdItems.Rows.Count - 1
             Dim codigoGrdItems = grdItems.Rows(j).Cells(1).Value
 
             For i = 0 To grdDetalleLiquidacionFiltrada.Rows.Count - 1
                 Dim codigoGrdDetalleLiquidacion = grdDetalleLiquidacionFiltrada.Rows(i).Cells(0).Value
                 If codigoGrdDetalleLiquidacion = codigoGrdItems Then
+
                     'valores para comparar
                     recetasGrdItems = grdItems.Rows(j).Cells("Recetas").Value
                     recetasGrdDetalleLiquidacion = grdDetalleLiquidacionFiltrada.Rows(i).Cells("Recetas").Value
@@ -821,46 +833,41 @@ Public Class frmRecepciones
                     recaudadoGrdItems = grdItems.Rows(j).Cells("Recaudado").Value
                     recaudadoGrdDetalleLiquidacion = grdDetalleLiquidacionFiltrada.Rows(i).Cells("Recaudado").Value
                     Farmacia = grdItems.Rows(j).Cells("Farmacia").Value
-                    'totalAPagar = grdDetalleLiquidacion.Rows(j).Cells(17).Value
+                    'Valores para dtDetalle
+                    Bonificacion = grdDetalleLiquidacionFiltrada.Rows(i).Cells("Bonificacion").Value
+                    NCredito = grdDetalleLiquidacionFiltrada.Rows(i).Cells("N. Credito").Value
+                    Debitos = grdDetalleLiquidacionFiltrada.Rows(i).Cells("Debitos").Value
+                    RecuperoGs = grdDetalleLiquidacionFiltrada.Rows(i).Cells("Recupero Gs").Value
 
-                    'Agrego los datos de los grid al datatable
-                    Dim f As DataRow = dt.NewRow()
-                    f("Farmacia") = Farmacia
-                    f("Receta") = recetasGrdDetalleLiquidacion
-                    f("ACargoOS") = aCargoOsGrdDetalleLiquidacion
+                    'Agrego los datos de los grid al dtEncabezado
+                    Dim filaEncabezado As DataRow = dtEncabezado.NewRow()
+                    Dim filaDetalle As DataRow = dtDetalle.NewRow()
+                    filaEncabezado("IDFarmacia") = codigoGrdDetalleLiquidacion
+                    filaEncabezado("Farmacia") = Farmacia
+                    filaEncabezado("Receta") = recetasGrdDetalleLiquidacion
+                    filaEncabezado("ACargoOS") = aCargoOsGrdDetalleLiquidacion
 
+                    'Agrego los datos del grdDetalleLiquidacionFiltrada al dtDetalle
+                    filaDetalle("IDFarm") = codigoGrdDetalleLiquidacion
+                    filaDetalle("Bonificacion") = Bonificacion
+                    filaDetalle("N Credito") = NCredito
+                    filaDetalle("Debitos") = Debitos
+                    filaDetalle("Recupero Gs") = RecuperoGs
 
 
 
                     If recetasGrdItems <> recetasGrdDetalleLiquidacion Then
                         RowofError = i
                         listFilas.Add(RowofError)
-                        grdDetalleLiquidacionFiltrada.Rows(i).Cells("Recetas").Style.ForeColor = Color.AliceBlue
 
-                        'With SuperGrdResultado
-                        '    '.BackColor = Color.Red
-                        '    .DefaultVisualStyles.CellStyles.Default.Background.Color1 = Color.Red
-
-                        '    '.DefaultVisualStyles.RowStyles.Default.Background.Color1 = Color.Red
-                        '    '.ActiveRow.Rows.
-                        '    '.AlternatingRowsDefaultCellStyle.BackColor = Color.PaleGreen
-                        '    '.RowsDefaultCellStyle.BackColor = Color.White
-                        'End With
 
                     End If
 
 
-                    dt.Rows.Add(f)
-                    SuperGrdResultado.PrimaryGrid.DataSource = dt
-                    Dim indiceSp = SuperGrdResultado.PrimaryGrid.FirstOnScreenRow
-                    Dim prueba1 = SuperGrdResultado.PrimaryGrid.FirstOnScreenRowIndex
-                    Dim prueba2 = SuperGrdResultado.PrimaryGrid.FirstVisibleRow
-                    Dim prueba3 = SuperGrdResultado.PrimaryGrid.FullIndex
-                    Dim prueba4 = SuperGrdResultado.PrimaryGrid.GridIndex
-                    Dim prueba5 = SuperGrdResultado.PrimaryGrid.Index
-                    'Dim sty As New DataGridTableStyle
-                    'sty.BackColor = Color.AliceBlue
-                    'SuperGrdResultado.PrimaryGrid.GetCell(0, 0).CellStyles.Default.Background.Color1 = Color.Aqua
+                    dtEncabezado.Rows.Add(filaEncabezado)
+                    dtDetalle.Rows.Add(filaDetalle)
+                    'SuperGrdResultado.PrimaryGrid.DataSource = dtEncabezado
+
 
 
 
@@ -871,13 +878,30 @@ Public Class frmRecepciones
 
         Next
 
-        'SuperGrdResultado.PrimaryGrid.DataSource = dt
+        'Agrego las datatables al dataset
+        dataset.Tables.Add(dtEncabezado)
+        dataset.Tables.Add(dtDetalle)
 
-
-
+        'Genero una relacion entre ambas datatables
+        dataset.Relations.Add("EncabezadoDetalle",
+                              dataset.Tables(0).Columns("IDFarmacia"),
+                              dataset.Tables(1).Columns("IDFarm")
+            )
+        'Envio el dataset con la relacion al SuperGrid
+        SuperGrdResultado.PrimaryGrid.DataSource = dataset
+        'SuperGrdResultado.PrimaryGrid.DataMember = "DetalleLiquidacion"
         SuperGrdResultado.BringToFront()
+        DataBindingComplete = True
+        CalcularDetalleSuperGrd(dataset)
     End Sub
 
+    Private Sub CalcularDetalleSuperGrd(datasetLiquidacion As DataSet)
+        If DataBindingComplete = True Then
+            'SuperGrdResultado.PrimaryGrid.Footer.Text = "Prueba"
+            'SuperGrdResultado.PrimaryGrid.GetParentPanel.GetParentPanel()
+            'SuperGrdResultado.PrimaryGrid.GridPanel.Footer.Text = "prueba"
+        End If
+    End Sub
 
 
     Private Sub CboSheet_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboSheet.SelectedIndexChanged
@@ -1283,7 +1307,7 @@ Public Class frmRecepciones
                 'idmaterial es valido?
                 If grdItems.Rows(i).Cells(ColumnasDelGridItems1.IDMaterial).Value Is System.DBNull.Value Then
                     Util.MsgStatus(Status1, "Falta completar el material en la fila: " & (i + 1).ToString, My.Resources.Resources.alert.ToBitmap)
-                Util.MsgStatus(Status1, "Falta completar el material en la fila: " & (i + 1).ToString, My.Resources.Resources.alert.ToBitmap, True)
+                    Util.MsgStatus(Status1, "Falta completar el material en la fila: " & (i + 1).ToString, My.Resources.Resources.alert.ToBitmap, True)
                     Exit Sub
                 End If
                 'Descripcion del material es válida ?
@@ -4379,8 +4403,9 @@ ContinuarTransaccion:
         Template_On_Sumbit()
 
         comparar()
+
         'For i As Integer = 0 To grdItems.RowCount() - 1
-        '    Dim recetaP, recetaOS
+        '    Dim recetaP, recetaOSThen
 
         '    recetaP = grdItems.Rows(i).Cells("NUMSOC").Value
 
@@ -4401,25 +4426,14 @@ ContinuarTransaccion:
 
         For Each fila As Integer In listFilas
             For Column As Integer = 0 To 2
-                SuperGrdResultado.PrimaryGrid.GetCell(fila, Column).CellStyles.Default.Background.Color1 = Color.Aqua
+                SuperGrdResultado.PrimaryGrid.GetCell(fila, Column).CellStyles.Default.Background.Color1 = Color.OrangeRed
 
             Next
         Next
 
 
-        'For Column As Integer = 0 To 2
-        '    SuperGrdResultado.PrimaryGrid.GetCell(RowofError, Column).CellStyles.Default.Background.Color1 = Color.Aqua
-
-        'Next
-
-
-
-
 
     End Sub
 
-    Private Sub cboDescuentos1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboDescuentos1.SelectedIndexChanged
-
-    End Sub
 
 End Class
