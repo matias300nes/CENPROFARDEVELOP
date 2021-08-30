@@ -878,7 +878,6 @@ Public Class frmRecepciones
 
         Next
 
-        'Agrego las datatables al dataset
         dataset.Tables.Add(dtEncabezado)
         dataset.Tables.Add(dtDetalle)
 
@@ -898,8 +897,10 @@ Public Class frmRecepciones
     Private Sub CalcularDetalleSuperGrd(datasetLiquidacion As DataSet)
         If DataBindingComplete = True Then
             'SuperGrdResultado.PrimaryGrid.Footer.Text = "Prueba"
-            'SuperGrdResultado.PrimaryGrid.GetParentPanel.GetParentPanel()
-            'SuperGrdResultado.PrimaryGrid.GridPanel.Footer.Text = "prueba"
+            'SuperGrdResultado.PrimaryGrid.GetParentPanel().Footer.Text = "prueba"
+            'SuperGrdResultado.PrimaryGrid.GridPanel.GetParentPanel.Footer.Text = "prueba"
+
+
         End If
     End Sub
 
