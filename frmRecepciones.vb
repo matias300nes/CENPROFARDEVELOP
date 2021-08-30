@@ -941,7 +941,7 @@ Public Class frmRecepciones
         ColLabel.Text = e.ColumnIndex
 
     End Sub
-
+    Dim ExcelTemplate
     Private Sub Get_excel_templates()
         Dim connection As SqlClient.SqlConnection = Nothing
 
@@ -956,6 +956,7 @@ Public Class frmRecepciones
             Dim SQL = $" SELECT Recetas, Recaudado, ACargoOS, Bonificacion, [N. Credito], Debitos, Ajustes, [Recupero Aj], [Recupero Gs] FROM ExcelTemplates as t where t.name = '{TemplateName}'"
             ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, SQL)
             ds.Dispose()
+            ExcelTemplate = ds
 
             If ds.Tables(0).Rows.Count > 0 Then
                 WorkingOnTemplate = True
@@ -990,7 +991,6 @@ Public Class frmRecepciones
                 Next
 
                 Scan_columns()
-                btnListo.Enabled = True
             Else
                 btnListo.Enabled = False
                 WorkingOnTemplate = False
@@ -1009,29 +1009,67 @@ Public Class frmRecepciones
 
     Public Sub Template_On_Sumbit()
         Dim connection As SqlClient.SqlConnection = Nothing
-        If WorkingOnTemplate Then
-            MsgBox($"Template {TemplateName}")
-        Else
-            Dim StrCols = "Name, Recetas, Recaudado, ACargoOS"
-            Dim StrValues = $"'{TemplateName}', {NumericUpDown1.Value}, {NumericUpDown2.Value}, {NumericUpDown3.Value}"
-
-            Dim cbolist As New List(Of ComboBox)
-            Dim numericlist As New List(Of NumericUpDown)
-            For Each obj As Object In PanelDescuentos.Controls
-                If TypeOf obj Is ComboBox Then
-                    If obj.SelectedItem <> "" Then
-                        cbolist.Add(obj)
-                    End If
+        Dim cbolist As New List(Of ComboBox)
+        Dim numericlist As New List(Of NumericUpDown)
+        For Each obj As Object In PanelDescuentos.Controls
+            If TypeOf obj Is ComboBox Then
+                If obj.SelectedItem <> "" Then
+                    cbolist.Add(obj)
                 End If
-                If TypeOf obj Is NumericUpDown Then
-                    If obj.Value <> 0 Then
-                        numericlist.Add(obj)
+            End If
+            If TypeOf obj Is NumericUpDown Then
+                If obj.Value <> 0 Then
+                    numericlist.Add(obj)
+                End If
+            End If
+        Next
+
+        cbolist.Sort(Function(x, y) x.Tag.CompareTo(y.Tag))
+        numericlist.Sort(Function(x, y) x.Tag.CompareTo(y.Tag))
+
+
+        If WorkingOnTemplate Then
+            Dim i
+            Dim j = 0
+            Dim cell_value
+            Dim need_to_update = False
+            Dim StrSet = ""
+
+            For i = 0 To cbolist.Count - 1
+                cell_value = IIf(ExcelTemplate.Tables(0).Rows(0)(cbolist(i).SelectedItem) Is DBNull.Value, 0, ExcelTemplate.Tables(0).Rows(0)(cbolist(i).SelectedItem))
+
+                If numericlist(i).Value <> cell_value Then
+                    MsgBox("algo cambio!!")
+                    need_to_update = True
+                    If StrSet = "" Then
+                        StrSet += $"[{cbolist(i).SelectedItem}] = {numericlist(i).Value}"
+                    Else
+                        StrSet += $", [{cbolist(i).SelectedItem} = {numericlist(i).Value}]"
                     End If
+
                 End If
             Next
 
-            cbolist.Sort(Function(x, y) x.Tag.CompareTo(y.Tag))
-            numericlist.Sort(Function(x, y) x.Tag.CompareTo(y.Tag))
+            If need_to_update Then
+                SQL = $"UPDATE [CENPROFAR].[dbo].[ExcelTemplates] SET {StrSet} where [Name] = '{TemplateName}'"
+
+                MsgBox(SQL)
+
+                Try
+                    connection = SqlHelper.GetConnection(ConnStringSEI)
+                    ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, SQL)
+                    ds.Dispose()
+                Catch ex As Exception
+                    MessageBox.Show($"No se pudo conectar con la base de datos {ex.Message}", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Exit Sub
+                End Try
+
+                MsgBox($"Se actualizo template {TemplateName}")
+            End If
+
+        Else
+            Dim StrCols = "Name, Recetas, Recaudado, ACargoOS"
+            Dim StrValues = $"'{TemplateName}', {NumericUpDown1.Value}, {NumericUpDown2.Value}, {NumericUpDown3.Value}"
 
             Dim i As Integer
             For i = 0 To cbolist.Count - 1
