@@ -759,14 +759,15 @@ Public Class frmRecepciones
                     End Using
                 End Using
 
-                grdDetalleLiquidacion.BringToFront()
-
-                cboSheet.SelectedIndex = 0
-
-                btnScan.Enabled = True
-
             End If
         End Using
+
+        grdDetalleLiquidacion.BringToFront()
+
+        cboSheet.SelectedIndex = 0
+
+        btnScan.Enabled = True
+
     End Sub
 
     'Private Sub comparar()
@@ -1034,48 +1035,26 @@ Public Class frmRecepciones
             Dim cell_value
             Dim need_to_update = False
             Dim StrSet = ""
-            ''con esta list me aseguro que los demas campos sin modificar sean null
-            Dim fields2clean As New List(Of String) From {"Bonificacion", "N. Credito", "Debitos", "Ajustes", "Recupero Aj", "Recupero Gs"}
 
-            Dim ExcelTemplate_len As Integer = 0
-            For i = 3 To ExcelTemplate.Tables(0).Columns.Count - 1
-                If ExcelTemplate.Tables(0).Rows(0)(i) IsNot DBNull.Value Then
-                    ExcelTemplate_len += 1
-                End If
-            Next
+            For i = 0 To cbolist.Count - 1
+                cell_value = IIf(ExcelTemplate.Tables(0).Rows(0)(cbolist(i).SelectedItem) Is DBNull.Value, 0, ExcelTemplate.Tables(0).Rows(0)(cbolist(i).SelectedItem))
 
-            If ExcelTemplate_len <> cbolist.Count Then
-                need_to_update = True
-            Else
-                For i = 0 To cbolist.Count - 1
-                    cell_value = IIf(ExcelTemplate.Tables(0).Rows(0)(cbolist(i).SelectedItem) Is DBNull.Value, 0, ExcelTemplate.Tables(0).Rows(0)(cbolist(i).SelectedItem))
-
-                    If numericlist(i).Value <> cell_value Then
-                        need_to_update = True
-                    End If
-                Next
-            End If
-
-            If need_to_update Then
-                For i = 0 To cbolist.Count - 1
+                If numericlist(i).Value <> cell_value Then
+                    MsgBox("algo cambio!!")
+                    need_to_update = True
                     If StrSet = "" Then
                         StrSet += $"[{cbolist(i).SelectedItem}] = {numericlist(i).Value}"
                     Else
-                        StrSet += $", [{cbolist(i).SelectedItem}] = {numericlist(i).Value}"
+                        StrSet += $", [{cbolist(i).SelectedItem} = {numericlist(i).Value}]"
                     End If
-                    fields2clean.Remove(cbolist(i).SelectedItem)
-                Next
 
-                For Each field As String In fields2clean
-                    If StrSet = "" Then
-                        StrSet += $"[{field}] = NULL"
-                    Else
-                        StrSet += $", [{field}] = NULL"
-                    End If
-                Next
+                End If
+            Next
 
+            If need_to_update Then
                 SQL = $"UPDATE [CENPROFAR].[dbo].[ExcelTemplates] SET {StrSet} where [Name] = '{TemplateName}'"
 
+                MsgBox(SQL)
 
                 Try
                     connection = SqlHelper.GetConnection(ConnStringSEI)
