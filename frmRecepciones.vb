@@ -804,19 +804,23 @@ Public Class frmRecepciones
         Dim dataset As New DataSet
         dtEncabezado.Columns.Add("IDFarmacia")
         dtEncabezado.Columns.Add("Farmacia")
-        dtEncabezado.Columns.Add("Receta")
-        dtEncabezado.Columns.Add("ACargoOS")
+        dtEncabezado.Columns.Add("Receta") 'Presentacion
+        dtEncabezado.Columns.Add("ACargoOS") 'Presentacion
+        dtEncabezado.Columns.Add("A Pagar")
         dtDetalle.Columns.Add("IDFarm")
         dtDetalle.Columns.Add("Bonificacion")
         dtDetalle.Columns.Add("N Credito")
         dtDetalle.Columns.Add("Debitos")
         dtDetalle.Columns.Add("Recupero Gs")
+        dtDetalle.Columns.Add("Cant Recetas") 'detalle liquidacion
+        dtDetalle.Columns.Add("ACargoOS") 'detalle liquidacion
 
         Dim j, i, k, rowIndex As Integer
         Dim Farmacia As String
         Dim recetasGrdItems, recetasGrdDetalleLiquidacion As Integer
         Dim aCargoOsGrdItems, aCargoOsGrdDetalleLiquidacion, recaudadoGrdItems, recaudadoGrdDetalleLiquidacion, totalAPagar As Double
         Dim Bonificacion, NCredito, Debitos, RecuperoGs As Double
+        totalAPagar = 0
         For j = 0 To grdItems.Rows.Count - 1
             Dim codigoGrdItems = grdItems.Rows(j).Cells(1).Value
 
@@ -831,6 +835,8 @@ Public Class frmRecepciones
                     aCargoOsGrdDetalleLiquidacion = grdDetalleLiquidacionFiltrada.Rows(i).Cells("A cargo OS").Value
                     recaudadoGrdItems = grdItems.Rows(j).Cells("Recaudado").Value
                     recaudadoGrdDetalleLiquidacion = grdDetalleLiquidacionFiltrada.Rows(i).Cells("Recaudado").Value
+                    totalAPagar = grdDetalleLiquidacionFiltrada.Rows(i).Cells("Total").Value
+
                     Farmacia = grdItems.Rows(j).Cells("Farmacia").Value
                     'Valores para dtDetalle
                     Bonificacion = grdDetalleLiquidacionFiltrada.Rows(i).Cells("Bonificacion").Value
@@ -843,8 +849,9 @@ Public Class frmRecepciones
                     Dim filaDetalle As DataRow = dtDetalle.NewRow()
                     filaEncabezado("IDFarmacia") = codigoGrdDetalleLiquidacion
                     filaEncabezado("Farmacia") = Farmacia
-                    filaEncabezado("Receta") = recetasGrdDetalleLiquidacion
-                    filaEncabezado("ACargoOS") = aCargoOsGrdDetalleLiquidacion
+                    filaEncabezado("Receta") = recetasGrdItems
+                    filaEncabezado("ACargoOS") = aCargoOsGrdItems
+                    filaEncabezado("A Pagar") = totalAPagar
 
                     'Agrego los datos del grdDetalleLiquidacionFiltrada al dtDetalle
                     filaDetalle("IDFarm") = codigoGrdDetalleLiquidacion
@@ -852,6 +859,8 @@ Public Class frmRecepciones
                     filaDetalle("N Credito") = NCredito
                     filaDetalle("Debitos") = Debitos
                     filaDetalle("Recupero Gs") = RecuperoGs
+                    filaDetalle("Cant Recetas") = recetasGrdDetalleLiquidacion
+                    filaDetalle("ACargoOS") = aCargoOsGrdDetalleLiquidacion
 
 
 
@@ -3748,6 +3757,44 @@ Public Class frmRecepciones
 
     End Function
 
+
+    Private Function TotalRows(ByVal rows As IEnumerable(Of GridElement), ByVal rowsEncabezado As IEnumerable(Of GridElement)) As Decimal
+        Dim total As Decimal = 0
+        Dim codigoDetalle As String
+        Dim ACargoOSDetalle As Decimal
+        Dim ACargoOSEncabezado As Decimal
+        Dim codigoEncabezado As String
+
+        For Each itemDetalle As GridContainer In rows
+            If TypeOf itemDetalle Is GridRow Then
+                Dim row As GridRow = CType(itemDetalle, GridRow)
+                codigoDetalle = row("IDFarm").Value
+                ACargoOSDetalle = row("ACargoOS").Value 'DirectCast(IIf(row("ACargoOS").Value Is Nothing, 0D, row("ACargoOS").Value), Decimal)
+
+                For Each itemEncabezado As GridContainer In rowsEncabezado
+                    If TypeOf itemEncabezado Is GridRow Then
+
+                        Dim rowEncabezado As GridRow = CType(itemEncabezado, GridRow)
+                        codigoEncabezado = rowEncabezado("IDFarmacia").Value
+
+                        If codigoDetalle = codigoEncabezado Then
+                            ACargoOSEncabezado = rowEncabezado("ACargoOS").Value
+                        End If
+
+                    End If
+
+                Next itemEncabezado
+
+            End If
+
+        Next itemDetalle
+
+        total = ACargoOSEncabezado - ACargoOSDetalle
+
+        Return (total)
+    End Function
+
+
 #End Region
 
 #Region "   Botones"
@@ -4447,9 +4494,18 @@ ContinuarTransaccion:
         '        recetaOS = grdDetLiquidacionOs.Rows(A).Cells("NUM_SOCIO").Value()
 
     End Sub
-
+    Dim panel As GridPanel
+    Dim panelSuperior As GridPanel
     Private Sub SuperGrdResultado_DataBindingComplete(sender As Object, e As GridDataBindingCompleteEventArgs) Handles SuperGrdResultado.DataBindingComplete
         Dim RowsCount = SuperGrdResultado.PrimaryGrid.Rows.Count
+        panel = e.GridPanel
+        'Dim panel As GridPanel = e.GridPanel
+        'Dim panelSuperior As GridPanel
+
+        If panel.Name.Equals("") = True Then
+            panelSuperior = panel
+        End If
+
         RowsCount = RowsCount - 1
 
         'Controlo si el error esta en la ultima fila
@@ -4464,8 +4520,26 @@ ContinuarTransaccion:
             Next
         Next
 
+        'Verifico el nombre del subpanel
+
+        If panel.Name.Equals("Table2") = True Then
+            UpdateDetailsFooter(panel, panelSuperior) 'actualizo el footer de la grilla desplegada
+        End If
 
 
+    End Sub
+
+    Private Sub UpdateDetailsFooter(ByVal panel As GridPanel, ByVal panelSuperior As GridPanel)
+        If panel.Footer Is Nothing Then
+            panel.Footer = New GridFooter()
+        End If
+        If panelSuperior.Footer Is Nothing Then
+            panelSuperior.Footer = New GridFooter()
+        End If
+
+        Dim total As Decimal = TotalRows(panel.Rows, panelSuperior.Rows)
+
+        panel.Footer.Text = String.Format("Total sales <font color=""Green""><i>{0:C}</i></font>", total)
     End Sub
 
 
