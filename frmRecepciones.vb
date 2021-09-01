@@ -729,8 +729,72 @@ Public Class frmRecepciones
 
 #Region "   Procedimientos"
 
+    Private Sub UpdateGrdPrincipal()
+        Dim dtEncabezado As New DataTable
+        Dim dtDetalle As New DataTable
+        Dim dataset As New DataSet
+
+        Dim connection As SqlClient.SqlConnection = Nothing
+
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+        Catch ex As Exception
+            MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End Try
+
+        Dim dt As New DataTable
+        Dim SQL As String
+
+        Try
+            If txtID.Text = "" Then
+                SQL = "exec spPresentaciones_Det_Select_By_IDPresentacion @IDPresentacion = '1'"
+            Else
+                SQL = "exec spPresentaciones_Det_Select_By_IDPresentacion @IDPresentacion = " & txtID.Text & ""
+            End If
+
+            Dim cmd As New SqlCommand(SQL, connection)
+            Dim da As New SqlDataAdapter(cmd)
+
+            da.Fill(dt)
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        Finally
+            If Not connection Is Nothing Then
+                CType(connection, IDisposable).Dispose()
+            End If
+        End Try
+
+        Dim i As Integer
+        For i = 0 To dt.Columns.Count - 1
+            dtEncabezado.Columns.Add(dt.Columns(i).ColumnName)
+        Next
+
+
+        For i = 0 To dt.Rows.Count - 1
+            dtEncabezado.Rows.Add().ItemArray = dt.Rows(i).ItemArray
+        Next
+
+        dataset.Tables.Add(dtEncabezado)
+
+        'Envio el dataset con la relacion al SuperGrid
+        SuperGrdResultado.PrimaryGrid.DataSource = dataset
+
+        DataBindingComplete = True
+
+        'cambio el fonde de la grilla de items
+
+        'With grdItems
+        '    .AlternatingRowsDefaultCellStyle.BackColor = Color.PaleGreen
+        '    .RowsDefaultCellStyle.BackColor = Color.White
+        'End With
+
+    End Sub
+
     Private Sub btnOpenExcelWindow_Click(sender As Object, e As EventArgs) Handles btnOpenExcelWindow.Click
         GroupPanelDetalleLiquidacion.Visible = True
+        GroupPanelDetalleLiquidacion.Location = New Point(0, 0)
     End Sub
 
     Dim tables As DataTableCollection
@@ -1584,6 +1648,10 @@ Public Class frmRecepciones
             .AlternatingRowsDefaultCellStyle.BackColor = Color.PaleGreen
             .RowsDefaultCellStyle.BackColor = Color.White
         End With
+
+
+        'borrar esto
+        UpdateGrdPrincipal()
 
     End Sub
 
