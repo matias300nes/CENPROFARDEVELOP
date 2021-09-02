@@ -784,18 +784,25 @@ Public Class frmRecepciones
             dtDetalle.Columns.Add("Descuento")
             dtDetalle.Columns.Add("valor")
 
+            For i = 0 To grdDetalleLiquidacionFiltrada.Rows.Count - 1
+                Dim row As DataRow = dtDetalle.NewRow()
+                row("codigo") = grdDetalleLiquidacionFiltrada.Rows(i).Cells(0).Value
+                row("Descuento") = "A cargo OS"
+                row("valor") = Decimal.Parse(grdDetalleLiquidacionFiltrada.Rows(i).Cells("A cargo OS").Value)
+                dtDetalle.Rows.Add(row)
+            Next
 
             Dim ColumnName As String
 
             Dim j As Integer = 0
-            For i = 4 To grdDetalleLiquidacionFiltrada.Columns.Count - 1
+            For i = 4 To grdDetalleLiquidacionFiltrada.Columns.Count - 2
 
                 ColumnName = grdDetalleLiquidacionFiltrada.Columns(i).Name
                 For j = 0 To grdDetalleLiquidacionFiltrada.Rows.Count - 1
                     Dim row As DataRow = dtDetalle.NewRow()
                     row("codigo") = grdDetalleLiquidacionFiltrada.Rows(j).Cells(0).Value
                     row("Descuento") = ColumnName
-                    row("valor") = grdDetalleLiquidacionFiltrada.Rows(j).Cells(i).Value
+                    row("valor") = Decimal.Parse(grdDetalleLiquidacionFiltrada.Rows(j).Cells(i).Value) * -1
                     dtDetalle.Rows.Add(row)
                 Next
 
@@ -814,6 +821,7 @@ Public Class frmRecepciones
 
         'Envio el dataset con la relacion al SuperGrid
         SuperGrdResultado.PrimaryGrid.DataSource = dataset
+
 
         DataBindingComplete = True
 
@@ -4611,24 +4619,18 @@ ContinuarTransaccion:
         'Dim panelSuperior As GridPanel
 
         Dim GroupHeader1 As New ColumnGroupHeader()
-        Dim GroupHeader2 As New ColumnGroupHeader()
 
-        GroupHeader1.EndDisplayIndex = 3
-        GroupHeader1.StartDisplayIndex = 1
-        GroupHeader1.HeaderText = "Informacion"
-
-        GroupHeader2.EndDisplayIndex = 6
-        GroupHeader2.StartDisplayIndex = 4
-        GroupHeader2.HeaderText = "Presentado"
-
+        GroupHeader1.EndDisplayIndex = 6
+        GroupHeader1.StartDisplayIndex = 4
+        GroupHeader1.HeaderText = "Presentado"
 
         SuperGrdResultado.PrimaryGrid.ColumnHeader.GroupHeaders.Add(GroupHeader1)
-        SuperGrdResultado.PrimaryGrid.ColumnHeader.GroupHeaders.Add(GroupHeader2)
+
+
 
         'With SuperGrdResultado.PrimaryGrid
         '    .UseAlternateRowStyle = True
         'End With
-
 
         If panel.Name.Equals("") = True Then
             panelSuperior = panel
@@ -4651,23 +4653,33 @@ ContinuarTransaccion:
         'Verifico el nombre del subpanel
 
         If panel.Name.Equals("Table2") = True Then
-            UpdateDetailsFooter(panel, panelSuperior) 'actualizo el footer de la grilla desplegada
+            panel.Columns(0).Visible = False
+            Dim i As Integer
+            Dim total As Decimal = 0
+            MsgBox(panel.Rows.Count)
+            For i = 0 To panel.Rows.Count - 1
+                total += panel.GetCell(i, 2).Value
+            Next
+            panel.Footer = New GridFooter()
+            panel.Footer.Text = String.Format("Total a pagar: <font color=""Green""><i>${0}</i></font>", total)
+            'UpdateDetailsFooter(panel, panelSuperior) 'actualizo el footer de la grilla desplegada
         End If
 
 
     End Sub
 
     Private Sub UpdateDetailsFooter(ByVal panel As GridPanel, ByVal panelSuperior As GridPanel)
-        'If panel.Footer Is Nothing Then
-        '    panel.Footer = New GridFooter()
-        'End If
-        'If panelSuperior.Footer Is Nothing Then
-        '    panelSuperior.Footer = New GridFooter()
-        'End If
+        If panel.Footer Is Nothing Then
+            panel.Footer = New GridFooter()
+        End If
+        If panelSuperior.Footer Is Nothing Then
+            panelSuperior.Footer = New GridFooter()
+        End If
 
         'Dim total As Decimal = TotalRows(panel.Rows, panelSuperior.Rows)
+        Dim total As Decimal = 999.99
 
-        'panel.Footer.Text = String.Format("Total sales <font color=""Green""><i>{0:C}</i></font>", total)
+        panel.Footer.Text = String.Format("Total a pagar: <font color=""Green""><i>${0}</i></font>", total)
     End Sub
 
 
