@@ -21,6 +21,12 @@ Partial Class frmRecepciones
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim Background1 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
+        Dim Background2 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
+        Dim Background3 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
+        Dim Background4 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
+        Dim Background5 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
+        Dim Background6 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
+        Dim Background7 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -628,12 +634,32 @@ Partial Class frmRecepciones
         'SuperGrdResultado
         '
         Background1.Color1 = System.Drawing.Color.Transparent
-        Me.SuperGrdResultado.DefaultVisualStyles.RowStyles.Default.Background = Background1
+        Background1.Color2 = System.Drawing.Color.Transparent
+        Me.SuperGrdResultado.DefaultVisualStyles.AlternateColumnCellStyles.Default.Background = Background1
+        Background2.Color1 = System.Drawing.Color.Transparent
+        Me.SuperGrdResultado.DefaultVisualStyles.AlternateRowCellStyles.Default.Background = Background2
+        Background3.Color1 = System.Drawing.Color.Transparent
+        Background3.Color2 = System.Drawing.Color.Transparent
+        Me.SuperGrdResultado.DefaultVisualStyles.CellStyles.Default.Background = Background3
+        Background4.Color1 = System.Drawing.Color.Transparent
+        Me.SuperGrdResultado.DefaultVisualStyles.RowStyles.Default.Background = Background4
         Me.SuperGrdResultado.FilterExprColors.SysFunction = System.Drawing.Color.DarkRed
-        Me.SuperGrdResultado.Location = New System.Drawing.Point(5, 302)
+        Me.SuperGrdResultado.Location = New System.Drawing.Point(5, 224)
         Me.SuperGrdResultado.Margin = New System.Windows.Forms.Padding(2)
         Me.SuperGrdResultado.Name = "SuperGrdResultado"
-        Me.SuperGrdResultado.Size = New System.Drawing.Size(995, 220)
+        '
+        '
+        '
+        Background5.Color1 = System.Drawing.Color.Transparent
+        Me.SuperGrdResultado.PrimaryGrid.DefaultVisualStyles.AlternateColumnCellStyles.Default.Background = Background5
+        Me.SuperGrdResultado.PrimaryGrid.DefaultVisualStyles.AlternateRowCellStyles.Default.AllowWrap = DevComponents.DotNetBar.SuperGrid.Style.Tbool.[True]
+        Background6.BackFillType = DevComponents.DotNetBar.SuperGrid.Style.BackFillType.VerticalCenter
+        Background6.Color1 = System.Drawing.Color.White
+        Background6.Color2 = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.SuperGrdResultado.PrimaryGrid.DefaultVisualStyles.AlternateRowCellStyles.Default.Background = Background6
+        Background7.Color1 = System.Drawing.Color.Transparent
+        Me.SuperGrdResultado.PrimaryGrid.DefaultVisualStyles.RowStyles.Default.Background = Background7
+        Me.SuperGrdResultado.Size = New System.Drawing.Size(995, 298)
         Me.SuperGrdResultado.TabIndex = 381
         Me.SuperGrdResultado.Text = "SuperGridControl1"
         '
@@ -652,7 +678,7 @@ Partial Class frmRecepciones
         Me.grdItems.RowHeadersWidth = 51
         DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grdItems.RowsDefaultCellStyle = DataGridViewCellStyle3
-        Me.grdItems.Size = New System.Drawing.Size(1102, 245)
+        Me.grdItems.Size = New System.Drawing.Size(1102, 162)
         Me.grdItems.TabIndex = 351
         '
         'DataGridViewTextBoxColumn1
