@@ -846,7 +846,7 @@ Public Class frmRecepciones
 
     End Sub
 
-    Private Sub btnOpenExcelWindow_Click(sender As Object, e As EventArgs) Handles btnOpenExcelWindow.Click
+    Private Sub btnExcelWindow_Click(sender As Object, e As EventArgs) Handles btnExcelWindow.Click
         GroupPanelDetalleLiquidacion.Visible = True
         GroupPanelDetalleLiquidacion.Location = New Point(0, 0)
     End Sub
@@ -1365,6 +1365,8 @@ Public Class frmRecepciones
 
         'Me.grd.Location = New Size(GroupBox1.Location.X, GroupBox1.Location.Y + GroupBox1.Size.Height + 7)
         Me.grd.Location = New Size(GroupBox1.Location.X, GroupBox1.Location.Y + GroupBox1.Size.Height + 5)
+        Me.grd.Location = New Size(14, 45)
+        Me.grd.BringToFront()
 
         If LLAMADO_POR_FORMULARIO Then
             LLAMADO_POR_FORMULARIO = False
@@ -1378,8 +1380,8 @@ Public Class frmRecepciones
         Me.WindowState = FormWindowState.Maximized
 
         'Me.grd.Size = New Size(Screen.PrimaryScreen.WorkingArea.Width - 27, Me.Size.Height - 7 - GroupBox1.Size.Height - GroupBox1.Location.Y - 65)
-        Me.grd.Size = New Size(Screen.PrimaryScreen.WorkingArea.Width - 27, Me.Size.Height - 3 - GroupBox1.Size.Height - GroupBox1.Location.Y - 62) '65)
-
+        'Me.grd.Size = New Size(Screen.PrimaryScreen.WorkingArea.Width - 27, Me.Size.Height - 3 - GroupBox1.Size.Height - GroupBox1.Location.Y - 62) '65)
+        Me.grd.Size = New Size(4 / 6 * SuperGrdResultado.Width, 120) '65)
     End Sub
 
     Private Sub asignarTags()

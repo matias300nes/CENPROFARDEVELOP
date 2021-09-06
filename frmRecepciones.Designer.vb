@@ -34,6 +34,9 @@ Partial Class frmRecepciones
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.chkAnuladas = New System.Windows.Forms.CheckBox()
+        Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
+        Me.btnExcelWindow = New DevComponents.DotNetBar.ButtonX()
         Me.GroupPanelDetalleLiquidacion = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.btnImportExcel = New System.Windows.Forms.Button()
@@ -97,7 +100,6 @@ Partial Class frmRecepciones
         Me.grdImpuestos = New System.Windows.Forms.DataGridView()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.cmbAlmacenes = New System.Windows.Forms.ComboBox()
-        Me.btnOpenExcelWindow = New System.Windows.Forms.Button()
         Me.lblMontoIva = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.txtidpago = New TextBoxConFormatoVB.FormattedTextBoxVB()
@@ -111,7 +113,6 @@ Partial Class frmRecepciones
         Me.Label2 = New System.Windows.Forms.Label()
         Me.dtpFECHA = New System.Windows.Forms.DateTimePicker()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.chkAnuladas = New System.Windows.Forms.CheckBox()
         Me.txtIdGasto = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.chkGrillaInferior = New System.Windows.Forms.CheckBox()
         Me.Label19 = New System.Windows.Forms.Label()
@@ -149,6 +150,9 @@ Partial Class frmRecepciones
         '
         Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox1.Controls.Add(Me.chkAnuladas)
+        Me.GroupBox1.Controls.Add(Me.ButtonX1)
+        Me.GroupBox1.Controls.Add(Me.btnExcelWindow)
         Me.GroupBox1.Controls.Add(Me.GroupPanelDetalleLiquidacion)
         Me.GroupBox1.Controls.Add(Me.SuperGrdResultado)
         Me.GroupBox1.Controls.Add(Me.grdItems)
@@ -165,7 +169,6 @@ Partial Class frmRecepciones
         Me.GroupBox1.Controls.Add(Me.grdImpuestos)
         Me.GroupBox1.Controls.Add(Me.Label16)
         Me.GroupBox1.Controls.Add(Me.cmbAlmacenes)
-        Me.GroupBox1.Controls.Add(Me.btnOpenExcelWindow)
         Me.GroupBox1.Controls.Add(Me.lblMontoIva)
         Me.GroupBox1.Controls.Add(Me.Label7)
         Me.GroupBox1.Controls.Add(Me.txtidpago)
@@ -179,7 +182,6 @@ Partial Class frmRecepciones
         Me.GroupBox1.Controls.Add(Me.Label2)
         Me.GroupBox1.Controls.Add(Me.dtpFECHA)
         Me.GroupBox1.Controls.Add(Me.Label3)
-        Me.GroupBox1.Controls.Add(Me.chkAnuladas)
         Me.GroupBox1.Controls.Add(Me.txtIdGasto)
         Me.GroupBox1.ForeColor = System.Drawing.Color.Blue
         Me.GroupBox1.Location = New System.Drawing.Point(7, 24)
@@ -187,6 +189,43 @@ Partial Class frmRecepciones
         Me.GroupBox1.Size = New System.Drawing.Size(2371, 531)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
+        '
+        'chkAnuladas
+        '
+        Me.chkAnuladas.AccessibleName = ""
+        Me.chkAnuladas.AutoSize = True
+        Me.chkAnuladas.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.chkAnuladas.ForeColor = System.Drawing.Color.Red
+        Me.chkAnuladas.Location = New System.Drawing.Point(758, 4)
+        Me.chkAnuladas.Name = "chkAnuladas"
+        Me.chkAnuladas.Size = New System.Drawing.Size(179, 17)
+        Me.chkAnuladas.TabIndex = 28
+        Me.chkAnuladas.Text = "Ver Recepciones Anuladas"
+        Me.chkAnuladas.UseVisualStyleBackColor = True
+        Me.chkAnuladas.Visible = False
+        '
+        'ButtonX1
+        '
+        Me.ButtonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.ButtonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
+        Me.ButtonX1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonX1.Location = New System.Drawing.Point(1190, 492)
+        Me.ButtonX1.Name = "ButtonX1"
+        Me.ButtonX1.Size = New System.Drawing.Size(105, 30)
+        Me.ButtonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.Windows7
+        Me.ButtonX1.TabIndex = 383
+        Me.ButtonX1.Text = "Liquidar"
+        '
+        'btnExcelWindow
+        '
+        Me.btnExcelWindow.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnExcelWindow.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
+        Me.btnExcelWindow.Location = New System.Drawing.Point(1190, 309)
+        Me.btnExcelWindow.Name = "btnExcelWindow"
+        Me.btnExcelWindow.Size = New System.Drawing.Size(105, 25)
+        Me.btnExcelWindow.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnExcelWindow.TabIndex = 382
+        Me.btnExcelWindow.Text = "Importar Planilla"
         '
         'GroupPanelDetalleLiquidacion
         '
@@ -645,7 +684,7 @@ Partial Class frmRecepciones
         Background4.Color1 = System.Drawing.Color.Transparent
         Me.SuperGrdResultado.DefaultVisualStyles.RowStyles.Default.Background = Background4
         Me.SuperGrdResultado.FilterExprColors.SysFunction = System.Drawing.Color.DarkRed
-        Me.SuperGrdResultado.Location = New System.Drawing.Point(40, 90)
+        Me.SuperGrdResultado.Location = New System.Drawing.Point(7, 159)
         Me.SuperGrdResultado.Margin = New System.Windows.Forms.Padding(2)
         Me.SuperGrdResultado.Name = "SuperGrdResultado"
         '
@@ -660,7 +699,7 @@ Partial Class frmRecepciones
         Me.SuperGrdResultado.PrimaryGrid.DefaultVisualStyles.AlternateRowCellStyles.Default.Background = Background6
         Background7.Color1 = System.Drawing.Color.Transparent
         Me.SuperGrdResultado.PrimaryGrid.DefaultVisualStyles.RowStyles.Default.Background = Background7
-        Me.SuperGrdResultado.Size = New System.Drawing.Size(1159, 432)
+        Me.SuperGrdResultado.Size = New System.Drawing.Size(1127, 363)
         Me.SuperGrdResultado.TabIndex = 381
         Me.SuperGrdResultado.Text = "SuperGridControl1"
         '
@@ -674,7 +713,7 @@ Partial Class frmRecepciones
         Me.grdItems.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.grdItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.grdItems.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.IdFarmacia, Me.Farmacia, Me.IdPresentacion, Me.Recetas, Me.Recaudado, Me.AcargoOS, Me.Bonificacion, Me.Total})
-        Me.grdItems.Location = New System.Drawing.Point(993, 90)
+        Me.grdItems.Location = New System.Drawing.Point(899, 182)
         Me.grdItems.Name = "grdItems"
         Me.grdItems.RowHeadersWidth = 51
         DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -782,7 +821,7 @@ Partial Class frmRecepciones
         'lblcmbObrasSociales
         '
         Me.lblcmbObrasSociales.AutoSize = True
-        Me.lblcmbObrasSociales.Location = New System.Drawing.Point(203, 16)
+        Me.lblcmbObrasSociales.Location = New System.Drawing.Point(799, 43)
         Me.lblcmbObrasSociales.Name = "lblcmbObrasSociales"
         Me.lblcmbObrasSociales.Size = New System.Drawing.Size(78, 13)
         Me.lblcmbObrasSociales.TabIndex = 346
@@ -796,7 +835,7 @@ Partial Class frmRecepciones
         Me.cmbObraSocial.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbObraSocial.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbObraSocial.FormattingEnabled = True
-        Me.cmbObraSocial.Location = New System.Drawing.Point(202, 31)
+        Me.cmbObraSocial.Location = New System.Drawing.Point(798, 58)
         Me.cmbObraSocial.Name = "cmbObraSocial"
         Me.cmbObraSocial.Size = New System.Drawing.Size(194, 21)
         Me.cmbObraSocial.TabIndex = 3
@@ -827,7 +866,7 @@ Partial Class frmRecepciones
         Me.txtIdMoneda.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtIdMoneda.Enabled = False
         Me.txtIdMoneda.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
-        Me.txtIdMoneda.Location = New System.Drawing.Point(1077, 144)
+        Me.txtIdMoneda.Location = New System.Drawing.Point(1049, 210)
         Me.txtIdMoneda.MaxLength = 8
         Me.txtIdMoneda.Name = "txtIdMoneda"
         Me.txtIdMoneda.Size = New System.Drawing.Size(23, 20)
@@ -885,7 +924,7 @@ Partial Class frmRecepciones
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(1028, 120)
+        Me.Label4.Location = New System.Drawing.Point(1000, 186)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(106, 13)
         Me.Label4.TabIndex = 21
@@ -929,7 +968,7 @@ Partial Class frmRecepciones
         'Label16
         '
         Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(203, 15)
+        Me.Label16.Location = New System.Drawing.Point(1012, 169)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(53, 13)
         Me.Label16.TabIndex = 274
@@ -945,20 +984,10 @@ Partial Class frmRecepciones
         Me.cmbAlmacenes.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbAlmacenes.FormattingEnabled = True
         Me.cmbAlmacenes.IntegralHeight = False
-        Me.cmbAlmacenes.Location = New System.Drawing.Point(203, 31)
+        Me.cmbAlmacenes.Location = New System.Drawing.Point(1012, 185)
         Me.cmbAlmacenes.Name = "cmbAlmacenes"
         Me.cmbAlmacenes.Size = New System.Drawing.Size(91, 21)
         Me.cmbAlmacenes.TabIndex = 2
-        '
-        'btnOpenExcelWindow
-        '
-        Me.btnOpenExcelWindow.Location = New System.Drawing.Point(1229, 453)
-        Me.btnOpenExcelWindow.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnOpenExcelWindow.Name = "btnOpenExcelWindow"
-        Me.btnOpenExcelWindow.Size = New System.Drawing.Size(83, 26)
-        Me.btnOpenExcelWindow.TabIndex = 352
-        Me.btnOpenExcelWindow.Text = "Importar Excel"
-        Me.btnOpenExcelWindow.UseVisualStyleBackColor = True
         '
         'lblMontoIva
         '
@@ -975,7 +1004,7 @@ Partial Class frmRecepciones
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(1040, 144)
+        Me.Label7.Location = New System.Drawing.Point(1012, 210)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(31, 13)
         Me.Label7.TabIndex = 243
@@ -1047,24 +1076,26 @@ Partial Class frmRecepciones
         Me.txtNota.Decimals = CType(2, Byte)
         Me.txtNota.DecSeparator = Global.Microsoft.VisualBasic.ChrW(46)
         Me.txtNota.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.txtNota.Location = New System.Drawing.Point(418, 31)
+        Me.txtNota.Location = New System.Drawing.Point(802, 184)
         Me.txtNota.Name = "txtNota"
-        Me.txtNota.Size = New System.Drawing.Size(916, 20)
+        Me.txtNota.Size = New System.Drawing.Size(138, 20)
         Me.txtNota.TabIndex = 8
         Me.txtNota.Text_1 = Nothing
         Me.txtNota.Text_2 = Nothing
         Me.txtNota.Text_3 = Nothing
         Me.txtNota.Text_4 = Nothing
         Me.txtNota.UserValues = Nothing
+        Me.txtNota.Visible = False
         '
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(415, 16)
+        Me.Label8.Location = New System.Drawing.Point(799, 169)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(30, 13)
         Me.Label8.TabIndex = 118
         Me.Label8.Text = "Nota"
+        Me.Label8.Visible = False
         '
         'btnLlenarGrilla
         '
@@ -1098,7 +1129,7 @@ Partial Class frmRecepciones
         Me.txtCODIGO.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtCODIGO.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtCODIGO.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.txtCODIGO.Location = New System.Drawing.Point(13, 31)
+        Me.txtCODIGO.Location = New System.Drawing.Point(768, 240)
         Me.txtCODIGO.MaxLength = 25
         Me.txtCODIGO.Name = "txtCODIGO"
         Me.txtCODIGO.ReadOnly = True
@@ -1113,7 +1144,7 @@ Partial Class frmRecepciones
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(10, 15)
+        Me.Label2.Location = New System.Drawing.Point(765, 224)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(79, 13)
         Me.Label2.TabIndex = 51
@@ -1122,7 +1153,7 @@ Partial Class frmRecepciones
         'dtpFECHA
         '
         Me.dtpFECHA.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpFECHA.Location = New System.Drawing.Point(95, 31)
+        Me.dtpFECHA.Location = New System.Drawing.Point(798, 102)
         Me.dtpFECHA.MaxDate = New Date(2099, 12, 31, 0, 0, 0, 0)
         Me.dtpFECHA.MinDate = New Date(2000, 1, 1, 0, 0, 0, 0)
         Me.dtpFECHA.Name = "dtpFECHA"
@@ -1133,24 +1164,11 @@ Partial Class frmRecepciones
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(92, 16)
+        Me.Label3.Location = New System.Drawing.Point(795, 87)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(37, 13)
         Me.Label3.TabIndex = 52
         Me.Label3.Text = "Fecha"
-        '
-        'chkAnuladas
-        '
-        Me.chkAnuladas.AccessibleName = ""
-        Me.chkAnuladas.AutoSize = True
-        Me.chkAnuladas.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chkAnuladas.ForeColor = System.Drawing.Color.Red
-        Me.chkAnuladas.Location = New System.Drawing.Point(18, 57)
-        Me.chkAnuladas.Name = "chkAnuladas"
-        Me.chkAnuladas.Size = New System.Drawing.Size(179, 17)
-        Me.chkAnuladas.TabIndex = 28
-        Me.chkAnuladas.Text = "Ver Recepciones Anuladas"
-        Me.chkAnuladas.UseVisualStyleBackColor = True
         '
         'txtIdGasto
         '
@@ -1159,7 +1177,7 @@ Partial Class frmRecepciones
         Me.txtIdGasto.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtIdGasto.Enabled = False
         Me.txtIdGasto.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
-        Me.txtIdGasto.Location = New System.Drawing.Point(1071, 30)
+        Me.txtIdGasto.Location = New System.Drawing.Point(1083, 179)
         Me.txtIdGasto.MaxLength = 8
         Me.txtIdGasto.Name = "txtIdGasto"
         Me.txtIdGasto.Size = New System.Drawing.Size(35, 20)
@@ -1174,7 +1192,7 @@ Partial Class frmRecepciones
         'chkGrillaInferior
         '
         Me.chkGrillaInferior.AutoSize = True
-        Me.chkGrillaInferior.Location = New System.Drawing.Point(319, 562)
+        Me.chkGrillaInferior.Location = New System.Drawing.Point(316, 565)
         Me.chkGrillaInferior.Name = "chkGrillaInferior"
         Me.chkGrillaInferior.Size = New System.Drawing.Size(132, 17)
         Me.chkGrillaInferior.TabIndex = 272
@@ -1336,7 +1354,6 @@ Partial Class frmRecepciones
     Friend WithEvents Total As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents lblcuit As System.Windows.Forms.Label
     Friend WithEvents lblPeriodo As System.Windows.Forms.Label
-    Friend WithEvents btnOpenExcelWindow As System.Windows.Forms.Button
     Friend WithEvents FileName As TextBoxConFormatoVB.FormattedTextBoxVB
     Friend WithEvents grdDetalleLiquidacion As System.Windows.Forms.DataGridView
     Friend WithEvents cboSheet As System.Windows.Forms.ComboBox
@@ -1376,4 +1393,6 @@ Partial Class frmRecepciones
     Friend WithEvents RecognitionLabel As Label
     Friend WithEvents PanelDescuentos As Panel
     Friend WithEvents SuperGrdResultado As DevComponents.DotNetBar.SuperGrid.SuperGridControl
+    Friend WithEvents ButtonX1 As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents btnExcelWindow As DevComponents.DotNetBar.ButtonX
 End Class
