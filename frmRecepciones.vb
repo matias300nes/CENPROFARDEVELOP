@@ -770,12 +770,24 @@ Public Class frmRecepciones
 
         ''GRID PRINCIPAL
         Dim i As Integer
+        If MasterGrdDetail Then
+            dt.Columns.Add("Recetas A")
+            dt.Columns.Add("Recaudado A")
+            dt.Columns.Add("A Cargo OS A")
+            For i = 0 To grdDetalleLiquidacionFiltrada.Rows.Count - 1
+                Dim row As DataRow = dtDetalle.NewRow()
+                dt.Rows(i).Item("Recetas A") = grdDetalleLiquidacionFiltrada.Rows(i).Cells("Recetas").Value
+                dt.Rows(i).Item("Recaudado A") = grdDetalleLiquidacionFiltrada.Rows(i).Cells("Recaudado").Value
+                dt.Rows(i).Item("A Cargo OS A") = grdDetalleLiquidacionFiltrada.Rows(i).Cells("A Cargo OS").Value
+            Next
+        End If
         For i = 0 To dt.Columns.Count - 1
             dtEncabezado.Columns.Add(dt.Columns(i).ColumnName)
         Next
         For i = 0 To dt.Rows.Count - 1
             dtEncabezado.Rows.Add().ItemArray = dt.Rows(i).ItemArray
         Next
+
         dataset.Tables.Add(dtEncabezado)
 
         ''MASTER GRID DETAIL
@@ -4618,14 +4630,31 @@ ContinuarTransaccion:
         'Dim panel As GridPanel = e.GridPanel
         'Dim panelSuperior As GridPanel
 
-        Dim GroupHeader1 As New ColumnGroupHeader()
+        'ESTO FUNCIONA MAL
+        If panel.Name.Equals("") = True Then
+            Dim Groupheaders = SuperGrdResultado.PrimaryGrid.ColumnHeader.GroupHeaders
 
-        GroupHeader1.EndDisplayIndex = 6
-        GroupHeader1.StartDisplayIndex = 4
-        GroupHeader1.HeaderText = "Presentado"
+            Dim GroupHeader1 As New ColumnGroupHeader()
 
-        SuperGrdResultado.PrimaryGrid.ColumnHeader.GroupHeaders.Add(GroupHeader1)
+            GroupHeader1.EndDisplayIndex = 6
+            GroupHeader1.StartDisplayIndex = 4
+            GroupHeader1.HeaderText = "Presentado"
 
+            If Not Groupheaders.contains(GroupHeader1) Then
+                SuperGrdResultado.PrimaryGrid.ColumnHeader.GroupHeaders.Add(GroupHeader1)
+            End If
+
+
+            If MasterGrdDetail Then
+                Dim GroupHeader2 As New ColumnGroupHeader()
+                GroupHeader2.EndDisplayIndex = 11
+                GroupHeader2.StartDisplayIndex = 9
+                GroupHeader2.HeaderText = "Aceptado"
+                If Not Groupheaders.contains(GroupHeader2) Then
+                    SuperGrdResultado.PrimaryGrid.ColumnHeader.GroupHeaders.Add(GroupHeader2)
+                End If
+            End If
+        End If
 
 
         'With SuperGrdResultado.PrimaryGrid
@@ -4656,7 +4685,6 @@ ContinuarTransaccion:
             panel.Columns(0).Visible = False
             Dim i As Integer
             Dim total As Decimal = 0
-            MsgBox(panel.Rows.Count)
             For i = 0 To panel.Rows.Count - 1
                 total += panel.GetCell(i, 2).Value
             Next
