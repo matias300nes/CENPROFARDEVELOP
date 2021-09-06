@@ -849,6 +849,12 @@ Public Class frmRecepciones
     Private Sub btnExcelWindow_Click(sender As Object, e As EventArgs) Handles btnExcelWindow.Click
         GroupPanelDetalleLiquidacion.Visible = True
         GroupPanelDetalleLiquidacion.Location = New Point(0, 0)
+        GroupPanelDetalleLiquidacion.BringToFront()
+        chkGrillaInferior.BringToFront()
+        Me.grd.Location = New Size(GroupBox1.Location.X, GroupBox1.Location.Y + GroupBox1.Size.Height + 5)
+        Me.grd.Size = New Size(Screen.PrimaryScreen.WorkingArea.Width - 27, Me.Size.Height - 3 - GroupBox1.Size.Height - GroupBox1.Location.Y - 62) '65)
+
+
     End Sub
 
     Dim tables As DataTableCollection
@@ -1364,8 +1370,8 @@ Public Class frmRecepciones
         Me.Text = "Recepciones de Material"
 
         'Me.grd.Location = New Size(GroupBox1.Location.X, GroupBox1.Location.Y + GroupBox1.Size.Height + 7)
-        Me.grd.Location = New Size(GroupBox1.Location.X, GroupBox1.Location.Y + GroupBox1.Size.Height + 5)
-        Me.grd.Location = New Size(14, 45)
+
+        Me.grd.Location = New Size(14, 65)
         Me.grd.BringToFront()
 
         If LLAMADO_POR_FORMULARIO Then
@@ -1381,7 +1387,7 @@ Public Class frmRecepciones
 
         'Me.grd.Size = New Size(Screen.PrimaryScreen.WorkingArea.Width - 27, Me.Size.Height - 7 - GroupBox1.Size.Height - GroupBox1.Location.Y - 65)
         'Me.grd.Size = New Size(Screen.PrimaryScreen.WorkingArea.Width - 27, Me.Size.Height - 3 - GroupBox1.Size.Height - GroupBox1.Location.Y - 62) '65)
-        Me.grd.Size = New Size(4 / 6 * SuperGrdResultado.Width, 120) '65)
+        Me.grd.Size = New Size(4 / 6 * SuperGrdResultado.Width, 100) '65)
     End Sub
 
     Private Sub asignarTags()
@@ -4711,6 +4717,5 @@ ContinuarTransaccion:
 
         panel.Footer.Text = String.Format("Total a pagar: <font color=""Green""><i>${0}</i></font>", total)
     End Sub
-
 
 End Class
