@@ -34,9 +34,7 @@ Partial Class frmRecepciones
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.chkAnuladas = New System.Windows.Forms.CheckBox()
-        Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
-        Me.btnExcelWindow = New DevComponents.DotNetBar.ButtonX()
+        Me.Label14 = New System.Windows.Forms.Label()
         Me.GroupPanelDetalleLiquidacion = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.btnImportExcel = New System.Windows.Forms.Button()
@@ -76,6 +74,11 @@ Partial Class frmRecepciones
         Me.Label10 = New System.Windows.Forms.Label()
         Me.grdDetalleLiquidacionFiltrada = New System.Windows.Forms.DataGridView()
         Me.grdDetalleLiquidacion = New System.Windows.Forms.DataGridView()
+        Me.chkAnuladas = New System.Windows.Forms.CheckBox()
+        Me.lblCantidadFilas = New System.Windows.Forms.Label()
+        Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
+        Me.Label19 = New System.Windows.Forms.Label()
+        Me.btnExcelWindow = New DevComponents.DotNetBar.ButtonX()
         Me.SuperGrdResultado = New DevComponents.DotNetBar.SuperGrid.SuperGridControl()
         Me.grdItems = New System.Windows.Forms.DataGridView()
         Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -115,8 +118,6 @@ Partial Class frmRecepciones
         Me.Label3 = New System.Windows.Forms.Label()
         Me.txtIdGasto = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.chkGrillaInferior = New System.Windows.Forms.CheckBox()
-        Me.Label19 = New System.Windows.Forms.Label()
-        Me.lblCantidadFilas = New System.Windows.Forms.Label()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BorrarElItemToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BuscarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -124,6 +125,7 @@ Partial Class frmRecepciones
         Me.ContextMenuStripIVA = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BorrarElItemToolStripMenuItemIVA = New System.Windows.Forms.ToolStripMenuItem()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
+        Me.Label15 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.GroupPanelDetalleLiquidacion.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -150,10 +152,14 @@ Partial Class frmRecepciones
         '
         Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.GroupBox1.Controls.Add(Me.chkAnuladas)
-        Me.GroupBox1.Controls.Add(Me.ButtonX1)
-        Me.GroupBox1.Controls.Add(Me.btnExcelWindow)
+        Me.GroupBox1.Controls.Add(Me.Label15)
+        Me.GroupBox1.Controls.Add(Me.Label14)
         Me.GroupBox1.Controls.Add(Me.GroupPanelDetalleLiquidacion)
+        Me.GroupBox1.Controls.Add(Me.chkAnuladas)
+        Me.GroupBox1.Controls.Add(Me.lblCantidadFilas)
+        Me.GroupBox1.Controls.Add(Me.ButtonX1)
+        Me.GroupBox1.Controls.Add(Me.Label19)
+        Me.GroupBox1.Controls.Add(Me.btnExcelWindow)
         Me.GroupBox1.Controls.Add(Me.SuperGrdResultado)
         Me.GroupBox1.Controls.Add(Me.grdItems)
         Me.GroupBox1.Controls.Add(Me.lblTotal)
@@ -190,42 +196,15 @@ Partial Class frmRecepciones
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         '
-        'chkAnuladas
+        'Label14
         '
-        Me.chkAnuladas.AccessibleName = ""
-        Me.chkAnuladas.AutoSize = True
-        Me.chkAnuladas.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chkAnuladas.ForeColor = System.Drawing.Color.Red
-        Me.chkAnuladas.Location = New System.Drawing.Point(758, 4)
-        Me.chkAnuladas.Name = "chkAnuladas"
-        Me.chkAnuladas.Size = New System.Drawing.Size(179, 17)
-        Me.chkAnuladas.TabIndex = 28
-        Me.chkAnuladas.Text = "Ver Recepciones Anuladas"
-        Me.chkAnuladas.UseVisualStyleBackColor = True
-        Me.chkAnuladas.Visible = False
-        '
-        'ButtonX1
-        '
-        Me.ButtonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.ButtonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.ButtonX1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonX1.Location = New System.Drawing.Point(1190, 492)
-        Me.ButtonX1.Name = "ButtonX1"
-        Me.ButtonX1.Size = New System.Drawing.Size(105, 30)
-        Me.ButtonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.Windows7
-        Me.ButtonX1.TabIndex = 383
-        Me.ButtonX1.Text = "Liquidar"
-        '
-        'btnExcelWindow
-        '
-        Me.btnExcelWindow.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnExcelWindow.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.btnExcelWindow.Location = New System.Drawing.Point(1190, 309)
-        Me.btnExcelWindow.Name = "btnExcelWindow"
-        Me.btnExcelWindow.Size = New System.Drawing.Size(105, 25)
-        Me.btnExcelWindow.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnExcelWindow.TabIndex = 382
-        Me.btnExcelWindow.Text = "Importar Planilla"
+        Me.Label14.AutoSize = True
+        Me.Label14.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label14.Location = New System.Drawing.Point(6, 160)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(53, 18)
+        Me.Label14.TabIndex = 384
+        Me.Label14.Text = "Detalle"
         '
         'GroupPanelDetalleLiquidacion
         '
@@ -671,6 +650,61 @@ Partial Class frmRecepciones
         Me.grdDetalleLiquidacion.Size = New System.Drawing.Size(1007, 219)
         Me.grdDetalleLiquidacion.TabIndex = 355
         '
+        'chkAnuladas
+        '
+        Me.chkAnuladas.AccessibleName = ""
+        Me.chkAnuladas.AutoSize = True
+        Me.chkAnuladas.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.chkAnuladas.ForeColor = System.Drawing.Color.Red
+        Me.chkAnuladas.Location = New System.Drawing.Point(758, 4)
+        Me.chkAnuladas.Name = "chkAnuladas"
+        Me.chkAnuladas.Size = New System.Drawing.Size(179, 17)
+        Me.chkAnuladas.TabIndex = 28
+        Me.chkAnuladas.Text = "Ver Recepciones Anuladas"
+        Me.chkAnuladas.UseVisualStyleBackColor = True
+        Me.chkAnuladas.Visible = False
+        '
+        'lblCantidadFilas
+        '
+        Me.lblCantidadFilas.AutoSize = True
+        Me.lblCantidadFilas.Location = New System.Drawing.Point(1017, 168)
+        Me.lblCantidadFilas.Name = "lblCantidadFilas"
+        Me.lblCantidadFilas.Size = New System.Drawing.Size(46, 13)
+        Me.lblCantidadFilas.TabIndex = 270
+        Me.lblCantidadFilas.Text = "Subtotal"
+        '
+        'ButtonX1
+        '
+        Me.ButtonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.ButtonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
+        Me.ButtonX1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonX1.Location = New System.Drawing.Point(1146, 483)
+        Me.ButtonX1.Name = "ButtonX1"
+        Me.ButtonX1.Size = New System.Drawing.Size(135, 30)
+        Me.ButtonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.Windows7
+        Me.ButtonX1.TabIndex = 383
+        Me.ButtonX1.Text = "Liquidar"
+        '
+        'Label19
+        '
+        Me.Label19.AutoSize = True
+        Me.Label19.Location = New System.Drawing.Point(918, 168)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(98, 13)
+        Me.Label19.TabIndex = 271
+        Me.Label19.Text = "Cantidad de Ítems: "
+        '
+        'btnExcelWindow
+        '
+        Me.btnExcelWindow.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnExcelWindow.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
+        Me.btnExcelWindow.Location = New System.Drawing.Point(1146, 58)
+        Me.btnExcelWindow.Name = "btnExcelWindow"
+        Me.btnExcelWindow.Size = New System.Drawing.Size(105, 25)
+        Me.btnExcelWindow.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnExcelWindow.TabIndex = 382
+        Me.btnExcelWindow.Text = "Importar Planilla"
+        '
         'SuperGrdResultado
         '
         Background1.Color1 = System.Drawing.Color.Transparent
@@ -684,7 +718,7 @@ Partial Class frmRecepciones
         Background4.Color1 = System.Drawing.Color.Transparent
         Me.SuperGrdResultado.DefaultVisualStyles.RowStyles.Default.Background = Background4
         Me.SuperGrdResultado.FilterExprColors.SysFunction = System.Drawing.Color.DarkRed
-        Me.SuperGrdResultado.Location = New System.Drawing.Point(7, 159)
+        Me.SuperGrdResultado.Location = New System.Drawing.Point(7, 184)
         Me.SuperGrdResultado.Margin = New System.Windows.Forms.Padding(2)
         Me.SuperGrdResultado.Name = "SuperGrdResultado"
         '
@@ -699,7 +733,7 @@ Partial Class frmRecepciones
         Me.SuperGrdResultado.PrimaryGrid.DefaultVisualStyles.AlternateRowCellStyles.Default.Background = Background6
         Background7.Color1 = System.Drawing.Color.Transparent
         Me.SuperGrdResultado.PrimaryGrid.DefaultVisualStyles.RowStyles.Default.Background = Background7
-        Me.SuperGrdResultado.Size = New System.Drawing.Size(1127, 363)
+        Me.SuperGrdResultado.Size = New System.Drawing.Size(1058, 329)
         Me.SuperGrdResultado.TabIndex = 381
         Me.SuperGrdResultado.Text = "SuperGridControl1"
         '
@@ -713,7 +747,7 @@ Partial Class frmRecepciones
         Me.grdItems.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.grdItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.grdItems.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.IdFarmacia, Me.Farmacia, Me.IdPresentacion, Me.Recetas, Me.Recaudado, Me.AcargoOS, Me.Bonificacion, Me.Total})
-        Me.grdItems.Location = New System.Drawing.Point(899, 182)
+        Me.grdItems.Location = New System.Drawing.Point(795, 227)
         Me.grdItems.Name = "grdItems"
         Me.grdItems.RowHeadersWidth = 51
         DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -821,7 +855,7 @@ Partial Class frmRecepciones
         'lblcmbObrasSociales
         '
         Me.lblcmbObrasSociales.AutoSize = True
-        Me.lblcmbObrasSociales.Location = New System.Drawing.Point(799, 43)
+        Me.lblcmbObrasSociales.Location = New System.Drawing.Point(799, 34)
         Me.lblcmbObrasSociales.Name = "lblcmbObrasSociales"
         Me.lblcmbObrasSociales.Size = New System.Drawing.Size(78, 13)
         Me.lblcmbObrasSociales.TabIndex = 346
@@ -835,7 +869,7 @@ Partial Class frmRecepciones
         Me.cmbObraSocial.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbObraSocial.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbObraSocial.FormattingEnabled = True
-        Me.cmbObraSocial.Location = New System.Drawing.Point(798, 58)
+        Me.cmbObraSocial.Location = New System.Drawing.Point(798, 49)
         Me.cmbObraSocial.Name = "cmbObraSocial"
         Me.cmbObraSocial.Size = New System.Drawing.Size(194, 21)
         Me.cmbObraSocial.TabIndex = 3
@@ -866,7 +900,7 @@ Partial Class frmRecepciones
         Me.txtIdMoneda.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtIdMoneda.Enabled = False
         Me.txtIdMoneda.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
-        Me.txtIdMoneda.Location = New System.Drawing.Point(1049, 210)
+        Me.txtIdMoneda.Location = New System.Drawing.Point(1013, 234)
         Me.txtIdMoneda.MaxLength = 8
         Me.txtIdMoneda.Name = "txtIdMoneda"
         Me.txtIdMoneda.Size = New System.Drawing.Size(23, 20)
@@ -924,7 +958,7 @@ Partial Class frmRecepciones
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(1000, 186)
+        Me.Label4.Location = New System.Drawing.Point(918, 197)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(106, 13)
         Me.Label4.TabIndex = 21
@@ -962,13 +996,13 @@ Partial Class frmRecepciones
         DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.grdImpuestos.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
         Me.grdImpuestos.RowHeadersWidth = 51
-        Me.grdImpuestos.Size = New System.Drawing.Size(448, 133)
+        Me.grdImpuestos.Size = New System.Drawing.Size(364, 133)
         Me.grdImpuestos.TabIndex = 25
         '
         'Label16
         '
         Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(1012, 169)
+        Me.Label16.Location = New System.Drawing.Point(983, 218)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(53, 13)
         Me.Label16.TabIndex = 274
@@ -984,7 +1018,7 @@ Partial Class frmRecepciones
         Me.cmbAlmacenes.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbAlmacenes.FormattingEnabled = True
         Me.cmbAlmacenes.IntegralHeight = False
-        Me.cmbAlmacenes.Location = New System.Drawing.Point(1012, 185)
+        Me.cmbAlmacenes.Location = New System.Drawing.Point(930, 196)
         Me.cmbAlmacenes.Name = "cmbAlmacenes"
         Me.cmbAlmacenes.Size = New System.Drawing.Size(91, 21)
         Me.cmbAlmacenes.TabIndex = 2
@@ -1017,7 +1051,7 @@ Partial Class frmRecepciones
         Me.txtidpago.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtidpago.Enabled = False
         Me.txtidpago.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
-        Me.txtidpago.Location = New System.Drawing.Point(1083, 234)
+        Me.txtidpago.Location = New System.Drawing.Point(1001, 245)
         Me.txtidpago.MaxLength = 8
         Me.txtidpago.Name = "txtidpago"
         Me.txtidpago.Size = New System.Drawing.Size(23, 20)
@@ -1090,7 +1124,7 @@ Partial Class frmRecepciones
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(799, 169)
+        Me.Label8.Location = New System.Drawing.Point(795, 211)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(30, 13)
         Me.Label8.TabIndex = 118
@@ -1153,7 +1187,7 @@ Partial Class frmRecepciones
         'dtpFECHA
         '
         Me.dtpFECHA.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpFECHA.Location = New System.Drawing.Point(798, 102)
+        Me.dtpFECHA.Location = New System.Drawing.Point(798, 93)
         Me.dtpFECHA.MaxDate = New Date(2099, 12, 31, 0, 0, 0, 0)
         Me.dtpFECHA.MinDate = New Date(2000, 1, 1, 0, 0, 0, 0)
         Me.dtpFECHA.Name = "dtpFECHA"
@@ -1164,7 +1198,7 @@ Partial Class frmRecepciones
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(795, 87)
+        Me.Label3.Location = New System.Drawing.Point(795, 78)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(37, 13)
         Me.Label3.TabIndex = 52
@@ -1177,7 +1211,7 @@ Partial Class frmRecepciones
         Me.txtIdGasto.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtIdGasto.Enabled = False
         Me.txtIdGasto.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
-        Me.txtIdGasto.Location = New System.Drawing.Point(1083, 179)
+        Me.txtIdGasto.Location = New System.Drawing.Point(1001, 190)
         Me.txtIdGasto.MaxLength = 8
         Me.txtIdGasto.Name = "txtIdGasto"
         Me.txtIdGasto.Size = New System.Drawing.Size(35, 20)
@@ -1192,30 +1226,12 @@ Partial Class frmRecepciones
         'chkGrillaInferior
         '
         Me.chkGrillaInferior.AutoSize = True
-        Me.chkGrillaInferior.Location = New System.Drawing.Point(316, 565)
+        Me.chkGrillaInferior.Location = New System.Drawing.Point(652, 561)
         Me.chkGrillaInferior.Name = "chkGrillaInferior"
         Me.chkGrillaInferior.Size = New System.Drawing.Size(132, 17)
         Me.chkGrillaInferior.TabIndex = 272
         Me.chkGrillaInferior.Text = "Aumentar Grilla Inferior"
         Me.chkGrillaInferior.UseVisualStyleBackColor = True
-        '
-        'Label19
-        '
-        Me.Label19.AutoSize = True
-        Me.Label19.Location = New System.Drawing.Point(152, 566)
-        Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(98, 13)
-        Me.Label19.TabIndex = 271
-        Me.Label19.Text = "Cantidad de Ítems: "
-        '
-        'lblCantidadFilas
-        '
-        Me.lblCantidadFilas.AutoSize = True
-        Me.lblCantidadFilas.Location = New System.Drawing.Point(255, 566)
-        Me.lblCantidadFilas.Name = "lblCantidadFilas"
-        Me.lblCantidadFilas.Size = New System.Drawing.Size(46, 13)
-        Me.lblCantidadFilas.TabIndex = 270
-        Me.lblCantidadFilas.Text = "Subtotal"
         '
         'ContextMenuStrip1
         '
@@ -1260,6 +1276,16 @@ Partial Class frmRecepciones
         Me.BorrarElItemToolStripMenuItemIVA.Size = New System.Drawing.Size(145, 22)
         Me.BorrarElItemToolStripMenuItemIVA.Text = "Borrar el Item"
         '
+        'Label15
+        '
+        Me.Label15.AutoSize = True
+        Me.Label15.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label15.Location = New System.Drawing.Point(6, 16)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(95, 18)
+        Me.Label15.TabIndex = 385
+        Me.Label15.Text = "Presentación"
+        '
         'frmRecepciones
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1267,13 +1293,9 @@ Partial Class frmRecepciones
         Me.ClientSize = New System.Drawing.Size(1370, 609)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.chkGrillaInferior)
-        Me.Controls.Add(Me.lblCantidadFilas)
-        Me.Controls.Add(Me.Label19)
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "frmRecepciones"
         Me.Text = "frmRecepciones"
-        Me.Controls.SetChildIndex(Me.Label19, 0)
-        Me.Controls.SetChildIndex(Me.lblCantidadFilas, 0)
         Me.Controls.SetChildIndex(Me.chkGrillaInferior, 0)
         Me.Controls.SetChildIndex(Me.GroupBox1, 0)
         Me.GroupBox1.ResumeLayout(False)
@@ -1395,4 +1417,6 @@ Partial Class frmRecepciones
     Friend WithEvents SuperGrdResultado As DevComponents.DotNetBar.SuperGrid.SuperGridControl
     Friend WithEvents ButtonX1 As DevComponents.DotNetBar.ButtonX
     Friend WithEvents btnExcelWindow As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents Label14 As Label
+    Friend WithEvents Label15 As Label
 End Class
