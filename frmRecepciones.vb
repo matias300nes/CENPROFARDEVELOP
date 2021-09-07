@@ -4620,6 +4620,10 @@ ContinuarTransaccion:
 
         GroupPanelDetalleLiquidacion.Visible = False
 
+        Me.grd.Location = New Size(14, 65)
+        Me.grd.Size = New Size(4 / 6 * SuperGrdResultado.Width, 100)
+        Me.grd.BringToFront()
+
         MasterGrdDetail = True
 
         UpdateGrdPrincipal()
@@ -4732,4 +4736,6 @@ ContinuarTransaccion:
         End If
 
     End Sub
+
+
 End Class
