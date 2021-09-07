@@ -9,7 +9,10 @@ Imports ExcelDataReader
 Imports DevComponents.DotNetBar.SuperGrid
 
 Public Class frmRecepciones
+    Dim IdObraSocial
+    Dim bolIDOS As Boolean = False
     Dim DataBindingComplete As Boolean = False
+
     Dim bolpoliticas As Boolean
     Dim columnaprueba As Integer
     Dim permitir_evento_CellChanged As Boolean
@@ -177,7 +180,6 @@ Public Class frmRecepciones
 
     Private Sub frmRecepciones_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         lblPeriodo.Visible = False
-
         cmbAlmacenes.Visible = False
         Label16.Visible = False
         GroupPanelDetalleLiquidacion.Visible = False
@@ -212,9 +214,9 @@ Public Class frmRecepciones
         LlenarcmbAlmacenes()
         LlenarcmbUsuarioGasto()
 
+        ' IdObraSocial = cmbObraSocial.SelectedValue
 
-
-        SQL = "exec spPresentaciones_Select_All  @Eliminado = 0"
+        SQL = $"exec spPresentaciones_Select_All  @Eliminado = 0, @ObraSocial = '{IdObraSocial}'"
 
         LlenarGrilla()
         Permitir = True
@@ -2134,7 +2136,8 @@ Public Class frmRecepciones
             With cmbObraSocial
                 .DataSource = ds.Tables(0).DefaultView
                 .DisplayMember = "NOMBRE"
-                '.ValueMember = "Codigo"
+                .ValueMember = "ID"
+                '.SelectedIndex = "ID"
             End With
 
         Catch ex As Exception
@@ -2154,6 +2157,9 @@ Public Class frmRecepciones
                 CType(connection, IDisposable).Dispose()
             End If
         End Try
+
+        IdObraSocial = cmbObraSocial.SelectedValue
+        bolIDOS = True
     End Sub
 
 
@@ -4712,5 +4718,12 @@ ContinuarTransaccion:
         panel.Footer.Text = String.Format("Total a pagar: <font color=""Green""><i>${0}</i></font>", total)
     End Sub
 
+    Private Sub cmbObraSocial_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbObraSocial.SelectedIndexChanged
+        If bolIDOS Then
+            IdObraSocial = cmbObraSocial.SelectedValue
+            SQL = $"exec spPresentaciones_Select_All  @Eliminado = 0, @ObraSocial = '{IdObraSocial}'"
+            LlenarGrilla()
+        End If
 
+    End Sub
 End Class
