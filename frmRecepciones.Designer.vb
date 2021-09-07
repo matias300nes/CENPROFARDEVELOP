@@ -34,6 +34,7 @@ Partial Class frmRecepciones
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.Label15 = New System.Windows.Forms.Label()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.GroupPanelDetalleLiquidacion = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
@@ -125,7 +126,6 @@ Partial Class frmRecepciones
         Me.ContextMenuStripIVA = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BorrarElItemToolStripMenuItemIVA = New System.Windows.Forms.ToolStripMenuItem()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
-        Me.Label15 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.GroupPanelDetalleLiquidacion.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -150,8 +150,7 @@ Partial Class frmRecepciones
         '
         'GroupBox1
         '
-        Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox1.BackColor = System.Drawing.SystemColors.Control
         Me.GroupBox1.Controls.Add(Me.Label15)
         Me.GroupBox1.Controls.Add(Me.Label14)
         Me.GroupBox1.Controls.Add(Me.GroupPanelDetalleLiquidacion)
@@ -189,17 +188,29 @@ Partial Class frmRecepciones
         Me.GroupBox1.Controls.Add(Me.dtpFECHA)
         Me.GroupBox1.Controls.Add(Me.Label3)
         Me.GroupBox1.Controls.Add(Me.txtIdGasto)
-        Me.GroupBox1.ForeColor = System.Drawing.Color.Blue
+        Me.GroupBox1.ForeColor = System.Drawing.Color.Black
         Me.GroupBox1.Location = New System.Drawing.Point(7, 24)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(2371, 531)
+        Me.GroupBox1.Size = New System.Drawing.Size(1360, 531)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
+        '
+        'Label15
+        '
+        Me.Label15.AutoSize = True
+        Me.Label15.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label15.ForeColor = System.Drawing.SystemColors.WindowText
+        Me.Label15.Location = New System.Drawing.Point(6, 16)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(95, 18)
+        Me.Label15.TabIndex = 385
+        Me.Label15.Text = "Presentación"
         '
         'Label14
         '
         Me.Label14.AutoSize = True
         Me.Label14.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label14.ForeColor = System.Drawing.SystemColors.WindowText
         Me.Label14.Location = New System.Drawing.Point(6, 160)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(53, 18)
@@ -667,6 +678,7 @@ Partial Class frmRecepciones
         'lblCantidadFilas
         '
         Me.lblCantidadFilas.AutoSize = True
+        Me.lblCantidadFilas.ForeColor = System.Drawing.SystemColors.WindowText
         Me.lblCantidadFilas.Location = New System.Drawing.Point(1017, 168)
         Me.lblCantidadFilas.Name = "lblCantidadFilas"
         Me.lblCantidadFilas.Size = New System.Drawing.Size(46, 13)
@@ -677,17 +689,20 @@ Partial Class frmRecepciones
         '
         Me.ButtonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
         Me.ButtonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.ButtonX1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonX1.Location = New System.Drawing.Point(1146, 483)
+        Me.ButtonX1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonX1.Location = New System.Drawing.Point(1159, 483)
         Me.ButtonX1.Name = "ButtonX1"
+        Me.ButtonX1.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(3)
         Me.ButtonX1.Size = New System.Drawing.Size(135, 30)
-        Me.ButtonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.Windows7
+        Me.ButtonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.ButtonX1.TabIndex = 383
         Me.ButtonX1.Text = "Liquidar"
+        Me.ButtonX1.TextColor = System.Drawing.SystemColors.WindowText
         '
         'Label19
         '
         Me.Label19.AutoSize = True
+        Me.Label19.ForeColor = System.Drawing.SystemColors.WindowText
         Me.Label19.Location = New System.Drawing.Point(918, 168)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(98, 13)
@@ -697,13 +712,17 @@ Partial Class frmRecepciones
         'btnExcelWindow
         '
         Me.btnExcelWindow.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnExcelWindow.AutoSize = True
+        Me.btnExcelWindow.BackColor = System.Drawing.Color.Transparent
         Me.btnExcelWindow.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.btnExcelWindow.Location = New System.Drawing.Point(1146, 58)
+        Me.btnExcelWindow.Location = New System.Drawing.Point(1146, 43)
         Me.btnExcelWindow.Name = "btnExcelWindow"
+        Me.btnExcelWindow.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(3)
         Me.btnExcelWindow.Size = New System.Drawing.Size(105, 25)
         Me.btnExcelWindow.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnExcelWindow.TabIndex = 382
         Me.btnExcelWindow.Text = "Importar Planilla"
+        Me.btnExcelWindow.TextColor = System.Drawing.SystemColors.WindowText
         '
         'SuperGrdResultado
         '
@@ -980,7 +999,7 @@ Partial Class frmRecepciones
         DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window
         DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.Blue
+        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.Black
         DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
@@ -1112,7 +1131,7 @@ Partial Class frmRecepciones
         Me.txtNota.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
         Me.txtNota.Location = New System.Drawing.Point(802, 184)
         Me.txtNota.Name = "txtNota"
-        Me.txtNota.Size = New System.Drawing.Size(138, 20)
+        Me.txtNota.Size = New System.Drawing.Size(0, 20)
         Me.txtNota.TabIndex = 8
         Me.txtNota.Text_1 = Nothing
         Me.txtNota.Text_2 = Nothing
@@ -1275,16 +1294,6 @@ Partial Class frmRecepciones
         Me.BorrarElItemToolStripMenuItemIVA.Name = "BorrarElItemToolStripMenuItemIVA"
         Me.BorrarElItemToolStripMenuItemIVA.Size = New System.Drawing.Size(145, 22)
         Me.BorrarElItemToolStripMenuItemIVA.Text = "Borrar el Item"
-        '
-        'Label15
-        '
-        Me.Label15.AutoSize = True
-        Me.Label15.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label15.Location = New System.Drawing.Point(6, 16)
-        Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(95, 18)
-        Me.Label15.TabIndex = 385
-        Me.Label15.Text = "Presentación"
         '
         'frmRecepciones
         '
