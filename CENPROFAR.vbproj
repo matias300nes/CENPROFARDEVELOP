@@ -62,6 +62,7 @@
     <Reference Include="DevComponents.DotNetBar.Keyboard, Version=12.5.0.6, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL" />
     <Reference Include="DevComponents.DotNetBar.Schedule, Version=12.5.0.6, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL" />
     <Reference Include="DevComponents.DotNetBar.SuperGrid, Version=12.5.0.6, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL" />
+    <Reference Include="DevComponents.DotNetBar2, Version=12.5.0.6, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL" />
     <Reference Include="DevComponents.DotNetBar2_2015">
       <HintPath>Utiles\bin\Debug\DevComponents.DotNetBar2_2015.dll</HintPath>
     </Reference>
@@ -411,12 +412,6 @@
       <DependentUpon>frmPresupuestos.vb</DependentUpon>
     </Compile>
     <Compile Include="frmPresupuestos.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.vb">
-      <DependentUpon>Form1.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Form1.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmGastosSueldos.designer.vb">
@@ -945,9 +940,6 @@
     <EmbeddedResource Include="frmPresupuestos.resx">
       <DependentUpon>frmPresupuestos.vb</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmGastosSueldos.resx">
       <DependentUpon>frmGastosSueldos.vb</DependentUpon>
