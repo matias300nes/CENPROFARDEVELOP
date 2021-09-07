@@ -205,8 +205,19 @@ Public Class frmRecepciones
         'End Try
 
         band = 0
-
-        btnEliminar.Text = "Anular Recepción"
+        'Modifico botones del frmbase
+        btnEliminar.Text = "Eliminar Liquidación"
+        ToolStrip_lblCodMaterial.Text = "Cod. Liq."
+        btnCancelar.Visible = False
+        btnPrimero.Visible = False
+        btnAnterior.Visible = False
+        btnSiguiente.Visible = False
+        btnUltimo.Visible = False
+        PicConexion.Visible = False
+        lblConexion.Visible = False
+        ToolStripPagina.Visible = False
+        btnActivar.Visible = False
+        lblcuit.Visible = False
         ' LlenarGrid_grdDetLiquidacionOs()
         configurarform()
         asignarTags()
@@ -1369,7 +1380,7 @@ Public Class frmRecepciones
 
 
     Private Sub configurarform()
-        Me.Text = "Recepciones de Material"
+        Me.Text = "Liquidación"
 
         'Me.grd.Location = New Size(GroupBox1.Location.X, GroupBox1.Location.Y + GroupBox1.Size.Height + 7)
 

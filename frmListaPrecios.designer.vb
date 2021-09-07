@@ -1,7 +1,7 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class frmListaPrecios
 
-    Inherits SEYC.frmBase
+    Inherits CENPROFAR.frmBase
 
     <System.Diagnostics.DebuggerNonUserCode()> _
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)

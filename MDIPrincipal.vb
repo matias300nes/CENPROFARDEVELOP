@@ -52,7 +52,7 @@ Public Class MDIPrincipal
             'Catch ex As Exception
 
             'End Try
-            End
+            'End
         Else
             e.Cancel = True
         End If
@@ -4271,8 +4271,17 @@ Pedidos:
         frmClientes2.Show()
     End Sub
 
-    Private Sub DasdasdToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DasdasdToolStripMenuItem.Click
+    Private Sub FarmaciasToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FarmaciasToolStripMenuItem.Click
         frmFarmacias.MdiParent = Me
         frmFarmacias.Show()
+    End Sub
+
+    Private Sub ObrasSocialesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ObrasSocialesToolStripMenuItem.Click
+
+    End Sub
+
+    Private Sub LiquidacionesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LiquidacionesToolStripMenuItem.Click
+        frmRecepciones.MdiParent = Me
+        frmRecepciones.Show()
     End Sub
 End Class

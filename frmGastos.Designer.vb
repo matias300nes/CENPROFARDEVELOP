@@ -1034,7 +1034,7 @@ Partial Class frmGastos
         '
         Me.picProveedores.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.picProveedores.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.picProveedores.Image = Global.SEYC.My.Resources.Resources.Info
+        Me.picProveedores.Image = Global.CENPROFAR.My.Resources.Resources.Info
         Me.picProveedores.Location = New System.Drawing.Point(882, 32)
         Me.picProveedores.Name = "picProveedores"
         Me.picProveedores.Size = New System.Drawing.Size(18, 20)

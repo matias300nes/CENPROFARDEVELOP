@@ -246,7 +246,7 @@ Partial Class frmMateriales
         Me.PicExcelExportar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.PicExcelExportar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.PicExcelExportar.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.PicExcelExportar.Image = Global.SEYC.My.Resources.Resources.ms_excel
+        Me.PicExcelExportar.Image = Global.CENPROFAR.My.Resources.Resources.ms_excel
         Me.PicExcelExportar.Location = New System.Drawing.Point(1018, 59)
         Me.PicExcelExportar.Name = "PicExcelExportar"
         Me.PicExcelExportar.Size = New System.Drawing.Size(46, 41)
@@ -560,7 +560,7 @@ Partial Class frmMateriales
         '
         Me.PicMARCAS.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.PicMARCAS.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.PicMARCAS.Image = Global.SEYC.My.Resources.Resources.Info
+        Me.PicMARCAS.Image = Global.CENPROFAR.My.Resources.Resources.Info
         Me.PicMARCAS.Location = New System.Drawing.Point(1069, 29)
         Me.PicMARCAS.Name = "PicMARCAS"
         Me.PicMARCAS.Size = New System.Drawing.Size(18, 20)
@@ -952,7 +952,7 @@ Partial Class frmMateriales
         '
         Me.PicFAMILIAS.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.PicFAMILIAS.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.PicFAMILIAS.Image = Global.SEYC.My.Resources.Resources.Info
+        Me.PicFAMILIAS.Image = Global.CENPROFAR.My.Resources.Resources.Info
         Me.PicFAMILIAS.Location = New System.Drawing.Point(809, 31)
         Me.PicFAMILIAS.Name = "PicFAMILIAS"
         Me.PicFAMILIAS.Size = New System.Drawing.Size(18, 20)
@@ -978,7 +978,7 @@ Partial Class frmMateriales
         '
         Me.PicUNIDADES.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.PicUNIDADES.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.PicUNIDADES.Image = Global.SEYC.My.Resources.Resources.Info
+        Me.PicUNIDADES.Image = Global.CENPROFAR.My.Resources.Resources.Info
         Me.PicUNIDADES.Location = New System.Drawing.Point(241, 75)
         Me.PicUNIDADES.Name = "PicUNIDADES"
         Me.PicUNIDADES.Size = New System.Drawing.Size(18, 20)

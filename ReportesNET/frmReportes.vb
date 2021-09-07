@@ -273,7 +273,7 @@ Public Class frmReportes
                     .UserID = Utiles.TipoConexionSEI.usuario
                     .Password = Utiles.TipoConexionSEI.contrasena
                 End With
-            ElseIf nombre = "SEYC" Then
+            ElseIf nombre = "CENPROFAR" Then
                 With myConnectionInfo
                     .ServerName = Utiles.TipoConexionSEI.server
                     .DatabaseName = Utiles.TipoConexionSEI.base
@@ -1644,7 +1644,7 @@ Public Class frmReportes
         End If
     End Sub
 
-    Public Sub DeudaClientes_SEYC(ByVal inicio As Date, ByVal fin As Date, ByVal Cliente As String, ByVal Estado As String, ByVal Repartidor As String, ByVal rpt As frmReportes, ByVal Sistema As String, ByVal Resumen As Boolean)
+    Public Sub DeudaClientes_CENPROFAR(ByVal inicio As Date, ByVal fin As Date, ByVal Cliente As String, ByVal Estado As String, ByVal Repartidor As String, ByVal rpt As frmReportes, ByVal Sistema As String, ByVal Resumen As Boolean)
 
         Dim nbrereporte As String = "" 'Sistema & "_DeudaClientes.rpt"
 
@@ -1677,11 +1677,11 @@ Public Class frmReportes
         End If
     End Sub
 
-    Public Sub InformeGeneral_SEYC(ByVal inicio As Date, ByVal fin As Date, ByVal rpt As frmReportes)
+    Public Sub InformeGeneral_CENPROFAR(ByVal inicio As Date, ByVal fin As Date, ByVal rpt As frmReportes)
 
         Dim nbrereporte As String = "" 'Sistema & "_DeudaClientes.rpt"
 
-        nbrereporte = "SEYC_InformeGral.rpt"
+        nbrereporte = "CENPROFAR_InformeGral.rpt"
 
         If (LoguearReporte(rpt, nbrereporte)) Then
             Try

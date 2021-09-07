@@ -7,9 +7,9 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{748621E3-13EA-42B3-A4A3-5F15C448AE4B}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>SEYC.My.MyApplication</StartupObject>
-    <RootNamespace>SEYC</RootNamespace>
-    <AssemblyName>SEYC</AssemblyName>
+    <StartupObject>CENPROFAR.My.MyApplication</StartupObject>
+    <RootNamespace>CENPROFAR</RootNamespace>
+    <AssemblyName>CENPROFAR</AssemblyName>
     <MyType>WindowsForms</MyType>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -17,7 +17,7 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <ApplicationIcon>Resources\IconoPuntoVenta3.ico</ApplicationIcon>
+    <ApplicationIcon>icons8-configuración-del-administrador-48.ico</ApplicationIcon>
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile />
@@ -42,7 +42,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>SEYC.xml</DocumentationFile>
+    <DocumentationFile>CENPROFAR.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
     <UseVSHostingProcess>true</UseVSHostingProcess>
     <PlatformTarget>x86</PlatformTarget>
@@ -54,7 +54,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>SEYC.xml</DocumentationFile>
+    <DocumentationFile>CENPROFAR.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
@@ -749,6 +749,7 @@
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -1291,6 +1292,24 @@
     <None Include="Resources\IconoEnvio.png" />
     <None Include="Resources\KAIZEN2.jpg" />
     <None Include="Resources\IconoPuntoVenta3.ico" />
+    <Content Include="icons8-configuración-del-administrador-48.ico" />
+    <None Include="Resources\farmacia.png" />
+    <None Include="Resources\obraSocial.png" />
+    <None Include="Resources\presentacion.png" />
+    <None Include="Resources\liquidacion.png" />
+    <None Include="Resources\btnnuevo.png" />
+    <None Include="Resources\btnguardar.png" />
+    <None Include="Resources\btncargacontinua.png" />
+    <None Include="Resources\btneliminar.png" />
+    <None Include="Resources\btncancelar.png" />
+    <None Include="Resources\btnactivar.png" />
+    <None Include="Resources\btnsalir.png" />
+    <None Include="Resources\btnactualizar.png" />
+    <None Include="Resources\btnprimero.png" />
+    <None Include="Resources\btnanterior.png" />
+    <None Include="Resources\btnsiguiente.png" />
+    <None Include="Resources\btnultimo.png" />
+    <None Include="Resources\btnimprimir.png" />
     <Content Include="SEI.ico" />
     <None Include="Resources\ArchivoExcel_2.JPG" />
     <None Include="Resources\ArchivoExcel_1.JPG" />
