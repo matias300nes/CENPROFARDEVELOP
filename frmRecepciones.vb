@@ -188,13 +188,52 @@ Public Class frmRecepciones
         lblTotal.Visible = False
         cmbObraSocial.Visible = True
         lblcmbObrasSociales.Visible = True
-
-
-
         Cursor = Cursors.WaitCursor
 
         ToolStrip_lblCodMaterial.Visible = True
         txtBusquedaMAT.Visible = True
+
+        With grdDetalleLiquidacion
+            .VirtualMode = False
+            .EnableHeadersVisualStyles = False
+            .ColumnHeadersBorderStyle = 1
+            .AllowUserToAddRows = False
+            .AlternatingRowsDefaultCellStyle.BackColor = Color.AliceBlue
+            .RowsDefaultCellStyle.BackColor = Color.White
+            .AllowUserToOrderColumns = False
+            '.SelectionMode = DataGridViewSelectionMode.CellSelect
+            .SelectionMode = DataGridViewSelectionMode.FullRowSelect
+            .AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells
+        End With
+
+        With grdDetalleLiquidacion.ColumnHeadersDefaultCellStyle
+            .BackColor = Color.LightBlue  'Color.BlueViolet
+            .ForeColor = Color.Black
+            .Font = New Font("Microsoft Sans Serif", 8, FontStyle.Bold)
+        End With
+
+        grdDetalleLiquidacion.Font = New Font("Microsoft Sans Serif", 7, FontStyle.Regular)
+
+        With grdDetalleLiquidacionFiltrada
+            .VirtualMode = False
+            .AllowUserToAddRows = False
+            .EnableHeadersVisualStyles = False
+            .ColumnHeadersBorderStyle = 1
+            .AlternatingRowsDefaultCellStyle.BackColor = Color.AliceBlue
+            .RowsDefaultCellStyle.BackColor = Color.White
+            .AllowUserToOrderColumns = False
+            '.SelectionMode = DataGridViewSelectionMode.CellSelect
+            .SelectionMode = DataGridViewSelectionMode.FullRowSelect
+            .AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells
+        End With
+
+        With grdDetalleLiquidacionFiltrada.ColumnHeadersDefaultCellStyle
+            .BackColor = Color.LightBlue  'Color.BlueViolet
+            .ForeColor = Color.Black
+            .Font = New Font("Microsoft Sans Serif", 8, FontStyle.Bold)
+        End With
+
+        grdDetalleLiquidacionFiltrada.Font = New Font("Microsoft Sans Serif", 7, FontStyle.Regular)
 
         'Try
 
@@ -225,11 +264,12 @@ Public Class frmRecepciones
         LlenarcmbAlmacenes()
         LlenarcmbUsuarioGasto()
 
-        ' IdObraSocial = cmbObraSocial.SelectedValue
+        'IdObraSocial = cmbObraSocial.SelectedValue
 
         SQL = $"exec spPresentaciones_Select_All  @Eliminado = 0, @ObraSocial = '{IdObraSocial}'"
 
         LlenarGrilla()
+
         Permitir = True
         CargarCajas()
         PrepararBotones()
@@ -270,6 +310,10 @@ Public Class frmRecepciones
         permitir_evento_CellChanged = True
 
         grd_CurrentCellChanged(sender, e)
+
+
+        'Oculto las columnas en el grd
+        grd.Columns(1).Visible = False
 
         'grd.Columns(3).Visible = False
         'grd.Columns(4).Visible = False
@@ -1316,7 +1360,7 @@ Public Class frmRecepciones
             End If
         Next
 
-        grdDetalleLiquidacionFiltrada.Columns.Add("Codigo", "Codigo")
+        grdDetalleLiquidacionFiltrada.Columns.Add("Codigo", "Código")
         grdDetalleLiquidacionFiltrada.Columns.Add("Recetas", "Recetas")
         grdDetalleLiquidacionFiltrada.Columns.Add("Recaudado", "Recaudado")
         grdDetalleLiquidacionFiltrada.Columns.Add("A cargo OS", "A cargo OS")
@@ -1400,7 +1444,9 @@ Public Class frmRecepciones
 
         'Me.grd.Size = New Size(Screen.PrimaryScreen.WorkingArea.Width - 27, Me.Size.Height - 7 - GroupBox1.Size.Height - GroupBox1.Location.Y - 65)
         'Me.grd.Size = New Size(Screen.PrimaryScreen.WorkingArea.Width - 27, Me.Size.Height - 3 - GroupBox1.Size.Height - GroupBox1.Location.Y - 62) '65)
-        Me.grd.Size = New Size(4 / 6 * SuperGrdResultado.Width, 100) '65)
+        'Me.grd.Size = New Size(4 / 6 * SuperGrdResultado.Width, 100) '65)
+        Me.grd.Size = New Size(3.5 / 6 * SuperGrdResultado.Width, 100) '65)
+
     End Sub
 
     Private Sub asignarTags()
@@ -4683,6 +4729,11 @@ ContinuarTransaccion:
                     SuperGrdResultado.PrimaryGrid.ColumnHeader.GroupHeaders.Add(GroupHeader2)
                 End If
             End If
+
+            SuperGrdResultado.PrimaryGrid.Columns(0).Visible = False
+            SuperGrdResultado.PrimaryGrid.Columns(3).Visible = False
+
+
         End If
 
 
@@ -4744,9 +4795,12 @@ ContinuarTransaccion:
             IdObraSocial = cmbObraSocial.SelectedValue
             SQL = $"exec spPresentaciones_Select_All  @Eliminado = 0, @ObraSocial = '{IdObraSocial}'"
             LlenarGrilla()
+            grd.Columns(1).Visible = False
         End If
 
     End Sub
 
+    Private Sub GroupPanelDetalleLiquidacion_Click(sender As Object, e As EventArgs) Handles GroupPanelDetalleLiquidacion.Click
 
+    End Sub
 End Class

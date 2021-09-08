@@ -288,6 +288,9 @@ Public Class frmBase
             Util.MsgStatus(Status1, "Haga click en [Guardar] despues de completar los datos.")
         End If
 
+
+
+
         'grd.Columns(0).Frozen = True
     End Sub
 
