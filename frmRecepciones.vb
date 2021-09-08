@@ -879,7 +879,7 @@ Public Class frmRecepciones
 
             dataset.Tables.Add(dtDetalle)
 
-            MsgBox(dtDetalle.Rows.Count)
+            'MsgBox(dtDetalle.Rows.Count)
 
             dataset.Relations.Add("MasterGridDetail",
                               dataset.Tables(0).Columns("CodigoFarmacia"),
