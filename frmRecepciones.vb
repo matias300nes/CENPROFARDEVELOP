@@ -882,7 +882,7 @@ Public Class frmRecepciones
             MsgBox(dtDetalle.Rows.Count)
 
             dataset.Relations.Add("MasterGridDetail",
-                              dataset.Tables(0).Columns("IdFarmacia"),
+                              dataset.Tables(0).Columns("CodigoFarmacia"),
                               dataset.Tables(1).Columns("codigo")
             )
         End If
