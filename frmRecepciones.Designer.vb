@@ -271,12 +271,12 @@ Partial Class frmRecepciones
         'Label23
         '
         Me.Label23.AutoSize = True
-        Me.Label23.Location = New System.Drawing.Point(28, 256)
+        Me.Label23.Location = New System.Drawing.Point(25, 256)
         Me.Label23.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label23.Name = "Label23"
-        Me.Label23.Size = New System.Drawing.Size(44, 17)
+        Me.Label23.Size = New System.Drawing.Size(98, 17)
         Me.Label23.TabIndex = 388
-        Me.Label23.Text = "Total:"
+        Me.Label23.Text = "Total a Pagar:"
         '
         'Label17
         '
