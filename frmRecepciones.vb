@@ -872,7 +872,11 @@ Public Class frmRecepciones
                     row("codigo") = grdDetalleLiquidacionFiltrada.Rows(j).Cells(0).Value
                     row("Descuento") = ColumnName
                     row("valor") = Decimal.Parse(grdDetalleLiquidacionFiltrada.Rows(j).Cells(i).Value) * -1
-                    dtDetalle.Rows.Add(row)
+
+                    If (row("valor") <> 0) Then
+                        dtDetalle.Rows.Add(row)
+                    End If
+
                 Next
 
             Next
