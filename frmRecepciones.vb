@@ -1433,14 +1433,23 @@ Public Class frmRecepciones
             If add Then
                 Dim new_row As DataRow = dt_filtrada.NewRow()
                 For i = 0 To dt_filtrada.Rows.Count - 1
-
+                    If dt_filtrada.Rows(i)("Codigo") = current_row("Codigo") Then
+                        For j = 1 To dt_filtrada.Columns.Count - 1
+                            new_row(i) += dt_filtrada.Rows(i)(j)
+                        Next
+                    End If
                 Next
-
+                dt_grouped.Rows.Add(new_row)
             End If
 
         Next
 
-        grdDetalleLiquidacionFiltrada.DataSource = dt_filtrada
+        Try
+            grdDetalleLiquidacionFiltrada.DataSource = dt_grouped
+        Catch ex As Exception
+            grdDetalleLiquidacionFiltrada.DataSource = dt_filtrada
+        End Try
+
 
         ''ACA TERMINA EL QUILOMBO
 
