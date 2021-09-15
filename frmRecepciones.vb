@@ -1420,22 +1420,29 @@ Public Class frmRecepciones
         Next
 
         Dim dt_grouped As New DataTable()
-        Dim add As Boolean = True
+        dt_grouped = dt_filtrada.Clone()
+        Dim added As Boolean = False
 
         For Each current_row As DataRow In dt_filtrada.Rows
-            add = True
-            For Each row As DataRow In dt_filtrada.Rows
+            added = False
+            For Each row As DataRow In dt_grouped.Rows
                 If current_row("Codigo") = row("Codigo") Then
-                    add = False
+                    added = True
                 End If
             Next
 
-            If add Then
-                Dim new_row As DataRow = dt_filtrada.NewRow()
+            If Not added Then
+                Dim new_row As DataRow = dt_grouped.NewRow()
                 For i = 0 To dt_filtrada.Rows.Count - 1
                     If dt_filtrada.Rows(i)("Codigo") = current_row("Codigo") Then
+                        new_row("Codigo") = current_row("Codigo")
                         For j = 1 To dt_filtrada.Columns.Count - 1
-                            new_row(i) += dt_filtrada.Rows(i)(j)
+                            Try
+                                new_row(j) += Decimal.Parse(dt_filtrada.Rows(i)(j))
+                            Catch ex As Exception
+                                new_row(j) = Decimal.Parse(dt_filtrada.Rows(i)(j))
+                            End Try
+
                         Next
                     End If
                 Next
@@ -1444,12 +1451,8 @@ Public Class frmRecepciones
 
         Next
 
-        Try
-            grdDetalleLiquidacionFiltrada.DataSource = dt_grouped
-        Catch ex As Exception
-            grdDetalleLiquidacionFiltrada.DataSource = dt_filtrada
-        End Try
 
+        grdDetalleLiquidacionFiltrada.DataSource = dt_grouped
 
         ''ACA TERMINA EL QUILOMBO
 
