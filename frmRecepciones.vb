@@ -791,7 +791,6 @@ Public Class frmRecepciones
     Dim MasterGrdDetail As Boolean = False
 
     Private Sub UpdateGrdPrincipal()
-        Dim dtEncabezado As New DataTable
         Dim dtDetalle As New DataTable
         Dim dataset As New DataSet
 
@@ -840,14 +839,8 @@ Public Class frmRecepciones
                 dt.Rows(i).Item("A Cargo OS A") = grdDetalleLiquidacionFiltrada.Rows(i).Cells("A Cargo OS").Value
             Next
         End If
-        For i = 0 To dt.Columns.Count - 1
-            dtEncabezado.Columns.Add(dt.Columns(i).ColumnName)
-        Next
-        For i = 0 To dt.Rows.Count - 1
-            dtEncabezado.Rows.Add().ItemArray = dt.Rows(i).ItemArray
-        Next
 
-        dataset.Tables.Add(dtEncabezado)
+        dataset.Tables.Add(dt)
 
         ''MASTER GRID DETAIL
         If MasterGrdDetail Then
@@ -884,8 +877,6 @@ Public Class frmRecepciones
             Next
 
             dataset.Tables.Add(dtDetalle)
-
-            'MsgBox(dtDetalle.Rows.Count)
 
             dataset.Relations.Add("MasterGridDetail",
                               dataset.Tables(0).Columns("CodigoFarmacia"),
@@ -956,30 +947,7 @@ Public Class frmRecepciones
         End Using
     End Sub
 
-    'Private Sub comparar()
 
-    '    Dim j, i As Integer
-    '    Dim recetasGrdItems, recetasGrdDetalleLiquidacion As Integer
-    '    For j = 0 To grdItems.Rows.Count - 1
-    '        Dim codigoGrdItems = grdItems.Rows(j).Cells(1).Value
-
-    '        For i = 0 To grdDetalleLiquidacionFiltrada.Rows.Count - 1
-    '            Dim codigoGrdDetalleLiquidacion = grdDetalleLiquidacionFiltrada.Rows(i).Cells(0).Value
-    '            If codigoGrdDetalleLiquidacion = codigoGrdItems Then
-    '                recetasGrdItems = grdItems.Rows(j).Cells("Recetas").Value
-    '                recetasGrdDetalleLiquidacion = grdDetalleLiquidacionFiltrada.Rows(i).Cells("Recetas").Value
-    '                If recetasGrdItems <> recetasGrdDetalleLiquidacion Then
-    '                    MsgBox("Existe diferencia en j = ")
-    '                    MsgBox(codigoGrdDetalleLiquidacion)
-    '                End If
-    '            End If
-
-
-    '        Next
-
-    '    Next
-
-    'End Sub
     Dim listFilas As New List(Of Integer)
 
 
@@ -1311,8 +1279,7 @@ Public Class frmRecepciones
 
 
     Private Sub Scan_columns()
-        'ProgressGroping.Visible = True
-        'ProgressGroping.BringToFront()
+
         'toma las columnas
         Dim RecetasIndex As Integer = NumericUpDown1.Value
         Dim RecaudadoIndex As Integer = NumericUpDown2.Value
@@ -1325,8 +1292,12 @@ Public Class frmRecepciones
         Dim cbolist As New List(Of ComboBox)
         Dim numericlist As New List(Of NumericUpDown)
 
-        'grdDetalleLiquidacionFiltrada.Columns.Clear()
-        'grdDetalleLiquidacionFiltrada.Rows.Clear()
+
+
+        If grdDetalleLiquidacionFiltrada.Rows.Count <> 0 Then
+            grdDetalleLiquidacionFiltrada.DataSource = Nothing
+        End If
+
 
         If NumericUpDown1.Value = 0 Or NumericUpDown2.Value = 0 Or NumericUpDown3.Value = 0 Then
             btnListo.Enabled = False
@@ -1456,6 +1427,7 @@ Public Class frmRecepciones
         Next
 
         grdDetalleLiquidacionFiltrada.DataSource = dt_grouped
+        grdDetalleLiquidacionFiltrada.Focus()
 
         btnListo.Enabled = True
 
