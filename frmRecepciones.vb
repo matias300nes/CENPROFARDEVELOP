@@ -1311,6 +1311,8 @@ Public Class frmRecepciones
 
 
     Private Sub Scan_columns()
+        'ProgressGroping.Visible = True
+        'ProgressGroping.BringToFront()
         'toma las columnas
         Dim RecetasIndex As Integer = NumericUpDown1.Value
         Dim RecaudadoIndex As Integer = NumericUpDown2.Value
@@ -1366,8 +1368,6 @@ Public Class frmRecepciones
             End If
         Next
 
-        ''ACA EMPIEZA EL QUILOMBO
-
         dt_filtrada.Columns.Add("Codigo", GetType(String))
         dt_filtrada.Columns.Add("Recetas", GetType(Integer))
         dt_filtrada.Columns.Add("Recaudado", GetType(Decimal))
@@ -1384,6 +1384,7 @@ Public Class frmRecepciones
         Dim j As Integer
         Dim FirstColumnCell As String
         Dim subtotal As Decimal
+
         For j = 0 To grdDetalleLiquidacion.Rows.Count - 1
 
             subtotal = 0
@@ -1410,7 +1411,6 @@ Public Class frmRecepciones
 
                     Row("Total") = subtotal
 
-
                     dt_filtrada.Rows.Add(Row)
                 End If
             Catch ex As Exception
@@ -1422,39 +1422,40 @@ Public Class frmRecepciones
         Dim dt_grouped As New DataTable()
         dt_grouped = dt_filtrada.Clone()
         Dim added As Boolean = False
+        Dim current_row_index As Integer
 
-        For Each current_row As DataRow In dt_filtrada.Rows
+        For current_row_index = 0 To dt_filtrada.Rows.Count - 1
+            Dim current_row As DataRow = dt_filtrada.Rows(current_row_index)
             added = False
-            For Each row As DataRow In dt_grouped.Rows
-                If current_row("Codigo") = row("Codigo") Then
+
+            j = 0
+            While (j < dt_grouped.Rows.Count And added = False)
+                If current_row("Codigo") = dt_grouped.Rows(j)("Codigo") Then
                     added = True
                 End If
-            Next
+                j += 1
+            End While
 
             If Not added Then
                 Dim new_row As DataRow = dt_grouped.NewRow()
-                For i = 0 To dt_filtrada.Rows.Count - 1
+                For i = current_row_index To dt_filtrada.Rows.Count - 1
                     If dt_filtrada.Rows(i)("Codigo") = current_row("Codigo") Then
                         new_row("Codigo") = current_row("Codigo")
                         For j = 1 To dt_filtrada.Columns.Count - 1
-                            Try
-                                new_row(j) += Decimal.Parse(dt_filtrada.Rows(i)(j))
-                            Catch ex As Exception
+                            If i = current_row_index Then
                                 new_row(j) = Decimal.Parse(dt_filtrada.Rows(i)(j))
-                            End Try
-
+                            Else
+                                new_row(j) += Decimal.Parse(dt_filtrada.Rows(i)(j))
+                            End If
                         Next
                     End If
                 Next
                 dt_grouped.Rows.Add(new_row)
-            End If
 
+            End If
         Next
 
-
         grdDetalleLiquidacionFiltrada.DataSource = dt_grouped
-
-        ''ACA TERMINA EL QUILOMBO
 
         btnListo.Enabled = True
 
