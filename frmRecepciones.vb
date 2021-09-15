@@ -8,6 +8,8 @@ Imports System.IO
 Imports ExcelDataReader
 Imports DevComponents.DotNetBar.SuperGrid
 
+
+
 Public Class frmRecepciones
     Dim IdObraSocial
     Dim bolIDOS As Boolean = False
@@ -1313,16 +1315,16 @@ Public Class frmRecepciones
         Dim RecetasIndex As Integer = NumericUpDown1.Value
         Dim RecaudadoIndex As Integer = NumericUpDown2.Value
         Dim AcargoOSIndex As Integer = NumericUpDown3.Value
-        Dim Row As DataGridViewRow = Nothing
-        Dim rowIndex As Integer 'index of the row
+
+        Dim dt_filtrada As New DataTable()
 
         Dim DiscountIndex As Integer
 
         Dim cbolist As New List(Of ComboBox)
         Dim numericlist As New List(Of NumericUpDown)
 
-        grdDetalleLiquidacionFiltrada.Columns.Clear()
-        grdDetalleLiquidacionFiltrada.Rows.Clear()
+        'grdDetalleLiquidacionFiltrada.Columns.Clear()
+        'grdDetalleLiquidacionFiltrada.Rows.Clear()
 
         If NumericUpDown1.Value = 0 Or NumericUpDown2.Value = 0 Or NumericUpDown3.Value = 0 Then
             btnListo.Enabled = False
@@ -1364,18 +1366,20 @@ Public Class frmRecepciones
             End If
         Next
 
-        grdDetalleLiquidacionFiltrada.Columns.Add("Codigo", "Código")
-        grdDetalleLiquidacionFiltrada.Columns.Add("Recetas", "Recetas")
-        grdDetalleLiquidacionFiltrada.Columns.Add("Recaudado", "Recaudado")
-        grdDetalleLiquidacionFiltrada.Columns.Add("A cargo OS", "A cargo OS")
+        ''ACA EMPIEZA EL QUILOMBO
+
+        dt_filtrada.Columns.Add("Codigo", GetType(String))
+        dt_filtrada.Columns.Add("Recetas", GetType(Integer))
+        dt_filtrada.Columns.Add("Recaudado", GetType(Decimal))
+        dt_filtrada.Columns.Add("A cargo OS", GetType(Decimal))
 
         For Each cbo As ComboBox In cbolist
             With cbo
-                grdDetalleLiquidacionFiltrada.Columns.Add(.SelectedItem, .SelectedItem)
+                dt_filtrada.Columns.Add(.SelectedItem, GetType(Decimal))
             End With
         Next
 
-        grdDetalleLiquidacionFiltrada.Columns.Add("Total", "Total")
+        dt_filtrada.Columns.Add("Total", GetType(Decimal))
 
         Dim j As Integer
         Dim FirstColumnCell As String
@@ -1388,34 +1392,57 @@ Public Class frmRecepciones
             Try
                 If FirstColumnCell.Contains("F0") Then
 
-                    '/////Create a new row and get its index/////
-                    rowIndex = grdDetalleLiquidacionFiltrada.Rows.Add()
-
                     '//////Get a reference to the new row ///////
-                    Row = grdDetalleLiquidacionFiltrada.Rows(rowIndex)
+                    Dim Row As DataRow = dt_filtrada.NewRow()
 
-                    With Row
-                        'This won't fail since the columns exist 
-                        .Cells("Codigo").Value = grdDetalleLiquidacion.Rows(j).Cells(0).Value
-                        .Cells("Recetas").Value = grdDetalleLiquidacion.Rows(j).Cells(RecetasIndex).Value
-                        .Cells("Recaudado").Value = grdDetalleLiquidacion.Rows(j).Cells(RecaudadoIndex).Value
-                        .Cells("A cargo OS").Value = grdDetalleLiquidacion.Rows(j).Cells(AcargoOSIndex).Value
-                        subtotal = Decimal.Parse(grdDetalleLiquidacion.Rows(j).Cells(AcargoOSIndex).Value)
+                    'This won't fail since the columns exist 
+                    Row("Codigo") = grdDetalleLiquidacion.Rows(j).Cells(0).Value
+                    Row("Recetas") = grdDetalleLiquidacion.Rows(j).Cells(RecetasIndex).Value
+                    Row("Recaudado") = grdDetalleLiquidacion.Rows(j).Cells(RecaudadoIndex).Value
+                    Row("A cargo OS") = grdDetalleLiquidacion.Rows(j).Cells(AcargoOSIndex).Value
+                    subtotal = Decimal.Parse(grdDetalleLiquidacion.Rows(j).Cells(AcargoOSIndex).Value)
 
-                        For i = 0 To cbolist.Count() - 1
-                            DiscountIndex = numericlist(i).Value
-                            subtotal -= Decimal.Parse(grdDetalleLiquidacion.Rows(j).Cells(DiscountIndex).Value)
-                            .Cells(cbolist(i).SelectedItem).Value = grdDetalleLiquidacion.Rows(j).Cells(DiscountIndex).Value
-                        Next
+                    For i = 0 To cbolist.Count() - 1
+                        DiscountIndex = numericlist(i).Value
+                        subtotal -= Decimal.Parse(grdDetalleLiquidacion.Rows(j).Cells(DiscountIndex).Value)
+                        Row(cbolist(i).SelectedItem) = grdDetalleLiquidacion.Rows(j).Cells(DiscountIndex).Value
+                    Next
 
-                        .Cells("Total").Value = subtotal
+                    Row("Total") = subtotal
 
-                    End With
+
+                    dt_filtrada.Rows.Add(Row)
                 End If
             Catch ex As Exception
+                MsgBox(ex)
             End Try
 
         Next
+
+        Dim dt_grouped As New DataTable()
+        Dim add As Boolean = True
+
+        For Each current_row As DataRow In dt_filtrada.Rows
+            add = True
+            For Each row As DataRow In dt_filtrada.Rows
+                If current_row("Codigo") = row("Codigo") Then
+                    add = False
+                End If
+            Next
+
+            If add Then
+                Dim new_row As DataRow = dt_filtrada.NewRow()
+                For i = 0 To dt_filtrada.Rows.Count - 1
+
+                Next
+
+            End If
+
+        Next
+
+        grdDetalleLiquidacionFiltrada.DataSource = dt_filtrada
+
+        ''ACA TERMINA EL QUILOMBO
 
         btnListo.Enabled = True
 
