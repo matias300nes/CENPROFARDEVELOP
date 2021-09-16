@@ -791,9 +791,6 @@ Public Class frmRecepciones
     Dim MasterGrdDetail As Boolean = False
 
     Private Sub UpdateGrdPrincipal()
-        Dim dtDetalle As New DataTable
-        Dim dataset As New DataSet
-
         Dim connection As SqlClient.SqlConnection = Nothing
 
         Try
@@ -803,6 +800,8 @@ Public Class frmRecepciones
             Exit Sub
         End Try
 
+        Dim dtDetalle As New DataTable
+        Dim dataset As New DataSet
         Dim dt As New DataTable
         Dim SQL As String
 
@@ -873,7 +872,6 @@ Public Class frmRecepciones
                     End If
 
                 Next
-
             Next
 
             dataset.Tables.Add(dtDetalle)
@@ -884,19 +882,10 @@ Public Class frmRecepciones
             )
         End If
 
-
         'Envio el dataset con la relacion al SuperGrid
         SuperGrdResultado.PrimaryGrid.DataSource = dataset
 
-
         DataBindingComplete = True
-
-        'cambio el fonde de la grilla de items
-
-        'With grdItems
-        '    .AlternatingRowsDefaultCellStyle.BackColor = Color.PaleGreen
-        '    .RowsDefaultCellStyle.BackColor = Color.White
-        'End With
 
     End Sub
 
