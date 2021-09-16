@@ -801,6 +801,7 @@ Public Class frmRecepciones
         End Try
 
         Dim dtDetalle As New DataTable
+        Dim dtConceptos As New DataTable ''tabla para poder calcular totales
         Dim dataset As New DataSet
         Dim dt As New DataTable
         Dim SQL As String
@@ -831,6 +832,7 @@ Public Class frmRecepciones
             dt.Columns.Add("Recetas A")
             dt.Columns.Add("Recaudado A")
             dt.Columns.Add("A Cargo OS A")
+
             For i = 0 To grdDetalleLiquidacionFiltrada.Rows.Count - 1
                 Dim row As DataRow = dtDetalle.NewRow()
                 dt.Rows(i).Item("Recetas A") = grdDetalleLiquidacionFiltrada.Rows(i).Cells("Recetas").Value
@@ -843,14 +845,17 @@ Public Class frmRecepciones
 
         ''MASTER GRID DETAIL
         If MasterGrdDetail Then
+
             dtDetalle.Columns.Add("codigo")
-            dtDetalle.Columns.Add("Descuento")
+            dtDetalle.Columns.Add("detalle")
             dtDetalle.Columns.Add("valor")
+
+            dtConceptos = dtDetalle.Clone() ''Guardo los descuentos en tabla aparte para poder identificarlos
 
             For i = 0 To grdDetalleLiquidacionFiltrada.Rows.Count - 1
                 Dim row As DataRow = dtDetalle.NewRow()
                 row("codigo") = grdDetalleLiquidacionFiltrada.Rows(i).Cells(0).Value
-                row("Descuento") = "A cargo OS"
+                row("detalle") = "A cargo OS"
                 row("valor") = Decimal.Parse(grdDetalleLiquidacionFiltrada.Rows(i).Cells("A cargo OS").Value)
                 dtDetalle.Rows.Add(row)
             Next
@@ -863,12 +868,15 @@ Public Class frmRecepciones
                 ColumnName = grdDetalleLiquidacionFiltrada.Columns(i).Name
                 For j = 0 To grdDetalleLiquidacionFiltrada.Rows.Count - 1
                     Dim row As DataRow = dtDetalle.NewRow()
+                    Dim Concept As DataRow = dtConceptos.NewRow()
                     row("codigo") = grdDetalleLiquidacionFiltrada.Rows(j).Cells(0).Value
-                    row("Descuento") = ColumnName
+                    row("detalle") = ColumnName
                     row("valor") = Decimal.Parse(grdDetalleLiquidacionFiltrada.Rows(j).Cells(i).Value) * -1
 
                     If (row("valor") <> 0) Then
+                        Concept = row
                         dtDetalle.Rows.Add(row)
+                        dtConceptos.Rows.Add(Concept)
                     End If
 
                 Next
@@ -1416,7 +1424,6 @@ Public Class frmRecepciones
         Next
 
         grdDetalleLiquidacionFiltrada.DataSource = dt_grouped
-        grdDetalleLiquidacionFiltrada.Focus()
 
         btnListo.Enabled = True
 
@@ -4728,7 +4735,7 @@ ContinuarTransaccion:
             If MasterGrdDetail Then
                 Dim GroupHeader2 As New ColumnGroupHeader()
                 GroupHeader2.EndDisplayIndex = 11
-                GroupHeader2.StartDisplayIndex = 9
+                GroupHeader2.StartDisplayIndex = 8
                 GroupHeader2.HeaderText = "Aceptado"
                 If Not Groupheaders.contains(GroupHeader2) Then
                     SuperGrdResultado.PrimaryGrid.ColumnHeader.GroupHeaders.Add(GroupHeader2)
@@ -4737,6 +4744,8 @@ ContinuarTransaccion:
 
             SuperGrdResultado.PrimaryGrid.Columns(0).Visible = False
             SuperGrdResultado.PrimaryGrid.Columns(3).Visible = False
+            SuperGrdResultado.PrimaryGrid.Columns("Bonificación").Visible = False
+            SuperGrdResultado.PrimaryGrid.Columns("Total").Visible = False
 
 
         End If
