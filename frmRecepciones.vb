@@ -873,11 +873,11 @@ Public Class frmRecepciones
                     row("detalle") = ColumnName
                     row("valor") = Decimal.Parse(grdDetalleLiquidacionFiltrada.Rows(j).Cells(i).Value) * -1
 
-                    If (row("valor") <> 0) Then
-                        Concept = row
-                        dtDetalle.Rows.Add(row)
-                        dtConceptos.Rows.Add(Concept)
-                    End If
+                    'If (row("valor") <> 0) Then
+                    '    Concept = row
+                    '    dtDetalle.Rows.Add(row)
+                    '    dtConceptos.Rows.Add(Concept)
+                    'End If
 
                 Next
             Next
@@ -4717,6 +4717,20 @@ ContinuarTransaccion:
         'Dim panel As GridPanel = e.GridPanel
         'Dim panelSuperior As GridPanel
 
+
+        'Pinto la fila de color rojo 
+        'If MasterGrdDetail Then
+
+        '    For Each column As GridColumn In panel.Columns
+        '        column.ColumnSortMode = ColumnSortMode.Multiple
+        '    Next column
+
+
+
+        'End If
+
+
+
         'ESTO FUNCIONA MAL
         If panel.Name.Equals("") = True Then
             Dim Groupheaders = SuperGrdResultado.PrimaryGrid.ColumnHeader.GroupHeaders
@@ -4740,7 +4754,29 @@ ContinuarTransaccion:
                 If Not Groupheaders.contains(GroupHeader2) Then
                     SuperGrdResultado.PrimaryGrid.ColumnHeader.GroupHeaders.Add(GroupHeader2)
                 End If
+
+
+                'Pinto la fila con error
+
+                If cmbTipoPago.Text = "Unico" Then
+                    For Each fila As GridRow In panel.Rows
+                        If fila.Cells("Recetas").Value <> fila.Cells("Recetas A").Value Or fila.Cells("A Cargo Os").Value <> fila.Cells("A Cargo OS A").Value Then
+                            fila.CellStyles.Default.Background.Color1 = Color.SandyBrown
+                            fila.CellStyles.Default.TextColor = Color.White
+                        End If
+                    Next fila
+                End If
+
+
+
+
+
             End If
+
+
+
+
+
 
             SuperGrdResultado.PrimaryGrid.Columns(0).Visible = False
             SuperGrdResultado.PrimaryGrid.Columns(3).Visible = False
@@ -4784,6 +4820,9 @@ ContinuarTransaccion:
             Next
             panel.Footer = New GridFooter()
             panel.Footer.Text = String.Format("Total a pagar: <font color=""Green""><i>${0}</i></font>", total)
+
+
+
             'UpdateDetailsFooter(panel, panelSuperior) 'actualizo el footer de la grilla desplegada
         End If
 
