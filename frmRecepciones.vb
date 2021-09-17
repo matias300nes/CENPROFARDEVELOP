@@ -801,7 +801,6 @@ Public Class frmRecepciones
         End Try
 
         Dim dtDetalle As New DataTable
-        Dim dtConceptos As New DataTable ''tabla para poder calcular totales
         Dim dataset As New DataSet
         Dim dt As New DataTable
         Dim SQL As String
@@ -850,8 +849,6 @@ Public Class frmRecepciones
             dtDetalle.Columns.Add("detalle")
             dtDetalle.Columns.Add("valor")
 
-            dtConceptos = dtDetalle.Clone() ''Guardo los descuentos en tabla aparte para poder identificarlos
-
             For i = 0 To grdDetalleLiquidacionFiltrada.Rows.Count - 1
                 Dim row As DataRow = dtDetalle.NewRow()
                 row("codigo") = grdDetalleLiquidacionFiltrada.Rows(i).Cells(0).Value
@@ -868,15 +865,12 @@ Public Class frmRecepciones
                 ColumnName = grdDetalleLiquidacionFiltrada.Columns(i).Name
                 For j = 0 To grdDetalleLiquidacionFiltrada.Rows.Count - 1
                     Dim row As DataRow = dtDetalle.NewRow()
-                    Dim Concept As DataRow = dtConceptos.NewRow()
                     row("codigo") = grdDetalleLiquidacionFiltrada.Rows(j).Cells(0).Value
                     row("detalle") = ColumnName
                     row("valor") = Decimal.Parse(grdDetalleLiquidacionFiltrada.Rows(j).Cells(i).Value) * -1
 
                     If (row("valor") <> 0) Then
-                        Concept = row
                         dtDetalle.Rows.Add(row)
-                        dtConceptos.Rows.Add(Concept)
                     End If
 
                 Next
@@ -884,11 +878,26 @@ Public Class frmRecepciones
 
             dataset.Tables.Add(dtDetalle)
 
-            dataset.Relations.Add("MasterGridDetail",
+            dataset.Relations.Add("",
                               dataset.Tables(0).Columns("CodigoFarmacia"),
                               dataset.Tables(1).Columns("codigo")
             )
+
         End If
+
+        'Calculo de subtotalMasterGridDetail
+        dataset.Tables(0).Columns.Add("total", GetType(Decimal))
+        For Each row As DataRow In dataset.Tables(0).Rows
+            row("total") = 0
+            If MasterGrdDetail Then
+                Dim childrows = row.GetChildRows(dataset.Relations(0))
+                For Each detail As DataRow In childrows
+                    row("total") += detail("valor")
+                Next
+            Else
+                row("total") += row("A Cargo OS")
+            End If
+        Next
 
         'Envio el dataset con la relacion al SuperGrid
         SuperGrdResultado.PrimaryGrid.DataSource = dataset
@@ -4723,8 +4732,8 @@ ContinuarTransaccion:
 
             Dim GroupHeader1 As New ColumnGroupHeader()
 
-            GroupHeader1.EndDisplayIndex = 6
-            GroupHeader1.StartDisplayIndex = 4
+            GroupHeader1.EndDisplayIndex = panel.Columns("A cargo OS").ColumnIndex
+            GroupHeader1.StartDisplayIndex = panel.Columns("Recetas").ColumnIndex
             GroupHeader1.HeaderText = "Presentado"
 
             If Not Groupheaders.contains(GroupHeader1) Then
@@ -4733,13 +4742,16 @@ ContinuarTransaccion:
 
 
             If MasterGrdDetail Then
+
+
                 Dim GroupHeader2 As New ColumnGroupHeader()
-                GroupHeader2.EndDisplayIndex = 11
-                GroupHeader2.StartDisplayIndex = 8
+                GroupHeader2.EndDisplayIndex = panel.Columns("A cargo OS A").ColumnIndex
+                GroupHeader2.StartDisplayIndex = panel.Columns("Recetas A").ColumnIndex
                 GroupHeader2.HeaderText = "Aceptado"
                 If Not Groupheaders.contains(GroupHeader2) Then
                     SuperGrdResultado.PrimaryGrid.ColumnHeader.GroupHeaders.Add(GroupHeader2)
                 End If
+
             End If
 
             SuperGrdResultado.PrimaryGrid.Columns(0).Visible = False
@@ -4784,7 +4796,6 @@ ContinuarTransaccion:
             Next
             panel.Footer = New GridFooter()
             panel.Footer.Text = String.Format("Total a pagar: <font color=""Green""><i>${0}</i></font>", total)
-            'UpdateDetailsFooter(panel, panelSuperior) 'actualizo el footer de la grilla desplegada
         End If
 
 
