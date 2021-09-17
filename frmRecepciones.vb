@@ -4726,6 +4726,20 @@ ContinuarTransaccion:
         'Dim panel As GridPanel = e.GridPanel
         'Dim panelSuperior As GridPanel
 
+
+        'Pinto la fila de color rojo 
+        'If MasterGrdDetail Then
+
+        '    For Each column As GridColumn In panel.Columns
+        '        column.ColumnSortMode = ColumnSortMode.Multiple
+        '    Next column
+
+
+
+        'End If
+
+
+
         'ESTO FUNCIONA MAL
         If panel.Name.Equals("") = True Then
             Dim Groupheaders = SuperGrdResultado.PrimaryGrid.ColumnHeader.GroupHeaders
@@ -4752,7 +4766,28 @@ ContinuarTransaccion:
                     SuperGrdResultado.PrimaryGrid.ColumnHeader.GroupHeaders.Add(GroupHeader2)
                 End If
 
+
+                'Pinto la fila con error
+
+                If cmbTipoPago.Text = "Unico" Then
+                    For Each fila As GridRow In panel.Rows
+                        If fila.Cells("Recetas").Value <> fila.Cells("Recetas A").Value Or fila.Cells("A Cargo Os").Value <> fila.Cells("A Cargo OS A").Value Then
+                            fila.CellStyles.Default.Background.Color1 = Color.SandyBrown
+                            fila.CellStyles.Default.TextColor = Color.White
+                        End If
+                    Next fila
+                End If
+
+
+
+
+
             End If
+
+
+
+
+
 
             SuperGrdResultado.PrimaryGrid.Columns(0).Visible = False
             SuperGrdResultado.PrimaryGrid.Columns(3).Visible = False

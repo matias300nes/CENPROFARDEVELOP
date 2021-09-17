@@ -36,7 +36,7 @@ Partial Class frmRecepciones
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
-        Me.ComboBoxEx1 = New DevComponents.DotNetBar.Controls.ComboBoxEx()
+        Me.cmbTipoPago = New DevComponents.DotNetBar.Controls.ComboBoxEx()
         Me.CheckBox3 = New System.Windows.Forms.CheckBox()
         Me.CheckBox2 = New System.Windows.Forms.CheckBox()
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
@@ -135,6 +135,8 @@ Partial Class frmRecepciones
         Me.ContextMenuStripIVA = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BorrarElItemToolStripMenuItemIVA = New System.Windows.Forms.ToolStripMenuItem()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
+        Me.pagoUnico = New DevComponents.Editors.ComboItem()
+        Me.pagoAnticipo = New DevComponents.Editors.ComboItem()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.GroupPanelDetalleLiquidacion.SuspendLayout()
@@ -199,16 +201,18 @@ Partial Class frmRecepciones
         Me.GroupBox1.Controls.Add(Me.Label3)
         Me.GroupBox1.Controls.Add(Me.txtIdGasto)
         Me.GroupBox1.ForeColor = System.Drawing.Color.Black
-        Me.GroupBox1.Location = New System.Drawing.Point(7, 24)
+        Me.GroupBox1.Location = New System.Drawing.Point(9, 30)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(1360, 531)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4)
+        Me.GroupBox1.Size = New System.Drawing.Size(1813, 654)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         '
         'GroupBox4
         '
         Me.GroupBox4.Controls.Add(Me.LabelX1)
-        Me.GroupBox4.Controls.Add(Me.ComboBoxEx1)
+        Me.GroupBox4.Controls.Add(Me.cmbTipoPago)
         Me.GroupBox4.Controls.Add(Me.CheckBox3)
         Me.GroupBox4.Controls.Add(Me.CheckBox2)
         Me.GroupBox4.Controls.Add(Me.CheckBox1)
@@ -216,9 +220,11 @@ Partial Class frmRecepciones
         Me.GroupBox4.Controls.Add(Me.Label23)
         Me.GroupBox4.Controls.Add(Me.Label17)
         Me.GroupBox4.Controls.Add(Me.btnExcelWindow)
-        Me.GroupBox4.Location = New System.Drawing.Point(1081, 178)
+        Me.GroupBox4.Location = New System.Drawing.Point(1441, 219)
+        Me.GroupBox4.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(253, 293)
+        Me.GroupBox4.Padding = New System.Windows.Forms.Padding(4)
+        Me.GroupBox4.Size = New System.Drawing.Size(337, 361)
         Me.GroupBox4.TabIndex = 386
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Resúmen"
@@ -229,33 +235,32 @@ Partial Class frmRecepciones
         '
         '
         Me.LabelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX1.Location = New System.Drawing.Point(21, 40)
-        Me.LabelX1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.LabelX1.Location = New System.Drawing.Point(28, 49)
         Me.LabelX1.Name = "LabelX1"
-        Me.LabelX1.Size = New System.Drawing.Size(74, 19)
+        Me.LabelX1.Size = New System.Drawing.Size(99, 23)
         Me.LabelX1.TabIndex = 394
         Me.LabelX1.Text = "Tipo de pago"
         '
-        'ComboBoxEx1
+        'cmbTipoPago
         '
-        Me.ComboBoxEx1.AutoCompleteCustomSource.AddRange(New String() {"Único", "Anticipo"})
-        Me.ComboBoxEx1.DisplayMember = "Text"
-        Me.ComboBoxEx1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
-        Me.ComboBoxEx1.FormattingEnabled = True
-        Me.ComboBoxEx1.ItemHeight = 16
-        Me.ComboBoxEx1.Location = New System.Drawing.Point(21, 60)
-        Me.ComboBoxEx1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
-        Me.ComboBoxEx1.Name = "ComboBoxEx1"
-        Me.ComboBoxEx1.Size = New System.Drawing.Size(102, 22)
-        Me.ComboBoxEx1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.ComboBoxEx1.TabIndex = 393
+        Me.cmbTipoPago.DisplayMember = "Text"
+        Me.cmbTipoPago.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
+        Me.cmbTipoPago.FormattingEnabled = True
+        Me.cmbTipoPago.ItemHeight = 16
+        Me.cmbTipoPago.Items.AddRange(New Object() {Me.pagoUnico, Me.pagoAnticipo})
+        Me.cmbTipoPago.Location = New System.Drawing.Point(28, 74)
+        Me.cmbTipoPago.Name = "cmbTipoPago"
+        Me.cmbTipoPago.Size = New System.Drawing.Size(135, 22)
+        Me.cmbTipoPago.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.cmbTipoPago.TabIndex = 393
         '
         'CheckBox3
         '
         Me.CheckBox3.AutoSize = True
-        Me.CheckBox3.Location = New System.Drawing.Point(32, 208)
+        Me.CheckBox3.Location = New System.Drawing.Point(43, 256)
+        Me.CheckBox3.Margin = New System.Windows.Forms.Padding(4)
         Me.CheckBox3.Name = "CheckBox3"
-        Me.CheckBox3.Size = New System.Drawing.Size(137, 17)
+        Me.CheckBox3.Size = New System.Drawing.Size(176, 21)
         Me.CheckBox3.TabIndex = 392
         Me.CheckBox3.Text = "Comisión CENPROFAR"
         Me.CheckBox3.UseVisualStyleBackColor = True
@@ -263,9 +268,10 @@ Partial Class frmRecepciones
         'CheckBox2
         '
         Me.CheckBox2.AutoSize = True
-        Me.CheckBox2.Location = New System.Drawing.Point(32, 181)
+        Me.CheckBox2.Location = New System.Drawing.Point(43, 223)
+        Me.CheckBox2.Margin = New System.Windows.Forms.Padding(4)
         Me.CheckBox2.Name = "CheckBox2"
-        Me.CheckBox2.Size = New System.Drawing.Size(109, 17)
+        Me.CheckBox2.Size = New System.Drawing.Size(140, 21)
         Me.CheckBox2.TabIndex = 391
         Me.CheckBox2.Text = "Impuesto Cheque"
         Me.CheckBox2.UseVisualStyleBackColor = True
@@ -273,9 +279,10 @@ Partial Class frmRecepciones
         'CheckBox1
         '
         Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Location = New System.Drawing.Point(32, 154)
+        Me.CheckBox1.Location = New System.Drawing.Point(43, 189)
+        Me.CheckBox1.Margin = New System.Windows.Forms.Padding(4)
         Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(99, 17)
+        Me.CheckBox1.Size = New System.Drawing.Size(129, 21)
         Me.CheckBox1.TabIndex = 390
         Me.CheckBox1.Text = "Ingresos Brutos"
         Me.CheckBox1.UseVisualStyleBackColor = True
@@ -285,18 +292,20 @@ Partial Class frmRecepciones
         Me.Label24.AutoSize = True
         Me.Label24.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label24.ForeColor = System.Drawing.Color.DarkGreen
-        Me.Label24.Location = New System.Drawing.Point(80, 261)
+        Me.Label24.Location = New System.Drawing.Point(107, 321)
+        Me.Label24.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label24.Name = "Label24"
-        Me.Label24.Size = New System.Drawing.Size(110, 24)
+        Me.Label24.Size = New System.Drawing.Size(142, 29)
         Me.Label24.TabIndex = 389
         Me.Label24.Text = "$ 141523,42"
         '
         'Label23
         '
         Me.Label23.AutoSize = True
-        Me.Label23.Location = New System.Drawing.Point(19, 247)
+        Me.Label23.Location = New System.Drawing.Point(25, 304)
+        Me.Label23.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label23.Name = "Label23"
-        Me.Label23.Size = New System.Drawing.Size(74, 13)
+        Me.Label23.Size = New System.Drawing.Size(98, 17)
         Me.Label23.TabIndex = 388
         Me.Label23.Text = "Total a Pagar:"
         '
@@ -304,9 +313,10 @@ Partial Class frmRecepciones
         '
         Me.Label17.AutoSize = True
         Me.Label17.ForeColor = System.Drawing.SystemColors.WindowFrame
-        Me.Label17.Location = New System.Drawing.Point(148, 103)
+        Me.Label17.Location = New System.Drawing.Point(197, 127)
+        Me.Label17.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(76, 13)
+        Me.Label17.Size = New System.Drawing.Size(101, 17)
         Me.Label17.TabIndex = 387
         Me.Label17.Text = "No hay planilla"
         '
@@ -315,10 +325,11 @@ Partial Class frmRecepciones
         Me.btnExcelWindow.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
         Me.btnExcelWindow.BackColor = System.Drawing.Color.Transparent
         Me.btnExcelWindow.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.btnExcelWindow.Location = New System.Drawing.Point(21, 103)
+        Me.btnExcelWindow.Location = New System.Drawing.Point(28, 127)
+        Me.btnExcelWindow.Margin = New System.Windows.Forms.Padding(4)
         Me.btnExcelWindow.Name = "btnExcelWindow"
         Me.btnExcelWindow.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(3)
-        Me.btnExcelWindow.Size = New System.Drawing.Size(105, 25)
+        Me.btnExcelWindow.Size = New System.Drawing.Size(140, 31)
         Me.btnExcelWindow.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnExcelWindow.TabIndex = 382
         Me.btnExcelWindow.Text = "Importar Planilla"
@@ -329,9 +340,10 @@ Partial Class frmRecepciones
         Me.Label15.AutoSize = True
         Me.Label15.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label15.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.Label15.Location = New System.Drawing.Point(6, 16)
+        Me.Label15.Location = New System.Drawing.Point(8, 20)
+        Me.Label15.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(95, 18)
+        Me.Label15.Size = New System.Drawing.Size(120, 24)
         Me.Label15.TabIndex = 385
         Me.Label15.Text = "Presentación"
         '
@@ -340,9 +352,10 @@ Partial Class frmRecepciones
         Me.Label14.AutoSize = True
         Me.Label14.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label14.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.Label14.Location = New System.Drawing.Point(6, 160)
+        Me.Label14.Location = New System.Drawing.Point(8, 197)
+        Me.Label14.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(53, 18)
+        Me.Label14.Size = New System.Drawing.Size(67, 24)
         Me.Label14.TabIndex = 384
         Me.Label14.Text = "Detalle"
         '
@@ -362,10 +375,10 @@ Partial Class frmRecepciones
         Me.GroupPanelDetalleLiquidacion.Controls.Add(Me.grdDetalleLiquidacionFiltrada)
         Me.GroupPanelDetalleLiquidacion.Controls.Add(Me.grdDetalleLiquidacion)
         Me.GroupPanelDetalleLiquidacion.DisabledBackColor = System.Drawing.Color.Empty
-        Me.GroupPanelDetalleLiquidacion.Location = New System.Drawing.Point(1339, 75)
-        Me.GroupPanelDetalleLiquidacion.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.GroupPanelDetalleLiquidacion.Location = New System.Drawing.Point(1785, 92)
+        Me.GroupPanelDetalleLiquidacion.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.GroupPanelDetalleLiquidacion.Name = "GroupPanelDetalleLiquidacion"
-        Me.GroupPanelDetalleLiquidacion.Size = New System.Drawing.Size(2000, 531)
+        Me.GroupPanelDetalleLiquidacion.Size = New System.Drawing.Size(2667, 654)
         '
         '
         '
@@ -403,19 +416,21 @@ Partial Class frmRecepciones
         Me.GroupBox3.Controls.Add(Me.FileName)
         Me.GroupBox3.Controls.Add(Me.Label9)
         Me.GroupBox3.Controls.Add(Me.cboSheet)
-        Me.GroupBox3.Location = New System.Drawing.Point(1046, 28)
+        Me.GroupBox3.Location = New System.Drawing.Point(1395, 34)
+        Me.GroupBox3.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(269, 125)
+        Me.GroupBox3.Padding = New System.Windows.Forms.Padding(4)
+        Me.GroupBox3.Size = New System.Drawing.Size(359, 154)
         Me.GroupBox3.TabIndex = 380
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Importar Archivo"
         '
         'btnImportExcel
         '
-        Me.btnImportExcel.Location = New System.Drawing.Point(159, 41)
-        Me.btnImportExcel.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.btnImportExcel.Location = New System.Drawing.Point(212, 50)
+        Me.btnImportExcel.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.btnImportExcel.Name = "btnImportExcel"
-        Me.btnImportExcel.Size = New System.Drawing.Size(61, 23)
+        Me.btnImportExcel.Size = New System.Drawing.Size(81, 28)
         Me.btnImportExcel.TabIndex = 370
         Me.btnImportExcel.Text = "Importar Excel"
         Me.btnImportExcel.UseVisualStyleBackColor = True
@@ -423,9 +438,10 @@ Partial Class frmRecepciones
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(41, 26)
+        Me.Label1.Location = New System.Drawing.Point(55, 32)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(33, 13)
+        Me.Label1.Size = New System.Drawing.Size(42, 17)
         Me.Label1.TabIndex = 356
         Me.Label1.Text = "Ruta "
         '
@@ -437,11 +453,12 @@ Partial Class frmRecepciones
         Me.FileName.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.FileName.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FileName.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.FileName.Location = New System.Drawing.Point(44, 43)
+        Me.FileName.Location = New System.Drawing.Point(59, 53)
+        Me.FileName.Margin = New System.Windows.Forms.Padding(4)
         Me.FileName.MaxLength = 25
         Me.FileName.Name = "FileName"
         Me.FileName.ReadOnly = True
-        Me.FileName.Size = New System.Drawing.Size(112, 20)
+        Me.FileName.Size = New System.Drawing.Size(148, 23)
         Me.FileName.TabIndex = 353
         Me.FileName.Text_1 = Nothing
         Me.FileName.Text_2 = Nothing
@@ -452,9 +469,10 @@ Partial Class frmRecepciones
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(41, 70)
+        Me.Label9.Location = New System.Drawing.Point(55, 86)
+        Me.Label9.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(29, 13)
+        Me.Label9.Size = New System.Drawing.Size(37, 17)
         Me.Label9.TabIndex = 370
         Me.Label9.Text = "Hoja"
         '
@@ -462,17 +480,19 @@ Partial Class frmRecepciones
         '
         Me.cboSheet.AccessibleName = "*OrdenCompra"
         Me.cboSheet.FormattingEnabled = True
-        Me.cboSheet.Location = New System.Drawing.Point(44, 87)
+        Me.cboSheet.Location = New System.Drawing.Point(59, 107)
+        Me.cboSheet.Margin = New System.Windows.Forms.Padding(4)
         Me.cboSheet.Name = "cboSheet"
-        Me.cboSheet.Size = New System.Drawing.Size(176, 21)
+        Me.cboSheet.Size = New System.Drawing.Size(233, 24)
         Me.cboSheet.TabIndex = 354
         '
         'ColLabel
         '
         Me.ColLabel.AutoSize = True
-        Me.ColLabel.Location = New System.Drawing.Point(996, 253)
+        Me.ColLabel.Location = New System.Drawing.Point(1328, 311)
+        Me.ColLabel.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.ColLabel.Name = "ColLabel"
-        Me.ColLabel.Size = New System.Drawing.Size(13, 13)
+        Me.ColLabel.Size = New System.Drawing.Size(16, 17)
         Me.ColLabel.TabIndex = 379
         Me.ColLabel.Text = "0"
         '
@@ -480,10 +500,10 @@ Partial Class frmRecepciones
         '
         Me.btnListo.Enabled = False
         Me.btnListo.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.3!)
-        Me.btnListo.Location = New System.Drawing.Point(1130, 448)
-        Me.btnListo.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.btnListo.Location = New System.Drawing.Point(1507, 551)
+        Me.btnListo.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.btnListo.Name = "btnListo"
-        Me.btnListo.Size = New System.Drawing.Size(105, 36)
+        Me.btnListo.Size = New System.Drawing.Size(140, 44)
         Me.btnListo.TabIndex = 348
         Me.btnListo.Text = "Listo"
         Me.btnListo.UseVisualStyleBackColor = True
@@ -491,9 +511,10 @@ Partial Class frmRecepciones
         'FilaLabel
         '
         Me.FilaLabel.AutoSize = True
-        Me.FilaLabel.Location = New System.Drawing.Point(934, 253)
+        Me.FilaLabel.Location = New System.Drawing.Point(1245, 311)
+        Me.FilaLabel.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.FilaLabel.Name = "FilaLabel"
-        Me.FilaLabel.Size = New System.Drawing.Size(13, 13)
+        Me.FilaLabel.Size = New System.Drawing.Size(16, 17)
         Me.FilaLabel.TabIndex = 378
         Me.FilaLabel.Text = "0"
         '
@@ -513,9 +534,11 @@ Partial Class frmRecepciones
         Me.GroupBox2.Controls.Add(Me.NumericUpDown4)
         Me.GroupBox2.Controls.Add(Me.NumericUpDown5)
         Me.GroupBox2.Controls.Add(Me.btnScan)
-        Me.GroupBox2.Location = New System.Drawing.Point(1046, 178)
+        Me.GroupBox2.Location = New System.Drawing.Point(1395, 219)
+        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(269, 255)
+        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(4)
+        Me.GroupBox2.Size = New System.Drawing.Size(359, 314)
         Me.GroupBox2.TabIndex = 377
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Columnas a filtrar"
@@ -530,76 +553,85 @@ Partial Class frmRecepciones
         Me.PanelDescuentos.Controls.Add(Me.cboDescuentos3)
         Me.PanelDescuentos.Controls.Add(Me.cboDescuentos2)
         Me.PanelDescuentos.Controls.Add(Me.numericDescuentos2)
-        Me.PanelDescuentos.Location = New System.Drawing.Point(63, 96)
+        Me.PanelDescuentos.Location = New System.Drawing.Point(84, 118)
+        Me.PanelDescuentos.Margin = New System.Windows.Forms.Padding(4)
         Me.PanelDescuentos.Name = "PanelDescuentos"
-        Me.PanelDescuentos.Size = New System.Drawing.Size(146, 117)
+        Me.PanelDescuentos.Size = New System.Drawing.Size(195, 144)
         Me.PanelDescuentos.TabIndex = 381
         '
         'cboDescuentos1
         '
         Me.cboDescuentos1.FormattingEnabled = True
-        Me.cboDescuentos1.Location = New System.Drawing.Point(5, 8)
+        Me.cboDescuentos1.Location = New System.Drawing.Point(7, 10)
+        Me.cboDescuentos1.Margin = New System.Windows.Forms.Padding(4)
         Me.cboDescuentos1.Name = "cboDescuentos1"
-        Me.cboDescuentos1.Size = New System.Drawing.Size(90, 21)
+        Me.cboDescuentos1.Size = New System.Drawing.Size(119, 24)
         Me.cboDescuentos1.TabIndex = 378
         Me.cboDescuentos1.Tag = "0"
         '
         'cboDescuentos4
         '
         Me.cboDescuentos4.FormattingEnabled = True
-        Me.cboDescuentos4.Location = New System.Drawing.Point(5, 88)
+        Me.cboDescuentos4.Location = New System.Drawing.Point(7, 108)
+        Me.cboDescuentos4.Margin = New System.Windows.Forms.Padding(4)
         Me.cboDescuentos4.Name = "cboDescuentos4"
-        Me.cboDescuentos4.Size = New System.Drawing.Size(90, 21)
+        Me.cboDescuentos4.Size = New System.Drawing.Size(119, 24)
         Me.cboDescuentos4.TabIndex = 389
         Me.cboDescuentos4.Tag = "3"
         '
         'numericDescuentos4
         '
-        Me.numericDescuentos4.Location = New System.Drawing.Point(101, 89)
+        Me.numericDescuentos4.Location = New System.Drawing.Point(135, 110)
+        Me.numericDescuentos4.Margin = New System.Windows.Forms.Padding(4)
         Me.numericDescuentos4.Name = "numericDescuentos4"
-        Me.numericDescuentos4.Size = New System.Drawing.Size(40, 20)
+        Me.numericDescuentos4.Size = New System.Drawing.Size(53, 22)
         Me.numericDescuentos4.TabIndex = 385
         Me.numericDescuentos4.Tag = "3"
         '
         'numericDescuentos1
         '
-        Me.numericDescuentos1.Location = New System.Drawing.Point(101, 8)
+        Me.numericDescuentos1.Location = New System.Drawing.Point(135, 10)
+        Me.numericDescuentos1.Margin = New System.Windows.Forms.Padding(4)
         Me.numericDescuentos1.Name = "numericDescuentos1"
-        Me.numericDescuentos1.Size = New System.Drawing.Size(40, 20)
+        Me.numericDescuentos1.Size = New System.Drawing.Size(53, 22)
         Me.numericDescuentos1.TabIndex = 379
         Me.numericDescuentos1.Tag = "0"
         '
         'numericDescuentos3
         '
-        Me.numericDescuentos3.Location = New System.Drawing.Point(101, 62)
+        Me.numericDescuentos3.Location = New System.Drawing.Point(135, 76)
+        Me.numericDescuentos3.Margin = New System.Windows.Forms.Padding(4)
         Me.numericDescuentos3.Name = "numericDescuentos3"
-        Me.numericDescuentos3.Size = New System.Drawing.Size(40, 20)
+        Me.numericDescuentos3.Size = New System.Drawing.Size(53, 22)
         Me.numericDescuentos3.TabIndex = 383
         Me.numericDescuentos3.Tag = "2"
         '
         'cboDescuentos3
         '
         Me.cboDescuentos3.FormattingEnabled = True
-        Me.cboDescuentos3.Location = New System.Drawing.Point(5, 62)
+        Me.cboDescuentos3.Location = New System.Drawing.Point(7, 76)
+        Me.cboDescuentos3.Margin = New System.Windows.Forms.Padding(4)
         Me.cboDescuentos3.Name = "cboDescuentos3"
-        Me.cboDescuentos3.Size = New System.Drawing.Size(90, 21)
+        Me.cboDescuentos3.Size = New System.Drawing.Size(119, 24)
         Me.cboDescuentos3.TabIndex = 388
         Me.cboDescuentos3.Tag = "2"
         '
         'cboDescuentos2
         '
         Me.cboDescuentos2.FormattingEnabled = True
-        Me.cboDescuentos2.Location = New System.Drawing.Point(5, 35)
+        Me.cboDescuentos2.Location = New System.Drawing.Point(7, 43)
+        Me.cboDescuentos2.Margin = New System.Windows.Forms.Padding(4)
         Me.cboDescuentos2.Name = "cboDescuentos2"
-        Me.cboDescuentos2.Size = New System.Drawing.Size(90, 21)
+        Me.cboDescuentos2.Size = New System.Drawing.Size(119, 24)
         Me.cboDescuentos2.TabIndex = 387
         Me.cboDescuentos2.Tag = "1"
         '
         'numericDescuentos2
         '
-        Me.numericDescuentos2.Location = New System.Drawing.Point(101, 35)
+        Me.numericDescuentos2.Location = New System.Drawing.Point(135, 43)
+        Me.numericDescuentos2.Margin = New System.Windows.Forms.Padding(4)
         Me.numericDescuentos2.Name = "numericDescuentos2"
-        Me.numericDescuentos2.Size = New System.Drawing.Size(40, 20)
+        Me.numericDescuentos2.Size = New System.Drawing.Size(53, 22)
         Me.numericDescuentos2.TabIndex = 381
         Me.numericDescuentos2.Tag = "1"
         '
@@ -607,10 +639,11 @@ Partial Class frmRecepciones
         '
         Me.RecognitionLabel.AutoSize = True
         Me.RecognitionLabel.ForeColor = System.Drawing.Color.Gray
-        Me.RecognitionLabel.Location = New System.Drawing.Point(9, 19)
-        Me.RecognitionLabel.MaximumSize = New System.Drawing.Size(260, 0)
+        Me.RecognitionLabel.Location = New System.Drawing.Point(12, 23)
+        Me.RecognitionLabel.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.RecognitionLabel.MaximumSize = New System.Drawing.Size(347, 0)
         Me.RecognitionLabel.Name = "RecognitionLabel"
-        Me.RecognitionLabel.Size = New System.Drawing.Size(151, 13)
+        Me.RecognitionLabel.Size = New System.Drawing.Size(199, 17)
         Me.RecognitionLabel.TabIndex = 381
         Me.RecognitionLabel.Text = "Se reconoció: Template Name"
         Me.RecognitionLabel.Visible = False
@@ -619,36 +652,39 @@ Partial Class frmRecepciones
         '
         Me.Label13.AutoSize = True
         Me.Label13.ForeColor = System.Drawing.Color.Black
-        Me.Label13.Location = New System.Drawing.Point(12, 80)
+        Me.Label13.Location = New System.Drawing.Point(16, 98)
+        Me.Label13.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(121, 13)
+        Me.Label13.Size = New System.Drawing.Size(159, 17)
         Me.Label13.TabIndex = 377
         Me.Label13.Text = "Descuentos Adicionales"
         '
         'Label18
         '
         Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(38, 37)
+        Me.Label18.Location = New System.Drawing.Point(51, 46)
+        Me.Label18.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(47, 13)
+        Me.Label18.Size = New System.Drawing.Size(60, 17)
         Me.Label18.TabIndex = 372
         Me.Label18.Text = "Recetas"
         '
         'NumericUpDown1
         '
-        Me.NumericUpDown1.Location = New System.Drawing.Point(41, 52)
-        Me.NumericUpDown1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.NumericUpDown1.Location = New System.Drawing.Point(55, 64)
+        Me.NumericUpDown1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.NumericUpDown1.Maximum = New Decimal(New Integer() {0, 0, 0, 0})
         Me.NumericUpDown1.Name = "NumericUpDown1"
-        Me.NumericUpDown1.Size = New System.Drawing.Size(42, 20)
+        Me.NumericUpDown1.Size = New System.Drawing.Size(56, 22)
         Me.NumericUpDown1.TabIndex = 357
         '
         'Label22
         '
         Me.Label22.AutoSize = True
-        Me.Label22.Location = New System.Drawing.Point(236, 178)
+        Me.Label22.Location = New System.Drawing.Point(315, 219)
+        Me.Label22.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(31, 13)
+        Me.Label22.Size = New System.Drawing.Size(40, 17)
         Me.Label22.TabIndex = 376
         Me.Label22.Text = "Total"
         Me.Label22.Visible = False
@@ -656,76 +692,79 @@ Partial Class frmRecepciones
         'Label21
         '
         Me.Label21.AutoSize = True
-        Me.Label21.Location = New System.Drawing.Point(102, 37)
+        Me.Label21.Location = New System.Drawing.Point(136, 46)
+        Me.Label21.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label21.Name = "Label21"
-        Me.Label21.Size = New System.Drawing.Size(63, 13)
+        Me.Label21.Size = New System.Drawing.Size(81, 17)
         Me.Label21.TabIndex = 375
         Me.Label21.Text = "Recaudado"
         '
         'NumericUpDown2
         '
-        Me.NumericUpDown2.Location = New System.Drawing.Point(111, 52)
-        Me.NumericUpDown2.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.NumericUpDown2.Location = New System.Drawing.Point(148, 64)
+        Me.NumericUpDown2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.NumericUpDown2.Maximum = New Decimal(New Integer() {0, 0, 0, 0})
         Me.NumericUpDown2.Name = "NumericUpDown2"
-        Me.NumericUpDown2.Size = New System.Drawing.Size(42, 20)
+        Me.NumericUpDown2.Size = New System.Drawing.Size(56, 22)
         Me.NumericUpDown2.TabIndex = 358
         '
         'Label20
         '
         Me.Label20.AutoSize = True
-        Me.Label20.Location = New System.Drawing.Point(171, 37)
+        Me.Label20.Location = New System.Drawing.Point(228, 46)
+        Me.Label20.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(62, 13)
+        Me.Label20.Size = New System.Drawing.Size(81, 17)
         Me.Label20.TabIndex = 374
         Me.Label20.Text = "A cargo OS"
         '
         'NumericUpDown3
         '
-        Me.NumericUpDown3.Location = New System.Drawing.Point(179, 52)
-        Me.NumericUpDown3.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.NumericUpDown3.Location = New System.Drawing.Point(239, 64)
+        Me.NumericUpDown3.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.NumericUpDown3.Maximum = New Decimal(New Integer() {0, 0, 0, 0})
         Me.NumericUpDown3.Name = "NumericUpDown3"
-        Me.NumericUpDown3.Size = New System.Drawing.Size(42, 20)
+        Me.NumericUpDown3.Size = New System.Drawing.Size(56, 22)
         Me.NumericUpDown3.TabIndex = 359
         '
         'Label12
         '
         Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(236, 134)
+        Me.Label12.Location = New System.Drawing.Point(315, 165)
+        Me.Label12.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(65, 13)
+        Me.Label12.Size = New System.Drawing.Size(84, 17)
         Me.Label12.TabIndex = 373
         Me.Label12.Text = "Bonificacion"
         Me.Label12.Visible = False
         '
         'NumericUpDown4
         '
-        Me.NumericUpDown4.Location = New System.Drawing.Point(238, 149)
-        Me.NumericUpDown4.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.NumericUpDown4.Location = New System.Drawing.Point(317, 183)
+        Me.NumericUpDown4.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.NumericUpDown4.Maximum = New Decimal(New Integer() {0, 0, 0, 0})
         Me.NumericUpDown4.Name = "NumericUpDown4"
-        Me.NumericUpDown4.Size = New System.Drawing.Size(63, 20)
+        Me.NumericUpDown4.Size = New System.Drawing.Size(84, 22)
         Me.NumericUpDown4.TabIndex = 360
         Me.NumericUpDown4.Visible = False
         '
         'NumericUpDown5
         '
-        Me.NumericUpDown5.Location = New System.Drawing.Point(238, 193)
-        Me.NumericUpDown5.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.NumericUpDown5.Location = New System.Drawing.Point(317, 238)
+        Me.NumericUpDown5.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.NumericUpDown5.Maximum = New Decimal(New Integer() {0, 0, 0, 0})
         Me.NumericUpDown5.Name = "NumericUpDown5"
-        Me.NumericUpDown5.Size = New System.Drawing.Size(63, 20)
+        Me.NumericUpDown5.Size = New System.Drawing.Size(84, 22)
         Me.NumericUpDown5.TabIndex = 361
         Me.NumericUpDown5.Visible = False
         '
         'btnScan
         '
         Me.btnScan.Enabled = False
-        Me.btnScan.Location = New System.Drawing.Point(95, 221)
-        Me.btnScan.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.btnScan.Location = New System.Drawing.Point(127, 272)
+        Me.btnScan.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.btnScan.Name = "btnScan"
-        Me.btnScan.Size = New System.Drawing.Size(83, 26)
+        Me.btnScan.Size = New System.Drawing.Size(111, 32)
         Me.btnScan.TabIndex = 371
         Me.btnScan.Text = "Escanear"
         Me.btnScan.UseVisualStyleBackColor = True
@@ -733,36 +772,40 @@ Partial Class frmRecepciones
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(16, 263)
+        Me.Label11.Location = New System.Drawing.Point(21, 324)
+        Me.Label11.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(134, 13)
+        Me.Label11.Size = New System.Drawing.Size(179, 17)
         Me.Label11.TabIndex = 372
         Me.Label11.Text = "Detalle Liquidación Filtrada"
         '
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(974, 253)
+        Me.Label6.Location = New System.Drawing.Point(1299, 311)
+        Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(22, 13)
+        Me.Label6.Size = New System.Drawing.Size(28, 17)
         Me.Label6.TabIndex = 367
         Me.Label6.Text = "Col"
         '
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(911, 253)
+        Me.Label5.Location = New System.Drawing.Point(1215, 311)
+        Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(23, 13)
+        Me.Label5.Size = New System.Drawing.Size(30, 17)
         Me.Label5.TabIndex = 366
         Me.Label5.Text = "Fila"
         '
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(16, 9)
+        Me.Label10.Location = New System.Drawing.Point(21, 11)
+        Me.Label10.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(143, 13)
+        Me.Label10.Size = New System.Drawing.Size(192, 17)
         Me.Label10.TabIndex = 371
         Me.Label10.Text = "Detalle Liquidación Sin Filtrar"
         '
@@ -771,24 +814,24 @@ Partial Class frmRecepciones
         Me.grdDetalleLiquidacionFiltrada.AllowUserToAddRows = False
         Me.grdDetalleLiquidacionFiltrada.AllowUserToDeleteRows = False
         Me.grdDetalleLiquidacionFiltrada.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.grdDetalleLiquidacionFiltrada.Location = New System.Drawing.Point(17, 291)
-        Me.grdDetalleLiquidacionFiltrada.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.grdDetalleLiquidacionFiltrada.Location = New System.Drawing.Point(23, 358)
+        Me.grdDetalleLiquidacionFiltrada.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.grdDetalleLiquidacionFiltrada.Name = "grdDetalleLiquidacionFiltrada"
         Me.grdDetalleLiquidacionFiltrada.RowHeadersWidth = 51
         Me.grdDetalleLiquidacionFiltrada.RowTemplate.Height = 24
-        Me.grdDetalleLiquidacionFiltrada.Size = New System.Drawing.Size(1007, 219)
+        Me.grdDetalleLiquidacionFiltrada.Size = New System.Drawing.Size(1343, 270)
         Me.grdDetalleLiquidacionFiltrada.TabIndex = 347
         '
         'grdDetalleLiquidacion
         '
         Me.grdDetalleLiquidacion.AllowUserToAddRows = False
         Me.grdDetalleLiquidacion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.grdDetalleLiquidacion.Location = New System.Drawing.Point(17, 28)
-        Me.grdDetalleLiquidacion.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.grdDetalleLiquidacion.Location = New System.Drawing.Point(23, 34)
+        Me.grdDetalleLiquidacion.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.grdDetalleLiquidacion.Name = "grdDetalleLiquidacion"
         Me.grdDetalleLiquidacion.RowHeadersWidth = 51
         Me.grdDetalleLiquidacion.RowTemplate.Height = 24
-        Me.grdDetalleLiquidacion.Size = New System.Drawing.Size(1007, 219)
+        Me.grdDetalleLiquidacion.Size = New System.Drawing.Size(1343, 270)
         Me.grdDetalleLiquidacion.TabIndex = 355
         '
         'chkAnuladas
@@ -797,9 +840,10 @@ Partial Class frmRecepciones
         Me.chkAnuladas.AutoSize = True
         Me.chkAnuladas.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.chkAnuladas.ForeColor = System.Drawing.Color.Red
-        Me.chkAnuladas.Location = New System.Drawing.Point(758, 4)
+        Me.chkAnuladas.Location = New System.Drawing.Point(1011, 5)
+        Me.chkAnuladas.Margin = New System.Windows.Forms.Padding(4)
         Me.chkAnuladas.Name = "chkAnuladas"
-        Me.chkAnuladas.Size = New System.Drawing.Size(179, 17)
+        Me.chkAnuladas.Size = New System.Drawing.Size(225, 21)
         Me.chkAnuladas.TabIndex = 28
         Me.chkAnuladas.Text = "Ver Recepciones Anuladas"
         Me.chkAnuladas.UseVisualStyleBackColor = True
@@ -809,9 +853,10 @@ Partial Class frmRecepciones
         '
         Me.lblCantidadFilas.AutoSize = True
         Me.lblCantidadFilas.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.lblCantidadFilas.Location = New System.Drawing.Point(1017, 168)
+        Me.lblCantidadFilas.Location = New System.Drawing.Point(1356, 207)
+        Me.lblCantidadFilas.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblCantidadFilas.Name = "lblCantidadFilas"
-        Me.lblCantidadFilas.Size = New System.Drawing.Size(46, 13)
+        Me.lblCantidadFilas.Size = New System.Drawing.Size(60, 17)
         Me.lblCantidadFilas.TabIndex = 270
         Me.lblCantidadFilas.Text = "Subtotal"
         '
@@ -820,10 +865,11 @@ Partial Class frmRecepciones
         Me.ButtonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
         Me.ButtonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
         Me.ButtonX1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonX1.Location = New System.Drawing.Point(1145, 483)
+        Me.ButtonX1.Location = New System.Drawing.Point(1527, 594)
+        Me.ButtonX1.Margin = New System.Windows.Forms.Padding(4)
         Me.ButtonX1.Name = "ButtonX1"
         Me.ButtonX1.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(3)
-        Me.ButtonX1.Size = New System.Drawing.Size(135, 30)
+        Me.ButtonX1.Size = New System.Drawing.Size(180, 37)
         Me.ButtonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.ButtonX1.TabIndex = 383
         Me.ButtonX1.Text = "Liquidar"
@@ -833,9 +879,10 @@ Partial Class frmRecepciones
         '
         Me.Label19.AutoSize = True
         Me.Label19.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.Label19.Location = New System.Drawing.Point(918, 168)
+        Me.Label19.Location = New System.Drawing.Point(1224, 207)
+        Me.Label19.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(98, 13)
+        Me.Label19.Size = New System.Drawing.Size(129, 17)
         Me.Label19.TabIndex = 271
         Me.Label19.Text = "Cantidad de Ítems: "
         '
@@ -852,8 +899,8 @@ Partial Class frmRecepciones
         Background4.Color1 = System.Drawing.Color.Transparent
         Me.SuperGrdResultado.DefaultVisualStyles.RowStyles.Default.Background = Background4
         Me.SuperGrdResultado.FilterExprColors.SysFunction = System.Drawing.Color.DarkRed
-        Me.SuperGrdResultado.Location = New System.Drawing.Point(7, 184)
-        Me.SuperGrdResultado.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.SuperGrdResultado.Location = New System.Drawing.Point(9, 226)
+        Me.SuperGrdResultado.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.SuperGrdResultado.Name = "SuperGrdResultado"
         '
         '
@@ -867,7 +914,7 @@ Partial Class frmRecepciones
         Me.SuperGrdResultado.PrimaryGrid.DefaultVisualStyles.AlternateRowCellStyles.Default.Background = Background6
         Background7.Color1 = System.Drawing.Color.Transparent
         Me.SuperGrdResultado.PrimaryGrid.DefaultVisualStyles.RowStyles.Default.Background = Background7
-        Me.SuperGrdResultado.Size = New System.Drawing.Size(1058, 329)
+        Me.SuperGrdResultado.Size = New System.Drawing.Size(1411, 405)
         Me.SuperGrdResultado.TabIndex = 381
         Me.SuperGrdResultado.Text = "SuperGridControl1"
         '
@@ -881,12 +928,13 @@ Partial Class frmRecepciones
         Me.grdItems.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.grdItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.grdItems.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.IdFarmacia, Me.Farmacia, Me.IdPresentacion, Me.Recetas, Me.Recaudado, Me.AcargoOS, Me.Bonificacion, Me.Total})
-        Me.grdItems.Location = New System.Drawing.Point(795, 227)
+        Me.grdItems.Location = New System.Drawing.Point(1060, 279)
+        Me.grdItems.Margin = New System.Windows.Forms.Padding(4)
         Me.grdItems.Name = "grdItems"
         Me.grdItems.RowHeadersWidth = 51
         DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grdItems.RowsDefaultCellStyle = DataGridViewCellStyle3
-        Me.grdItems.Size = New System.Drawing.Size(206, 92)
+        Me.grdItems.Size = New System.Drawing.Size(275, 113)
         Me.grdItems.TabIndex = 351
         Me.grdItems.Visible = False
         '
@@ -962,36 +1010,40 @@ Partial Class frmRecepciones
         Me.lblTotal.BackColor = System.Drawing.Color.White
         Me.lblTotal.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.lblTotal.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTotal.Location = New System.Drawing.Point(692, 0)
+        Me.lblTotal.Location = New System.Drawing.Point(923, 0)
+        Me.lblTotal.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblTotal.Name = "lblTotal"
-        Me.lblTotal.Size = New System.Drawing.Size(85, 20)
+        Me.lblTotal.Size = New System.Drawing.Size(113, 25)
         Me.lblTotal.TabIndex = 24
         Me.lblTotal.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'lblcuit
         '
         Me.lblcuit.AutoSize = True
-        Me.lblcuit.Location = New System.Drawing.Point(614, 0)
+        Me.lblcuit.Location = New System.Drawing.Point(819, 0)
+        Me.lblcuit.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblcuit.Name = "lblcuit"
-        Me.lblcuit.Size = New System.Drawing.Size(25, 13)
+        Me.lblcuit.Size = New System.Drawing.Size(32, 17)
         Me.lblcuit.TabIndex = 350
         Me.lblcuit.Text = "Cuit"
         '
         'lblPeriodo
         '
         Me.lblPeriodo.AutoSize = True
-        Me.lblPeriodo.Location = New System.Drawing.Point(644, 0)
+        Me.lblPeriodo.Location = New System.Drawing.Point(859, 0)
+        Me.lblPeriodo.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblPeriodo.Name = "lblPeriodo"
-        Me.lblPeriodo.Size = New System.Drawing.Size(43, 13)
+        Me.lblPeriodo.Size = New System.Drawing.Size(57, 17)
         Me.lblPeriodo.TabIndex = 349
         Me.lblPeriodo.Text = "Periodo"
         '
         'lblcmbObrasSociales
         '
         Me.lblcmbObrasSociales.AutoSize = True
-        Me.lblcmbObrasSociales.Location = New System.Drawing.Point(799, 34)
+        Me.lblcmbObrasSociales.Location = New System.Drawing.Point(1065, 42)
+        Me.lblcmbObrasSociales.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblcmbObrasSociales.Name = "lblcmbObrasSociales"
-        Me.lblcmbObrasSociales.Size = New System.Drawing.Size(78, 13)
+        Me.lblcmbObrasSociales.Size = New System.Drawing.Size(104, 17)
         Me.lblcmbObrasSociales.TabIndex = 346
         Me.lblcmbObrasSociales.Text = "Obras Sociales"
         '
@@ -1003,9 +1055,10 @@ Partial Class frmRecepciones
         Me.cmbObraSocial.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbObraSocial.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbObraSocial.FormattingEnabled = True
-        Me.cmbObraSocial.Location = New System.Drawing.Point(798, 49)
+        Me.cmbObraSocial.Location = New System.Drawing.Point(1064, 60)
+        Me.cmbObraSocial.Margin = New System.Windows.Forms.Padding(4)
         Me.cmbObraSocial.Name = "cmbObraSocial"
-        Me.cmbObraSocial.Size = New System.Drawing.Size(194, 21)
+        Me.cmbObraSocial.Size = New System.Drawing.Size(257, 25)
         Me.cmbObraSocial.TabIndex = 3
         '
         'txtIdComprobante
@@ -1015,10 +1068,11 @@ Partial Class frmRecepciones
         Me.txtIdComprobante.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtIdComprobante.Enabled = False
         Me.txtIdComprobante.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
-        Me.txtIdComprobante.Location = New System.Drawing.Point(533, -2)
+        Me.txtIdComprobante.Location = New System.Drawing.Point(711, -2)
+        Me.txtIdComprobante.Margin = New System.Windows.Forms.Padding(4)
         Me.txtIdComprobante.MaxLength = 8
         Me.txtIdComprobante.Name = "txtIdComprobante"
-        Me.txtIdComprobante.Size = New System.Drawing.Size(23, 20)
+        Me.txtIdComprobante.Size = New System.Drawing.Size(29, 22)
         Me.txtIdComprobante.TabIndex = 297
         Me.txtIdComprobante.Text_1 = Nothing
         Me.txtIdComprobante.Text_2 = Nothing
@@ -1034,10 +1088,11 @@ Partial Class frmRecepciones
         Me.txtIdMoneda.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtIdMoneda.Enabled = False
         Me.txtIdMoneda.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
-        Me.txtIdMoneda.Location = New System.Drawing.Point(1013, 234)
+        Me.txtIdMoneda.Location = New System.Drawing.Point(1351, 288)
+        Me.txtIdMoneda.Margin = New System.Windows.Forms.Padding(4)
         Me.txtIdMoneda.MaxLength = 8
         Me.txtIdMoneda.Name = "txtIdMoneda"
-        Me.txtIdMoneda.Size = New System.Drawing.Size(23, 20)
+        Me.txtIdMoneda.Size = New System.Drawing.Size(29, 22)
         Me.txtIdMoneda.TabIndex = 296
         Me.txtIdMoneda.Text_1 = Nothing
         Me.txtIdMoneda.Text_2 = Nothing
@@ -1054,11 +1109,12 @@ Partial Class frmRecepciones
         Me.txtNroFacturaCompletoControl.DecSeparator = Global.Microsoft.VisualBasic.ChrW(46)
         Me.txtNroFacturaCompletoControl.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtNroFacturaCompletoControl.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.txtNroFacturaCompletoControl.Location = New System.Drawing.Point(616, 253)
+        Me.txtNroFacturaCompletoControl.Location = New System.Drawing.Point(821, 311)
+        Me.txtNroFacturaCompletoControl.Margin = New System.Windows.Forms.Padding(4)
         Me.txtNroFacturaCompletoControl.MaxLength = 20
         Me.txtNroFacturaCompletoControl.Name = "txtNroFacturaCompletoControl"
         Me.txtNroFacturaCompletoControl.ReadOnly = True
-        Me.txtNroFacturaCompletoControl.Size = New System.Drawing.Size(121, 20)
+        Me.txtNroFacturaCompletoControl.Size = New System.Drawing.Size(160, 23)
         Me.txtNroFacturaCompletoControl.TabIndex = 287
         Me.txtNroFacturaCompletoControl.Text_1 = Nothing
         Me.txtNroFacturaCompletoControl.Text_2 = Nothing
@@ -1077,10 +1133,11 @@ Partial Class frmRecepciones
         Me.txtNroRemitoControl.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtNroRemitoControl.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtNroRemitoControl.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.txtNroRemitoControl.Location = New System.Drawing.Point(598, 274)
+        Me.txtNroRemitoControl.Location = New System.Drawing.Point(797, 337)
+        Me.txtNroRemitoControl.Margin = New System.Windows.Forms.Padding(4)
         Me.txtNroRemitoControl.MaxLength = 25
         Me.txtNroRemitoControl.Name = "txtNroRemitoControl"
-        Me.txtNroRemitoControl.Size = New System.Drawing.Size(139, 20)
+        Me.txtNroRemitoControl.Size = New System.Drawing.Size(184, 23)
         Me.txtNroRemitoControl.TabIndex = 286
         Me.txtNroRemitoControl.Text_1 = Nothing
         Me.txtNroRemitoControl.Text_2 = Nothing
@@ -1092,9 +1149,10 @@ Partial Class frmRecepciones
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(918, 197)
+        Me.Label4.Location = New System.Drawing.Point(1224, 242)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(106, 13)
+        Me.Label4.Size = New System.Drawing.Size(140, 17)
         Me.Label4.TabIndex = 21
         Me.Label4.Text = "Detalle de Impuestos"
         '
@@ -1119,7 +1177,8 @@ Partial Class frmRecepciones
         DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.grdImpuestos.DefaultCellStyle = DataGridViewCellStyle5
-        Me.grdImpuestos.Location = New System.Drawing.Point(657, 323)
+        Me.grdImpuestos.Location = New System.Drawing.Point(876, 398)
+        Me.grdImpuestos.Margin = New System.Windows.Forms.Padding(4)
         Me.grdImpuestos.Name = "grdImpuestos"
         DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
@@ -1130,15 +1189,16 @@ Partial Class frmRecepciones
         DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.grdImpuestos.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
         Me.grdImpuestos.RowHeadersWidth = 51
-        Me.grdImpuestos.Size = New System.Drawing.Size(364, 133)
+        Me.grdImpuestos.Size = New System.Drawing.Size(485, 164)
         Me.grdImpuestos.TabIndex = 25
         '
         'Label16
         '
         Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(983, 218)
+        Me.Label16.Location = New System.Drawing.Point(1311, 268)
+        Me.Label16.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(53, 13)
+        Me.Label16.Size = New System.Drawing.Size(69, 17)
         Me.Label16.TabIndex = 274
         Me.Label16.Text = "Depósito*"
         '
@@ -1152,9 +1212,10 @@ Partial Class frmRecepciones
         Me.cmbAlmacenes.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbAlmacenes.FormattingEnabled = True
         Me.cmbAlmacenes.IntegralHeight = False
-        Me.cmbAlmacenes.Location = New System.Drawing.Point(930, 196)
+        Me.cmbAlmacenes.Location = New System.Drawing.Point(1240, 241)
+        Me.cmbAlmacenes.Margin = New System.Windows.Forms.Padding(4)
         Me.cmbAlmacenes.Name = "cmbAlmacenes"
-        Me.cmbAlmacenes.Size = New System.Drawing.Size(91, 21)
+        Me.cmbAlmacenes.Size = New System.Drawing.Size(120, 25)
         Me.cmbAlmacenes.TabIndex = 2
         '
         'lblMontoIva
@@ -1162,9 +1223,10 @@ Partial Class frmRecepciones
         Me.lblMontoIva.BackColor = System.Drawing.Color.White
         Me.lblMontoIva.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.lblMontoIva.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblMontoIva.Location = New System.Drawing.Point(652, 300)
+        Me.lblMontoIva.Location = New System.Drawing.Point(869, 369)
+        Me.lblMontoIva.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblMontoIva.Name = "lblMontoIva"
-        Me.lblMontoIva.Size = New System.Drawing.Size(85, 20)
+        Me.lblMontoIva.Size = New System.Drawing.Size(113, 25)
         Me.lblMontoIva.TabIndex = 17
         Me.lblMontoIva.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.lblMontoIva.Visible = False
@@ -1172,9 +1234,10 @@ Partial Class frmRecepciones
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(1012, 210)
+        Me.Label7.Location = New System.Drawing.Point(1349, 258)
+        Me.Label7.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(31, 13)
+        Me.Label7.Size = New System.Drawing.Size(40, 17)
         Me.Label7.TabIndex = 243
         Me.Label7.Text = "Total"
         '
@@ -1185,10 +1248,11 @@ Partial Class frmRecepciones
         Me.txtidpago.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtidpago.Enabled = False
         Me.txtidpago.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
-        Me.txtidpago.Location = New System.Drawing.Point(1001, 245)
+        Me.txtidpago.Location = New System.Drawing.Point(1335, 302)
+        Me.txtidpago.Margin = New System.Windows.Forms.Padding(4)
         Me.txtidpago.MaxLength = 8
         Me.txtidpago.Name = "txtidpago"
-        Me.txtidpago.Size = New System.Drawing.Size(23, 20)
+        Me.txtidpago.Size = New System.Drawing.Size(29, 22)
         Me.txtidpago.TabIndex = 192
         Me.txtidpago.Text_1 = Nothing
         Me.txtidpago.Text_2 = Nothing
@@ -1204,10 +1268,11 @@ Partial Class frmRecepciones
         Me.txtIdProveedor.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtIdProveedor.Enabled = False
         Me.txtIdProveedor.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
-        Me.txtIdProveedor.Location = New System.Drawing.Point(561, -2)
+        Me.txtIdProveedor.Location = New System.Drawing.Point(748, -2)
+        Me.txtIdProveedor.Margin = New System.Windows.Forms.Padding(4)
         Me.txtIdProveedor.MaxLength = 8
         Me.txtIdProveedor.Name = "txtIdProveedor"
-        Me.txtIdProveedor.Size = New System.Drawing.Size(23, 20)
+        Me.txtIdProveedor.Size = New System.Drawing.Size(29, 22)
         Me.txtIdProveedor.TabIndex = 130
         Me.txtIdProveedor.Text_1 = Nothing
         Me.txtIdProveedor.Text_2 = Nothing
@@ -1223,10 +1288,11 @@ Partial Class frmRecepciones
         Me.txtID.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtID.Enabled = False
         Me.txtID.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
-        Me.txtID.Location = New System.Drawing.Point(1020, 234)
+        Me.txtID.Location = New System.Drawing.Point(1360, 288)
+        Me.txtID.Margin = New System.Windows.Forms.Padding(4)
         Me.txtID.MaxLength = 8
         Me.txtID.Name = "txtID"
-        Me.txtID.Size = New System.Drawing.Size(23, 20)
+        Me.txtID.Size = New System.Drawing.Size(29, 22)
         Me.txtID.TabIndex = 50
         Me.txtID.Text_1 = Nothing
         Me.txtID.Text_2 = Nothing
@@ -1244,9 +1310,10 @@ Partial Class frmRecepciones
         Me.txtNota.Decimals = CType(2, Byte)
         Me.txtNota.DecSeparator = Global.Microsoft.VisualBasic.ChrW(46)
         Me.txtNota.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.txtNota.Location = New System.Drawing.Point(802, 184)
+        Me.txtNota.Location = New System.Drawing.Point(1069, 226)
+        Me.txtNota.Margin = New System.Windows.Forms.Padding(4)
         Me.txtNota.Name = "txtNota"
-        Me.txtNota.Size = New System.Drawing.Size(1, 20)
+        Me.txtNota.Size = New System.Drawing.Size(0, 22)
         Me.txtNota.TabIndex = 8
         Me.txtNota.Text_1 = Nothing
         Me.txtNota.Text_2 = Nothing
@@ -1258,18 +1325,20 @@ Partial Class frmRecepciones
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(795, 211)
+        Me.Label8.Location = New System.Drawing.Point(1060, 260)
+        Me.Label8.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(30, 13)
+        Me.Label8.Size = New System.Drawing.Size(38, 17)
         Me.Label8.TabIndex = 118
         Me.Label8.Text = "Nota"
         Me.Label8.Visible = False
         '
         'btnLlenarGrilla
         '
-        Me.btnLlenarGrilla.Location = New System.Drawing.Point(40, 234)
+        Me.btnLlenarGrilla.Location = New System.Drawing.Point(53, 288)
+        Me.btnLlenarGrilla.Margin = New System.Windows.Forms.Padding(4)
         Me.btnLlenarGrilla.Name = "btnLlenarGrilla"
-        Me.btnLlenarGrilla.Size = New System.Drawing.Size(115, 23)
+        Me.btnLlenarGrilla.Size = New System.Drawing.Size(153, 28)
         Me.btnLlenarGrilla.TabIndex = 12
         Me.btnLlenarGrilla.Text = "Llenar Grilla"
         Me.btnLlenarGrilla.UseVisualStyleBackColor = True
@@ -1280,9 +1349,10 @@ Partial Class frmRecepciones
         Me.chkEliminado.AccessibleName = "Eliminado"
         Me.chkEliminado.AutoSize = True
         Me.chkEliminado.Enabled = False
-        Me.chkEliminado.Location = New System.Drawing.Point(170, 240)
+        Me.chkEliminado.Location = New System.Drawing.Point(227, 295)
+        Me.chkEliminado.Margin = New System.Windows.Forms.Padding(4)
         Me.chkEliminado.Name = "chkEliminado"
-        Me.chkEliminado.Size = New System.Drawing.Size(71, 17)
+        Me.chkEliminado.Size = New System.Drawing.Size(91, 21)
         Me.chkEliminado.TabIndex = 116
         Me.chkEliminado.Text = "Eliminado"
         Me.chkEliminado.UseVisualStyleBackColor = True
@@ -1297,11 +1367,12 @@ Partial Class frmRecepciones
         Me.txtCODIGO.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtCODIGO.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtCODIGO.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.txtCODIGO.Location = New System.Drawing.Point(768, 240)
+        Me.txtCODIGO.Location = New System.Drawing.Point(1024, 295)
+        Me.txtCODIGO.Margin = New System.Windows.Forms.Padding(4)
         Me.txtCODIGO.MaxLength = 25
         Me.txtCODIGO.Name = "txtCODIGO"
         Me.txtCODIGO.ReadOnly = True
-        Me.txtCODIGO.Size = New System.Drawing.Size(76, 20)
+        Me.txtCODIGO.Size = New System.Drawing.Size(100, 23)
         Me.txtCODIGO.TabIndex = 0
         Me.txtCODIGO.Text_1 = Nothing
         Me.txtCODIGO.Text_2 = Nothing
@@ -1312,29 +1383,32 @@ Partial Class frmRecepciones
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(765, 224)
+        Me.Label2.Location = New System.Drawing.Point(1020, 276)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(79, 13)
+        Me.Label2.Size = New System.Drawing.Size(102, 17)
         Me.Label2.TabIndex = 51
         Me.Label2.Text = "Nro Recepción"
         '
         'dtpFECHA
         '
         Me.dtpFECHA.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpFECHA.Location = New System.Drawing.Point(798, 93)
+        Me.dtpFECHA.Location = New System.Drawing.Point(1064, 114)
+        Me.dtpFECHA.Margin = New System.Windows.Forms.Padding(4)
         Me.dtpFECHA.MaxDate = New Date(2099, 12, 31, 0, 0, 0, 0)
         Me.dtpFECHA.MinDate = New Date(2000, 1, 1, 0, 0, 0, 0)
         Me.dtpFECHA.Name = "dtpFECHA"
-        Me.dtpFECHA.Size = New System.Drawing.Size(102, 20)
+        Me.dtpFECHA.Size = New System.Drawing.Size(135, 22)
         Me.dtpFECHA.TabIndex = 1
         Me.dtpFECHA.Tag = "202"
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(795, 78)
+        Me.Label3.Location = New System.Drawing.Point(1060, 96)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(37, 13)
+        Me.Label3.Size = New System.Drawing.Size(47, 17)
         Me.Label3.TabIndex = 52
         Me.Label3.Text = "Fecha"
         '
@@ -1345,10 +1419,11 @@ Partial Class frmRecepciones
         Me.txtIdGasto.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtIdGasto.Enabled = False
         Me.txtIdGasto.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
-        Me.txtIdGasto.Location = New System.Drawing.Point(1001, 190)
+        Me.txtIdGasto.Location = New System.Drawing.Point(1335, 234)
+        Me.txtIdGasto.Margin = New System.Windows.Forms.Padding(4)
         Me.txtIdGasto.MaxLength = 8
         Me.txtIdGasto.Name = "txtIdGasto"
-        Me.txtIdGasto.Size = New System.Drawing.Size(35, 20)
+        Me.txtIdGasto.Size = New System.Drawing.Size(45, 22)
         Me.txtIdGasto.TabIndex = 191
         Me.txtIdGasto.Text_1 = Nothing
         Me.txtIdGasto.Text_2 = Nothing
@@ -1360,9 +1435,10 @@ Partial Class frmRecepciones
         'chkGrillaInferior
         '
         Me.chkGrillaInferior.AutoSize = True
-        Me.chkGrillaInferior.Location = New System.Drawing.Point(652, 561)
+        Me.chkGrillaInferior.Location = New System.Drawing.Point(869, 690)
+        Me.chkGrillaInferior.Margin = New System.Windows.Forms.Padding(4)
         Me.chkGrillaInferior.Name = "chkGrillaInferior"
-        Me.chkGrillaInferior.Size = New System.Drawing.Size(132, 17)
+        Me.chkGrillaInferior.Size = New System.Drawing.Size(176, 21)
         Me.chkGrillaInferior.TabIndex = 272
         Me.chkGrillaInferior.Text = "Aumentar Grilla Inferior"
         Me.chkGrillaInferior.UseVisualStyleBackColor = True
@@ -1373,18 +1449,18 @@ Partial Class frmRecepciones
         Me.ContextMenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BorrarElItemToolStripMenuItem, Me.BuscarToolStripMenuItem, Me.BuscarDescripcionToolStripMenuItem})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(361, 75)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(361, 84)
         '
         'BorrarElItemToolStripMenuItem
         '
         Me.BorrarElItemToolStripMenuItem.Name = "BorrarElItemToolStripMenuItem"
-        Me.BorrarElItemToolStripMenuItem.Size = New System.Drawing.Size(360, 22)
+        Me.BorrarElItemToolStripMenuItem.Size = New System.Drawing.Size(360, 24)
         Me.BorrarElItemToolStripMenuItem.Text = "Borrar el Item"
         '
         'BuscarToolStripMenuItem
         '
         Me.BuscarToolStripMenuItem.Name = "BuscarToolStripMenuItem"
-        Me.BuscarToolStripMenuItem.Size = New System.Drawing.Size(360, 22)
+        Me.BuscarToolStripMenuItem.Size = New System.Drawing.Size(360, 24)
         Me.BuscarToolStripMenuItem.Text = "Buscar..."
         Me.BuscarToolStripMenuItem.Visible = False
         '
@@ -1394,7 +1470,7 @@ Partial Class frmRecepciones
         Me.BuscarDescripcionToolStripMenuItem.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.BuscarDescripcionToolStripMenuItem.DropDownWidth = 500
         Me.BuscarDescripcionToolStripMenuItem.Name = "BuscarDescripcionToolStripMenuItem"
-        Me.BuscarDescripcionToolStripMenuItem.Size = New System.Drawing.Size(300, 23)
+        Me.BuscarDescripcionToolStripMenuItem.Size = New System.Drawing.Size(300, 28)
         Me.BuscarDescripcionToolStripMenuItem.Sorted = True
         Me.BuscarDescripcionToolStripMenuItem.Text = "Buscar Descripcion"
         '
@@ -1403,22 +1479,30 @@ Partial Class frmRecepciones
         Me.ContextMenuStripIVA.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.ContextMenuStripIVA.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BorrarElItemToolStripMenuItemIVA})
         Me.ContextMenuStripIVA.Name = "ContextMenuStrip1"
-        Me.ContextMenuStripIVA.Size = New System.Drawing.Size(146, 26)
+        Me.ContextMenuStripIVA.Size = New System.Drawing.Size(170, 28)
         '
         'BorrarElItemToolStripMenuItemIVA
         '
         Me.BorrarElItemToolStripMenuItemIVA.Name = "BorrarElItemToolStripMenuItemIVA"
-        Me.BorrarElItemToolStripMenuItemIVA.Size = New System.Drawing.Size(145, 22)
+        Me.BorrarElItemToolStripMenuItemIVA.Size = New System.Drawing.Size(169, 24)
         Me.BorrarElItemToolStripMenuItemIVA.Text = "Borrar el Item"
+        '
+        'pagoUnico
+        '
+        Me.pagoUnico.Text = "Unico"
+        '
+        'pagoAnticipo
+        '
+        Me.pagoAnticipo.Text = "Anticipo"
         '
         'frmRecepciones
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1028, 609)
+        Me.ClientSize = New System.Drawing.Size(1827, 750)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.chkGrillaInferior)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(5)
         Me.Name = "frmRecepciones"
         Me.Text = "frmRecepciones"
         Me.Controls.SetChildIndex(Me.chkGrillaInferior, 0)
@@ -1554,5 +1638,7 @@ Partial Class frmRecepciones
     Friend WithEvents CheckBox2 As CheckBox
     Friend WithEvents CheckBox1 As CheckBox
     Friend WithEvents LabelX1 As DevComponents.DotNetBar.LabelX
-    Friend WithEvents ComboBoxEx1 As DevComponents.DotNetBar.Controls.ComboBoxEx
+    Friend WithEvents cmbTipoPago As DevComponents.DotNetBar.Controls.ComboBoxEx
+    Friend WithEvents pagoUnico As DevComponents.Editors.ComboItem
+    Friend WithEvents pagoAnticipo As DevComponents.Editors.ComboItem
 End Class
