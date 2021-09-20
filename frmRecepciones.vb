@@ -793,6 +793,11 @@ Public Class frmRecepciones
     Private Sub UpdateGrdPrincipal()
         Dim connection As SqlClient.SqlConnection = Nothing
 
+        Dim total_column = SuperGrdResultado.PrimaryGrid.Columns("total")
+        If total_column IsNot Nothing Then
+            SuperGrdResultado.PrimaryGrid.Columns.Remove(total_column)
+        End If
+
         Try
             connection = SqlHelper.GetConnection(ConnStringSEI)
         Catch ex As Exception
@@ -886,16 +891,16 @@ Public Class frmRecepciones
         End If
 
         'Calculo de subtotalMasterGridDetail
-        dataset.Tables(0).Columns.Add("total", GetType(Decimal))
+        dataset.Tables(0).Columns.Add("Subtotal", GetType(Decimal))
         For Each row As DataRow In dataset.Tables(0).Rows
-            row("total") = 0
+            row("Subtotal") = 0
             If MasterGrdDetail Then
                 Dim childrows = row.GetChildRows(dataset.Relations(0))
                 For Each detail As DataRow In childrows
-                    row("total") += detail("valor")
+                    row("Subtotal") += detail("valor")
                 Next
             Else
-                row("total") += row("A Cargo OS")
+                row("Subtotal") += row("A Cargo OS")
             End If
         Next
 
@@ -4723,47 +4728,46 @@ ContinuarTransaccion:
     Private Sub SuperGrdResultado_DataBindingComplete(sender As Object, e As GridDataBindingCompleteEventArgs) Handles SuperGrdResultado.DataBindingComplete
         Dim RowsCount = SuperGrdResultado.PrimaryGrid.Rows.Count
         panel = e.GridPanel
-        'Dim panel As GridPanel = e.GridPanel
-        'Dim panelSuperior As GridPanel
+
+        SuperGrdResultado.PrimaryGrid.Columns(0).Visible = False
+        SuperGrdResultado.PrimaryGrid.Columns(3).Visible = False
+        SuperGrdResultado.PrimaryGrid.Columns("Bonificación").Visible = False
+        SuperGrdResultado.PrimaryGrid.Columns("Total").Visible = False
 
 
-        'Pinto la fila de color rojo 
-        'If MasterGrdDetail Then
-
-        '    For Each column As GridColumn In panel.Columns
-        '        column.ColumnSortMode = ColumnSortMode.Multiple
-        '    Next column
-
-
-
-        'End If
-
-
-
-        'ESTO FUNCIONA MAL
         If panel.Name.Equals("") = True Then
             Dim Groupheaders = SuperGrdResultado.PrimaryGrid.ColumnHeader.GroupHeaders
 
             Dim GroupHeader1 As New ColumnGroupHeader()
+            Dim i As Integer = 0
 
-            GroupHeader1.EndDisplayIndex = panel.Columns("A cargo OS").ColumnIndex
-            GroupHeader1.StartDisplayIndex = panel.Columns("Recetas").ColumnIndex
+            'asignacion de displayindex a las columnas del grid
+            While i <= panel.Columns.Count - 1
+                panel.Columns(i).DisplayIndex = panel.Columns(i).ColumnIndex
+                i += 1
+            End While
+
+            GroupHeader1.EndDisplayIndex = panel.Columns("A cargo OS").DisplayIndex
+            GroupHeader1.StartDisplayIndex = panel.Columns("Recetas").DisplayIndex
             GroupHeader1.HeaderText = "Presentado"
 
-            If Not Groupheaders.contains(GroupHeader1) Then
-                SuperGrdResultado.PrimaryGrid.ColumnHeader.GroupHeaders.Add(GroupHeader1)
+            If Not Groupheaders.contains(GroupHeader1.Name) Then
+                Groupheaders.Add(GroupHeader1)
             End If
 
-
             If MasterGrdDetail Then
-
+                ''Envio el subtotal al final
+                For i = panel.Columns("Subtotal").DisplayIndex + 1 To panel.Columns.Count - 1
+                    panel.Columns(i).DisplayIndex -= 1
+                Next
+                panel.Columns("Subtotal").DisplayIndex = panel.Columns.Count - 1
 
                 Dim GroupHeader2 As New ColumnGroupHeader()
-                GroupHeader2.EndDisplayIndex = panel.Columns("A cargo OS A").ColumnIndex
-                GroupHeader2.StartDisplayIndex = panel.Columns("Recetas A").ColumnIndex
+                GroupHeader2.EndDisplayIndex = panel.Columns("A cargo OS A").DisplayIndex
+                GroupHeader2.StartDisplayIndex = panel.Columns("Recetas A").DisplayIndex
                 GroupHeader2.HeaderText = "Aceptado"
-                If Not Groupheaders.contains(GroupHeader2) Then
-                    SuperGrdResultado.PrimaryGrid.ColumnHeader.GroupHeaders.Add(GroupHeader2)
+                If Not Groupheaders.contains(GroupHeader2.Name) Then
+                    Groupheaders.Add(GroupHeader2)
                 End If
 
 
@@ -4779,28 +4783,9 @@ ContinuarTransaccion:
                 End If
 
 
-
-
-
             End If
 
-
-
-
-
-
-            SuperGrdResultado.PrimaryGrid.Columns(0).Visible = False
-            SuperGrdResultado.PrimaryGrid.Columns(3).Visible = False
-            SuperGrdResultado.PrimaryGrid.Columns("Bonificación").Visible = False
-            SuperGrdResultado.PrimaryGrid.Columns("Total").Visible = False
-
-
         End If
-
-
-        'With SuperGrdResultado.PrimaryGrid
-        '    .UseAlternateRowStyle = True
-        'End With
 
         If panel.Name.Equals("") = True Then
             panelSuperior = panel
@@ -4832,6 +4817,7 @@ ContinuarTransaccion:
             panel.Footer = New GridFooter()
             panel.Footer.Text = String.Format("Total a pagar: <font color=""Green""><i>${0}</i></font>", total)
         End If
+
 
 
     End Sub
