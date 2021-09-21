@@ -849,18 +849,57 @@ Public Class frmRecepciones
 
         ''MASTER GRID DETAIL
         If MasterGrdDetail Then
+            dtDetalle.PrimaryKey = {
+                dtDetalle.Columns.Add("codigo", GetType(String)),
+                dtDetalle.Columns.Add("detalle", GetType(String))
+            }
+            dtDetalle.Columns.Add("valor", GetType(Decimal))
 
-            dtDetalle.Columns.Add("codigo")
-            dtDetalle.Columns.Add("detalle")
-            dtDetalle.Columns.Add("valor")
+
+            For Each row As DataRow In dt.Rows
+                Dim a_cargo As DataRow = dtDetalle.NewRow()
+                a_cargo("codigo") = row("CodigoFarmacia")
+                a_cargo("detalle") = "A cargo OS"
+                a_cargo("valor") = row("A cargo OS")
+                dtDetalle.Rows.Add(a_cargo)
+            Next
 
             For i = 0 To grdDetalleLiquidacionFiltrada.Rows.Count - 1
-                Dim row As DataRow = dtDetalle.NewRow()
-                row("codigo") = grdDetalleLiquidacionFiltrada.Rows(i).Cells(0).Value
-                row("detalle") = "A cargo OS"
-                row("valor") = Decimal.Parse(grdDetalleLiquidacionFiltrada.Rows(i).Cells("A cargo OS").Value)
-                dtDetalle.Rows.Add(row)
+                Dim aceptado = Decimal.Parse(grdDetalleLiquidacionFiltrada.Rows(i).Cells("A cargo OS").Value)
+                Dim aceptado_codigo = grdDetalleLiquidacionFiltrada.Rows(i).Cells("Codigo").Value
+
+                Dim a_cargo = dtDetalle.Rows.Find({aceptado_codigo, "A cargo OS"})
+
+                If a_cargo IsNot Nothing Then
+                    If a_cargo("valor") <> aceptado Then
+                        Dim error_ajuste As DataRow = dtDetalle.NewRow()
+                        error_ajuste("codigo") = grdDetalleLiquidacionFiltrada.Rows(i).Cells(0).Value
+                        error_ajuste("detalle") = "Error ajuste"
+                        error_ajuste("valor") = Decimal.Parse(aceptado - a_cargo("valor"))
+                        dtDetalle.Rows.Add(error_ajuste)
+                    End If
+                End If
+
             Next
+
+            'For i = 0 To grdDetalleLiquidacionFiltrada.Rows.Count - 1
+            '    Dim a_cargo As DataRow = dtDetalle.NewRow()
+            '    Dim aceptado = Decimal.Parse(grdDetalleLiquidacionFiltrada.Rows(i).Cells("A cargo OS").Value)
+
+            '    a_cargo("codigo") = grdDetalleLiquidacionFiltrada.Rows(i).Cells(0).Value
+            '    a_cargo("detalle") = "A cargo OS"
+            '    a_cargo("valor") = Decimal.Parse(grdDetalleLiquidacionFiltrada.Rows(i).Cells("A cargo OS").Value)
+            '    dtDetalle.Rows.Add(a_cargo)
+
+            '    If a_cargo("valor") <> aceptado Then
+            '        Dim error_ajuste As DataRow = dtDetalle.NewRow()
+            '        error_ajuste("codigo") = grdDetalleLiquidacionFiltrada.Rows(i).Cells(0).Value
+            '        error_ajuste("detalle") = "Error ajuste"
+            '        error_ajuste("valor") = aceptado - a_cargo("valor")
+            '        dtDetalle.Rows.Add(error_ajuste)
+            '    End If
+
+            'Next
 
             Dim ColumnName As String
 
@@ -956,116 +995,6 @@ Public Class frmRecepciones
 
             End If
         End Using
-    End Sub
-
-
-    Dim listFilas As New List(Of Integer)
-
-
-
-    Private Sub comparar()
-        'Genero el datatable con sus columnas
-        Dim dtEncabezado As New DataTable
-        Dim dtDetalle As New DataTable
-        Dim dataset As New DataSet
-        dtEncabezado.Columns.Add("IDFarmacia")
-        dtEncabezado.Columns.Add("Farmacia")
-        dtEncabezado.Columns.Add("Receta") 'Presentacion
-        dtEncabezado.Columns.Add("ACargoOS") 'Presentacion
-        dtEncabezado.Columns.Add("A Pagar")
-        dtDetalle.Columns.Add("IDFarm")
-        dtDetalle.Columns.Add("Bonificacion")
-        dtDetalle.Columns.Add("N Credito")
-        dtDetalle.Columns.Add("Debitos")
-        dtDetalle.Columns.Add("Recupero Gs")
-        dtDetalle.Columns.Add("Cant Recetas") 'detalle liquidacion
-        dtDetalle.Columns.Add("ACargoOS") 'detalle liquidacion
-
-        Dim j, i, k, rowIndex As Integer
-        Dim Farmacia As String
-        Dim recetasGrdItems, recetasGrdDetalleLiquidacion As Integer
-        Dim aCargoOsGrdItems, aCargoOsGrdDetalleLiquidacion, recaudadoGrdItems, recaudadoGrdDetalleLiquidacion, totalAPagar As Double
-        Dim Bonificacion, NCredito, Debitos, RecuperoGs As Double
-        totalAPagar = 0
-        For j = 0 To grdItems.Rows.Count - 1
-            Dim codigoGrdItems = grdItems.Rows(j).Cells(1).Value
-
-            For i = 0 To grdDetalleLiquidacionFiltrada.Rows.Count - 1
-                Dim codigoGrdDetalleLiquidacion = grdDetalleLiquidacionFiltrada.Rows(i).Cells(0).Value
-                If codigoGrdDetalleLiquidacion = codigoGrdItems Then
-
-                    'valores para comparar
-                    recetasGrdItems = grdItems.Rows(j).Cells("Recetas").Value
-                    recetasGrdDetalleLiquidacion = grdDetalleLiquidacionFiltrada.Rows(i).Cells("Recetas").Value
-                    aCargoOsGrdItems = grdItems.Rows(j).Cells("ACargoOS").Value
-                    aCargoOsGrdDetalleLiquidacion = grdDetalleLiquidacionFiltrada.Rows(i).Cells("A cargo OS").Value
-                    recaudadoGrdItems = grdItems.Rows(j).Cells("Recaudado").Value
-                    recaudadoGrdDetalleLiquidacion = grdDetalleLiquidacionFiltrada.Rows(i).Cells("Recaudado").Value
-                    totalAPagar = grdDetalleLiquidacionFiltrada.Rows(i).Cells("Total").Value
-
-                    Farmacia = grdItems.Rows(j).Cells("Farmacia").Value
-                    'Valores para dtDetalle
-                    Bonificacion = grdDetalleLiquidacionFiltrada.Rows(i).Cells("Bonificacion").Value
-                    NCredito = grdDetalleLiquidacionFiltrada.Rows(i).Cells("N. Credito").Value
-                    Debitos = grdDetalleLiquidacionFiltrada.Rows(i).Cells("Debitos").Value
-                    RecuperoGs = grdDetalleLiquidacionFiltrada.Rows(i).Cells("Recupero Gs").Value
-
-                    'Agrego los datos de los grid al dtEncabezado
-                    Dim filaEncabezado As DataRow = dtEncabezado.NewRow()
-                    Dim filaDetalle As DataRow = dtDetalle.NewRow()
-                    filaEncabezado("IDFarmacia") = codigoGrdDetalleLiquidacion
-                    filaEncabezado("Farmacia") = Farmacia
-                    filaEncabezado("Receta") = recetasGrdItems
-                    filaEncabezado("ACargoOS") = aCargoOsGrdItems
-                    filaEncabezado("A Pagar") = totalAPagar
-
-                    'Agrego los datos del grdDetalleLiquidacionFiltrada al dtDetalle
-                    filaDetalle("IDFarm") = codigoGrdDetalleLiquidacion
-                    filaDetalle("Bonificacion") = Bonificacion
-                    filaDetalle("N Credito") = NCredito
-                    filaDetalle("Debitos") = Debitos
-                    filaDetalle("Recupero Gs") = RecuperoGs
-                    filaDetalle("Cant Recetas") = recetasGrdDetalleLiquidacion
-                    filaDetalle("ACargoOS") = aCargoOsGrdDetalleLiquidacion
-
-
-
-                    If recetasGrdItems <> recetasGrdDetalleLiquidacion Then
-                        RowofError = i
-                        listFilas.Add(RowofError)
-
-
-                    End If
-
-
-                    dtEncabezado.Rows.Add(filaEncabezado)
-                    dtDetalle.Rows.Add(filaDetalle)
-                    'SuperGrdResultado.PrimaryGrid.DataSource = dtEncabezado
-
-
-
-
-                End If
-
-
-            Next
-
-        Next
-
-        dataset.Tables.Add(dtEncabezado)
-        dataset.Tables.Add(dtDetalle)
-
-        'Genero una relacion entre ambas datatables
-        dataset.Relations.Add("EncabezadoDetalle",
-                              dataset.Tables(0).Columns("IDFarmacia"),
-                              dataset.Tables(1).Columns("IDFarm")
-            )
-        'Envio el dataset con la relacion al SuperGrid
-        SuperGrdResultado.PrimaryGrid.DataSource = dataset
-        'SuperGrdResultado.PrimaryGrid.DataMember = "DetalleLiquidacion"
-        SuperGrdResultado.BringToFront()
-        DataBindingComplete = True
-        CalcularDetalleSuperGrd(dataset)
     End Sub
 
     Private Sub CalcularDetalleSuperGrd(datasetLiquidacion As DataSet)
@@ -4762,13 +4691,13 @@ ContinuarTransaccion:
                 Next
                 panel.Columns("Subtotal").DisplayIndex = panel.Columns.Count - 1
 
-                Dim GroupHeader2 As New ColumnGroupHeader()
-                GroupHeader2.EndDisplayIndex = panel.Columns("A cargo OS A").DisplayIndex
-                GroupHeader2.StartDisplayIndex = panel.Columns("Recetas A").DisplayIndex
-                GroupHeader2.HeaderText = "Aceptado"
-                If Not Groupheaders.contains(GroupHeader2.Name) Then
-                    Groupheaders.Add(GroupHeader2)
-                End If
+                'Dim GroupHeader2 As New ColumnGroupHeader()
+                'GroupHeader2.EndDisplayIndex = panel.Columns("A cargo OS A").DisplayIndex
+                'GroupHeader2.StartDisplayIndex = panel.Columns("Recetas A").DisplayIndex
+                'GroupHeader2.HeaderText = "Aceptado"
+                'If Not Groupheaders.contains(GroupHeader2.Name) Then
+                '    Groupheaders.Add(GroupHeader2)
+                'End If
 
 
                 'Pinto la fila con error
@@ -4794,16 +4723,16 @@ ContinuarTransaccion:
         RowsCount = RowsCount - 1
 
         'Controlo si el error esta en la ultima fila
-        If RowofError = RowsCount Then
-            RowofError = RowofError - 1
-        End If
+        'If RowofError = RowsCount Then
+        '    RowofError = RowofError - 1
+        'End If
 
-        For Each fila As Integer In listFilas
-            For Column As Integer = 0 To 2
-                SuperGrdResultado.PrimaryGrid.GetCell(fila, Column).CellStyles.Default.Background.Color1 = Color.OrangeRed
+        'For Each fila As Integer In listFilas
+        '    For Column As Integer = 0 To 2
+        '        SuperGrdResultado.PrimaryGrid.GetCell(fila, Column).CellStyles.Default.Background.Color1 = Color.OrangeRed
 
-            Next
-        Next
+        '    Next
+        'Next
 
         'Verifico el nombre del subpanel
 
