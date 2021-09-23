@@ -1217,6 +1217,38 @@ Public Class frmRecepciones
         End If
     End Sub
 
+    Private Function get_codigo(row As DataRow, connection As SqlConnection)
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, SQL)
+            ds.Dispose()
+        Catch ex As Exception
+            MessageBox.Show($"No se pudo conectar con la base de datos {ex.Message}", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Function
+        End Try
+
+        'MODULO FACAF
+        If row(0).contains("F0") Then
+            Dim i As Integer
+            'consulta SQL
+            SQL = ""
+            Try
+                ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, SQL)
+                ds.Dispose()
+            Catch ex As Exception
+                MessageBox.Show($"No se pudo conectar con la base de datos {ex.Message}", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Exit Function
+            End Try
+
+
+            'es codigo facaf pero no se encuentra la DB
+            For i = 0 To row.ItemArray.Length
+
+            Next
+        End If
+
+        Return Nothing
+    End Function
 
     Private Sub Scan_columns()
 
@@ -4658,7 +4690,7 @@ ContinuarTransaccion:
         Dim RowsCount = SuperGrdResultado.PrimaryGrid.Rows.Count
         panel = e.GridPanel
 
-        SuperGrdResultado.PrimaryGrid.Columns(0).Visible = False
+        SuperGrdResultado.PrimaryGrid.Columns(0).Visible = True
         SuperGrdResultado.PrimaryGrid.Columns(3).Visible = False
         SuperGrdResultado.PrimaryGrid.Columns("Bonificación").Visible = False
         SuperGrdResultado.PrimaryGrid.Columns("Total").Visible = False
