@@ -850,12 +850,12 @@ Public Class frmRecepciones
         ''MASTER GRID DETAIL
         If MasterGrdDetail Then
             dtDetalle.PrimaryKey = {
-                dtDetalle.Columns.Add("codigo", GetType(String)),
+                dtDetalle.Columns.Add("codigo", GetType(Long)),
                 dtDetalle.Columns.Add("detalle", GetType(String))
             }
             dtDetalle.Columns.Add("valor", GetType(Decimal))
 
-
+            ''PONE EN CONCEPTOS EL A CARGO OS
             For Each row As DataRow In dt.Rows
                 Dim a_cargo As DataRow = dtDetalle.NewRow()
                 a_cargo("codigo") = row("CodigoFarmacia")
@@ -864,6 +864,7 @@ Public Class frmRecepciones
                 dtDetalle.Rows.Add(a_cargo)
             Next
 
+            ''CALCULO DE ERROR AJUSTE
             For i = 0 To grdDetalleLiquidacionFiltrada.Rows.Count - 1
                 Dim aceptado = Decimal.Parse(grdDetalleLiquidacionFiltrada.Rows(i).Cells("A cargo OS").Value)
                 Dim aceptado_codigo = grdDetalleLiquidacionFiltrada.Rows(i).Cells("Codigo").Value
@@ -901,6 +902,7 @@ Public Class frmRecepciones
 
             'Next
 
+            ''PASA LOS CONCEPTOS A LA TABLA DE DETALLE CONCEPTOS
             Dim ColumnName As String
 
             Dim j As Integer = 0
@@ -922,7 +924,7 @@ Public Class frmRecepciones
 
             dataset.Tables.Add(dtDetalle)
 
-            dataset.Relations.Add("",
+            dataset.Relations.Add("MasterGridDetail",
                               dataset.Tables(0).Columns("CodigoFarmacia"),
                               dataset.Tables(1).Columns("codigo")
             )
@@ -945,8 +947,6 @@ Public Class frmRecepciones
 
         'Envio el dataset con la relacion al SuperGrid
         SuperGrdResultado.PrimaryGrid.DataSource = dataset
-
-        DataBindingComplete = True
 
     End Sub
 
@@ -1218,33 +1218,33 @@ Public Class frmRecepciones
     End Sub
 
     Private Function get_codigo(row As DataRow, connection As SqlConnection)
-        Try
-            connection = SqlHelper.GetConnection(ConnStringSEI)
-            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, SQL)
-            ds.Dispose()
-        Catch ex As Exception
-            MessageBox.Show($"No se pudo conectar con la base de datos {ex.Message}", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Function
-        End Try
+        If row(0) IsNot DBNull.Value Then
 
-        'MODULO FACAF
-        If row(0).contains("F0") Then
-            Dim i As Integer
-            'consulta SQL
-            SQL = ""
-            Try
-                ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, SQL)
-                ds.Dispose()
-            Catch ex As Exception
-                MessageBox.Show($"No se pudo conectar con la base de datos {ex.Message}", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Exit Function
-            End Try
+            'MODULO FACAF
+            If row(0).contains("F0") Then
+                Dim i As Integer
+                'consulta SQL
+                SQL = $"select id from farmacias where CodFACAF = '{row(0)}'"
+                Try
+                    ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, SQL)
+
+                    Dim CodigoInterno = ds.Tables(0).Rows(0).Item(0)
+
+                    If CodigoInterno IsNot DBNull.Value Then
+                        Return CodigoInterno
+                    End If
+
+                Catch ex As Exception
+                    MessageBox.Show($"No se pudo conectar con la base de datos {ex.Message}", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Return Nothing
+                End Try
 
 
-            'es codigo facaf pero no se encuentra la DB
-            For i = 0 To row.ItemArray.Length
+                'es codigo facaf pero no se encuentra la DB
+                For i = 0 To row.ItemArray.Length
 
-            Next
+                Next
+            End If
         End If
 
         Return Nothing
@@ -1311,7 +1311,7 @@ Public Class frmRecepciones
             End If
         Next
 
-        dt_filtrada.Columns.Add("Codigo", GetType(String))
+        dt_filtrada.Columns.Add("Codigo", GetType(Long))
         dt_filtrada.Columns.Add("Recetas", GetType(Integer))
         dt_filtrada.Columns.Add("Recaudado", GetType(Decimal))
         dt_filtrada.Columns.Add("A cargo OS", GetType(Decimal))
@@ -1327,20 +1327,28 @@ Public Class frmRecepciones
         Dim j As Integer
         Dim FirstColumnCell As String
         Dim subtotal As Decimal
+        Dim Codigo As String
+        Dim connection = SqlHelper.GetConnection(ConnStringSEI)
+        Dim CurrentRow As DataRow
 
         For j = 0 To grdDetalleLiquidacion.Rows.Count - 1
+            CurrentRow = (TryCast(grdDetalleLiquidacion.Rows(j).DataBoundItem, DataRowView)).Row
 
             subtotal = 0
 
             FirstColumnCell = IIf(grdDetalleLiquidacion.Rows(j).Cells(0).Value IsNot Nothing, grdDetalleLiquidacion.Rows(j).Cells(0).Value.ToString, "")
+
+            Codigo = get_codigo(CurrentRow, connection)
+
             Try
-                If FirstColumnCell.Contains("F0") Then
+                If Codigo IsNot Nothing Then
 
                     '//////Get a reference to the new row ///////
                     Dim Row As DataRow = dt_filtrada.NewRow()
 
                     'This won't fail since the columns exist 
-                    Row("Codigo") = grdDetalleLiquidacion.Rows(j).Cells(0).Value
+                    'Row("Codigo") = grdDetalleLiquidacion.Rows(j).Cells(0).Value
+                    Row("Codigo") = Codigo
                     Row("Recetas") = grdDetalleLiquidacion.Rows(j).Cells(RecetasIndex).Value
                     Row("Recaudado") = grdDetalleLiquidacion.Rows(j).Cells(RecaudadoIndex).Value
                     Row("A cargo OS") = grdDetalleLiquidacion.Rows(j).Cells(AcargoOSIndex).Value
@@ -1361,6 +1369,9 @@ Public Class frmRecepciones
             End Try
 
         Next
+
+        ''Cierro conexion que use para consultar codigos
+        ds.Dispose()
 
         Dim dt_grouped As New DataTable()
         dt_grouped = dt_filtrada.Clone()
@@ -4690,7 +4701,7 @@ ContinuarTransaccion:
         Dim RowsCount = SuperGrdResultado.PrimaryGrid.Rows.Count
         panel = e.GridPanel
 
-        SuperGrdResultado.PrimaryGrid.Columns(0).Visible = True
+        SuperGrdResultado.PrimaryGrid.Columns(0).Visible = False
         SuperGrdResultado.PrimaryGrid.Columns(3).Visible = False
         SuperGrdResultado.PrimaryGrid.Columns("Bonificación").Visible = False
         SuperGrdResultado.PrimaryGrid.Columns("Total").Visible = False
@@ -4700,6 +4711,7 @@ ContinuarTransaccion:
             Dim Groupheaders = SuperGrdResultado.PrimaryGrid.ColumnHeader.GroupHeaders
 
             Dim GroupHeader1 As New ColumnGroupHeader()
+            Dim GroupHeader2 As New ColumnGroupHeader()
             Dim i As Integer = 0
 
             'asignacion de displayindex a las columnas del grid
@@ -4718,18 +4730,17 @@ ContinuarTransaccion:
 
             If MasterGrdDetail Then
                 ''Envio el subtotal al final
-                For i = panel.Columns("Subtotal").DisplayIndex + 1 To panel.Columns.Count - 1
+                For i = panel.Columns("Subtotal").ColumnIndex + 1 To panel.Columns.Count - 1
                     panel.Columns(i).DisplayIndex -= 1
                 Next
                 panel.Columns("Subtotal").DisplayIndex = panel.Columns.Count - 1
 
-                'Dim GroupHeader2 As New ColumnGroupHeader()
-                'GroupHeader2.EndDisplayIndex = panel.Columns("A cargo OS A").DisplayIndex
-                'GroupHeader2.StartDisplayIndex = panel.Columns("Recetas A").DisplayIndex
-                'GroupHeader2.HeaderText = "Aceptado"
-                'If Not Groupheaders.contains(GroupHeader2.Name) Then
-                '    Groupheaders.Add(GroupHeader2)
-                'End If
+                GroupHeader2.EndDisplayIndex = panel.Columns("A Cargo OS A").DisplayIndex
+                GroupHeader2.StartDisplayIndex = panel.Columns("Recetas A").DisplayIndex
+                GroupHeader2.HeaderText = "Aceptado"
+                If Not Groupheaders.contains(GroupHeader2.Name) Then
+                    Groupheaders.Add(GroupHeader2)
+                End If
 
 
                 'Pinto la fila con error
