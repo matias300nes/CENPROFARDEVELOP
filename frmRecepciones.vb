@@ -1221,7 +1221,7 @@ Public Class frmRecepciones
         If row(0) IsNot DBNull.Value Then
 
             'MODULO FACAF
-            If row(0).contains("F0") Then
+            If row(0).ToString.Contains("F0") Then
                 Dim i As Integer
                 'consulta SQL
                 SQL = $"select id from farmacias where CodFACAF = '{row(0)}'"
@@ -1245,9 +1245,36 @@ Public Class frmRecepciones
 
                 Next
             End If
+
+            ''MODULO PAMI
+            Dim int As Integer
+            If row(0).ToString.Length = 9 And IsNumeric(row(0).ToString) And Integer.TryParse(row(0), int) Then
+                Dim i As Integer
+                'consulta SQL
+                SQL = $"select id from farmacias where CodPAMI = {row(0)}"
+                Try
+                    ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, SQL)
+
+                    Dim CodigoInterno = ds.Tables(0).Rows(0).Item(0)
+
+                    If CodigoInterno IsNot DBNull.Value Then
+                        Return CodigoInterno
+                    End If
+
+                Catch ex As Exception
+                    MessageBox.Show($"No se pudo conectar con la base de datos {ex.Message}", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Return Nothing
+                End Try
+
+
+                'es codigo pami pero no se encuentra la DB
+                For i = 0 To row.ItemArray.Length
+
+                Next
+            End If
         End If
 
-        Return Nothing
+            Return Nothing
     End Function
 
     Private Sub Scan_columns()
