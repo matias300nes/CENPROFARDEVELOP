@@ -822,6 +822,10 @@ Public Class frmRecepciones
 
             da.Fill(dt)
 
+            dt.PrimaryKey = {
+                dt.Columns("CodigoFarmacia")
+            }
+
         Catch ex As Exception
             MsgBox(ex.Message)
         Finally
@@ -837,11 +841,16 @@ Public Class frmRecepciones
             dt.Columns.Add("Recaudado A")
             dt.Columns.Add("A Cargo OS A")
 
+            Dim row As DataRow
             For i = 0 To grdDetalleLiquidacionFiltrada.Rows.Count - 1
-                Dim row As DataRow = dtDetalle.NewRow()
-                dt.Rows(i).Item("Recetas A") = grdDetalleLiquidacionFiltrada.Rows(i).Cells("Recetas").Value
-                dt.Rows(i).Item("Recaudado A") = grdDetalleLiquidacionFiltrada.Rows(i).Cells("Recaudado").Value
-                dt.Rows(i).Item("A Cargo OS A") = grdDetalleLiquidacionFiltrada.Rows(i).Cells("A Cargo OS").Value
+                row = dt.Rows.Find(grdDetalleLiquidacionFiltrada.Rows(i).Cells("Codigo").Value)
+                If row IsNot Nothing Then 'If a row is found
+                    With row
+                        .Item("Recetas A") = grdDetalleLiquidacionFiltrada.Rows(i).Cells("Recetas").Value
+                        .Item("Recaudado A") = grdDetalleLiquidacionFiltrada.Rows(i).Cells("Recaudado").Value
+                        .Item("A Cargo OS A") = grdDetalleLiquidacionFiltrada.Rows(i).Cells("A Cargo OS").Value
+                    End With
+                End If
             Next
         End If
 
@@ -854,6 +863,7 @@ Public Class frmRecepciones
                 dtDetalle.Columns.Add("detalle", GetType(String))
             }
             dtDetalle.Columns.Add("valor", GetType(Decimal))
+            dtDetalle.Columns.Add("edit")
 
             ''PONE EN CONCEPTOS EL A CARGO OS
             For Each row As DataRow In dt.Rows
@@ -861,6 +871,7 @@ Public Class frmRecepciones
                 a_cargo("codigo") = row("CodigoFarmacia")
                 a_cargo("detalle") = "A cargo OS"
                 a_cargo("valor") = row("A cargo OS")
+                a_cargo("edit") = "x"
                 dtDetalle.Rows.Add(a_cargo)
             Next
 
@@ -1274,7 +1285,7 @@ Public Class frmRecepciones
             End If
         End If
 
-            Return Nothing
+        Return Nothing
     End Function
 
     Private Sub Scan_columns()
