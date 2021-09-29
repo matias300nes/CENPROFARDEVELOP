@@ -4785,11 +4785,24 @@ ContinuarTransaccion:
 
                 If cmbTipoPago.Text = "Unico" Then
                     For Each fila As GridRow In panel.Rows
-                        If fila.Cells("Recetas").Value <> fila.Cells("Recetas A").Value Or fila.Cells("A Cargo Os").Value <> fila.Cells("A Cargo OS A").Value Then
-                            fila.CellStyles.Default.Background.Color1 = Color.SandyBrown
-                            fila.CellStyles.Default.TextColor = Color.White
-                        End If
+                        With fila
+                            If .Cells("Recetas A").Value IsNot DBNull.Value Then
+                                If .Cells("Recetas").Value <> .Cells("Recetas A").Value Then
+                                    .CellStyles.Default.Background.Color1 = Color.SandyBrown
+                                    .CellStyles.Default.TextColor = Color.White
+                                End If
+                            End If
+                            If .Cells("A Cargo OS A").Value IsNot DBNull.Value Then
+                                If .Cells("A Cargo Os").Value <> .Cells("A Cargo OS A").Value Then
+                                    .CellStyles.Default.Background.Color1 = Color.SandyBrown
+                                    .CellStyles.Default.TextColor = Color.White
+                                End If
+                            End If
+                        End With
+
+
                     Next fila
+
                 End If
 
 
@@ -4856,7 +4869,15 @@ ContinuarTransaccion:
 
     End Sub
 
-    Private Sub GroupPanelDetalleLiquidacion_Click(sender As Object, e As EventArgs) Handles GroupPanelDetalleLiquidacion.Click
+    Private Sub SuperGrdResultado_CellClick(sender As Object, e As GridCellEventArgs) Handles SuperGrdResultado.CellClick
+        panel = e.GridPanel
+        Dim cell = e.GridCell
+        If panel.GridPanel.Name.Equals("Table2") And cell.value.ToString.Equals("x") Then
+            panel.Rows.RemoveAt(cell.rowIndex)
+        End If
+    End Sub
 
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        UpdateGrdPrincipal()
     End Sub
 End Class
