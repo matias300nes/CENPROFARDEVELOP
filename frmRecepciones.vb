@@ -7,6 +7,7 @@ Imports System.Data.OleDb
 Imports System.IO
 Imports ExcelDataReader
 Imports DevComponents.DotNetBar.SuperGrid
+Imports DevComponents.DotNetBar.Controls
 
 
 
@@ -886,7 +887,12 @@ Public Class frmRecepciones
                     If a_cargo("valor") <> aceptado Then
                         Dim error_ajuste As DataRow = dtDetalle.NewRow()
                         error_ajuste("codigo") = grdDetalleLiquidacionFiltrada.Rows(i).Cells(0).Value
-                        error_ajuste("detalle") = "Error ajuste"
+                        If cmbTipoPago.Text = "Anticipo" Then
+                            error_ajuste("detalle") = "Pendiente de pago"
+                        Else
+                            error_ajuste("detalle") = "Error ajuste"
+                        End If
+
                         error_ajuste("valor") = Decimal.Parse(aceptado - a_cargo("valor"))
                         dtDetalle.Rows.Add(error_ajuste)
                     End If
@@ -4735,6 +4741,28 @@ ContinuarTransaccion:
     End Sub
     Dim panel As GridPanel
     Dim panelSuperior As GridPanel
+
+    Private Class MyGridButtonXEditControl
+        Inherits GridButtonXEditControl
+
+        Public Sub New()
+            ' We want to be notified when the user clicks the button
+            ' so that we can change the underlying cell value to reflect
+            ' the mouse click.
+
+            AddHandler Click, AddressOf MyGridButtonXEditControlClick
+        End Sub
+
+        Private Sub MyGridButtonXEditControlClick(ByVal sender As Object, ByVal e As EventArgs)
+
+            ''con editorcell puedo conocer info de el cellpanel
+            Dim row_index = EditorCell.RowIndex
+            Dim panel = EditorCell.GridPanel
+            panel.Rows.RemoveAt(row_index)
+            MsgBox("Row removed")
+        End Sub
+    End Class
+
     Private Sub SuperGrdResultado_DataBindingComplete(sender As Object, e As GridDataBindingCompleteEventArgs) Handles SuperGrdResultado.DataBindingComplete
         Dim RowsCount = SuperGrdResultado.PrimaryGrid.Rows.Count
         panel = e.GridPanel
@@ -4800,14 +4828,9 @@ ContinuarTransaccion:
                             End If
                         End With
 
-
                     Next fila
-
                 End If
-
-
             End If
-
         End If
 
         If panel.Name.Equals("") = True Then
@@ -4816,31 +4839,32 @@ ContinuarTransaccion:
 
         RowsCount = RowsCount - 1
 
-        'Controlo si el error esta en la ultima fila
-        'If RowofError = RowsCount Then
-        '    RowofError = RowofError - 1
-        'End If
-
-        'For Each fila As Integer In listFilas
-        '    For Column As Integer = 0 To 2
-        '        SuperGrdResultado.PrimaryGrid.GetCell(fila, Column).CellStyles.Default.Background.Color1 = Color.OrangeRed
-
-        '    Next
-        'Next
-
         'Verifico el nombre del subpanel
 
         If panel.Name.Equals("Table2") = True Then
             panel.Columns(0).Visible = False
+            panel.Columns(3).Width = 30
+
+
             Dim i As Integer
             Dim total As Decimal = 0
+            Dim pendiente As String = ""
             For i = 0 To panel.Rows.Count - 1
-                total += panel.GetCell(i, 2).Value
+                If panel.GetCell(i, 1).Value = "Pendiente de pago" Then
+                    pendiente = $"<br/> Pendiente de pago: <font color=""Gray""><i>${panel.GetCell(i, 2).Value * -1}</i></font>"
+                Else
+                    total += panel.GetCell(i, 2).Value
+                End If
+                If panel.GetCell(i, 3).Value IsNot DBNull.Value Then
+                    If panel.GetCell(i, 3).Value = "x" Then
+                        panel.GetCell(i, 3).EditorType = GetType(MyGridButtonXEditControl)
+                    End If
+                End If
+
             Next
             panel.Footer = New GridFooter()
-            panel.Footer.Text = String.Format("Total a pagar: <font color=""Green""><i>${0}</i></font>", total)
+            panel.Footer.Text = String.Format("Total a pagar: <font color=""Green""><i>${0}</i></font> {1}", total, pendiente)
         End If
-
 
 
     End Sub
@@ -4869,13 +4893,14 @@ ContinuarTransaccion:
 
     End Sub
 
-    Private Sub SuperGrdResultado_CellClick(sender As Object, e As GridCellEventArgs) Handles SuperGrdResultado.CellClick
-        panel = e.GridPanel
-        Dim cell = e.GridCell
-        If panel.GridPanel.Name.Equals("Table2") And cell.value.ToString.Equals("x") Then
-            panel.Rows.RemoveAt(cell.rowIndex)
-        End If
-    End Sub
+    'Private Sub SuperGrdResultado_CellClick(sender As Object, e As GridCellEventArgs) Handles SuperGrdResultado.CellClick
+    '    panel = e.GridPanel
+    '    Dim cell = e.GridCell
+    '    If panel.GridPanel.Name.Equals("Table2") And cell.value.ToString.Equals("x") Then
+    '        MsgBox("toucheeed")
+    '        panel.Rows.RemoveAt(cell.rowIndex)
+    '    End If
+    'End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         UpdateGrdPrincipal()
