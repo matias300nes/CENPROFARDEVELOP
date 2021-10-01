@@ -795,7 +795,7 @@ Public Class frmRecepciones
     Private Sub UpdateGrdPrincipal()
         Dim connection As SqlClient.SqlConnection = Nothing
 
-        Dim total_column = SuperGrdResultado.PrimaryGrid.Columns("total")
+        Dim total_column = SuperGrdResultado.PrimaryGrid.Columns("Subtotal")
         If total_column IsNot Nothing Then
             SuperGrdResultado.PrimaryGrid.Columns.Remove(total_column)
         End If
@@ -4790,6 +4790,8 @@ ContinuarTransaccion:
         SuperGrdResultado.PrimaryGrid.Columns(3).Visible = False
         SuperGrdResultado.PrimaryGrid.Columns("Bonificación").Visible = False
         SuperGrdResultado.PrimaryGrid.Columns("Total").Visible = False
+
+        'AddHandler SuperGrdResultado.PrimaryGrid.Columns("Subtotal"), AddressOf Totalchanged
 
 
         If panel.Name.Equals("") = True Then
