@@ -8,6 +8,7 @@ Imports System.IO
 Imports ExcelDataReader
 Imports DevComponents.DotNetBar.SuperGrid
 Imports DevComponents.DotNetBar.Controls
+Imports DevComponents.DotNetBar.SuperGrid.Style
 
 
 
@@ -872,7 +873,6 @@ Public Class frmRecepciones
                 a_cargo("codigo") = row("CodigoFarmacia")
                 a_cargo("detalle") = "A cargo OS"
                 a_cargo("valor") = row("A cargo OS")
-                a_cargo("edit") = "x"
                 dtDetalle.Rows.Add(a_cargo)
             Next
 
@@ -931,7 +931,7 @@ Public Class frmRecepciones
                     row("codigo") = grdDetalleLiquidacionFiltrada.Rows(j).Cells(0).Value
                     row("detalle") = ColumnName
                     row("valor") = Decimal.Parse(grdDetalleLiquidacionFiltrada.Rows(j).Cells(i).Value) * -1
-
+                    row("edit") = "x"
                     If (row("valor") <> 0) Then
                         dtDetalle.Rows.Add(row)
                     End If
@@ -4753,13 +4753,32 @@ ContinuarTransaccion:
             AddHandler Click, AddressOf MyGridButtonXEditControlClick
         End Sub
 
+        Public Overrides Sub InitializeContext(ByVal cell As GridCell, ByVal style As CellVisualStyle)
+            MyBase.InitializeContext(cell, style)
+
+            If Text IsNot DBNull.Value Then
+                If Text <> "x" Then
+                    Text = "x"
+                    Enabled = False
+                End If
+            End If
+
+        End Sub
+
         Private Sub MyGridButtonXEditControlClick(ByVal sender As Object, ByVal e As EventArgs)
 
             ''con editorcell puedo conocer info de el cellpanel
             Dim row_index = EditorCell.RowIndex
             Dim panel = EditorCell.GridPanel
-            panel.Rows.RemoveAt(row_index)
-            MsgBox("Row removed")
+
+
+            Dim result As DialogResult = MessageBox.Show($"Desea eliminar {panel.GetCell(row_index, 1).Value}?",
+                              "Eliminar",
+                              MessageBoxButtons.YesNo)
+
+            If result = DialogResult.Yes Then
+                panel.Rows.RemoveAt(row_index)
+            End If
         End Sub
     End Class
 
@@ -4855,11 +4874,13 @@ ContinuarTransaccion:
                 Else
                     total += panel.GetCell(i, 2).Value
                 End If
-                If panel.GetCell(i, 3).Value IsNot DBNull.Value Then
-                    If panel.GetCell(i, 3).Value = "x" Then
-                        panel.GetCell(i, 3).EditorType = GetType(MyGridButtonXEditControl)
-                    End If
-                End If
+                'If panel.GetCell(i, 3).Value IsNot DBNull.Value Then
+                '    If panel.GetCell(i, 3).Value = "x" Then
+                '        panel.GetCell(i, 3).EditorType = GetType(MyGridButtonXEditControl)
+                '    End If
+                'End If
+
+                panel.GetCell(i, 3).EditorType = GetType(MyGridButtonXEditControl)
 
             Next
             panel.Footer = New GridFooter()
