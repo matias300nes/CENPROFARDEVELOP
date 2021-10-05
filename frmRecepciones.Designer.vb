@@ -37,6 +37,8 @@ Partial Class frmRecepciones
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
         Me.cmbTipoPago = New DevComponents.DotNetBar.Controls.ComboBoxEx()
+        Me.pagoUnico = New DevComponents.Editors.ComboItem()
+        Me.pagoAnticipo = New DevComponents.Editors.ComboItem()
         Me.CheckBox3 = New System.Windows.Forms.CheckBox()
         Me.CheckBox2 = New System.Windows.Forms.CheckBox()
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
@@ -135,8 +137,6 @@ Partial Class frmRecepciones
         Me.ContextMenuStripIVA = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BorrarElItemToolStripMenuItemIVA = New System.Windows.Forms.ToolStripMenuItem()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
-        Me.pagoUnico = New DevComponents.Editors.ComboItem()
-        Me.pagoAnticipo = New DevComponents.Editors.ComboItem()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.GroupPanelDetalleLiquidacion.SuspendLayout()
@@ -253,6 +253,14 @@ Partial Class frmRecepciones
         Me.cmbTipoPago.Size = New System.Drawing.Size(135, 22)
         Me.cmbTipoPago.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.cmbTipoPago.TabIndex = 393
+        '
+        'pagoUnico
+        '
+        Me.pagoUnico.Text = "Unico"
+        '
+        'pagoAnticipo
+        '
+        Me.pagoAnticipo.Text = "Anticipo"
         '
         'CheckBox3
         '
@@ -1486,14 +1494,6 @@ Partial Class frmRecepciones
         Me.BorrarElItemToolStripMenuItemIVA.Name = "BorrarElItemToolStripMenuItemIVA"
         Me.BorrarElItemToolStripMenuItemIVA.Size = New System.Drawing.Size(169, 24)
         Me.BorrarElItemToolStripMenuItemIVA.Text = "Borrar el Item"
-        '
-        'pagoUnico
-        '
-        Me.pagoUnico.Text = "Unico"
-        '
-        'pagoAnticipo
-        '
-        Me.pagoAnticipo.Text = "Anticipo"
         '
         'frmRecepciones
         '
