@@ -906,9 +906,12 @@ Public Class frmRecepciones
         Next
 
         'actualizo superdatagrid con el dataset global
-        'SuperGrdResultado.Refresh()
 
-        SuperGrdResultado.PrimaryGrid.DataSource = gl_dataset
+        If gl_dataset.Tables(0).Columns.Count > SuperGrdResultado.PrimaryGrid.Columns.Count Then
+            SuperGrdResultado.PrimaryGrid.DataSource = gl_dataset
+        End If
+
+        SuperGrdResultado.Refresh()
         DebugGrid.DataSource = gl_dataset.Tables(1)
 
     End Sub
@@ -1367,7 +1370,7 @@ Public Class frmRecepciones
 
 
 
-            If row(0).ToString.Length = 9 And IsNumeric(row(0).ToString) And Integer.TryParse(row(0), Int) Then
+            If row(0).ToString.Length = 9 And IsNumeric(row(0).ToString) And Integer.TryParse(row(0), int) Then
                 Dim i, j As Integer
 
                 'consulta SQL
@@ -5034,15 +5037,31 @@ ContinuarTransaccion:
 
             ''con editorcell puedo conocer info de el cellpanel
             Dim row_index = EditorCell.RowIndex
+            Dim parent = EditorCell.GridPanel.Parent
             Dim panel = EditorCell.GridPanel
-
-
+            Dim i As Integer
+            Dim total As Decimal = 0
+            Dim pendiente As String = ""
             Dim result As DialogResult = MessageBox.Show($"Desea eliminar {panel.GetCell(row_index, 1).Value}?",
                               "Eliminar",
                               MessageBoxButtons.YesNo)
 
             If result = DialogResult.Yes Then
-                panel.Rows.RemoveAt(row_index)
+
+                panel.Rows.RemoveAt(row_index) ''Elimino la fila
+
+                For i = 0 To panel.Rows.Count - 1
+                    If panel.GetCell(i, 1).Value = "Pendiente de pago" Then
+                        pendiente = $"<br/> Pendiente de pago: <font color=""Gray""><i>${panel.GetCell(i, 2).Value * -1}</i></font>"
+                    Else
+                        total += panel.GetCell(i, 2).Value
+                    End If
+                Next
+
+                parent("Subtotal").Value = total
+
+                panel.Footer = New GridFooter()
+                panel.Footer.Text = String.Format("Total a pagar: <font color=""Green""><i>${0}</i></font> {1}", total, pendiente)
             End If
 
         End Sub
@@ -5142,6 +5161,7 @@ ContinuarTransaccion:
                     pendiente = $"<br/> Pendiente de pago: <font color=""Gray""><i>${panel.GetCell(i, 2).Value * -1}</i></font>"
                 Else
                     total += panel.GetCell(i, 2).Value
+
                 End If
                 'If panel.GetCell(i, 3).Value IsNot DBNull.Value Then
                 '    If panel.GetCell(i, 3).Value = "x" Then
