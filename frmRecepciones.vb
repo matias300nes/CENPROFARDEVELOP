@@ -1276,18 +1276,22 @@ Public Class frmRecepciones
 
                         Next
                         'traigo el codigo interno de la farmacia con mayor porcentaje de aproximacion
-                        If dt_ResultadoComparacionFarmacias.Rows.Count >= 0 Then
+                        If dt_ResultadoComparacionFarmacias.Rows.Count > 0 Then
                             CodigoInterno = dt_ResultadoComparacionFarmacias.Rows(0).Item("CodigoInterno")
                             Return CodigoInterno
                         End If
 
                         'DataGridView1.DataSource = dt_ResultadoComparacionFarmacias
 
-                        Dim farmacia = ds.Tables(1).Rows(i).Item(0)
+
+
+
+                    Else
+                        CodigoInterno = ds.Tables(0).Rows(0).Item(0)
 
                     End If
 
-                    CodigoInterno = ds.Tables(0).Rows(0).Item(0)
+
 
                     If CodigoInterno IsNot DBNull.Value Then
                         Return CodigoInterno
@@ -1406,18 +1410,21 @@ Public Class frmRecepciones
 
                         Next
                         'traigo el codigo interno de la farmacia con mayor porcentaje de aproximacion
-                        If dt_ResultadoComparacionFarmacias.Rows.Count >= 0 Then
+                        If dt_ResultadoComparacionFarmacias.Rows.Count > 0 Then
                             CodigoInterno = dt_ResultadoComparacionFarmacias.Rows(0).Item("CodigoInterno")
                             Return CodigoInterno
                         End If
 
                         'DataGridView1.DataSource = dt_ResultadoComparacionFarmacias
 
-                        Dim farmacia = ds.Tables(1).Rows(i).Item(0)
+
+
+                    Else
+                        CodigoInterno = ds.Tables(0).Rows(0).Item(0)
 
                     End If
 
-                    CodigoInterno = ds.Tables(0).Rows(0).Item(0)
+
 
                     If CodigoInterno IsNot DBNull.Value Then
                         Return CodigoInterno
