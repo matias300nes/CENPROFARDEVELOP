@@ -791,14 +791,15 @@ Public Class frmRecepciones
 #Region "   Procedimientos"
 
     Dim MasterGrdDetail As Boolean = False
-
-    Private Sub UpdateGrdPrincipal()
+    Dim gl_dataset As DataSet
+    Private Sub Presentacion_request()
         Dim connection As SqlClient.SqlConnection = Nothing
-
-        Dim total_column = SuperGrdResultado.PrimaryGrid.Columns("Subtotal")
-        If total_column IsNot Nothing Then
-            SuperGrdResultado.PrimaryGrid.Columns.Remove(total_column)
-        End If
+        Dim SQL As String
+        Dim i As Integer
+        Dim dtDetalle As New DataTable
+        Dim dtConcepto As New DataTable()
+        gl_dataset = Nothing
+        gl_dataset = New DataSet()
 
         Try
             connection = SqlHelper.GetConnection(ConnStringSEI)
@@ -806,11 +807,6 @@ Public Class frmRecepciones
             MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End Try
-
-        Dim dtDetalle As New DataTable
-        Dim dataset As New DataSet
-        Dim dt As New DataTable
-        Dim SQL As String
 
         Try
             If txtID.Text = "" Then
@@ -822,11 +818,7 @@ Public Class frmRecepciones
             Dim cmd As New SqlCommand(SQL, connection)
             Dim da As New SqlDataAdapter(cmd)
 
-            da.Fill(dt)
-
-            dt.PrimaryKey = {
-                dt.Columns("CodigoFarmacia")
-            }
+            da.Fill(dtDetalle)
 
         Catch ex As Exception
             MsgBox(ex.Message)
@@ -836,16 +828,56 @@ Public Class frmRecepciones
             End If
         End Try
 
+        dtDetalle.PrimaryKey = {
+                dtDetalle.Columns("CodigoFarmacia")
+        }
+        gl_dataset.Tables.Add(dtDetalle)
+
+        dtConcepto.PrimaryKey = {
+                dtConcepto.Columns.Add("codigo", GetType(Long)),
+                dtConcepto.Columns.Add("detalle", GetType(String))
+        }
+        dtConcepto.Columns.Add("valor", GetType(Decimal))
+        dtConcepto.Columns.Add("edit")
+
+        If Not dtConcepto.Rows.Count > 0 Then
+            For Each row As DataRow In dtDetalle.Rows()
+                Dim concepto As DataRow = dtConcepto.NewRow()
+                concepto("codigo") = row("CodigoFarmacia")
+                concepto("detalle") = "A Cargo OS"
+                concepto("valor") = Decimal.Parse(row("A Cargo OS"))
+                dtConcepto.Rows.Add(concepto)
+            Next
+        End If
+
+        gl_dataset.Tables.Add(dtConcepto)
+
+        gl_dataset.Relations.Add("MasterGridDetail",
+                      gl_dataset.Tables(0).Columns("CodigoFarmacia"),
+                      gl_dataset.Tables(1).Columns("codigo")
+        )
+
+        SuperGrdResultado.PrimaryGrid.DataSource = gl_dataset
+
+        ''Una vez todo preparado actualizo la grilla principal
+        UpdateGrdPrincipal()
+
+    End Sub
+
+    Private Sub UpdateGrdPrincipal()
+
         ''GRID PRINCIPAL
         Dim i As Integer
         If MasterGrdDetail Then
-            dt.Columns.Add("Recetas A")
-            dt.Columns.Add("Recaudado A")
-            dt.Columns.Add("A Cargo OS A")
+            If gl_dataset.Tables(0).Columns("Recetas A") Is Nothing Then
+                gl_dataset.Tables(0).Columns.Add("Recetas A")
+                gl_dataset.Tables(0).Columns.Add("Recaudado A")
+                gl_dataset.Tables(0).Columns.Add("A Cargo OS A")
+            End If
 
             Dim row As DataRow
             For i = 0 To grdDetalleLiquidacionFiltrada.Rows.Count - 1
-                row = dt.Rows.Find(grdDetalleLiquidacionFiltrada.Rows(i).Cells("Codigo").Value)
+                row = gl_dataset.Tables(0).Rows.Find(grdDetalleLiquidacionFiltrada.Rows(i).Cells("Codigo").Value)
                 If row IsNot Nothing Then 'If a row is found
                     With row
                         .Item("Recetas A") = grdDetalleLiquidacionFiltrada.Rows(i).Cells("Recetas").Value
@@ -856,104 +888,15 @@ Public Class frmRecepciones
             Next
         End If
 
-        dataset.Tables.Add(dt)
-
-        ''MASTER GRID DETAIL
-        If MasterGrdDetail Then
-            dtDetalle.PrimaryKey = {
-                dtDetalle.Columns.Add("codigo", GetType(Long)),
-                dtDetalle.Columns.Add("detalle", GetType(String))
-            }
-            dtDetalle.Columns.Add("valor", GetType(Decimal))
-            dtDetalle.Columns.Add("edit")
-
-            ''PONE EN CONCEPTOS EL A CARGO OS
-            For Each row As DataRow In dt.Rows
-                Dim a_cargo As DataRow = dtDetalle.NewRow()
-                a_cargo("codigo") = row("CodigoFarmacia")
-                a_cargo("detalle") = "A cargo OS"
-                a_cargo("valor") = row("A cargo OS")
-                dtDetalle.Rows.Add(a_cargo)
-            Next
-
-            ''CALCULO DE ERROR AJUSTE
-            For i = 0 To grdDetalleLiquidacionFiltrada.Rows.Count - 1
-                Dim aceptado = Decimal.Parse(grdDetalleLiquidacionFiltrada.Rows(i).Cells("A cargo OS").Value)
-                Dim aceptado_codigo = grdDetalleLiquidacionFiltrada.Rows(i).Cells("Codigo").Value
-
-                Dim a_cargo = dtDetalle.Rows.Find({aceptado_codigo, "A cargo OS"})
-
-                If a_cargo IsNot Nothing Then
-                    If a_cargo("valor") <> aceptado Then
-                        Dim error_ajuste As DataRow = dtDetalle.NewRow()
-                        error_ajuste("codigo") = grdDetalleLiquidacionFiltrada.Rows(i).Cells(0).Value
-                        If cmbTipoPago.Text = "Anticipo" Then
-                            error_ajuste("detalle") = "Pendiente de pago"
-                        Else
-                            error_ajuste("detalle") = "Error ajuste"
-                        End If
-
-                        error_ajuste("valor") = Decimal.Parse(aceptado - a_cargo("valor"))
-                        dtDetalle.Rows.Add(error_ajuste)
-                    End If
-                End If
-
-            Next
-
-            'For i = 0 To grdDetalleLiquidacionFiltrada.Rows.Count - 1
-            '    Dim a_cargo As DataRow = dtDetalle.NewRow()
-            '    Dim aceptado = Decimal.Parse(grdDetalleLiquidacionFiltrada.Rows(i).Cells("A cargo OS").Value)
-
-            '    a_cargo("codigo") = grdDetalleLiquidacionFiltrada.Rows(i).Cells(0).Value
-            '    a_cargo("detalle") = "A cargo OS"
-            '    a_cargo("valor") = Decimal.Parse(grdDetalleLiquidacionFiltrada.Rows(i).Cells("A cargo OS").Value)
-            '    dtDetalle.Rows.Add(a_cargo)
-
-            '    If a_cargo("valor") <> aceptado Then
-            '        Dim error_ajuste As DataRow = dtDetalle.NewRow()
-            '        error_ajuste("codigo") = grdDetalleLiquidacionFiltrada.Rows(i).Cells(0).Value
-            '        error_ajuste("detalle") = "Error ajuste"
-            '        error_ajuste("valor") = aceptado - a_cargo("valor")
-            '        dtDetalle.Rows.Add(error_ajuste)
-            '    End If
-
-            'Next
-
-            ''PASA LOS CONCEPTOS A LA TABLA DE DETALLE CONCEPTOS
-            Dim ColumnName As String
-
-            Dim j As Integer = 0
-            For i = 4 To grdDetalleLiquidacionFiltrada.Columns.Count - 2
-
-                ColumnName = grdDetalleLiquidacionFiltrada.Columns(i).Name
-                For j = 0 To grdDetalleLiquidacionFiltrada.Rows.Count - 1
-                    Dim row As DataRow = dtDetalle.NewRow()
-                    row("codigo") = grdDetalleLiquidacionFiltrada.Rows(j).Cells(0).Value
-                    row("detalle") = ColumnName
-                    row("valor") = Decimal.Parse(grdDetalleLiquidacionFiltrada.Rows(j).Cells(i).Value) * -1
-                    row("edit") = "x"
-                    If (row("valor") <> 0) Then
-                        dtDetalle.Rows.Add(row)
-                    End If
-
-                Next
-            Next
-
-            dataset.Tables.Add(dtDetalle)
-
-            dataset.Relations.Add("MasterGridDetail",
-                              dataset.Tables(0).Columns("CodigoFarmacia"),
-                              dataset.Tables(1).Columns("codigo")
-            )
-
+        If gl_dataset.Tables(0).Columns("Subtotal") Is Nothing Then
+            gl_dataset.Tables(0).Columns.Add("Subtotal", GetType(Decimal))
         End If
 
         'Calculo de subtotalMasterGridDetail
-        dataset.Tables(0).Columns.Add("Subtotal", GetType(Decimal))
-        For Each row As DataRow In dataset.Tables(0).Rows
+        For Each row As DataRow In gl_dataset.Tables(0).Rows
             row("Subtotal") = 0
             If MasterGrdDetail Then
-                Dim childrows = row.GetChildRows(dataset.Relations(0))
+                Dim childrows = row.GetChildRows(gl_dataset.Relations(0))
                 For Each detail As DataRow In childrows
                     row("Subtotal") += detail("valor")
                 Next
@@ -962,8 +905,11 @@ Public Class frmRecepciones
             End If
         Next
 
-        'Envio el dataset con la relacion al SuperGrid
-        SuperGrdResultado.PrimaryGrid.DataSource = dataset
+        'actualizo superdatagrid con el dataset global
+        'SuperGrdResultado.Refresh()
+
+        SuperGrdResultado.PrimaryGrid.DataSource = gl_dataset
+        DebugGrid.DataSource = gl_dataset.Tables(1)
 
     End Sub
 
@@ -1813,8 +1759,8 @@ Public Class frmRecepciones
         End With
 
 
-        'borrar esto
-        UpdateGrdPrincipal()
+        'Request de presentacion
+        Presentacion_request()
 
     End Sub
 
@@ -4713,30 +4659,67 @@ ContinuarTransaccion:
 
 
     Private Sub btnListo_Click(sender As Object, e As EventArgs) Handles btnListo.Click
-        Dim prueba = grdItems.Rows(1).Cells(ColumnasDelGridItems.Total).Value.ToString
+        Dim i As Integer
 
+        ''PONE EN CONCEPTOS EL A CARGO OS
+        'For Each row As DataRow In dtDetalle.Rows
+        '    Dim a_cargo As DataRow = gl_dataset.Tables(1).NewRow()
+        '    a_cargo("codigo") = row("CodigoFarmacia")
+        '    a_cargo("detalle") = "A cargo OS"
+        '    a_cargo("valor") = row("A cargo OS")
+        '    gl_dataset.Tables(1).Rows.Add(a_cargo)
+        'Next
+
+        ''CALCULO DE ERROR AJUSTE
+        For i = 0 To grdDetalleLiquidacionFiltrada.Rows.Count - 1
+            Dim aceptado = Decimal.Parse(grdDetalleLiquidacionFiltrada.Rows(i).Cells("A cargo OS").Value)
+            Dim aceptado_codigo = grdDetalleLiquidacionFiltrada.Rows(i).Cells("Codigo").Value
+
+            Dim a_cargo = gl_dataset.Tables(1).Rows.Find({aceptado_codigo, "A cargo OS"})
+
+            If a_cargo IsNot Nothing Then
+                If a_cargo("valor") <> aceptado Then
+                    Dim error_ajuste As DataRow = gl_dataset.Tables(1).NewRow()
+                    error_ajuste("codigo") = grdDetalleLiquidacionFiltrada.Rows(i).Cells(0).Value
+                    If cmbTipoPago.Text = "Anticipo" Then
+                        error_ajuste("detalle") = "Pendiente de pago"
+                    Else
+                        error_ajuste("detalle") = "Error ajuste"
+                    End If
+
+                    error_ajuste("valor") = Decimal.Parse(aceptado - a_cargo("valor"))
+                    gl_dataset.Tables(1).Rows.Add(error_ajuste)
+                End If
+            End If
+
+        Next
+
+        Dim ColumnName As String
+
+        Dim j As Integer = 0
+        For i = 4 To grdDetalleLiquidacionFiltrada.Columns.Count - 2
+
+            ColumnName = grdDetalleLiquidacionFiltrada.Columns(i).Name
+            For j = 0 To grdDetalleLiquidacionFiltrada.Rows.Count - 1
+                Dim row As DataRow = gl_dataset.Tables(1).NewRow()
+                row("codigo") = grdDetalleLiquidacionFiltrada.Rows(j).Cells(0).Value
+                row("detalle") = ColumnName
+                row("valor") = Decimal.Parse(grdDetalleLiquidacionFiltrada.Rows(j).Cells(i).Value) * -1
+                row("edit") = "x"
+                If (row("valor") <> 0) Then
+                    gl_dataset.Tables(1).Rows.Add(row)
+                End If
+
+            Next
+        Next
+
+        MasterGrdDetail = True
         Template_On_Sumbit()
-
+        UpdateGrdPrincipal()
         GroupPanelDetalleLiquidacion.Visible = False
-
         Me.grd.Location = New Size(14, 65)
         Me.grd.Size = New Size(4 / 6 * SuperGrdResultado.Width, 100)
         Me.grd.BringToFront()
-
-        MasterGrdDetail = True
-
-        UpdateGrdPrincipal()
-
-        'comparar()
-
-        'For i As Integer = 0 To grdItems.RowCount() - 1
-        '    Dim recetaP, recetaOSThen
-
-        '    recetaP = grdItems.Rows(i).Cells("NUMSOC").Value
-
-
-        '    For A As Integer = 0 To grdDetLiquidacionOs.RowCount() - 1
-        '        recetaOS = grdDetLiquidacionOs.Rows(A).Cells("NUM_SOCIO").Value()
 
     End Sub
     Dim panel As GridPanel
@@ -4779,6 +4762,7 @@ ContinuarTransaccion:
             If result = DialogResult.Yes Then
                 panel.Rows.RemoveAt(row_index)
             End If
+
         End Sub
     End Class
 
@@ -4866,6 +4850,7 @@ ContinuarTransaccion:
             panel.Columns(0).Visible = False
             panel.Columns(3).Width = 30
 
+            'panel.Visible = IIf(panel.Rows.Count > 0, True, False)
 
             Dim i As Integer
             Dim total As Decimal = 0
@@ -4885,6 +4870,7 @@ ContinuarTransaccion:
                 panel.GetCell(i, 3).EditorType = GetType(MyGridButtonXEditControl)
 
             Next
+
             panel.Footer = New GridFooter()
             panel.Footer.Text = String.Format("Total a pagar: <font color=""Green""><i>${0}</i></font> {1}", total, pendiente)
         End If
