@@ -1180,18 +1180,111 @@ Public Class frmRecepciones
         End If
     End Sub
 
+    Public Function GetSimilarity(string1 As String, string2 As String) As Single
+        Dim dis As Single = ComputeDistance(string1, string2)
+        Dim maxLen As Single = string1.Length
+        If maxLen < string2.Length Then
+            maxLen = string2.Length
+        End If
+        If maxLen = 0.0F Then
+            Return 1.0F
+        Else
+            Return 1.0F - dis / maxLen
+        End If
+    End Function
+
+    Private Function ComputeDistance(s As String, t As String) As Integer
+        Dim n As Integer = s.Length
+        Dim m As Integer = t.Length
+        Dim distance As Integer(,) = New Integer(n, m) {}
+        ' matrix
+        Dim cost As Integer = 0
+        If n = 0 Then
+            Return m
+        End If
+        If m = 0 Then
+            Return n
+        End If
+        'init1
+
+        Dim i As Integer = 0
+        While i <= n
+            distance(i, 0) = System.Math.Max(System.Threading.Interlocked.Increment(i), i - 1)
+        End While
+        Dim j As Integer = 0
+        While j <= m
+            distance(0, j) = System.Math.Max(System.Threading.Interlocked.Increment(j), j - 1)
+        End While
+        'find min distance
+
+        For i = 1 To n
+            For j = 1 To m
+                cost = (If(t.Substring(j - 1, 1) = s.Substring(i - 1, 1), 0, 1))
+                distance(i, j) = Math.Min(distance(i - 1, j) + 1, Math.Min(distance(i, j - 1) + 1, distance(i - 1, j - 1) + cost))
+            Next
+        Next
+        Return distance(n, m)
+    End Function
+
     Private Function get_codigo(row As DataRow, connection As SqlConnection)
+        Dim CodigoInterno
+        Dim SQL_Farmacias = $"SELECT f.ID, f.CodFACAF, f.codpami, f.Nombre, pd.IdPresentacion FROM Farmacias f INNER JOIN Presentaciones_det pd on f.Codigo = pd.IdFarmacia 
+            WHERE pd.IdPresentacion = {grd.Rows(0).Cells(0).Value}"
+
+        ''MODULO FACAF
         If row(0) IsNot DBNull.Value Then
 
-            'MODULO FACAF
+
+
+
             If row(0).ToString.Contains("F0") Then
-                Dim i As Integer
+                Dim i, j As Integer
+
                 'consulta SQL
                 SQL = $"select id from farmacias where CodFACAF = '{row(0)}'"
+                'SQL = "select id from farmacias where CodFACAF = 'F000000'"
                 Try
                     ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, SQL)
 
-                    Dim CodigoInterno = ds.Tables(0).Rows(0).Item(0)
+                    'no trae filas, porque no existe el id en la db
+                    If ds.Tables(0).Rows.Count <= 0 Then
+                        Dim ds_Farmacias As DataSet = SqlHelper.ExecuteDataset(connection, CommandType.Text, SQL_Farmacias)
+                        Dim dt_ResultadoComparacionFarmacias As New DataTable
+                        dt_ResultadoComparacionFarmacias.Columns.Add("CodigoInterno")
+                        dt_ResultadoComparacionFarmacias.Columns.Add("Porcentaje")
+                        For i = 0 To ds_Farmacias.Tables(0).Rows.Count - 1
+                            'comparo los nombres de las farmacias
+                            Dim farmaciaDb = ds_Farmacias.Tables(0).Rows(i).Item(3).ToString
+                            Dim farmaciaGrd = row(2).ToString
+
+                            Dim porcentajeComparacion = GetSimilarity(farmaciaGrd, farmaciaDb)
+
+                            If porcentajeComparacion >= 0.7 Then
+
+                                Dim rowdt As DataRow = dt_ResultadoComparacionFarmacias.NewRow()
+                                rowdt("CodigoInterno") = ds_Farmacias.Tables(0).Rows(i).Item(0)
+                                rowdt("Porcentaje") = porcentajeComparacion
+                                dt_ResultadoComparacionFarmacias.Rows.Add(rowdt)
+                                'DataGridView1.DataSource = dt_ResultadoComparacionFarmacias
+                                dt_ResultadoComparacionFarmacias.DefaultView.Sort = "Porcentaje DESC"
+                                dt_ResultadoComparacionFarmacias = dt_ResultadoComparacionFarmacias.DefaultView.ToTable
+
+                            End If
+
+                        Next
+                        'traigo el codigo interno de la farmacia con mayor porcentaje de aproximacion
+                        If dt_ResultadoComparacionFarmacias.Rows.Count >= 0 Then
+                            CodigoInterno = dt_ResultadoComparacionFarmacias.Rows(0).Item("CodigoInterno")
+                            Return CodigoInterno
+                        End If
+
+                        'DataGridView1.DataSource = dt_ResultadoComparacionFarmacias
+
+                        Dim farmacia = ds.Tables(1).Rows(i).Item(0)
+
+                    End If
+
+                    CodigoInterno = ds.Tables(0).Rows(0).Item(0)
 
                     If CodigoInterno IsNot DBNull.Value Then
                         Return CodigoInterno
@@ -1209,16 +1302,119 @@ Public Class frmRecepciones
                 Next
             End If
 
-            ''MODULO PAMI
+        Else
+
+            Dim i, j As Integer
+
+
+            Try
+
+
+                'controlo si el campo farmacia viene vacio
+                Dim variable = row(2).ToString
+                If row(2).ToString <> String.Empty Then
+                    Dim ds_Farmacias As DataSet = SqlHelper.ExecuteDataset(connection, CommandType.Text, SQL_Farmacias)
+                    Dim dt_ResultadoComparacionFarmacias As New DataTable
+                    dt_ResultadoComparacionFarmacias.Columns.Add("CodigoInterno")
+                    dt_ResultadoComparacionFarmacias.Columns.Add("Porcentaje")
+                    For i = 0 To ds_Farmacias.Tables(0).Rows.Count - 1
+                        'comparo los nombres de las farmacias
+                        Dim farmaciaDb = ds_Farmacias.Tables(0).Rows(i).Item(3).ToString
+                        Dim farmaciaGrd = row(2).ToString
+
+                        Dim porcentajeComparacion = GetSimilarity(farmaciaGrd, farmaciaDb)
+
+                        If porcentajeComparacion >= 0.7 Then
+
+                            Dim rowdt As DataRow = dt_ResultadoComparacionFarmacias.NewRow()
+                            rowdt("CodigoInterno") = ds_Farmacias.Tables(0).Rows(i).Item(0)
+                            rowdt("Porcentaje") = porcentajeComparacion
+                            dt_ResultadoComparacionFarmacias.Rows.Add(rowdt)
+                            'DataGridView1.DataSource = dt_ResultadoComparacionFarmacias
+                            dt_ResultadoComparacionFarmacias.DefaultView.Sort = "Porcentaje DESC"
+                            dt_ResultadoComparacionFarmacias = dt_ResultadoComparacionFarmacias.DefaultView.ToTable
+
+                        End If
+
+                    Next
+                    'traigo el codigo interno de la farmacia con mayor porcentaje de aproximacion
+                    If dt_ResultadoComparacionFarmacias.Rows.Count >= 0 Then
+                        CodigoInterno = dt_ResultadoComparacionFarmacias.Rows(0).Item("CodigoInterno")
+                        Return CodigoInterno
+                    End If
+
+                    'DataGridView1.DataSource = dt_ResultadoComparacionFarmacias
+
+
+
+                End If
+
+
+            Catch ex As Exception
+                MessageBox.Show($"No se pudo conectar con la base de datos {ex.Message}", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return Nothing
+            End Try
+
+
+
+        End If
+
+
+
+        ''MODULO PAMI
+        If row(0) IsNot DBNull.Value Then
             Dim int As Integer
-            If row(0).ToString.Length = 9 And IsNumeric(row(0).ToString) And Integer.TryParse(row(0), int) Then
-                Dim i As Integer
+
+
+
+            If row(0).ToString.Length = 9 And IsNumeric(row(0).ToString) And Integer.TryParse(row(0), Int) Then
+                Dim i, j As Integer
+
                 'consulta SQL
-                SQL = $"select id from farmacias where CodPAMI = {row(0)}"
+                SQL = $"select id from farmacias where CodPAMI = '{row(0)}'"
+                'SQL = "select id from farmacias where CodFACAF = 'F000000'"
                 Try
                     ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, SQL)
 
-                    Dim CodigoInterno = ds.Tables(0).Rows(0).Item(0)
+                    'no trae filas, porque no existe el id en la db
+                    If ds.Tables(0).Rows.Count <= 0 Then
+                        Dim ds_Farmacias As DataSet = SqlHelper.ExecuteDataset(connection, CommandType.Text, SQL_Farmacias)
+                        Dim dt_ResultadoComparacionFarmacias As New DataTable
+                        dt_ResultadoComparacionFarmacias.Columns.Add("CodigoInterno")
+                        dt_ResultadoComparacionFarmacias.Columns.Add("Porcentaje")
+                        For i = 0 To ds_Farmacias.Tables(0).Rows.Count - 1
+                            'comparo los nombres de las farmacias
+                            Dim farmaciaDb = ds_Farmacias.Tables(0).Rows(i).Item(3).ToString
+                            Dim farmaciaGrd = row(2).ToString
+
+                            Dim porcentajeComparacion = GetSimilarity(farmaciaGrd, farmaciaDb)
+
+                            If porcentajeComparacion >= 0.7 Then
+
+                                Dim rowdt As DataRow = dt_ResultadoComparacionFarmacias.NewRow()
+                                rowdt("CodigoInterno") = ds_Farmacias.Tables(0).Rows(i).Item(0)
+                                rowdt("Porcentaje") = porcentajeComparacion
+                                dt_ResultadoComparacionFarmacias.Rows.Add(rowdt)
+                                'DataGridView1.DataSource = dt_ResultadoComparacionFarmacias
+                                dt_ResultadoComparacionFarmacias.DefaultView.Sort = "Porcentaje DESC"
+                                dt_ResultadoComparacionFarmacias = dt_ResultadoComparacionFarmacias.DefaultView.ToTable
+
+                            End If
+
+                        Next
+                        'traigo el codigo interno de la farmacia con mayor porcentaje de aproximacion
+                        If dt_ResultadoComparacionFarmacias.Rows.Count >= 0 Then
+                            CodigoInterno = dt_ResultadoComparacionFarmacias.Rows(0).Item("CodigoInterno")
+                            Return CodigoInterno
+                        End If
+
+                        'DataGridView1.DataSource = dt_ResultadoComparacionFarmacias
+
+                        Dim farmacia = ds.Tables(1).Rows(i).Item(0)
+
+                    End If
+
+                    CodigoInterno = ds.Tables(0).Rows(0).Item(0)
 
                     If CodigoInterno IsNot DBNull.Value Then
                         Return CodigoInterno
@@ -1230,12 +1426,98 @@ Public Class frmRecepciones
                 End Try
 
 
-                'es codigo pami pero no se encuentra la DB
+                'es codigo facaf pero no se encuentra la DB
                 For i = 0 To row.ItemArray.Length
 
                 Next
             End If
+
+        Else
+
+            Dim i, j As Integer
+
+
+            Try
+
+
+                'controlo si el campo farmacia viene vacio
+                Dim variable = row(2).ToString
+                If row(2).ToString <> String.Empty Then
+                    Dim ds_Farmacias As DataSet = SqlHelper.ExecuteDataset(connection, CommandType.Text, SQL_Farmacias)
+                    Dim dt_ResultadoComparacionFarmacias As New DataTable
+                    dt_ResultadoComparacionFarmacias.Columns.Add("CodigoInterno")
+                    dt_ResultadoComparacionFarmacias.Columns.Add("Porcentaje")
+                    For i = 0 To ds_Farmacias.Tables(0).Rows.Count - 1
+                        'comparo los nombres de las farmacias
+                        Dim farmaciaDb = ds_Farmacias.Tables(0).Rows(i).Item(3).ToString
+                        Dim farmaciaGrd = row(2).ToString
+
+                        Dim porcentajeComparacion = GetSimilarity(farmaciaGrd, farmaciaDb)
+
+                        If porcentajeComparacion >= 0.7 Then
+
+                            Dim rowdt As DataRow = dt_ResultadoComparacionFarmacias.NewRow()
+                            rowdt("CodigoInterno") = ds_Farmacias.Tables(0).Rows(i).Item(0)
+                            rowdt("Porcentaje") = porcentajeComparacion
+                            dt_ResultadoComparacionFarmacias.Rows.Add(rowdt)
+                            'DataGridView1.DataSource = dt_ResultadoComparacionFarmacias
+                            dt_ResultadoComparacionFarmacias.DefaultView.Sort = "Porcentaje DESC"
+                            dt_ResultadoComparacionFarmacias = dt_ResultadoComparacionFarmacias.DefaultView.ToTable
+
+                        End If
+
+                    Next
+                    'traigo el codigo interno de la farmacia con mayor porcentaje de aproximacion
+                    If dt_ResultadoComparacionFarmacias.Rows.Count >= 0 Then
+                        CodigoInterno = dt_ResultadoComparacionFarmacias.Rows(0).Item("CodigoInterno")
+                        Return CodigoInterno
+                    End If
+
+                    'DataGridView1.DataSource = dt_ResultadoComparacionFarmacias
+
+
+
+                End If
+
+
+            Catch ex As Exception
+                MessageBox.Show($"No se pudo conectar con la base de datos {ex.Message}", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return Nothing
+            End Try
+
+
+
         End If
+
+
+        '''MODULO PAMI
+        'If row(0) IsNot DBNull.Value Then
+        '        Dim int As Integer
+        '        If row(0).ToString.Length = 9 And IsNumeric(row(0).ToString) And Integer.TryParse(row(0), int) Then
+        '            Dim i As Integer
+        '            'consulta SQL
+        '            SQL = $"select id from farmacias where CodPAMI = {row(0)}"
+        '            Try
+        '                ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, SQL)
+
+        '                CodigoInterno = ds.Tables(0).Rows(0).Item(0)
+
+        '                If CodigoInterno IsNot DBNull.Value Then
+        '                    Return CodigoInterno
+        '                End If
+
+        '            Catch ex As Exception
+        '                MessageBox.Show($"No se pudo conectar con la base de datos {ex.Message}", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        '                Return Nothing
+        '            End Try
+
+
+        '            'es codigo pami pero no se encuentra la DB
+        '            For i = 0 To row.ItemArray.Length
+
+        '            Next
+        '        End If
+        '    End If
 
         Return Nothing
     End Function
@@ -1402,7 +1684,7 @@ Public Class frmRecepciones
         grdDetalleLiquidacionFiltrada.DataSource = dt_grouped
 
         btnListo.Enabled = True
-
+        ' DataGridView1.BringToFront()
     End Sub
 
 

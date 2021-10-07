@@ -275,6 +275,14 @@ Partial Class frmRecepciones
         '
         Me.pagoAnticipo.Text = "Anticipo"
         '
+        'pagoUnico
+        '
+        Me.pagoUnico.Text = "Unico"
+        '
+        'pagoAnticipo
+        '
+        Me.pagoAnticipo.Text = "Anticipo"
+        '
         'CheckBox3
         '
         Me.CheckBox3.AutoSize = True
