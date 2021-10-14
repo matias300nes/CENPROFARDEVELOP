@@ -912,7 +912,6 @@ Public Class frmRecepciones
         End If
 
         SuperGrdResultado.Refresh()
-        DebugGrid.DataSource = gl_dataset.Tables(1)
 
     End Sub
 
@@ -1265,8 +1264,6 @@ Public Class frmRecepciones
         Dim CodigoInterno
         Dim isCode As Boolean
         Dim Int As Integer
-        DebugGrid.BringToFront()
-        DebugGrid.DataSource = dtFarmacias
 
         If row(0) IsNot DBNull.Value Then
             isCode = False
@@ -5122,16 +5119,15 @@ ContinuarTransaccion:
 
                 For i = 0 To panel.Rows.Count - 1
                     If panel.GetCell(i, 1).Value = "Pendiente de pago" Then
-                        pendiente = $"<br/> Pendiente de pago: <font color=""Gray""><i>${panel.GetCell(i, 2).Value * -1}</i></font>"
+                        pendiente = $"<br/> Pendiente de pago: <font color=""Gray""><i>${Decimal.Parse(panel.GetCell(i, 2).Value * -1):N2}</i></font>"
                     Else
                         total += panel.GetCell(i, 2).Value
                     End If
                 Next
-
                 parent("Subtotal").Value = total
 
                 panel.Footer = New GridFooter()
-                panel.Footer.Text = String.Format("Total a pagar: <font color=""Green""><i>${0}</i></font> {1}", total, pendiente)
+                panel.Footer.Text = String.Format("Total a pagar: <font color=""Green""><i>${0:N2}</i></font> {1:N2}", total, pendiente)
             End If
 
         End Sub
@@ -5228,23 +5224,18 @@ ContinuarTransaccion:
             Dim pendiente As String = ""
             For i = 0 To panel.Rows.Count - 1
                 If panel.GetCell(i, 1).Value = "Pendiente de pago" Then
-                    pendiente = $"<br/> Pendiente de pago: <font color=""Gray""><i>${panel.GetCell(i, 2).Value * -1}</i></font>"
+                    pendiente = $"<br/> Pendiente de pago: <font color=""Gray""><i>${Decimal.Parse(panel.GetCell(i, 2).Value * -1):N2}</i></font>"
                 Else
                     total += panel.GetCell(i, 2).Value
 
                 End If
-                'If panel.GetCell(i, 3).Value IsNot DBNull.Value Then
-                '    If panel.GetCell(i, 3).Value = "x" Then
-                '        panel.GetCell(i, 3).EditorType = GetType(MyGridButtonXEditControl)
-                '    End If
-                'End If
 
                 panel.GetCell(i, 3).EditorType = GetType(MyGridButtonXEditControl)
 
             Next
 
             panel.Footer = New GridFooter()
-            panel.Footer.Text = String.Format("Total a pagar: <font color=""Green""><i>${0}</i></font> {1}", total, pendiente)
+            panel.Footer.Text = String.Format("Total a pagar: <font color=""Green""><i>${0:N2}</i></font> {1:N2}", total, pendiente)
         End If
 
 
@@ -5283,7 +5274,4 @@ ContinuarTransaccion:
     '    End If
     'End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        UpdateGrdPrincipal()
-    End Sub
 End Class
