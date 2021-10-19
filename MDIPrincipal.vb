@@ -4277,7 +4277,8 @@ Pedidos:
     End Sub
 
     Private Sub ObrasSocialesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ObrasSocialesToolStripMenuItem.Click
-
+        frmObraSocial.MdiParent = Me
+        frmObraSocial.Show()
     End Sub
 
     Private Sub LiquidacionesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LiquidacionesToolStripMenuItem.Click

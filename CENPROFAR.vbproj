@@ -144,6 +144,12 @@
     <Compile Include="frmClientes2.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmObraSocial.designer.vb">
+      <DependentUpon>frmObraSocial.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmObraSocial.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmRecepciones.Designer.vb">
       <DependentUpon>frmRecepciones.vb</DependentUpon>
     </Compile>
@@ -784,6 +790,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmClientes2.resx">
       <DependentUpon>frmClientes2.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmObraSocial.resx">
+      <DependentUpon>frmObraSocial.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmRecepciones.resx">
       <DependentUpon>frmRecepciones.vb</DependentUpon>
