@@ -27,7 +27,7 @@ Public Class frmObraSocial
         configurarform()
         asignarTags()
 
-        SQL = "exec spMarcas_Select_All @Eliminado = 0"
+        SQL = "exec spObrasSociales_Select_All @Eliminado = 0"
 
         LlenarGrilla()
 
@@ -54,9 +54,9 @@ Public Class frmObraSocial
         btnEliminar.Enabled = Not chkEliminados.Checked
 
         If chkEliminados.Checked = True Then
-            SQL = "exec spMarcas_Select_All @Eliminado = 1"
+            SQL = "exec spObrasSociales_Select_All @Eliminado = 1"
         Else
-            SQL = "exec spMarcas_Select_All @Eliminado = 0"
+            SQL = "exec spObrasSociales_Select_All @Eliminado = 0"
         End If
 
         LlenarGrilla()
@@ -86,7 +86,7 @@ Public Class frmObraSocial
         Dim res As Integer
 
         If bolModo = False Then
-            If MessageBox.Show("Está seguro que desea modificar la Marca seleccionada?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
+            If MessageBox.Show("Está seguro que desea modificar la obra social seleccionada?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
                 Exit Sub
             End If
         End If
@@ -148,7 +148,7 @@ Public Class frmObraSocial
                 '    Dim sqlstring As String
 
                 '    If bolModo = True Then
-                '        sqlstring = "INSERT INTO [dbo].[" & NameTable_Marcas & "] (ID, [Codigo],[Nombre],[Eliminado])" & _
+                '        sqlstring = "INSERT INTO [dbo].[" & NameTable_obra socials & "] (ID, [Codigo],[Nombre],[Eliminado])" & _
                 '                    " values ( " & txtID.Text & ", '" & codigo & "', '" & txtObservaciones.Text.ToUpper & "' , 0 )"
 
                 '    Else
@@ -181,7 +181,7 @@ Public Class frmObraSocial
     Private Sub btnEliminar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEliminar.Click
         Dim res As Integer
 
-        If MessageBox.Show("Está seguro que desea eliminar la Marca seleccionada?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
+        If MessageBox.Show("Está seguro que desea eliminar la obra social seleccionada?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
             Exit Sub
         End If
 
@@ -217,7 +217,7 @@ Public Class frmObraSocial
         Dim connection As SqlClient.SqlConnection = Nothing
         Dim ds_Update As Data.DataSet
 
-        If MessageBox.Show("Está por activar nuevamente la Marca: " & grd.CurrentRow.Cells(2).Value.ToString & ". Desea continuar?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
+        If MessageBox.Show("Está por activar nuevamente la obra social: " & grd.CurrentRow.Cells(2).Value.ToString & ". Desea continuar?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
             Exit Sub
         End If
 
@@ -231,7 +231,7 @@ Public Class frmObraSocial
 
         Try
 
-            ds_Update = SqlHelper.ExecuteDataset(connection, CommandType.Text, "UPDATE Marcas SET Eliminado = 0 WHERE id = " & grd.CurrentRow.Cells(0).Value)
+            ds_Update = SqlHelper.ExecuteDataset(connection, CommandType.Text, "UPDATE ObrasSociales SET Eliminado = 0 WHERE id = " & grd.CurrentRow.Cells(0).Value)
             ds_Update.Dispose()
 
 
@@ -248,7 +248,7 @@ Public Class frmObraSocial
             'End Try
             'End If
 
-            SQL = "exec spMarcas_Select_All @Eliminado = 1"
+            SQL = "exec spObrasSociales_Select_All @Eliminado = 1"
 
             LlenarGrilla()
 
@@ -256,7 +256,7 @@ Public Class frmObraSocial
                 btnActivar.Enabled = False
             End If
 
-            Util.MsgStatus(Status1, "La Marca se activó correctamente.", My.Resources.ok.ToBitmap)
+            Util.MsgStatus(Status1, "La obra social se activó correctamente.", My.Resources.ok.ToBitmap)
 
         Catch ex As Exception
             Dim errMessage As String = ""
@@ -335,6 +335,13 @@ Public Class frmObraSocial
             param_nombre.Value = txtObservaciones.Text.ToUpper
             param_nombre.Direction = ParameterDirection.Input
 
+            Dim param_cuit As New SqlClient.SqlParameter
+            param_cuit.ParameterName = "@cuit"
+            param_cuit.SqlDbType = SqlDbType.BigInt
+            param_cuit.Size = 11
+            param_cuit.Value = Long.Parse(txtCuit.Text)
+            param_cuit.Direction = ParameterDirection.Input
+
             Dim param_res As New SqlClient.SqlParameter
             param_res.ParameterName = "@res"
             param_res.SqlDbType = SqlDbType.Int
@@ -342,8 +349,8 @@ Public Class frmObraSocial
             param_res.Direction = ParameterDirection.InputOutput
 
             Try
-                SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spMarcas_Insert", param_id,
-                                          param_codigo, param_nombre, param_res)
+                SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spObrasSociales_Insert", param_id,
+                                          param_codigo, param_nombre, param_cuit, param_res)
 
                 txtID.Text = param_id.Value
                 codigo = param_codigo.Value
@@ -401,6 +408,12 @@ Public Class frmObraSocial
             param_nombre.Value = txtObservaciones.Text.ToUpper
             param_nombre.Direction = ParameterDirection.Input
 
+            Dim param_cuit As New SqlClient.SqlParameter
+            param_cuit.ParameterName = "@cuit"
+            param_cuit.SqlDbType = SqlDbType.BigInt
+            param_cuit.Value = Long.Parse(txtCuit.Text)
+            param_cuit.Direction = ParameterDirection.Input
+
             Dim param_res As New SqlClient.SqlParameter
             param_res.ParameterName = "@res"
             param_res.SqlDbType = SqlDbType.Int
@@ -408,8 +421,8 @@ Public Class frmObraSocial
             param_res.Direction = ParameterDirection.InputOutput
 
             Try
-                SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spMarcas_Update", param_id,
-                                          param_nombre, param_res)
+                SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spObrasSociales_Update", param_id,
+                                          param_nombre, param_cuit, param_res)
 
                 ActualizarRegistro = param_res.Value
 
@@ -463,7 +476,7 @@ Public Class frmObraSocial
 
             Try
 
-                SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spMarcas_Delete", param_id, param_res)
+                SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spObrasSociales_Delete", param_id, param_res)
                 res = param_res.Value
 
                 If res > 0 Then
@@ -517,7 +530,7 @@ Public Class frmObraSocial
 #Region "Procedimientos"
 
     Private Sub configurarform()
-        Me.Text = "Marcas"
+        Me.Text = "Obras Sociales"
 
         Me.grd.Location = New Size(GroupBox1.Location.X, GroupBox1.Location.Y + GroupBox1.Size.Height + 7)
 
@@ -545,6 +558,7 @@ Public Class frmObraSocial
         txtid.tag = "0"
         txtCODIGO.Tag = "1"
         txtObservaciones.Tag = "2"
+        txtCuit.Tag = "3"
 
     End Sub
 
@@ -558,12 +572,6 @@ Public Class frmObraSocial
 
 
 #End Region
-
-
-
-
-
-
 
 
 End Class
