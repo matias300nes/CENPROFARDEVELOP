@@ -133,7 +133,7 @@ Partial Class frmObraSocial
         Me.GroupBox1.DisabledBackColor = System.Drawing.Color.Empty
         Me.GroupBox1.Location = New System.Drawing.Point(12, 28)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(648, 60)
+        Me.GroupBox1.Size = New System.Drawing.Size(614, 60)
         '
         '
         '
