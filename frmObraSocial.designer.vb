@@ -22,6 +22,8 @@ Partial Class frmObraSocial
         Me.txtObservaciones = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.GroupBox1 = New DevComponents.DotNetBar.Controls.GroupPanel()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.txtCuit = New System.Windows.Forms.TextBox()
         Me.chkEliminados = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
@@ -33,11 +35,10 @@ Partial Class frmObraSocial
         Me.txtID.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtID.Enabled = False
         Me.txtID.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
-        Me.txtID.Location = New System.Drawing.Point(564, 4)
-        Me.txtID.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtID.Location = New System.Drawing.Point(71, -3)
         Me.txtID.MaxLength = 8
         Me.txtID.Name = "txtID"
-        Me.txtID.Size = New System.Drawing.Size(20, 22)
+        Me.txtID.Size = New System.Drawing.Size(16, 20)
         Me.txtID.TabIndex = 50
         Me.txtID.Text_1 = Nothing
         Me.txtID.Text_2 = Nothing
@@ -49,10 +50,9 @@ Partial Class frmObraSocial
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(534, 9)
-        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label1.Location = New System.Drawing.Point(49, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(19, 17)
+        Me.Label1.Size = New System.Drawing.Size(16, 13)
         Me.Label1.TabIndex = 50
         Me.Label1.Text = "Id"
         Me.Label1.Visible = False
@@ -64,12 +64,11 @@ Partial Class frmObraSocial
         Me.txtCODIGO.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtCODIGO.Enabled = False
         Me.txtCODIGO.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.txtCODIGO.Location = New System.Drawing.Point(8, 30)
-        Me.txtCODIGO.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtCODIGO.Location = New System.Drawing.Point(6, 24)
         Me.txtCODIGO.MaxLength = 25
         Me.txtCODIGO.Name = "txtCODIGO"
         Me.txtCODIGO.ReadOnly = True
-        Me.txtCODIGO.Size = New System.Drawing.Size(129, 22)
+        Me.txtCODIGO.Size = New System.Drawing.Size(98, 20)
         Me.txtCODIGO.TabIndex = 0
         Me.txtCODIGO.Text_1 = Nothing
         Me.txtCODIGO.Text_2 = Nothing
@@ -82,10 +81,9 @@ Partial Class frmObraSocial
         Me.Label2.AutoSize = True
         Me.Label2.BackColor = System.Drawing.Color.Transparent
         Me.Label2.ForeColor = System.Drawing.Color.Blue
-        Me.Label2.Location = New System.Drawing.Point(4, 11)
-        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label2.Location = New System.Drawing.Point(3, 9)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(52, 17)
+        Me.Label2.Size = New System.Drawing.Size(40, 13)
         Me.Label2.TabIndex = 51
         Me.Label2.Text = "Código"
         '
@@ -95,11 +93,10 @@ Partial Class frmObraSocial
         Me.txtObservaciones.Decimals = CType(2, Byte)
         Me.txtObservaciones.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtObservaciones.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.txtObservaciones.Location = New System.Drawing.Point(147, 30)
-        Me.txtObservaciones.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtObservaciones.Location = New System.Drawing.Point(110, 24)
         Me.txtObservaciones.MaxLength = 50
         Me.txtObservaciones.Name = "txtObservaciones"
-        Me.txtObservaciones.Size = New System.Drawing.Size(488, 22)
+        Me.txtObservaciones.Size = New System.Drawing.Size(230, 20)
         Me.txtObservaciones.TabIndex = 1
         Me.txtObservaciones.Text_1 = Nothing
         Me.txtObservaciones.Text_2 = Nothing
@@ -112,10 +109,9 @@ Partial Class frmObraSocial
         Me.Label3.AutoSize = True
         Me.Label3.BackColor = System.Drawing.Color.Transparent
         Me.Label3.ForeColor = System.Drawing.Color.Blue
-        Me.Label3.Location = New System.Drawing.Point(143, 10)
-        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label3.Location = New System.Drawing.Point(107, 8)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(63, 17)
+        Me.Label3.Size = New System.Drawing.Size(48, 13)
         Me.Label3.TabIndex = 52
         Me.Label3.Text = "Nombre*"
         '
@@ -125,6 +121,8 @@ Partial Class frmObraSocial
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox1.CanvasColor = System.Drawing.SystemColors.Control
         Me.GroupBox1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007
+        Me.GroupBox1.Controls.Add(Me.Label4)
+        Me.GroupBox1.Controls.Add(Me.txtCuit)
         Me.GroupBox1.Controls.Add(Me.chkEliminados)
         Me.GroupBox1.Controls.Add(Me.txtID)
         Me.GroupBox1.Controls.Add(Me.txtCODIGO)
@@ -133,10 +131,9 @@ Partial Class frmObraSocial
         Me.GroupBox1.Controls.Add(Me.txtObservaciones)
         Me.GroupBox1.Controls.Add(Me.Label2)
         Me.GroupBox1.DisabledBackColor = System.Drawing.Color.Empty
-        Me.GroupBox1.Location = New System.Drawing.Point(16, 34)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4)
+        Me.GroupBox1.Location = New System.Drawing.Point(12, 28)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(818, 74)
+        Me.GroupBox1.Size = New System.Drawing.Size(614, 60)
         '
         '
         '
@@ -167,29 +164,46 @@ Partial Class frmObraSocial
         Me.GroupBox1.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.GroupBox1.TabIndex = 64
         '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.BackColor = System.Drawing.Color.Transparent
+        Me.Label4.ForeColor = System.Drawing.Color.Blue
+        Me.Label4.Location = New System.Drawing.Point(359, 8)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(29, 13)
+        Me.Label4.TabIndex = 258
+        Me.Label4.Text = "Cuit*"
+        '
+        'txtCuit
+        '
+        Me.txtCuit.Location = New System.Drawing.Point(362, 24)
+        Me.txtCuit.Name = "txtCuit"
+        Me.txtCuit.Size = New System.Drawing.Size(232, 20)
+        Me.txtCuit.TabIndex = 257
+        '
         'chkEliminados
         '
         Me.chkEliminados.AutoSize = True
         Me.chkEliminados.BackColor = System.Drawing.Color.Transparent
         Me.chkEliminados.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.chkEliminados.ForeColor = System.Drawing.Color.Red
-        Me.chkEliminados.Location = New System.Drawing.Point(654, 43)
-        Me.chkEliminados.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkEliminados.Location = New System.Drawing.Point(485, 0)
         Me.chkEliminados.Name = "chkEliminados"
-        Me.chkEliminados.Size = New System.Drawing.Size(138, 21)
+        Me.chkEliminados.Size = New System.Drawing.Size(109, 17)
         Me.chkEliminados.TabIndex = 256
         Me.chkEliminados.Text = "Ver Eliminados"
         Me.chkEliminados.UseVisualStyleBackColor = False
         '
-        'frmMarcas
+        'frmObraSocial
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(850, 534)
+        Me.ClientSize = New System.Drawing.Size(638, 434)
         Me.Controls.Add(Me.GroupBox1)
-        Me.Margin = New System.Windows.Forms.Padding(5)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MaximizeBox = False
-        Me.Name = "frmMarcas"
+        Me.Name = "frmObraSocial"
         Me.Text = "Marcas"
         Me.Controls.SetChildIndex(Me.GroupBox1, 0)
         Me.GroupBox1.ResumeLayout(False)
@@ -212,7 +226,8 @@ Partial Class frmObraSocial
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents GroupBox1 As DevComponents.DotNetBar.Controls.GroupPanel
     Friend WithEvents chkEliminados As System.Windows.Forms.CheckBox
-
+    Friend WithEvents Label4 As Label
+    Friend WithEvents txtCuit As TextBox
 
 
 
