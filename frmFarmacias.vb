@@ -40,7 +40,7 @@ Public Class frmFarmacias
     End Sub
 
     Private Sub txtid_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) _
-     Handles txtID.KeyPress, txtCODIGO.KeyPress, txtObservaciones.KeyPress
+     Handles txtID.KeyPress, txtCODIGO.KeyPress, txtFarmacia.KeyPress
         If e.KeyChar = ChrW(Keys.Enter) Then
             e.Handled = True
             SendKeys.Send("{TAB}")
@@ -268,7 +268,7 @@ Public Class frmFarmacias
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             If Not connection Is Nothing Then
@@ -328,12 +328,73 @@ Public Class frmFarmacias
             param_codigo.Value = DBNull.Value
             param_codigo.Direction = ParameterDirection.InputOutput
 
+            Dim param_CodPAMI As New SqlClient.SqlParameter
+            param_CodPAMI.ParameterName = "@CodPAMI"
+            param_CodPAMI.SqlDbType = SqlDbType.BigInt
+            param_CodPAMI.Value = IIf(txtCodPAMI.Text = "", 0, txtCodPAMI.Text)
+            param_CodPAMI.Direction = ParameterDirection.Input
+
+            Dim param_CodFACAF As New SqlClient.SqlParameter
+            param_CodFACAF.ParameterName = "@CodFACAF"
+            param_CodFACAF.SqlDbType = SqlDbType.NVarChar
+            param_CodFACAF.Size = 300
+            param_CodFACAF.Value = txtCodFACAF.Text
+            param_CodFACAF.Direction = ParameterDirection.Input
+
             Dim param_nombre As New SqlClient.SqlParameter
             param_nombre.ParameterName = "@nombre"
-            param_nombre.SqlDbType = SqlDbType.VarChar
+            param_nombre.SqlDbType = SqlDbType.NVarChar
             param_nombre.Size = 300
-            param_nombre.Value = txtObservaciones.Text.ToUpper
+            param_nombre.Value = txtFarmacia.Text.ToUpper
             param_nombre.Direction = ParameterDirection.Input
+
+            Dim param_cuit As New SqlClient.SqlParameter
+            param_cuit.ParameterName = "@Cuit"
+            param_cuit.SqlDbType = SqlDbType.BigInt
+            param_cuit.Value = txtCuit.Text
+            param_cuit.Direction = ParameterDirection.Input
+
+            Dim param_domicilio As New SqlClient.SqlParameter
+            param_domicilio.ParameterName = "@Domicilio"
+            param_domicilio.SqlDbType = SqlDbType.VarChar
+            param_domicilio.Size = 200
+            param_domicilio.Value = txtDomicilio.Text.ToUpper
+            param_domicilio.Direction = ParameterDirection.Input
+
+            Dim param_telefono As New SqlClient.SqlParameter
+            param_telefono.ParameterName = "@Telefono"
+            param_telefono.SqlDbType = SqlDbType.VarChar
+            param_telefono.Size = 50
+            param_telefono.Value = txtTelefono.Text.ToUpper
+            param_telefono.Direction = ParameterDirection.Input
+
+            Dim param_email As New SqlClient.SqlParameter
+            param_email.ParameterName = "@email"
+            param_email.SqlDbType = SqlDbType.VarChar
+            param_email.Size = 100
+            param_email.Value = txtEmail.Text.ToUpper
+            param_email.Direction = ParameterDirection.Input
+
+            Dim param_contribuyente As New SqlClient.SqlParameter
+            param_contribuyente.ParameterName = "@Contribuyente"
+            param_contribuyente.SqlDbType = SqlDbType.VarChar
+            param_contribuyente.Size = 100
+            param_contribuyente.Value = txtTipoContribuyente.Text.ToUpper
+            param_contribuyente.Direction = ParameterDirection.Input
+
+            Dim param_estadofarmacia As New SqlClient.SqlParameter
+            param_estadofarmacia.ParameterName = "@EstadoFarmacia"
+            param_estadofarmacia.SqlDbType = SqlDbType.VarChar
+            param_estadofarmacia.Size = 10
+            param_estadofarmacia.Value = cmbEstado.Text.ToUpper
+            param_estadofarmacia.Direction = ParameterDirection.Input
+
+            Dim param_motivobaja As New SqlClient.SqlParameter
+            param_motivobaja.ParameterName = "@MotivoBaja"
+            param_motivobaja.SqlDbType = SqlDbType.NVarChar
+            param_motivobaja.Size = 200
+            param_motivobaja.Value = txtMotivoBaja.Text.ToUpper
+            param_motivobaja.Direction = ParameterDirection.Input
 
             Dim param_res As New SqlClient.SqlParameter
             param_res.ParameterName = "@res"
@@ -342,8 +403,10 @@ Public Class frmFarmacias
             param_res.Direction = ParameterDirection.InputOutput
 
             Try
-                SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spFarmacias_Insert", param_id, _
-                                          param_codigo, param_nombre, param_res)
+                SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spFarmacias_Insert", param_id,
+                                          param_codigo, param_CodFACAF, param_CodPAMI, param_nombre, param_cuit,
+                                          param_domicilio, param_telefono, param_email, param_contribuyente,
+                                          param_estadofarmacia, param_motivobaja, param_res)
 
                 txtID.Text = param_id.Value
                 codigo = param_codigo.Value
@@ -365,7 +428,7 @@ Public Class frmFarmacias
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         Finally
@@ -394,12 +457,80 @@ Public Class frmFarmacias
             param_id.Value = CType(txtID.Text, Long)
             param_id.Direction = ParameterDirection.Input
 
+            Dim param_cod As New SqlClient.SqlParameter
+            param_cod.ParameterName = "@codigo"
+            param_cod.SqlDbType = SqlDbType.VarChar
+            param_cod.Size = 10
+            param_cod.Value = txtCODIGO.Text
+            param_cod.Direction = ParameterDirection.Input
+
+            Dim param_CodPAMI As New SqlClient.SqlParameter
+            param_CodPAMI.ParameterName = "@CodPAMI"
+            param_CodPAMI.SqlDbType = SqlDbType.BigInt
+            param_CodPAMI.Value = IIf(txtCodPAMI.Text = "", 0, txtCodPAMI.Text)
+            param_CodPAMI.Direction = ParameterDirection.Input
+
+            Dim param_CodFACAF As New SqlClient.SqlParameter
+            param_CodFACAF.ParameterName = "@CodFACAF"
+            param_CodFACAF.SqlDbType = SqlDbType.NVarChar
+            param_CodFACAF.Size = 300
+            param_CodFACAF.Value = txtCodFACAF.Text
+            param_CodFACAF.Direction = ParameterDirection.Input
+
             Dim param_nombre As New SqlClient.SqlParameter
             param_nombre.ParameterName = "@nombre"
             param_nombre.SqlDbType = SqlDbType.VarChar
             param_nombre.Size = 300
-            param_nombre.Value = txtObservaciones.Text.ToUpper
+            param_nombre.Value = txtFarmacia.Text.ToUpper
             param_nombre.Direction = ParameterDirection.Input
+
+            Dim param_cuit As New SqlClient.SqlParameter
+            param_cuit.ParameterName = "@Cuit"
+            param_cuit.SqlDbType = SqlDbType.BigInt
+            param_cuit.Value = txtCuit.Text
+            param_cuit.Direction = ParameterDirection.Input
+
+            Dim param_domicilio As New SqlClient.SqlParameter
+            param_domicilio.ParameterName = "@Domicilio"
+            param_domicilio.SqlDbType = SqlDbType.VarChar
+            param_domicilio.Size = 200
+            param_domicilio.Value = txtDomicilio.Text.ToUpper
+            param_domicilio.Direction = ParameterDirection.Input
+
+            Dim param_telefono As New SqlClient.SqlParameter
+            param_telefono.ParameterName = "@Telefono"
+            param_telefono.SqlDbType = SqlDbType.VarChar
+            param_telefono.Size = 50
+            param_telefono.Value = txtTelefono.Text.ToUpper
+            param_telefono.Direction = ParameterDirection.Input
+
+            Dim param_email As New SqlClient.SqlParameter
+            param_email.ParameterName = "@Email"
+            param_email.SqlDbType = SqlDbType.VarChar
+            param_email.Size = 100
+            param_email.Value = txtEmail.Text.ToUpper
+            param_email.Direction = ParameterDirection.Input
+
+            Dim param_contribuyente As New SqlClient.SqlParameter
+            param_contribuyente.ParameterName = "@Contribuyente"
+            param_contribuyente.SqlDbType = SqlDbType.VarChar
+            param_contribuyente.Size = 100
+            param_contribuyente.Value = txtTipoContribuyente.Text.ToUpper
+            param_contribuyente.Direction = ParameterDirection.Input
+
+            Dim param_estadofarmacia As New SqlClient.SqlParameter
+            param_estadofarmacia.ParameterName = "@EstadoFarmacia"
+            param_estadofarmacia.SqlDbType = SqlDbType.VarChar
+            param_estadofarmacia.Size = 10
+            param_estadofarmacia.Value = cmbEstado.Text.ToUpper
+            param_estadofarmacia.Direction = ParameterDirection.Input
+
+            Dim param_motivobaja As New SqlClient.SqlParameter
+            param_motivobaja.ParameterName = "@MotivoBaja"
+            param_motivobaja.SqlDbType = SqlDbType.NVarChar
+            param_motivobaja.Size = 200
+            param_motivobaja.Value = txtMotivoBaja.Text.ToUpper
+            param_motivobaja.Direction = ParameterDirection.Input
 
             Dim param_res As New SqlClient.SqlParameter
             param_res.ParameterName = "@res"
@@ -408,8 +539,9 @@ Public Class frmFarmacias
             param_res.Direction = ParameterDirection.InputOutput
 
             Try
-                SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spFarmacias_Update", param_id, _
-                                          param_nombre, param_res)
+                SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spFarmacias_Update", param_id, param_cod,
+                                          param_nombre, param_CodFACAF, param_CodPAMI, param_cuit, param_domicilio, param_telefono,
+                                          param_email, param_contribuyente, param_estadofarmacia, param_motivobaja, param_res)
 
                 ActualizarRegistro = param_res.Value
 
@@ -427,7 +559,7 @@ Public Class frmFarmacias
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             If Not connection Is Nothing Then
@@ -502,7 +634,7 @@ Public Class frmFarmacias
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             If Not connection Is Nothing Then
@@ -542,15 +674,32 @@ Public Class frmFarmacias
     End Sub
 
     Private Sub asignarTags()
-        txtid.tag = "0"
+        txtID.Tag = "0"
         txtCODIGO.Tag = "1"
-        txtObservaciones.Tag = "2"
+        txtCodPAMI.Tag = "2"
+        txtCodFACAF.Tag = "3"
+        txtFarmacia.Tag = "4"
+        txtCuit.Tag = "5"
+        txtDomicilio.Tag = "6"
+        txtTelefono.Tag = "7"
+        txtEmail.Tag = "8"
+        txtTipoContribuyente.Tag = "9"
+        cmbEstado.Text = "10"
+        txtMotivoBaja.Text = "11"
 
     End Sub
 
     Private Sub Verificar_Datos()
 
         bolpoliticas = True
+
+    End Sub
+
+    Private Sub FormattedTextBoxVB2_TextChanged(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub ComboBoxEx2_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbProvincia.SelectedIndexChanged
 
     End Sub
 
