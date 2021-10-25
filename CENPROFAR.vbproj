@@ -108,7 +108,7 @@
     </Reference>
     <Reference Include="Utiles, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Utiles\bin\Debug\Utiles.dll</HintPath>
+      <HintPath>Utiles\bin\Debug\Utiles.dll</HintPath>
     </Reference>
     <Reference Include="WebServicePorkys">
       <HintPath>..\..\WebServicePorkys\WebServicePorkys\WebServicePorkys\bin\WebServicePorkys.dll</HintPath>

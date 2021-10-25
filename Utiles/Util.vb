@@ -538,6 +538,15 @@ Public Module Util
                     End If
                 End If
 
+                ''Actualizacion de MATIAS (Perdon alberto por profanar tu codigo)
+                If TypeOf (oControl) Is NumericUpDown Then
+                    If oControl.Tag <> "" Then
+                        g.CurrentRow.Cells(CType(oControl.Tag, Integer)).Value = oControl.Value
+                    End If
+                End If
+                If TypeOf (oControl) Is Panel Then
+                    TextBoxAGrilla(oControl.Controls, g)
+                End If
 
 
                 '
@@ -683,6 +692,23 @@ Public Module Util
                         End Try
                     End If
                 End If
+
+
+                ''ACTUALIZACION DE MATIAS()
+                If TypeOf (oControl) Is NumericUpDown Then
+                    If oControl.Tag <> "" Then
+                        Try
+                            oControl.Value = IIf(g.CurrentRow.Cells(CType(oControl.Tag, Integer)).Value Is DBNull.Value, 0, g.CurrentRow.Cells(CType(oControl.Tag, Integer)).Value)
+                        Catch ex As Exception
+                            'MsgBox("10")
+                        End Try
+                    End If
+                End If
+                If TypeOf (oControl) Is Panel Then
+                    GrillaATextBox(oControl.Controls, g)
+                End If
+
+
 
                 '
                 ' Llamadas recursivas

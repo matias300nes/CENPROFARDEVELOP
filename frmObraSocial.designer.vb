@@ -34,6 +34,7 @@ Partial Class frmObraSocial
         Me.txtEmail = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.txtCodigoPostal = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.cboLocalidad = New DevComponents.DotNetBar.Controls.ComboBoxEx()
         Me.cboProvincia = New DevComponents.DotNetBar.Controls.ComboBoxEx()
         Me.Label8 = New System.Windows.Forms.Label()
@@ -43,7 +44,6 @@ Partial Class frmObraSocial
         Me.txtDomicilio = New System.Windows.Forms.TextBox()
         Me.labelCuit = New System.Windows.Forms.Label()
         Me.chkEliminados = New System.Windows.Forms.CheckBox()
-        Me.txtCodigoPostal = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.GroupBox1.SuspendLayout()
         CType(Me.nudBonificacion, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
@@ -165,7 +165,7 @@ Partial Class frmObraSocial
         Me.GroupBox1.DisabledBackColor = System.Drawing.Color.Empty
         Me.GroupBox1.Location = New System.Drawing.Point(12, 28)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(815, 169)
+        Me.GroupBox1.Size = New System.Drawing.Size(798, 169)
         '
         '
         '
@@ -342,6 +342,22 @@ Partial Class frmObraSocial
         Me.Panel1.Size = New System.Drawing.Size(300, 97)
         Me.Panel1.TabIndex = 261
         '
+        'txtCodigoPostal
+        '
+        Me.txtCodigoPostal.Decimals = CType(2, Byte)
+        Me.txtCodigoPostal.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
+        Me.txtCodigoPostal.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
+        Me.txtCodigoPostal.Location = New System.Drawing.Point(210, 23)
+        Me.txtCodigoPostal.MaxLength = 4
+        Me.txtCodigoPostal.Name = "txtCodigoPostal"
+        Me.txtCodigoPostal.Size = New System.Drawing.Size(68, 20)
+        Me.txtCodigoPostal.TabIndex = 65
+        Me.txtCodigoPostal.Text_1 = Nothing
+        Me.txtCodigoPostal.Text_2 = Nothing
+        Me.txtCodigoPostal.Text_3 = Nothing
+        Me.txtCodigoPostal.Text_4 = Nothing
+        Me.txtCodigoPostal.UserValues = Nothing
+        '
         'cboLocalidad
         '
         Me.cboLocalidad.DisplayMember = "Text"
@@ -404,7 +420,7 @@ Partial Class frmObraSocial
         Me.Label6.AutoSize = True
         Me.Label6.BackColor = System.Drawing.Color.Transparent
         Me.Label6.ForeColor = System.Drawing.Color.Blue
-        Me.Label6.Location = New System.Drawing.Point(15, 5)
+        Me.Label6.Location = New System.Drawing.Point(14, 6)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(49, 13)
         Me.Label6.TabIndex = 262
@@ -412,7 +428,7 @@ Partial Class frmObraSocial
         '
         'txtDomicilio
         '
-        Me.txtDomicilio.Location = New System.Drawing.Point(18, 22)
+        Me.txtDomicilio.Location = New System.Drawing.Point(17, 23)
         Me.txtDomicilio.MaxLength = 200
         Me.txtDomicilio.Name = "txtDomicilio"
         Me.txtDomicilio.Size = New System.Drawing.Size(171, 20)
@@ -441,22 +457,6 @@ Partial Class frmObraSocial
         Me.chkEliminados.TabIndex = 256
         Me.chkEliminados.Text = "Ver Eliminados"
         Me.chkEliminados.UseVisualStyleBackColor = False
-        '
-        'txtCodigoPostal
-        '
-        Me.txtCodigoPostal.Decimals = CType(2, Byte)
-        Me.txtCodigoPostal.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
-        Me.txtCodigoPostal.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
-        Me.txtCodigoPostal.Location = New System.Drawing.Point(210, 23)
-        Me.txtCodigoPostal.MaxLength = 4
-        Me.txtCodigoPostal.Name = "txtCodigoPostal"
-        Me.txtCodigoPostal.Size = New System.Drawing.Size(68, 20)
-        Me.txtCodigoPostal.TabIndex = 65
-        Me.txtCodigoPostal.Text_1 = Nothing
-        Me.txtCodigoPostal.Text_2 = Nothing
-        Me.txtCodigoPostal.Text_3 = Nothing
-        Me.txtCodigoPostal.Text_4 = Nothing
-        Me.txtCodigoPostal.UserValues = Nothing
         '
         'frmObraSocial
         '
