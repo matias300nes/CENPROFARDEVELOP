@@ -339,7 +339,7 @@ Public Class frmObraSocial
             param_cuit.ParameterName = "@cuit"
             param_cuit.SqlDbType = SqlDbType.BigInt
             param_cuit.Size = 11
-            param_cuit.Value = Long.Parse(txtCuit.Text)
+            param_cuit.Value = Long.Parse(labelCuit.Text)
             param_cuit.Direction = ParameterDirection.Input
 
             Dim param_res As New SqlClient.SqlParameter
@@ -411,7 +411,7 @@ Public Class frmObraSocial
             Dim param_cuit As New SqlClient.SqlParameter
             param_cuit.ParameterName = "@cuit"
             param_cuit.SqlDbType = SqlDbType.BigInt
-            param_cuit.Value = Long.Parse(txtCuit.Text)
+            param_cuit.Value = Long.Parse(labelCuit.Text)
             param_cuit.Direction = ParameterDirection.Input
 
             Dim param_res As New SqlClient.SqlParameter
@@ -555,10 +555,10 @@ Public Class frmObraSocial
     End Sub
 
     Private Sub asignarTags()
-        txtid.tag = "0"
+        txtID.Tag = "0"
         txtCODIGO.Tag = "1"
         txtObservaciones.Tag = "2"
-        txtCuit.Tag = "3"
+        labelCuit.Tag = "3"
 
     End Sub
 
@@ -569,6 +569,9 @@ Public Class frmObraSocial
         bolpoliticas = True
 
     End Sub
+
+
+
 
 
 #End Region
