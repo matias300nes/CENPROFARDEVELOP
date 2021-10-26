@@ -758,27 +758,29 @@ Public Class frmObraSocial
     End Sub
 
     Private Sub txtCodigoPostal_LostFocus(sender As Object, e As EventArgs) Handles txtCodigoPostal.LostFocus
-        ''LLENAR COMBOBOX LOCALIDADES
-        Dim connection As SqlClient.SqlConnection = Nothing
-        Try
-            connection = SqlHelper.GetConnection(ConnStringSEI)
-        Catch ex As Exception
-            MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
-        End Try
 
-        Dim sql_postal As String = $"select l.ID, l.nombre, l.CodArea, p.nombre as Provincia  from Localidades l
+        If txtCodigoPostal.Text <> "" Then
+            Dim connection As SqlClient.SqlConnection = Nothing
+            Try
+                connection = SqlHelper.GetConnection(ConnStringSEI)
+            Catch ex As Exception
+                MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Exit Sub
+            End Try
+
+            Dim sql_postal As String = $"select l.ID, l.nombre, l.CodArea, p.nombre as Provincia  from Localidades l
                                         inner join Provincias p on p.ID = l.IdProvincia where l.CodArea = {txtCodigoPostal.Text}"
 
-        Try
-            Dim ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, sql_postal)
-            cboProvincia.SelectedItem = ds.Tables(0).Rows(0)("Provincia")
-            cboLocalidad.SelectedItem = ds.Tables(0).Rows(0)("nombre")
+            Try
+                Dim ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, sql_postal)
+                cboProvincia.SelectedItem = ds.Tables(0).Rows(0)("Provincia")
+                cboLocalidad.SelectedItem = ds.Tables(0).Rows(0)("nombre")
 
-        Catch ex As Exception
-            MessageBox.Show($"Hubo un error al comunicarse con la base de datos.", "Error de Base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
-        End Try
+            Catch ex As Exception
+                MessageBox.Show($"Hubo un error al comunicarse con la base de datos.", "Error de Base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Exit Sub
+            End Try
+        End If
     End Sub
 
 

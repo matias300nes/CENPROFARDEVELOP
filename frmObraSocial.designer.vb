@@ -165,7 +165,7 @@ Partial Class frmObraSocial
         Me.GroupBox1.DisabledBackColor = System.Drawing.Color.Empty
         Me.GroupBox1.Location = New System.Drawing.Point(12, 28)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(798, 169)
+        Me.GroupBox1.Size = New System.Drawing.Size(832, 169)
         '
         '
         '
@@ -360,6 +360,8 @@ Partial Class frmObraSocial
         '
         'cboLocalidad
         '
+        Me.cboLocalidad.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cboLocalidad.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboLocalidad.DisplayMember = "Text"
         Me.cboLocalidad.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
         Me.cboLocalidad.FormattingEnabled = True
@@ -372,6 +374,8 @@ Partial Class frmObraSocial
         '
         'cboProvincia
         '
+        Me.cboProvincia.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cboProvincia.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboProvincia.DisplayMember = "Text"
         Me.cboProvincia.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
         Me.cboProvincia.FormattingEnabled = True
