@@ -303,7 +303,7 @@ Public Class frmFarmacias
 #End Region
 
 #Region "Funciones"
-
+    ''hice back
     Private Function AgregarRegistro() As Integer
         Dim connection As SqlClient.SqlConnection = Nothing
 
