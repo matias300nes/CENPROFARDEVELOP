@@ -10,6 +10,7 @@ Public Class frmObraSocial
     Public Origen As Integer
     Dim codigo As String
     Dim tranWEB As New WS_Porkys.WS_PorkysSoapClient
+    Dim llenandoCombo As Boolean
 
 #Region "Componentes Formulario"
 
@@ -36,8 +37,10 @@ Public Class frmObraSocial
         CargarCajas()
 
         PrepararBotones()
-
-        configurarCbos()
+        llenandoCombo = False
+        LlenarCmbProvincias()
+        LlenarCmbLocalidades(0)
+        llenandoCombo = True
 
     End Sub
 
@@ -306,7 +309,7 @@ Public Class frmObraSocial
 
 #Region "Funciones"
 
-    Private Function AgregarRegistro() As Integer
+    Private Function AgregarLocalidad() As Integer
         Dim connection As SqlClient.SqlConnection = Nothing
 
         Try
@@ -316,6 +319,7 @@ Public Class frmObraSocial
             Exit Function
         End Try
 
+
         Try
             Dim param_id As New SqlClient.SqlParameter
             param_id.ParameterName = "@id"
@@ -323,68 +327,25 @@ Public Class frmObraSocial
             param_id.Value = DBNull.Value
             param_id.Direction = ParameterDirection.InputOutput
 
-            Dim param_codigo As New SqlClient.SqlParameter
-            param_codigo.ParameterName = "@codigo"
-            param_codigo.SqlDbType = SqlDbType.VarChar
-            param_codigo.Size = 10
-            param_codigo.Value = DBNull.Value
-            param_codigo.Direction = ParameterDirection.InputOutput
-
-            Dim param_codFACAF As New SqlClient.SqlParameter
-            param_codFACAF.ParameterName = "@codFACAF"
-            param_codFACAF.SqlDbType = SqlDbType.VarChar
-            param_codFACAF.Size = 3
-            param_codFACAF.Value = txtCodigoFacaf.Text
-            param_codFACAF.Direction = ParameterDirection.Input
-
             Dim param_nombre As New SqlClient.SqlParameter
-            param_nombre.ParameterName = "@nombre"
+            param_nombre.ParameterName = "@Nombre"
             param_nombre.SqlDbType = SqlDbType.VarChar
             param_nombre.Size = 100
-            param_nombre.Value = txtObservaciones.Text.ToUpper
+            param_nombre.Value = cmbLocalidad.Text
             param_nombre.Direction = ParameterDirection.Input
 
-            Dim param_descripcion As New SqlClient.SqlParameter
-            param_descripcion.ParameterName = "@descripcion"
-            param_descripcion.SqlDbType = SqlDbType.VarChar
-            param_descripcion.Size = 200
-            param_descripcion.Value = txtDescripcion.Text
-            param_descripcion.Direction = ParameterDirection.Input
+            Dim param_codArea As New SqlClient.SqlParameter
+            param_codArea.ParameterName = "@CodArea"
+            param_codArea.SqlDbType = SqlDbType.Int
+            param_codArea.Value = IIf(txtCodigoPostal.Text = "", 0, txtCodigoPostal.Text)
+            param_codArea.Direction = ParameterDirection.Input
 
-            Dim param_domicilio As New SqlClient.SqlParameter
-            param_domicilio.ParameterName = "@domicilio"
-            param_domicilio.SqlDbType = SqlDbType.VarChar
-            param_domicilio.Size = 200
-            param_domicilio.Value = txtDomicilio.Text.ToUpper
-            param_domicilio.Direction = ParameterDirection.Input
+            Dim param_IdProvincia As New SqlClient.SqlParameter
+            param_IdProvincia.ParameterName = "@IdProvincia"
+            param_IdProvincia.SqlDbType = SqlDbType.Int
+            param_IdProvincia.Value = cmbProvincia.SelectedValue
+            param_IdProvincia.Direction = ParameterDirection.Input
 
-            Dim param_telefono As New SqlClient.SqlParameter
-            param_telefono.ParameterName = "@telefono"
-            param_telefono.SqlDbType = SqlDbType.VarChar
-            param_telefono.Size = 20
-            param_telefono.Value = txtTelefono.Text
-            param_telefono.Direction = ParameterDirection.Input
-
-            Dim param_email As New SqlClient.SqlParameter
-            param_email.ParameterName = "@email"
-            param_email.SqlDbType = SqlDbType.VarChar
-            param_email.Size = 50
-            param_email.Value = txtEmail.Text
-            param_email.Direction = ParameterDirection.Input
-
-            Dim param_cuit As New SqlClient.SqlParameter
-            param_cuit.ParameterName = "@cuit"
-            param_cuit.SqlDbType = SqlDbType.BigInt
-            param_cuit.Size = 11
-            param_cuit.Value = Long.Parse(txtCuit.Text)
-            param_cuit.Direction = ParameterDirection.Input
-
-            Dim param_bonificacion As New SqlClient.SqlParameter
-            param_bonificacion.ParameterName = "@bonificacion"
-            param_bonificacion.SqlDbType = SqlDbType.Decimal
-            param_bonificacion.Size = 10
-            param_bonificacion.Value = Decimal.Parse(nudBonificacion.Value)
-            param_bonificacion.Direction = ParameterDirection.Input
 
             Dim param_res As New SqlClient.SqlParameter
             param_res.ParameterName = "@res"
@@ -392,15 +353,15 @@ Public Class frmObraSocial
             param_res.Value = DBNull.Value
             param_res.Direction = ParameterDirection.InputOutput
 
+
             Try
-                SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spObrasSociales_Insert", param_id,
-                                          param_codigo, param_codFACAF, param_nombre, param_descripcion, param_domicilio,
-                                          param_telefono, param_email, param_cuit, param_bonificacion, param_res)
+                SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spLocalidades_Insert", param_id,
+                                          param_nombre, param_codArea, param_IdProvincia, param_res)
 
                 txtID.Text = param_id.Value
-                codigo = param_codigo.Value
+                'codigo = param_codigo.Value
 
-                AgregarRegistro = param_res.Value
+                AgregarLocalidad = param_res.Value
 
 
             Catch ex As Exception
@@ -426,6 +387,156 @@ Public Class frmObraSocial
             End If
         End Try
 
+
+
+
+    End Function
+
+
+
+    Private Function AgregarRegistro() As Integer
+        Dim connection As SqlClient.SqlConnection = Nothing
+        Dim res As Boolean
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+        Catch ex As Exception
+            MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Function
+        End Try
+
+        res = AgregarLocalidad()
+        Select Case Res
+            Case -3
+                Util.MsgStatus(Status1, "El registro ya existe.", My.Resources.Resources.stop_error.ToBitmap)
+                Exit Function
+            Case 0
+                Util.MsgStatus(Status1, "No se pudo actualizar el registro.", My.Resources.Resources.stop_error.ToBitmap)
+                Exit Function
+            Case -1
+                Util.MsgStatus(Status1, "No se pudo agregar el registro.", My.Resources.Resources.stop_error.ToBitmap)
+                Exit Function
+            Case Else
+                Util.MsgStatus(Status1, "Se ha actualizado el registro.", My.Resources.Resources.ok.ToBitmap)
+        End Select
+
+
+        If AgregarLocalidad() > 0 Then
+
+            Try
+                Dim param_id As New SqlClient.SqlParameter
+                param_id.ParameterName = "@id"
+                param_id.SqlDbType = SqlDbType.BigInt
+                param_id.Value = DBNull.Value
+                param_id.Direction = ParameterDirection.InputOutput
+
+                Dim param_codigo As New SqlClient.SqlParameter
+                param_codigo.ParameterName = "@codigo"
+                param_codigo.SqlDbType = SqlDbType.VarChar
+                param_codigo.Size = 10
+                param_codigo.Value = DBNull.Value
+                param_codigo.Direction = ParameterDirection.InputOutput
+
+                Dim param_codFACAF As New SqlClient.SqlParameter
+                param_codFACAF.ParameterName = "@codFACAF"
+                param_codFACAF.SqlDbType = SqlDbType.VarChar
+                param_codFACAF.Size = 3
+                param_codFACAF.Value = txtCodigoFacaf.Text
+                param_codFACAF.Direction = ParameterDirection.Input
+
+                Dim param_nombre As New SqlClient.SqlParameter
+                param_nombre.ParameterName = "@nombre"
+                param_nombre.SqlDbType = SqlDbType.VarChar
+                param_nombre.Size = 100
+                param_nombre.Value = txtObservaciones.Text.ToUpper
+                param_nombre.Direction = ParameterDirection.Input
+
+                Dim param_descripcion As New SqlClient.SqlParameter
+                param_descripcion.ParameterName = "@descripcion"
+                param_descripcion.SqlDbType = SqlDbType.VarChar
+                param_descripcion.Size = 200
+                param_descripcion.Value = txtDescripcion.Text
+                param_descripcion.Direction = ParameterDirection.Input
+
+                Dim param_domicilio As New SqlClient.SqlParameter
+                param_domicilio.ParameterName = "@domicilio"
+                param_domicilio.SqlDbType = SqlDbType.VarChar
+                param_domicilio.Size = 200
+                param_domicilio.Value = txtDomicilio.Text.ToUpper
+                param_domicilio.Direction = ParameterDirection.Input
+
+                Dim param_telefono As New SqlClient.SqlParameter
+                param_telefono.ParameterName = "@telefono"
+                param_telefono.SqlDbType = SqlDbType.VarChar
+                param_telefono.Size = 20
+                param_telefono.Value = txtTelefono.Text
+                param_telefono.Direction = ParameterDirection.Input
+
+                Dim param_email As New SqlClient.SqlParameter
+                param_email.ParameterName = "@email"
+                param_email.SqlDbType = SqlDbType.VarChar
+                param_email.Size = 50
+                param_email.Value = txtEmail.Text
+                param_email.Direction = ParameterDirection.Input
+
+                Dim param_cuit As New SqlClient.SqlParameter
+                param_cuit.ParameterName = "@cuit"
+                param_cuit.SqlDbType = SqlDbType.BigInt
+                param_cuit.Size = 11
+                param_cuit.Value = Long.Parse(txtCuit.Text)
+                param_cuit.Direction = ParameterDirection.Input
+
+                Dim param_bonificacion As New SqlClient.SqlParameter
+                param_bonificacion.ParameterName = "@bonificacion"
+                param_bonificacion.SqlDbType = SqlDbType.Decimal
+                param_bonificacion.Size = 10
+                param_bonificacion.Value = Decimal.Parse(nudBonificacion.Value)
+                param_bonificacion.Direction = ParameterDirection.Input
+
+                Dim param_res As New SqlClient.SqlParameter
+                param_res.ParameterName = "@res"
+                param_res.SqlDbType = SqlDbType.Int
+                param_res.Value = DBNull.Value
+                param_res.Direction = ParameterDirection.InputOutput
+
+                Try
+                    SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spObrasSociales_Insert", param_id,
+                                              param_codigo, param_codFACAF, param_nombre, param_descripcion, param_domicilio,
+                                              param_telefono, param_email, param_cuit, param_bonificacion, param_res)
+
+                    txtID.Text = param_id.Value
+                    codigo = param_codigo.Value
+
+                    AgregarRegistro = param_res.Value
+
+
+                Catch ex As Exception
+                    Throw ex
+                End Try
+
+            Catch ex As Exception
+                Dim errMessage As String = ""
+                Dim tempException As Exception = ex
+
+                While (Not tempException Is Nothing)
+                    errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                    tempException = tempException.InnerException
+                End While
+
+                MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+                  + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+                  "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+            Finally
+                If Not connection Is Nothing Then
+                    CType(connection, IDisposable).Dispose()
+                End If
+            End Try
+
+        End If
+
+
+
+
     End Function
 
     Private Function ActualizarRegistro() As Integer
@@ -439,103 +550,108 @@ Public Class frmObraSocial
             Exit Function
         End Try
 
-        Try
-            Dim param_id As New SqlClient.SqlParameter
-            param_id.ParameterName = "@id"
-            param_id.SqlDbType = SqlDbType.BigInt
-            param_id.Value = CType(txtID.Text, Long)
-            param_id.Direction = ParameterDirection.Input
+        If AgregarLocalidad() <> -1 Then
+            Try
+                Dim param_id As New SqlClient.SqlParameter
+                param_id.ParameterName = "@id"
+                param_id.SqlDbType = SqlDbType.BigInt
+                param_id.Value = CType(txtID.Text, Long)
+                param_id.Direction = ParameterDirection.Input
 
-            Dim param_nombre As New SqlClient.SqlParameter
-            param_nombre.ParameterName = "@nombre"
-            param_nombre.SqlDbType = SqlDbType.VarChar
-            param_nombre.Size = 300
-            param_nombre.Value = txtObservaciones.Text.ToUpper
-            param_nombre.Direction = ParameterDirection.Input
+                Dim param_nombre As New SqlClient.SqlParameter
+                param_nombre.ParameterName = "@nombre"
+                param_nombre.SqlDbType = SqlDbType.VarChar
+                param_nombre.Size = 300
+                param_nombre.Value = txtObservaciones.Text.ToUpper
+                param_nombre.Direction = ParameterDirection.Input
 
-            Dim param_cuit As New SqlClient.SqlParameter
-            param_cuit.ParameterName = "@cuit"
-            param_cuit.SqlDbType = SqlDbType.BigInt
-            param_cuit.Value = Long.Parse(txtCuit.Text)
-            param_cuit.Direction = ParameterDirection.Input
+                Dim param_cuit As New SqlClient.SqlParameter
+                param_cuit.ParameterName = "@cuit"
+                param_cuit.SqlDbType = SqlDbType.BigInt
+                param_cuit.Value = Long.Parse(txtCuit.Text)
+                param_cuit.Direction = ParameterDirection.Input
 
-            Dim param_res As New SqlClient.SqlParameter
-            param_res.ParameterName = "@res"
-            param_res.SqlDbType = SqlDbType.Int
-            param_res.Value = DBNull.Value
-            param_res.Direction = ParameterDirection.InputOutput
+                Dim param_res As New SqlClient.SqlParameter
+                param_res.ParameterName = "@res"
+                param_res.SqlDbType = SqlDbType.Int
+                param_res.Value = DBNull.Value
+                param_res.Direction = ParameterDirection.InputOutput
 
-            ''-------------------------------------------------
+                ''-------------------------------------------------
 
-            Dim param_codFACAF As New SqlClient.SqlParameter
-            param_codFACAF.ParameterName = "@codFACAF"
-            param_codFACAF.SqlDbType = SqlDbType.VarChar
-            param_codFACAF.Size = 3
-            param_codFACAF.Value = txtCodigoFacaf.Text
-            param_codFACAF.Direction = ParameterDirection.Input
+                Dim param_codFACAF As New SqlClient.SqlParameter
+                param_codFACAF.ParameterName = "@codFACAF"
+                param_codFACAF.SqlDbType = SqlDbType.VarChar
+                param_codFACAF.Size = 3
+                param_codFACAF.Value = txtCodigoFacaf.Text
+                param_codFACAF.Direction = ParameterDirection.Input
 
-            Dim param_descripcion As New SqlClient.SqlParameter
-            param_descripcion.ParameterName = "@descripcion"
-            param_descripcion.SqlDbType = SqlDbType.VarChar
-            param_descripcion.Size = 200
-            param_descripcion.Value = txtDescripcion.Text
-            param_descripcion.Direction = ParameterDirection.Input
+                Dim param_descripcion As New SqlClient.SqlParameter
+                param_descripcion.ParameterName = "@descripcion"
+                param_descripcion.SqlDbType = SqlDbType.VarChar
+                param_descripcion.Size = 200
+                param_descripcion.Value = txtDescripcion.Text
+                param_descripcion.Direction = ParameterDirection.Input
 
-            Dim param_domicilio As New SqlClient.SqlParameter
-            param_domicilio.ParameterName = "@domicilio"
-            param_domicilio.SqlDbType = SqlDbType.VarChar
-            param_domicilio.Size = 200
-            param_domicilio.Value = txtDomicilio.Text.ToUpper
-            param_domicilio.Direction = ParameterDirection.Input
+                Dim param_domicilio As New SqlClient.SqlParameter
+                param_domicilio.ParameterName = "@domicilio"
+                param_domicilio.SqlDbType = SqlDbType.VarChar
+                param_domicilio.Size = 200
+                param_domicilio.Value = txtDomicilio.Text.ToUpper
+                param_domicilio.Direction = ParameterDirection.Input
 
-            Dim param_telefono As New SqlClient.SqlParameter
-            param_telefono.ParameterName = "@telefono"
-            param_telefono.SqlDbType = SqlDbType.VarChar
-            param_telefono.Size = 20
-            param_telefono.Value = txtTelefono.Text
-            param_telefono.Direction = ParameterDirection.Input
+                Dim param_telefono As New SqlClient.SqlParameter
+                param_telefono.ParameterName = "@telefono"
+                param_telefono.SqlDbType = SqlDbType.VarChar
+                param_telefono.Size = 20
+                param_telefono.Value = txtTelefono.Text
+                param_telefono.Direction = ParameterDirection.Input
 
-            Dim param_email As New SqlClient.SqlParameter
-            param_email.ParameterName = "@email"
-            param_email.SqlDbType = SqlDbType.VarChar
-            param_email.Size = 50
-            param_email.Value = txtEmail.Text
-            param_email.Direction = ParameterDirection.Input
+                Dim param_email As New SqlClient.SqlParameter
+                param_email.ParameterName = "@email"
+                param_email.SqlDbType = SqlDbType.VarChar
+                param_email.Size = 50
+                param_email.Value = txtEmail.Text
+                param_email.Direction = ParameterDirection.Input
 
-            Dim param_bonificacion As New SqlClient.SqlParameter
-            param_bonificacion.ParameterName = "@bonificacion"
-            param_bonificacion.SqlDbType = SqlDbType.Decimal
-            param_bonificacion.Size = 10
-            param_bonificacion.Value = Decimal.Parse(nudBonificacion.Value)
-            param_bonificacion.Direction = ParameterDirection.Input
+                Dim param_bonificacion As New SqlClient.SqlParameter
+                param_bonificacion.ParameterName = "@bonificacion"
+                param_bonificacion.SqlDbType = SqlDbType.Decimal
+                param_bonificacion.Size = 10
+                param_bonificacion.Value = Decimal.Parse(nudBonificacion.Value)
+                param_bonificacion.Direction = ParameterDirection.Input
 
-            ''------------------------------------------------
-
-
-            SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spObrasSociales_Update", param_id,
-                                          param_nombre, param_codFACAF, param_telefono, param_email, param_cuit,
-                                          param_descripcion, param_domicilio, param_bonificacion, param_res)
-
-            ActualizarRegistro = param_res.Value
+                ''------------------------------------------------
 
 
-        Catch ex As Exception
-            Dim errMessage As String = ""
-            Dim tempException As Exception = ex
+                SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spObrasSociales_Update", param_id,
+                                              param_nombre, param_codFACAF, param_telefono, param_email, param_cuit,
+                                              param_descripcion, param_domicilio, param_bonificacion, param_res)
 
-            While (Not tempException Is Nothing)
-                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
-                tempException = tempException.InnerException
-            End While
+                ActualizarRegistro = param_res.Value
 
-            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
-              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            If Not connection Is Nothing Then
-                CType(connection, IDisposable).Dispose()
-            End If
-        End Try
+
+            Catch ex As Exception
+                Dim errMessage As String = ""
+                Dim tempException As Exception = ex
+
+                While (Not tempException Is Nothing)
+                    errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                    tempException = tempException.InnerException
+                End While
+
+                MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+                  + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+                  "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Finally
+                If Not connection Is Nothing Then
+                    CType(connection, IDisposable).Dispose()
+                End If
+            End Try
+        End If
+
+
+
 
     End Function
 
@@ -664,7 +780,10 @@ Public Class frmObraSocial
 
     End Sub
 
-    Private Sub configurarCbos()
+
+
+
+    Private Sub LlenarCmbProvincias()
         ''LLENAR COMBOBOX PROVINCIAS
         Dim connection As SqlClient.SqlConnection = Nothing
         Try
@@ -674,18 +793,21 @@ Public Class frmObraSocial
             Exit Sub
         End Try
 
-        Dim sql_provincias As String = "select * from provincias"
+        Dim sql_provincias As String = "select ID, Nombre from provincias where eliminado = 0"
 
         Try
             Dim ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, sql_provincias)
 
-            If ds.Tables(0).Rows.Count > 0 Then
-                For Each row As DataRow In ds.Tables(0).Rows
-                    cboProvincia.Items.Add(row("Nombre"))
-                Next
+            ds.Dispose()
 
-                cboProvincia.SelectedItem = ds.Tables(0).Rows(0)("Nombre")
-            End If
+            With Me.cmbProvincia
+                .DataSource = ds.Tables(0).DefaultView
+                .DisplayMember = "Nombre"
+                .ValueMember = "ID"
+                '.AutoCompleteMode = AutoCompleteMode.SuggestAppend
+                '.AutoCompleteSource = AutoCompleteSource.ListItems
+
+            End With
 
         Catch ex As Exception
             MessageBox.Show("Hubo un error al comunicarse con la base de datos.", "Error de Base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -695,8 +817,8 @@ Public Class frmObraSocial
 
     End Sub
 
-    Private Sub cboProvincia_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboProvincia.SelectedIndexChanged
-        ''LLENAR COMBOBOX LOCALIDADES
+    Private Sub LlenarCmbLocalidades(ByVal idprovincia As Integer)
+        ''LLENAR COMBOBOX PROVINCIAS
         Dim connection As SqlClient.SqlConnection = Nothing
         Try
             connection = SqlHelper.GetConnection(ConnStringSEI)
@@ -704,57 +826,63 @@ Public Class frmObraSocial
             MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End Try
-
-        Dim sql_localidad As String = $"select l.ID, l.nombre, l.CodArea, p.nombre as Provincia  from Localidades l
-                                        inner join Provincias p on p.ID = l.IdProvincia where p.nombre = '{cboProvincia.SelectedItem}'"
+        Dim sql_localidades As String
+        If idprovincia = 0 Then
+            sql_localidades = "select ID, Nombre from Localidades where eliminado = 0"
+        Else
+            sql_localidades = $"select ID, Nombre from Localidades where eliminado = 0 and idprovincia = {cmbProvincia.SelectedValue}"
+        End If
 
 
         Try
-            Dim ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, sql_localidad)
-            cboLocalidad.Items.Clear()
-            cboLocalidad.Text = ""
-            cboLocalidad.SelectedValue = Nothing
+            Dim ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, sql_localidades)
 
-            If cboLocalidad.Text = "" Then
-                txtCodigoPostal.Text = ""
-            End If
+            ds.Dispose()
 
-            If ds.Tables(0).Rows.Count > 0 Then
+            With Me.cmbLocalidad
+                .DataSource = ds.Tables(0).DefaultView
+                .DisplayMember = "Nombre"
+                .ValueMember = "ID"
+                '.AutoCompleteMode = AutoCompleteMode.SuggestAppend
+                '.AutoCompleteSource = AutoCompleteSource.ListItems
 
-                For Each row As DataRow In ds.Tables(0).Rows
-                    cboLocalidad.Items.Add(row("Nombre"))
-                Next
-
-                cboLocalidad.SelectedItem = ds.Tables(0).Rows(0)("Nombre")
-            End If
+            End With
 
         Catch ex As Exception
-            MessageBox.Show($"Hubo un error al comunicarse con la base de datos. {ex}", "Error de Base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("Hubo un error al comunicarse con la base de datos.", "Error de Base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End Try
+
+
     End Sub
 
-    Private Sub cboLocalidad_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboLocalidad.SelectedIndexChanged
-        ''LLENAR COMBOBOX LOCALIDADES
-        Dim connection As SqlClient.SqlConnection = Nothing
-        Try
-            connection = SqlHelper.GetConnection(ConnStringSEI)
-        Catch ex As Exception
-            MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
-        End Try
 
-        Dim sql_postal As String = $"select l.ID, l.nombre, l.CodArea, p.nombre as Provincia  from Localidades l
-                                        inner join Provincias p on p.ID = l.IdProvincia where p.nombre = '{cboProvincia.SelectedItem}' and l.nombre = '{cboLocalidad.SelectedItem}'"
+    Private Sub cmbLocalidad_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbLocalidad.SelectedIndexChanged
 
-        Try
-            Dim ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, sql_postal)
-            txtCodigoPostal.Text = ds.Tables(0).Rows(0)("CodArea")
+        If llenandoCombo = True Then
+            ''LLENAR COMBOBOX LOCALIDADES
+            Dim connection As SqlClient.SqlConnection = Nothing
+            Try
+                connection = SqlHelper.GetConnection(ConnStringSEI)
+            Catch ex As Exception
+                MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Exit Sub
+            End Try
 
-        Catch ex As Exception
-            MessageBox.Show($"Hubo un error al comunicarse con la base de datos.", "Error de Base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
-        End Try
+            Dim sql_postal As String = $"select l.ID, l.nombre, l.CodArea, p.nombre as Provincia  from Localidades l
+                                        inner join Provincias p on p.ID = l.IdProvincia where p.nombre = '{cmbProvincia.SelectedItem}' and l.nombre = '{cmbLocalidad.SelectedItem}'"
+
+            Try
+                Dim ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, sql_postal)
+                txtCodigoPostal.Text = ds.Tables(0).Rows(0)("CodArea")
+
+            Catch ex As Exception
+                MessageBox.Show($"Hubo un error al comunicarse con la base de datos.", "Error de Base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Exit Sub
+            End Try
+        End If
+
+
     End Sub
 
     Private Sub txtCodigoPostal_LostFocus(sender As Object, e As EventArgs) Handles txtCodigoPostal.LostFocus
@@ -773,8 +901,8 @@ Public Class frmObraSocial
 
             Try
                 Dim ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, sql_postal)
-                cboProvincia.SelectedItem = ds.Tables(0).Rows(0)("Provincia")
-                cboLocalidad.SelectedItem = ds.Tables(0).Rows(0)("nombre")
+                cmbProvincia.SelectedItem = ds.Tables(0).Rows(0)("Provincia")
+                cmbLocalidad.SelectedItem = ds.Tables(0).Rows(0)("nombre")
 
             Catch ex As Exception
                 MessageBox.Show($"Hubo un error al comunicarse con la base de datos.", "Error de Base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -783,6 +911,27 @@ Public Class frmObraSocial
         End If
     End Sub
 
+
+    Private Sub cmbProvincia_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbProvincia.SelectedValueChanged
+        If llenandoCombo = True Then
+            ''LLENAR COMBOBOX LOCALIDADES
+            Dim connection As SqlClient.SqlConnection = Nothing
+            Try
+                connection = SqlHelper.GetConnection(ConnStringSEI)
+            Catch ex As Exception
+                MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Exit Sub
+            End Try
+
+            llenandoCombo = False
+            LlenarCmbLocalidades(cmbProvincia.SelectedValue)
+            llenandoCombo = True
+
+        End If
+
+
+
+    End Sub
 
 
 #End Region
