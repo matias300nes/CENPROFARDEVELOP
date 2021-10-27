@@ -39,7 +39,6 @@ Public Class frmObraSocial
         PrepararBotones()
         llenandoCombo = False
         LlenarCmbProvincias()
-        LlenarCmbLocalidades(0)
         llenandoCombo = True
 
     End Sub
@@ -316,9 +315,8 @@ Public Class frmObraSocial
             connection = SqlHelper.GetConnection(ConnStringSEI)
         Catch ex As Exception
             MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Function
+            Return -1
         End Try
-
 
         Try
             Dim param_id As New SqlClient.SqlParameter
@@ -331,13 +329,13 @@ Public Class frmObraSocial
             param_nombre.ParameterName = "@Nombre"
             param_nombre.SqlDbType = SqlDbType.VarChar
             param_nombre.Size = 100
-            param_nombre.Value = cmbLocalidad.Text
+            param_nombre.Value = cmbLocalidad.Text.ToUpper
             param_nombre.Direction = ParameterDirection.Input
 
             Dim param_codArea As New SqlClient.SqlParameter
             param_codArea.ParameterName = "@CodArea"
             param_codArea.SqlDbType = SqlDbType.Int
-            param_codArea.Value = IIf(txtCodigoPostal.Text = "", 0, txtCodigoPostal.Text)
+            param_codArea.Value = IIf(txtCodigoPostal.Text = "", DBNull.Value, txtCodigoPostal.Text)
             param_codArea.Direction = ParameterDirection.Input
 
             Dim param_IdProvincia As New SqlClient.SqlParameter
@@ -361,8 +359,22 @@ Public Class frmObraSocial
                 txtID.Text = param_id.Value
                 'codigo = param_codigo.Value
 
-                AgregarLocalidad = param_res.Value
+                Select Case param_id.Value
+                    Case -3
+                        Util.MsgStatus(Status1, "El registro ya existe.", My.Resources.Resources.stop_error.ToBitmap)
+                        Return -1
+                    Case 0
+                        Util.MsgStatus(Status1, "No se pudo actualizar el registro.", My.Resources.Resources.stop_error.ToBitmap)
+                        Return -1
+                    Case -1
+                        Util.MsgStatus(Status1, "No se pudo agregar el registro.", My.Resources.Resources.stop_error.ToBitmap)
+                        Return -1
+                    Case Else
+                        Util.MsgStatus(Status1, "Se ha actualizado el registro.", My.Resources.Resources.ok.ToBitmap)
+                End Select
 
+                'AgregarLocalidad = param_res.Value
+                AgregarLocalidad = IIf(param_id.Value IsNot DBNull.Value, param_id.Value, -1)
 
             Catch ex As Exception
                 Throw ex
@@ -387,16 +399,13 @@ Public Class frmObraSocial
             End If
         End Try
 
-
-
-
     End Function
 
 
 
     Private Function AgregarRegistro() As Integer
         Dim connection As SqlClient.SqlConnection = Nothing
-        Dim res As Boolean
+        Dim IdLocalidad As Integer
         Try
             connection = SqlHelper.GetConnection(ConnStringSEI)
         Catch ex As Exception
@@ -404,23 +413,9 @@ Public Class frmObraSocial
             Exit Function
         End Try
 
-        res = AgregarLocalidad()
-        Select Case Res
-            Case -3
-                Util.MsgStatus(Status1, "El registro ya existe.", My.Resources.Resources.stop_error.ToBitmap)
-                Exit Function
-            Case 0
-                Util.MsgStatus(Status1, "No se pudo actualizar el registro.", My.Resources.Resources.stop_error.ToBitmap)
-                Exit Function
-            Case -1
-                Util.MsgStatus(Status1, "No se pudo agregar el registro.", My.Resources.Resources.stop_error.ToBitmap)
-                Exit Function
-            Case Else
-                Util.MsgStatus(Status1, "Se ha actualizado el registro.", My.Resources.Resources.ok.ToBitmap)
-        End Select
+        IdLocalidad = AgregarLocalidad() ''ME RETORNA EL ID DE LA LOCALIDAD
 
-
-        If AgregarLocalidad() > 0 Then
+        If IdLocalidad <> -1 Then
 
             Try
                 Dim param_id As New SqlClient.SqlParameter
@@ -464,6 +459,13 @@ Public Class frmObraSocial
                 param_domicilio.Value = txtDomicilio.Text.ToUpper
                 param_domicilio.Direction = ParameterDirection.Input
 
+                Dim param_localidad As New SqlClient.SqlParameter
+                param_localidad.ParameterName = "@localidad"
+                param_localidad.SqlDbType = SqlDbType.Int
+                param_localidad.Size = 10
+                param_localidad.Value = IdLocalidad
+                param_localidad.Direction = ParameterDirection.Input
+
                 Dim param_telefono As New SqlClient.SqlParameter
                 param_telefono.ParameterName = "@telefono"
                 param_telefono.SqlDbType = SqlDbType.VarChar
@@ -501,7 +503,8 @@ Public Class frmObraSocial
                 Try
                     SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spObrasSociales_Insert", param_id,
                                               param_codigo, param_codFACAF, param_nombre, param_descripcion, param_domicilio,
-                                              param_telefono, param_email, param_cuit, param_bonificacion, param_res)
+                                              param_localidad, param_telefono, param_email, param_cuit, param_bonificacion,
+                                              param_res)
 
                     txtID.Text = param_id.Value
                     codigo = param_codigo.Value
@@ -770,6 +773,8 @@ Public Class frmObraSocial
         txtDescripcion.Tag = "7"
         nudBonificacion.Tag = "8"
         txtDomicilio.Tag = "9"
+        'cmbLocalidad.Tag = "10"
+
     End Sub
 
     Private Sub Verificar_Datos()
@@ -804,10 +809,10 @@ Public Class frmObraSocial
                 .DataSource = ds.Tables(0).DefaultView
                 .DisplayMember = "Nombre"
                 .ValueMember = "ID"
-                '.AutoCompleteMode = AutoCompleteMode.SuggestAppend
-                '.AutoCompleteSource = AutoCompleteSource.ListItems
-
+                .SelectedValue = ds.Tables(0).Rows(0)("ID")
             End With
+
+            LlenarCmbLocalidades(cmbProvincia.SelectedValue)
 
         Catch ex As Exception
             MessageBox.Show("Hubo un error al comunicarse con la base de datos.", "Error de Base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -839,14 +844,16 @@ Public Class frmObraSocial
 
             ds.Dispose()
 
-            With Me.cmbLocalidad
-                .DataSource = ds.Tables(0).DefaultView
-                .DisplayMember = "Nombre"
-                .ValueMember = "ID"
-                '.AutoCompleteMode = AutoCompleteMode.SuggestAppend
-                '.AutoCompleteSource = AutoCompleteSource.ListItems
-
-            End With
+            If ds.Tables(0).Rows.Count > 0 Then
+                With Me.cmbLocalidad
+                    .DataSource = ds.Tables(0).DefaultView
+                    .DisplayMember = "Nombre"
+                    .ValueMember = "ID"
+                    .AutoCompleteMode = AutoCompleteMode.SuggestAppend
+                    .AutoCompleteSource = AutoCompleteSource.ListItems
+                    .SelectedValue = ds.Tables(0).Rows(0)("ID")
+                End With
+            End If
 
         Catch ex As Exception
             MessageBox.Show("Hubo un error al comunicarse con la base de datos.", "Error de Base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -869,59 +876,30 @@ Public Class frmObraSocial
                 Exit Sub
             End Try
 
-            Dim sql_postal As String = $"select l.ID, l.nombre, l.CodArea, p.nombre as Provincia  from Localidades l
-                                        inner join Provincias p on p.ID = l.IdProvincia where p.nombre = '{cmbProvincia.SelectedItem}' and l.nombre = '{cmbLocalidad.SelectedItem}'"
+            Dim sql_postal As String = $"select ID, CodArea from Localidades
+                                        where ID = '{cmbLocalidad.SelectedValue}'"
 
             Try
                 Dim ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, sql_postal)
-                txtCodigoPostal.Text = ds.Tables(0).Rows(0)("CodArea")
+                ds.dispose()
+                If ds.Tables(0).Rows.Count > 0 Then
+                    txtCodigoPostal.Text = IIf(ds.Tables(0).Rows(0)("CodArea") IsNot DBNull.Value, ds.Tables(0).Rows(0)("CodArea"), "")
+                End If
+
 
             Catch ex As Exception
-                MessageBox.Show($"Hubo un error al comunicarse con la base de datos.", "Error de Base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show($"Hubo un error al comunicarse con la base de datos. {ex}", "Error de Base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End Try
         End If
 
 
-    End Sub
-
-    Private Sub txtCodigoPostal_LostFocus(sender As Object, e As EventArgs) Handles txtCodigoPostal.LostFocus
-
-        If txtCodigoPostal.Text <> "" Then
-            Dim connection As SqlClient.SqlConnection = Nothing
-            Try
-                connection = SqlHelper.GetConnection(ConnStringSEI)
-            Catch ex As Exception
-                MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Exit Sub
-            End Try
-
-            Dim sql_postal As String = $"select l.ID, l.nombre, l.CodArea, p.nombre as Provincia  from Localidades l
-                                        inner join Provincias p on p.ID = l.IdProvincia where l.CodArea = {txtCodigoPostal.Text}"
-
-            Try
-                Dim ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, sql_postal)
-                cmbProvincia.SelectedItem = ds.Tables(0).Rows(0)("Provincia")
-                cmbLocalidad.SelectedItem = ds.Tables(0).Rows(0)("nombre")
-
-            Catch ex As Exception
-                MessageBox.Show($"Hubo un error al comunicarse con la base de datos.", "Error de Base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Exit Sub
-            End Try
-        End If
     End Sub
 
 
     Private Sub cmbProvincia_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbProvincia.SelectedValueChanged
         If llenandoCombo = True Then
             ''LLENAR COMBOBOX LOCALIDADES
-            Dim connection As SqlClient.SqlConnection = Nothing
-            Try
-                connection = SqlHelper.GetConnection(ConnStringSEI)
-            Catch ex As Exception
-                MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Exit Sub
-            End Try
 
             llenandoCombo = False
             LlenarCmbLocalidades(cmbProvincia.SelectedValue)
@@ -931,6 +909,33 @@ Public Class frmObraSocial
 
 
 
+    End Sub
+
+    Private Sub txtCodigoPostal_TextChanged(sender As Object, e As EventArgs) Handles txtCodigoPostal.TextChanged
+        If txtCodigoPostal.Text.Length = 4 Then
+            Dim connection As SqlClient.SqlConnection = Nothing
+            Try
+                connection = SqlHelper.GetConnection(ConnStringSEI)
+            Catch ex As Exception
+                MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Exit Sub
+            End Try
+
+            Dim sql_postal As String = $"select ID, IdProvincia, CodArea from Localidades
+                                        where CodArea = {txtCodigoPostal.Text}"
+
+            Try
+                Dim ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, sql_postal)
+                ds.Dispose()
+                If ds.Tables(0).Rows.Count > 0 Then
+                    cmbProvincia.SelectedValue = ds.Tables(0).Rows(0)("IdProvincia")
+                    cmbLocalidad.SelectedValue = ds.Tables(0).Rows(0)("ID")
+                End If
+            Catch ex As Exception
+                MessageBox.Show($"Hubo un error al comunicarse con la base de datos.{ex}", "Error de Base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Exit Sub
+            End Try
+        End If
     End Sub
 
 
