@@ -30,6 +30,10 @@ Public Class frmObraSocial
 
         SQL = "exec spObrasSociales_Select_All @Eliminado = 0"
 
+        llenandoCombo = False
+        LlenarCmbProvincias()
+        llenandoCombo = True
+
         LlenarGrilla()
 
         Permitir = True
@@ -37,9 +41,11 @@ Public Class frmObraSocial
         CargarCajas()
 
         PrepararBotones()
-        llenandoCombo = False
-        LlenarCmbProvincias()
-        llenandoCombo = True
+
+        ''fuerzo a que los cmblocalidades tomen el primer valor de la grilla
+        cmbProvincia.SelectedValue = grd.CurrentRow.Cells(11).Value
+        cmbLocalidad.SelectedValue = grd.CurrentRow.Cells(10).Value
+        cmbLocalidad.Text = grd.CurrentRow.Cells(12).Value
 
     End Sub
 
@@ -173,6 +179,11 @@ Public Class frmObraSocial
                 PrepararBotones()
                 MDIPrincipal.NoActualizarBase = False
                 btnActualizar_Click(sender, e)
+
+                cmbProvincia.SelectedValue = grd.CurrentRow.Cells(11).Value
+                cmbLocalidad.SelectedValue = grd.CurrentRow.Cells(10).Value
+                cmbLocalidad.Text = grd.CurrentRow.Cells(12).Value
+
             End If
         End If
 
@@ -212,6 +223,8 @@ Public Class frmObraSocial
 
 
         End Select
+        Permitir = True
+
         'Else
         'Util.MsgStatus(Status1, "No tiene permiso para eliminar registros.", My.Resources.stop_error.ToBitmap)
         'End If
@@ -322,7 +335,7 @@ Public Class frmObraSocial
             Dim param_id As New SqlClient.SqlParameter
             param_id.ParameterName = "@id"
             param_id.SqlDbType = SqlDbType.BigInt
-            param_id.Value = DBNull.Value
+            param_id.Value = cmbLocalidad.SelectedValue
             param_id.Direction = ParameterDirection.InputOutput
 
             Dim param_nombre As New SqlClient.SqlParameter
@@ -461,8 +474,7 @@ Public Class frmObraSocial
 
                 Dim param_localidad As New SqlClient.SqlParameter
                 param_localidad.ParameterName = "@localidad"
-                param_localidad.SqlDbType = SqlDbType.Int
-                param_localidad.Size = 10
+                param_localidad.SqlDbType = SqlDbType.BigInt
                 param_localidad.Value = IdLocalidad
                 param_localidad.Direction = ParameterDirection.Input
 
@@ -508,7 +520,7 @@ Public Class frmObraSocial
 
                     txtID.Text = param_id.Value
                     codigo = param_codigo.Value
-
+                    Permitir = False
                     AgregarRegistro = param_res.Value
 
 
@@ -661,7 +673,7 @@ Public Class frmObraSocial
     Private Function EliminarRegistro() As Integer
         Dim res As Integer = 0
         Dim connection As SqlClient.SqlConnection = Nothing
-
+        Permitir = False
 
         Try
             connection = SqlHelper.GetConnection(ConnStringSEI)
@@ -773,7 +785,8 @@ Public Class frmObraSocial
         txtDescripcion.Tag = "7"
         nudBonificacion.Tag = "8"
         txtDomicilio.Tag = "9"
-        'cmbLocalidad.Tag = "10"
+        cmbLocalidad.Tag = "10"
+        cmbProvincia.Tag = "11"
 
     End Sub
 
@@ -809,7 +822,6 @@ Public Class frmObraSocial
                 .DataSource = ds.Tables(0).DefaultView
                 .DisplayMember = "Nombre"
                 .ValueMember = "ID"
-                .SelectedValue = ds.Tables(0).Rows(0)("ID")
             End With
 
             LlenarCmbLocalidades(cmbProvincia.SelectedValue)
@@ -851,7 +863,6 @@ Public Class frmObraSocial
                     .ValueMember = "ID"
                     .AutoCompleteMode = AutoCompleteMode.SuggestAppend
                     .AutoCompleteSource = AutoCompleteSource.ListItems
-                    .SelectedValue = ds.Tables(0).Rows(0)("ID")
                 End With
             End If
 
@@ -936,6 +947,18 @@ Public Class frmObraSocial
                 Exit Sub
             End Try
         End If
+    End Sub
+
+    Protected Overloads Sub grd_CurrentCellChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles grd.CurrentCellChanged
+
+        If Permitir Then
+            cmbProvincia.SelectedValue = grd.CurrentRow.Cells(11).Value
+
+
+            cmbLocalidad.SelectedValue = grd.CurrentRow.Cells(10).Value
+            cmbLocalidad.Text = grd.CurrentRow.Cells(12).Value
+        End If
+
     End Sub
 
 
