@@ -147,32 +147,8 @@ Public Class frmObraSocial
 
 
                     End Select
-                    '    Else
-                    '    Util.MsgStatus(Status1, "No tiene permiso para modificar registros.", My.Resources.stop_error.ToBitmap)
-                    'End If
+
                 End If
-
-                'If MDIPrincipal.NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
-
-                'Try
-                '    Dim sqlstring As String
-
-                '    If bolModo = True Then
-                '        sqlstring = "INSERT INTO [dbo].[" & NameTable_obra socials & "] (ID, [Codigo],[Nombre],[Eliminado])" & _
-                '                    " values ( " & txtID.Text & ", '" & codigo & "', '" & txtObservaciones.Text.ToUpper & "' , 0 )"
-
-                '    Else
-                '        sqlstring = "UPDATE [dbo].[" & NameTable_Marcas & "] SET [Codigo] = '" & txtCODIGO.Text & " ', " & _
-                '                    " [Nombre] = '" & txtObservaciones.Text.ToUpper & "' " & _
-                '                    " WHERE ID = " & txtID.Text
-                '    End If
-
-                '    tranWEB.Sql_Set(sqlstring)
-
-                'Catch ex As Exception
-                '    'MsgBox(ex.Message)
-                '    MsgBox("No se puede actualizar en la Web la lista de Marcas. Ejecute el botón sincronizar para actualizar el servidor WEB.")
-                'End Try
 
                 'End If
                 bolModo = False
@@ -223,7 +199,7 @@ Public Class frmObraSocial
 
 
         End Select
-        Permitir = True
+
 
         'Else
         'Util.MsgStatus(Status1, "No tiene permiso para eliminar registros.", My.Resources.stop_error.ToBitmap)
@@ -250,20 +226,6 @@ Public Class frmObraSocial
 
             ds_Update = SqlHelper.ExecuteDataset(connection, CommandType.Text, "UPDATE ObrasSociales SET Eliminado = 0 WHERE id = " & grd.CurrentRow.Cells(0).Value)
             ds_Update.Dispose()
-
-
-            'If MDIPrincipal.NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
-            'Try
-            '    Dim sqlstring As String
-
-            '    sqlstring = "UPDATE [dbo].[" & NameTable_Marcas & "] SET [Eliminado] = 0 WHERE Codigo = '" & grd.CurrentRow.Cells(1).Value & "'"
-            '    tranWEB.Sql_Set(sqlstring)
-
-            'Catch ex As Exception
-            '    'MsgBox(ex.Message)
-            '    MsgBox("No se puede Activa en la Web la Marca seleccionada. Ejecute el botón sincronizar para actualizar el servidor WEB.")
-            'End Try
-            'End If
 
             SQL = "exec spObrasSociales_Select_All @Eliminado = 1"
 
@@ -520,7 +482,7 @@ Public Class frmObraSocial
 
                     txtID.Text = param_id.Value
                     codigo = param_codigo.Value
-                    Permitir = False
+
                     AgregarRegistro = param_res.Value
 
 
@@ -557,6 +519,7 @@ Public Class frmObraSocial
     Private Function ActualizarRegistro() As Integer
         Dim res As Integer = 0
         Dim connection As SqlClient.SqlConnection = Nothing
+        Dim IdLocalidad As Integer
 
         Try
             connection = SqlHelper.GetConnection(ConnStringSEI)
@@ -565,7 +528,9 @@ Public Class frmObraSocial
             Exit Function
         End Try
 
-        If AgregarLocalidad() <> -1 Then
+        IdLocalidad = AgregarLocalidad() ''ME RETORNA EL ID DE LA LOCALIDAD
+
+        If IdLocalidad <> -1 Then
             Try
                 Dim param_id As New SqlClient.SqlParameter
                 param_id.ParameterName = "@id"
@@ -615,6 +580,12 @@ Public Class frmObraSocial
                 param_domicilio.Value = txtDomicilio.Text.ToUpper
                 param_domicilio.Direction = ParameterDirection.Input
 
+                Dim param_localidad As New SqlClient.SqlParameter
+                param_localidad.ParameterName = "@localidad"
+                param_localidad.SqlDbType = SqlDbType.BigInt
+                param_localidad.Value = IdLocalidad
+                param_localidad.Direction = ParameterDirection.Input
+
                 Dim param_telefono As New SqlClient.SqlParameter
                 param_telefono.ParameterName = "@telefono"
                 param_telefono.SqlDbType = SqlDbType.VarChar
@@ -641,7 +612,7 @@ Public Class frmObraSocial
 
                 SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spObrasSociales_Update", param_id,
                                               param_nombre, param_codFACAF, param_telefono, param_email, param_cuit,
-                                              param_descripcion, param_domicilio, param_bonificacion, param_res)
+                                              param_descripcion, param_domicilio, param_localidad, param_bonificacion, param_res)
 
                 ActualizarRegistro = param_res.Value
 
@@ -673,7 +644,7 @@ Public Class frmObraSocial
     Private Function EliminarRegistro() As Integer
         Dim res As Integer = 0
         Dim connection As SqlClient.SqlConnection = Nothing
-        Permitir = False
+
 
         Try
             connection = SqlHelper.GetConnection(ConnStringSEI)
@@ -949,9 +920,9 @@ Public Class frmObraSocial
         End If
     End Sub
 
-    Protected Overloads Sub grd_CurrentCellChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles grd.CurrentCellChanged
+    Protected Overloads Sub grd_CurrentCellChanged(ByVal sender As Object, ByVal e As System.EventArgs)
 
-        If Permitir Then
+        If Not grd.CurrentRow Is Nothing Then
             cmbProvincia.SelectedValue = grd.CurrentRow.Cells(11).Value
 
 

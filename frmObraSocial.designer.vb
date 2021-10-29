@@ -66,7 +66,6 @@ Partial Class frmObraSocial
         Me.txtID.Text_3 = Nothing
         Me.txtID.Text_4 = Nothing
         Me.txtID.UserValues = Nothing
-        Me.txtID.Visible = False
         '
         'Label1
         '
@@ -76,7 +75,6 @@ Partial Class frmObraSocial
         Me.Label1.Size = New System.Drawing.Size(16, 13)
         Me.Label1.TabIndex = 50
         Me.Label1.Text = "Id"
-        Me.Label1.Visible = False
         '
         'txtCODIGO
         '
@@ -165,7 +163,7 @@ Partial Class frmObraSocial
         Me.GroupBox1.DisabledBackColor = System.Drawing.Color.Empty
         Me.GroupBox1.Location = New System.Drawing.Point(12, 28)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(781, 169)
+        Me.GroupBox1.Size = New System.Drawing.Size(798, 169)
         '
         '
         '
@@ -360,6 +358,7 @@ Partial Class frmObraSocial
         '
         'cmbLocalidad
         '
+        Me.cmbLocalidad.AccessibleName = "*Localidad"
         Me.cmbLocalidad.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbLocalidad.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbLocalidad.DisplayMember = "Text"
@@ -394,9 +393,9 @@ Partial Class frmObraSocial
         Me.Label9.ForeColor = System.Drawing.Color.Blue
         Me.Label9.Location = New System.Drawing.Point(14, 46)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(51, 13)
+        Me.Label9.Size = New System.Drawing.Size(55, 13)
         Me.Label9.TabIndex = 268
-        Me.Label9.Text = "Provincia"
+        Me.Label9.Text = "Provincia*"
         '
         'Label7
         '
@@ -411,14 +410,15 @@ Partial Class frmObraSocial
         '
         'Label8
         '
+        Me.Label8.AccessibleName = ""
         Me.Label8.AutoSize = True
         Me.Label8.BackColor = System.Drawing.Color.Transparent
         Me.Label8.ForeColor = System.Drawing.Color.Blue
         Me.Label8.Location = New System.Drawing.Point(155, 46)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(53, 13)
+        Me.Label8.Size = New System.Drawing.Size(57, 13)
         Me.Label8.TabIndex = 266
-        Me.Label8.Text = "Localidad"
+        Me.Label8.Text = "Localidad*"
         '
         'Label6
         '
