@@ -641,7 +641,8 @@ Public Module Util
                     If oControl.Tag <> "" Then
                         If g.CurrentRow.Cells(CType(oControl.Tag, Integer)).Value <> "" Then
                             Try
-                                oControl.Text = IIf(g.CurrentRow.Cells(CType(oControl.Tag, Integer)).Value Is DBNull.Value, "", g.CurrentRow.Cells(CType(oControl.Tag, Integer)).Value)
+                                'oControl.Text = IIf(g.CurrentRow.Cells(CType(oControl.Tag, Integer)).Value Is DBNull.Value, "", g.CurrentRow.Cells(CType(oControl.Tag, Integer)).Value)
+                                oControl.SelectedValue = IIf(g.CurrentRow.Cells(CType(oControl.Tag, Integer)).Value Is DBNull.Value, "", g.CurrentRow.Cells(CType(oControl.Tag, Integer)).Value)
                             Catch e As Exception
                                 ' MsgBox("5")
                             End Try

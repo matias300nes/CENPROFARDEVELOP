@@ -42,9 +42,6 @@ Public Class frmObraSocial
 
         PrepararBotones()
 
-        'fuerzo a que los cmblocalidades tomen el primer valor de la grilla
-        grd_CurrentCellChanged(grd.CurrentRow, New EventArgs())
-
     End Sub
 
     Private Sub txtid_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) _
@@ -153,8 +150,6 @@ Public Class frmObraSocial
                 PrepararBotones()
                 MDIPrincipal.NoActualizarBase = False
                 btnActualizar_Click(sender, e)
-
-                grd_CurrentCellChanged(grd.CurrentRow, New EventArgs())
 
             End If
         End If
@@ -915,17 +910,17 @@ Public Class frmObraSocial
         End If
     End Sub
 
-    Protected Overloads Sub grd_CurrentCellChanged(ByVal sender As Object, ByVal e As System.EventArgs)
+    'Protected Overloads Sub grd_CurrentCellChanged(ByVal sender As Object, ByVal e As System.EventArgs)
 
-        If Not grd.CurrentRow Is Nothing Then
-            cmbProvincia.SelectedValue = grd.CurrentRow.Cells(11).Value
+    '    If Not grd.CurrentRow Is Nothing Then
+    '        cmbProvincia.SelectedValue = grd.CurrentRow.Cells(11).Value
 
 
-            cmbLocalidad.SelectedValue = grd.CurrentRow.Cells(10).Value
-            cmbLocalidad.Text = grd.CurrentRow.Cells(12).Value
-        End If
+    '        cmbLocalidad.SelectedValue = grd.CurrentRow.Cells(10).Value
+    '        cmbLocalidad.Text = grd.CurrentRow.Cells(12).Value
+    '    End If
 
-    End Sub
+    'End Sub
 
 
 #End Region

@@ -42,9 +42,6 @@ Public Class frmFarmacias
 
         PrepararBotones()
 
-        ''fuerzo a que los cmblocalidades tomen el primer valor de la grilla
-        grd_CurrentCellChanged(sender, e)
-
     End Sub
 
     Private Sub txtid_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) _
@@ -154,8 +151,6 @@ Public Class frmFarmacias
                 PrepararBotones()
                 MDIPrincipal.NoActualizarBase = False
                 btnActualizar_Click(sender, e)
-
-                grd_CurrentCellChanged(sender, e)
 
             End If
         End If
@@ -953,16 +948,6 @@ Public Class frmFarmacias
                 Exit Sub
             End Try
         End If
-    End Sub
-
-    Protected Overloads Sub grd_CurrentCellChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles grd.CurrentCellChanged
-
-        If Not grd.CurrentRow Is Nothing Then
-            cmbProvincia.SelectedValue = grd.CurrentRow.Cells(13).Value
-            cmbLocalidad.SelectedValue = grd.CurrentRow.Cells(12).Value
-            cmbLocalidad.Text = grd.CurrentRow.Cells(14).Value
-        End If
-
     End Sub
 
 
