@@ -324,7 +324,7 @@ Public Class frmFarmacias
             Dim param_id As New SqlClient.SqlParameter
             param_id.ParameterName = "@id"
             param_id.SqlDbType = SqlDbType.BigInt
-            param_id.Value = DBNull.Value
+            param_id.Value = cmbLocalidad.SelectedValue
             param_id.Direction = ParameterDirection.InputOutput
 
             Dim param_nombre As New SqlClient.SqlParameter
