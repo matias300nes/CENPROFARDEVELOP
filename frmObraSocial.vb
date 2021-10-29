@@ -42,7 +42,7 @@ Public Class frmObraSocial
 
         PrepararBotones()
 
-        '''fuerzo a que los cmblocalidades tomen el primer valor de la grilla
+        'fuerzo a que los cmblocalidades tomen el primer valor de la grilla
         grd_CurrentCellChanged(sender, e)
 
     End Sub
