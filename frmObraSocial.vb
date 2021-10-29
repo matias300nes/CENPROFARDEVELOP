@@ -43,7 +43,7 @@ Public Class frmObraSocial
         PrepararBotones()
 
         'fuerzo a que los cmblocalidades tomen el primer valor de la grilla
-        grd_CurrentCellChanged(sender, e)
+        grd_CurrentCellChanged(grd.CurrentRow, New EventArgs())
 
     End Sub
 
@@ -154,7 +154,7 @@ Public Class frmObraSocial
                 MDIPrincipal.NoActualizarBase = False
                 btnActualizar_Click(sender, e)
 
-                grd_CurrentCellChanged(sender, e)
+                grd_CurrentCellChanged(grd.CurrentRow, New EventArgs())
 
             End If
         End If
@@ -915,7 +915,7 @@ Public Class frmObraSocial
         End If
     End Sub
 
-    Protected Overloads Sub grd_CurrentCellChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles grd.CurrentCellChanged
+    Protected Overloads Sub grd_CurrentCellChanged(ByVal sender As Object, ByVal e As System.EventArgs)
 
         If Not grd.CurrentRow Is Nothing Then
             cmbProvincia.SelectedValue = grd.CurrentRow.Cells(11).Value
