@@ -1061,6 +1061,9 @@ Public Module Util
                 If TypeOf (oControl) Is DevComponents.DotNetBar.TabControlPanel Then
                     LimpiarTextBox(oControl.Controls)
                 End If
+                If TypeOf (oControl) Is Panel Then
+                    LimpiarTextBox(oControl.Controls)
+                End If
 
             Catch ex As Exception
                 'MsgBox(i)

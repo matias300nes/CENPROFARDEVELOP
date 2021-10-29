@@ -336,23 +336,6 @@ Public Class frmFarmacias
                 SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spLocalidades_Insert", param_id,
                                           param_nombre, param_codArea, param_IdProvincia, param_res)
 
-                'txtID.Text = param_id.Value
-                'codigo = param_codigo.Value
-
-                Select Case param_id.Value
-                    Case -3
-                        Util.MsgStatus(Status1, "El registro ya existe.", My.Resources.Resources.stop_error.ToBitmap)
-                        Return -1
-                    Case 0
-                        Util.MsgStatus(Status1, "No se pudo actualizar el registro.", My.Resources.Resources.stop_error.ToBitmap)
-                        Return -1
-                    Case -1
-                        Util.MsgStatus(Status1, "No se pudo agregar el registro.", My.Resources.Resources.stop_error.ToBitmap)
-                        Return -1
-                    Case Else
-                        Util.MsgStatus(Status1, "Se ha actualizado el registro.", My.Resources.Resources.ok.ToBitmap)
-                End Select
-
                 'AgregarLocalidad = param_res.Value
                 AgregarLocalidad = IIf(param_id.Value IsNot DBNull.Value, param_id.Value, -1)
 
@@ -412,14 +395,14 @@ Public Class frmFarmacias
                 Dim param_CodPAMI As New SqlClient.SqlParameter
                 param_CodPAMI.ParameterName = "@CodPAMI"
                 param_CodPAMI.SqlDbType = SqlDbType.BigInt
-                param_CodPAMI.Value = IIf(txtCodPAMI.Text = "", 0, txtCodPAMI.Text)
+                param_CodPAMI.Value = IIf(txtCodPAMI.Text = "", DBNull.Value, Long.Parse(txtCodPAMI.Text))
                 param_CodPAMI.Direction = ParameterDirection.Input
 
                 Dim param_CodFACAF As New SqlClient.SqlParameter
                 param_CodFACAF.ParameterName = "@CodFACAF"
                 param_CodFACAF.SqlDbType = SqlDbType.NVarChar
                 param_CodFACAF.Size = 300
-                param_CodFACAF.Value = txtCodFACAF.Text
+                param_CodFACAF.Value = IIf(txtCodFACAF.Text = "", DBNull.Value, Long.Parse(txtCodFACAF.Text))
                 param_CodFACAF.Direction = ParameterDirection.Input
 
                 Dim param_nombre As New SqlClient.SqlParameter
@@ -432,7 +415,7 @@ Public Class frmFarmacias
                 Dim param_cuit As New SqlClient.SqlParameter
                 param_cuit.ParameterName = "@Cuit"
                 param_cuit.SqlDbType = SqlDbType.BigInt
-                param_cuit.Value = txtCuit.Text
+                param_cuit.Value = Long.Parse(txtCuit.Text)
                 param_cuit.Direction = ParameterDirection.Input
 
                 Dim param_domicilio As New SqlClient.SqlParameter
@@ -560,7 +543,7 @@ Public Class frmFarmacias
                 Dim param_CodPAMI As New SqlClient.SqlParameter
                 param_CodPAMI.ParameterName = "@CodPAMI"
                 param_CodPAMI.SqlDbType = SqlDbType.BigInt
-                param_CodPAMI.Value = IIf(txtCodPAMI.Text = "", 0, txtCodPAMI.Text)
+                param_CodPAMI.Value = IIf(txtCodPAMI.Text = "", 0, Long.Parse(txtCodPAMI.Text))
                 param_CodPAMI.Direction = ParameterDirection.Input
 
                 Dim param_CodFACAF As New SqlClient.SqlParameter
@@ -580,7 +563,8 @@ Public Class frmFarmacias
                 Dim param_cuit As New SqlClient.SqlParameter
                 param_cuit.ParameterName = "@Cuit"
                 param_cuit.SqlDbType = SqlDbType.BigInt
-                param_cuit.Value = txtCuit.Text
+                param_cuit.Size = 11
+                param_cuit.Value = Long.Parse(txtCuit.Text)
                 param_cuit.Direction = ParameterDirection.Input
 
                 Dim param_domicilio As New SqlClient.SqlParameter
@@ -888,13 +872,18 @@ Public Class frmFarmacias
                 Exit Sub
             End Try
 
-            Dim sql_postal As String = $"select ID, CodArea from Localidades
+            Try
+
+                Dim sql_postal As String = $"select ID, CodArea, IdProvincia from Localidades
                                         where ID = '{cmbLocalidad.SelectedValue}'"
 
-            Try
+
                 Dim ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, sql_postal)
                 ds.dispose()
                 If ds.Tables(0).Rows.Count > 0 Then
+                    If cmbProvincia.Text.Equals("") Then
+                        cmbProvincia.SelectedValue = ds.Tables(0).Rows(0)("IdProvincia")
+                    End If
                     txtCodigoPostal.Text = IIf(ds.Tables(0).Rows(0)("CodArea") IsNot DBNull.Value, ds.Tables(0).Rows(0)("CodArea"), "")
                 End If
 

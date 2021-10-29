@@ -322,22 +322,6 @@ Public Class frmObraSocial
                 SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spLocalidades_Insert", param_id,
                                           param_nombre, param_codArea, param_IdProvincia, param_res)
 
-                'codigo = param_codigo.Value
-
-                Select Case param_id.Value
-                    Case -3
-                        Util.MsgStatus(Status1, "El registro ya existe.", My.Resources.Resources.stop_error.ToBitmap)
-                        Return -1
-                    Case 0
-                        Util.MsgStatus(Status1, "No se pudo actualizar el registro.", My.Resources.Resources.stop_error.ToBitmap)
-                        Return -1
-                    Case -1
-                        Util.MsgStatus(Status1, "No se pudo agregar el registro.", My.Resources.Resources.stop_error.ToBitmap)
-                        Return -1
-                    Case Else
-                        Util.MsgStatus(Status1, "Se ha actualizado el registro.", My.Resources.Resources.ok.ToBitmap)
-                End Select
-
                 'AgregarLocalidad = param_res.Value
                 AgregarLocalidad = IIf(param_id.Value IsNot DBNull.Value, param_id.Value, -1)
 
@@ -848,15 +832,22 @@ Public Class frmObraSocial
                 Exit Sub
             End Try
 
-            Dim sql_postal As String = $"select ID, CodArea from Localidades
+            Try
+
+                Dim sql_postal As String = $"select ID, CodArea, IdProvincia from Localidades
                                         where ID = '{cmbLocalidad.SelectedValue}'"
 
-            Try
+
                 Dim ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, sql_postal)
                 ds.dispose()
                 If ds.Tables(0).Rows.Count > 0 Then
+                    If cmbProvincia.Text.Equals("") Then
+                        cmbProvincia.SelectedValue = ds.Tables(0).Rows(0)("IdProvincia")
+                    End If
                     txtCodigoPostal.Text = IIf(ds.Tables(0).Rows(0)("CodArea") IsNot DBNull.Value, ds.Tables(0).Rows(0)("CodArea"), "")
                 End If
+
+
 
 
             Catch ex As Exception
