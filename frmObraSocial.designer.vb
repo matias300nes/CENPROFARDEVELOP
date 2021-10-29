@@ -196,6 +196,7 @@ Partial Class frmObraSocial
         '
         'txtCuit
         '
+        Me.txtCuit.AccessibleName = "*Cuit"
         Me.txtCuit.Decimals = CType(2, Byte)
         Me.txtCuit.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtCuit.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber

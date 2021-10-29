@@ -42,10 +42,8 @@ Public Class frmObraSocial
 
         PrepararBotones()
 
-        ''fuerzo a que los cmblocalidades tomen el primer valor de la grilla
-        cmbProvincia.SelectedValue = grd.CurrentRow.Cells(11).Value
-        cmbLocalidad.SelectedValue = grd.CurrentRow.Cells(10).Value
-        cmbLocalidad.Text = grd.CurrentRow.Cells(12).Value
+        'fuerzo a que los cmblocalidades tomen el primer valor de la grilla
+        grd_CurrentCellChanged(sender, e)
 
     End Sub
 
@@ -156,9 +154,7 @@ Public Class frmObraSocial
                 MDIPrincipal.NoActualizarBase = False
                 btnActualizar_Click(sender, e)
 
-                cmbProvincia.SelectedValue = grd.CurrentRow.Cells(11).Value
-                cmbLocalidad.SelectedValue = grd.CurrentRow.Cells(10).Value
-                cmbLocalidad.Text = grd.CurrentRow.Cells(12).Value
+                grd_CurrentCellChanged(sender, e)
 
             End If
         End If
@@ -331,7 +327,6 @@ Public Class frmObraSocial
                 SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spLocalidades_Insert", param_id,
                                           param_nombre, param_codArea, param_IdProvincia, param_res)
 
-                txtID.Text = param_id.Value
                 'codigo = param_codigo.Value
 
                 Select Case param_id.Value
@@ -920,7 +915,7 @@ Public Class frmObraSocial
         End If
     End Sub
 
-    Protected Overloads Sub grd_CurrentCellChanged(ByVal sender As Object, ByVal e As System.EventArgs)
+    Protected Overloads Sub grd_CurrentCellChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles grd.CurrentCellChanged
 
         If Not grd.CurrentRow Is Nothing Then
             cmbProvincia.SelectedValue = grd.CurrentRow.Cells(11).Value
