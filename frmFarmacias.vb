@@ -30,6 +30,10 @@ Public Class frmFarmacias
 
         SQL = "exec spFarmacias_Select_All @Eliminado = 0"
 
+        llenandoCombo = False
+        LlenarCmbProvincias()
+        llenandoCombo = True
+
         LlenarGrilla()
 
         Permitir = True
@@ -38,9 +42,8 @@ Public Class frmFarmacias
 
         PrepararBotones()
 
-        llenandoCombo = False
-        LlenarCmbProvincias()
-        llenandoCombo = True
+        ''fuerzo a que los cmblocalidades tomen el primer valor de la grilla
+        grd_CurrentCellChanged(sender, e)
 
     End Sub
 
@@ -147,33 +150,13 @@ Public Class frmFarmacias
                     'End If
                 End If
 
-                'If MDIPrincipal.NoActualizar = False Then 'Not SystemInformation.ComputerName.ToString.ToUpper = "SAMBA-PC" Then
-
-                'Try
-                '    Dim sqlstring As String
-
-                '    If bolModo = True Then
-                '        sqlstring = "INSERT INTO [dbo].[" & NameTable_Marcas & "] (ID, [Codigo],[Nombre],[Eliminado])" & _
-                '                    " values ( " & txtID.Text & ", '" & codigo & "', '" & txtObservaciones.Text.ToUpper & "' , 0 )"
-
-                '    Else
-                '        sqlstring = "UPDATE [dbo].[" & NameTable_Marcas & "] SET [Codigo] = '" & txtCODIGO.Text & " ', " & _
-                '                    " [Nombre] = '" & txtObservaciones.Text.ToUpper & "' " & _
-                '                    " WHERE ID = " & txtID.Text
-                '    End If
-
-                '    tranWEB.Sql_Set(sqlstring)
-
-                'Catch ex As Exception
-                '    'MsgBox(ex.Message)
-                '    MsgBox("No se puede actualizar en la Web la lista de Marcas. Ejecute el botón sincronizar para actualizar el servidor WEB.")
-                'End Try
-
-                'End If
                 bolModo = False
                 PrepararBotones()
                 MDIPrincipal.NoActualizarBase = False
                 btnActualizar_Click(sender, e)
+
+                grd_CurrentCellChanged(sender, e)
+
             End If
         End If
 
@@ -358,7 +341,7 @@ Public Class frmFarmacias
                 SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spLocalidades_Insert", param_id,
                                           param_nombre, param_codArea, param_IdProvincia, param_res)
 
-                txtID.Text = param_id.Value
+                'txtID.Text = param_id.Value
                 'codigo = param_codigo.Value
 
                 Select Case param_id.Value
@@ -553,7 +536,7 @@ Public Class frmFarmacias
     Private Function ActualizarRegistro() As Integer
         Dim res As Integer = 0
         Dim connection As SqlClient.SqlConnection = Nothing
-
+        Dim IdLocalidad As Integer
         Try
             connection = SqlHelper.GetConnection(ConnStringSEI)
         Catch ex As Exception
@@ -561,122 +544,135 @@ Public Class frmFarmacias
             Exit Function
         End Try
 
-        Try
-            Dim param_id As New SqlClient.SqlParameter
-            param_id.ParameterName = "@id"
-            param_id.SqlDbType = SqlDbType.BigInt
-            param_id.Value = CType(txtID.Text, Long)
-            param_id.Direction = ParameterDirection.Input
+        IdLocalidad = AgregarLocalidad() ''ME RETORNA EL ID DE LA LOCALIDAD
 
-            Dim param_cod As New SqlClient.SqlParameter
-            param_cod.ParameterName = "@codigo"
-            param_cod.SqlDbType = SqlDbType.VarChar
-            param_cod.Size = 10
-            param_cod.Value = txtCODIGO.Text
-            param_cod.Direction = ParameterDirection.Input
-
-            Dim param_CodPAMI As New SqlClient.SqlParameter
-            param_CodPAMI.ParameterName = "@CodPAMI"
-            param_CodPAMI.SqlDbType = SqlDbType.BigInt
-            param_CodPAMI.Value = IIf(txtCodPAMI.Text = "", 0, txtCodPAMI.Text)
-            param_CodPAMI.Direction = ParameterDirection.Input
-
-            Dim param_CodFACAF As New SqlClient.SqlParameter
-            param_CodFACAF.ParameterName = "@CodFACAF"
-            param_CodFACAF.SqlDbType = SqlDbType.NVarChar
-            param_CodFACAF.Size = 300
-            param_CodFACAF.Value = txtCodFACAF.Text
-            param_CodFACAF.Direction = ParameterDirection.Input
-
-            Dim param_nombre As New SqlClient.SqlParameter
-            param_nombre.ParameterName = "@nombre"
-            param_nombre.SqlDbType = SqlDbType.VarChar
-            param_nombre.Size = 300
-            param_nombre.Value = txtFarmacia.Text.ToUpper
-            param_nombre.Direction = ParameterDirection.Input
-
-            Dim param_cuit As New SqlClient.SqlParameter
-            param_cuit.ParameterName = "@Cuit"
-            param_cuit.SqlDbType = SqlDbType.BigInt
-            param_cuit.Value = txtCuit.Text
-            param_cuit.Direction = ParameterDirection.Input
-
-            Dim param_domicilio As New SqlClient.SqlParameter
-            param_domicilio.ParameterName = "@Domicilio"
-            param_domicilio.SqlDbType = SqlDbType.VarChar
-            param_domicilio.Size = 200
-            param_domicilio.Value = txtDomicilio.Text.ToUpper
-            param_domicilio.Direction = ParameterDirection.Input
-
-            Dim param_telefono As New SqlClient.SqlParameter
-            param_telefono.ParameterName = "@Telefono"
-            param_telefono.SqlDbType = SqlDbType.VarChar
-            param_telefono.Size = 50
-            param_telefono.Value = txtTelefono.Text.ToUpper
-            param_telefono.Direction = ParameterDirection.Input
-
-            Dim param_email As New SqlClient.SqlParameter
-            param_email.ParameterName = "@Email"
-            param_email.SqlDbType = SqlDbType.VarChar
-            param_email.Size = 100
-            param_email.Value = txtEmail.Text.ToUpper
-            param_email.Direction = ParameterDirection.Input
-
-            Dim param_contribuyente As New SqlClient.SqlParameter
-            param_contribuyente.ParameterName = "@Contribuyente"
-            param_contribuyente.SqlDbType = SqlDbType.VarChar
-            param_contribuyente.Size = 100
-            param_contribuyente.Value = txtTipoContribuyente.Text.ToUpper
-            param_contribuyente.Direction = ParameterDirection.Input
-
-            Dim param_estadofarmacia As New SqlClient.SqlParameter
-            param_estadofarmacia.ParameterName = "@EstadoFarmacia"
-            param_estadofarmacia.SqlDbType = SqlDbType.VarChar
-            param_estadofarmacia.Size = 10
-            param_estadofarmacia.Value = cmbEstado.Text.ToUpper
-            param_estadofarmacia.Direction = ParameterDirection.Input
-
-            Dim param_motivobaja As New SqlClient.SqlParameter
-            param_motivobaja.ParameterName = "@MotivoBaja"
-            param_motivobaja.SqlDbType = SqlDbType.NVarChar
-            param_motivobaja.Size = 200
-            param_motivobaja.Value = txtMotivoBaja.Text.ToUpper
-            param_motivobaja.Direction = ParameterDirection.Input
-
-            Dim param_res As New SqlClient.SqlParameter
-            param_res.ParameterName = "@res"
-            param_res.SqlDbType = SqlDbType.Int
-            param_res.Value = DBNull.Value
-            param_res.Direction = ParameterDirection.InputOutput
+        If IdLocalidad <> -1 Then
 
             Try
-                SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spFarmacias_Update", param_id, param_cod,
-                                          param_nombre, param_CodFACAF, param_CodPAMI, param_cuit, param_domicilio, param_telefono,
+                Dim param_id As New SqlClient.SqlParameter
+                param_id.ParameterName = "@id"
+                param_id.SqlDbType = SqlDbType.BigInt
+                param_id.Value = CType(txtID.Text, Long)
+                param_id.Direction = ParameterDirection.Input
+
+                Dim param_cod As New SqlClient.SqlParameter
+                param_cod.ParameterName = "@codigo"
+                param_cod.SqlDbType = SqlDbType.VarChar
+                param_cod.Size = 10
+                param_cod.Value = txtCODIGO.Text
+                param_cod.Direction = ParameterDirection.Input
+
+                Dim param_CodPAMI As New SqlClient.SqlParameter
+                param_CodPAMI.ParameterName = "@CodPAMI"
+                param_CodPAMI.SqlDbType = SqlDbType.BigInt
+                param_CodPAMI.Value = IIf(txtCodPAMI.Text = "", 0, txtCodPAMI.Text)
+                param_CodPAMI.Direction = ParameterDirection.Input
+
+                Dim param_CodFACAF As New SqlClient.SqlParameter
+                param_CodFACAF.ParameterName = "@CodFACAF"
+                param_CodFACAF.SqlDbType = SqlDbType.NVarChar
+                param_CodFACAF.Size = 300
+                param_CodFACAF.Value = txtCodFACAF.Text
+                param_CodFACAF.Direction = ParameterDirection.Input
+
+                Dim param_nombre As New SqlClient.SqlParameter
+                param_nombre.ParameterName = "@nombre"
+                param_nombre.SqlDbType = SqlDbType.VarChar
+                param_nombre.Size = 300
+                param_nombre.Value = txtFarmacia.Text.ToUpper
+                param_nombre.Direction = ParameterDirection.Input
+
+                Dim param_cuit As New SqlClient.SqlParameter
+                param_cuit.ParameterName = "@Cuit"
+                param_cuit.SqlDbType = SqlDbType.BigInt
+                param_cuit.Value = txtCuit.Text
+                param_cuit.Direction = ParameterDirection.Input
+
+                Dim param_domicilio As New SqlClient.SqlParameter
+                param_domicilio.ParameterName = "@Domicilio"
+                param_domicilio.SqlDbType = SqlDbType.VarChar
+                param_domicilio.Size = 200
+                param_domicilio.Value = txtDomicilio.Text.ToUpper
+                param_domicilio.Direction = ParameterDirection.Input
+
+                Dim param_localidad As New SqlClient.SqlParameter
+                param_localidad.ParameterName = "@localidad"
+                param_localidad.SqlDbType = SqlDbType.BigInt
+                param_localidad.Value = IdLocalidad
+                param_localidad.Direction = ParameterDirection.Input
+
+                Dim param_telefono As New SqlClient.SqlParameter
+                param_telefono.ParameterName = "@Telefono"
+                param_telefono.SqlDbType = SqlDbType.VarChar
+                param_telefono.Size = 50
+                param_telefono.Value = txtTelefono.Text.ToUpper
+                param_telefono.Direction = ParameterDirection.Input
+
+                Dim param_email As New SqlClient.SqlParameter
+                param_email.ParameterName = "@Email"
+                param_email.SqlDbType = SqlDbType.VarChar
+                param_email.Size = 100
+                param_email.Value = txtEmail.Text.ToUpper
+                param_email.Direction = ParameterDirection.Input
+
+                Dim param_contribuyente As New SqlClient.SqlParameter
+                param_contribuyente.ParameterName = "@Contribuyente"
+                param_contribuyente.SqlDbType = SqlDbType.VarChar
+                param_contribuyente.Size = 100
+                param_contribuyente.Value = txtTipoContribuyente.Text.ToUpper
+                param_contribuyente.Direction = ParameterDirection.Input
+
+                Dim param_estadofarmacia As New SqlClient.SqlParameter
+                param_estadofarmacia.ParameterName = "@EstadoFarmacia"
+                param_estadofarmacia.SqlDbType = SqlDbType.VarChar
+                param_estadofarmacia.Size = 10
+                param_estadofarmacia.Value = cmbEstado.Text.ToUpper
+                param_estadofarmacia.Direction = ParameterDirection.Input
+
+                Dim param_motivobaja As New SqlClient.SqlParameter
+                param_motivobaja.ParameterName = "@MotivoBaja"
+                param_motivobaja.SqlDbType = SqlDbType.NVarChar
+                param_motivobaja.Size = 200
+                param_motivobaja.Value = txtMotivoBaja.Text.ToUpper
+                param_motivobaja.Direction = ParameterDirection.Input
+
+                Dim param_res As New SqlClient.SqlParameter
+                param_res.ParameterName = "@res"
+                param_res.SqlDbType = SqlDbType.Int
+                param_res.Value = DBNull.Value
+                param_res.Direction = ParameterDirection.InputOutput
+
+                Try
+                    SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spFarmacias_Update", param_id, param_cod,
+                                          param_nombre, param_CodFACAF, param_CodPAMI, param_cuit, param_domicilio, param_localidad, param_telefono,
                                           param_email, param_contribuyente, param_estadofarmacia, param_motivobaja, param_res)
 
-                ActualizarRegistro = param_res.Value
+                    ActualizarRegistro = param_res.Value
+
+                Catch ex As Exception
+                    Throw ex
+                End Try
 
             Catch ex As Exception
-                Throw ex
-            End Try
+                Dim errMessage As String = ""
+                Dim tempException As Exception = ex
 
-        Catch ex As Exception
-            Dim errMessage As String = ""
-            Dim tempException As Exception = ex
+                While (Not tempException Is Nothing)
+                    errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                    tempException = tempException.InnerException
+                End While
 
-            While (Not tempException Is Nothing)
-                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
-                tempException = tempException.InnerException
-            End While
-
-            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+                MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
               + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            If Not connection Is Nothing Then
-                CType(connection, IDisposable).Dispose()
-            End If
-        End Try
+            Finally
+                If Not connection Is Nothing Then
+                    CType(connection, IDisposable).Dispose()
+                End If
+            End Try
+
+        End If
+
 
     End Function
 
@@ -797,6 +793,9 @@ Public Class frmFarmacias
         txtTipoContribuyente.Tag = "9"
         cmbEstado.Text = "10"
         txtMotivoBaja.Text = "11"
+        cmbLocalidad.Tag = "12"
+        cmbProvincia.Tag = "13"
+
 
 
     End Sub
@@ -829,7 +828,6 @@ Public Class frmFarmacias
                 .DataSource = ds.Tables(0).DefaultView
                 .DisplayMember = "Nombre"
                 .ValueMember = "ID"
-                .SelectedValue = ds.Tables(0).Rows(0)("ID")
             End With
 
             LlenarCmbLocalidades(cmbProvincia.SelectedValue)
@@ -871,7 +869,6 @@ Public Class frmFarmacias
                     .ValueMember = "ID"
                     .AutoCompleteMode = AutoCompleteMode.SuggestAppend
                     .AutoCompleteSource = AutoCompleteSource.ListItems
-                    .SelectedValue = ds.Tables(0).Rows(0)("ID")
                 End With
             End If
 
@@ -958,13 +955,13 @@ Public Class frmFarmacias
         End If
     End Sub
 
+    Protected Overloads Sub grd_CurrentCellChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles grd.CurrentCellChanged
 
-
-    Private Sub FormattedTextBoxVB2_TextChanged(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub ComboBoxEx2_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbProvincia.SelectedIndexChanged
+        If Not grd.CurrentRow Is Nothing Then
+            cmbProvincia.SelectedValue = grd.CurrentRow.Cells(13).Value
+            cmbLocalidad.SelectedValue = grd.CurrentRow.Cells(12).Value
+            cmbLocalidad.Text = grd.CurrentRow.Cells(14).Value
+        End If
 
     End Sub
 
