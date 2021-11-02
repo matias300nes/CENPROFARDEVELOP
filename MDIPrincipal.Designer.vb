@@ -392,11 +392,9 @@ Partial Class MDIPrincipal
         'MovimientosInventarioToolStripMenuItem
         '
         Me.MovimientosInventarioToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OrdenDeCompraToolStripMenuItem, Me.RecepcionesDeMaterialToolStripMenuItem, Me.DepósitoToolStripMenuItem, Me.ToolStripSeparator7, Me.RegistrarConsumosToolStripMenuItem, Me.ToolStripSeparator8, Me.AjustesDeInventarioToolStripMenuItem, Me.VentasToolStripMenuItem, Me.MovSalonToolStripMenuItem, Me.ToolStripSeparator9, Me.DevolucionesAIcysToolStripMenuItem, Me.DevoluciónAProveedoresToolStripMenuItem, Me.EnvíosDePedidosToolStripMenuItem, Me.ReportesDepositoToolStripMenuItem, Me.VentasDepósitoToolStripMenuItem, Me.VentasPorClientesToolStripMenuItem, Me.TransferenciasToolStripMenuItem, Me.PruebaMatiToolStripMenuItem})
-        Me.MovimientosInventarioToolStripMenuItem.Enabled = False
         Me.MovimientosInventarioToolStripMenuItem.Name = "MovimientosInventarioToolStripMenuItem"
         Me.MovimientosInventarioToolStripMenuItem.Size = New System.Drawing.Size(170, 24)
         Me.MovimientosInventarioToolStripMenuItem.Text = "Movimientos de Stock"
-        Me.MovimientosInventarioToolStripMenuItem.Visible = False
         '
         'OrdenDeCompraToolStripMenuItem
         '

@@ -4285,4 +4285,9 @@ Pedidos:
         frmRecepciones.MdiParent = Me
         frmRecepciones.Show()
     End Sub
+
+    Private Sub PresentacionesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PresentacionesToolStripMenuItem.Click
+        frmPresentaciones.MdiParent = Me
+        frmPresentaciones.Show()
+    End Sub
 End Class
