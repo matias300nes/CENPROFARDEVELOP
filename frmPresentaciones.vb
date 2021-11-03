@@ -1812,12 +1812,12 @@ Public Class frmPresentaciones
                 Dim param_codigo As New SqlClient.SqlParameter
                 param_codigo.ParameterName = "@codigo"
                 param_codigo.SqlDbType = SqlDbType.VarChar
-                param_codigo.Size = 25
+                param_codigo.Size = 10
                 If bolModo = True Then
                     param_codigo.Value = DBNull.Value
                     param_codigo.Direction = ParameterDirection.InputOutput
                 Else
-                    'param_codigo.Value = txtCODIGO.Text
+                    param_codigo.Value = txtCodigo.Text
                     param_codigo.Direction = ParameterDirection.Input
                 End If
 
@@ -1827,69 +1827,90 @@ Public Class frmPresentaciones
                 param_fecha.Value = dtpFECHA.Value
                 param_fecha.Direction = ParameterDirection.Input
 
-                Dim param_idproveedor As New SqlClient.SqlParameter
-                param_idproveedor.ParameterName = "@idproveedor"
-                param_idproveedor.SqlDbType = SqlDbType.VarChar
-                param_idproveedor.Size = 25
-                param_idproveedor.Value = IIf(txtIdObrasocial.Text = "", cmbObraSocial.SelectedValue, txtIdObrasocial.Text)
-                param_idproveedor.Direction = ParameterDirection.Input
+                Dim param_IdObraSocial As New SqlClient.SqlParameter
+                param_IdObraSocial.ParameterName = "@idObraSocial"
+                param_IdObraSocial.SqlDbType = SqlDbType.BigInt
+                param_IdObraSocial.Value = cmbObraSocial.SelectedValue
+                param_IdObraSocial.Direction = ParameterDirection.Input
 
-                Dim param_idcondiciondepago As New SqlClient.SqlParameter
-                param_idcondiciondepago.ParameterName = "@idcondicionpago"
-                param_idcondiciondepago.SqlDbType = SqlDbType.BigInt
-                param_idcondiciondepago.Value = 0 'IIf(txtIdCondicionPago.Text = "", 0, txtIdCondicionPago.Text)
-                param_idcondiciondepago.Direction = ParameterDirection.Input
+                Dim param_observacion As New SqlClient.SqlParameter
+                param_observacion.ParameterName = "@observaciones"
+                param_observacion.SqlDbType = SqlDbType.VarChar
+                param_observacion.Size = 300
+                param_observacion.Value = txtObservacion.Text
+                param_observacion.Direction = ParameterDirection.Input
 
-                Dim param_subtotal As New SqlClient.SqlParameter
-                param_subtotal.ParameterName = "@subtotal"
-                param_subtotal.SqlDbType = SqlDbType.Decimal
-                param_subtotal.Precision = 18
-                param_subtotal.Scale = 2
-                param_subtotal.Value = txtSubtotal.Text
-                param_subtotal.Direction = ParameterDirection.Input
+                Dim param_periodo As New SqlClient.SqlParameter
+                param_periodo.ParameterName = "@periodo"
+                param_periodo.SqlDbType = SqlDbType.VarChar
+                param_periodo.Size = 100
+                param_periodo.Value = txtPeriodo.Text
+                param_periodo.Direction = ParameterDirection.Input
 
-                Dim param_montoivatotal As New SqlClient.SqlParameter
-                param_montoivatotal.ParameterName = "@MontoIvaTotal"
-                param_montoivatotal.SqlDbType = SqlDbType.Decimal
-                param_montoivatotal.Precision = 18
-                param_montoivatotal.Scale = 2
-                param_montoivatotal.Value = 0 'txtMontoIVA.Text
-                param_montoivatotal.Direction = ParameterDirection.Input
+
+                'Dim param_idproveedor As New SqlClient.SqlParameter
+                'param_idproveedor.ParameterName = "@idproveedor"
+                'param_idproveedor.SqlDbType = SqlDbType.VarChar
+                'param_idproveedor.Size = 25
+                'param_idproveedor.Value = IIf(txtIdObrasocial.Text = "", cmbObraSocial.SelectedValue, txtIdObrasocial.Text)
+                'param_idproveedor.Direction = ParameterDirection.Input
+
+                'Dim param_idcondiciondepago As New SqlClient.SqlParameter
+                'param_idcondiciondepago.ParameterName = "@idcondicionpago"
+                'param_idcondiciondepago.SqlDbType = SqlDbType.BigInt
+                'param_idcondiciondepago.Value = 0 'IIf(txtIdCondicionPago.Text = "", 0, txtIdCondicionPago.Text)
+                'param_idcondiciondepago.Direction = ParameterDirection.Input
+
+                'Dim param_subtotal As New SqlClient.SqlParameter
+                'param_subtotal.ParameterName = "@subtotal"
+                'param_subtotal.SqlDbType = SqlDbType.Decimal
+                'param_subtotal.Precision = 18
+                'param_subtotal.Scale = 2
+                'param_subtotal.Value = txtSubtotal.Text
+                'param_subtotal.Direction = ParameterDirection.Input
+
+                'Dim param_montoivatotal As New SqlClient.SqlParameter
+                'param_montoivatotal.ParameterName = "@MontoIvaTotal"
+                'param_montoivatotal.SqlDbType = SqlDbType.Decimal
+                'param_montoivatotal.Precision = 18
+                'param_montoivatotal.Scale = 2
+                'param_montoivatotal.Value = 0 'txtMontoIVA.Text
+                'param_montoivatotal.Direction = ParameterDirection.Input
 
                 Dim param_total As New SqlClient.SqlParameter
                 param_total.ParameterName = "@Total"
                 param_total.SqlDbType = SqlDbType.Decimal
                 param_total.Precision = 18
                 param_total.Scale = 2
-                param_total.Value = 0 'txtTotal.Text
+                param_total.Value = Decimal.Parse(txtSubtotal.Text)
                 param_total.Direction = ParameterDirection.Input
 
-                Dim param_idComprador As New SqlClient.SqlParameter
-                param_idComprador.ParameterName = "@idComprador"
-                param_idComprador.SqlDbType = SqlDbType.BigInt
-                param_idComprador.Value = UserID 'CType(Me.cmbComprador.SelectedValue, Long)
-                param_idComprador.Direction = ParameterDirection.Input
+                'Dim param_idComprador As New SqlClient.SqlParameter
+                'param_idComprador.ParameterName = "@idComprador"
+                'param_idComprador.SqlDbType = SqlDbType.BigInt
+                'param_idComprador.Value = UserID 'CType(Me.cmbComprador.SelectedValue, Long)
+                'param_idComprador.Direction = ParameterDirection.Input
 
-                Dim param_nota As New SqlClient.SqlParameter
-                param_nota.ParameterName = "@nota"
-                param_nota.SqlDbType = SqlDbType.VarChar
-                param_nota.Size = 150
-                param_nota.Value = txtObservacion.Text
-                param_nota.Direction = ParameterDirection.Input
+                'Dim param_nota As New SqlClient.SqlParameter
+                'param_nota.ParameterName = "@nota"
+                'param_nota.SqlDbType = SqlDbType.VarChar
+                'param_nota.Size = 150
+                'param_nota.Value = txtObservacion.Text
+                'param_nota.Direction = ParameterDirection.Input
 
-                Dim param_contactoproveedor As New SqlClient.SqlParameter
-                param_contactoproveedor.ParameterName = "@ContactoProveedor"
-                param_contactoproveedor.SqlDbType = SqlDbType.VarChar
-                param_contactoproveedor.Size = 100
-                'param_contactoproveedor.Value = cmbContacto.Text
-                param_contactoproveedor.Direction = ParameterDirection.Input
+                'Dim param_contactoproveedor As New SqlClient.SqlParameter
+                'param_contactoproveedor.ParameterName = "@ContactoProveedor"
+                'param_contactoproveedor.SqlDbType = SqlDbType.VarChar
+                'param_contactoproveedor.Size = 100
+                ''param_contactoproveedor.Value = cmbContacto.Text
+                'param_contactoproveedor.Direction = ParameterDirection.Input
 
-                Dim param_notainterna As New SqlClient.SqlParameter
-                param_notainterna.ParameterName = "@notainterna"
-                param_notainterna.SqlDbType = SqlDbType.VarChar
-                param_notainterna.Size = 4000
-                param_notainterna.Value = txtPeriodo.Text
-                param_notainterna.Direction = ParameterDirection.Input
+                'Dim param_notainterna As New SqlClient.SqlParameter
+                'param_notainterna.ParameterName = "@notainterna"
+                'param_notainterna.SqlDbType = SqlDbType.VarChar
+                'param_notainterna.Size = 4000
+                'param_notainterna.Value = txtPeriodo.Text
+                'param_notainterna.Direction = ParameterDirection.Input
 
                 Dim param_useradd As New SqlClient.SqlParameter
                 If bolModo = True Then
@@ -1909,22 +1930,16 @@ Public Class frmPresentaciones
 
                 Try
                     If bolModo = True Then
-                        SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spOrdenDeCompra_Insert",
-                                                param_id, param_codigo, param_fecha, param_idproveedor,
-                                                param_idcondiciondepago, param_nota, param_subtotal, param_montoivatotal, param_total,
-                                                param_idComprador, param_contactoproveedor,
-                                                param_notainterna, param_useradd, param_res)
+                        SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spPresentaciones_Insert",
+                                                param_id, param_codigo, param_fecha, param_IdObraSocial, param_observacion,
+                                                param_periodo, param_total, param_useradd, param_res)
 
                         txtID.Text = param_id.Value
-                        'txtCODIGO.Text = param_codigo.Value
+                        txtCodigo.Text = param_codigo.Value
                     Else
-
-                        SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spOrdenDeCompra_Update", param_id,
-                                                param_codigo, param_fecha, param_idproveedor,
-                                                param_idcondiciondepago, param_contactoproveedor,
-                                                param_nota, param_subtotal, param_montoivatotal, param_total,
-                                                param_idComprador, param_notainterna,
-                                                param_useradd, param_res)
+                        SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spPresentaciones_Update",
+                        param_id, param_codigo, param_fecha, param_IdObraSocial, param_observacion,
+                        param_periodo, param_total, param_useradd, param_res)
 
                     End If
 
@@ -1975,18 +1990,18 @@ Public Class frmPresentaciones
                     Dim param_id As New SqlClient.SqlParameter
                     param_id.ParameterName = "@id"
                     param_id.SqlDbType = SqlDbType.BigInt
-                    'If bolModo = False And Not (grdItems.Rows(i).Cells(ColumnasDelGridItems.IdOrdenDeCompra_Det).Value Is DBNull.Value) Then
-                    '    param_id.Value = CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.IdOrdenDeCompra_Det).Value, Long)
-                    'Else
-                    '    param_id.Value = 0
-                    'End If
-                    'param_id.Direction = ParameterDirection.Input
+                    If bolModo = False And Not (grdItems.Rows(i).Cells(ColumnasDelGridItems.ID).Value Is DBNull.Value) Then
+                        param_id.Value = CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.ID).Value, Long)
+                    Else
+                        param_id.Value = 0
+                    End If
+                    param_id.Direction = ParameterDirection.Input
 
-                    Dim param_IdOrdenCompra As New SqlClient.SqlParameter
-                    param_IdOrdenCompra.ParameterName = "@idOrdendeCompra"
-                    param_IdOrdenCompra.SqlDbType = SqlDbType.BigInt
-                    param_IdOrdenCompra.Value = txtID.Text
-                    param_IdOrdenCompra.Direction = ParameterDirection.Input
+                    Dim param_IdFarmacia As New SqlClient.SqlParameter
+                    param_IdFarmacia.ParameterName = "@idOrdendeCompra"
+                    param_IdFarmacia.SqlDbType = SqlDbType.BigInt
+                    param_IdFarmacia.Value = txtID.Text
+                    param_IdFarmacia.Direction = ParameterDirection.Input
 
                     'Dim param_idmaterial As New SqlClient.SqlParameter
                     'param_idmaterial.ParameterName = "@idmaterial"
@@ -1995,27 +2010,27 @@ Public Class frmPresentaciones
                     'param_idmaterial.Value = grdItems.Rows(i).Cells(ColumnasDelGridItems.IdMaterial).Value 'IdMat 'grdItems.Rows(i).Cells(ColumnasDelGridItems.IdMaterial).Value
                     'param_idmaterial.Direction = ParameterDirection.Input
 
-                    Dim param_idmat_prov As New SqlClient.SqlParameter
-                    param_idmat_prov.ParameterName = "@idmaterial_prov"
-                    param_idmat_prov.SqlDbType = SqlDbType.BigInt
-                    param_idmat_prov.Value = 0 'IdMat_Prov 'grdItems.Rows(i).Cells(ColumnasDelGridItems.IdMaterial).Value
-                    param_idmat_prov.Direction = ParameterDirection.Input
+                    'Dim param_idmat_prov As New SqlClient.SqlParameter
+                    'param_idmat_prov.ParameterName = "@idmaterial_prov"
+                    'param_idmat_prov.SqlDbType = SqlDbType.BigInt
+                    'param_idmat_prov.Value = 0 'IdMat_Prov 'grdItems.Rows(i).Cells(ColumnasDelGridItems.IdMaterial).Value
+                    'param_idmat_prov.Direction = ParameterDirection.Input
 
-                    Dim param_precio As New SqlClient.SqlParameter
-                    param_precio.ParameterName = "@precio"
-                    param_precio.SqlDbType = SqlDbType.Decimal
-                    param_precio.Precision = 18
-                    param_precio.Scale = 2
-                    param_precio.Value = 0 'CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.PrecioLista).Value, Decimal)
-                    param_precio.Direction = ParameterDirection.Input
+                    'Dim param_precio As New SqlClient.SqlParameter
+                    'param_precio.ParameterName = "@precio"
+                    'param_precio.SqlDbType = SqlDbType.Decimal
+                    'param_precio.Precision = 18
+                    'param_precio.Scale = 2
+                    'param_precio.Value = 0 'CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.PrecioLista).Value, Decimal)
+                    'param_precio.Direction = ParameterDirection.Input
 
-                    Dim param_iva As New SqlClient.SqlParameter
-                    param_iva.ParameterName = "@iva"
-                    param_iva.SqlDbType = SqlDbType.Decimal
-                    param_iva.Precision = 18
-                    param_iva.Scale = 2
-                    param_iva.Value = porceniva 'CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.Iva).Value, Decimal)
-                    param_iva.Direction = ParameterDirection.Input
+                    'Dim param_iva As New SqlClient.SqlParameter
+                    'param_iva.ParameterName = "@iva"
+                    'param_iva.SqlDbType = SqlDbType.Decimal
+                    'param_iva.Precision = 18
+                    'param_iva.Scale = 2
+                    'param_iva.Value = porceniva 'CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.Iva).Value, Decimal)
+                    'param_iva.Direction = ParameterDirection.Input
 
                     'Dim param_bonificacion1 As New SqlClient.SqlParameter
                     'param_bonificacion1.ParameterName = "@bonif1"
@@ -2041,23 +2056,23 @@ Public Class frmPresentaciones
                     'param_bonificacion3.Value = IIf(grdItems.Rows(i).Cells(ColumnasDelGridItems.Bonif3).Value Is DBNull.Value Or grdItems.Rows(i).Cells(ColumnasDelGridItems.Bonif3).Value Is "", 0, grdItems.Rows(i).Cells(ColumnasDelGridItems.Bonif3).Value)
                     'param_bonificacion3.Direction = ParameterDirection.Input
 
-                    Dim param_bonificacion4 As New SqlClient.SqlParameter
-                    param_bonificacion4.ParameterName = "@bonif4"
-                    param_bonificacion4.SqlDbType = SqlDbType.Decimal
-                    param_bonificacion4.Precision = 18
-                    param_bonificacion4.Scale = 2
-                    param_bonificacion4.Value = 0
-                    param_bonificacion4.Value = 0 'IIf(grdItems.Rows(i).Cells(ColumnasDelGridItems.Bonif4).Value Is DBNull.Value, 0, grdItems.Rows(i).Cells(ColumnasDelGridItems.Bonif4).Value)
-                    param_bonificacion4.Direction = ParameterDirection.Input
+                    'Dim param_bonificacion4 As New SqlClient.SqlParameter
+                    'param_bonificacion4.ParameterName = "@bonif4"
+                    'param_bonificacion4.SqlDbType = SqlDbType.Decimal
+                    'param_bonificacion4.Precision = 18
+                    'param_bonificacion4.Scale = 2
+                    'param_bonificacion4.Value = 0
+                    'param_bonificacion4.Value = 0 'IIf(grdItems.Rows(i).Cells(ColumnasDelGridItems.Bonif4).Value Is DBNull.Value, 0, grdItems.Rows(i).Cells(ColumnasDelGridItems.Bonif4).Value)
+                    'param_bonificacion4.Direction = ParameterDirection.Input
 
-                    Dim param_bonificacion5 As New SqlClient.SqlParameter
-                    param_bonificacion5.ParameterName = "@bonif5"
-                    param_bonificacion5.SqlDbType = SqlDbType.Decimal
-                    param_bonificacion5.Precision = 18
-                    param_bonificacion5.Scale = 2
-                    param_bonificacion5.Scale = 0
-                    param_bonificacion5.Value = 0 'IIf(grdItems.Rows(i).Cells(ColumnasDelGridItems.Bonif5).Value Is DBNull.Value, 0, grdItems.Rows(i).Cells(ColumnasDelGridItems.Bonif5).Value)
-                    param_bonificacion5.Direction = ParameterDirection.Input
+                    'Dim param_bonificacion5 As New SqlClient.SqlParameter
+                    'param_bonificacion5.ParameterName = "@bonif5"
+                    'param_bonificacion5.SqlDbType = SqlDbType.Decimal
+                    'param_bonificacion5.Precision = 18
+                    'param_bonificacion5.Scale = 2
+                    'param_bonificacion5.Scale = 0
+                    'param_bonificacion5.Value = 0 'IIf(grdItems.Rows(i).Cells(ColumnasDelGridItems.Bonif5).Value Is DBNull.Value, 0, grdItems.Rows(i).Cells(ColumnasDelGridItems.Bonif5).Value)
+                    'param_bonificacion5.Direction = ParameterDirection.Input
 
                     'Dim param_preciocosto As New SqlClient.SqlParameter
                     'param_preciocosto.ParameterName = "@preciofinal"
@@ -2116,32 +2131,32 @@ Public Class frmPresentaciones
                     param_useradd.Value = UserID
                     param_useradd.Direction = ParameterDirection.Input
 
-                    Dim param_OrdenItem As New SqlClient.SqlParameter
-                    If bolModo = True Then
-                        param_OrdenItem.ParameterName = "@OrdenItem"
-                    Else
-                        param_OrdenItem.ParameterName = "@Orden"
-                    End If
-                    param_OrdenItem.SqlDbType = SqlDbType.SmallInt
-                    If bolModo = True Then
-                        param_OrdenItem.Value = i + 1
-                    Else
-                        param_OrdenItem.Value = i + 1 'IIf(grdItems.Rows(i).Cells(ColumnasDelGridItems.orden).Value Is DBNull.Value, i + 1, grdItems.Rows(i).Cells(ColumnasDelGridItems.orden).Value)
-                    End If
-                    param_OrdenItem.Direction = ParameterDirection.Input
+                    'Dim param_OrdenItem As New SqlClient.SqlParameter
+                    'If bolModo = True Then
+                    '    param_OrdenItem.ParameterName = "@OrdenItem"
+                    'Else
+                    '    param_OrdenItem.ParameterName = "@Orden"
+                    'End If
+                    'param_OrdenItem.SqlDbType = SqlDbType.SmallInt
+                    'If bolModo = True Then
+                    '    param_OrdenItem.Value = i + 1
+                    'Else
+                    '    param_OrdenItem.Value = i + 1 'IIf(grdItems.Rows(i).Cells(ColumnasDelGridItems.orden).Value Is DBNull.Value, i + 1, grdItems.Rows(i).Cells(ColumnasDelGridItems.orden).Value)
+                    'End If
+                    'param_OrdenItem.Direction = ParameterDirection.Input
 
-                    Dim param_nuevo As New SqlClient.SqlParameter
-                    param_nuevo.ParameterName = "@nuevo"
-                    param_nuevo.SqlDbType = SqlDbType.Bit
-                    param_nuevo.Value = nuevo
-                    param_nuevo.Direction = ParameterDirection.Input
+                    'Dim param_nuevo As New SqlClient.SqlParameter
+                    'param_nuevo.ParameterName = "@nuevo"
+                    'param_nuevo.SqlDbType = SqlDbType.Bit
+                    'param_nuevo.Value = nuevo
+                    'param_nuevo.Direction = ParameterDirection.Input
 
-                    Dim param_IdProveedor As New SqlClient.SqlParameter
-                    param_IdProveedor.ParameterName = "@IdProveedor"
-                    param_IdProveedor.SqlDbType = SqlDbType.VarChar
-                    param_IdProveedor.Size = 25
-                    param_IdProveedor.Value = IIf(txtIdObrasocial.Text = "", cmbObraSocial.SelectedValue, txtIdObrasocial.Text)
-                    param_IdProveedor.Direction = ParameterDirection.Input
+                    'Dim param_IdProveedor As New SqlClient.SqlParameter
+                    'param_IdProveedor.ParameterName = "@IdProveedor"
+                    'param_IdProveedor.SqlDbType = SqlDbType.VarChar
+                    'param_IdProveedor.Size = 25
+                    'param_IdProveedor.Value = IIf(txtIdObrasocial.Text = "", cmbObraSocial.SelectedValue, txtIdObrasocial.Text)
+                    'param_IdProveedor.Direction = ParameterDirection.Input
 
                     Dim param_res As New SqlClient.SqlParameter
                     param_res.ParameterName = "@res"
@@ -2149,12 +2164,12 @@ Public Class frmPresentaciones
                     param_res.Value = DBNull.Value
                     param_res.Direction = ParameterDirection.InputOutput
 
-                    Dim param_MENSAJE As New SqlClient.SqlParameter
-                    param_MENSAJE.ParameterName = "@mensaje"
-                    param_MENSAJE.SqlDbType = SqlDbType.VarChar
-                    param_MENSAJE.Size = 200
-                    param_MENSAJE.Value = DBNull.Value
-                    param_MENSAJE.Direction = ParameterDirection.InputOutput
+                    'Dim param_MENSAJE As New SqlClient.SqlParameter
+                    'param_MENSAJE.ParameterName = "@mensaje"
+                    'param_MENSAJE.SqlDbType = SqlDbType.VarChar
+                    'param_MENSAJE.Size = 200
+                    'param_MENSAJE.Value = DBNull.Value
+                    'param_MENSAJE.Direction = ParameterDirection.InputOutput
 
                     Try
                         If bolModo = True Then
