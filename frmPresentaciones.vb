@@ -9,12 +9,12 @@ Imports System.Runtime.InteropServices
 Imports System.Threading
 
 Public Class frmPresentaciones
-
+    Dim IdObraSocial
     Dim bolpoliticas As Boolean
     Dim llenandoCombo As Boolean = False
     Dim llenandoCombo2 As Boolean = False
     Dim CodigoUsuario As String
-
+    Dim bolIDOS As Boolean = False
     Dim permitir_evento_CellChanged As Boolean
 
     Dim FILA As Integer
@@ -68,13 +68,25 @@ Public Class frmPresentaciones
         'IdUnidad = 14
         'Iva = 15
         'MontoIVA = 16
+        ''MATI
+        'ID = 0
+        'IDObraSocial = 1
+        'ObraSocial = 2
+        'Cuit = 3
+        'Fecha = 4
+        'Periodo = 5
+        'total = 6
+
+        ''NACHO
         ID = 0
-        IDObraSocial = 1
-        ObraSocial = 2
-        Cuit = 3
-        Fecha = 4
-        Periodo = 5
-        total = 6
+        CodigoFarmacia = 1
+        Nombre = 2
+        IdPresentacion = 3
+        Recetas = 4
+        Recaudado = 5
+        ACargoOS = 6
+        Bonificacion = 7
+        Total = 8
     End Enum
 
     'Auxiliares para guardar
@@ -124,25 +136,6 @@ Public Class frmPresentaciones
 
     Private Sub frmPresentaciones_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
-        AsignarPermisos(UserID, "ListaPrecioDistribuidor", ALTA, MODIFICA, BAJA, BAJA_FISICA, DESHACER, ConnStringSEI)
-
-        Try
-            Dim ds_usarios As Data.DataSet
-            Dim connection As SqlClient.SqlConnection = Nothing
-            connection = SqlHelper.GetConnection(ConnStringSEI)
-
-
-            ds_usarios = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT Codigo FROM Empleados WHERE id = " & Util.UserID)
-            ds_usarios.Dispose()
-
-            CodigoUsuario = ds_usarios.Tables(0).Rows(0).Item(0)
-
-        Catch ex As Exception
-            MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
-        End Try
-
-
 
         Cursor = Cursors.WaitCursor
 
@@ -155,25 +148,19 @@ Public Class frmPresentaciones
         asignarTags()
 
         btnEliminar.Text = "Anular OC"
-
         rdPendientes.Checked = 1
 
-        LlenarcmbCondicionDePago_App(cmbEstado, ConnStringSEI)
-        LlenarcmbProveedores_App(cmbObraSocial, ConnStringSEI, 0, 0)
 
-        Me.LlenarCombo_Productos("")
-
-        'SQL = "exec spOrdenDeCompra_Select_All @Eliminado = " & rdAnuladas.Checked & ", @Pendientes = " & rdPendientes.Checked & ", @PendientesyCumplidas = " & rdTodasOC.Checked
+        LlenarCmbObraSocial()
 
         ''Traigo los encabezados de presentacion
-        SQL = "exec spPresentaciones_Select_All @Eliminado = 0"
+        SQL = $"exec spPresentaciones_Select_All @Pendientes = {rdPendientes.Checked} ,@Eliminado = {rdAnuladas.Checked} ,@Todos = {rdTodasOC.Checked}"
 
         LlenarGrilla()
         Permitir = True
         CargarCajas()
         PrepararBotones()
 
-        LlenarcmbContactoProveedor()
 
         permitir_evento_CellChanged = True
 
@@ -183,12 +170,13 @@ Public Class frmPresentaciones
             grd.Rows(0).Selected = True
             grd.CurrentCell = grd.Rows(0).Cells(1)
             txtID.Text = grd.Rows(0).Cells(0).Value
-            cmbObraSocial.SelectedValue = grd.Rows(0).Cells(1).Value
-            'cmbContacto.SelectedText = grd.Rows(0).Cells(9).Value
-            'cmbEstado.SelectedValue = grd.Rows(0).Cells(12).Value
-            'txtObservacion.Text = grd.Rows(0).Cells(6).Value
-            txtPeriodo.Text = grd.Rows(0).Cells(5).Value
-            'lblStatus.Text = grd.Rows(0).Cells(7).Value
+            dtpFECHA.Value = grd.Rows(0).Cells(1).Value
+            cmbObraSocial.SelectedValue = grd.Rows(0).Cells(2).Value
+            cmbObraSocial.Text = grd.Rows(0).Cells(3).Value
+            txtPeriodo.Text = grd.Rows(0).Cells(4).Value
+            lblStatus.Text = grd.Rows(0).Cells(5).Value
+            txtTotal.Text = grd.Rows(0).Cells(6).Value
+            txtObservacion.Text = grd.Rows(0).Cells(7).Value
         End If
 
         If bolModo = True Then
@@ -221,10 +209,6 @@ Public Class frmPresentaciones
         'grd.Columns(19).Visible = False
         'grd.Columns(20).Visible = False
 
-        dtpFECHA.MaxDate = Today.Date
-
-        txtImpTotal.Enabled = MDIPrincipal.ControlUsuarioAutorizado(MDIPrincipal.EmpleadoLogueado)
-
         Cursor = Cursors.Default
 
     End Sub
@@ -236,7 +220,7 @@ Public Class frmPresentaciones
         End If
     End Sub
 
-    Private Sub cmbProducto_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbFarmacias.SelectedValueChanged
+    Private Sub cmbFarmacias_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbFarmacias.SelectedValueChanged
 
         If band = 1 Then
 
@@ -249,7 +233,7 @@ Public Class frmPresentaciones
 
             txtImpTotal.Text = Math.Round(CDbl(ds_Empresa.Tables(0).Rows(0)(0)), 2)
             'txtPrecioUni.Text = FormatNumber(CDbl(ds_Empresa.Tables(0).Rows(0)(0)), 2)
-            txtIdUnidad.Text = ds_Empresa.Tables(0).Rows(0)(1)
+            'txtIdUnidad.Text = ds_Empresa.Tables(0).Rows(0)(1)
             'lblStock.Text = ds_Empresa.Tables(0).Rows(0)(2)
 
 
@@ -257,20 +241,6 @@ Public Class frmPresentaciones
 
     End Sub
 
-    Private Sub txtRecetas_TextChanged(sender As Object, e As EventArgs)
-        Try
-            If Not txtIdUnidad.Text.Contains("HORMA") Or Not Not txtIdUnidad.Text.Contains("TIRA") Then
-                If txtRecetas.Text = "" Then
-                    txtImpTotalAPagar.Text = "0"
-                Else
-                    txtImpTotalAPagar.Text = Math.Round(CDbl(txtRecetas.Text) * CDbl(txtImpTotal.Text), 2)
-                End If
-            End If
-        Catch ex As Exception
-
-        End Try
-
-    End Sub
 
     Private Sub txtRecetas_KeyDown(sender As Object, e As KeyEventArgs) Handles txtRecetas.KeyDown
         If e.KeyCode = Keys.Enter Then
@@ -295,18 +265,6 @@ Public Class frmPresentaciones
                 Exit Sub
             End If
 
-            If txtIdUnidad.Text.Contains("HORMA") Or txtIdUnidad.Text.Contains("TIRA") Then
-                If txtImpACargoOs.Text = "" Then
-                    Util.MsgStatus(Status1, "Debe ingresar el peso del producto a Vender.", My.Resources.Resources.stop_error.ToBitmap)
-                    Util.MsgStatus(Status1, "Debe ingresar el peso del producto a Vender.", My.Resources.Resources.stop_error.ToBitmap, True)
-                    Exit Sub
-                End If
-                If CDbl(txtImpACargoOs.Text) = 0 Then
-                    Util.MsgStatus(Status1, "Debe ingresar un peso válido del producto a Vender.", My.Resources.Resources.stop_error.ToBitmap)
-                    Util.MsgStatus(Status1, "Debe ingresar un peso válido del producto a Vender.", My.Resources.Resources.stop_error.ToBitmap, True)
-                    Exit Sub
-                End If
-            End If
 
             Dim i As Integer
             For i = 0 To grdItems.RowCount - 1
@@ -333,34 +291,25 @@ Public Class frmPresentaciones
 
     End Sub
 
-    Private Sub txtPeso_KeyDown(sender As Object, e As KeyEventArgs) Handles txtImpACargoOs.KeyDown
-        If txtIdUnidad.Text = "HORMA" Or txtIdUnidad.Text = "TIRA" Then
-            txtRecetas_KeyDown(sender, e)
-        End If
+    Private Sub txtImpACargoOs_KeyDown(sender As Object, e As KeyEventArgs) Handles txtImpACargoOs.KeyDown
+
     End Sub
 
-    Private Sub txtPeso_TextChanged(sender As Object, e As EventArgs) Handles txtImpACargoOs.TextChanged
+    Private Sub txtImpACargoOs_TextChanged(sender As Object, e As EventArgs) Handles txtImpACargoOs.TextChanged
         Try
-            If txtIdUnidad.Text.Contains("HORMA") Or txtIdUnidad.Text.Contains("TIRA") Then
-                If txtImpACargoOs.Text = "" Then
-                    txtImpTotalAPagar.Text = "0"
-                Else
-                    txtImpTotalAPagar.Text = Math.Round(CDbl(txtImpACargoOs.Text) * CDbl(txtImpTotal.Text), 2)
-                End If
-            End If
+            'If txtIdUnidad.Text.Contains("HORMA") Or txtIdUnidad.Text.Contains("TIRA") Then
+            '    If txtImpACargoOs.Text = "" Then
+            '        txtImpTotalAPagar.Text = "0"
+            '    Else
+            '        txtImpTotalAPagar.Text = Math.Round(CDbl(txtImpACargoOs.Text) * CDbl(txtImpTotal.Text), 2)
+            '    End If
+            'End If
 
         Catch ex As Exception
 
         End Try
 
     End Sub
-
-    'Private Sub txtRecetas_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtRecetas.KeyPress
-    '    If e.KeyChar = ChrW(Keys.Enter) Then
-    '        e.Handled = True
-    '        SendKeys.Send("{TAB}")
-    '    End If
-    'End Sub
 
     Private Sub CalcularSubtotal()
 
@@ -643,7 +592,6 @@ Public Class frmPresentaciones
     Private Sub chkEliminado_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkEliminado.CheckedChanged
         If Not bolModo Then
             cmbObraSocial.Enabled = Not chkEliminado.Checked
-            cmbEstado.Enabled = Not chkEliminado.Checked
             grdItems.Enabled = Not chkEliminado.Checked
             dtpFECHA.Enabled = Not chkEliminado.Checked
             txtObservacion.Enabled = Not chkEliminado.Checked
@@ -746,6 +694,52 @@ Public Class frmPresentaciones
 
         End Try
 
+    End Sub
+
+
+    Private Sub LlenarCmbObraSocial()
+        Dim connection As SqlClient.SqlConnection = Nothing
+        Dim ds As Data.DataSet
+
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+        Catch ex As Exception
+            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End Try
+
+        Try
+
+            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, " SELECT ID, NOMBRE FROM OBRASSOCIALES WHERE ELIMINADO = 0")
+            ds.Dispose()
+
+            With cmbObraSocial
+                .DataSource = ds.Tables(0).DefaultView
+                .DisplayMember = "NOMBRE"
+                .ValueMember = "ID"
+                '.SelectedIndex = "ID"
+            End With
+
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If Not connection Is Nothing Then
+                CType(connection, IDisposable).Dispose()
+            End If
+        End Try
+
+        IdObraSocial = cmbObraSocial.SelectedValue
+        bolIDOS = True
     End Sub
 
     'Private Sub grdItems_CellMouseDoubleClick(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellMouseEventArgs) Handles grdItems.CellMouseDoubleClick
@@ -880,23 +874,13 @@ Public Class frmPresentaciones
 
     End Sub
 
-    Private Sub cmbCONDICIONDEPAGO_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmbEstado.SelectedIndexChanged
-        If band = 1 Then
-            If cmbEstado.Text <> "" Then
-                txtIdCondicionPago.Text = cmbEstado.SelectedValue.ToString
-            Else
-                txtIdCondicionPago.Text = 0
-            End If
-        End If
-    End Sub
 
-    Private Sub cmbPROVEEDORES_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmbObraSocial.SelectedIndexChanged
+    Private Sub cmbObraSocial_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmbObraSocial.SelectedIndexChanged
         If band = 1 Then
             Try
 
-                txtIdProveedor.Text = cmbObraSocial.SelectedValue.ToString
+                txtIdObrasocial.Text = cmbObraSocial.SelectedValue.ToString
 
-                LlenarcmbContactoProveedor()
             Catch ex As Exception
 
             End Try
@@ -916,7 +900,6 @@ Public Class frmPresentaciones
                         'btnFinalizar.Enabled = False
                 End Select
 
-                LlenarcmbContactoProveedor()
 
                 lblCantidadFilas.Text = grdItems.Rows.Count
                 txtID.Text = grd.CurrentRow.Cells(0).Value
@@ -924,7 +907,6 @@ Public Class frmPresentaciones
                 txtObservacion.Text = grd.CurrentRow.Cells(6).Value
                 lblStatus.Text = grd.CurrentRow.Cells(7).Value
                 'cmbContacto.Text = grd.CurrentRow.Cells(9).Value
-                cmbEstado.SelectedValue = grd.CurrentRow.Cells(12).Value
                 cmbObraSocial.SelectedValue = grd.CurrentRow.Cells(13).Value
                 txtPeriodo.Text = grd.CurrentRow.Cells(14).Value
 
@@ -1061,17 +1043,6 @@ Public Class frmPresentaciones
 
     End Sub
 
-    Private Sub PicFormaPago_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Dim f As New frmCondiciondePago
-
-        LLAMADO_POR_FORMULARIO = True
-        ARRIBA = 90
-        IZQUIERDA = Me.Left + 20
-        texto_del_combo = cmbEstado.Text.ToUpper.ToString
-        f.ShowDialog()
-        LlenarcmbCondicionDePago_App(cmbEstado, ConnStringSEI)
-        cmbEstado.Text = texto_del_combo
-    End Sub
 
     Private Sub grdItems_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles grdItems.CellContentClick
         'Dim cell As DataGridViewCell = grdItems.CurrentCell
@@ -1139,18 +1110,6 @@ Public Class frmPresentaciones
 
     End Sub
 
-    Private Sub chkMaterialesProveedor_CheckedChanged(sender As Object, e As EventArgs) Handles chkMaterialesProveedor.CheckedChanged
-        If chkMaterialesProveedor.Checked Then
-            If cmbObraSocial.Text <> "" Then
-                LlenarCombo_Productos(cmbObraSocial.SelectedValue.ToString)
-            Else
-                LlenarCombo_Productos("")
-            End If
-        Else
-            LlenarCombo_Productos("")
-        End If
-    End Sub
-
 #End Region
 
 #Region "   Procedimientos"
@@ -1204,20 +1163,13 @@ Public Class frmPresentaciones
 
     Private Sub asignarTags()
         txtID.Tag = "0"
-        'txtCODIGO.Tag = "1"
-        dtpFECHA.Tag = "2"
+        dtpFECHA.Tag = "1"
+        txtIdObrasocial.Tag = "2"
         cmbObraSocial.Tag = "3"
-        txtSubtotal.Tag = "4"
-        cmbEstado.Tag = "5"
-        txtObservacion.Tag = "6"
-        lblStatus.Tag = "7"
-        chkEliminado.Tag = "8"
-        'cmbContacto.Tag = "9"
-        txtIdCondicionPago.Tag = "12"
-        txtIdProveedor.Tag = "13"
-        txtPeriodo.Tag = "14"
-        txtTotal.Tag = "15"
-        'txtMontoIVA.Tag = "37"
+        txtPeriodo.Tag = "4"
+        lblStatus.Tag = "5"
+        txtTotal.Tag = "6"
+        txtObservacion.Tag = "7"
 
     End Sub
 
@@ -1283,7 +1235,13 @@ Public Class frmPresentaciones
 
             'SQL = "exec spOrdenDeCompra_Det_Select_By_IDOrdenDeCompra @IDOrdenDeCompra = " & IIf(txtID.Text = "", 0, txtID.Text) & ", @Anulado = " & rdAnuladas.Checked
 
-            SQL = "exec spPresentaciones_Det_Select_By_IDPresentacion @IDPresentacion = 1"
+            'SQL = "exec spPresentaciones_Det_Select_By_IDPresentacion @IDPresentacion = 1"
+
+            If txtID.Text = "" Then
+                SQL = "exec spPresentaciones_Det_Select_By_IDPresentacion @IDPresentacion = '1'"
+            Else
+                SQL = "exec spPresentaciones_Det_Select_By_IDPresentacion @IDPresentacion = " & txtID.Text & ""
+            End If
 
             Dim cmd As New SqlCommand(SQL, connection)
             Dim da As New SqlDataAdapter(cmd)
@@ -1296,10 +1254,16 @@ Public Class frmPresentaciones
                 '                  dt.Rows(i)(4).ToString(), dt.Rows(i)(5).ToString(), dt.Rows(i)(6).ToString(), dt.Rows(i)(7).ToString(),
                 '                  dt.Rows(i)(8).ToString(), dt.Rows(i)(9).ToString(), dt.Rows(i)(10).ToString(), dt.Rows(i)(11).ToString(),
                 '                  dt.Rows(i)(12).ToString(), dt.Rows(i)(13).ToString(), dt.Rows(i)(14).ToString(), dt.Rows(i)(15).ToString())
+                ''MATI
+                'grdItems.Rows.Add(dt.Rows(i)(0).ToString(), dt.Rows(i)(1).ToString(), dt.Rows(i)(2).ToString(), dt.Rows(i)(3).ToString(),
+                '  dt.Rows(i)(4).ToString(), dt.Rows(i)(5).ToString(), dt.Rows(i)(6).ToString(), dt.Rows(i)(7).ToString(),
+                '  dt.Rows(i)(8).ToString())
+                ''NACHO
+                grdItems.Rows.Add(dt.Rows(i)(ColumnasDelGridItems.ID).ToString(), dt.Rows(i)(ColumnasDelGridItems.IdPresentacion).ToString(), dt.Rows(i)(ColumnasDelGridItems.Nombre).ToString(), dt.Rows(i)(ColumnasDelGridItems.IdPresentacion).ToString(),
+                  dt.Rows(i)(ColumnasDelGridItems.Recetas).ToString(), dt.Rows(i)(ColumnasDelGridItems.Recaudado).ToString(), dt.Rows(i)(ColumnasDelGridItems.ACargoOS).ToString(), dt.Rows(i)(ColumnasDelGridItems.Bonificacion).ToString(),
+                  dt.Rows(i)(ColumnasDelGridItems.Total).ToString())
+                ' rodrigo 
 
-                grdItems.Rows.Add(dt.Rows(i)(0).ToString(), dt.Rows(i)(1).ToString(), dt.Rows(i)(2).ToString(), dt.Rows(i)(3).ToString(),
-                  dt.Rows(i)(4).ToString(), dt.Rows(i)(5).ToString(), dt.Rows(i)(6).ToString(), dt.Rows(i)(7).ToString(),
-                  dt.Rows(i)(8).ToString())
             Next
 
             CalcularSubtotal()
@@ -1420,137 +1384,6 @@ Public Class frmPresentaciones
         End If
     End Sub
 
-    'Private Sub LlenarComboAyudaMateriales()
-    '    Dim ds_Materiales As Data.DataSet
-    '    Dim connection As SqlClient.SqlConnection = Nothing
-
-    '    Try
-    '        connection = SqlHelper.GetConnection(ConnStringSEI)
-    '    Catch ex As Exception
-    '        MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-    '        Exit Sub
-    '    End Try
-
-    '    Try
-    '        ds_Materiales = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT codigo , nombre FROM Materiales WHERE Eliminado = 0 ORDER BY Nombre")
-    '        ds_Materiales.Dispose()
-
-    '        With Me.BuscarDescripcionToolStripMenuItem.ComboBox
-    '            .DataSource = ds_Materiales.Tables(0).DefaultView
-    '            .DisplayMember = "nombre"
-    '            .ValueMember = "Codigo"
-    '            .AutoCompleteMode = AutoCompleteMode.Suggest
-    '            .AutoCompleteSource = AutoCompleteSource.ListItems
-    '            .DropDownStyle = ComboBoxStyle.DropDown
-    '            .BindingContext = Me.BindingContext
-    '        End With
-
-    '    Catch ex As Exception
-    '        Dim errMessage As String = ""
-    '        Dim tempException As Exception = ex
-
-    '        While (Not tempException Is Nothing)
-    '            errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
-    '            tempException = tempException.InnerException
-    '        End While
-
-    '        MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-    '          + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
-    '          "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
-    '    Finally
-    '        If Not connection Is Nothing Then
-    '            CType(connection, IDisposable).Dispose()
-    '        End If
-    '    End Try
-
-    'End Sub
-
-    'Private Sub LlenarcmbUnidadesVta()
-    '    Dim connection As SqlClient.SqlConnection = Nothing
-    '    Dim ds_UnidadesVta As Data.DataSet
-
-    '    Try
-    '        connection = SqlHelper.GetConnection(ConnStringSEI)
-    '    Catch ex As Exception
-    '        MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-    '        Exit Sub
-    '    End Try
-
-    '    Try
-
-    '        ds_UnidadesVta = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT codigo, NOMBRE as unidad FROM Unidades")
-    '        ds_UnidadesVta.Dispose()
-
-    '        With Me.cmbUnidadVenta.ComboBox
-    '            .DataSource = ds_UnidadesVta.Tables(0).DefaultView
-    '            .DisplayMember = "UNIDAD"
-    '            .ValueMember = "codigo"
-    '            .AutoCompleteMode = AutoCompleteMode.Suggest
-    '            .AutoCompleteSource = AutoCompleteSource.ListItems
-    '            .DropDownStyle = ComboBoxStyle.DropDown
-    '            .BindingContext = Me.BindingContext
-    '            .SelectedIndex = 0
-    '        End With
-
-    '    Catch ex As Exception
-    '        Dim errMessage As String = ""
-    '        Dim tempException As Exception = ex
-
-    '        While (Not tempException Is Nothing)
-    '            errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
-    '            tempException = tempException.InnerException
-    '        End While
-
-    '        MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-    '          + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
-    '          "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
-
-    '    End Try
-
-    'End Sub
-
-    Private Sub LlenarcmbContactoProveedor()
-        Dim connection As SqlClient.SqlConnection = Nothing
-        Dim ds_Contacto As Data.DataSet
-
-        Try
-            connection = SqlHelper.GetConnection(ConnStringSEI)
-        Catch ex As Exception
-            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
-        End Try
-
-        Try
-            ds_Contacto = SqlHelper.ExecuteDataset(connection, CommandType.Text, " SELECT * FROM (SELECT contacto as ContactoProveedor from Proveedores where Codigo = " & IIf(txtIdProveedor.Text = "", 0, txtIdProveedor.Text) & " UNION SELECT DISTINCT CONTACTOPROVEEDOR FROM ORDENDECOMPRA WHERE idproveedor = " & IIf(txtIdProveedor.Text = "", 0, txtIdProveedor.Text) & " ) tt  ORDER BY ContactoProveedor")
-            ds_Contacto.Dispose()
-
-            'With cmbContacto
-            '    .DataSource = ds_Contacto.Tables(0).DefaultView
-            '    .DisplayMember = "ContactoProveedor"
-            '    .AutoCompleteMode = AutoCompleteMode.Suggest
-            '    .AutoCompleteSource = AutoCompleteSource.ListItems
-            '    .DropDownStyle = ComboBoxStyle.DropDown
-            'End With
-
-        Catch ex As Exception
-            Dim errMessage As String = ""
-            Dim tempException As Exception = ex
-
-            While (Not tempException Is Nothing)
-                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
-                tempException = tempException.InnerException
-            End While
-
-            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
-              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            If Not connection Is Nothing Then
-                CType(connection, IDisposable).Dispose()
-            End If
-        End Try
-
-    End Sub
 
     Private Sub Cerrar_Tran()
         'Cierra o finaliza la transaccion
@@ -1998,13 +1831,13 @@ Public Class frmPresentaciones
                 param_idproveedor.ParameterName = "@idproveedor"
                 param_idproveedor.SqlDbType = SqlDbType.VarChar
                 param_idproveedor.Size = 25
-                param_idproveedor.Value = IIf(txtIdProveedor.Text = "", cmbObraSocial.SelectedValue, txtIdProveedor.Text)
+                param_idproveedor.Value = IIf(txtIdObrasocial.Text = "", cmbObraSocial.SelectedValue, txtIdObrasocial.Text)
                 param_idproveedor.Direction = ParameterDirection.Input
 
                 Dim param_idcondiciondepago As New SqlClient.SqlParameter
                 param_idcondiciondepago.ParameterName = "@idcondicionpago"
                 param_idcondiciondepago.SqlDbType = SqlDbType.BigInt
-                param_idcondiciondepago.Value = IIf(txtIdCondicionPago.Text = "", 0, txtIdCondicionPago.Text)
+                param_idcondiciondepago.Value = 0 'IIf(txtIdCondicionPago.Text = "", 0, txtIdCondicionPago.Text)
                 param_idcondiciondepago.Direction = ParameterDirection.Input
 
                 Dim param_subtotal As New SqlClient.SqlParameter
@@ -2307,7 +2140,7 @@ Public Class frmPresentaciones
                     param_IdProveedor.ParameterName = "@IdProveedor"
                     param_IdProveedor.SqlDbType = SqlDbType.VarChar
                     param_IdProveedor.Size = 25
-                    param_IdProveedor.Value = IIf(txtIdProveedor.Text = "", cmbObraSocial.SelectedValue, txtIdProveedor.Text)
+                    param_IdProveedor.Value = IIf(txtIdObrasocial.Text = "", cmbObraSocial.SelectedValue, txtIdObrasocial.Text)
                     param_IdProveedor.Direction = ParameterDirection.Input
 
                     Dim param_res As New SqlClient.SqlParameter
@@ -2834,7 +2667,7 @@ Public Class frmPresentaciones
         Dim param_idProveedor As New SqlClient.SqlParameter
         param_idProveedor.ParameterName = "@idProveedor"
         param_idProveedor.SqlDbType = SqlDbType.BigInt
-        param_idProveedor.Value = txtIdProveedor.Text
+        param_idProveedor.Value = txtIdObrasocial.Text
         param_idProveedor.Direction = ParameterDirection.Input
 
         Dim param_PlazoEntrega As New SqlClient.SqlParameter
@@ -3328,7 +3161,7 @@ Public Class frmPresentaciones
     Private Sub btnNuevo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNuevo.Click
 
 
-        If MessageBox.Show("Desea generar una nueva Orden de Compra?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
+        If MessageBox.Show("Desea generar una nueva Presentación?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
             Exit Sub
         End If
 
@@ -3339,7 +3172,6 @@ Public Class frmPresentaciones
 
         chkEliminado.Checked = False
         cmbObraSocial.Enabled = True
-        cmbEstado.Enabled = True
 
         grdItems.Enabled = True
         dtpFECHA.Enabled = True
@@ -3352,10 +3184,10 @@ Public Class frmPresentaciones
         'Catch ex As Exception
 
         'End Try
-
-        If btnBand_Copiar = True Then
-            Util.LimpiarTextBox(Me.Controls)
-        End If
+        Util.LimpiarTextBox(Me.Controls)
+        'If btnBand_Copiar = True Then
+        '    Util.LimpiarTextBox(Me.Controls)
+        'End If
 
         PrepararGridItems()
 
@@ -3400,8 +3232,8 @@ Public Class frmPresentaciones
                 Select Case res
                     Case -3
                         Cancelar_Tran()
-                        Util.MsgStatus(Status1, "No pudo realizarse la insersión (Encabezado).", My.Resources.Resources.stop_error.ToBitmap)
-                        Util.MsgStatus(Status1, "No pudo realizarse la insersión (Encabezado).", My.Resources.Resources.stop_error.ToBitmap, True)
+                        Util.MsgStatus(Status1, "No pudo realizarse la inserción (Encabezado).", My.Resources.Resources.stop_error.ToBitmap)
+                        Util.MsgStatus(Status1, "No pudo realizarse la inserción (Encabezado).", My.Resources.Resources.stop_error.ToBitmap, True)
                     Case -2
                         Cancelar_Tran()
                         Util.MsgStatus(Status1, "No se pudo actualizar el número de Orden de Compra (Encabezado).", My.Resources.Resources.stop_error.ToBitmap)
@@ -3618,6 +3450,17 @@ Public Class frmPresentaciones
         End If
 
     End Sub
+
+
+    'Private Sub cmbObraSocial_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbObraSocial.SelectedIndexChanged
+    '    If bolIDOS Then
+    '        IdObraSocial = cmbObraSocial.SelectedValue
+    '        SQL = $"exec spPresentaciones_Select_All  @Eliminado = 0, @ObraSocial = '{IdObraSocial}'"
+    '        LlenarGrilla()
+    '        grd.Columns(1).Visible = False
+    '    End If
+
+    'End Sub
 
 #End Region
 
