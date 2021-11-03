@@ -51,23 +51,30 @@ Public Class frmPresentaciones
     Dim porceniva As Double = 21
 
     Enum ColumnasDelGridItems
-        IdOrdenDeCompra_Det = 0
-        IdMaterial = 1
-        Producto = 2
-        QtyStockTotal = 3
-        Bonif1 = 4
-        Bonif2 = 5
-        Bonif3 = 6
-        PrecioUni = 7
-        Cantidad = 8
-        Peso = 9
-        Subtotal = 10
-        Status = 11
-        Saldo = 12
-        Nota_Det = 13
-        IdUnidad = 14
-        Iva = 15
-        MontoIVA = 16
+        'IdOrdenDeCompra_Det = 0
+        'IdMaterial = 1
+        'Producto = 2
+        'QtyStockTotal = 3
+        'Bonif1 = 4
+        'Bonif2 = 5
+        'Bonif3 = 6
+        'PrecioUni = 7
+        'Cantidad = 8
+        'Peso = 9
+        'Subtotal = 10
+        'Status = 11
+        'Saldo = 12
+        'Nota_Det = 13
+        'IdUnidad = 14
+        'Iva = 15
+        'MontoIVA = 16
+        ID = 0
+        IDObraSocial = 1
+        ObraSocial = 2
+        Cuit = 3
+        Fecha = 4
+        Periodo = 5
+        total = 6
     End Enum
 
     'Auxiliares para guardar
@@ -156,7 +163,10 @@ Public Class frmPresentaciones
 
         Me.LlenarCombo_Productos("")
 
-        SQL = "exec spOrdenDeCompra_Select_All @Eliminado = " & rdAnuladas.Checked & ", @Pendientes = " & rdPendientes.Checked & ", @PendientesyCumplidas = " & rdTodasOC.Checked
+        'SQL = "exec spOrdenDeCompra_Select_All @Eliminado = " & rdAnuladas.Checked & ", @Pendientes = " & rdPendientes.Checked & ", @PendientesyCumplidas = " & rdTodasOC.Checked
+
+        ''Traigo los encabezados de presentacion
+        SQL = "exec spPresentaciones_Select_All @Eliminado = 0"
 
         LlenarGrilla()
         Permitir = True
@@ -173,12 +183,12 @@ Public Class frmPresentaciones
             grd.Rows(0).Selected = True
             grd.CurrentCell = grd.Rows(0).Cells(1)
             txtID.Text = grd.Rows(0).Cells(0).Value
-            cmbObraSocial.SelectedValue = grd.Rows(0).Cells(13).Value
+            cmbObraSocial.SelectedValue = grd.Rows(0).Cells(1).Value
             'cmbContacto.SelectedText = grd.Rows(0).Cells(9).Value
-            cmbEstado.SelectedValue = grd.Rows(0).Cells(12).Value
-            txtObservacion.Text = grd.Rows(0).Cells(6).Value
-            txtPeriodo.Text = grd.Rows(0).Cells(14).Value
-            lblStatus.Text = grd.Rows(0).Cells(7).Value
+            'cmbEstado.SelectedValue = grd.Rows(0).Cells(12).Value
+            'txtObservacion.Text = grd.Rows(0).Cells(6).Value
+            txtPeriodo.Text = grd.Rows(0).Cells(5).Value
+            'lblStatus.Text = grd.Rows(0).Cells(7).Value
         End If
 
         If bolModo = True Then
@@ -189,7 +199,7 @@ Public Class frmPresentaciones
         End If
 
 
-        grd.Columns(0).Visible = False
+        'grd.Columns(0).Visible = False
         'grd.Columns(1).Visible = False
         'grd.Columns(2).Visible = False
         'grd.Columns(3).Visible = False
@@ -199,12 +209,12 @@ Public Class frmPresentaciones
         'grd.Columns(7).Visible = False
         'grd.Columns(8).Visible = False
         'grd.Columns(9).Visible = False
-        grd.Columns(10).Visible = False
+        'grd.Columns(10).Visible = False
         'grd.Columns(11).Visible = False
-        grd.Columns(12).Visible = False
-        grd.Columns(13).Visible = False
+        'grd.Columns(12).Visible = False
+        'grd.Columns(13).Visible = False
         'grd.Columns(14).Visible = False
-        grd.Columns(15).Visible = False
+        'grd.Columns(15).Visible = False
         'grd.Columns(16).Visible = False
         'grd.Columns(17).Visible = False
         'grd.Columns(18).Visible = False
@@ -357,9 +367,9 @@ Public Class frmPresentaciones
         Dim i As Integer
         Dim Subtotal As Double = 0
 
-        For i = 0 To grdItems.Rows.Count - 1
-            Subtotal = Subtotal + grdItems.Rows(i).Cells(ColumnasDelGridItems.Subtotal).Value
-        Next
+        'For i = 0 To grdItems.Rows.Count - 1
+        '    Subtotal = Subtotal + grdItems.Rows(i).Cells(ColumnasDelGridItems.Subtotal).Value
+        'Next
 
         txtSubtotal.Text = Subtotal
 
@@ -601,31 +611,31 @@ Public Class frmPresentaciones
         'If Me.grdItems.CurrentCell.ColumnIndex = ColumnasDelGridItems.PrecioVenta Then
         '    AddHandler e.Control.KeyPress, AddressOf validarNumerosReales
         'Else
-        If Me.grdItems.CurrentCell.ColumnIndex = ColumnasDelGridItems.PrecioUni Then
-            AddHandler e.Control.KeyPress, AddressOf validarNumerosReales
-        Else
-            If Me.grdItems.CurrentCell.ColumnIndex = ColumnasDelGridItems.Cantidad Then
-                AddHandler e.Control.KeyPress, AddressOf validarNumerosReales
-            Else
-                If Me.grdItems.CurrentCell.ColumnIndex = ColumnasDelGridItems.Bonif1 Then
-                    AddHandler e.Control.KeyPress, AddressOf validarNumerosReales
-                Else
-                    If Me.grdItems.CurrentCell.ColumnIndex = ColumnasDelGridItems.Bonif2 Then
-                        AddHandler e.Control.KeyPress, AddressOf validarNumerosReales
-                    Else
-                        If Me.grdItems.CurrentCell.ColumnIndex = ColumnasDelGridItems.Bonif3 Then
-                            AddHandler e.Control.KeyPress, AddressOf validarNumerosReales
-                            'Else
-                            '    If Me.grdItems.CurrentCell.ColumnIndex = ColumnasDelGridItems.Iva Then
-                            '        AddHandler e.Control.KeyPress, AddressOf validarNumerosReales
-                            '    Else
-                            '        AddHandler e.Control.KeyPress, AddressOf NoValidar
-                            '    End If
-                        End If
-                    End If
-                End If
-            End If
-        End If
+        'If Me.grdItems.CurrentCell.ColumnIndex = ColumnasDelGridItems.PrecioUni Then
+        '    AddHandler e.Control.KeyPress, AddressOf validarNumerosReales
+        'Else
+        '    If Me.grdItems.CurrentCell.ColumnIndex = ColumnasDelGridItems.Cantidad Then
+        '        AddHandler e.Control.KeyPress, AddressOf validarNumerosReales
+        '    Else
+        '        If Me.grdItems.CurrentCell.ColumnIndex = ColumnasDelGridItems.Bonif1 Then
+        '            AddHandler e.Control.KeyPress, AddressOf validarNumerosReales
+        '        Else
+        '            If Me.grdItems.CurrentCell.ColumnIndex = ColumnasDelGridItems.Bonif2 Then
+        '                AddHandler e.Control.KeyPress, AddressOf validarNumerosReales
+        '            Else
+        '                If Me.grdItems.CurrentCell.ColumnIndex = ColumnasDelGridItems.Bonif3 Then
+        '                    AddHandler e.Control.KeyPress, AddressOf validarNumerosReales
+        '                    'Else
+        '                    '    If Me.grdItems.CurrentCell.ColumnIndex = ColumnasDelGridItems.Iva Then
+        '                    '        AddHandler e.Control.KeyPress, AddressOf validarNumerosReales
+        '                    '    Else
+        '                    '        AddHandler e.Control.KeyPress, AddressOf NoValidar
+        '                    '    End If
+        '                End If
+        '            End If
+        '        End If
+        '    End If
+        'End If
         'End If
 
     End Sub
@@ -755,58 +765,58 @@ Public Class frmPresentaciones
 
     Private Sub BorrarElItemToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BorrarElItemToolStripMenuItem.Click
 
-        Dim cell As DataGridViewCell = grdItems.CurrentCell
-        Dim res As Integer
+        'Dim cell As DataGridViewCell = grdItems.CurrentCell
+        'Dim res As Integer
 
-        Try
-            If bolModo Then
-                grdItems.Rows.RemoveAt(cell.RowIndex) 'la borramos directamente
-                Contar_Filas()
-            Else
-                'If bolModo = False And grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.IdMaterial).Value Is DBNull.Value Then
-                ' grdItems.Rows.RemoveAt(cell.RowIndex) 'la borramos directamente
-                'Contar_Filas()
-                'Else
-                If grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Status).Value.ToString = "CUMPLIDO" Then
-                    Util.MsgStatus(Status1, "No se puede borrar el registro. Ya está Cumplido.", My.Resources.stop_error.ToBitmap)
-                    Util.MsgStatus(Status1, "No se puede borrar el registro. Ya está Cumplido.", My.Resources.stop_error.ToBitmap, True)
-                Else
-                    If grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Cantidad).Value <> IIf(grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Saldo).Value Is DBNull.Value, grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Cantidad).Value, grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Saldo).Value) Then
-                        Util.MsgStatus(Status1, "No se puede borrar el registro. Ya tiene Recepciones realizadas.", My.Resources.stop_error.ToBitmap)
-                        Util.MsgStatus(Status1, "No se puede borrar el registro. Ya tiene Recepciones realizadas.", My.Resources.stop_error.ToBitmap, True)
-                    Else
-                        If MessageBox.Show("Esta acción Eliminará el item de forma permanente." + vbCrLf + "¿Está seguro que desea eliminar?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
-                            Util.MsgStatus(Status1, "Eliminando el registro...", My.Resources.Resources.indicator_white)
+        'Try
+        '    If bolModo Then
+        '        grdItems.Rows.RemoveAt(cell.RowIndex) 'la borramos directamente
+        '        Contar_Filas()
+        '    Else
+        '        'If bolModo = False And grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.IdMaterial).Value Is DBNull.Value Then
+        '        ' grdItems.Rows.RemoveAt(cell.RowIndex) 'la borramos directamente
+        '        'Contar_Filas()
+        '        'Else
+        '        If grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Status).Value.ToString = "CUMPLIDO" Then
+        '            Util.MsgStatus(Status1, "No se puede borrar el registro. Ya está Cumplido.", My.Resources.stop_error.ToBitmap)
+        '            Util.MsgStatus(Status1, "No se puede borrar el registro. Ya está Cumplido.", My.Resources.stop_error.ToBitmap, True)
+        '        Else
+        '            If grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Cantidad).Value <> IIf(grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Saldo).Value Is DBNull.Value, grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Cantidad).Value, grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Saldo).Value) Then
+        '                Util.MsgStatus(Status1, "No se puede borrar el registro. Ya tiene Recepciones realizadas.", My.Resources.stop_error.ToBitmap)
+        '                Util.MsgStatus(Status1, "No se puede borrar el registro. Ya tiene Recepciones realizadas.", My.Resources.stop_error.ToBitmap, True)
+        '            Else
+        '                If MessageBox.Show("Esta acción Eliminará el item de forma permanente." + vbCrLf + "¿Está seguro que desea eliminar?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
+        '                    Util.MsgStatus(Status1, "Eliminando el registro...", My.Resources.Resources.indicator_white)
 
-                            Dim item As Long = grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.IdOrdenDeCompra_Det).Value
+        '                    Dim item As Long = grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.IdOrdenDeCompra_Det).Value
 
-                            grdItems.Rows.RemoveAt(cell.RowIndex) 'la borramos directamente de la grilla..
-                            Contar_Filas()
+        '                    grdItems.Rows.RemoveAt(cell.RowIndex) 'la borramos directamente de la grilla..
+        '                    Contar_Filas()
 
-                            res = EliminarRegistroItem(CType(txtID.Text, Long), item)
+        '                    res = EliminarRegistroItem(CType(txtID.Text, Long), item)
 
-                            Select Case res
-                                Case -1
-                                    Util.MsgStatus(Status1, "No se pudo borrar el Item.", My.Resources.stop_error.ToBitmap)
-                                    Util.MsgStatus(Status1, "No se pudo borrar el Item.", My.Resources.stop_error.ToBitmap, True)
-                                Case Else
-                                    PrepararBotones()
-                                    btnActualizar_Click(sender, e)
-                                    'Setear_Grilla()
-                                    Util.MsgStatus(Status1, "Se ha borrado el Item.", My.Resources.ok.ToBitmap)
-                                    Util.MsgStatus(Status1, "Se ha borrado el Item.", My.Resources.ok.ToBitmap, True, True)
-                            End Select
-                        Else
-                            Util.MsgStatus(Status1, "Acción de eliminar Item cancelada.", My.Resources.stop_error.ToBitmap)
-                            Util.MsgStatus(Status1, "Acción de eliminar Item cancelada.", My.Resources.stop_error.ToBitmap, True)
-                        End If
-                    End If
-                End If
-            End If
-            'End If
-        Catch ex As Exception
+        '                    Select Case res
+        '                        Case -1
+        '                            Util.MsgStatus(Status1, "No se pudo borrar el Item.", My.Resources.stop_error.ToBitmap)
+        '                            Util.MsgStatus(Status1, "No se pudo borrar el Item.", My.Resources.stop_error.ToBitmap, True)
+        '                        Case Else
+        '                            PrepararBotones()
+        '                            btnActualizar_Click(sender, e)
+        '                            'Setear_Grilla()
+        '                            Util.MsgStatus(Status1, "Se ha borrado el Item.", My.Resources.ok.ToBitmap)
+        '                            Util.MsgStatus(Status1, "Se ha borrado el Item.", My.Resources.ok.ToBitmap, True, True)
+        '                    End Select
+        '                Else
+        '                    Util.MsgStatus(Status1, "Acción de eliminar Item cancelada.", My.Resources.stop_error.ToBitmap)
+        '                    Util.MsgStatus(Status1, "Acción de eliminar Item cancelada.", My.Resources.stop_error.ToBitmap, True)
+        '                End If
+        '            End If
+        '        End If
+        '    End If
+        '    'End If
+        'Catch ex As Exception
 
-        End Try
+        'End Try
 
     End Sub
 
@@ -1064,67 +1074,67 @@ Public Class frmPresentaciones
     End Sub
 
     Private Sub grdItems_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles grdItems.CellContentClick
-        Dim cell As DataGridViewCell = grdItems.CurrentCell
-        Dim res As Integer
+        'Dim cell As DataGridViewCell = grdItems.CurrentCell
+        'Dim res As Integer
 
-        If e.ColumnIndex = 17 Then
-            Try
-                If bolModo Then
-                    grdItems.Rows.RemoveAt(cell.RowIndex) 'la borramos directamente
-                    Contar_Filas()
-                Else
-                    'If bolModo = False And grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.IdMaterial).Value Is DBNull.Value Then
-                    ' grdItems.Rows.RemoveAt(cell.RowIndex) 'la borramos directamente
-                    'Contar_Filas()
-                    'Else
-                    If grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Status).Value.ToString = "CUMPLIDO" Then
-                        Util.MsgStatus(Status1, "No se puede borrar el registro. Ya está Cumplido.", My.Resources.stop_error.ToBitmap)
-                        Util.MsgStatus(Status1, "No se puede borrar el registro. Ya está Cumplido.", My.Resources.stop_error.ToBitmap, True)
-                    Else
-                        If grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Cantidad).Value <> IIf(grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Saldo).Value Is DBNull.Value, grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Cantidad).Value, grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Saldo).Value) Then
-                            Util.MsgStatus(Status1, "No se puede borrar el registro. Ya tiene Recepciones realizadas.", My.Resources.stop_error.ToBitmap)
-                            Util.MsgStatus(Status1, "No se puede borrar el registro. Ya tiene Recepciones realizadas.", My.Resources.stop_error.ToBitmap, True)
-                        Else
-                            If MessageBox.Show("Esta acción Eliminará el item de forma permanente." + vbCrLf + "¿Está seguro que desea eliminar?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
-                                Util.MsgStatus(Status1, "Eliminando el registro...", My.Resources.Resources.indicator_white)
+        'If e.ColumnIndex = 17 Then
+        '    Try
+        '        If bolModo Then
+        '            grdItems.Rows.RemoveAt(cell.RowIndex) 'la borramos directamente
+        '            Contar_Filas()
+        '        Else
+        '            'If bolModo = False And grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.IdMaterial).Value Is DBNull.Value Then
+        '            ' grdItems.Rows.RemoveAt(cell.RowIndex) 'la borramos directamente
+        '            'Contar_Filas()
+        '            'Else
+        '            If grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Status).Value.ToString = "CUMPLIDO" Then
+        '                Util.MsgStatus(Status1, "No se puede borrar el registro. Ya está Cumplido.", My.Resources.stop_error.ToBitmap)
+        '                Util.MsgStatus(Status1, "No se puede borrar el registro. Ya está Cumplido.", My.Resources.stop_error.ToBitmap, True)
+        '            Else
+        '                If grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Cantidad).Value <> IIf(grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Saldo).Value Is DBNull.Value, grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Cantidad).Value, grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Saldo).Value) Then
+        '                    Util.MsgStatus(Status1, "No se puede borrar el registro. Ya tiene Recepciones realizadas.", My.Resources.stop_error.ToBitmap)
+        '                    Util.MsgStatus(Status1, "No se puede borrar el registro. Ya tiene Recepciones realizadas.", My.Resources.stop_error.ToBitmap, True)
+        '                Else
+        '                    If MessageBox.Show("Esta acción Eliminará el item de forma permanente." + vbCrLf + "¿Está seguro que desea eliminar?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
+        '                        Util.MsgStatus(Status1, "Eliminando el registro...", My.Resources.Resources.indicator_white)
 
-                                Dim item As Long = grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.IdOrdenDeCompra_Det).Value
+        '                        Dim item As Long = grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.IdOrdenDeCompra_Det).Value
 
-                                grdItems.Rows.RemoveAt(cell.RowIndex) 'la borramos directamente de la grilla..
-                                Contar_Filas()
+        '                        grdItems.Rows.RemoveAt(cell.RowIndex) 'la borramos directamente de la grilla..
+        '                        Contar_Filas()
 
-                                res = EliminarRegistroItem(CType(txtID.Text, Long), item)
+        '                        res = EliminarRegistroItem(CType(txtID.Text, Long), item)
 
-                                Select Case res
-                                    Case -1
-                                        Util.MsgStatus(Status1, "No se pudo borrar el Item.", My.Resources.stop_error.ToBitmap)
-                                        Util.MsgStatus(Status1, "No se pudo borrar el Item.", My.Resources.stop_error.ToBitmap, True)
-                                    Case Else
+        '                        Select Case res
+        '                            Case -1
+        '                                Util.MsgStatus(Status1, "No se pudo borrar el Item.", My.Resources.stop_error.ToBitmap)
+        '                                Util.MsgStatus(Status1, "No se pudo borrar el Item.", My.Resources.stop_error.ToBitmap, True)
+        '                            Case Else
 
-                                        rdPendientes.Checked = 1
-                                        SQL = "exec spOrdenDeCompra_Select_All @Eliminado = " & rdAnuladas.Checked & ", @Pendientes = " & rdPendientes.Checked & ", @PendientesyCumplidas = " & rdTodasOC.Checked
+        '                                rdPendientes.Checked = 1
+        '                                SQL = "exec spOrdenDeCompra_Select_All @Eliminado = " & rdAnuladas.Checked & ", @Pendientes = " & rdPendientes.Checked & ", @PendientesyCumplidas = " & rdTodasOC.Checked
 
-                                        bolModo = False
-                                        PrepararBotones()
-                                        MDIPrincipal.NoActualizarBase = False
-                                        btnActualizar_Click(sender, e)
-                                        'Setear_Grilla()
-                                        Util.MsgStatus(Status1, "Se ha borrado el Item.", My.Resources.ok.ToBitmap)
-                                        Util.MsgStatus(Status1, "Se ha borrado el Item.", My.Resources.ok.ToBitmap, True, True)
-                                End Select
-                            Else
-                                Util.MsgStatus(Status1, "Acción de eliminar Item cancelada.", My.Resources.stop_error.ToBitmap)
-                                Util.MsgStatus(Status1, "Acción de eliminar Item cancelada.", My.Resources.stop_error.ToBitmap, True)
-                            End If
-                        End If
-                    End If
-                End If
-                CalcularSubtotal()
-                'End If
-            Catch ex As Exception
+        '                                bolModo = False
+        '                                PrepararBotones()
+        '                                MDIPrincipal.NoActualizarBase = False
+        '                                btnActualizar_Click(sender, e)
+        '                                'Setear_Grilla()
+        '                                Util.MsgStatus(Status1, "Se ha borrado el Item.", My.Resources.ok.ToBitmap)
+        '                                Util.MsgStatus(Status1, "Se ha borrado el Item.", My.Resources.ok.ToBitmap, True, True)
+        '                        End Select
+        '                    Else
+        '                        Util.MsgStatus(Status1, "Acción de eliminar Item cancelada.", My.Resources.stop_error.ToBitmap)
+        '                        Util.MsgStatus(Status1, "Acción de eliminar Item cancelada.", My.Resources.stop_error.ToBitmap, True)
+        '                    End If
+        '                End If
+        '            End If
+        '        End If
+        '        CalcularSubtotal()
+        '        'End If
+        '    Catch ex As Exception
 
-            End Try
-        End If
+        '    End Try
+        'End If
 
 
     End Sub
@@ -1271,7 +1281,9 @@ Public Class frmPresentaciones
         Try
             Dim dt As New DataTable
 
-            SQL = "exec spOrdenDeCompra_Det_Select_By_IDOrdenDeCompra @IDOrdenDeCompra = " & IIf(txtID.Text = "", 0, txtID.Text) & ", @Anulado = " & rdAnuladas.Checked
+            'SQL = "exec spOrdenDeCompra_Det_Select_By_IDOrdenDeCompra @IDOrdenDeCompra = " & IIf(txtID.Text = "", 0, txtID.Text) & ", @Anulado = " & rdAnuladas.Checked
+
+            SQL = "exec spPresentaciones_Det_Select_By_IDPresentacion @IDPresentacion = 1"
 
             Dim cmd As New SqlCommand(SQL, connection)
             Dim da As New SqlDataAdapter(cmd)
@@ -1280,10 +1292,14 @@ Public Class frmPresentaciones
             da.Fill(dt)
 
             For i = 0 To dt.Rows.Count - 1
+                'grdItems.Rows.Add(dt.Rows(i)(0).ToString(), dt.Rows(i)(1).ToString(), dt.Rows(i)(2).ToString(), dt.Rows(i)(3).ToString(),
+                '                  dt.Rows(i)(4).ToString(), dt.Rows(i)(5).ToString(), dt.Rows(i)(6).ToString(), dt.Rows(i)(7).ToString(),
+                '                  dt.Rows(i)(8).ToString(), dt.Rows(i)(9).ToString(), dt.Rows(i)(10).ToString(), dt.Rows(i)(11).ToString(),
+                '                  dt.Rows(i)(12).ToString(), dt.Rows(i)(13).ToString(), dt.Rows(i)(14).ToString(), dt.Rows(i)(15).ToString())
+
                 grdItems.Rows.Add(dt.Rows(i)(0).ToString(), dt.Rows(i)(1).ToString(), dt.Rows(i)(2).ToString(), dt.Rows(i)(3).ToString(),
-                                  dt.Rows(i)(4).ToString(), dt.Rows(i)(5).ToString(), dt.Rows(i)(6).ToString(), dt.Rows(i)(7).ToString(),
-                                  dt.Rows(i)(8).ToString(), dt.Rows(i)(9).ToString(), dt.Rows(i)(10).ToString(), dt.Rows(i)(11).ToString(),
-                                  dt.Rows(i)(12).ToString(), dt.Rows(i)(13).ToString(), dt.Rows(i)(14).ToString(), dt.Rows(i)(15).ToString())
+                  dt.Rows(i)(4).ToString(), dt.Rows(i)(5).ToString(), dt.Rows(i)(6).ToString(), dt.Rows(i)(7).ToString(),
+                  dt.Rows(i)(8).ToString())
             Next
 
             CalcularSubtotal()
@@ -1633,164 +1649,164 @@ Public Class frmPresentaciones
 
     'End Sub
 
-    Private Sub CalcularPrecio(ByRef cell As DataGridViewCell)
-        Dim Bonif1 As Double, Bonif2 As Double, Bonif3 As Double, Bonif4 As Double, Bonif5 As Double
-        'Dim precioxkg As Double, cantxlongitud As Double, pesoxunidad As Double,  precioxmt As Double
-        Dim preciolista As Double = 0
-        Dim preciobonif1 As Double = 0, preciobonif2 As Double = 0, preciobonif3 As Double = 0, preciobonif4 As Double = 0, preciobonif5 As Double = 0
-        Dim preciosinivabonif As Double = 0
+    'Private Sub CalcularPrecio(ByRef cell As DataGridViewCell)
+    '    Dim Bonif1 As Double, Bonif2 As Double, Bonif3 As Double, Bonif4 As Double, Bonif5 As Double
+    '    'Dim precioxkg As Double, cantxlongitud As Double, pesoxunidad As Double,  precioxmt As Double
+    '    Dim preciolista As Double = 0
+    '    Dim preciobonif1 As Double = 0, preciobonif2 As Double = 0, preciobonif3 As Double = 0, preciobonif4 As Double = 0, preciobonif5 As Double = 0
+    '    Dim preciosinivabonif As Double = 0
 
-        'Dim cell As DataGridViewCell = grdItems.CurrentCell
+    '    'Dim cell As DataGridViewCell = grdItems.CurrentCell
 
-        Try
-            If grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif1).Value Is DBNull.Value Or
-                grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif1).Value Is Nothing Then
-                grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif1).Value = 0
-            End If
+    '    Try
+    '        If grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif1).Value Is DBNull.Value Or
+    '            grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif1).Value Is Nothing Then
+    '            grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif1).Value = 0
+    '        End If
 
-            If grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif2).Value Is DBNull.Value Or
-                grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif2).Value Is Nothing Then
-                grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif2).Value = 0
-            End If
+    '        If grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif2).Value Is DBNull.Value Or
+    '            grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif2).Value Is Nothing Then
+    '            grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif2).Value = 0
+    '        End If
 
-            If grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif3).Value Is DBNull.Value Or
-                grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif3).Value Is Nothing Then
-                grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif3).Value = 0
-            End If
+    '        If grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif3).Value Is DBNull.Value Or
+    '            grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif3).Value Is Nothing Then
+    '            grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif3).Value = 0
+    '        End If
 
-            'If grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif4).Value Is DBNull.Value Or _
-            '    grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif4).Value Is Nothing Then
-            '    grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif4).Value = 0
-            'End If
+    '        'If grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif4).Value Is DBNull.Value Or _
+    '        '    grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif4).Value Is Nothing Then
+    '        '    grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif4).Value = 0
+    '        'End If
 
-            'If grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif5).Value Is DBNull.Value Or _
-            '    grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif5).Value Is Nothing Then
-            '    grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif5).Value = 0
-            'End If
+    '        'If grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif5).Value Is DBNull.Value Or _
+    '        '    grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif5).Value Is Nothing Then
+    '        '    grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif5).Value = 0
+    '        'End If
 
-            If grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Cantidad).Value Is DBNull.Value Or
-                grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Cantidad).Value Is Nothing Then
-                grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Cantidad).Value = 0.0
-            End If
+    '        If grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Cantidad).Value Is DBNull.Value Or
+    '            grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Cantidad).Value Is Nothing Then
+    '            grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Cantidad).Value = 0.0
+    '        End If
 
-            'If grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Iva).Value Is DBNull.Value Or _
-            '   grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Iva).Value Is Nothing Then
-            '    grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Iva).Value = 0.0
-            'End If
+    '        'If grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Iva).Value Is DBNull.Value Or _
+    '        '   grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Iva).Value Is Nothing Then
+    '        '    grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Iva).Value = 0.0
+    '        'End If
 
-            Bonif1 = 1 - (CType(grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif1).Value, Double)) / 100
-            Bonif2 = 1 - (CType(grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif2).Value, Double)) / 100
-            Bonif3 = 1 - (CType(grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif3).Value, Double)) / 100
-            'Bonif4 = 1 - (CType(grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif4).Value, Double)) / 100
-            'Bonif5 = 1 - (CType(grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif5).Value, Double)) / 100
+    '        Bonif1 = 1 - (CType(grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif1).Value, Double)) / 100
+    '        Bonif2 = 1 - (CType(grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif2).Value, Double)) / 100
+    '        Bonif3 = 1 - (CType(grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif3).Value, Double)) / 100
+    '        'Bonif4 = 1 - (CType(grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif4).Value, Double)) / 100
+    '        'Bonif5 = 1 - (CType(grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif5).Value, Double)) / 100
 
-            'preciolista = IIf(grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.PrecioLista).Value Is DBNull.Value, 0, grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.PrecioLista).Value)
+    '        'preciolista = IIf(grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.PrecioLista).Value Is DBNull.Value, 0, grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.PrecioLista).Value)
 
-            preciobonif1 = preciolista * Bonif1
-            preciobonif1 = preciobonif1 * Bonif2
-            preciobonif1 = preciobonif1 * Bonif3
-            preciobonif1 = preciobonif1 * Bonif4
-            preciobonif1 = preciobonif1 * Bonif5
+    '        preciobonif1 = preciolista * Bonif1
+    '        preciobonif1 = preciobonif1 * Bonif2
+    '        preciobonif1 = preciobonif1 * Bonif3
+    '        preciobonif1 = preciobonif1 * Bonif4
+    '        preciobonif1 = preciobonif1 * Bonif5
 
-            preciosinivabonif = preciobonif1 '/ (1 + (grdItems.CurrentRow.Cells(ColumnasDelGridItems.IVA).Value / 100))
+    '        preciosinivabonif = preciobonif1 '/ (1 + (grdItems.CurrentRow.Cells(ColumnasDelGridItems.IVA).Value / 100))
 
-            grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.PrecioUni).Value = CDbl(FormatNumber(preciosinivabonif, 2))
+    '        grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.PrecioUni).Value = CDbl(FormatNumber(preciosinivabonif, 2))
 
-            ' grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.MontoIVA).Value = Format(grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Cantidad).Value * preciosinivabonif * (grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Iva).Value / 100), "####0.00")
+    '        ' grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.MontoIVA).Value = Format(grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Cantidad).Value * preciosinivabonif * (grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Iva).Value / 100), "####0.00")
 
-            grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Subtotal).Value = CDbl(FormatNumber(preciosinivabonif * grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Cantidad).Value, 2))
+    '        grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Subtotal).Value = CDbl(FormatNumber(preciosinivabonif * grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Cantidad).Value, 2))
 
-            Contar_Filas()
+    '        Contar_Filas()
 
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
+    '    Catch ex As Exception
+    '        MsgBox(ex.Message)
+    '    End Try
 
-    End Sub
+    'End Sub
 
     Private Sub HiloOcultarColumnasGridItems()
         Try
-            grdItems.Columns(ColumnasDelGridItems.IdOrdenDeCompra_Det).ReadOnly = True
-            grdItems.Columns(ColumnasDelGridItems.IdOrdenDeCompra_Det).Width = 70
-            grdItems.Columns(ColumnasDelGridItems.IdOrdenDeCompra_Det).Visible = False
+            'grdItems.Columns(ColumnasDelGridItems.IdOrdenDeCompra_Det).ReadOnly = True
+            'grdItems.Columns(ColumnasDelGridItems.IdOrdenDeCompra_Det).Width = 70
+            'grdItems.Columns(ColumnasDelGridItems.IdOrdenDeCompra_Det).Visible = False
 
-            'grdItems.Columns(ColumnasDelGridItems.Cod_OrdenDeCompra_Det).ReadOnly = True
-            'grdItems.Columns(ColumnasDelGridItems.Cod_OrdenDeCompra_Det).Width = 70
-            'grdItems.Columns(ColumnasDelGridItems.Cod_OrdenDeCompra_Det).Visible = False
+            ''grdItems.Columns(ColumnasDelGridItems.Cod_OrdenDeCompra_Det).ReadOnly = True
+            ''grdItems.Columns(ColumnasDelGridItems.Cod_OrdenDeCompra_Det).Width = 70
+            ''grdItems.Columns(ColumnasDelGridItems.Cod_OrdenDeCompra_Det).Visible = False
 
-            grdItems.Columns(ColumnasDelGridItems.IdMaterial).Visible = False
+            'grdItems.Columns(ColumnasDelGridItems.IdMaterial).Visible = False
 
-            'grdItems.Columns(ColumnasDelGridItems.Cod_material).Width = 90
+            ''grdItems.Columns(ColumnasDelGridItems.Cod_material).Width = 90
 
-            grdItems.Columns(ColumnasDelGridItems.Producto).Width = 260
+            'grdItems.Columns(ColumnasDelGridItems.Producto).Width = 260
 
-            grdItems.Columns(ColumnasDelGridItems.QtyStockTotal).ReadOnly = True
-            grdItems.Columns(ColumnasDelGridItems.QtyStockTotal).Width = 50
-            grdItems.Columns(ColumnasDelGridItems.QtyStockTotal).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            'grdItems.Columns(ColumnasDelGridItems.QtyStockTotal).ReadOnly = True
+            'grdItems.Columns(ColumnasDelGridItems.QtyStockTotal).Width = 50
+            'grdItems.Columns(ColumnasDelGridItems.QtyStockTotal).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
 
-            'grdItems.Columns(ColumnasDelGridItems.Precio).Visible = False
+            ''grdItems.Columns(ColumnasDelGridItems.Precio).Visible = False
 
-            'grdItems.Columns(ColumnasDelGridItems.PrecioLista).Width = 70
-            'grdItems.Columns(ColumnasDelGridItems.PrecioLista).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            ''grdItems.Columns(ColumnasDelGridItems.PrecioLista).Width = 70
+            ''grdItems.Columns(ColumnasDelGridItems.PrecioLista).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
 
-            'grdItems.Columns(ColumnasDelGridItems.Iva).Width = 40
-            'grdItems.Columns(ColumnasDelGridItems.Iva).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            ''grdItems.Columns(ColumnasDelGridItems.Iva).Width = 40
+            ''grdItems.Columns(ColumnasDelGridItems.Iva).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
 
-            'grdItems.Columns(ColumnasDelGridItems.MontoIVA).ReadOnly = True
-            'grdItems.Columns(ColumnasDelGridItems.MontoIVA).Width = 60
-            'grdItems.Columns(ColumnasDelGridItems.MontoIVA).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            ''grdItems.Columns(ColumnasDelGridItems.MontoIVA).ReadOnly = True
+            ''grdItems.Columns(ColumnasDelGridItems.MontoIVA).Width = 60
+            ''grdItems.Columns(ColumnasDelGridItems.MontoIVA).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
 
-            grdItems.Columns(ColumnasDelGridItems.Bonif1).Width = 45
-            grdItems.Columns(ColumnasDelGridItems.Bonif1).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            'grdItems.Columns(ColumnasDelGridItems.Bonif1).Width = 45
+            'grdItems.Columns(ColumnasDelGridItems.Bonif1).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
 
-            grdItems.Columns(ColumnasDelGridItems.Bonif2).Width = 45
-            grdItems.Columns(ColumnasDelGridItems.Bonif2).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            'grdItems.Columns(ColumnasDelGridItems.Bonif2).Width = 45
+            'grdItems.Columns(ColumnasDelGridItems.Bonif2).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
 
-            grdItems.Columns(ColumnasDelGridItems.Bonif3).Width = 50
-            grdItems.Columns(ColumnasDelGridItems.Bonif3).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            'grdItems.Columns(ColumnasDelGridItems.Bonif3).Width = 50
+            'grdItems.Columns(ColumnasDelGridItems.Bonif3).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
 
-            'grdItems.Columns(ColumnasDelGridItems.Bonif4).Width = 50
-            'grdItems.Columns(ColumnasDelGridItems.Bonif4).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            ''grdItems.Columns(ColumnasDelGridItems.Bonif4).Width = 50
+            ''grdItems.Columns(ColumnasDelGridItems.Bonif4).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
 
-            'grdItems.Columns(ColumnasDelGridItems.Bonif5).Width = 50
-            'grdItems.Columns(ColumnasDelGridItems.Bonif5).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            ''grdItems.Columns(ColumnasDelGridItems.Bonif5).Width = 50
+            ''grdItems.Columns(ColumnasDelGridItems.Bonif5).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
 
-            'grdItems.Columns(ColumnasDelGridItems.PrecioProvPesos).ReadOnly = True
-            'grdItems.Columns(ColumnasDelGridItems.PrecioProvPesos).Width = 65
-            'grdItems.Columns(ColumnasDelGridItems.PrecioProvPesos).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-            'grdItems.Columns(ColumnasDelGridItems.PrecioProvPesos).Visible = False
+            ''grdItems.Columns(ColumnasDelGridItems.PrecioProvPesos).ReadOnly = True
+            ''grdItems.Columns(ColumnasDelGridItems.PrecioProvPesos).Width = 65
+            ''grdItems.Columns(ColumnasDelGridItems.PrecioProvPesos).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            ''grdItems.Columns(ColumnasDelGridItems.PrecioProvPesos).Visible = False
 
-            'grdItems.Columns(ColumnasDelGridItems.PrecioVta).ReadOnly = True
-            'grdItems.Columns(ColumnasDelGridItems.PrecioVta).Width = 70
-            'grdItems.Columns(ColumnasDelGridItems.PrecioVta).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-            'grdItems.Columns(ColumnasDelGridItems.PrecioVta).Visible = False
+            ''grdItems.Columns(ColumnasDelGridItems.PrecioVta).ReadOnly = True
+            ''grdItems.Columns(ColumnasDelGridItems.PrecioVta).Width = 70
+            ''grdItems.Columns(ColumnasDelGridItems.PrecioVta).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            ''grdItems.Columns(ColumnasDelGridItems.PrecioVta).Visible = False
 
-            grdItems.Columns(ColumnasDelGridItems.PrecioUni).ReadOnly = True
-            grdItems.Columns(ColumnasDelGridItems.PrecioUni).Width = 70
-            grdItems.Columns(ColumnasDelGridItems.PrecioUni).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            'grdItems.Columns(ColumnasDelGridItems.PrecioUni).ReadOnly = True
+            'grdItems.Columns(ColumnasDelGridItems.PrecioUni).Width = 70
+            'grdItems.Columns(ColumnasDelGridItems.PrecioUni).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
 
 
-            'grdItems.Columns(ColumnasDelGridItems.Qty).ReadOnly = True
-            grdItems.Columns(ColumnasDelGridItems.Cantidad).Width = 50
-            grdItems.Columns(ColumnasDelGridItems.Cantidad).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            ''grdItems.Columns(ColumnasDelGridItems.Qty).ReadOnly = True
+            'grdItems.Columns(ColumnasDelGridItems.Cantidad).Width = 50
+            'grdItems.Columns(ColumnasDelGridItems.Cantidad).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
 
-            grdItems.Columns(ColumnasDelGridItems.Subtotal).ReadOnly = True 'subtotal
-            grdItems.Columns(ColumnasDelGridItems.Subtotal).Width = 80
-            grdItems.Columns(ColumnasDelGridItems.Subtotal).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            'grdItems.Columns(ColumnasDelGridItems.Subtotal).ReadOnly = True 'subtotal
+            'grdItems.Columns(ColumnasDelGridItems.Subtotal).Width = 80
+            'grdItems.Columns(ColumnasDelGridItems.Subtotal).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
 
-            grdItems.Columns(ColumnasDelGridItems.Status).ReadOnly = True
-            grdItems.Columns(ColumnasDelGridItems.Status).Width = 70
-            grdItems.Columns(ColumnasDelGridItems.Status).Visible = Not bolModo
-            grdItems.Columns(ColumnasDelGridItems.Status).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+            'grdItems.Columns(ColumnasDelGridItems.Status).ReadOnly = True
+            'grdItems.Columns(ColumnasDelGridItems.Status).Width = 70
+            'grdItems.Columns(ColumnasDelGridItems.Status).Visible = Not bolModo
+            'grdItems.Columns(ColumnasDelGridItems.Status).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
 
-            grdItems.Columns(ColumnasDelGridItems.Saldo).Visible = Not bolModo
-            grdItems.Columns(ColumnasDelGridItems.Saldo).ReadOnly = True
-            grdItems.Columns(ColumnasDelGridItems.Saldo).Width = 50
-            grdItems.Columns(ColumnasDelGridItems.Saldo).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            'grdItems.Columns(ColumnasDelGridItems.Saldo).Visible = Not bolModo
+            'grdItems.Columns(ColumnasDelGridItems.Saldo).ReadOnly = True
+            'grdItems.Columns(ColumnasDelGridItems.Saldo).Width = 50
+            'grdItems.Columns(ColumnasDelGridItems.Saldo).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
 
-            grdItems.Columns(ColumnasDelGridItems.Nota_Det).Width = 250
+            'grdItems.Columns(ColumnasDelGridItems.Nota_Det).Width = 250
 
-            'grdItems.Columns(ColumnasDelGridItems.orden).Visible = False
+            ''grdItems.Columns(ColumnasDelGridItems.orden).Visible = False
 
             With grdItems
                 .VirtualMode = False
@@ -2126,12 +2142,12 @@ Public Class frmPresentaciones
                     Dim param_id As New SqlClient.SqlParameter
                     param_id.ParameterName = "@id"
                     param_id.SqlDbType = SqlDbType.BigInt
-                    If bolModo = False And Not (grdItems.Rows(i).Cells(ColumnasDelGridItems.IdOrdenDeCompra_Det).Value Is DBNull.Value) Then
-                        param_id.Value = CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.IdOrdenDeCompra_Det).Value, Long)
-                    Else
-                        param_id.Value = 0
-                    End If
-                    param_id.Direction = ParameterDirection.Input
+                    'If bolModo = False And Not (grdItems.Rows(i).Cells(ColumnasDelGridItems.IdOrdenDeCompra_Det).Value Is DBNull.Value) Then
+                    '    param_id.Value = CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.IdOrdenDeCompra_Det).Value, Long)
+                    'Else
+                    '    param_id.Value = 0
+                    'End If
+                    'param_id.Direction = ParameterDirection.Input
 
                     Dim param_IdOrdenCompra As New SqlClient.SqlParameter
                     param_IdOrdenCompra.ParameterName = "@idOrdendeCompra"
@@ -2139,12 +2155,12 @@ Public Class frmPresentaciones
                     param_IdOrdenCompra.Value = txtID.Text
                     param_IdOrdenCompra.Direction = ParameterDirection.Input
 
-                    Dim param_idmaterial As New SqlClient.SqlParameter
-                    param_idmaterial.ParameterName = "@idmaterial"
-                    param_idmaterial.SqlDbType = SqlDbType.VarChar
-                    param_idmaterial.Size = 25
-                    param_idmaterial.Value = grdItems.Rows(i).Cells(ColumnasDelGridItems.IdMaterial).Value 'IdMat 'grdItems.Rows(i).Cells(ColumnasDelGridItems.IdMaterial).Value
-                    param_idmaterial.Direction = ParameterDirection.Input
+                    'Dim param_idmaterial As New SqlClient.SqlParameter
+                    'param_idmaterial.ParameterName = "@idmaterial"
+                    'param_idmaterial.SqlDbType = SqlDbType.VarChar
+                    'param_idmaterial.Size = 25
+                    'param_idmaterial.Value = grdItems.Rows(i).Cells(ColumnasDelGridItems.IdMaterial).Value 'IdMat 'grdItems.Rows(i).Cells(ColumnasDelGridItems.IdMaterial).Value
+                    'param_idmaterial.Direction = ParameterDirection.Input
 
                     Dim param_idmat_prov As New SqlClient.SqlParameter
                     param_idmat_prov.ParameterName = "@idmaterial_prov"
@@ -2168,29 +2184,29 @@ Public Class frmPresentaciones
                     param_iva.Value = porceniva 'CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.Iva).Value, Decimal)
                     param_iva.Direction = ParameterDirection.Input
 
-                    Dim param_bonificacion1 As New SqlClient.SqlParameter
-                    param_bonificacion1.ParameterName = "@bonif1"
-                    param_bonificacion1.SqlDbType = SqlDbType.Decimal
-                    param_bonificacion1.Precision = 18
-                    param_bonificacion1.Scale = 2
-                    param_bonificacion1.Value = IIf(grdItems.Rows(i).Cells(ColumnasDelGridItems.Bonif1).Value Is DBNull.Value Or grdItems.Rows(i).Cells(ColumnasDelGridItems.Bonif1).Value Is "", 0, grdItems.Rows(i).Cells(ColumnasDelGridItems.Bonif1).Value)
-                    param_bonificacion1.Direction = ParameterDirection.Input
+                    'Dim param_bonificacion1 As New SqlClient.SqlParameter
+                    'param_bonificacion1.ParameterName = "@bonif1"
+                    'param_bonificacion1.SqlDbType = SqlDbType.Decimal
+                    'param_bonificacion1.Precision = 18
+                    'param_bonificacion1.Scale = 2
+                    'param_bonificacion1.Value = IIf(grdItems.Rows(i).Cells(ColumnasDelGridItems.Bonif1).Value Is DBNull.Value Or grdItems.Rows(i).Cells(ColumnasDelGridItems.Bonif1).Value Is "", 0, grdItems.Rows(i).Cells(ColumnasDelGridItems.Bonif1).Value)
+                    'param_bonificacion1.Direction = ParameterDirection.Input
 
-                    Dim param_bonificacion2 As New SqlClient.SqlParameter
-                    param_bonificacion2.ParameterName = "@bonif2"
-                    param_bonificacion2.SqlDbType = SqlDbType.Decimal
-                    param_bonificacion2.Precision = 18
-                    param_bonificacion2.Scale = 2
-                    param_bonificacion2.Value = IIf(grdItems.Rows(i).Cells(ColumnasDelGridItems.Bonif2).Value Is DBNull.Value Or grdItems.Rows(i).Cells(ColumnasDelGridItems.Bonif2).Value Is "", 0, grdItems.Rows(i).Cells(ColumnasDelGridItems.Bonif2).Value)
-                    param_bonificacion2.Direction = ParameterDirection.Input
+                    'Dim param_bonificacion2 As New SqlClient.SqlParameter
+                    'param_bonificacion2.ParameterName = "@bonif2"
+                    'param_bonificacion2.SqlDbType = SqlDbType.Decimal
+                    'param_bonificacion2.Precision = 18
+                    'param_bonificacion2.Scale = 2
+                    'param_bonificacion2.Value = IIf(grdItems.Rows(i).Cells(ColumnasDelGridItems.Bonif2).Value Is DBNull.Value Or grdItems.Rows(i).Cells(ColumnasDelGridItems.Bonif2).Value Is "", 0, grdItems.Rows(i).Cells(ColumnasDelGridItems.Bonif2).Value)
+                    'param_bonificacion2.Direction = ParameterDirection.Input
 
-                    Dim param_bonificacion3 As New SqlClient.SqlParameter
-                    param_bonificacion3.ParameterName = "@bonif3"
-                    param_bonificacion3.SqlDbType = SqlDbType.Decimal
-                    param_bonificacion3.Precision = 18
-                    param_bonificacion3.Scale = 2
-                    param_bonificacion3.Value = IIf(grdItems.Rows(i).Cells(ColumnasDelGridItems.Bonif3).Value Is DBNull.Value Or grdItems.Rows(i).Cells(ColumnasDelGridItems.Bonif3).Value Is "", 0, grdItems.Rows(i).Cells(ColumnasDelGridItems.Bonif3).Value)
-                    param_bonificacion3.Direction = ParameterDirection.Input
+                    'Dim param_bonificacion3 As New SqlClient.SqlParameter
+                    'param_bonificacion3.ParameterName = "@bonif3"
+                    'param_bonificacion3.SqlDbType = SqlDbType.Decimal
+                    'param_bonificacion3.Precision = 18
+                    'param_bonificacion3.Scale = 2
+                    'param_bonificacion3.Value = IIf(grdItems.Rows(i).Cells(ColumnasDelGridItems.Bonif3).Value Is DBNull.Value Or grdItems.Rows(i).Cells(ColumnasDelGridItems.Bonif3).Value Is "", 0, grdItems.Rows(i).Cells(ColumnasDelGridItems.Bonif3).Value)
+                    'param_bonificacion3.Direction = ParameterDirection.Input
 
                     Dim param_bonificacion4 As New SqlClient.SqlParameter
                     param_bonificacion4.ParameterName = "@bonif4"
@@ -2210,52 +2226,52 @@ Public Class frmPresentaciones
                     param_bonificacion5.Value = 0 'IIf(grdItems.Rows(i).Cells(ColumnasDelGridItems.Bonif5).Value Is DBNull.Value, 0, grdItems.Rows(i).Cells(ColumnasDelGridItems.Bonif5).Value)
                     param_bonificacion5.Direction = ParameterDirection.Input
 
-                    Dim param_preciocosto As New SqlClient.SqlParameter
-                    param_preciocosto.ParameterName = "@preciofinal"
-                    param_preciocosto.SqlDbType = SqlDbType.Decimal
-                    param_preciocosto.Precision = 18
-                    param_preciocosto.Scale = 2
-                    param_preciocosto.Value = CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.PrecioUni).Value, Decimal)
-                    param_preciocosto.Direction = ParameterDirection.Input
+                    'Dim param_preciocosto As New SqlClient.SqlParameter
+                    'param_preciocosto.ParameterName = "@preciofinal"
+                    'param_preciocosto.SqlDbType = SqlDbType.Decimal
+                    'param_preciocosto.Precision = 18
+                    'param_preciocosto.Scale = 2
+                    'param_preciocosto.Value = CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.PrecioUni).Value, Decimal)
+                    'param_preciocosto.Direction = ParameterDirection.Input
 
-                    Dim param_peso As New SqlClient.SqlParameter
-                    param_peso.ParameterName = "@peso"
-                    param_peso.SqlDbType = SqlDbType.Decimal
-                    param_peso.Precision = 18
-                    param_peso.Scale = 2
-                    param_peso.Value = CType(IIf(grdItems.Rows(i).Cells(ColumnasDelGridItems.Peso).Value.ToString = "", 0, grdItems.Rows(i).Cells(ColumnasDelGridItems.Peso).Value), Decimal)
-                    param_peso.Direction = ParameterDirection.Input
+                    'Dim param_peso As New SqlClient.SqlParameter
+                    'param_peso.ParameterName = "@peso"
+                    'param_peso.SqlDbType = SqlDbType.Decimal
+                    'param_peso.Precision = 18
+                    'param_peso.Scale = 2
+                    'param_peso.Value = CType(IIf(grdItems.Rows(i).Cells(ColumnasDelGridItems.Peso).Value.ToString = "", 0, grdItems.Rows(i).Cells(ColumnasDelGridItems.Peso).Value), Decimal)
+                    'param_peso.Direction = ParameterDirection.Input
 
-                    Dim param_qty As New SqlClient.SqlParameter
-                    param_qty.ParameterName = "@qty"
-                    param_qty.SqlDbType = SqlDbType.Decimal
-                    param_qty.Precision = 18
-                    param_qty.Scale = 2
-                    param_qty.Value = CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.Cantidad).Value, Double)
-                    param_qty.Direction = ParameterDirection.Input
+                    'Dim param_qty As New SqlClient.SqlParameter
+                    'param_qty.ParameterName = "@qty"
+                    'param_qty.SqlDbType = SqlDbType.Decimal
+                    'param_qty.Precision = 18
+                    'param_qty.Scale = 2
+                    'param_qty.Value = CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.Cantidad).Value, Double)
+                    'param_qty.Direction = ParameterDirection.Input
 
-                    Dim param_subtotal As New SqlClient.SqlParameter
-                    param_subtotal.ParameterName = "@subtotal"
-                    param_subtotal.SqlDbType = SqlDbType.Decimal
-                    param_subtotal.Precision = 18
-                    param_subtotal.Scale = 2
-                    param_subtotal.Value = CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.Subtotal).Value, Decimal)
-                    'grdItems.Rows(i).Cells(ColumnasDelGridItems.Subtotal).Value = param_subtotal.Value  ' Math.Round(CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.Qty).Value, Double) * CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.PrecioVta).Value, Double), 2)
-                    param_subtotal.Direction = ParameterDirection.Input
+                    'Dim param_subtotal As New SqlClient.SqlParameter
+                    'param_subtotal.ParameterName = "@subtotal"
+                    'param_subtotal.SqlDbType = SqlDbType.Decimal
+                    'param_subtotal.Precision = 18
+                    'param_subtotal.Scale = 2
+                    'param_subtotal.Value = CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.Subtotal).Value, Decimal)
+                    ''grdItems.Rows(i).Cells(ColumnasDelGridItems.Subtotal).Value = param_subtotal.Value  ' Math.Round(CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.Qty).Value, Double) * CType(grdItems.Rows(i).Cells(ColumnasDelGridItems.PrecioVta).Value, Double), 2)
+                    'param_subtotal.Direction = ParameterDirection.Input
 
-                    Dim param_idunidad As New SqlClient.SqlParameter
-                    param_idunidad.ParameterName = "@idunidad"
-                    param_idunidad.SqlDbType = SqlDbType.VarChar
-                    param_idunidad.Size = 25
-                    param_idunidad.Value = grdItems.Rows(i).Cells(ColumnasDelGridItems.IdUnidad).Value 'grdItems.Rows(i).Cells(ColumnasDelGridItems.IdMaterial).Value
-                    param_idunidad.Direction = ParameterDirection.Input
+                    'Dim param_idunidad As New SqlClient.SqlParameter
+                    'param_idunidad.ParameterName = "@idunidad"
+                    'param_idunidad.SqlDbType = SqlDbType.VarChar
+                    'param_idunidad.Size = 25
+                    'param_idunidad.Value = grdItems.Rows(i).Cells(ColumnasDelGridItems.IdUnidad).Value 'grdItems.Rows(i).Cells(ColumnasDelGridItems.IdMaterial).Value
+                    'param_idunidad.Direction = ParameterDirection.Input
 
-                    Dim param_notadet As New SqlClient.SqlParameter
-                    param_notadet.ParameterName = "@nota_det"
-                    param_notadet.SqlDbType = SqlDbType.VarChar
-                    param_notadet.Size = 100
-                    param_notadet.Value = IIf(grdItems.Rows(i).Cells(ColumnasDelGridItems.Nota_Det).Value Is DBNull.Value, "", grdItems.Rows(i).Cells(ColumnasDelGridItems.Nota_Det).Value)
-                    param_notadet.Direction = ParameterDirection.Input
+                    'Dim param_notadet As New SqlClient.SqlParameter
+                    'param_notadet.ParameterName = "@nota_det"
+                    'param_notadet.SqlDbType = SqlDbType.VarChar
+                    'param_notadet.Size = 100
+                    'param_notadet.Value = IIf(grdItems.Rows(i).Cells(ColumnasDelGridItems.Nota_Det).Value Is DBNull.Value, "", grdItems.Rows(i).Cells(ColumnasDelGridItems.Nota_Det).Value)
+                    'param_notadet.Direction = ParameterDirection.Input
 
                     Dim param_useradd As New SqlClient.SqlParameter
                     If bolModo = True Then
@@ -2309,37 +2325,37 @@ Public Class frmPresentaciones
 
                     Try
                         If bolModo = True Then
-                            SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spOrdendeCompra_Det_Insert",
-                                                param_id, param_IdOrdenCompra, param_idmaterial, param_idmat_prov,
-                                                param_precio, param_iva, param_peso,
-                                                param_bonificacion1, param_bonificacion2, param_bonificacion3, param_bonificacion4, param_bonificacion5,
-                                                param_preciocosto, param_qty, param_subtotal, param_idunidad,
-                                                param_IdProveedor, param_OrdenItem, param_notadet, param_nuevo,
-                                                param_useradd, param_res)
+                            'SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spOrdendeCompra_Det_Insert",
+                            '                    param_id, param_IdOrdenCompra, param_idmaterial, param_idmat_prov,
+                            '                    param_precio, param_iva, param_peso,
+                            '                    param_bonificacion1, param_bonificacion2, param_bonificacion3, param_bonificacion4, param_bonificacion5,
+                            '                    param_preciocosto, param_qty, param_subtotal, param_idunidad,
+                            '                    param_IdProveedor, param_OrdenItem, param_notadet, param_nuevo,
+                            '                    param_useradd, param_res)
 
                             'res = param_res.Value
 
                         Else
-                            SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spOrdendeCompra_Det_Update",
-                                            param_id, param_IdOrdenCompra, param_idmaterial, param_idmat_prov, param_qty,
-                                            param_precio, param_iva, param_peso,
-                                            param_bonificacion1, param_bonificacion2, param_bonificacion3, param_bonificacion4, param_bonificacion5,
-                                            param_preciocosto, param_idunidad,
-                                            param_notadet, param_nuevo, param_IdProveedor,
-                                            param_subtotal, param_useradd, param_res, param_OrdenItem, param_MENSAJE)
+                            'SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spOrdendeCompra_Det_Update",
+                            '                param_id, param_IdOrdenCompra, param_idmaterial, param_idmat_prov, param_qty,
+                            '                param_precio, param_iva, param_peso,
+                            '                param_bonificacion1, param_bonificacion2, param_bonificacion3, param_bonificacion4, param_bonificacion5,
+                            '                param_preciocosto, param_idunidad,
+                            '                param_notadet, param_nuevo, param_IdProveedor,
+                            '                param_subtotal, param_useradd, param_res, param_OrdenItem, param_MENSAJE)
 
                         End If
 
                         res = param_res.Value
 
-                        If res = -20 Then
-                            MsgBox("La cantidad ingresada para el Item " & grdItems.Rows(i).Cells(ColumnasDelGridItems.Producto).Value & " es menor al saldo actual.", MsgBoxStyle.Critical, "Atención")
-                        End If
+                        'If res = -20 Then
+                        '    MsgBox("La cantidad ingresada para el Item " & grdItems.Rows(i).Cells(ColumnasDelGridItems.Producto).Value & " es menor al saldo actual.", MsgBoxStyle.Critical, "Atención")
+                        'End If
 
-                        If res = -10 Then
-                            Util.MsgStatus(Status1, "No se puede modificar el material '" & grdItems.Rows(i).Cells(ColumnasDelGridItems.Producto).Value.ToString.Substring(0, 30) & "...'" & vbCrLf &
-                                           "La unidad ingresada es diferente a la unidad dentro de los movimientos de Stock.", My.Resources.Resources.stop_error.ToBitmap, True)
-                        End If
+                        'If res = -10 Then
+                        '    Util.MsgStatus(Status1, "No se puede modificar el material '" & grdItems.Rows(i).Cells(ColumnasDelGridItems.Producto).Value.ToString.Substring(0, 30) & "...'" & vbCrLf &
+                        '                   "La unidad ingresada es diferente a la unidad dentro de los movimientos de Stock.", My.Resources.Resources.stop_error.ToBitmap, True)
+                        'End If
 
                         If (res <= 0) Then
                             Exit For
@@ -3264,10 +3280,10 @@ Public Class frmPresentaciones
             If columnIndex = grdItems.Columns.Count - 1 Then
                 If rowIndex = grdItems.Rows.Count - 1 Then
                     ' Seleccionamos la primera columna de la primera fila.
-                    cell = grdItems.Rows(0).Cells(ColumnasDelGridItems.IdOrdenDeCompra_Det)
+                    'cell = grdItems.Rows(0).Cells(ColumnasDelGridItems.IdOrdenDeCompra_Det)
                 Else
                     ' Selecionamos la primera columna de la siguiente fila.
-                    cell = grdItems.Rows(rowIndex + 1).Cells(ColumnasDelGridItems.IdOrdenDeCompra_Det)
+                    'cell = grdItems.Rows(rowIndex + 1).Cells(ColumnasDelGridItems.IdOrdenDeCompra_Det)
                 End If
             Else
                 ' Seleccionamos la celda de la derecha de la celda actual.
@@ -3329,13 +3345,13 @@ Public Class frmPresentaciones
         dtpFECHA.Enabled = True
         txtObservacion.Enabled = True
 
-        Try
-            grdItems.Columns(ColumnasDelGridItems.Status).Visible = Not bolModo
+        'Try
+        '    grdItems.Columns(ColumnasDelGridItems.Status).Visible = Not bolModo
 
-            grdItems.Columns(ColumnasDelGridItems.Saldo).Visible = Not bolModo
-        Catch ex As Exception
+        '    grdItems.Columns(ColumnasDelGridItems.Saldo).Visible = Not bolModo
+        'Catch ex As Exception
 
-        End Try
+        'End Try
 
         If btnBand_Copiar = True Then
             Util.LimpiarTextBox(Me.Controls)
