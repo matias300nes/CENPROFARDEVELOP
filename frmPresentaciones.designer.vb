@@ -27,6 +27,7 @@ Partial Class frmPresentaciones
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.txtCodigo = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
@@ -39,16 +40,6 @@ Partial Class frmPresentaciones
         Me.Label16 = New System.Windows.Forms.Label()
         Me.txtImpACargoOs = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.grdItems = New System.Windows.Forms.DataGridView()
-        Me.Id = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.CodigoFarmacia = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Nombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.IdPresentacion = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Recetas = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Recaudad = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ACargoOS = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Bonificacion = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Total = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Eliminar = New System.Windows.Forms.DataGridViewButtonColumn()
         Me.txtImpTotal = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.cmbFarmacias = New System.Windows.Forms.ComboBox()
@@ -93,7 +84,17 @@ Partial Class frmPresentaciones
         Me.ContextMenuMarcas = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.ActivarNuevaMarcaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmbMarcaCompra = New System.Windows.Forms.ToolStripComboBox()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.Id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.IdFarmacia = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.CodigoFarmacia = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Nombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.IdPresentacion = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Recetas = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Recaudad = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ACargoOS = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Bonificacion = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Total = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Eliminar = New System.Windows.Forms.DataGridViewButtonColumn()
         Me.GroupBox1.SuspendLayout()
         CType(Me.grdItems, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuStrip1.SuspendLayout()
@@ -153,9 +154,18 @@ Partial Class frmPresentaciones
         Me.GroupBox1.ForeColor = System.Drawing.Color.Blue
         Me.GroupBox1.Location = New System.Drawing.Point(7, 24)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(1452, 511)
+        Me.GroupBox1.Size = New System.Drawing.Size(1469, 511)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(720, 122)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(78, 23)
+        Me.Button1.TabIndex = 342
+        Me.Button1.Text = "Agregar"
+        Me.Button1.UseVisualStyleBackColor = True
         '
         'Label2
         '
@@ -323,7 +333,7 @@ Partial Class frmPresentaciones
         DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.grdItems.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.grdItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.grdItems.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Id, Me.CodigoFarmacia, Me.Nombre, Me.IdPresentacion, Me.Recetas, Me.Recaudad, Me.ACargoOS, Me.Bonificacion, Me.Total, Me.Eliminar})
+        Me.grdItems.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Id, Me.IdFarmacia, Me.CodigoFarmacia, Me.Nombre, Me.IdPresentacion, Me.Recetas, Me.Recaudad, Me.ACargoOS, Me.Bonificacion, Me.Total, Me.Eliminar})
         DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window
         DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -337,92 +347,6 @@ Partial Class frmPresentaciones
         Me.grdItems.RowHeadersWidth = 51
         Me.grdItems.Size = New System.Drawing.Size(1326, 321)
         Me.grdItems.TabIndex = 13
-        '
-        'Id
-        '
-        Me.Id.HeaderText = "Id"
-        Me.Id.MinimumWidth = 6
-        Me.Id.Name = "Id"
-        Me.Id.Visible = False
-        Me.Id.Width = 125
-        '
-        'CodigoFarmacia
-        '
-        Me.CodigoFarmacia.HeaderText = "Cod. Farmacia"
-        Me.CodigoFarmacia.MinimumWidth = 6
-        Me.CodigoFarmacia.Name = "CodigoFarmacia"
-        Me.CodigoFarmacia.Visible = False
-        Me.CodigoFarmacia.Width = 125
-        '
-        'Nombre
-        '
-        Me.Nombre.HeaderText = "Farmacia"
-        Me.Nombre.MinimumWidth = 6
-        Me.Nombre.Name = "Nombre"
-        Me.Nombre.ReadOnly = True
-        Me.Nombre.Width = 300
-        '
-        'IdPresentacion
-        '
-        DataGridViewCellStyle3.NullValue = Nothing
-        Me.IdPresentacion.DefaultCellStyle = DataGridViewCellStyle3
-        Me.IdPresentacion.HeaderText = "Id Presentación"
-        Me.IdPresentacion.MinimumWidth = 6
-        Me.IdPresentacion.Name = "IdPresentacion"
-        Me.IdPresentacion.ReadOnly = True
-        Me.IdPresentacion.Width = 120
-        '
-        'Recetas
-        '
-        Me.Recetas.HeaderText = "Recetas"
-        Me.Recetas.MinimumWidth = 6
-        Me.Recetas.Name = "Recetas"
-        Me.Recetas.Width = 125
-        '
-        'Recaudad
-        '
-        Me.Recaudad.HeaderText = "Recaudado"
-        Me.Recaudad.MinimumWidth = 6
-        Me.Recaudad.Name = "Recaudad"
-        Me.Recaudad.Width = 125
-        '
-        'ACargoOS
-        '
-        Me.ACargoOS.HeaderText = "A Cargo OS"
-        Me.ACargoOS.MinimumWidth = 6
-        Me.ACargoOS.Name = "ACargoOS"
-        Me.ACargoOS.Width = 125
-        '
-        'Bonificacion
-        '
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle4.NullValue = Nothing
-        Me.Bonificacion.DefaultCellStyle = DataGridViewCellStyle4
-        Me.Bonificacion.HeaderText = "Bonificación"
-        Me.Bonificacion.MinimumWidth = 6
-        Me.Bonificacion.Name = "Bonificacion"
-        Me.Bonificacion.ReadOnly = True
-        Me.Bonificacion.Width = 90
-        '
-        'Total
-        '
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.Total.DefaultCellStyle = DataGridViewCellStyle5
-        Me.Total.HeaderText = "Total"
-        Me.Total.MinimumWidth = 6
-        Me.Total.Name = "Total"
-        Me.Total.ReadOnly = True
-        Me.Total.Width = 90
-        '
-        'Eliminar
-        '
-        Me.Eliminar.HeaderText = "Eliminar"
-        Me.Eliminar.MinimumWidth = 6
-        Me.Eliminar.Name = "Eliminar"
-        Me.Eliminar.Text = "Eliminar"
-        Me.Eliminar.ToolTipText = "Eliminar Registro"
-        Me.Eliminar.UseColumnTextForButtonValue = True
-        Me.Eliminar.Width = 80
         '
         'txtImpTotal
         '
@@ -937,14 +861,96 @@ Partial Class frmPresentaciones
         Me.cmbMarcaCompra.Size = New System.Drawing.Size(300, 150)
         Me.cmbMarcaCompra.Text = "Buscar Marca"
         '
-        'Button1
+        'Id
         '
-        Me.Button1.Location = New System.Drawing.Point(720, 122)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(78, 23)
-        Me.Button1.TabIndex = 342
-        Me.Button1.Text = "Agregar"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.Id.HeaderText = "Id"
+        Me.Id.MinimumWidth = 6
+        Me.Id.Name = "Id"
+        Me.Id.Width = 125
+        '
+        'IdFarmacia
+        '
+        Me.IdFarmacia.HeaderText = "IdFarmacia"
+        Me.IdFarmacia.Name = "IdFarmacia"
+        Me.IdFarmacia.ReadOnly = True
+        '
+        'CodigoFarmacia
+        '
+        Me.CodigoFarmacia.HeaderText = "Cod. Farmacia"
+        Me.CodigoFarmacia.MinimumWidth = 6
+        Me.CodigoFarmacia.Name = "CodigoFarmacia"
+        Me.CodigoFarmacia.Width = 125
+        '
+        'Nombre
+        '
+        Me.Nombre.HeaderText = "Farmacia"
+        Me.Nombre.MinimumWidth = 6
+        Me.Nombre.Name = "Nombre"
+        Me.Nombre.ReadOnly = True
+        Me.Nombre.Width = 300
+        '
+        'IdPresentacion
+        '
+        DataGridViewCellStyle3.NullValue = Nothing
+        Me.IdPresentacion.DefaultCellStyle = DataGridViewCellStyle3
+        Me.IdPresentacion.HeaderText = "Id Presentación"
+        Me.IdPresentacion.MinimumWidth = 6
+        Me.IdPresentacion.Name = "IdPresentacion"
+        Me.IdPresentacion.ReadOnly = True
+        Me.IdPresentacion.Visible = False
+        Me.IdPresentacion.Width = 120
+        '
+        'Recetas
+        '
+        Me.Recetas.HeaderText = "Recetas"
+        Me.Recetas.MinimumWidth = 6
+        Me.Recetas.Name = "Recetas"
+        Me.Recetas.Width = 125
+        '
+        'Recaudad
+        '
+        Me.Recaudad.HeaderText = "Recaudado"
+        Me.Recaudad.MinimumWidth = 6
+        Me.Recaudad.Name = "Recaudad"
+        Me.Recaudad.Width = 125
+        '
+        'ACargoOS
+        '
+        Me.ACargoOS.HeaderText = "A Cargo OS"
+        Me.ACargoOS.MinimumWidth = 6
+        Me.ACargoOS.Name = "ACargoOS"
+        Me.ACargoOS.Width = 125
+        '
+        'Bonificacion
+        '
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle4.NullValue = Nothing
+        Me.Bonificacion.DefaultCellStyle = DataGridViewCellStyle4
+        Me.Bonificacion.HeaderText = "Bonificación"
+        Me.Bonificacion.MinimumWidth = 6
+        Me.Bonificacion.Name = "Bonificacion"
+        Me.Bonificacion.ReadOnly = True
+        Me.Bonificacion.Width = 90
+        '
+        'Total
+        '
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.Total.DefaultCellStyle = DataGridViewCellStyle5
+        Me.Total.HeaderText = "Total"
+        Me.Total.MinimumWidth = 6
+        Me.Total.Name = "Total"
+        Me.Total.ReadOnly = True
+        Me.Total.Width = 90
+        '
+        'Eliminar
+        '
+        Me.Eliminar.HeaderText = "Eliminar"
+        Me.Eliminar.MinimumWidth = 6
+        Me.Eliminar.Name = "Eliminar"
+        Me.Eliminar.Text = "Eliminar"
+        Me.Eliminar.ToolTipText = "Eliminar Registro"
+        Me.Eliminar.UseColumnTextForButtonValue = True
+        Me.Eliminar.Width = 80
         '
         'frmPresentaciones
         '
@@ -1023,7 +1029,11 @@ Partial Class frmPresentaciones
     Friend WithEvents txtBonificacionFarmacia As TextBoxConFormatoVB.FormattedTextBoxVB
     Friend WithEvents Label5 As Label
     Friend WithEvents txtImpTotalAPagar As TextBoxConFormatoVB.FormattedTextBoxVB
+    Friend WithEvents Label2 As Label
+    Friend WithEvents txtCodigo As TextBox
+    Friend WithEvents Button1 As Button
     Friend WithEvents Id As DataGridViewTextBoxColumn
+    Friend WithEvents IdFarmacia As DataGridViewTextBoxColumn
     Friend WithEvents CodigoFarmacia As DataGridViewTextBoxColumn
     Friend WithEvents Nombre As DataGridViewTextBoxColumn
     Friend WithEvents IdPresentacion As DataGridViewTextBoxColumn
@@ -1033,7 +1043,4 @@ Partial Class frmPresentaciones
     Friend WithEvents Bonificacion As DataGridViewTextBoxColumn
     Friend WithEvents Total As DataGridViewTextBoxColumn
     Friend WithEvents Eliminar As DataGridViewButtonColumn
-    Friend WithEvents Label2 As Label
-    Friend WithEvents txtCodigo As TextBox
-    Friend WithEvents Button1 As Button
 End Class
