@@ -150,7 +150,7 @@ Public Class frmPresentaciones
         btnEliminar.Text = "Anular OC"
         rdPendientes.Checked = 1
 
-
+        LlenarCmbFarmacia()
         LlenarCmbObraSocial()
 
         ''Traigo los encabezados de presentacion
@@ -222,22 +222,22 @@ Public Class frmPresentaciones
 
     Private Sub cmbFarmacias_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbFarmacias.SelectedValueChanged
 
-        If band = 1 Then
+        'If band = 1 Then
 
 
-            Dim sqlstring As String
-            sqlstring = "SELECT PrecioCompra, m.IdUnidad, SUM(s.qty) FROM Materiales m JOIN Stock s ON s.idmaterial = m.Codigo where m.Codigo = " & cmbFarmacias.SelectedValue & "GROUP BY PrecioCompra, M.IDUnidad "
-            'sqlstring = "SELECT PrecioCompra, m.IdUnidad, s.qty FROM Materiales m JOIN Stock s ON s.idmaterial = m.Codigo where m.Codigo = ' " & cmbProducto.SelectedValue & "' And s.IDAlmacen = " & cmbAlmacenes.SelectedValue
-            ds_Empresa = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
-            ds_Empresa.Dispose()
+        '    Dim sqlstring As String
+        '    sqlstring = "SELECT PrecioCompra, m.IdUnidad, SUM(s.qty) FROM Materiales m JOIN Stock s ON s.idmaterial = m.Codigo where m.Codigo = " & cmbFarmacias.SelectedValue & "GROUP BY PrecioCompra, M.IDUnidad "
+        '    'sqlstring = "SELECT PrecioCompra, m.IdUnidad, s.qty FROM Materiales m JOIN Stock s ON s.idmaterial = m.Codigo where m.Codigo = ' " & cmbProducto.SelectedValue & "' And s.IDAlmacen = " & cmbAlmacenes.SelectedValue
+        '    ds_Empresa = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
+        '    ds_Empresa.Dispose()
 
-            txtImpTotal.Text = Math.Round(CDbl(ds_Empresa.Tables(0).Rows(0)(0)), 2)
-            'txtPrecioUni.Text = FormatNumber(CDbl(ds_Empresa.Tables(0).Rows(0)(0)), 2)
-            'txtIdUnidad.Text = ds_Empresa.Tables(0).Rows(0)(1)
-            'lblStock.Text = ds_Empresa.Tables(0).Rows(0)(2)
+        '    txtImpTotal.Text = Math.Round(CDbl(ds_Empresa.Tables(0).Rows(0)(0)), 2)
+        '    'txtPrecioUni.Text = FormatNumber(CDbl(ds_Empresa.Tables(0).Rows(0)(0)), 2)
+        '    'txtIdUnidad.Text = ds_Empresa.Tables(0).Rows(0)(1)
+        '    'lblStock.Text = ds_Empresa.Tables(0).Rows(0)(2)
 
 
-        End If
+        'End If
 
     End Sub
 
@@ -696,6 +696,53 @@ Public Class frmPresentaciones
 
     End Sub
 
+
+    Private Sub LlenarCmbFarmacia()
+        Dim connection As SqlClient.SqlConnection = Nothing
+        Dim ds As Data.DataSet
+
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+        Catch ex As Exception
+            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End Try
+
+        Try
+
+            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $" SELECT ID, NOMBRE FROM FARMACIAS WHERE ELIMINADO = 0")
+            ds.Dispose()
+
+            With cmbFarmacias
+                .DataSource = ds.Tables(0).DefaultView
+                .DisplayMember = "NOMBRE"
+                .ValueMember = "ID"
+                .AutoCompleteMode = AutoCompleteMode.SuggestAppend
+                .AutoCompleteSource = AutoCompleteSource.ListItems
+                '.SelectedIndex = "ID"
+            End With
+
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If Not connection Is Nothing Then
+                CType(connection, IDisposable).Dispose()
+            End If
+        End Try
+
+        IdObraSocial = cmbObraSocial.SelectedValue
+        bolIDOS = True
+    End Sub
 
     Private Sub LlenarCmbObraSocial()
         Dim connection As SqlClient.SqlConnection = Nothing
