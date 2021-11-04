@@ -1217,6 +1217,58 @@ Public Class frmPresentaciones
         Util.LimpiarGridItems(grdItems)
     End Sub
 
+    Private Sub AñadirGridItem()
+        ''CONTROL DE INPUTS
+        'If cmbFarmacias.SelectedValue Is DBNull.Value Or cmbFarmacias.SelectedValue = 0 Then
+        '    Util.MsgStatus(Status1, "Debe ingresar un producto VÁLIDO.", My.Resources.Resources.stop_error.ToBitmap)
+        '    Util.MsgStatus(Status1, "Debe ingresar un producto VÁLIDO.", My.Resources.Resources.stop_error.ToBitmap, True)
+        '    '               GoTo Continuar
+        '    Exit Sub
+        'End If
+
+        'If cmbFarmacias.Text = "" Then
+        '    Util.MsgStatus(Status1, "Debe ingresar un producto VÁLIDO.", My.Resources.Resources.stop_error.ToBitmap)
+        '    Util.MsgStatus(Status1, "Debe ingresar un producto VÁLIDO.", My.Resources.Resources.stop_error.ToBitmap, True)
+        '    '              GoTo Continuar
+        '    Exit Sub
+        'End If
+
+        'If txtRecetas.Text = "" Or txtRecetas.Text = "0" Then
+        '    Util.MsgStatus(Status1, "Debe ingresar la cantidad del producto a Vender.", My.Resources.Resources.stop_error.ToBitmap)
+        '    Util.MsgStatus(Status1, "Debe ingresar la cantidad del producto a Vender.", My.Resources.Resources.stop_error.ToBitmap, True)
+        '    Exit Sub
+        'End If
+
+
+        'Dim i As Integer
+        'For i = 0 To grdItems.RowCount - 1
+        '    If cmbFarmacias.Text = grdItems.Rows(i).Cells(2).Value Then
+        '        Util.MsgStatus(Status1, "El producto '" & cmbFarmacias.Text & "' está repetido en la fila: " & (i + 1).ToString & ".", My.Resources.Resources.alert.ToBitmap, True)
+        '        Exit Sub
+        '    End If
+        'Next
+
+        Dim row As New DataGridViewRow
+        With row
+            .Cells("Farmacia").Value = cmbFarmacias.Text
+            .Cells("IdFarmacia").Value = cmbFarmacias.SelectedValue
+
+        End With
+
+        grdItems.Rows.Add(row)
+        'grdItems.Rows.Add(0, cmbFarmacias.SelectedValue, cmbFarmacias.Text, lblStock.Text, "", "", "", txtImpTotal.Text, txtRecetas.Text, txtImpACargoOs.Text, txtImpTotalAPagar.Text, "", "", "", txtIdUnidad.Text, porceniva, FormatNumber((((CDbl(txtImpTotalAPagar.Text) / (1 + porceniva / 100))) * (porceniva / 100)), 2))
+
+        ''CalcularSubtotal()
+        ''Contar_Filas()
+
+        txtRecetas.Text = ""
+        cmbFarmacias.Text = ""
+        txtImpTotal.Text = ""
+        txtImpACargoOs.Text = ""
+        txtImpTotalAPagar.Text = ""
+        cmbFarmacias.Focus()
+    End Sub
+
     Private Sub LlenarGrid_Items()
 
         grdItems.Rows.Clear()
