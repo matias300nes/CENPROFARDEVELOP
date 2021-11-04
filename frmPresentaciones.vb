@@ -79,14 +79,15 @@ Public Class frmPresentaciones
 
         ''NACHO
         ID = 0
-        CodigoFarmacia = 1
-        Nombre = 2
-        IdPresentacion = 3
-        Recetas = 4
-        Recaudado = 5
-        ACargoOS = 6
-        Bonificacion = 7
-        Total = 8
+        IdFarmacia = 1
+        CodigoFarmacia = 2
+        Nombre = 3
+        IdPresentacion = 4
+        Recetas = 5
+        Recaudado = 6
+        ACargoOS = 7
+        Bonificacion = 8
+        Total = 9
     End Enum
 
     'Auxiliares para guardar
@@ -1248,10 +1249,17 @@ Public Class frmPresentaciones
         '    End If
         'Next
 
-        Dim row As New DataGridViewRow
+        Dim row As New DataGridViewRow()
+        row.CreateCells(grdItems)
+
         With row
-            .Cells("Farmacia").Value = cmbFarmacias.Text
-            .Cells("IdFarmacia").Value = cmbFarmacias.SelectedValue
+            '.Cells("Farmacia").Value = cmbFarmacias.Text
+            '.Cells("IdFarmacia").Value = cmbFarmacias.SelectedValue
+            .Cells(ColumnasDelGridItems.Recetas).Value = txtRecetas.Text
+            .Cells(ColumnasDelGridItems.Recaudado).Value = txtImpTotal.Text
+            .Cells(ColumnasDelGridItems.ACargoOS).Value = txtImpACargoOs.Text
+            .Cells(ColumnasDelGridItems.Bonificacion).Value = txtBonificacionFarmacia.Text
+
 
         End With
 
@@ -1302,18 +1310,19 @@ Public Class frmPresentaciones
             da.Fill(dt)
 
             For i = 0 To dt.Rows.Count - 1
-                'grdItems.Rows.Add(dt.Rows(i)(0).ToString(), dt.Rows(i)(1).ToString(), dt.Rows(i)(2).ToString(), dt.Rows(i)(3).ToString(),
-                '                  dt.Rows(i)(4).ToString(), dt.Rows(i)(5).ToString(), dt.Rows(i)(6).ToString(), dt.Rows(i)(7).ToString(),
-                '                  dt.Rows(i)(8).ToString(), dt.Rows(i)(9).ToString(), dt.Rows(i)(10).ToString(), dt.Rows(i)(11).ToString(),
-                '                  dt.Rows(i)(12).ToString(), dt.Rows(i)(13).ToString(), dt.Rows(i)(14).ToString(), dt.Rows(i)(15).ToString())
+
                 ''MATI
-                'grdItems.Rows.Add(dt.Rows(i)(0).ToString(), dt.Rows(i)(1).ToString(), dt.Rows(i)(2).ToString(), dt.Rows(i)(3).ToString(),
-                '  dt.Rows(i)(4).ToString(), dt.Rows(i)(5).ToString(), dt.Rows(i)(6).ToString(), dt.Rows(i)(7).ToString(),
-                '  dt.Rows(i)(8).ToString())
-                ''NACHO
-                grdItems.Rows.Add(dt.Rows(i)(ColumnasDelGridItems.ID).ToString(), dt.Rows(i)(ColumnasDelGridItems.IdPresentacion).ToString(), dt.Rows(i)(ColumnasDelGridItems.Nombre).ToString(), dt.Rows(i)(ColumnasDelGridItems.IdPresentacion).ToString(),
-                  dt.Rows(i)(ColumnasDelGridItems.Recetas).ToString(), dt.Rows(i)(ColumnasDelGridItems.Recaudado).ToString(), dt.Rows(i)(ColumnasDelGridItems.ACargoOS).ToString(), dt.Rows(i)(ColumnasDelGridItems.Bonificacion).ToString(),
-                  dt.Rows(i)(ColumnasDelGridItems.Total).ToString())
+                grdItems.Rows.Add(
+                    dt.Rows(i)(ColumnasDelGridItems.ID).ToString(),
+                    dt.Rows(i)(ColumnasDelGridItems.IdFarmacia).ToString(),
+                    dt.Rows(i)(ColumnasDelGridItems.CodigoFarmacia).ToString(),
+                    dt.Rows(i)(ColumnasDelGridItems.Nombre).ToString(),
+                    dt.Rows(i)(ColumnasDelGridItems.IdPresentacion).ToString(),
+                    dt.Rows(i)(ColumnasDelGridItems.Recetas).ToString(),
+                    dt.Rows(i)(ColumnasDelGridItems.Recaudado).ToString(),
+                    dt.Rows(i)(ColumnasDelGridItems.ACargoOS).ToString(),
+                    dt.Rows(i)(ColumnasDelGridItems.Bonificacion).ToString(),
+                    dt.Rows(i)(ColumnasDelGridItems.Total).ToString())
                 ' rodrigo 
 
             Next
@@ -3516,6 +3525,10 @@ Public Class frmPresentaciones
             txtID.Text = ""
         End If
 
+    End Sub
+
+    Private Sub agregarItem_Click(sender As Object, e As EventArgs) Handles agregarItem.Click
+        AñadirGridItem()
     End Sub
 
 

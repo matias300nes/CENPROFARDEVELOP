@@ -27,7 +27,7 @@ Partial Class frmPresentaciones
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.agregarItem = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.txtCodigo = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
@@ -107,7 +107,7 @@ Partial Class frmPresentaciones
         '
         Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.GroupBox1.Controls.Add(Me.Button1)
+        Me.GroupBox1.Controls.Add(Me.agregarItem)
         Me.GroupBox1.Controls.Add(Me.Label2)
         Me.GroupBox1.Controls.Add(Me.txtCodigo)
         Me.GroupBox1.Controls.Add(Me.Label6)
@@ -154,18 +154,18 @@ Partial Class frmPresentaciones
         Me.GroupBox1.ForeColor = System.Drawing.Color.Blue
         Me.GroupBox1.Location = New System.Drawing.Point(7, 24)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(1469, 511)
+        Me.GroupBox1.Size = New System.Drawing.Size(1520, 511)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         '
-        'Button1
+        'agregarItem
         '
-        Me.Button1.Location = New System.Drawing.Point(720, 122)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(78, 23)
-        Me.Button1.TabIndex = 342
-        Me.Button1.Text = "Agregar"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.agregarItem.Location = New System.Drawing.Point(720, 122)
+        Me.agregarItem.Name = "agregarItem"
+        Me.agregarItem.Size = New System.Drawing.Size(78, 23)
+        Me.agregarItem.TabIndex = 342
+        Me.agregarItem.Text = "Agregar"
+        Me.agregarItem.UseVisualStyleBackColor = True
         '
         'Label2
         '
@@ -1031,7 +1031,7 @@ Partial Class frmPresentaciones
     Friend WithEvents txtImpTotalAPagar As TextBoxConFormatoVB.FormattedTextBoxVB
     Friend WithEvents Label2 As Label
     Friend WithEvents txtCodigo As TextBox
-    Friend WithEvents Button1 As Button
+    Friend WithEvents agregarItem As Button
     Friend WithEvents Id As DataGridViewTextBoxColumn
     Friend WithEvents IdFarmacia As DataGridViewTextBoxColumn
     Friend WithEvents CodigoFarmacia As DataGridViewTextBoxColumn
