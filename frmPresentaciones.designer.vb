@@ -20,12 +20,12 @@ Partial Class frmPresentaciones
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle18 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.btnAgregarItem = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -41,6 +41,12 @@ Partial Class frmPresentaciones
         Me.txtImpACargoOs = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.grdItems = New System.Windows.Forms.DataGridView()
         Me.Id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.BorrarElItemToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BuscarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BuscarDescripcionToolStripMenuItem = New System.Windows.Forms.ToolStripComboBox()
+        Me.BuscarDescripcionToolStripMenuItem2 = New System.Windows.Forms.ToolStripComboBox()
+        Me.BuscarDescripcionToolStripMenuItem3 = New System.Windows.Forms.ToolStripComboBox()
         Me.IdFarmacia = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.CodigoFarmacia = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Nombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -58,7 +64,7 @@ Partial Class frmPresentaciones
         Me.Label15 = New System.Windows.Forms.Label()
         Me.txtPeriodo = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.Label20 = New System.Windows.Forms.Label()
-        Me.txtMontoIVA = New TextBoxConFormatoVB.FormattedTextBoxVB()
+        Me.txtACargoOS = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.Label18 = New System.Windows.Forms.Label()
         Me.txtTotal = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.Label14 = New System.Windows.Forms.Label()
@@ -70,7 +76,7 @@ Partial Class frmPresentaciones
         Me.rdAnuladas = New System.Windows.Forms.RadioButton()
         Me.txtIdObrasocial = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.txtSubtotal = New TextBoxConFormatoVB.FormattedTextBoxVB()
+        Me.txtRecaudado = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.lblStatus = New System.Windows.Forms.Label()
         Me.cmbObraSocial = New System.Windows.Forms.ComboBox()
         Me.lblEstadoPresentacion = New System.Windows.Forms.Label()
@@ -82,12 +88,6 @@ Partial Class frmPresentaciones
         Me.Label1 = New System.Windows.Forms.Label()
         Me.dtpFECHA = New System.Windows.Forms.DateTimePicker()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.BorrarElItemToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.BuscarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.BuscarDescripcionToolStripMenuItem = New System.Windows.Forms.ToolStripComboBox()
-        Me.BuscarDescripcionToolStripMenuItem2 = New System.Windows.Forms.ToolStripComboBox()
-        Me.BuscarDescripcionToolStripMenuItem3 = New System.Windows.Forms.ToolStripComboBox()
         Me.ContextMenuStrip2 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.cmbUnidadVenta = New System.Windows.Forms.ToolStripComboBox()
         Me.ContextMenuStrip3 = New System.Windows.Forms.ContextMenuStrip(Me.components)
@@ -127,7 +127,7 @@ Partial Class frmPresentaciones
         Me.GroupBox1.Controls.Add(Me.Label15)
         Me.GroupBox1.Controls.Add(Me.txtPeriodo)
         Me.GroupBox1.Controls.Add(Me.Label20)
-        Me.GroupBox1.Controls.Add(Me.txtMontoIVA)
+        Me.GroupBox1.Controls.Add(Me.txtACargoOS)
         Me.GroupBox1.Controls.Add(Me.Label18)
         Me.GroupBox1.Controls.Add(Me.txtTotal)
         Me.GroupBox1.Controls.Add(Me.Label14)
@@ -139,7 +139,7 @@ Partial Class frmPresentaciones
         Me.GroupBox1.Controls.Add(Me.rdAnuladas)
         Me.GroupBox1.Controls.Add(Me.txtIdObrasocial)
         Me.GroupBox1.Controls.Add(Me.Label4)
-        Me.GroupBox1.Controls.Add(Me.txtSubtotal)
+        Me.GroupBox1.Controls.Add(Me.txtRecaudado)
         Me.GroupBox1.Controls.Add(Me.lblStatus)
         Me.GroupBox1.Controls.Add(Me.cmbObraSocial)
         Me.GroupBox1.Controls.Add(Me.lblEstadoPresentacion)
@@ -154,7 +154,7 @@ Partial Class frmPresentaciones
         Me.GroupBox1.ForeColor = System.Drawing.Color.Blue
         Me.GroupBox1.Location = New System.Drawing.Point(7, 24)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(1554, 511)
+        Me.GroupBox1.Size = New System.Drawing.Size(1947, 511)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         '
@@ -321,27 +321,27 @@ Partial Class frmPresentaciones
         '
         Me.grdItems.AllowUserToAddRows = False
         Me.grdItems.AllowUserToDeleteRows = False
-        DataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
-        DataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black
-        Me.grdItems.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle7
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.grdItems.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle13.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
+        DataGridViewCellStyle13.ForeColor = System.Drawing.Color.Black
+        Me.grdItems.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle13
+        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle14.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.grdItems.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle14
         Me.grdItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.grdItems.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Id, Me.IdFarmacia, Me.CodigoFarmacia, Me.Nombre, Me.IdPresentacion, Me.Recetas, Me.Recaudad, Me.ACargoOS, Me.Bonificacion, Me.Total, Me.Eliminar})
-        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle12.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle12.ForeColor = System.Drawing.Color.Blue
-        DataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.grdItems.DefaultCellStyle = DataGridViewCellStyle12
+        DataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle18.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle18.ForeColor = System.Drawing.Color.Blue
+        DataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.grdItems.DefaultCellStyle = DataGridViewCellStyle18
         Me.grdItems.Location = New System.Drawing.Point(10, 153)
         Me.grdItems.Name = "grdItems"
         Me.grdItems.RowHeadersWidth = 51
@@ -350,10 +350,64 @@ Partial Class frmPresentaciones
         '
         'Id
         '
+        Me.Id.ContextMenuStrip = Me.ContextMenuStrip1
         Me.Id.HeaderText = "Id"
         Me.Id.MinimumWidth = 6
         Me.Id.Name = "Id"
         Me.Id.Width = 125
+        '
+        'ContextMenuStrip1
+        '
+        Me.ContextMenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BorrarElItemToolStripMenuItem, Me.BuscarToolStripMenuItem, Me.BuscarDescripcionToolStripMenuItem, Me.BuscarDescripcionToolStripMenuItem2, Me.BuscarDescripcionToolStripMenuItem3})
+        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(361, 129)
+        '
+        'BorrarElItemToolStripMenuItem
+        '
+        Me.BorrarElItemToolStripMenuItem.Name = "BorrarElItemToolStripMenuItem"
+        Me.BorrarElItemToolStripMenuItem.Size = New System.Drawing.Size(360, 22)
+        Me.BorrarElItemToolStripMenuItem.Text = "Borrar el Item"
+        '
+        'BuscarToolStripMenuItem
+        '
+        Me.BuscarToolStripMenuItem.Name = "BuscarToolStripMenuItem"
+        Me.BuscarToolStripMenuItem.Size = New System.Drawing.Size(360, 22)
+        Me.BuscarToolStripMenuItem.Text = "Buscar..."
+        Me.BuscarToolStripMenuItem.Visible = False
+        '
+        'BuscarDescripcionToolStripMenuItem
+        '
+        Me.BuscarDescripcionToolStripMenuItem.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.BuscarDescripcionToolStripMenuItem.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.BuscarDescripcionToolStripMenuItem.DropDownWidth = 500
+        Me.BuscarDescripcionToolStripMenuItem.Name = "BuscarDescripcionToolStripMenuItem"
+        Me.BuscarDescripcionToolStripMenuItem.Size = New System.Drawing.Size(300, 23)
+        Me.BuscarDescripcionToolStripMenuItem.Sorted = True
+        Me.BuscarDescripcionToolStripMenuItem.Text = "Buscar Descripcion"
+        Me.BuscarDescripcionToolStripMenuItem.Visible = False
+        '
+        'BuscarDescripcionToolStripMenuItem2
+        '
+        Me.BuscarDescripcionToolStripMenuItem2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.BuscarDescripcionToolStripMenuItem2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.BuscarDescripcionToolStripMenuItem2.DropDownWidth = 500
+        Me.BuscarDescripcionToolStripMenuItem2.Name = "BuscarDescripcionToolStripMenuItem2"
+        Me.BuscarDescripcionToolStripMenuItem2.Size = New System.Drawing.Size(300, 23)
+        Me.BuscarDescripcionToolStripMenuItem2.Sorted = True
+        Me.BuscarDescripcionToolStripMenuItem2.Text = "Buscar Descripcion"
+        Me.BuscarDescripcionToolStripMenuItem2.Visible = False
+        '
+        'BuscarDescripcionToolStripMenuItem3
+        '
+        Me.BuscarDescripcionToolStripMenuItem3.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.BuscarDescripcionToolStripMenuItem3.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.BuscarDescripcionToolStripMenuItem3.DropDownWidth = 500
+        Me.BuscarDescripcionToolStripMenuItem3.Name = "BuscarDescripcionToolStripMenuItem3"
+        Me.BuscarDescripcionToolStripMenuItem3.Size = New System.Drawing.Size(300, 23)
+        Me.BuscarDescripcionToolStripMenuItem3.Sorted = True
+        Me.BuscarDescripcionToolStripMenuItem3.Text = "Buscar Descripcion"
+        Me.BuscarDescripcionToolStripMenuItem3.Visible = False
         '
         'IdFarmacia
         '
@@ -378,8 +432,8 @@ Partial Class frmPresentaciones
         '
         'IdPresentacion
         '
-        DataGridViewCellStyle9.NullValue = Nothing
-        Me.IdPresentacion.DefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle15.NullValue = Nothing
+        Me.IdPresentacion.DefaultCellStyle = DataGridViewCellStyle15
         Me.IdPresentacion.HeaderText = "Id Presentación"
         Me.IdPresentacion.MinimumWidth = 6
         Me.IdPresentacion.Name = "IdPresentacion"
@@ -410,9 +464,9 @@ Partial Class frmPresentaciones
         '
         'Bonificacion
         '
-        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle10.NullValue = Nothing
-        Me.Bonificacion.DefaultCellStyle = DataGridViewCellStyle10
+        DataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle16.NullValue = Nothing
+        Me.Bonificacion.DefaultCellStyle = DataGridViewCellStyle16
         Me.Bonificacion.HeaderText = "Bonificación"
         Me.Bonificacion.MinimumWidth = 6
         Me.Bonificacion.Name = "Bonificacion"
@@ -421,8 +475,8 @@ Partial Class frmPresentaciones
         '
         'Total
         '
-        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.Total.DefaultCellStyle = DataGridViewCellStyle11
+        DataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.Total.DefaultCellStyle = DataGridViewCellStyle17
         Me.Total.HeaderText = "Total"
         Me.Total.MinimumWidth = 6
         Me.Total.Name = "Total"
@@ -526,44 +580,41 @@ Partial Class frmPresentaciones
         '
         Me.Label20.AutoSize = True
         Me.Label20.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label20.Location = New System.Drawing.Point(984, 483)
+        Me.Label20.Location = New System.Drawing.Point(998, 484)
         Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(71, 15)
+        Me.Label20.Size = New System.Drawing.Size(80, 15)
         Me.Label20.TabIndex = 214
-        Me.Label20.Text = "Monto IVA"
-        Me.Label20.Visible = False
+        Me.Label20.Text = "A Cargo OS"
         '
-        'txtMontoIVA
+        'txtACargoOS
         '
-        Me.txtMontoIVA.AccessibleName = "Nota"
-        Me.txtMontoIVA.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtMontoIVA.Decimals = CType(2, Byte)
-        Me.txtMontoIVA.DecSeparator = Global.Microsoft.VisualBasic.ChrW(46)
-        Me.txtMontoIVA.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtMontoIVA.Format = TextBoxConFormatoVB.tbFormats.SignedFloatingPointNumber
-        Me.txtMontoIVA.Location = New System.Drawing.Point(1067, 480)
-        Me.txtMontoIVA.Name = "txtMontoIVA"
-        Me.txtMontoIVA.ReadOnly = True
-        Me.txtMontoIVA.Size = New System.Drawing.Size(72, 21)
-        Me.txtMontoIVA.TabIndex = 213
-        Me.txtMontoIVA.Text_1 = Nothing
-        Me.txtMontoIVA.Text_2 = Nothing
-        Me.txtMontoIVA.Text_3 = Nothing
-        Me.txtMontoIVA.Text_4 = Nothing
-        Me.txtMontoIVA.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtMontoIVA.UserValues = Nothing
-        Me.txtMontoIVA.Visible = False
+        Me.txtACargoOS.AccessibleName = "Nota"
+        Me.txtACargoOS.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtACargoOS.Decimals = CType(2, Byte)
+        Me.txtACargoOS.DecSeparator = Global.Microsoft.VisualBasic.ChrW(46)
+        Me.txtACargoOS.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtACargoOS.Format = TextBoxConFormatoVB.tbFormats.SignedFloatingPointNumber
+        Me.txtACargoOS.Location = New System.Drawing.Point(1080, 481)
+        Me.txtACargoOS.Name = "txtACargoOS"
+        Me.txtACargoOS.ReadOnly = True
+        Me.txtACargoOS.Size = New System.Drawing.Size(100, 21)
+        Me.txtACargoOS.TabIndex = 213
+        Me.txtACargoOS.Text_1 = Nothing
+        Me.txtACargoOS.Text_2 = Nothing
+        Me.txtACargoOS.Text_3 = Nothing
+        Me.txtACargoOS.Text_4 = Nothing
+        Me.txtACargoOS.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtACargoOS.UserValues = Nothing
         '
         'Label18
         '
         Me.Label18.AutoSize = True
         Me.Label18.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label18.Location = New System.Drawing.Point(1140, 483)
+        Me.Label18.Location = New System.Drawing.Point(1193, 484)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(39, 15)
         Me.Label18.TabIndex = 212
         Me.Label18.Text = "Total"
-        Me.Label18.Visible = False
         '
         'txtTotal
         '
@@ -573,10 +624,10 @@ Partial Class frmPresentaciones
         Me.txtTotal.DecSeparator = Global.Microsoft.VisualBasic.ChrW(46)
         Me.txtTotal.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtTotal.Format = TextBoxConFormatoVB.tbFormats.SignedFloatingPointNumber
-        Me.txtTotal.Location = New System.Drawing.Point(1185, 480)
+        Me.txtTotal.Location = New System.Drawing.Point(1235, 481)
         Me.txtTotal.Name = "txtTotal"
         Me.txtTotal.ReadOnly = True
-        Me.txtTotal.Size = New System.Drawing.Size(98, 21)
+        Me.txtTotal.Size = New System.Drawing.Size(100, 21)
         Me.txtTotal.TabIndex = 211
         Me.txtTotal.Text_1 = Nothing
         Me.txtTotal.Text_2 = Nothing
@@ -584,7 +635,6 @@ Partial Class frmPresentaciones
         Me.txtTotal.Text_4 = Nothing
         Me.txtTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.txtTotal.UserValues = Nothing
-        Me.txtTotal.Visible = False
         '
         'Label14
         '
@@ -600,7 +650,7 @@ Partial Class frmPresentaciones
         '
         Me.chkGrillaInferior.AutoSize = True
         Me.chkGrillaInferior.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chkGrillaInferior.Location = New System.Drawing.Point(179, 480)
+        Me.chkGrillaInferior.Location = New System.Drawing.Point(179, 483)
         Me.chkGrillaInferior.Name = "chkGrillaInferior"
         Me.chkGrillaInferior.Size = New System.Drawing.Size(156, 17)
         Me.chkGrillaInferior.TabIndex = 187
@@ -610,7 +660,7 @@ Partial Class frmPresentaciones
         'Label19
         '
         Me.Label19.AutoSize = True
-        Me.Label19.Location = New System.Drawing.Point(12, 482)
+        Me.Label19.Location = New System.Drawing.Point(12, 484)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(98, 13)
         Me.Label19.TabIndex = 186
@@ -619,7 +669,7 @@ Partial Class frmPresentaciones
         'lblCantidadFilas
         '
         Me.lblCantidadFilas.AutoSize = True
-        Me.lblCantidadFilas.Location = New System.Drawing.Point(108, 482)
+        Me.lblCantidadFilas.Location = New System.Drawing.Point(108, 484)
         Me.lblCantidadFilas.Name = "lblCantidadFilas"
         Me.lblCantidadFilas.Size = New System.Drawing.Size(46, 13)
         Me.lblCantidadFilas.TabIndex = 185
@@ -629,36 +679,36 @@ Partial Class frmPresentaciones
         '
         Me.rdTodasOC.AutoSize = True
         Me.rdTodasOC.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.rdTodasOC.Location = New System.Drawing.Point(626, 480)
+        Me.rdTodasOC.Location = New System.Drawing.Point(626, 483)
         Me.rdTodasOC.Name = "rdTodasOC"
-        Me.rdTodasOC.Size = New System.Drawing.Size(81, 17)
+        Me.rdTodasOC.Size = New System.Drawing.Size(60, 17)
         Me.rdTodasOC.TabIndex = 184
         Me.rdTodasOC.TabStop = True
-        Me.rdTodasOC.Text = "Todas OC"
+        Me.rdTodasOC.Text = "Todas"
         Me.rdTodasOC.UseVisualStyleBackColor = True
         '
         'rdPendientes
         '
         Me.rdPendientes.AutoSize = True
         Me.rdPendientes.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.rdPendientes.Location = New System.Drawing.Point(407, 480)
+        Me.rdPendientes.Location = New System.Drawing.Point(407, 483)
         Me.rdPendientes.Name = "rdPendientes"
-        Me.rdPendientes.Size = New System.Drawing.Size(109, 17)
+        Me.rdPendientes.Size = New System.Drawing.Size(88, 17)
         Me.rdPendientes.TabIndex = 183
         Me.rdPendientes.TabStop = True
-        Me.rdPendientes.Text = "OC Pendientes"
+        Me.rdPendientes.Text = "Pendientes"
         Me.rdPendientes.UseVisualStyleBackColor = True
         '
         'rdAnuladas
         '
         Me.rdAnuladas.AutoSize = True
         Me.rdAnuladas.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.rdAnuladas.Location = New System.Drawing.Point(522, 480)
+        Me.rdAnuladas.Location = New System.Drawing.Point(522, 483)
         Me.rdAnuladas.Name = "rdAnuladas"
-        Me.rdAnuladas.Size = New System.Drawing.Size(98, 17)
+        Me.rdAnuladas.Size = New System.Drawing.Size(77, 17)
         Me.rdAnuladas.TabIndex = 182
         Me.rdAnuladas.TabStop = True
-        Me.rdAnuladas.Text = "OC Anuladas"
+        Me.rdAnuladas.Text = "Anuladas"
         Me.rdAnuladas.UseVisualStyleBackColor = True
         '
         'txtIdObrasocial
@@ -684,31 +734,31 @@ Partial Class frmPresentaciones
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(794, 483)
+        Me.Label4.Location = New System.Drawing.Point(778, 484)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(64, 15)
+        Me.Label4.Size = New System.Drawing.Size(96, 15)
         Me.Label4.TabIndex = 131
-        Me.Label4.Text = "SubTotal"
+        Me.Label4.Text = "Importe 100%"
         '
-        'txtSubtotal
+        'txtRecaudado
         '
-        Me.txtSubtotal.AccessibleName = "Nota"
-        Me.txtSubtotal.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtSubtotal.Decimals = CType(2, Byte)
-        Me.txtSubtotal.DecSeparator = Global.Microsoft.VisualBasic.ChrW(46)
-        Me.txtSubtotal.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtSubtotal.Format = TextBoxConFormatoVB.tbFormats.SignedFloatingPointNumber
-        Me.txtSubtotal.Location = New System.Drawing.Point(864, 480)
-        Me.txtSubtotal.Name = "txtSubtotal"
-        Me.txtSubtotal.ReadOnly = True
-        Me.txtSubtotal.Size = New System.Drawing.Size(98, 21)
-        Me.txtSubtotal.TabIndex = 130
-        Me.txtSubtotal.Text_1 = Nothing
-        Me.txtSubtotal.Text_2 = Nothing
-        Me.txtSubtotal.Text_3 = Nothing
-        Me.txtSubtotal.Text_4 = Nothing
-        Me.txtSubtotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtSubtotal.UserValues = Nothing
+        Me.txtRecaudado.AccessibleName = "Nota"
+        Me.txtRecaudado.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtRecaudado.Decimals = CType(2, Byte)
+        Me.txtRecaudado.DecSeparator = Global.Microsoft.VisualBasic.ChrW(46)
+        Me.txtRecaudado.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtRecaudado.Format = TextBoxConFormatoVB.tbFormats.SignedFloatingPointNumber
+        Me.txtRecaudado.Location = New System.Drawing.Point(877, 481)
+        Me.txtRecaudado.Name = "txtRecaudado"
+        Me.txtRecaudado.ReadOnly = True
+        Me.txtRecaudado.Size = New System.Drawing.Size(100, 21)
+        Me.txtRecaudado.TabIndex = 130
+        Me.txtRecaudado.Text_1 = Nothing
+        Me.txtRecaudado.Text_2 = Nothing
+        Me.txtRecaudado.Text_3 = Nothing
+        Me.txtRecaudado.Text_4 = Nothing
+        Me.txtRecaudado.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtRecaudado.UserValues = Nothing
         '
         'lblStatus
         '
@@ -846,59 +896,6 @@ Partial Class frmPresentaciones
         Me.Label3.TabIndex = 52
         Me.Label3.Text = "Fecha"
         '
-        'ContextMenuStrip1
-        '
-        Me.ContextMenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BorrarElItemToolStripMenuItem, Me.BuscarToolStripMenuItem, Me.BuscarDescripcionToolStripMenuItem, Me.BuscarDescripcionToolStripMenuItem2, Me.BuscarDescripcionToolStripMenuItem3})
-        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(361, 129)
-        '
-        'BorrarElItemToolStripMenuItem
-        '
-        Me.BorrarElItemToolStripMenuItem.Name = "BorrarElItemToolStripMenuItem"
-        Me.BorrarElItemToolStripMenuItem.Size = New System.Drawing.Size(360, 22)
-        Me.BorrarElItemToolStripMenuItem.Text = "Borrar el Item"
-        '
-        'BuscarToolStripMenuItem
-        '
-        Me.BuscarToolStripMenuItem.Name = "BuscarToolStripMenuItem"
-        Me.BuscarToolStripMenuItem.Size = New System.Drawing.Size(360, 22)
-        Me.BuscarToolStripMenuItem.Text = "Buscar..."
-        Me.BuscarToolStripMenuItem.Visible = False
-        '
-        'BuscarDescripcionToolStripMenuItem
-        '
-        Me.BuscarDescripcionToolStripMenuItem.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.BuscarDescripcionToolStripMenuItem.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.BuscarDescripcionToolStripMenuItem.DropDownWidth = 500
-        Me.BuscarDescripcionToolStripMenuItem.Name = "BuscarDescripcionToolStripMenuItem"
-        Me.BuscarDescripcionToolStripMenuItem.Size = New System.Drawing.Size(300, 23)
-        Me.BuscarDescripcionToolStripMenuItem.Sorted = True
-        Me.BuscarDescripcionToolStripMenuItem.Text = "Buscar Descripcion"
-        Me.BuscarDescripcionToolStripMenuItem.Visible = False
-        '
-        'BuscarDescripcionToolStripMenuItem2
-        '
-        Me.BuscarDescripcionToolStripMenuItem2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.BuscarDescripcionToolStripMenuItem2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.BuscarDescripcionToolStripMenuItem2.DropDownWidth = 500
-        Me.BuscarDescripcionToolStripMenuItem2.Name = "BuscarDescripcionToolStripMenuItem2"
-        Me.BuscarDescripcionToolStripMenuItem2.Size = New System.Drawing.Size(300, 23)
-        Me.BuscarDescripcionToolStripMenuItem2.Sorted = True
-        Me.BuscarDescripcionToolStripMenuItem2.Text = "Buscar Descripcion"
-        Me.BuscarDescripcionToolStripMenuItem2.Visible = False
-        '
-        'BuscarDescripcionToolStripMenuItem3
-        '
-        Me.BuscarDescripcionToolStripMenuItem3.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.BuscarDescripcionToolStripMenuItem3.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.BuscarDescripcionToolStripMenuItem3.DropDownWidth = 500
-        Me.BuscarDescripcionToolStripMenuItem3.Name = "BuscarDescripcionToolStripMenuItem3"
-        Me.BuscarDescripcionToolStripMenuItem3.Size = New System.Drawing.Size(300, 23)
-        Me.BuscarDescripcionToolStripMenuItem3.Sorted = True
-        Me.BuscarDescripcionToolStripMenuItem3.Text = "Buscar Descripcion"
-        Me.BuscarDescripcionToolStripMenuItem3.Visible = False
-        '
         'ContextMenuStrip2
         '
         Me.ContextMenuStrip2.ImageScalingSize = New System.Drawing.Size(20, 20)
@@ -956,7 +953,7 @@ Partial Class frmPresentaciones
         Me.AccessibleName = "OrdenDeCompra"
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1028, 609)
+        Me.ClientSize = New System.Drawing.Size(1370, 609)
         Me.Controls.Add(Me.GroupBox1)
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "frmPresentaciones"
@@ -992,7 +989,7 @@ Partial Class frmPresentaciones
     Friend WithEvents BuscarDescripcionToolStripMenuItem2 As System.Windows.Forms.ToolStripComboBox
     Friend WithEvents BuscarDescripcionToolStripMenuItem3 As System.Windows.Forms.ToolStripComboBox
     Friend WithEvents Label4 As System.Windows.Forms.Label
-    Friend WithEvents txtSubtotal As TextBoxConFormatoVB.FormattedTextBoxVB
+    Friend WithEvents txtRecaudado As TextBoxConFormatoVB.FormattedTextBoxVB
     Friend WithEvents ContextMenuStrip2 As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents cmbUnidadVenta As System.Windows.Forms.ToolStripComboBox
     Friend WithEvents ContextMenuStrip3 As System.Windows.Forms.ContextMenuStrip
@@ -1006,7 +1003,7 @@ Partial Class frmPresentaciones
     Friend WithEvents chkGrillaInferior As System.Windows.Forms.CheckBox
     Friend WithEvents Label14 As System.Windows.Forms.Label
     Friend WithEvents Label20 As System.Windows.Forms.Label
-    Friend WithEvents txtMontoIVA As TextBoxConFormatoVB.FormattedTextBoxVB
+    Friend WithEvents txtACargoOS As TextBoxConFormatoVB.FormattedTextBoxVB
     Friend WithEvents Label18 As System.Windows.Forms.Label
     Friend WithEvents txtTotal As TextBoxConFormatoVB.FormattedTextBoxVB
     Friend WithEvents Label15 As System.Windows.Forms.Label
