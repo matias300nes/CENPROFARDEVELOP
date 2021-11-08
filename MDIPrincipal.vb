@@ -461,8 +461,8 @@ logindenuevo:
     End Sub
 
     Private Sub RecepcionesDeMaterialToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RecepcionesDeMaterialToolStripMenuItem.Click
-        frmRecepciones.MdiParent = Me
-        frmRecepciones.Show()
+        frmLiquidaciones.MdiParent = Me
+        frmLiquidaciones.Show()
     End Sub
 
     Private Sub TransferenciasToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
@@ -4282,8 +4282,8 @@ Pedidos:
     End Sub
 
     Private Sub LiquidacionesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LiquidacionesToolStripMenuItem.Click
-        frmRecepciones.MdiParent = Me
-        frmRecepciones.Show()
+        frmLiquidaciones.MdiParent = Me
+        frmLiquidaciones.Show()
     End Sub
 
     Private Sub PresentacionesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PresentacionesToolStripMenuItem.Click

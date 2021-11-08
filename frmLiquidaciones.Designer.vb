@@ -1,5 +1,5 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class frmRecepciones
+Partial Class frmLiquidaciones
     Inherits frmBase
 
     'Form overrides dispose to clean up the component list.

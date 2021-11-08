@@ -12,7 +12,7 @@ Imports DevComponents.DotNetBar.SuperGrid.Style
 
 
 
-Public Class frmRecepciones
+Public Class frmLiquidaciones
     Dim IdObraSocial
     Dim bolIDOS As Boolean = False
     Dim DataBindingComplete As Boolean = False
