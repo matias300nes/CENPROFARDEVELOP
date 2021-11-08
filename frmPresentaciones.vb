@@ -214,107 +214,43 @@ Public Class frmPresentaciones
 
     End Sub
 
-    Private Sub cmbEquipo_KeyDown(sender As Object, e As KeyEventArgs) Handles cmbFarmacias.KeyDown
+    Private Sub cmbFarmacias_KeyDown(sender As Object, e As KeyEventArgs) Handles cmbFarmacias.KeyDown
         If e.KeyData = Keys.Enter Then
-            txtImpTotal.Focus()
-            SendKeys.Send("{TAB}")
+            txtRecetas.Focus()
         End If
-    End Sub
-
-    Private Sub cmbFarmacias_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbFarmacias.SelectedValueChanged
-
-        'If band = 1 Then
-
-
-        '    Dim sqlstring As String
-        '    sqlstring = "SELECT PrecioCompra, m.IdUnidad, SUM(s.qty) FROM Materiales m JOIN Stock s ON s.idmaterial = m.Codigo where m.Codigo = " & cmbFarmacias.SelectedValue & "GROUP BY PrecioCompra, M.IDUnidad "
-        '    'sqlstring = "SELECT PrecioCompra, m.IdUnidad, s.qty FROM Materiales m JOIN Stock s ON s.idmaterial = m.Codigo where m.Codigo = ' " & cmbProducto.SelectedValue & "' And s.IDAlmacen = " & cmbAlmacenes.SelectedValue
-        '    ds_Empresa = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
-        '    ds_Empresa.Dispose()
-
-        '    txtImpTotal.Text = Math.Round(CDbl(ds_Empresa.Tables(0).Rows(0)(0)), 2)
-        '    'txtPrecioUni.Text = FormatNumber(CDbl(ds_Empresa.Tables(0).Rows(0)(0)), 2)
-        '    'txtIdUnidad.Text = ds_Empresa.Tables(0).Rows(0)(1)
-        '    'lblStock.Text = ds_Empresa.Tables(0).Rows(0)(2)
-
-
-        'End If
-
-    End Sub
-
-
-    Private Sub txtRecetas_KeyDown(sender As Object, e As KeyEventArgs) Handles txtRecetas.KeyDown
-        If e.KeyCode = Keys.Enter Then
-
-            If cmbFarmacias.SelectedValue Is DBNull.Value Or cmbFarmacias.SelectedValue = 0 Then
-                Util.MsgStatus(Status1, "Debe ingresar un producto VÁLIDO.", My.Resources.Resources.stop_error.ToBitmap)
-                Util.MsgStatus(Status1, "Debe ingresar un producto VÁLIDO.", My.Resources.Resources.stop_error.ToBitmap, True)
-                '               GoTo Continuar
-                Exit Sub
-            End If
-
-            If cmbFarmacias.Text = "" Then
-                Util.MsgStatus(Status1, "Debe ingresar un producto VÁLIDO.", My.Resources.Resources.stop_error.ToBitmap)
-                Util.MsgStatus(Status1, "Debe ingresar un producto VÁLIDO.", My.Resources.Resources.stop_error.ToBitmap, True)
-                '              GoTo Continuar
-                Exit Sub
-            End If
-
-            If txtRecetas.Text = "" Or txtRecetas.Text = "0" Then
-                Util.MsgStatus(Status1, "Debe ingresar la cantidad del producto a Vender.", My.Resources.Resources.stop_error.ToBitmap)
-                Util.MsgStatus(Status1, "Debe ingresar la cantidad del producto a Vender.", My.Resources.Resources.stop_error.ToBitmap, True)
-                Exit Sub
-            End If
-
-
-            Dim i As Integer
-            For i = 0 To grdItems.RowCount - 1
-                If cmbFarmacias.Text = grdItems.Rows(i).Cells(2).Value Then
-                    Util.MsgStatus(Status1, "El producto '" & cmbFarmacias.Text & "' está repetido en la fila: " & (i + 1).ToString & ".", My.Resources.Resources.alert.ToBitmap, True)
-                    Exit Sub
-                End If
-            Next
-
-            'grdItems.Rows.Add(0, cmbFarmacias.SelectedValue, cmbFarmacias.Text, lblStock.Text, "", "", "", txtImpTotal.Text, txtRecetas.Text, txtImpACargoOs.Text, txtImpTotalAPagar.Text, "", "", "", txtIdUnidad.Text, porceniva, FormatNumber((((CDbl(txtImpTotalAPagar.Text) / (1 + porceniva / 100))) * (porceniva / 100)), 2))
-
-            CalcularTotales()
-            Contar_Filas()
-
-            txtRecetas.Text = ""
-            'lblStock.Text = ""
-            cmbFarmacias.Text = ""
-            txtImpTotal.Text = ""
-            txtImpACargoOs.Text = ""
-            txtImpTotalAPagar.Text = ""
-            cmbFarmacias.Focus()
-
-        End If
-
     End Sub
 
     Private Sub txtImpACargoOs_KeyDown(sender As Object, e As KeyEventArgs) Handles txtImpACargoOs.KeyDown
+        If e.KeyData = Keys.Enter Then
+            AñadirGridItem()
+        End If
+    End Sub
 
+    Private Sub nudBonificacion_KeyDown(sender As Object, e As KeyEventArgs) Handles nudBonificacion.KeyDown
+        If e.KeyData = Keys.Enter Then
+            AñadirGridItem()
+        End If
     End Sub
 
     Private Sub txtImpACargoOs_TextChanged(sender As Object, e As EventArgs) Handles txtImpACargoOs.TextChanged
-        Try
-            'If txtIdUnidad.Text.Contains("HORMA") Or txtIdUnidad.Text.Contains("TIRA") Then
-            '    If txtImpACargoOs.Text = "" Then
-            '        txtImpTotalAPagar.Text = "0"
-            '    Else
-            '        txtImpTotalAPagar.Text = Math.Round(CDbl(txtImpACargoOs.Text) * CDbl(txtImpTotal.Text), 2)
-            '    End If
-            'End If
-
-        Catch ex As Exception
-
-        End Try
-
+        Dim subtotal As Integer = 0
+        If txtImpACargoOs.Text <> "" Then
+            subtotal = Decimal.Parse(txtImpACargoOs.Text) - (Decimal.Parse(txtImpACargoOs.Text) * (Decimal.Parse(nudBonificacion.Value)))
+        End If
+        txtImpTotalAPagar.Text = subtotal
+    End Sub
+    Private Sub nudBonificacion_ValueChanged(sender As Object, e As EventArgs) Handles nudBonificacion.ValueChanged
+        Dim subtotal As Integer = 0
+        If txtImpACargoOs.Text <> "" Then
+            subtotal = Decimal.Parse(txtImpACargoOs.Text) - (Decimal.Parse(txtImpACargoOs.Text) * (Decimal.Parse(nudBonificacion.Value)))
+        End If
+        txtImpTotalAPagar.Text = subtotal
     End Sub
 
     Private Sub CalcularTotales()
-
+        ''CALCULA LOS TOTALES DE LA GRIDITEMS
         Dim i As Integer
+        Dim count As Integer = 0
         Dim Recaudado As Decimal = 0
         Dim ACargoOS As Decimal = 0
         Dim Total As Decimal = 0
@@ -325,6 +261,7 @@ Public Class frmPresentaciones
                     Recaudado += .Cells(ColumnasDelGridItems.Recaudado).Value
                     ACargoOS += .Cells(ColumnasDelGridItems.ACargoOS).Value
                     Total += .Cells(ColumnasDelGridItems.Total).Value
+                    count += 1
                 End If
             End With
         Next
@@ -332,6 +269,7 @@ Public Class frmPresentaciones
         txtRecaudado.Text = String.Format("{0:N2}", Recaudado)
         txtACargoOS.Text = String.Format("{0:N2}", ACargoOS)
         txtTotal.Text = String.Format("{0:N2}", Total)
+        lblCantidadFilas.Text = count
     End Sub
 
     'Private Sub grdItems_CellBeginEdit(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellCancelEventArgs) Handles grdItems.CellBeginEdit
@@ -913,13 +851,9 @@ Public Class frmPresentaciones
 
     Private Sub cmbObraSocial_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmbObraSocial.SelectedIndexChanged
         If band = 1 Then
-            Try
-
+            If cmbObraSocial.SelectedValue IsNot Nothing Then
                 txtIdObrasocial.Text = cmbObraSocial.SelectedValue.ToString
-
-            Catch ex As Exception
-
-            End Try
+            End If
 
         End If
     End Sub
@@ -1092,79 +1026,9 @@ Public Class frmPresentaciones
                 Else
                     grdItems.Rows(e.RowIndex).Visible = False
                 End If
-                Contar_Filas()
+                CalcularTotales()
             End If
-            'MsgBox($"Hello world: {sender.ToString}")
-            '    If bolModo Then
-            '        grdItems.Rows.RemoveAt(e.RowIndex) 'la borramos directamente
-            '        Contar_Filas()
-            '    End If
-            '    grdItems.Rows.RemoveAt(e.RowIndex) 'la borramos directamente
-            '    Contar_Filas()
         End If
-
-        'Dim cell As DataGridViewCell = grdItems.CurrentCell
-        'Dim res As Integer
-
-        'If e.ColumnIndex = 17 Then
-        '    Try
-        '        If bolModo Then
-        '            grdItems.Rows.RemoveAt(cell.RowIndex) 'la borramos directamente
-        '            Contar_Filas()
-        '        Else
-        '            'If bolModo = False And grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.IdMaterial).Value Is DBNull.Value Then
-        '            ' grdItems.Rows.RemoveAt(cell.RowIndex) 'la borramos directamente
-        '            'Contar_Filas()
-        '            'Else
-        '            If grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Status).Value.ToString = "CUMPLIDO" Then
-        '                Util.MsgStatus(Status1, "No se puede borrar el registro. Ya está Cumplido.", My.Resources.stop_error.ToBitmap)
-        '                Util.MsgStatus(Status1, "No se puede borrar el registro. Ya está Cumplido.", My.Resources.stop_error.ToBitmap, True)
-        '            Else
-        '                If grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Cantidad).Value <> IIf(grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Saldo).Value Is DBNull.Value, grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Cantidad).Value, grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Saldo).Value) Then
-        '                    Util.MsgStatus(Status1, "No se puede borrar el registro. Ya tiene Recepciones realizadas.", My.Resources.stop_error.ToBitmap)
-        '                    Util.MsgStatus(Status1, "No se puede borrar el registro. Ya tiene Recepciones realizadas.", My.Resources.stop_error.ToBitmap, True)
-        '                Else
-        '                    If MessageBox.Show("Esta acción Eliminará el item de forma permanente." + vbCrLf + "¿Está seguro que desea eliminar?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
-        '                        Util.MsgStatus(Status1, "Eliminando el registro...", My.Resources.Resources.indicator_white)
-
-        '                        Dim item As Long = grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.IdOrdenDeCompra_Det).Value
-
-        '                        grdItems.Rows.RemoveAt(cell.RowIndex) 'la borramos directamente de la grilla..
-        '                        Contar_Filas()
-
-        '                        res = EliminarRegistroItem(CType(txtID.Text, Long), item)
-
-        '                        Select Case res
-        '                            Case -1
-        '                                Util.MsgStatus(Status1, "No se pudo borrar el Item.", My.Resources.stop_error.ToBitmap)
-        '                                Util.MsgStatus(Status1, "No se pudo borrar el Item.", My.Resources.stop_error.ToBitmap, True)
-        '                            Case Else
-
-        '                                rdPendientes.Checked = 1
-        '                                SQL = "exec spOrdenDeCompra_Select_All @Eliminado = " & rdAnuladas.Checked & ", @Pendientes = " & rdPendientes.Checked & ", @PendientesyCumplidas = " & rdTodasOC.Checked
-
-        '                                bolModo = False
-        '                                PrepararBotones()
-        '                                MDIPrincipal.NoActualizarBase = False
-        '                                btnActualizar_Click(sender, e)
-        '                                'Setear_Grilla()
-        '                                Util.MsgStatus(Status1, "Se ha borrado el Item.", My.Resources.ok.ToBitmap)
-        '                                Util.MsgStatus(Status1, "Se ha borrado el Item.", My.Resources.ok.ToBitmap, True, True)
-        '                        End Select
-        '                    Else
-        '                        Util.MsgStatus(Status1, "Acción de eliminar Item cancelada.", My.Resources.stop_error.ToBitmap)
-        '                        Util.MsgStatus(Status1, "Acción de eliminar Item cancelada.", My.Resources.stop_error.ToBitmap, True)
-        '                    End If
-        '                End If
-        '            End If
-        '        End If
-        '        CalcularTotales()
-        '        'End If
-        '    Catch ex As Exception
-
-        '    End Try
-        'End If
-
 
     End Sub
 
@@ -1277,34 +1141,40 @@ Public Class frmPresentaciones
 
     Private Sub AñadirGridItem()
         ''CONTROL DE INPUTS
-        'If cmbFarmacias.SelectedValue Is DBNull.Value Or cmbFarmacias.SelectedValue = 0 Then
-        '    Util.MsgStatus(Status1, "Debe ingresar un producto VÁLIDO.", My.Resources.Resources.stop_error.ToBitmap)
-        '    Util.MsgStatus(Status1, "Debe ingresar un producto VÁLIDO.", My.Resources.Resources.stop_error.ToBitmap, True)
-        '    '               GoTo Continuar
-        '    Exit Sub
-        'End If
+        If cmbFarmacias.SelectedValue Is DBNull.Value Or cmbFarmacias.SelectedValue = 0 Or cmbFarmacias.Text = "" Then
+            Util.MsgStatus(Status1, "Debe ingresar una farmacia VÁLIDA.", My.Resources.Resources.stop_error.ToBitmap)
+            Util.MsgStatus(Status1, "Debe ingresar una farmacia VÁLIDA.", My.Resources.Resources.stop_error.ToBitmap, True)
+            '               GoTo Continuar
+            Exit Sub
+        End If
 
-        'If cmbFarmacias.Text = "" Then
-        '    Util.MsgStatus(Status1, "Debe ingresar un producto VÁLIDO.", My.Resources.Resources.stop_error.ToBitmap)
-        '    Util.MsgStatus(Status1, "Debe ingresar un producto VÁLIDO.", My.Resources.Resources.stop_error.ToBitmap, True)
-        '    '              GoTo Continuar
-        '    Exit Sub
-        'End If
+        If txtRecetas.Text = "" Or txtRecetas.Text = "0" Then
+            Util.MsgStatus(Status1, "Debe ingresar la cantidad de recetas.", My.Resources.Resources.stop_error.ToBitmap)
+            Util.MsgStatus(Status1, "Debe ingresar la cantidad de recetas.", My.Resources.Resources.stop_error.ToBitmap, True)
+            Exit Sub
+        End If
 
-        'If txtRecetas.Text = "" Or txtRecetas.Text = "0" Then
-        '    Util.MsgStatus(Status1, "Debe ingresar la cantidad del producto a Vender.", My.Resources.Resources.stop_error.ToBitmap)
-        '    Util.MsgStatus(Status1, "Debe ingresar la cantidad del producto a Vender.", My.Resources.Resources.stop_error.ToBitmap, True)
-        '    Exit Sub
-        'End If
+        If txtRecaudado.Text = "" Or txtRecaudado.Text = "0" Then
+            Util.MsgStatus(Status1, "Debe ingresar el importe 100%.", My.Resources.Resources.stop_error.ToBitmap)
+            Util.MsgStatus(Status1, "Debe ingresar el importe 100%.", My.Resources.Resources.stop_error.ToBitmap, True)
+            Exit Sub
+        End If
+
+        If txtACargoOS.Text = "" Or txtACargoOS.Text = "0" Then
+            Util.MsgStatus(Status1, "Debe ingresar el importe a cargo de la Obra Social.", My.Resources.Resources.stop_error.ToBitmap)
+            Util.MsgStatus(Status1, "Debe ingresar el importe a cargo de la Obra Social.", My.Resources.Resources.stop_error.ToBitmap, True)
+            Exit Sub
+        End If
 
 
-        'Dim i As Integer
-        'For i = 0 To grdItems.RowCount - 1
-        '    If cmbFarmacias.Text = grdItems.Rows(i).Cells(2).Value Then
-        '        Util.MsgStatus(Status1, "El producto '" & cmbFarmacias.Text & "' está repetido en la fila: " & (i + 1).ToString & ".", My.Resources.Resources.alert.ToBitmap, True)
-        '        Exit Sub
-        '    End If
-        'Next
+        Dim i As Integer
+        For i = 0 To grdItems.RowCount - 1
+            If cmbFarmacias.Text = grdItems.Rows(i).Cells(2).Value Then
+                'Util.MsgStatus(Status1, "La Farmacia '" & cmbFarmacias.Text & "' está repetido en la fila: " & (i + 1).ToString & ".", My.Resources.Resources.alert.ToBitmap, True)
+                Util.MsgStatus(Status1, $"La Farmacia {cmbFarmacias.Text} está repetido en la fila: {(i + 1)}.", My.Resources.Resources.alert.ToBitmap, True)
+                Exit Sub
+            End If
+        Next
 
         Dim row As New DataGridViewRow()
         row.CreateCells(grdItems)
@@ -1314,23 +1184,23 @@ Public Class frmPresentaciones
             .Cells(ColumnasDelGridItems.Nombre).Value = cmbFarmacias.Text
             .Cells(ColumnasDelGridItems.IdFarmacia).Value = cmbFarmacias.SelectedValue
             .Cells(ColumnasDelGridItems.Recetas).Value = txtRecetas.Text
-            .Cells(ColumnasDelGridItems.Recaudado).Value = txtImpTotal.Text
+            .Cells(ColumnasDelGridItems.Recaudado).Value = txtImpRecaudado.Text
             .Cells(ColumnasDelGridItems.ACargoOS).Value = txtImpACargoOs.Text
-            .Cells(ColumnasDelGridItems.Bonificacion).Value = txtBonificacionFarmacia.Text
-            .Cells(ColumnasDelGridItems.Total).Value = txtTotal.Text
+            .Cells(ColumnasDelGridItems.Bonificacion).Value = nudBonificacion.Text
+            .Cells(ColumnasDelGridItems.Total).Value = txtImpTotalAPagar.Text
 
         End With
 
         grdItems.Rows.Add(row)
-        'grdItems.Rows.Add(0, cmbFarmacias.SelectedValue, cmbFarmacias.Text, lblStock.Text, "", "", "", txtImpTotal.Text, txtRecetas.Text, txtImpACargoOs.Text, txtImpTotalAPagar.Text, "", "", "", txtIdUnidad.Text, porceniva, FormatNumber((((CDbl(txtImpTotalAPagar.Text) / (1 + porceniva / 100))) * (porceniva / 100)), 2))
 
-        ''CalcularTotales()
-        ''Contar_Filas()
+        CalcularTotales()
 
-        txtRecetas.Text = ""
         cmbFarmacias.Text = ""
-        txtImpTotal.Text = ""
+        cmbFarmacias.SelectedValue = DBNull.Value
+        txtRecetas.Text = ""
+        txtImpRecaudado.Text = ""
         txtImpACargoOs.Text = ""
+        nudBonificacion.Value = 0
         txtImpTotalAPagar.Text = ""
         cmbFarmacias.Focus()
     End Sub
@@ -1537,22 +1407,6 @@ Public Class frmPresentaciones
         'Rpt.OrdenesDeCompra_Maestro_App(txtCODIGO.Text, 0, Rpt, My.Application.Info.AssemblyName.ToString, Presupuesto)
 
         'cnn = Nothing
-
-    End Sub
-
-    Private Sub Contar_Filas()
-
-        Dim count = 0
-        Dim i As Integer
-
-        For i = 0 To grdItems.Rows.Count - 1
-            If grdItems.Rows(i).Visible = True Then
-                count += 1
-            End If
-        Next
-
-
-        lblCantidadFilas.Text = count
 
     End Sub
 
@@ -2146,101 +2000,101 @@ Public Class frmPresentaciones
         End Try
     End Function
 
-    Private Function EliminarRegistroItem(ByVal IDoc As Long, ByVal item As Integer) As Integer
-        Dim res As Integer = 0
-        Dim connection As SqlClient.SqlConnection = Nothing
+    'Private Function EliminarRegistroItem(ByVal IDoc As Long, ByVal item As Integer) As Integer
+    '    Dim res As Integer = 0
+    '    Dim connection As SqlClient.SqlConnection = Nothing
 
-        Try
-            connection = SqlHelper.GetConnection(ConnStringSEI)
-        Catch ex As Exception
-            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Function
-        End Try
+    '    Try
+    '        connection = SqlHelper.GetConnection(ConnStringSEI)
+    '    Catch ex As Exception
+    '        MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+    '        Exit Function
+    '    End Try
 
-        Try
-            Try
+    '    Try
+    '        Try
 
-                Dim param_idoc As New SqlClient.SqlParameter
-                param_idoc.ParameterName = "@idoc"
-                param_idoc.SqlDbType = SqlDbType.BigInt
-                param_idoc.Value = IDoc
-                param_idoc.Direction = ParameterDirection.Input
+    '            Dim param_idoc As New SqlClient.SqlParameter
+    '            param_idoc.ParameterName = "@idoc"
+    '            param_idoc.SqlDbType = SqlDbType.BigInt
+    '            param_idoc.Value = IDoc
+    '            param_idoc.Direction = ParameterDirection.Input
 
-                Dim param_item As New SqlClient.SqlParameter
-                param_item.ParameterName = "@item"
-                param_item.SqlDbType = SqlDbType.BigInt
-                param_item.Value = item
-                param_item.Direction = ParameterDirection.Input
+    '            Dim param_item As New SqlClient.SqlParameter
+    '            param_item.ParameterName = "@item"
+    '            param_item.SqlDbType = SqlDbType.BigInt
+    '            param_item.Value = item
+    '            param_item.Direction = ParameterDirection.Input
 
-                Dim param_subtotal As New SqlClient.SqlParameter
-                param_subtotal.ParameterName = "@subtotal"
-                param_subtotal.SqlDbType = SqlDbType.Decimal
-                param_subtotal.Precision = 18
-                param_subtotal.Scale = 2
-                param_subtotal.Value = txtRecaudado.Text
-                param_subtotal.Direction = ParameterDirection.Input
+    '            Dim param_subtotal As New SqlClient.SqlParameter
+    '            param_subtotal.ParameterName = "@subtotal"
+    '            param_subtotal.SqlDbType = SqlDbType.Decimal
+    '            param_subtotal.Precision = 18
+    '            param_subtotal.Scale = 2
+    '            param_subtotal.Value = txtRecaudado.Text
+    '            param_subtotal.Direction = ParameterDirection.Input
 
-                Dim param_montoivatotal As New SqlClient.SqlParameter
-                param_montoivatotal.ParameterName = "@MontoIvaTotal"
-                param_montoivatotal.SqlDbType = SqlDbType.Decimal
-                param_montoivatotal.Precision = 18
-                param_montoivatotal.Scale = 2
-                param_montoivatotal.Value = 0 'txtMontoIVA.Text
-                param_montoivatotal.Direction = ParameterDirection.Input
+    '            Dim param_montoivatotal As New SqlClient.SqlParameter
+    '            param_montoivatotal.ParameterName = "@MontoIvaTotal"
+    '            param_montoivatotal.SqlDbType = SqlDbType.Decimal
+    '            param_montoivatotal.Precision = 18
+    '            param_montoivatotal.Scale = 2
+    '            param_montoivatotal.Value = 0 'txtMontoIVA.Text
+    '            param_montoivatotal.Direction = ParameterDirection.Input
 
-                Dim param_total As New SqlClient.SqlParameter
-                param_total.ParameterName = "@Total"
-                param_total.SqlDbType = SqlDbType.Decimal
-                param_total.Precision = 18
-                param_total.Scale = 2
-                param_total.Value = txtTotal.Text
-                param_total.Direction = ParameterDirection.Input
+    '            Dim param_total As New SqlClient.SqlParameter
+    '            param_total.ParameterName = "@Total"
+    '            param_total.SqlDbType = SqlDbType.Decimal
+    '            param_total.Precision = 18
+    '            param_total.Scale = 2
+    '            param_total.Value = txtTotal.Text
+    '            param_total.Direction = ParameterDirection.Input
 
-                Dim param_userdel As New SqlClient.SqlParameter
-                param_userdel.ParameterName = "@userdel"
-                param_userdel.SqlDbType = SqlDbType.Int
-                param_userdel.Value = UserID
-                param_userdel.Direction = ParameterDirection.Input
+    '            Dim param_userdel As New SqlClient.SqlParameter
+    '            param_userdel.ParameterName = "@userdel"
+    '            param_userdel.SqlDbType = SqlDbType.Int
+    '            param_userdel.Value = UserID
+    '            param_userdel.Direction = ParameterDirection.Input
 
-                Dim param_res As New SqlClient.SqlParameter
-                param_res.ParameterName = "@res"
-                param_res.SqlDbType = SqlDbType.Int
-                param_res.Value = DBNull.Value
-                param_res.Direction = ParameterDirection.Output
+    '            Dim param_res As New SqlClient.SqlParameter
+    '            param_res.ParameterName = "@res"
+    '            param_res.SqlDbType = SqlDbType.Int
+    '            param_res.Value = DBNull.Value
+    '            param_res.Direction = ParameterDirection.Output
 
-                Try
-                    SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spOrdenDeCompra_Det_Delete_Item",
-                                              param_idoc, param_item, param_subtotal,
-                                              param_montoivatotal, param_total, param_userdel, param_res)
-                    res = param_res.Value
+    '            Try
+    '                SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spOrdenDeCompra_Det_Delete_Item",
+    '                                          param_idoc, param_item, param_subtotal,
+    '                                          param_montoivatotal, param_total, param_userdel, param_res)
+    '                res = param_res.Value
 
-                    EliminarRegistroItem = res
+    '                EliminarRegistroItem = res
 
-                Catch ex As Exception
-                    Throw ex
-                End Try
-            Finally
+    '            Catch ex As Exception
+    '                Throw ex
+    '            End Try
+    '        Finally
 
-            End Try
-        Catch ex As Exception
-            Dim errMessage As String = ""
-            Dim tempException As Exception = ex
+    '        End Try
+    '    Catch ex As Exception
+    '        Dim errMessage As String = ""
+    '        Dim tempException As Exception = ex
 
-            While (Not tempException Is Nothing)
-                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
-                tempException = tempException.InnerException
-            End While
+    '        While (Not tempException Is Nothing)
+    '            errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+    '            tempException = tempException.InnerException
+    '        End While
 
-            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
-              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            If Not connection Is Nothing Then
-                CType(connection, IDisposable).Dispose()
-            End If
-        End Try
+    '        MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+    '          + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+    '          "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+    '    Finally
+    '        If Not connection Is Nothing Then
+    '            CType(connection, IDisposable).Dispose()
+    '        End If
+    '    End Try
 
-    End Function
+    'End Function
 
     'Private Function Agregar_Marca(ByVal NombreMarca As String, ByRef IdMarcaNueva As Long) As Integer
 
@@ -3307,15 +3161,9 @@ Public Class frmPresentaciones
     End Sub
 
 
+
+
 #End Region
-
-
-
-
-
-
-
-
 
 
 End Class
