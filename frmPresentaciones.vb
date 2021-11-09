@@ -137,7 +137,6 @@ Public Class frmPresentaciones
 
     Private Sub frmPresentaciones_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
-
         Cursor = Cursors.WaitCursor
 
         ToolStrip_lblCodMaterial.Visible = True
@@ -241,10 +240,27 @@ Public Class frmPresentaciones
     End Sub
     Private Sub nudBonificacion_ValueChanged(sender As Object, e As EventArgs) Handles nudBonificacion.ValueChanged
         Dim subtotal As Integer = 0
+        Dim impBonificacion As Integer = 0
         If txtImpACargoOs.Text <> "" Then
+            impBonificacion = Decimal.Parse(txtImpACargoOs.Text) * (Decimal.Parse(nudBonificacion.Value))
             subtotal = Decimal.Parse(txtImpACargoOs.Text) - (Decimal.Parse(txtImpACargoOs.Text) * (Decimal.Parse(nudBonificacion.Value)))
         End If
+        txtBonificacion.Text = String.Format("{0:N2}", impBonificacion)
         txtImpTotalAPagar.Text = subtotal
+    End Sub
+
+    Private Sub txtBonificacion_TextChanged(sender As Object, e As EventArgs) Handles txtBonificacion.TextChanged
+        If txtBonificacion.Text <> "" And txtBonificacion.Text <> 0 And txtACargoOS.Text <> "" And txtACargoOS.Text <> 0 Then
+            Dim bonificacion As Integer = 0
+            Dim AcargoOS = Decimal.Parse(txtACargoOS.Text)
+            Dim impBonificacion = Decimal.Parse(txtBonificacion.Text)
+
+            bonificacion = impBonificacion / AcargoOS
+            MsgBox(bonificacion)
+            If bonificacion >= 0 And bonificacion <= 1 Then
+                nudBonificacion.Value = bonificacion
+            End If
+        End If
     End Sub
 
     Private Sub CalcularTotales()
@@ -1169,7 +1185,7 @@ Public Class frmPresentaciones
 
         Dim i As Integer
         For i = 0 To grdItems.RowCount - 1
-            If cmbFarmacias.Text = grdItems.Rows(i).Cells(2).Value Then
+            If cmbFarmacias.Text = grdItems.Rows(i).Cells(ColumnasDelGridItems.Nombre).Value Then
                 'Util.MsgStatus(Status1, "La Farmacia '" & cmbFarmacias.Text & "' está repetido en la fila: " & (i + 1).ToString & ".", My.Resources.Resources.alert.ToBitmap, True)
                 Util.MsgStatus(Status1, $"La Farmacia {cmbFarmacias.Text} está repetido en la fila: {(i + 1)}.", My.Resources.Resources.alert.ToBitmap, True)
                 Exit Sub
@@ -3159,9 +3175,6 @@ Public Class frmPresentaciones
     Private Sub btnAgregarItem_Click(sender As Object, e As EventArgs) Handles btnAgregarItem.Click
         AñadirGridItem()
     End Sub
-
-
-
 
 #End Region
 
