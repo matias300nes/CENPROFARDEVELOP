@@ -1170,13 +1170,13 @@ Public Class frmPresentaciones
             Exit Sub
         End If
 
-        If txtRecaudado.Text = "" Or txtRecaudado.Text = "0" Then
+        If txtImpRecaudado.Text = "" Or txtImpRecaudado.Text = "0" Then
             Util.MsgStatus(Status1, "Debe ingresar el importe 100%.", My.Resources.Resources.stop_error.ToBitmap)
             Util.MsgStatus(Status1, "Debe ingresar el importe 100%.", My.Resources.Resources.stop_error.ToBitmap, True)
             Exit Sub
         End If
 
-        If txtACargoOS.Text = "" Or txtACargoOS.Text = "0" Then
+        If txtImpACargoOs.Text = "" Or txtImpACargoOs.Text = "0" Then
             Util.MsgStatus(Status1, "Debe ingresar el importe a cargo de la Obra Social.", My.Resources.Resources.stop_error.ToBitmap)
             Util.MsgStatus(Status1, "Debe ingresar el importe a cargo de la Obra Social.", My.Resources.Resources.stop_error.ToBitmap, True)
             Exit Sub

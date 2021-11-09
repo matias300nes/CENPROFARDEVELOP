@@ -12,7 +12,7 @@ Imports DevComponents.DotNetBar.SuperGrid.Style
 
 
 
-Public Class frmRecepciones
+Public Class frmLiquidaciones
     Dim IdObraSocial
     Dim bolIDOS As Boolean = False
     Dim DataBindingComplete As Boolean = False
@@ -264,14 +264,14 @@ Public Class frmRecepciones
         ' LlenarGrid_grdDetLiquidacionOs()
         configurarform()
         asignarTags()
-
+        rdPendientes.Checked = 1
         LlenarcmbAlmacenes()
         LlenarcmbUsuarioGasto()
 
         'IdObraSocial = cmbObraSocial.SelectedValue
 
-        SQL = $"exec spPresentaciones_Select_All  @Eliminado = 0, @ObraSocial = '{IdObraSocial}'"
-
+        'SQL = $"exec spPresentaciones_Select_All  @Eliminado = 0, @ObraSocial = '{IdObraSocial}'"
+        SQL = $"exec spPresentaciones_Select_All @Pendientes = {rdPendientes.Checked} ,@Eliminado = {rdAnuladas.Checked} ,@Todos = {rdTodasOC.Checked}"
         LlenarGrilla()
 
         Permitir = True
@@ -1636,7 +1636,7 @@ Public Class frmRecepciones
                 Return
             End If
         Next
-
+        ''revisar
         dt_filtrada.Columns.Add("Codigo", GetType(Long))
         dt_filtrada.Columns.Add("Recetas", GetType(Integer))
         dt_filtrada.Columns.Add("Recaudado", GetType(Decimal))
@@ -1661,8 +1661,9 @@ Public Class frmRecepciones
         Dim ds_Farmacias As New DataSet
 
         Dim dtFarmacias As New DataTable
-        Dim SQL_Farmacias = $"SELECT f.Codigo, f.CodFACAF, f.codpami, f.Nombre, pd.IdPresentacion FROM Farmacias f INNER JOIN Presentaciones_det pd on f.Codigo = pd.IdFarmacia
-                              WHERE pd.IdPresentacion = {grd.Rows(0).Cells(0).Value}"
+        ''nacho cambió: f.codigo -> f.id
+        Dim SQL_Farmacias = $"SELECT f.Codigo, f.CodFACAF, f.codpami, f.Nombre, pd.IdPresentacion FROM Farmacias f INNER JOIN Presentaciones_det pd on f.Id = pd.IdFarmacia
+                              WHERE pd.IdPresentacion = {grd.CurrentRow.Cells(0).Value}"
 
         Try
             ds_Farmacias = SqlHelper.ExecuteDataset(connection, CommandType.Text, SQL_Farmacias)
@@ -5255,15 +5256,15 @@ ContinuarTransaccion:
         panel.Footer.Text = String.Format("Total a pagar: <font color=""Green""><i>${0}</i></font>", total)
     End Sub
 
-    Private Sub cmbObraSocial_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbObraSocial.SelectedIndexChanged
-        If bolIDOS Then
-            IdObraSocial = cmbObraSocial.SelectedValue
-            SQL = $"exec spPresentaciones_Select_All  @Eliminado = 0, @ObraSocial = '{IdObraSocial}'"
-            LlenarGrilla()
-            grd.Columns(1).Visible = False
-        End If
+    'Private Sub cmbObraSocial_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbObraSocial.SelectedIndexChanged
+    '    If bolIDOS Then
+    '        IdObraSocial = cmbObraSocial.SelectedValue
+    '        SQL = $"exec spPresentaciones_Select_All  @Eliminado = 0, @ObraSocial = '{IdObraSocial}'"
+    '        LlenarGrilla()
+    '        grd.Columns(1).Visible = False
+    '    End If
 
-    End Sub
+    'End Sub
 
     'Private Sub SuperGrdResultado_CellClick(sender As Object, e As GridCellEventArgs) Handles SuperGrdResultado.CellClick
     '    panel = e.GridPanel
