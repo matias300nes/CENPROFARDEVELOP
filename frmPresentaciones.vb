@@ -137,7 +137,6 @@ Public Class frmPresentaciones
 
     Private Sub frmPresentaciones_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
-
         Cursor = Cursors.WaitCursor
 
         ToolStrip_lblCodMaterial.Visible = True
@@ -232,19 +231,45 @@ Public Class frmPresentaciones
         End If
     End Sub
 
-    Private Sub txtImpACargoOs_TextChanged(sender As Object, e As EventArgs) Handles txtImpACargoOs.TextChanged
-        Dim subtotal As Integer = 0
+    Private Sub txtImpACargoOs_LostFocus(sender As Object, e As EventArgs) Handles txtImpACargoOs.LostFocus
         If txtImpACargoOs.Text <> "" Then
-            subtotal = Decimal.Parse(txtImpACargoOs.Text) - (Decimal.Parse(txtImpACargoOs.Text) * (Decimal.Parse(nudBonificacion.Value)))
+            Dim subtotal As Decimal = 0
+            Dim aCargoOS As Decimal = Decimal.Parse(txtImpACargoOs.Text)
+            Dim Bonificacion As Decimal = Decimal.Parse(nudBonificacion.Value)
+            subtotal = aCargoOS - (aCargoOS * Bonificacion)
+
+            txtImpACargoOs.Text = String.Format("{0:N2}", aCargoOS)
+            txtImpTotalAPagar.Text = String.Format("{0:N2}", Math.Round(subtotal, 2))
         End If
-        txtImpTotalAPagar.Text = subtotal
+
     End Sub
+
+    Private Sub txtImpRecaudado_LostFocus(sender As Object, e As EventArgs) Handles txtImpRecaudado.LostFocus
+        txtImpRecaudado.Text = String.Format("{0:N2}", Decimal.Parse(txtImpRecaudado.Text))
+    End Sub
+
     Private Sub nudBonificacion_ValueChanged(sender As Object, e As EventArgs) Handles nudBonificacion.ValueChanged
-        Dim subtotal As Integer = 0
+        Dim subtotal As Decimal = 0
+        Dim impBonificacion As Decimal = 0
         If txtImpACargoOs.Text <> "" Then
+            impBonificacion = Decimal.Parse(txtImpACargoOs.Text) * (Decimal.Parse(nudBonificacion.Value))
             subtotal = Decimal.Parse(txtImpACargoOs.Text) - (Decimal.Parse(txtImpACargoOs.Text) * (Decimal.Parse(nudBonificacion.Value)))
         End If
-        txtImpTotalAPagar.Text = subtotal
+        txtBonificacion.Text = String.Format("{0:N2}", impBonificacion)
+        txtImpTotalAPagar.Text = String.Format("{0:N2}", subtotal)
+    End Sub
+
+    Private Sub txtBonificacion_LostFocus(sender As Object, e As EventArgs) Handles txtBonificacion.LostFocus
+        If txtBonificacion.Text <> "" And txtImpACargoOs.Text <> "" And txtImpACargoOs.Text <> "0" Then
+            Dim bonificacion As Decimal = 0
+            Dim AcargoOS = Decimal.Parse(txtImpACargoOs.Text)
+            Dim impBonificacion = Decimal.Parse(txtBonificacion.Text)
+
+            bonificacion = impBonificacion / AcargoOS
+            If bonificacion >= 0 And bonificacion <= 1 Then
+                nudBonificacion.Value = bonificacion
+            End If
+        End If
     End Sub
 
     Private Sub CalcularTotales()
@@ -1169,7 +1194,7 @@ Public Class frmPresentaciones
 
         Dim i As Integer
         For i = 0 To grdItems.RowCount - 1
-            If cmbFarmacias.Text = grdItems.Rows(i).Cells(2).Value Then
+            If cmbFarmacias.Text = grdItems.Rows(i).Cells(ColumnasDelGridItems.Nombre).Value Then
                 'Util.MsgStatus(Status1, "La Farmacia '" & cmbFarmacias.Text & "' está repetido en la fila: " & (i + 1).ToString & ".", My.Resources.Resources.alert.ToBitmap, True)
                 Util.MsgStatus(Status1, $"La Farmacia {cmbFarmacias.Text} está repetido en la fila: {(i + 1)}.", My.Resources.Resources.alert.ToBitmap, True)
                 Exit Sub
@@ -3159,9 +3184,6 @@ Public Class frmPresentaciones
     Private Sub btnAgregarItem_Click(sender As Object, e As EventArgs) Handles btnAgregarItem.Click
         AñadirGridItem()
     End Sub
-
-
-
 
 #End Region
 
