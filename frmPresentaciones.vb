@@ -245,7 +245,9 @@ Public Class frmPresentaciones
     End Sub
 
     Private Sub txtImpRecaudado_LostFocus(sender As Object, e As EventArgs) Handles txtImpRecaudado.LostFocus
-        txtImpRecaudado.Text = String.Format("{0:N2}", Decimal.Parse(txtImpRecaudado.Text))
+        If txtImpRecaudado.Text <> "" Then
+            txtImpRecaudado.Text = String.Format("{0:N2}", Decimal.Parse(txtImpRecaudado.Text))
+        End If
     End Sub
 
     Private Sub nudBonificacion_ValueChanged(sender As Object, e As EventArgs) Handles nudBonificacion.ValueChanged
@@ -1112,7 +1114,7 @@ Public Class frmPresentaciones
         txtID.Tag = "0"
         dtpFECHA.Tag = "1"
         txtIdObrasocial.Tag = "2"
-        cmbObraSocial.Tag = "3"
+        cmbObraSocial.Tag = "2"
         txtPeriodo.Tag = "4"
         lblStatus.Tag = "5"
         txtTotal.Tag = "6"
