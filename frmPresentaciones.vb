@@ -51,32 +51,6 @@ Public Class frmPresentaciones
     Dim porceniva As Double = 21
 
     Enum ColumnasDelGridItems
-        'IdOrdenDeCompra_Det = 0
-        'IdMaterial = 1
-        'Producto = 2
-        'QtyStockTotal = 3
-        'Bonif1 = 4
-        'Bonif2 = 5
-        'Bonif3 = 6
-        'PrecioUni = 7
-        'Cantidad = 8
-        'Peso = 9
-        'Subtotal = 10
-        'Status = 11
-        'Saldo = 12
-        'Nota_Det = 13
-        'IdUnidad = 14
-        'Iva = 15
-        'MontoIVA = 16
-        ''MATI
-        'ID = 0
-        'IDObraSocial = 1
-        'ObraSocial = 2
-        'Cuit = 3
-        'Fecha = 4
-        'Periodo = 5
-        'total = 6
-
         ''NACHO
         ID = 0
         IdFarmacia = 1
@@ -147,7 +121,7 @@ Public Class frmPresentaciones
         configurarform()
         asignarTags()
 
-        btnEliminar.Text = "Anular OC"
+        btnEliminar.Text = "Anular Presentación"
         rdPendientes.Checked = 1
 
         LlenarCmbFarmacia()
@@ -1891,7 +1865,7 @@ Public Class frmPresentaciones
                 Dim param_Total As New SqlClient.SqlParameter
                 param_Total.ParameterName = "@total"
                 param_Total.SqlDbType = SqlDbType.Decimal
-                param_Total.Value = 0 'grdItems.Rows(i).Cells(ColumnasDelGridItems.Total).Value
+                param_Total.Value = grdItems.Rows(i).Cells(ColumnasDelGridItems.Total).Value
                 param_Total.Direction = ParameterDirection.Input
 
                 Dim param_eliminado As New SqlClient.SqlParameter
@@ -3045,7 +3019,7 @@ Public Class frmPresentaciones
         '
         Dim res As Integer
 
-        If MessageBox.Show("¿Está seguro que desea Anular la OC seleccionada?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
+        If MessageBox.Show("¿Está seguro que desea Anular la Presentación seleccionada?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
             Exit Sub
         End If
 
@@ -3186,6 +3160,8 @@ Public Class frmPresentaciones
     Private Sub btnAgregarItem_Click(sender As Object, e As EventArgs) Handles btnAgregarItem.Click
         AñadirGridItem()
     End Sub
+
+
 
 #End Region
 
