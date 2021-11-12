@@ -20,12 +20,12 @@ Partial Class frmPresentaciones
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.grdItems = New System.Windows.Forms.DataGridView()
         Me.Id = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -45,7 +45,7 @@ Partial Class frmPresentaciones
         Me.Bonificacion = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Total = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Eliminar = New System.Windows.Forms.DataGridViewButtonColumn()
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.GbFarmaciaForm = New System.Windows.Forms.GroupBox()
         Me.txtBonificacion = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.nudBonificacion = New System.Windows.Forms.NumericUpDown()
@@ -99,7 +99,7 @@ Partial Class frmPresentaciones
         Me.GroupBox1.SuspendLayout()
         CType(Me.grdItems, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuStrip1.SuspendLayout()
-        Me.GroupBox2.SuspendLayout()
+        Me.GbFarmaciaForm.SuspendLayout()
         CType(Me.nudBonificacion, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuStrip2.SuspendLayout()
         Me.ContextMenuStrip3.SuspendLayout()
@@ -111,7 +111,6 @@ Partial Class frmPresentaciones
         Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox1.Controls.Add(Me.grdItems)
-        Me.GroupBox1.Controls.Add(Me.GroupBox2)
         Me.GroupBox1.Controls.Add(Me.Label2)
         Me.GroupBox1.Controls.Add(Me.txtCodigo)
         Me.GroupBox1.Controls.Add(Me.chkMaterialesProveedor)
@@ -141,10 +140,11 @@ Partial Class frmPresentaciones
         Me.GroupBox1.Controls.Add(Me.txtID)
         Me.GroupBox1.Controls.Add(Me.dtpFECHA)
         Me.GroupBox1.Controls.Add(Me.Label3)
+        Me.GroupBox1.Controls.Add(Me.GbFarmaciaForm)
         Me.GroupBox1.ForeColor = System.Drawing.Color.Blue
         Me.GroupBox1.Location = New System.Drawing.Point(7, 24)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(2117, 511)
+        Me.GroupBox1.Size = New System.Drawing.Size(2134, 511)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         '
@@ -152,27 +152,27 @@ Partial Class frmPresentaciones
         '
         Me.grdItems.AllowUserToAddRows = False
         Me.grdItems.AllowUserToDeleteRows = False
-        DataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
-        DataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black
-        Me.grdItems.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle7
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.grdItems.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black
+        Me.grdItems.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.grdItems.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.grdItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.grdItems.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Id, Me.IdFarmacia, Me.CodigoFarmacia, Me.Nombre, Me.IdPresentacion, Me.Recetas, Me.Recaudad, Me.ACargoOS, Me.Bonificacion, Me.Total, Me.Eliminar})
-        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle12.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle12.ForeColor = System.Drawing.Color.Blue
-        DataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.grdItems.DefaultCellStyle = DataGridViewCellStyle12
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.Color.Blue
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.grdItems.DefaultCellStyle = DataGridViewCellStyle6
         Me.grdItems.Location = New System.Drawing.Point(346, 111)
         Me.grdItems.Name = "grdItems"
         Me.grdItems.RowHeadersWidth = 51
@@ -267,8 +267,8 @@ Partial Class frmPresentaciones
         '
         'IdPresentacion
         '
-        DataGridViewCellStyle9.NullValue = Nothing
-        Me.IdPresentacion.DefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle3.NullValue = Nothing
+        Me.IdPresentacion.DefaultCellStyle = DataGridViewCellStyle3
         Me.IdPresentacion.HeaderText = "Id Presentación"
         Me.IdPresentacion.MinimumWidth = 6
         Me.IdPresentacion.Name = "IdPresentacion"
@@ -299,9 +299,9 @@ Partial Class frmPresentaciones
         '
         'Bonificacion
         '
-        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle10.NullValue = Nothing
-        Me.Bonificacion.DefaultCellStyle = DataGridViewCellStyle10
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle4.NullValue = Nothing
+        Me.Bonificacion.DefaultCellStyle = DataGridViewCellStyle4
         Me.Bonificacion.HeaderText = "Bonificación"
         Me.Bonificacion.MinimumWidth = 6
         Me.Bonificacion.Name = "Bonificacion"
@@ -310,8 +310,8 @@ Partial Class frmPresentaciones
         '
         'Total
         '
-        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.Total.DefaultCellStyle = DataGridViewCellStyle11
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.Total.DefaultCellStyle = DataGridViewCellStyle5
         Me.Total.HeaderText = "Total"
         Me.Total.MinimumWidth = 6
         Me.Total.Name = "Total"
@@ -328,29 +328,29 @@ Partial Class frmPresentaciones
         Me.Eliminar.UseColumnTextForButtonValue = True
         Me.Eliminar.Width = 80
         '
-        'GroupBox2
+        'GbFarmaciaForm
         '
-        Me.GroupBox2.Controls.Add(Me.txtBonificacion)
-        Me.GroupBox2.Controls.Add(Me.Label13)
-        Me.GroupBox2.Controls.Add(Me.nudBonificacion)
-        Me.GroupBox2.Controls.Add(Me.cmbFarmacias)
-        Me.GroupBox2.Controls.Add(Me.btnAgregarItem)
-        Me.GroupBox2.Controls.Add(Me.Label12)
-        Me.GroupBox2.Controls.Add(Me.txtImpRecaudado)
-        Me.GroupBox2.Controls.Add(Me.txtImpACargoOs)
-        Me.GroupBox2.Controls.Add(Me.Label6)
-        Me.GroupBox2.Controls.Add(Me.Label16)
-        Me.GroupBox2.Controls.Add(Me.Label5)
-        Me.GroupBox2.Controls.Add(Me.Label10)
-        Me.GroupBox2.Controls.Add(Me.txtImpTotalAPagar)
-        Me.GroupBox2.Controls.Add(Me.txtRecetas)
-        Me.GroupBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox2.Location = New System.Drawing.Point(15, 105)
-        Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(335, 327)
-        Me.GroupBox2.TabIndex = 342
-        Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Añadir farmacia"
+        Me.GbFarmaciaForm.Controls.Add(Me.txtBonificacion)
+        Me.GbFarmaciaForm.Controls.Add(Me.Label13)
+        Me.GbFarmaciaForm.Controls.Add(Me.nudBonificacion)
+        Me.GbFarmaciaForm.Controls.Add(Me.cmbFarmacias)
+        Me.GbFarmaciaForm.Controls.Add(Me.btnAgregarItem)
+        Me.GbFarmaciaForm.Controls.Add(Me.Label12)
+        Me.GbFarmaciaForm.Controls.Add(Me.txtImpRecaudado)
+        Me.GbFarmaciaForm.Controls.Add(Me.txtImpACargoOs)
+        Me.GbFarmaciaForm.Controls.Add(Me.Label6)
+        Me.GbFarmaciaForm.Controls.Add(Me.Label16)
+        Me.GbFarmaciaForm.Controls.Add(Me.Label5)
+        Me.GbFarmaciaForm.Controls.Add(Me.Label10)
+        Me.GbFarmaciaForm.Controls.Add(Me.txtImpTotalAPagar)
+        Me.GbFarmaciaForm.Controls.Add(Me.txtRecetas)
+        Me.GbFarmaciaForm.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GbFarmaciaForm.Location = New System.Drawing.Point(15, 105)
+        Me.GbFarmaciaForm.Name = "GbFarmaciaForm"
+        Me.GbFarmaciaForm.Size = New System.Drawing.Size(335, 327)
+        Me.GbFarmaciaForm.TabIndex = 342
+        Me.GbFarmaciaForm.TabStop = False
+        Me.GbFarmaciaForm.Text = "Añadir farmacia"
         '
         'txtBonificacion
         '
@@ -984,8 +984,8 @@ Partial Class frmPresentaciones
         Me.GroupBox1.PerformLayout()
         CType(Me.grdItems, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ContextMenuStrip1.ResumeLayout(False)
-        Me.GroupBox2.ResumeLayout(False)
-        Me.GroupBox2.PerformLayout()
+        Me.GbFarmaciaForm.ResumeLayout(False)
+        Me.GbFarmaciaForm.PerformLayout()
         CType(Me.nudBonificacion, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ContextMenuStrip2.ResumeLayout(False)
         Me.ContextMenuStrip3.ResumeLayout(False)
@@ -1062,6 +1062,6 @@ Partial Class frmPresentaciones
     Friend WithEvents Bonificacion As DataGridViewTextBoxColumn
     Friend WithEvents Total As DataGridViewTextBoxColumn
     Friend WithEvents Eliminar As DataGridViewButtonColumn
-    Friend WithEvents GroupBox2 As GroupBox
+    Friend WithEvents GbFarmaciaForm As GroupBox
     Friend WithEvents txtBonificacion As TextBoxConFormatoVB.FormattedTextBoxVB
 End Class

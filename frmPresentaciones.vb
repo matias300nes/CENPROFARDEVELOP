@@ -987,7 +987,7 @@ Public Class frmPresentaciones
         ygrd = grd.Location.Y
         hgrd = grd.Height
 
-        variableajuste = 150
+        variableajuste = 125
 
         If chkGrillaInferior.Checked = True Then
             chkGrillaInferior.Text = "Disminuir Grilla Inferior"
@@ -996,6 +996,7 @@ Public Class frmPresentaciones
             grd.Location = New Point(xgrd, ygrd - variableajuste)
             grd.Height = hgrd + variableajuste
             grdItems.Height = grdItems.Height - variableajuste
+            GbFarmaciaForm.Height = GbFarmaciaForm.Height - variableajuste
             Label19.Location = New Point(Label19.Location.X, Label19.Location.Y - variableajuste)
             lblCantidadFilas.Location = New Point(lblCantidadFilas.Location.X, lblCantidadFilas.Location.Y - variableajuste)
 
@@ -1019,6 +1020,7 @@ Public Class frmPresentaciones
             grd.Location = New Point(xgrd, ygrd + variableajuste)
             grd.Height = hgrd - variableajuste
             grdItems.Height = grdItems.Height + variableajuste
+            GbFarmaciaForm.Height = GbFarmaciaForm.Height + variableajuste
             Label19.Location = New Point(Label19.Location.X, Label19.Location.Y + variableajuste)
             lblCantidadFilas.Location = New Point(lblCantidadFilas.Location.X, lblCantidadFilas.Location.Y + variableajuste)
 
@@ -1193,15 +1195,15 @@ Public Class frmPresentaciones
             Exit Sub
         End If
 
-
-        Dim i As Integer
-        For i = 0 To grdItems.RowCount - 1
-            If cmbFarmacias.Text = grdItems.Rows(i).Cells(ColumnasDelGridItems.Nombre).Value Then
-                'Util.MsgStatus(Status1, "La Farmacia '" & cmbFarmacias.Text & "' está repetido en la fila: " & (i + 1).ToString & ".", My.Resources.Resources.alert.ToBitmap, True)
-                Util.MsgStatus(Status1, $"La Farmacia {cmbFarmacias.Text} está repetido en la fila: {(i + 1)}.", My.Resources.Resources.alert.ToBitmap, True)
-                Exit Sub
-            End If
-        Next
+        'EVITAR REPETIDOS
+        'Dim i As Integer
+        'For i = 0 To grdItems.RowCount - 1
+        '    If cmbFarmacias.Text = grdItems.Rows(i).Cells(ColumnasDelGridItems.Nombre).Value Then
+        '        'Util.MsgStatus(Status1, "La Farmacia '" & cmbFarmacias.Text & "' está repetido en la fila: " & (i + 1).ToString & ".", My.Resources.Resources.alert.ToBitmap, True)
+        '        Util.MsgStatus(Status1, $"La Farmacia {cmbFarmacias.Text} está repetido en la fila: {(i + 1)}.", My.Resources.Resources.alert.ToBitmap, True)
+        '        Exit Sub
+        '    End If
+        'Next
 
         Dim row As New DataGridViewRow()
         row.CreateCells(grdItems)
