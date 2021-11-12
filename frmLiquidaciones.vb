@@ -315,6 +315,7 @@ Public Class frmLiquidaciones
 
         grd_CurrentCellChanged(sender, e)
 
+        grd.Rows(0).Selected = True
 
         'Oculto las columnas en el grd
         grd.Columns(1).Visible = False
@@ -584,7 +585,6 @@ Public Class frmLiquidaciones
 
     '(currentcellChanged)
     Protected Overloads Sub grd_CurrentCellChanged(ByVal sender As Object, ByVal e As System.EventArgs)
-
         If Permitir Then
             Try
 
@@ -834,7 +834,7 @@ Public Class frmLiquidaciones
         gl_dataset.Tables.Add(dtDetalle)
 
         dtConcepto.PrimaryKey = {
-                dtConcepto.Columns.Add("codigo", GetType(Long)),
+                dtConcepto.Columns.Add("codigo", GetType(String)),
                 dtConcepto.Columns.Add("detalle", GetType(String))
         }
         dtConcepto.Columns.Add("valor", GetType(Decimal))
@@ -923,7 +923,6 @@ Public Class frmLiquidaciones
         Me.grd.Location = New Size(GroupBox1.Location.X, GroupBox1.Location.Y + GroupBox1.Size.Height + 5)
         Me.grd.Size = New Size(Screen.PrimaryScreen.WorkingArea.Width - 27, Me.Size.Height - 3 - GroupBox1.Size.Height - GroupBox1.Location.Y - 62) '65)
 
-
     End Sub
 
     Dim tables As DataTableCollection
@@ -960,6 +959,7 @@ Public Class frmLiquidaciones
 
             End If
         End Using
+
     End Sub
 
     Private Sub CalcularDetalleSuperGrd(datasetLiquidacion As DataSet)
@@ -1253,15 +1253,19 @@ Public Class frmLiquidaciones
         Next
         'traigo el codigo interno de la farmacia con mayor porcentaje de aproximacion
         If dt_ResultadoComparacionFarmacias.Rows.Count > 0 Then
-            Return dt_ResultadoComparacionFarmacias.Rows(0).Item("CodigoInterno")
+            For Each row As DataRow In dtFarmacias.Rows
+                If dt_ResultadoComparacionFarmacias.Rows(0).Item("CodigoInterno") = row("Codigo") Then
+                    Return row
+                End If
+            Next
         End If
 
         Return Nothing
 
     End Function
 
-    Private Function get_codigo(row As DataRow, dtFarmacias As DataTable) ''Recibe una fila y busca si es una farmacia dentro de una tabla dada
-        Dim CodigoInterno
+    Private Function getFarmacia(row As DataRow, dtFarmacias As DataTable) ''Recibe una fila y busca si es una farmacia dentro de una tabla dada
+        Dim best_row
         Dim isCode As Boolean
         Dim Int As Integer
 
@@ -1287,11 +1291,11 @@ Public Class frmLiquidaciones
                 Dim farmacia = dtFarmacias.Rows.Find({row(0)})
 
                 If farmacia IsNot Nothing Then
-                    Return farmacia("Codigo")
+                    Return farmacia
                 Else
-                    CodigoInterno = Buscar_FarmaciaByName(row(2).ToString, dtFarmacias)
-                    If CodigoInterno IsNot Nothing Then
-                        Return CodigoInterno
+                    best_row = Buscar_FarmaciaByName(row(2).ToString, dtFarmacias)
+                    If best_row IsNot Nothing Then
+                        Return best_row
                     Else
                         Return Nothing
                     End If
@@ -1300,279 +1304,6 @@ Public Class frmLiquidaciones
         End If
 
         Return Nothing
-        '''MODULO FACAF
-        'If row(0) IsNot DBNull.Value Then
-
-        '    If row(0).ToString.Contains("F0") Then
-        '        Dim i, j As Integer
-
-        '        'no trae filas, porque no existe el id en la db
-        '        If ds.Tables(0).Rows.Count <= 0 Then
-        '            dt_ResultadoComparacionFarmacias.Columns.Add("CodigoInterno")
-        '            dt_ResultadoComparacionFarmacias.Columns.Add("Porcentaje")
-        '            For i = 0 To ds_Farmacias.Tables(0).Rows.Count - 1
-        '                'comparo los nombres de las farmacias
-        '                Dim farmaciaDb = ds_Farmacias.Tables(0).Rows(i).Item(3).ToString
-        '                Dim farmaciaGrd = row(2).ToString
-
-        '                Dim porcentajeComparacion = GetSimilarity(farmaciaGrd, farmaciaDb)
-
-        '                If porcentajeComparacion >= 0.7 Then
-
-        '                    Dim rowdt As DataRow = dt_ResultadoComparacionFarmacias.NewRow()
-        '                    rowdt("CodigoInterno") = ds_Farmacias.Tables(0).Rows(i).Item(0)
-        '                    rowdt("Porcentaje") = porcentajeComparacion
-        '                    dt_ResultadoComparacionFarmacias.Rows.Add(rowdt)
-        '                    'DataGridView1.DataSource = dt_ResultadoComparacionFarmacias
-        '                    dt_ResultadoComparacionFarmacias.DefaultView.Sort = "Porcentaje DESC"
-        '                    dt_ResultadoComparacionFarmacias = dt_ResultadoComparacionFarmacias.DefaultView.ToTable
-
-        '                End If
-
-        '            Next
-        '            'traigo el codigo interno de la farmacia con mayor porcentaje de aproximacion
-        '            If dt_ResultadoComparacionFarmacias.Rows.Count > 0 Then
-        '                CodigoInterno = dt_ResultadoComparacionFarmacias.Rows(0).Item("CodigoInterno")
-        '                Return CodigoInterno
-        '            End If
-
-        '            'DataGridView1.DataSource = dt_ResultadoComparacionFarmacias
-
-        '        Else
-        '            CodigoInterno = ds.Tables(0).Rows(0).Item(0)
-
-        '        End If
-
-
-
-        '        If CodigoInterno IsNot DBNull.Value Then
-        '            Return CodigoInterno
-        '        End If
-
-
-        '        'es codigo facaf pero no se encuentra la DB
-        '        For i = 0 To row.ItemArray.Length
-
-        '        Next
-        '    End If
-
-        'Else
-
-        '    Dim i, j As Integer
-
-
-        '    Try
-
-
-        '        'controlo si el campo farmacia viene vacio
-        '        Dim variable = row(2).ToString
-        '        If row(2).ToString <> String.Empty Then
-        '            dt_ResultadoComparacionFarmacias.Columns.Add("CodigoInterno")
-        '            dt_ResultadoComparacionFarmacias.Columns.Add("Porcentaje")
-        '            For i = 0 To ds_Farmacias.Tables(0).Rows.Count - 1
-        '                'comparo los nombres de las farmacias
-        '                Dim farmaciaDb = ds_Farmacias.Tables(0).Rows(i).Item(3).ToString
-        '                Dim farmaciaGrd = row(2).ToString
-
-        '                Dim porcentajeComparacion = GetSimilarity(farmaciaGrd, farmaciaDb)
-
-        '                If porcentajeComparacion >= 0.7 Then
-
-        '                    Dim rowdt As DataRow = dt_ResultadoComparacionFarmacias.NewRow()
-        '                    rowdt("CodigoInterno") = ds_Farmacias.Tables(0).Rows(i).Item(0)
-        '                    rowdt("Porcentaje") = porcentajeComparacion
-        '                    dt_ResultadoComparacionFarmacias.Rows.Add(rowdt)
-        '                    'DataGridView1.DataSource = dt_ResultadoComparacionFarmacias
-        '                    dt_ResultadoComparacionFarmacias.DefaultView.Sort = "Porcentaje DESC"
-        '                    dt_ResultadoComparacionFarmacias = dt_ResultadoComparacionFarmacias.DefaultView.ToTable
-
-        '                End If
-
-        '            Next
-        '            'traigo el codigo interno de la farmacia con mayor porcentaje de aproximacion
-        '            If dt_ResultadoComparacionFarmacias.Rows.Count >= 0 Then
-        '                CodigoInterno = dt_ResultadoComparacionFarmacias.Rows(0).Item("CodigoInterno")
-        '                Return CodigoInterno
-        '            End If
-
-        '            'DataGridView1.DataSource = dt_ResultadoComparacionFarmacias
-
-
-
-        '        End If
-
-
-        '    Catch ex As Exception
-        '        MessageBox.Show($"No se pudo conectar con la base de datos {ex.Message}", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        '        Return Nothing
-        '    End Try
-
-
-
-        'End If
-
-
-
-        '''MODULO PAMI
-        'If row(0) IsNot DBNull.Value Then
-        '    Dim int As Integer
-
-
-
-        '    If row(0).ToString.Length = 9 And IsNumeric(row(0).ToString) And Integer.TryParse(row(0), int) Then
-        '        Dim i, j As Integer
-
-        '        'consulta SQL
-        '        SQL = $"select id from farmacias where CodPAMI = '{row(0)}'"
-        '        'SQL = "select id from farmacias where CodFACAF = 'F000000'"
-        '        Try
-        '            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, SQL)
-
-        '            'no trae filas, porque no existe el id en la db
-        '            If ds.Tables(0).Rows.Count <= 0 Then
-        '                Dim ds_Farmacias As DataSet = SqlHelper.ExecuteDataset(connection, CommandType.Text, SQL_Farmacias)
-        '                Dim dt_ResultadoComparacionFarmacias As New DataTable
-        '                dt_ResultadoComparacionFarmacias.Columns.Add("CodigoInterno")
-        '                dt_ResultadoComparacionFarmacias.Columns.Add("Porcentaje")
-        '                For i = 0 To ds_Farmacias.Tables(0).Rows.Count - 1
-        '                    'comparo los nombres de las farmacias
-        '                    Dim farmaciaDb = ds_Farmacias.Tables(0).Rows(i).Item(3).ToString
-        '                    Dim farmaciaGrd = row(2).ToString
-
-        '                    Dim porcentajeComparacion = GetSimilarity(farmaciaGrd, farmaciaDb)
-
-        '                    If porcentajeComparacion >= 0.7 Then
-
-        '                        Dim rowdt As DataRow = dt_ResultadoComparacionFarmacias.NewRow()
-        '                        rowdt("CodigoInterno") = ds_Farmacias.Tables(0).Rows(i).Item(0)
-        '                        rowdt("Porcentaje") = porcentajeComparacion
-        '                        dt_ResultadoComparacionFarmacias.Rows.Add(rowdt)
-        '                        'DataGridView1.DataSource = dt_ResultadoComparacionFarmacias
-        '                        dt_ResultadoComparacionFarmacias.DefaultView.Sort = "Porcentaje DESC"
-        '                        dt_ResultadoComparacionFarmacias = dt_ResultadoComparacionFarmacias.DefaultView.ToTable
-
-        '                    End If
-
-        '                Next
-        '                'traigo el codigo interno de la farmacia con mayor porcentaje de aproximacion
-        '                If dt_ResultadoComparacionFarmacias.Rows.Count > 0 Then
-        '                    CodigoInterno = dt_ResultadoComparacionFarmacias.Rows(0).Item("CodigoInterno")
-        '                    Return CodigoInterno
-        '                End If
-
-        '                'DataGridView1.DataSource = dt_ResultadoComparacionFarmacias
-
-
-
-        '            Else
-        '                CodigoInterno = ds.Tables(0).Rows(0).Item(0)
-
-        '            End If
-
-
-
-        '            If CodigoInterno IsNot DBNull.Value Then
-        '                Return CodigoInterno
-        '            End If
-
-        '        Catch ex As Exception
-        '            MessageBox.Show($"No se pudo conectar con la base de datos {ex.Message}", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        '            Return Nothing
-        '        End Try
-
-
-        '        'es codigo facaf pero no se encuentra la DB
-        '        For i = 0 To row.ItemArray.Length
-
-        '        Next
-        '    End If
-
-        'Else
-
-        '    Dim i, j As Integer
-
-
-        '    Try
-
-
-        '        'controlo si el campo farmacia viene vacio
-        '        Dim variable = row(2).ToString
-        '        If row(2).ToString <> String.Empty Then
-        '            Dim ds_Farmacias As DataSet = SqlHelper.ExecuteDataset(connection, CommandType.Text, SQL_Farmacias)
-        '            Dim dt_ResultadoComparacionFarmacias As New DataTable
-        '            dt_ResultadoComparacionFarmacias.Columns.Add("CodigoInterno")
-        '            dt_ResultadoComparacionFarmacias.Columns.Add("Porcentaje")
-        '            For i = 0 To ds_Farmacias.Tables(0).Rows.Count - 1
-        '                'comparo los nombres de las farmacias
-        '                Dim farmaciaDb = ds_Farmacias.Tables(0).Rows(i).Item(3).ToString
-        '                Dim farmaciaGrd = row(2).ToString
-
-        '                Dim porcentajeComparacion = GetSimilarity(farmaciaGrd, farmaciaDb)
-
-        '                If porcentajeComparacion >= 0.7 Then
-
-        '                    Dim rowdt As DataRow = dt_ResultadoComparacionFarmacias.NewRow()
-        '                    rowdt("CodigoInterno") = ds_Farmacias.Tables(0).Rows(i).Item(0)
-        '                    rowdt("Porcentaje") = porcentajeComparacion
-        '                    dt_ResultadoComparacionFarmacias.Rows.Add(rowdt)
-        '                    'DataGridView1.DataSource = dt_ResultadoComparacionFarmacias
-        '                    dt_ResultadoComparacionFarmacias.DefaultView.Sort = "Porcentaje DESC"
-        '                    dt_ResultadoComparacionFarmacias = dt_ResultadoComparacionFarmacias.DefaultView.ToTable
-
-        '                End If
-
-        '            Next
-        '            'traigo el codigo interno de la farmacia con mayor porcentaje de aproximacion
-        '            If dt_ResultadoComparacionFarmacias.Rows.Count >= 0 Then
-        '                CodigoInterno = dt_ResultadoComparacionFarmacias.Rows(0).Item("CodigoInterno")
-        '                Return CodigoInterno
-        '            End If
-
-        '            'DataGridView1.DataSource = dt_ResultadoComparacionFarmacias
-
-
-
-        '        End If
-
-
-        '    Catch ex As Exception
-        '        MessageBox.Show($"No se pudo conectar con la base de datos {ex.Message}", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        '        Return Nothing
-        '    End Try
-
-
-
-        'End If
-
-
-        '''MODULO PAMI
-        'If row(0) IsNot DBNull.Value Then
-        '        Dim int As Integer
-        '        If row(0).ToString.Length = 9 And IsNumeric(row(0).ToString) And Integer.TryParse(row(0), int) Then
-        '            Dim i As Integer
-        '            'consulta SQL
-        '            SQL = $"select id from farmacias where CodPAMI = {row(0)}"
-        '            Try
-        '                ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, SQL)
-
-        '                CodigoInterno = ds.Tables(0).Rows(0).Item(0)
-
-        '                If CodigoInterno IsNot DBNull.Value Then
-        '                    Return CodigoInterno
-        '                End If
-
-        '            Catch ex As Exception
-        '                MessageBox.Show($"No se pudo conectar con la base de datos {ex.Message}", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        '                Return Nothing
-        '            End Try
-
-
-        '            'es codigo pami pero no se encuentra la DB
-        '            For i = 0 To row.ItemArray.Length
-
-        '            Next
-        '        End If
-        '    End If
 
     End Function
 
@@ -1637,7 +1368,9 @@ Public Class frmLiquidaciones
             End If
         Next
         ''revisar
-        dt_filtrada.Columns.Add("Codigo", GetType(Long))
+        dt_filtrada.Columns.Add("ID", GetType(Long))
+        dt_filtrada.Columns.Add("Codigo", GetType(String))
+        dt_filtrada.Columns.Add("Nombre", GetType(String))
         dt_filtrada.Columns.Add("Recetas", GetType(Integer))
         dt_filtrada.Columns.Add("Recaudado", GetType(Decimal))
         dt_filtrada.Columns.Add("A cargo OS", GetType(Decimal))
@@ -1653,17 +1386,20 @@ Public Class frmLiquidaciones
         Dim j As Integer
         Dim FirstColumnCell As String
         Dim subtotal As Decimal
-        Dim Codigo As String
+        Dim farmacia As DataRow
         Dim CurrentRow As DataRow
-
-
+        Dim idPresentacion As Long = grd.Rows(0).Cells(0).Value
+        If grd.CurrentRow IsNot Nothing Then
+            idPresentacion = grd.CurrentRow.Cells(0).Value
+        End If
         Dim connection = SqlHelper.GetConnection(ConnStringSEI)
         Dim ds_Farmacias As New DataSet
 
         Dim dtFarmacias As New DataTable
         ''nacho cambió: f.codigo -> f.id
-        Dim SQL_Farmacias = $"SELECT f.Codigo, f.CodFACAF, f.codpami, f.Nombre, pd.IdPresentacion FROM Farmacias f INNER JOIN Presentaciones_det pd on f.Id = pd.IdFarmacia
-                              WHERE pd.IdPresentacion = {grd.CurrentRow.Cells(0).Value}"
+
+        Dim SQL_Farmacias = $"SELECT f.ID, f.Codigo, f.CodFACAF, f.codpami, f.Nombre, pd.IdPresentacion FROM Farmacias f INNER JOIN Presentaciones_det pd on f.Id = pd.IdFarmacia
+                              WHERE pd.IdPresentacion = {idPresentacion}"
 
         Try
             ds_Farmacias = SqlHelper.ExecuteDataset(connection, CommandType.Text, SQL_Farmacias)
@@ -1681,17 +1417,18 @@ Public Class frmLiquidaciones
 
             FirstColumnCell = IIf(grdDetalleLiquidacion.Rows(j).Cells(0).Value IsNot Nothing, grdDetalleLiquidacion.Rows(j).Cells(0).Value.ToString, "")
 
-            Codigo = get_codigo(CurrentRow, dtFarmacias)
+            farmacia = getFarmacia(CurrentRow, dtFarmacias)
 
             Try
-                If Codigo IsNot Nothing Then
-
+                If farmacia IsNot Nothing Then
                     '//////Get a reference to the new row ///////
                     Dim Row As DataRow = dt_filtrada.NewRow()
 
                     'This won't fail since the columns exist 
                     'Row("Codigo") = grdDetalleLiquidacion.Rows(j).Cells(0).Value
-                    Row("Codigo") = Codigo
+                    Row("ID") = farmacia("ID")
+                    Row("Codigo") = farmacia("Codigo")
+                    Row("Nombre") = farmacia("Nombre")
                     Row("Recetas") = grdDetalleLiquidacion.Rows(j).Cells(RecetasIndex).Value
                     Row("Recaudado") = grdDetalleLiquidacion.Rows(j).Cells(RecaudadoIndex).Value
                     Row("A cargo OS") = grdDetalleLiquidacion.Rows(j).Cells(AcargoOSIndex).Value
@@ -1737,8 +1474,10 @@ Public Class frmLiquidaciones
                 Dim new_row As DataRow = dt_grouped.NewRow()
                 For i = current_row_index To dt_filtrada.Rows.Count - 1
                     If dt_filtrada.Rows(i)("Codigo") = current_row("Codigo") Then
+                        new_row("ID") = current_row("ID")
                         new_row("Codigo") = current_row("Codigo")
-                        For j = 1 To dt_filtrada.Columns.Count - 1
+                        new_row("Nombre") = current_row("Nombre")
+                        For j = 3 To dt_filtrada.Columns.Count - 1
                             If i = current_row_index Then
                                 new_row(j) = Decimal.Parse(dt_filtrada.Rows(i)(j))
                             Else
@@ -5033,7 +4772,7 @@ ContinuarTransaccion:
             If a_cargo IsNot Nothing Then
                 If a_cargo("valor") <> aceptado Then
                     Dim error_ajuste As DataRow = gl_dataset.Tables(1).NewRow()
-                    error_ajuste("codigo") = grdDetalleLiquidacionFiltrada.Rows(i).Cells(0).Value
+                    error_ajuste("codigo") = grdDetalleLiquidacionFiltrada.Rows(i).Cells(1).Value
                     If cmbTipoPago.Text = "Anticipo" Then
                         error_ajuste("detalle") = "Pendiente de pago"
                     Else
@@ -5050,12 +4789,12 @@ ContinuarTransaccion:
         Dim ColumnName As String
 
         Dim j As Integer = 0
-        For i = 4 To grdDetalleLiquidacionFiltrada.Columns.Count - 2
+        For i = 6 To grdDetalleLiquidacionFiltrada.Columns.Count - 2
 
             ColumnName = grdDetalleLiquidacionFiltrada.Columns(i).Name
             For j = 0 To grdDetalleLiquidacionFiltrada.Rows.Count - 1
                 Dim row As DataRow = gl_dataset.Tables(1).NewRow()
-                row("codigo") = grdDetalleLiquidacionFiltrada.Rows(j).Cells(0).Value
+                row("codigo") = grdDetalleLiquidacionFiltrada.Rows(j).Cells(1).Value
                 row("detalle") = ColumnName
                 row("valor") = Decimal.Parse(grdDetalleLiquidacionFiltrada.Rows(j).Cells(i).Value) * -1
                 row("edit") = "x"
@@ -5138,8 +4877,9 @@ ContinuarTransaccion:
         Dim RowsCount = SuperGrdResultado.PrimaryGrid.Rows.Count
         panel = e.GridPanel
 
-        SuperGrdResultado.PrimaryGrid.Columns(0).Visible = False
-        SuperGrdResultado.PrimaryGrid.Columns(3).Visible = False
+        SuperGrdResultado.PrimaryGrid.Columns("ID").Visible = False
+        SuperGrdResultado.PrimaryGrid.Columns("IdFarmacia").Visible = False
+        SuperGrdResultado.PrimaryGrid.Columns("IdPresentacion").Visible = False
         SuperGrdResultado.PrimaryGrid.Columns("Bonificación").Visible = False
         SuperGrdResultado.PrimaryGrid.Columns("Total").Visible = False
 
