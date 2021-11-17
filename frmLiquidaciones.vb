@@ -828,22 +828,33 @@ Public Class frmLiquidaciones
             End If
         End Try
 
+        'dtDetalle.PrimaryKey = {
+        '        dtDetalle.Columns("CodigoFarmacia")
+        '}
         dtDetalle.PrimaryKey = {
-                dtDetalle.Columns("CodigoFarmacia")
+                dtDetalle.Columns("ID")
         }
         gl_dataset.Tables.Add(dtDetalle)
 
+        'dtConcepto.PrimaryKey = {
+        '        dtConcepto.Columns.Add("codigo", GetType(String)),
+        '        dtConcepto.Columns.Add("detalle", GetType(String))
+        '}
         dtConcepto.PrimaryKey = {
-                dtConcepto.Columns.Add("codigo", GetType(String)),
-                dtConcepto.Columns.Add("detalle", GetType(String))
+                dtConcepto.Columns("IdDetalle"),
+                dtConcepto.Columns("detalle")
         }
+        dtConcepto.Columns.Add("IdDetalle", GetType(Long))
+        dtConcepto.Columns.Add("IdFarmacia", GetType(String))
+        dtConcepto.Columns.Add("detalle", GetType(String))
         dtConcepto.Columns.Add("valor", GetType(Decimal))
         dtConcepto.Columns.Add("edit")
 
         If Not dtConcepto.Rows.Count > 0 Then
             For Each row As DataRow In dtDetalle.Rows()
                 Dim concepto As DataRow = dtConcepto.NewRow()
-                concepto("codigo") = row("CodigoFarmacia")
+                concepto("IdDetalle") = row("ID")
+                concepto("IdFarmacia") = row("IdFarmacia")
                 concepto("detalle") = "A Cargo OS"
                 concepto("valor") = Decimal.Parse(row("A Cargo OS"))
                 dtConcepto.Rows.Add(concepto)
@@ -853,8 +864,8 @@ Public Class frmLiquidaciones
         gl_dataset.Tables.Add(dtConcepto)
 
         gl_dataset.Relations.Add("MasterGridDetail",
-                      gl_dataset.Tables(0).Columns("CodigoFarmacia"),
-                      gl_dataset.Tables(1).Columns("codigo")
+                      gl_dataset.Tables(0).Columns("ID"),
+                      gl_dataset.Tables(1).Columns("IdDetalle")
         )
 
         SuperGrdResultado.PrimaryGrid.DataSource = gl_dataset
@@ -877,7 +888,7 @@ Public Class frmLiquidaciones
 
             Dim row As DataRow
             For i = 0 To grdDetalleLiquidacionFiltrada.Rows.Count - 1
-                row = gl_dataset.Tables(0).Rows.Find(grdDetalleLiquidacionFiltrada.Rows(i).Cells("Codigo").Value)
+                row = gl_dataset.Tables(0).Rows.Find(grdDetalleLiquidacionFiltrada.Rows(i).Cells("ID").Value)
                 If row IsNot Nothing Then 'If a row is found
                     With row
                         .Item("Recetas A") = grdDetalleLiquidacionFiltrada.Rows(i).Cells("Recetas").Value
@@ -4765,14 +4776,17 @@ ContinuarTransaccion:
         ''CALCULO DE ERROR AJUSTE
         For i = 0 To grdDetalleLiquidacionFiltrada.Rows.Count - 1
             Dim aceptado = Decimal.Parse(grdDetalleLiquidacionFiltrada.Rows(i).Cells("A cargo OS").Value)
-            Dim aceptado_codigo = grdDetalleLiquidacionFiltrada.Rows(i).Cells("Codigo").Value
+            Dim aceptado_farmacia = grdDetalleLiquidacionFiltrada.Rows(i).Cells("ID").Value
 
-            Dim a_cargo = gl_dataset.Tables(1).Rows.Find({aceptado_codigo, "A cargo OS"})
+            ''Dim a_cargo = gl_dataset.Tables(1).Rows.Find({aceptado_codigo, "A cargo OS"}) ''CHANGE FIND LOGIC
+            ''Se queda con la primera coincidencia de farmacia y detalle de la grilla de detalles
+            Dim a_cargo = gl_dataset.Tables(1).Select($"IdFarmacia = {aceptado_farmacia} and detalle = 'A cargo OS'")(0)
 
             If a_cargo IsNot Nothing Then
                 If a_cargo("valor") <> aceptado Then
                     Dim error_ajuste As DataRow = gl_dataset.Tables(1).NewRow()
-                    error_ajuste("codigo") = grdDetalleLiquidacionFiltrada.Rows(i).Cells(1).Value
+                    error_ajuste("IdDetalle") = a_cargo("IdDetalle")
+                    error_ajuste("IdFarmacia") = a_cargo("IdFarmacia")
                     If cmbTipoPago.Text = "Anticipo" Then
                         error_ajuste("detalle") = "Pendiente de pago"
                     Else
@@ -4787,14 +4801,19 @@ ContinuarTransaccion:
         Next
 
         Dim ColumnName As String
+        Dim IdDetalle As Long
 
         Dim j As Integer = 0
         For i = 6 To grdDetalleLiquidacionFiltrada.Columns.Count - 2
 
+
             ColumnName = grdDetalleLiquidacionFiltrada.Columns(i).Name
             For j = 0 To grdDetalleLiquidacionFiltrada.Rows.Count - 1
                 Dim row As DataRow = gl_dataset.Tables(1).NewRow()
-                row("codigo") = grdDetalleLiquidacionFiltrada.Rows(j).Cells(1).Value
+                ''Se queda con la primera coincidencia de farmacia para obtener IdDetalle
+                IdDetalle = gl_dataset.Tables(1).Select($"IdFarmacia = {grdDetalleLiquidacionFiltrada.Rows(j).Cells("ID").Value}")(0)("IdDetalle")
+                row("IdDetalle") = IdDetalle
+                row("IdFarmacia") = grdDetalleLiquidacionFiltrada.Rows(j).Cells("ID").Value
                 row("detalle") = ColumnName
                 row("valor") = Decimal.Parse(grdDetalleLiquidacionFiltrada.Rows(j).Cells(i).Value) * -1
                 row("edit") = "x"
@@ -4877,7 +4896,7 @@ ContinuarTransaccion:
         Dim RowsCount = SuperGrdResultado.PrimaryGrid.Rows.Count
         panel = e.GridPanel
 
-        SuperGrdResultado.PrimaryGrid.Columns("ID").Visible = False
+        'SuperGrdResultado.PrimaryGrid.Columns("ID").Visible = False
         SuperGrdResultado.PrimaryGrid.Columns("IdFarmacia").Visible = False
         SuperGrdResultado.PrimaryGrid.Columns("IdPresentacion").Visible = False
         SuperGrdResultado.PrimaryGrid.Columns("Bonificación").Visible = False
@@ -4956,7 +4975,8 @@ ContinuarTransaccion:
 
         If panel.Name.Equals("Table2") = True Then
             panel.Columns(0).Visible = False
-            panel.Columns(3).Width = 30
+            panel.Columns(1).Visible = False
+            panel.Columns(4).Width = 30
 
             'panel.Visible = IIf(panel.Rows.Count > 0, True, False)
 
@@ -4964,14 +4984,14 @@ ContinuarTransaccion:
             Dim total As Decimal = 0
             Dim pendiente As String = ""
             For i = 0 To panel.Rows.Count - 1
-                If panel.GetCell(i, 1).Value = "Pendiente de pago" Then
-                    pendiente = $"<br/> Pendiente de pago: <font color=""Gray""><i>${Decimal.Parse(panel.GetCell(i, 2).Value * -1):N2}</i></font>"
+                If panel.GetCell(i, 2).Value = "Pendiente de pago" Then
+                    pendiente = $"<br/> Pendiente de pago: <font color=""Gray""><i>${Decimal.Parse(panel.GetCell(i, 3).Value * -1):N2}</i></font>"
                 Else
-                    total += panel.GetCell(i, 2).Value
+                    total += panel.GetCell(i, 3).Value
 
                 End If
 
-                panel.GetCell(i, 3).EditorType = GetType(MyGridButtonXEditControl)
+                panel.GetCell(i, 4).EditorType = GetType(MyGridButtonXEditControl)
 
             Next
 
