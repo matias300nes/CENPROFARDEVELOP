@@ -57,26 +57,27 @@ Public Class frmLiquidaciones
     Enum ColumnasDelGridItems
         ID = 0
         IdFarmacia = 1
-        Farmacia = 2
-        IdPresentacion = 3
-        Recetas = 4
-        Recaudado = 5
-        ACargoOS = 6
-        Bonificacion = 7
-        Total = 8
+        CodigoFarmacia = 2
+        Farmacia = 3
+        IdPresentacion = 4
+        Recetas = 5
+        Recaudado = 6
+        ACargoOS = 7
+        Bonificacion = 8
+        Total = 9
     End Enum
 
-    Enum ColumnasDelgrdDetLiquidacionOs
-        ID = 0
-        IdFarmacia = 1
-        Farmacia = 2
-        IdPresentacion = 3
-        Recetas = 4
-        Recaudado = 5
-        ACargoOS = 6
-        Bonificacion = 7
-        Total = 8
-    End Enum
+    'Enum ColumnasDelgrdDetLiquidacionOs
+    '    ID = 0
+    '    IdFarmacia = 1
+    '    Farmacia = 2
+    '    IdPresentacion = 3
+    '    Recetas = 4
+    '    Recaudado = 5
+    '    ACargoOS = 6
+    '    Bonificacion = 7
+    '    Total = 8
+    'End Enum
 
     Enum ColumnasDelGridItems1
         IDRecepcion_Det = 0
@@ -189,7 +190,7 @@ Public Class frmLiquidaciones
         GroupPanelDetalleLiquidacion.Visible = False
 
         Label7.Visible = False
-        lblTotal.Visible = False
+        'lblTotal.Visible = False
         cmbObraSocial.Visible = True
         lblcmbObrasSociales.Visible = True
         Cursor = Cursors.WaitCursor
@@ -888,7 +889,7 @@ Public Class frmLiquidaciones
 
             Dim row As DataRow
             For i = 0 To grdDetalleLiquidacionFiltrada.Rows.Count - 1
-                row = gl_dataset.Tables(0).Rows.Find(grdDetalleLiquidacionFiltrada.Rows(i).Cells("ID").Value)
+                row = gl_dataset.Tables(0).Rows.Find(grdDetalleLiquidacionFiltrada.Rows(i).Cells("IdDetalle").Value)
                 If row IsNot Nothing Then 'If a row is found
                     With row
                         .Item("Recetas A") = grdDetalleLiquidacionFiltrada.Rows(i).Cells("Recetas").Value
@@ -901,6 +902,8 @@ Public Class frmLiquidaciones
 
         If gl_dataset.Tables(0).Columns("Subtotal") Is Nothing Then
             gl_dataset.Tables(0).Columns.Add("Subtotal", GetType(Decimal))
+
+            AddHandler gl_dataset.Tables(0).ColumnChanged, AddressOf CalcularTotales
         End If
 
         'Calculo de subtotalMasterGridDetail
@@ -924,6 +927,32 @@ Public Class frmLiquidaciones
 
         SuperGrdResultado.Refresh()
 
+
+    End Sub
+
+    Private Sub CalcularTotales()
+        ''CALCULA LOS TOTALES DE LA GRIDITEMS
+        Dim i As Integer
+        Dim count As Integer = 0
+        Dim Recaudado As Decimal = 0
+        Dim ACargoOS As Decimal = 0
+        Dim Total As Decimal = 0
+
+        With gl_dataset.Tables(0)
+            If .Rows.Count > 0 Then
+                For i = 0 To gl_dataset.Tables(0).Rows.Count - 1
+                    If .Rows(i)("Subtotal") IsNot DBNull.Value Then
+                        Total += .Rows(i)("Subtotal")
+                        count += 1
+                    End If
+                Next
+            End If
+        End With
+
+        'txtRecaudado.Text = String.Format("{0:N2}", Recaudado)
+        'txtACargoOS.Text = String.Format("{0:N2}", ACargoOS)
+        lblTotal.Text = String.Format("{0:N2}", Total)
+        lblCantidadFilas.Text = count
     End Sub
 
     Private Sub btnExcelWindow_Click(sender As Object, e As EventArgs) Handles btnExcelWindow.Click
@@ -1379,7 +1408,8 @@ Public Class frmLiquidaciones
             End If
         Next
         ''revisar
-        dt_filtrada.Columns.Add("ID", GetType(Long))
+        dt_filtrada.Columns.Add("IdDetalle", GetType(Long))
+        dt_filtrada.Columns.Add("IdFarmacia", GetType(Long))
         dt_filtrada.Columns.Add("Codigo", GetType(String))
         dt_filtrada.Columns.Add("Nombre", GetType(String))
         dt_filtrada.Columns.Add("Recetas", GetType(Integer))
@@ -1409,7 +1439,7 @@ Public Class frmLiquidaciones
         Dim dtFarmacias As New DataTable
         ''nacho cambió: f.codigo -> f.id
 
-        Dim SQL_Farmacias = $"SELECT f.ID, f.Codigo, f.CodFACAF, f.codpami, f.Nombre, pd.IdPresentacion FROM Farmacias f INNER JOIN Presentaciones_det pd on f.Id = pd.IdFarmacia
+        Dim SQL_Farmacias = $"SELECT pd.ID as IdDetalle, f.ID as IdFarmacia, f.Codigo, f.CodFACAF, f.codpami, f.Nombre, pd.IdPresentacion FROM Farmacias f INNER JOIN Presentaciones_det pd on f.Id = pd.IdFarmacia
                               WHERE pd.IdPresentacion = {idPresentacion}"
 
         Try
@@ -1437,7 +1467,8 @@ Public Class frmLiquidaciones
 
                     'This won't fail since the columns exist 
                     'Row("Codigo") = grdDetalleLiquidacion.Rows(j).Cells(0).Value
-                    Row("ID") = farmacia("ID")
+                    Row("IdDetalle") = farmacia("IdDetalle")
+                    Row("IdFarmacia") = farmacia("IdFarmacia")
                     Row("Codigo") = farmacia("Codigo")
                     Row("Nombre") = farmacia("Nombre")
                     Row("Recetas") = grdDetalleLiquidacion.Rows(j).Cells(RecetasIndex).Value
@@ -1485,10 +1516,11 @@ Public Class frmLiquidaciones
                 Dim new_row As DataRow = dt_grouped.NewRow()
                 For i = current_row_index To dt_filtrada.Rows.Count - 1
                     If dt_filtrada.Rows(i)("Codigo") = current_row("Codigo") Then
-                        new_row("ID") = current_row("ID")
+                        new_row("IdDetalle") = current_row("IdDetalle")
+                        new_row("IdFarmacia") = current_row("IdFarmacia")
                         new_row("Codigo") = current_row("Codigo")
                         new_row("Nombre") = current_row("Nombre")
-                        For j = 3 To dt_filtrada.Columns.Count - 1
+                        For j = 4 To dt_filtrada.Columns.Count - 1
                             If i = current_row_index Then
                                 new_row(j) = Decimal.Parse(dt_filtrada.Rows(i)(j))
                             Else
@@ -1814,52 +1846,52 @@ Public Class frmLiquidaciones
     End Sub
     Private Sub LlenarGrid_Items()
 
-        grdItems.Rows.Clear()
-        Dim connection As SqlClient.SqlConnection = Nothing
+        'grdItems.Rows.Clear()
+        'Dim connection As SqlClient.SqlConnection = Nothing
 
-        Try
-            connection = SqlHelper.GetConnection(ConnStringSEI)
-        Catch ex As Exception
-            MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
-        End Try
+        'Try
+        '    connection = SqlHelper.GetConnection(ConnStringSEI)
+        'Catch ex As Exception
+        '    MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        '    Exit Sub
+        'End Try
 
-        Try
-            Dim dt As New DataTable
-            Dim sqltxt2 As String
+        'Try
+        '    Dim dt As New DataTable
+        '    Dim sqltxt2 As String
 
-            If txtID.Text = "" Then
-                sqltxt2 = "exec spPresentaciones_Det_Select_By_IDPresentacion @IDPresentacion = '1'"
-            Else
-                sqltxt2 = "exec spPresentaciones_Det_Select_By_IDPresentacion @IDPresentacion = " & txtID.Text & ""
-            End If
+        '    If txtID.Text = "" Then
+        '        sqltxt2 = "exec spPresentaciones_Det_Select_By_IDPresentacion @IDPresentacion = '1'"
+        '    Else
+        '        sqltxt2 = "exec spPresentaciones_Det_Select_By_IDPresentacion @IDPresentacion = " & txtID.Text & ""
+        '    End If
 
-            Dim cmd As New SqlCommand(sqltxt2, connection)
-            Dim da As New SqlDataAdapter(cmd)
-            Dim i As Integer
+        '    Dim cmd As New SqlCommand(sqltxt2, connection)
+        '    Dim da As New SqlDataAdapter(cmd)
+        '    Dim i As Integer
 
-            da.Fill(dt)
+        '    da.Fill(dt)
 
-            For i = 0 To dt.Rows.Count - 1
-                grdItems.Rows.Add(dt.Rows(i)(0).ToString(), dt.Rows(i)(1).ToString(), dt.Rows(i)(2).ToString(), dt.Rows(i)(3).ToString(), dt.Rows(i)(4).ToString(), dt.Rows(i)(5).ToString(), dt.Rows(i)(6).ToString(), dt.Rows(i)(7).ToString(), dt.Rows(i)(8).ToString())
-            Next
+        '    For i = 0 To dt.Rows.Count - 1
+        '        grdItems.Rows.Add(dt.Rows(i)(0).ToString(), dt.Rows(i)(1).ToString(), dt.Rows(i)(2).ToString(), dt.Rows(i)(3).ToString(), dt.Rows(i)(4).ToString(), dt.Rows(i)(5).ToString(), dt.Rows(i)(6).ToString(), dt.Rows(i)(7).ToString(), dt.Rows(i)(8).ToString())
+        '    Next
 
 
 
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        Finally
-            If Not connection Is Nothing Then
-                CType(connection, IDisposable).Dispose()
-            End If
-        End Try
+        'Catch ex As Exception
+        '    MsgBox(ex.Message)
+        'Finally
+        '    If Not connection Is Nothing Then
+        '        CType(connection, IDisposable).Dispose()
+        '    End If
+        'End Try
 
-        'cambio el fonde de la grilla de items
+        ''cambio el fonde de la grilla de items
 
-        With grdItems
-            .AlternatingRowsDefaultCellStyle.BackColor = Color.PaleGreen
-            .RowsDefaultCellStyle.BackColor = Color.White
-        End With
+        'With grdItems
+        '    .AlternatingRowsDefaultCellStyle.BackColor = Color.PaleGreen
+        '    .RowsDefaultCellStyle.BackColor = Color.White
+        'End With
 
 
         'Request de presentacion
@@ -4103,7 +4135,7 @@ Public Class frmLiquidaciones
 
 
         lblMontoIva.Text = "0"
-        lblTotal.Text = "0"
+        'lblTotal.Text = "0"
 
         LlenarGrid_Impuestos()
 
@@ -4763,6 +4795,7 @@ ContinuarTransaccion:
 
     Private Sub btnListo_Click(sender As Object, e As EventArgs) Handles btnListo.Click
         Dim i As Integer
+        Dim rowArray
 
         ''PONE EN CONCEPTOS EL A CARGO OS
         'For Each row As DataRow In dtDetalle.Rows
@@ -4776,13 +4809,14 @@ ContinuarTransaccion:
         ''CALCULO DE ERROR AJUSTE
         For i = 0 To grdDetalleLiquidacionFiltrada.Rows.Count - 1
             Dim aceptado = Decimal.Parse(grdDetalleLiquidacionFiltrada.Rows(i).Cells("A cargo OS").Value)
-            Dim aceptado_farmacia = grdDetalleLiquidacionFiltrada.Rows(i).Cells("ID").Value
+            Dim aceptado_farmacia = grdDetalleLiquidacionFiltrada.Rows(i).Cells("IdFarmacia").Value
 
-            ''Dim a_cargo = gl_dataset.Tables(1).Rows.Find({aceptado_codigo, "A cargo OS"}) ''CHANGE FIND LOGIC
             ''Se queda con la primera coincidencia de farmacia y detalle de la grilla de detalles
-            Dim a_cargo = gl_dataset.Tables(1).Select($"IdFarmacia = {aceptado_farmacia} and detalle = 'A cargo OS'")(0)
+            Dim a_cargo As DataRow
+            rowArray = gl_dataset.Tables(1).Select($"IdFarmacia = '{aceptado_farmacia}' and detalle = 'A cargo OS'")
+            If rowArray.Length > 0 Then
+                a_cargo = rowArray(0)
 
-            If a_cargo IsNot Nothing Then
                 If a_cargo("valor") <> aceptado Then
                     Dim error_ajuste As DataRow = gl_dataset.Tables(1).NewRow()
                     error_ajuste("IdDetalle") = a_cargo("IdDetalle")
@@ -4804,23 +4838,25 @@ ContinuarTransaccion:
         Dim IdDetalle As Long
 
         Dim j As Integer = 0
-        For i = 6 To grdDetalleLiquidacionFiltrada.Columns.Count - 2
+        For i = 7 To grdDetalleLiquidacionFiltrada.Columns.Count - 2
 
 
             ColumnName = grdDetalleLiquidacionFiltrada.Columns(i).Name
             For j = 0 To grdDetalleLiquidacionFiltrada.Rows.Count - 1
                 Dim row As DataRow = gl_dataset.Tables(1).NewRow()
                 ''Se queda con la primera coincidencia de farmacia para obtener IdDetalle
-                IdDetalle = gl_dataset.Tables(1).Select($"IdFarmacia = {grdDetalleLiquidacionFiltrada.Rows(j).Cells("ID").Value}")(0)("IdDetalle")
-                row("IdDetalle") = IdDetalle
-                row("IdFarmacia") = grdDetalleLiquidacionFiltrada.Rows(j).Cells("ID").Value
-                row("detalle") = ColumnName
-                row("valor") = Decimal.Parse(grdDetalleLiquidacionFiltrada.Rows(j).Cells(i).Value) * -1
-                row("edit") = "x"
-                If (row("valor") <> 0) Then
-                    gl_dataset.Tables(1).Rows.Add(row)
+                rowArray = gl_dataset.Tables(1).Select($"IdFarmacia = '{grdDetalleLiquidacionFiltrada.Rows(j).Cells("IdFarmacia").Value}'")
+                If rowArray.Length > 0 Then
+                    IdDetalle = rowArray(0)("IdDetalle")
+                    row("IdDetalle") = IdDetalle
+                    row("IdFarmacia") = grdDetalleLiquidacionFiltrada.Rows(j).Cells("IdFarmacia").Value
+                    row("detalle") = ColumnName
+                    row("valor") = Decimal.Parse(grdDetalleLiquidacionFiltrada.Rows(j).Cells(i).Value) * -1
+                    row("edit") = "x"
+                    If (row("valor") <> 0) Then
+                        gl_dataset.Tables(1).Rows.Add(row)
+                    End If
                 End If
-
             Next
         Next
 
@@ -4868,7 +4904,7 @@ ContinuarTransaccion:
             Dim i As Integer
             Dim total As Decimal = 0
             Dim pendiente As String = ""
-            Dim result As DialogResult = MessageBox.Show($"Desea eliminar {panel.GetCell(row_index, 1).Value}?",
+            Dim result As DialogResult = MessageBox.Show($"Desea eliminar {panel.GetCell(row_index, 2).Value}?",
                               "Eliminar",
                               MessageBoxButtons.YesNo)
 
@@ -4877,10 +4913,10 @@ ContinuarTransaccion:
                 panel.Rows.RemoveAt(row_index) ''Elimino la fila
 
                 For i = 0 To panel.Rows.Count - 1
-                    If panel.GetCell(i, 1).Value = "Pendiente de pago" Then
-                        pendiente = $"<br/> Pendiente de pago: <font color=""Gray""><i>${Decimal.Parse(panel.GetCell(i, 2).Value * -1):N2}</i></font>"
+                    If panel.GetCell(i, 2).Value = "Pendiente de pago" Then
+                        pendiente = $"<br/> Pendiente de pago: <font color=""Gray""><i>${Decimal.Parse(panel.GetCell(i, 3).Value * -1):N2}</i></font>"
                     Else
-                        total += panel.GetCell(i, 2).Value
+                        total += panel.GetCell(i, 3).Value
                     End If
                 Next
                 parent("Subtotal").Value = total
@@ -4895,7 +4931,6 @@ ContinuarTransaccion:
     Private Sub SuperGrdResultado_DataBindingComplete(sender As Object, e As GridDataBindingCompleteEventArgs) Handles SuperGrdResultado.DataBindingComplete
         Dim RowsCount = SuperGrdResultado.PrimaryGrid.Rows.Count
         panel = e.GridPanel
-
         'SuperGrdResultado.PrimaryGrid.Columns("ID").Visible = False
         SuperGrdResultado.PrimaryGrid.Columns("IdFarmacia").Visible = False
         SuperGrdResultado.PrimaryGrid.Columns("IdPresentacion").Visible = False
@@ -4998,8 +5033,6 @@ ContinuarTransaccion:
             panel.Footer = New GridFooter()
             panel.Footer.Text = String.Format("Total a pagar: <font color=""Green""><i>${0:N2}</i></font> {1:N2}", total, pendiente)
         End If
-
-
     End Sub
 
     Private Sub UpdateDetailsFooter(ByVal panel As GridPanel, ByVal panelSuperior As GridPanel)
