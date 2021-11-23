@@ -156,14 +156,6 @@ Public Class frmLiquidaciones
 
 #Region "   Eventos"
 
-    Private Sub frmRecepciones_Gestion_ev_CellChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.ev_CellChanged
-        If permitir_evento_CellChanged Then
-            If txtID.Text <> "" Then
-                LlenarGrid_Items()
-            End If
-        End If
-    End Sub
-
     Private Sub frmAjustes_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         btnSalir_Click(sender, e)
     End Sub
@@ -841,15 +833,17 @@ Public Class frmLiquidaciones
         '        dtConcepto.Columns.Add("codigo", GetType(String)),
         '        dtConcepto.Columns.Add("detalle", GetType(String))
         '}
-        dtConcepto.PrimaryKey = {
-                dtConcepto.Columns("IdDetalle"),
-                dtConcepto.Columns("detalle")
-        }
+
         dtConcepto.Columns.Add("IdDetalle", GetType(Long))
         dtConcepto.Columns.Add("IdFarmacia", GetType(String))
         dtConcepto.Columns.Add("detalle", GetType(String))
         dtConcepto.Columns.Add("valor", GetType(Decimal))
         dtConcepto.Columns.Add("edit")
+
+        dtConcepto.PrimaryKey = {
+                dtConcepto.Columns("IdDetalle"),
+                dtConcepto.Columns("detalle")
+        }
 
         If Not dtConcepto.Rows.Count > 0 Then
             For Each row As DataRow In dtDetalle.Rows()
@@ -1893,7 +1887,7 @@ Public Class frmLiquidaciones
         '    .RowsDefaultCellStyle.BackColor = Color.White
         'End With
 
-
+        MsgBox("Hola")
         'Request de presentacion
         Presentacion_request()
 
@@ -5030,6 +5024,7 @@ ContinuarTransaccion:
 
             Next
 
+
             panel.Footer = New GridFooter()
             panel.Footer.Text = String.Format("Total a pagar: <font color=""Green""><i>${0:N2}</i></font> {1:N2}", total, pendiente)
         End If
@@ -5049,23 +5044,35 @@ ContinuarTransaccion:
         panel.Footer.Text = String.Format("Total a pagar: <font color=""Green""><i>${0}</i></font>", total)
     End Sub
 
-    'Private Sub cmbObraSocial_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbObraSocial.SelectedIndexChanged
-    '    If bolIDOS Then
-    '        IdObraSocial = cmbObraSocial.SelectedValue
-    '        SQL = $"exec spPresentaciones_Select_All  @Eliminado = 0, @ObraSocial = '{IdObraSocial}'"
-    '        LlenarGrilla()
-    '        grd.Columns(1).Visible = False
-    '    End If
+    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles chkIngresosBrutos.CheckedChanged
+        addConceptos("Ingresos Brutos", 0.025)
+    End Sub
 
-    'End Sub
+    Private Sub chkComisionCentro_CheckedChanged(sender As Object, e As EventArgs) Handles chkComisionCentro.CheckedChanged
+        addConceptos("Comisión centro", 0.0075)
+    End Sub
 
-    'Private Sub SuperGrdResultado_CellClick(sender As Object, e As GridCellEventArgs) Handles SuperGrdResultado.CellClick
-    '    panel = e.GridPanel
-    '    Dim cell = e.GridCell
-    '    If panel.GridPanel.Name.Equals("Table2") And cell.value.ToString.Equals("x") Then
-    '        MsgBox("toucheeed")
-    '        panel.Rows.RemoveAt(cell.rowIndex)
-    '    End If
-    'End Sub
+    Private Sub addConceptos(detalle As String, porcentaje As Decimal)
+        Dim dtDetalle As DataTable = gl_dataset.Tables(0)
+        Dim valor As Decimal = 0
+        Dim concepto As DataRow
+
+        For Each Farmacia As DataRow In dtDetalle.Rows
+            valor = -Farmacia("subtotal") * Decimal.Parse(porcentaje)
+
+            ''creo el concepto
+            concepto = gl_dataset.Tables(1).NewRow ' <- dtConceptos
+
+            concepto("IdDetalle") = Farmacia("ID")
+            concepto("IdFarmacia") = Farmacia("IdFarmacia")
+            concepto("detalle") = detalle
+            concepto("valor") = valor
+            concepto("edit") = "x"
+
+            gl_dataset.Tables(1).Rows.Add(concepto)
+
+        Next
+    End Sub
+
 
 End Class
