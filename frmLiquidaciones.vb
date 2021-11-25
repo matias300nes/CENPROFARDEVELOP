@@ -870,6 +870,7 @@ Public Class frmLiquidaciones
 
     End Sub
 
+    ''Esta funcion actualiza y autocalcula valores importantes de la grilla
     Private Sub UpdateGrdPrincipal()
 
         ''GRID PRINCIPAL
@@ -903,24 +904,15 @@ Public Class frmLiquidaciones
         'Calculo de subtotalMasterGridDetail
         For Each row As DataRow In gl_dataset.Tables(0).Rows
             row("Subtotal") = 0
-            If MasterGrdDetail Then
-                Dim childrows = row.GetChildRows(gl_dataset.Relations(0))
-                For Each detail As DataRow In childrows
-                    row("Subtotal") += detail("valor")
-                Next
-            Else
-                row("Subtotal") += row("A Cargo OS")
-            End If
+            Dim childrows = row.GetChildRows(gl_dataset.Relations(0))
+            For Each detail As DataRow In childrows
+                row("Subtotal") += detail("valor")
+            Next
         Next
 
         'actualizo superdatagrid con el dataset global
-
-        If gl_dataset.Tables(0).Columns.Count > SuperGrdResultado.PrimaryGrid.Columns.Count Then
-            SuperGrdResultado.PrimaryGrid.DataSource = gl_dataset
-        End If
-
-        SuperGrdResultado.Refresh()
-
+        SuperGrdResultado.PrimaryGrid.DataSource = gl_dataset
+        SuperGrdResultado.Update()
 
     End Sub
 
@@ -5024,6 +5016,8 @@ ContinuarTransaccion:
 
             Next
 
+            Dim parent = panel.GridPanel.Parent
+            parent("Subtotal").Value = total
 
             panel.Footer = New GridFooter()
             panel.Footer.Text = String.Format("Total a pagar: <font color=""Green""><i>${0:N2}</i></font> {1:N2}", total, pendiente)
@@ -5044,12 +5038,34 @@ ContinuarTransaccion:
         panel.Footer.Text = String.Format("Total a pagar: <font color=""Green""><i>${0}</i></font>", total)
     End Sub
 
-    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles chkIngresosBrutos.CheckedChanged
-        addConceptos("Ingresos Brutos", 0.025)
+    Private Sub chkIngresosBrutos_CheckedChanged(sender As Object, e As EventArgs) Handles chkIngresosBrutos.CheckedChanged
+        If chkIngresosBrutos.Checked Then
+            addConceptos("Ingresos Brutos", 0.025)
+        Else
+            deleteConceptos("Ingresos Brutos")
+        End If
+
+        UpdateGrdPrincipal()
+    End Sub
+
+    Private Sub chkImpCheque_CheckedChanged(sender As Object, e As EventArgs) Handles chkImpCheque.CheckedChanged
+        If chkImpCheque.Checked Then
+            addConceptos("Impuesto cheque", 0.00075)
+        Else
+            deleteConceptos("Impuesto cheque")
+        End If
+
+        UpdateGrdPrincipal()
     End Sub
 
     Private Sub chkComisionCentro_CheckedChanged(sender As Object, e As EventArgs) Handles chkComisionCentro.CheckedChanged
-        addConceptos("Comisión centro", 0.0075)
+        If chkComisionCentro.Checked Then
+            addConceptos("Comisión centro", 0.0075)
+        Else
+            deleteConceptos("Comisión centro")
+        End If
+
+        UpdateGrdPrincipal()
     End Sub
 
     Private Sub addConceptos(detalle As String, porcentaje As Decimal)
@@ -5067,12 +5083,20 @@ ContinuarTransaccion:
             concepto("IdFarmacia") = Farmacia("IdFarmacia")
             concepto("detalle") = detalle
             concepto("valor") = valor
+            concepto("edit") = New DataGridViewButtonXCell()
             concepto("edit") = "x"
 
             gl_dataset.Tables(1).Rows.Add(concepto)
-
         Next
     End Sub
 
+    Private Sub deleteConceptos(detalle As String)
+        Dim dtDetalle As DataTable = gl_dataset.Tables(1)
+        Dim rows = dtDetalle.Select($"detalle = '{detalle}'")
+
+        For Each row As DataRow In rows
+            row.Delete()
+        Next
+    End Sub
 
 End Class
