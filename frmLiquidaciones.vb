@@ -306,7 +306,7 @@ Public Class frmLiquidaciones
 
         permitir_evento_CellChanged = True
 
-        grd_CurrentCellChanged(sender, e)
+        'grd_CurrentCellChanged(sender, e)
 
         grd.Rows(0).Selected = True
 
@@ -343,7 +343,7 @@ Public Class frmLiquidaciones
 
     Private Sub txtID_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtID.TextChanged
         If txtID.Text <> "" And bolModo = False Then
-            LlenarGrid_Items()
+            Presentacion_request()
         End If
     End Sub
 
@@ -575,31 +575,6 @@ Public Class frmLiquidaciones
         End If
     End Sub
 
-
-    '(currentcellChanged)
-    Protected Overloads Sub grd_CurrentCellChanged(ByVal sender As Object, ByVal e As System.EventArgs)
-        If Permitir Then
-            Try
-
-
-
-                LlenarGrid_IVA(CLng(txtIdGasto.Text))
-
-                LlenarGrid_Impuestos()
-
-                Contar_Filas()
-
-                grdImpuestos.Enabled = bolModo
-
-
-
-            Catch ex As Exception
-
-            End Try
-        End If
-
-    End Sub
-
     Private Sub chkAnuladas_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkAnuladas.CheckedChanged
         btnGuardar.Enabled = Not chkAnuladas.Checked
         btnEliminar.Enabled = Not chkAnuladas.Checked
@@ -607,9 +582,9 @@ Public Class frmLiquidaciones
         btnCancelar.Enabled = Not chkAnuladas.Checked
 
         If chkAnuladas.Checked = True Then
-            SQL = "exec spRecepciones_Select_All @Eliminado = 1"
+            'SQL = "exec spRecepciones_Select_All @Eliminado = 1"
         Else
-            SQL = "exec spRecepciones_Select_All @Eliminado = 0"
+            'SQL = "exec spRecepciones_Select_All @Eliminado = 0"
         End If
 
         LlenarGrilla()
@@ -1782,10 +1757,10 @@ Public Class frmLiquidaciones
 
         If txtID.Text = "" Then
             'SQL = "exec spRecepciones_Det_Select_By_IDRecepcion @idRecepcion = 1"
-            SQL = "select * from osdetalleliquidacion"
+            'SQL = "select * from osdetalleliquidacion"
         Else
             ' SQL = "exec spRecepciones_Det_Select_By_IDRecepcion @idRecepcion = " & txtID.Text
-            SQL = "select * from osdetalleliquidacion"
+            'SQL = "select * from osdetalleliquidacion"
         End If
 
         GetDatasetItems(grdDetalleLiquidacionFiltrada)
@@ -1828,61 +1803,7 @@ Public Class frmLiquidaciones
         'grdEnsayos.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells)
 
         'Volver la fuente de datos a como estaba...
-        SQL = "exec spRecepciones_Select_All @Eliminado = 0"
-    End Sub
-    Private Sub LlenarGrid_Items()
-
-        'grdItems.Rows.Clear()
-        'Dim connection As SqlClient.SqlConnection = Nothing
-
-        'Try
-        '    connection = SqlHelper.GetConnection(ConnStringSEI)
-        'Catch ex As Exception
-        '    MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        '    Exit Sub
-        'End Try
-
-        'Try
-        '    Dim dt As New DataTable
-        '    Dim sqltxt2 As String
-
-        '    If txtID.Text = "" Then
-        '        sqltxt2 = "exec spPresentaciones_Det_Select_By_IDPresentacion @IDPresentacion = '1'"
-        '    Else
-        '        sqltxt2 = "exec spPresentaciones_Det_Select_By_IDPresentacion @IDPresentacion = " & txtID.Text & ""
-        '    End If
-
-        '    Dim cmd As New SqlCommand(sqltxt2, connection)
-        '    Dim da As New SqlDataAdapter(cmd)
-        '    Dim i As Integer
-
-        '    da.Fill(dt)
-
-        '    For i = 0 To dt.Rows.Count - 1
-        '        grdItems.Rows.Add(dt.Rows(i)(0).ToString(), dt.Rows(i)(1).ToString(), dt.Rows(i)(2).ToString(), dt.Rows(i)(3).ToString(), dt.Rows(i)(4).ToString(), dt.Rows(i)(5).ToString(), dt.Rows(i)(6).ToString(), dt.Rows(i)(7).ToString(), dt.Rows(i)(8).ToString())
-        '    Next
-
-
-
-        'Catch ex As Exception
-        '    MsgBox(ex.Message)
-        'Finally
-        '    If Not connection Is Nothing Then
-        '        CType(connection, IDisposable).Dispose()
-        '    End If
-        'End Try
-
-        ''cambio el fonde de la grilla de items
-
-        'With grdItems
-        '    .AlternatingRowsDefaultCellStyle.BackColor = Color.PaleGreen
-        '    .RowsDefaultCellStyle.BackColor = Color.White
-        'End With
-
-        MsgBox("Hola")
-        'Request de presentacion
-        Presentacion_request()
-
+        'SQL = "exec spRecepciones_Select_All @Eliminado = 0"
     End Sub
 
     'Private Sub LlenarGrid_Items2()
@@ -1927,7 +1848,7 @@ Public Class frmLiquidaciones
             grdItems.Columns.Clear()
         End If
 
-        SQL = "exec spRecepciones_Det_Select_By_IDOrdenDeCompra @IdOrdenDeCompra = " & idoc
+        'SQL = "exec spRecepciones_Det_Select_By_IDOrdenDeCompra @IdOrdenDeCompra = " & idoc
 
         GetDatasetItems(grdItems)
 
@@ -2111,7 +2032,7 @@ Public Class frmLiquidaciones
         'grdEnsayos.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells)
 
         'Volver la fuente de datos a como estaba...
-        SQL = "exec spRecepciones_Select_All  @Eliminado = 0"
+        'SQL = "exec spRecepciones_Select_All  @Eliminado = 0"
 
         Dim i As Integer
 
@@ -2184,12 +2105,12 @@ Public Class frmLiquidaciones
 
         If bolModo = False Then
             If grd.CurrentRow.Cells(14).Value = "0.00" Then
-                SQL = "exec spImpuestos_Gastos_Select_by_IdGasto @IdGasto = " & IIf(txtIdGasto.Text = "", 0, txtIdGasto.Text) & ", @Bolmodo = 1" '& bolModo
+                'SQL = "exec spImpuestos_Gastos_Select_by_IdGasto @IdGasto = " & IIf(txtIdGasto.Text = "", 0, txtIdGasto.Text) & ", @Bolmodo = 1" '& bolModo
             Else
-                SQL = "exec spImpuestos_Gastos_Select_by_IdGasto @IdGasto = " & IIf(txtIdGasto.Text = "", 0, txtIdGasto.Text) & ", @Bolmodo = 0" '& bolModo
+                'SQL = "exec spImpuestos_Gastos_Select_by_IdGasto @IdGasto = " & IIf(txtIdGasto.Text = "", 0, txtIdGasto.Text) & ", @Bolmodo = 0" '& bolModo
             End If
         Else
-            SQL = "exec spImpuestos_Gastos_Select_by_IdGasto @IdGasto = " & IIf(txtIdGasto.Text = "", 0, txtIdGasto.Text) & ", @Bolmodo = " & bolModo
+            'SQL = "exec spImpuestos_Gastos_Select_by_IdGasto @IdGasto = " & IIf(txtIdGasto.Text = "", 0, txtIdGasto.Text) & ", @Bolmodo = " & bolModo
         End If
 
         GetDatasetItems(grdImpuestos)
@@ -2226,7 +2147,7 @@ Public Class frmLiquidaciones
 
         grdImpuestos.Font = New Font("TAHOMA", 7, FontStyle.Regular)
 
-        SQL = "exec spGastos_Select_All @Eliminado = 0"
+        'SQL = "exec spGastos_Select_All @Eliminado = 0"
 
     End Sub
 
@@ -4391,7 +4312,7 @@ ContinuarTransaccion:
                         bolModo = False
                         PrepararBotones()
 
-                        SQL = "exec spRecepciones_Select_All  @Eliminado = 0"
+                        'SQL = "exec spRecepciones_Select_All  @Eliminado = 0"
 
                         MDIPrincipal.NoActualizarBase = False
                         btnActualizar_Click(sender, e)
@@ -4467,7 +4388,7 @@ ContinuarTransaccion:
                                 Cerrar_Tran()
                                 PrepararBotones()
 
-                                SQL = "exec spRecepciones_Select_All  @Eliminado = 0"
+                                'SQL = "exec spRecepciones_Select_All  @Eliminado = 0"
 
                                 btnActualizar_Click(sender, e)
                                 Setear_Grilla()
