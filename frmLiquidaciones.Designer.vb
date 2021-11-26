@@ -139,6 +139,7 @@ Partial Class frmLiquidaciones
         Me.ContextMenuStripIVA = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BorrarElItemToolStripMenuItemIVA = New System.Windows.Forms.ToolStripMenuItem()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
+        Me.grdDebug = New System.Windows.Forms.DataGridView()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.GroupPanelDetalleLiquidacion.SuspendLayout()
@@ -160,11 +161,13 @@ Partial Class frmLiquidaciones
         CType(Me.grdImpuestos, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.ContextMenuStripIVA.SuspendLayout()
+        CType(Me.grdDebug, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'GroupBox1
         '
         Me.GroupBox1.BackColor = System.Drawing.SystemColors.Control
+        Me.GroupBox1.Controls.Add(Me.grdDebug)
         Me.GroupBox1.Controls.Add(Me.rdTodasOC)
         Me.GroupBox1.Controls.Add(Me.rdPendientes)
         Me.GroupBox1.Controls.Add(Me.GroupBox4)
@@ -1451,6 +1454,14 @@ Partial Class frmLiquidaciones
         Me.BorrarElItemToolStripMenuItemIVA.Size = New System.Drawing.Size(145, 22)
         Me.BorrarElItemToolStripMenuItemIVA.Text = "Borrar el Item"
         '
+        'grdDebug
+        '
+        Me.grdDebug.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.grdDebug.Location = New System.Drawing.Point(1001, 16)
+        Me.grdDebug.Name = "grdDebug"
+        Me.grdDebug.Size = New System.Drawing.Size(333, 127)
+        Me.grdDebug.TabIndex = 387
+        '
         'frmLiquidaciones
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1489,6 +1500,7 @@ Partial Class frmLiquidaciones
         CType(Me.grdImpuestos, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ContextMenuStrip1.ResumeLayout(False)
         Me.ContextMenuStripIVA.ResumeLayout(False)
+        CType(Me.grdDebug, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1599,4 +1611,5 @@ Partial Class frmLiquidaciones
     Friend WithEvents rdTodasOC As RadioButton
     Friend WithEvents rdPendientes As RadioButton
     Friend WithEvents rdAnuladas As RadioButton
+    Friend WithEvents grdDebug As DataGridView
 End Class

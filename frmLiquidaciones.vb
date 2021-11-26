@@ -271,7 +271,7 @@ Public Class frmLiquidaciones
         CargarCajas()
         PrepararBotones()
 
-        Setear_Grilla()
+        'Setear_Grilla()
 
         If bolModo = True Then
             'LlenarGrid_Items()
@@ -809,11 +809,13 @@ Public Class frmLiquidaciones
         '        dtConcepto.Columns.Add("detalle", GetType(String))
         '}
 
+        dtConcepto.Columns.Add("ID", GetType(Long))
         dtConcepto.Columns.Add("IdDetalle", GetType(Long))
         dtConcepto.Columns.Add("IdFarmacia", GetType(String))
         dtConcepto.Columns.Add("detalle", GetType(String))
         dtConcepto.Columns.Add("valor", GetType(Decimal))
         dtConcepto.Columns.Add("edit")
+        dtConcepto.Columns.Add("estado", GetType(String))
 
         dtConcepto.PrimaryKey = {
                 dtConcepto.Columns("IdDetalle"),
@@ -827,11 +829,14 @@ Public Class frmLiquidaciones
                 concepto("IdFarmacia") = row("IdFarmacia")
                 concepto("detalle") = "A Cargo OS"
                 concepto("valor") = Decimal.Parse(row("A Cargo OS"))
+                concepto("estado") = "insert"
                 dtConcepto.Rows.Add(concepto)
             Next
         End If
 
         gl_dataset.Tables.Add(dtConcepto)
+
+        grdDebug.DataSource = gl_dataset.Tables(1)
 
         gl_dataset.Relations.Add("MasterGridDetail",
                       gl_dataset.Tables(0).Columns("ID"),
@@ -881,7 +886,9 @@ Public Class frmLiquidaciones
             row("Subtotal") = 0
             Dim childrows = row.GetChildRows(gl_dataset.Relations(0))
             For Each detail As DataRow In childrows
-                row("Subtotal") += detail("valor")
+                If detail("estado") <> "delete" Then
+                    row("Subtotal") += detail("valor")
+                End If
             Next
         Next
 
@@ -2187,26 +2194,6 @@ Public Class frmLiquidaciones
 
     End Sub
 
-    Private Sub Setear_Grilla()
-
-        ' ajustar la columna del base
-        grd.Columns(1).Width = 60 ' codigo
-        grd.Columns(2).Width = 60 ' fecha
-        grd.Columns(3).Width = 180 ' almacen
-
-        'ordenar descendente
-        'grd.Sort(grd.Columns(1), System.ComponentModel.ListSortDirection.Descending)
-
-        ''setear grilla de items
-        'With grdItems
-        '    .VirtualMode = False
-        '    .AllowUserToAddRows = False
-        '    .AlternatingRowsDefaultCellStyle.BackColor = Color.MintCream
-        '    .RowsDefaultCellStyle.BackColor = Color.White
-        '    .AllowUserToOrderColumns = True
-        '    .SelectionMode = DataGridViewSelectionMode.CellSelect
-        'End With
-    End Sub
 
 
 
@@ -2378,6 +2365,108 @@ Public Class frmLiquidaciones
 
 #Region "   Funciones"
 
+    Private Function GuardarLiquidacion()
+        Dim connection As SqlClient.SqlConnection = Nothing
+        Dim res As Integer = 0
+
+        connection = SqlHelper.GetConnection(ConnStringSEI)
+        'Abrir una transaccion para guardar y asegurar que se guarda todo
+        If Abrir_Tran(connection) = False Then
+            MessageBox.Show("No se pudo abrir una transaccion", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Function
+        End If
+        GuardarLiquidacion = res
+    End Function
+
+    Private Function GuardarConceptos()
+        Dim res As Integer = 0
+
+        For Each concepto As DataRow In gl_dataset.Tables(1).Rows
+            ''ID
+            Dim param_id As New SqlClient.SqlParameter
+            param_id.ParameterName = "@id"
+            param_id.SqlDbType = SqlDbType.BigInt
+            param_id.Value = concepto("id")
+            param_id.Direction = ParameterDirection.InputOutput
+
+            ''IdPresentacion
+            Dim param_idPresentacion As New SqlClient.SqlParameter
+            param_idPresentacion.ParameterName = "@idPresentacion"
+            param_idPresentacion.SqlDbType = SqlDbType.BigInt
+            param_idPresentacion.Value = txtID.Text
+            param_idPresentacion.Direction = ParameterDirection.Input
+
+            ''IdDetalle
+            Dim param_idDetalle As New SqlClient.SqlParameter
+            param_idDetalle.ParameterName = "@idDetalle"
+            param_idDetalle.SqlDbType = SqlDbType.BigInt
+            param_idDetalle.Value = concepto("IdDetalle")
+            param_idDetalle.Direction = ParameterDirection.Input
+
+            ''IdFarmacia
+            Dim param_idFarmacia As New SqlClient.SqlParameter
+            param_idFarmacia.ParameterName = "@idFarmacia"
+            param_idFarmacia.SqlDbType = SqlDbType.BigInt
+            param_idFarmacia.Value = concepto("IdFarmacia")
+            param_idFarmacia.Direction = ParameterDirection.Input
+
+            ''detalle
+            Dim param_detalle As New SqlClient.SqlParameter
+            param_detalle.ParameterName = "@detalle"
+            param_detalle.SqlDbType = SqlDbType.VarChar
+            param_detalle.Size = 100
+            param_detalle.Value = concepto("detalle")
+            param_detalle.Direction = ParameterDirection.Input
+
+            ''valor
+            Dim param_valor As New SqlClient.SqlParameter
+            param_valor.ParameterName = "@valor"
+            param_valor.SqlDbType = SqlDbType.Decimal
+            param_valor.Value = concepto("valor")
+            param_valor.Direction = ParameterDirection.Input
+
+            ''estado
+            Dim param_estado As New SqlClient.SqlParameter
+            param_estado.ParameterName = "@estado"
+            param_estado.SqlDbType = SqlDbType.VarChar
+            param_estado.Size = 50
+            param_estado.Value = concepto("estado")
+            param_estado.Direction = ParameterDirection.Input
+
+            ''user
+            Dim param_user As New SqlClient.SqlParameter
+            param_user.ParameterName = "@user"
+            param_user.SqlDbType = SqlDbType.Int
+            param_user.Value = UserID
+            param_user.Direction = ParameterDirection.Input
+
+            ''res
+            Dim param_res As New SqlClient.SqlParameter
+            param_res.ParameterName = "@res"
+            param_res.SqlDbType = SqlDbType.Int
+            param_res.Value = DBNull.Value
+            param_res.Direction = ParameterDirection.InputOutput
+
+            Try
+
+                SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spConceptos_Insert_Update",
+                                              param_id, param_idPresentacion, param_idDetalle, param_idFarmacia,
+                                              param_detalle, param_valor, param_estado, param_user, param_res)
+
+                res = param_res.Value
+
+                If (res <= 0) Then
+                    Exit For
+                End If
+
+            Catch ex As Exception
+                Throw ex
+            End Try
+        Next
+
+        GuardarConceptos = res
+    End Function
+
     Private Function AgregarActualizar_Registro_Recepciones(ByVal ControlFactura As Boolean, ByVal ControlRemito As Boolean) As Integer
         Dim res As Integer = 0
 
@@ -2458,15 +2547,15 @@ Public Class frmLiquidaciones
                 param_ControlFactura.Value = ControlFactura
                 param_ControlFactura.Direction = ParameterDirection.Input
 
-                Dim param_useradd As New SqlClient.SqlParameter
+                Dim param_user As New SqlClient.SqlParameter
                 If bolModo = True Then
-                    param_useradd.ParameterName = "@useradd"
+                    param_user.ParameterName = "@user"
                 Else
-                    param_useradd.ParameterName = "@userupd"
+                    param_user.ParameterName = "@userupd"
                 End If
-                param_useradd.SqlDbType = SqlDbType.Int
-                param_useradd.Value = UserID
-                param_useradd.Direction = ParameterDirection.Input
+                param_user.SqlDbType = SqlDbType.Int
+                param_user.Value = UserID
+                param_user.Direction = ParameterDirection.Input
 
                 Dim param_res As New SqlClient.SqlParameter
                 param_res.ParameterName = "@res"
@@ -2478,14 +2567,14 @@ Public Class frmLiquidaciones
                     If bolModo = True Then
                         SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spRecepciones_Insert",
                                               param_id, param_codigo, param_idAlmacen, param_idMoneda,
-                                               param_fecha, param_nota, param_useradd, param_res)
+                                               param_fecha, param_nota, param_user, param_res)
 
                         txtID.Text = param_id.Value
                         txtCODIGO.Text = param_codigo.Value
                     Else
                         SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spRecepciones_Update",
                                               param_id, param_ControlRemito, param_ControlFactura,
-                                              param_fecha, param_nota, param_useradd, param_res)
+                                              param_fecha, param_nota, param_user, param_res)
                     End If
 
                     AgregarActualizar_Registro_Recepciones = param_res.Value
@@ -2615,11 +2704,11 @@ Public Class frmLiquidaciones
 
 
 
-                        Dim param_useradd As New SqlClient.SqlParameter
-                        param_useradd.ParameterName = "@useradd"
-                        param_useradd.SqlDbType = SqlDbType.Int
-                        param_useradd.Value = UserID
-                        param_useradd.Direction = ParameterDirection.Input
+                        Dim param_user As New SqlClient.SqlParameter
+                        param_user.ParameterName = "@user"
+                        param_user.SqlDbType = SqlDbType.Int
+                        param_user.Value = UserID
+                        param_user.Direction = ParameterDirection.Input
 
                         Dim param_Nuevo As New SqlClient.SqlParameter
                         param_Nuevo.ParameterName = "@Nuevo"
@@ -2856,7 +2945,7 @@ Public Class frmLiquidaciones
                             SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spRecepciones_Det_Insert2",
                                                     param_id, param_codigo, param_idAlmacen, param_idRecepcion, param_idmaterial, param_idmaterial_prov,
                                                     param_Codigo_Mat_Prov, param_preciorevendedor, param_precioyamila, param_preciolista4,
-                                                    param_qty, param_idunidad, param_useradd, param_Nuevo,
+                                                    param_qty, param_idunidad, param_user, param_Nuevo,
                                                     param_idordendecompra, param_idordendecompradet, param_material,
                                                     param_idmoneda, param_bonificacion1, param_bonificacion2, param_bonificacion3,
                                                     param_bonificacion4, param_bonificacion5, param_ganancia, param_pesoxunidad, param_precioventa,
@@ -2876,72 +2965,6 @@ Public Class frmLiquidaciones
                                 Exit Do
                             End If
                             Comprob = param_Comprob.Value
-
-                            'If MDIPrincipal.NoActualizar = False Then
-
-                            '    If ValorActual > 0 Then
-
-                            '        Stock = param_Stock.Value
-                            '        IdStockMov = param_IdStockMov.Value
-
-                            '        Try
-                            '            Dim sqlstring As String
-                            '            Dim ds_Empresa As Data.DataSet
-
-                            '            'sqlstring = "update stock set qty = " & ValorActual & ", dateupd=getdate(),userupd= " & UserID & _
-                            '            '    " where idmaterial= " & grdItems.Rows(i).Cells(ColumnasDelGridItems1.IDMaterial).Value & _
-                            '            '    "  and idunidad= " & grdItems.Rows(i).Cells(ColumnasDelGridItems1.IDUnidad).Value & _
-                            '            '    " and idalmacen = " & cmbAlmacen.SelectedValue
-
-                            '            sqlstring = "exec spStock_Insert '" & grdItems.Rows(i).Cells(ColumnasDelGridItems1.IDMaterial).Value & "', '" & _
-                            '                grdItems.Rows(i).Cells(ColumnasDelGridItems1.IdUnidad).Value & "', " & cmbAlmacenes.SelectedValue & ", 'I', " & _
-                            '                grdItems.Rows(i).Cells(ColumnasDelGridItems1.QtyRecep).Value & ", " & Stock & ", " & IdStockMov & ", '" & Comprob & "', " & 4 & ", " & UserID
-
-
-                            '            'me fijo que sea distinto al salon 25
-                            '            If tranWEB.Sql_Get_Value(sqlstring) > 0 And cmbAlmacenes.SelectedValue <> 3 Then
-                            '                ds_Empresa = SqlHelper.ExecuteDataset(tran, CommandType.Text, "UPDATE StockMov SET ActualizadoWEB = 1 WHERE id = " & IdStockMov)
-                            '                ds_Empresa.Dispose()
-
-                            '                If cmbAlmacenes.SelectedValue = 1 Then
-                            '                    sqlstring = "UPDATE Materiales SET Preciocompra = " & grdItems.Rows(i).Cells(ColumnasDelGridItems1.PrecioCosto).Value & _
-                            '                                ", PrecioCosto = " & grdItems.Rows(i).Cells(ColumnasDelGridItems1.PrecioMayorista).Value & ", PrecioMayorista = " & grdItems.Rows(i).Cells(ColumnasDelGridItems1.PrecioRevendedor).Value & _
-                            '                                ", Preciolista3 = " & grdItems.Rows(i).Cells(ColumnasDelGridItems1.PrecioYamila).Value & ", Preciolista4 = " & grdItems.Rows(i).Cells(ColumnasDelGridItems1.PrecioLista4).Value & ", ActualizadoLocal = 0 WHERE codigo = '" & param_idmaterial.Value & "'"
-                            '                Else
-                            '                    sqlstring = "UPDATE Materiales SET Preciocompra = " & grdItems.Rows(i).Cells(ColumnasDelGridItems1.PrecioCosto).Value & _
-                            '                               ", PrecioPeron = " & grdItems.Rows(i).Cells(ColumnasDelGridItems1.PrecioPeron).Value & ", PrecioMayoristaPeron = " & grdItems.Rows(i).Cells(ColumnasDelGridItems1.PrecioMayoPeron).Value & ", ActualizadoLocal = 0 WHERE codigo = '" & param_idmaterial.Value & "'"
-                            '                End If
-
-                            '                tranWEB.Sql_Set(sqlstring)
-
-
-                            '                'si el almacen donde estoy es distinto al que estoy cargando y al salon 25 entonces notifico
-                            '                If numero_almacen <> cmbAlmacenes.SelectedValue And cmbAlmacenes.SelectedValue <> 3 Then
-
-                            '                    sqlstring = "INSERT INTO [dbo].[transferencias_Recepciones_WEB] ([Codigo],[Fecha],[IDOrigen],[IDDestino],[IDMaterial], " & _
-                            '                    "[Qty],[Procesado],[Tipo])" & _
-                            '                    "  values ('" & txtCODIGO.Text & "', '" & Format(Date.Now, "MM/dd/yyyy").ToString & " " & Format(Date.Now, "hh:mm:ss").ToString & "'," & _
-                            '                     cmbAlmacenes.SelectedValue & ", " & cmbAlmacenes.SelectedValue & ",'" & _
-                            '                     grdItems.Rows(i).Cells(ColumnasDelGridItems1.Cod_Material).Value & "'," & CType(grdItems.Rows(i).Cells(ColumnasDelGridItems1.QtyRecep).Value, Decimal) & ",0,'R')"
-
-                            '                    tranWEB.Sql_Set(sqlstring)
-
-                            '                    sqlstring = "update notificacionesWEB set Recepciones = 1, Materiales = 1"
-                            '                    tranWEB.Sql_Set(sqlstring)
-
-                            '                End If
-
-                            '            End If
-
-                            '        Catch ex As Exception
-                            '            'MsgBox(ex.Message)
-                            '            MsgBox("No se puede actualizar en la Web el movimiento de stock actual. Ejecute el botón sincronizar para actualizar el servidor WEB.")
-                            '        End Try
-                            '    End If
-
-                            'End If
-
-
 
 
                         Catch ex As Exception
@@ -3099,15 +3122,15 @@ Public Class frmLiquidaciones
                 param_UsuarioGasto.Value = cmbObraSocial.Text
                 param_UsuarioGasto.Direction = ParameterDirection.Input
 
-                Dim param_useradd As New SqlClient.SqlParameter
+                Dim param_user As New SqlClient.SqlParameter
                 If bolModo = True Then
-                    param_useradd.ParameterName = "@useradd"
+                    param_user.ParameterName = "@user"
                 Else
-                    param_useradd.ParameterName = "@userupd"
+                    param_user.ParameterName = "@userupd"
                 End If
-                param_useradd.SqlDbType = SqlDbType.Int
-                param_useradd.Value = UserID
-                param_useradd.Direction = ParameterDirection.Input
+                param_user.SqlDbType = SqlDbType.Int
+                param_user.Value = UserID
+                param_user.Direction = ParameterDirection.Input
 
                 Dim param_res As New SqlClient.SqlParameter
                 param_res.ParameterName = "@res"
@@ -3125,7 +3148,7 @@ Public Class frmLiquidaciones
                                             param_Total, param_totalPesos, param_descripcion,
                                             param_imputarotroperiodo, param_periodo,
                                             param_UsuarioGasto,
-                                            param_useradd, param_res)
+                                            param_user, param_res)
 
                         txtCODIGO.Text = param_codigo.Value
 
@@ -3137,7 +3160,7 @@ Public Class frmLiquidaciones
                                             param_Total, param_totalPesos, param_descripcion,
                                             param_imputarotroperiodo, param_periodo,
                                             param_ControlFactura, param_ControlRemito,
-                                            param_useradd, param_res)
+                                            param_user, param_res)
 
                     End If
 
@@ -3320,15 +3343,15 @@ Public Class frmLiquidaciones
             param_Redondeo.Value = 0
             param_Redondeo.Direction = ParameterDirection.Input
 
-            Dim param_useradd As New SqlClient.SqlParameter
+            Dim param_user As New SqlClient.SqlParameter
             If bolModo = True Then
-                param_useradd.ParameterName = "@useradd"
+                param_user.ParameterName = "@user"
             Else
-                param_useradd.ParameterName = "@userupd"
+                param_user.ParameterName = "@userupd"
             End If
-            param_useradd.SqlDbType = SqlDbType.Int
-            param_useradd.Value = UserID
-            param_useradd.Direction = ParameterDirection.Input
+            param_user.SqlDbType = SqlDbType.Int
+            param_user.Value = UserID
+            param_user.Direction = ParameterDirection.Input
 
             Dim param_res As New SqlClient.SqlParameter
             param_res.ParameterName = "@res"
@@ -3344,7 +3367,7 @@ Public Class frmLiquidaciones
                                             param_tarjeta, param_montotarjeta, param_cheque, param_montocheque, param_montochequepropio,
                                             param_transferencia, param_montotransf, param_impuestos, param_montoimpuesto,
                                             param_montoiva, param_total, param_Redondeo, param_nota,
-                                            param_useradd, param_res)
+                                            param_user, param_res)
 
                 Else
                     SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spPagos_Update",
@@ -3352,7 +3375,7 @@ Public Class frmLiquidaciones
                                             param_tarjeta, param_montotarjeta, param_cheque, param_montocheque, param_montochequepropio,
                                             param_transferencia, param_montotransf, param_impuestos, param_montoimpuesto,
                                             param_montoiva, param_total, param_Redondeo, param_nota,
-                                            param_useradd, param_res)
+                                            param_user, param_res)
 
                 End If
 
@@ -4064,272 +4087,58 @@ Public Class frmLiquidaciones
         End If
 
         Dim res As Integer, res_item As Integer
-        Dim ControlRemito As Boolean
-        Dim ControlFactura As Boolean
 
 
-
-        If ReglasNegocio() Then
-            If bolModo Then
-                Verificar_Datos()
-            Else
-                bolpoliticas = True
-            End If
-            If bolpoliticas Then
-                Util.MsgStatus(Status1, "Guardando el registro...", My.Resources.Resources.indicator_white)
-                res = AgregarActualizar_Registro_Recepciones(ControlFactura, ControlRemito)
-                Select Case res
-                    Case -8
-                        Util.MsgStatus(Status1, "Ya existe un movimiento que incluye el nro de factura, tipo y cliente que desea ingresar ahora.", My.Resources.Resources.stop_error.ToBitmap)
-                        Util.MsgStatus(Status1, "Ya existe un movimiento que incluye el nro de factura, tipo y cliente que desea ingresar ahora.", My.Resources.Resources.stop_error.ToBitmap, True)
-                        Cancelar_Tran()
-                        Exit Sub
-                    Case -4
-                        Cancelar_Tran()
-                        Util.MsgStatus(Status1, "El número de remito ingresado ya existe para el cliente actual.", My.Resources.Resources.stop_error.ToBitmap)
-                        Util.MsgStatus(Status1, "El número de remito ingresado ya existe para el cliente actual.", My.Resources.Resources.stop_error.ToBitmap, True)
-                        Exit Sub
-                    Case -3
-                        Cancelar_Tran()
-                        Util.MsgStatus(Status1, "No pudo realizarse la insersión (Encabezado).", My.Resources.Resources.stop_error.ToBitmap)
-                        Util.MsgStatus(Status1, "No pudo realizarse la insersión (Encabezado).", My.Resources.Resources.stop_error.ToBitmap, True)
-                        Exit Sub
-                    Case -2
-                        Cancelar_Tran()
-                        Util.MsgStatus(Status1, "No se pudo actualizar el número de consumo (Encabezado).", My.Resources.Resources.stop_error.ToBitmap)
-                        Util.MsgStatus(Status1, "No se pudo actualizar el número de consumo (Encabezado).", My.Resources.Resources.stop_error.ToBitmap, True)
-                        Exit Sub
+        Util.MsgStatus(Status1, "Guardando el registro...", My.Resources.Resources.indicator_white)
+        'res = AgregarActualizar_Registro_Recepciones(ControlFactura, ControlRemito)
+        res = GuardarLiquidacion()
+        Select Case res
+            Case -1
+                Cancelar_Tran()
+                Util.MsgStatus(Status1, "No se pudo actualizar el registro (Encabezado).", My.Resources.Resources.stop_error.ToBitmap)
+                Util.MsgStatus(Status1, "No se pudo actualizar el registro (Encabezado).", My.Resources.Resources.stop_error.ToBitmap, True)
+                Exit Sub
+            Case 0
+                Cancelar_Tran()
+                Util.MsgStatus(Status1, "No se pudo agregar el registro (Encabezado).", My.Resources.Resources.stop_error.ToBitmap)
+                Util.MsgStatus(Status1, "No se pudo agregar el registro (Encabezado).", My.Resources.Resources.stop_error.ToBitmap, True)
+                Exit Sub
+            Case Else
+                Util.MsgStatus(Status1, "Guardando los items...", My.Resources.Resources.indicator_white)
+                'res_item = AgregarRegistro_Recepciones_Items(txtID.Text)
+                res_item = GuardarConceptos()
+                Select Case res_item
                     Case -1
                         Cancelar_Tran()
-                        Util.MsgStatus(Status1, "No se pudo actualizar el registro (Encabezado).", My.Resources.Resources.stop_error.ToBitmap)
-                        Util.MsgStatus(Status1, "No se pudo actualizar el registro (Encabezado).", My.Resources.Resources.stop_error.ToBitmap, True)
+                        Util.MsgStatus(Status1, "No se pudo registrar la recepción (Items).", My.Resources.Resources.stop_error.ToBitmap)
+                        Util.MsgStatus(Status1, "No se pudo registrar la recepción (Items).", My.Resources.Resources.stop_error.ToBitmap, True)
                         Exit Sub
                     Case 0
                         Cancelar_Tran()
-                        Util.MsgStatus(Status1, "No se pudo agregar el registro (Encabezado).", My.Resources.Resources.stop_error.ToBitmap)
-                        Util.MsgStatus(Status1, "No se pudo agregar el registro (Encabezado).", My.Resources.Resources.stop_error.ToBitmap, True)
+                        Util.MsgStatus(Status1, "No se pudo agregar el registro (Items).", My.Resources.Resources.stop_error.ToBitmap)
+                        Util.MsgStatus(Status1, "No se pudo agregar el registro (Items).", My.Resources.Resources.stop_error.ToBitmap, True)
                         Exit Sub
                     Case Else
-                        Util.MsgStatus(Status1, "Guardando los items...", My.Resources.Resources.indicator_white)
-                        If bolModo = True Then
-                            res_item = AgregarRegistro_Recepciones_Items(txtID.Text)
-                            Select Case res_item
-                                Case -7
-                                    Cancelar_Tran()
-                                    Util.MsgStatus(Status1, "No se pudo actualizar el precio de un producto", My.Resources.Resources.stop_error.ToBitmap)
-                                    Util.MsgStatus(Status1, "No se pudo actualizar el precio de un producto", My.Resources.Resources.stop_error.ToBitmap, True)
-                                    Exit Sub
-                                Case -6
-                                    Cancelar_Tran()
-                                    Util.MsgStatus(Status1, "No se pudo registrar la transaccion (items)", My.Resources.Resources.stop_error.ToBitmap)
-                                    Util.MsgStatus(Status1, "No se pudo registrar la transaccion (items)", My.Resources.Resources.stop_error.ToBitmap, True)
-                                    Exit Sub
-                                Case -5
-                                    Cancelar_Tran()
-                                    Util.MsgStatus(Status1, "No se pudo registrar el movimiento de stock (items) '" & cod_aux & "'", My.Resources.Resources.stop_error.ToBitmap)
-                                    Util.MsgStatus(Status1, "No se pudo registrar el movimiento de stock (items) '" & cod_aux & "'", My.Resources.Resources.stop_error.ToBitmap, True)
-                                    Exit Sub
-                                Case -4
-                                    Cancelar_Tran()
-                                    Util.MsgStatus(Status1, "No hay stock suficiente para descontar (items) '" & cod_aux & "'", My.Resources.Resources.stop_error.ToBitmap)
-                                    Util.MsgStatus(Status1, "No hay stock suficiente para descontar (items) '" & cod_aux & "'", My.Resources.Resources.stop_error.ToBitmap, True)
-                                    Exit Sub
-                                Case -3
-                                    Cancelar_Tran()
-                                    Util.MsgStatus(Status1, "No se puedo insertar en stock el codigo '" & cod_aux & "'", My.Resources.Resources.alert.ToBitmap)
-                                    Util.MsgStatus(Status1, "No se puedo insertar en stock el codigo '" & cod_aux & "'", My.Resources.Resources.alert.ToBitmap, True)
-                                    Exit Sub
-                                Case -2
-                                    Cancelar_Tran()
-                                    Util.MsgStatus(Status1, "El registro ya existe (Items).", My.Resources.Resources.alert.ToBitmap)
-                                    Util.MsgStatus(Status1, "El registro ya existe (Items).", My.Resources.Resources.alert.ToBitmap, True)
-                                    Exit Sub
-                                Case -1
-                                    Cancelar_Tran()
-                                    Util.MsgStatus(Status1, "No se pudo registrar la recepción (Items).", My.Resources.Resources.stop_error.ToBitmap)
-                                    Util.MsgStatus(Status1, "No se pudo registrar la recepción (Items).", My.Resources.Resources.stop_error.ToBitmap, True)
-                                    Exit Sub
-                                Case 0
-                                    Cancelar_Tran()
-                                    Util.MsgStatus(Status1, "No se pudo agregar el registro (Items).", My.Resources.Resources.stop_error.ToBitmap)
-                                    Util.MsgStatus(Status1, "No se pudo agregar el registro (Items).", My.Resources.Resources.stop_error.ToBitmap, True)
-                                    Exit Sub
-                                Case Else
-                            End Select
-                        Else
-                            GoTo ContinuarTransaccion
-
-                        End If
-
-                        'If chkCargarFactura.Checked = True Then
-
-                        '    res = AgregarActualizar_Registro_Gastos(ControlFactura, ControlRemito)
-                        '    Select Case res
-                        '        Case -20
-                        '            Util.MsgStatus(Status1, "El nuevo total ingresado para el gasto es menor que el cargado originalmente. " & vbCrLf & "Debe anular el pago asociado para luego modificar este Gasto.", My.Resources.Resources.stop_error.ToBitmap)
-                        '            Util.MsgStatus(Status1, "El nuevo total ingresado para el gasto es menor que el cargado originalmente. " & vbCrLf & "Debe anular el pago asociado para luego modificar este Gasto.", My.Resources.Resources.stop_error.ToBitmap, True)
-                        '            Cancelar_Tran()
-                        '            Exit Sub
-                        '        Case -8
-                        '            Util.MsgStatus(Status1, "Ya existe un movimiento que incluye el nro de factura, tipo y cliente que desea ingresar ahora.", My.Resources.Resources.stop_error.ToBitmap)
-                        '            Util.MsgStatus(Status1, "Ya existe un movimiento que incluye el nro de factura, tipo y cliente que desea ingresar ahora.", My.Resources.Resources.stop_error.ToBitmap, True)
-                        '            Cancelar_Tran()
-                        '            Exit Sub
-                        '        Case -1
-                        '            Util.MsgStatus(Status1, "No se pudo agregar el registro. Error en la transacción.", My.Resources.Resources.stop_error.ToBitmap)
-                        '            Util.MsgStatus(Status1, "No se pudo agregar el registro. Error en la transacción.", My.Resources.Resources.stop_error.ToBitmap, True)
-                        '            Cancelar_Tran()
-                        '            Exit Sub
-                        '        Case 0
-                        '            Util.MsgStatus(Status1, "No se pudo agregar el registro.", My.Resources.Resources.stop_error.ToBitmap)
-                        '            Cancelar_Tran()
-                        '            Exit Sub
-                        '        Case Else
-                        '            If bolModo = False Then
-                        '                EliminarItems_Gastos_Det()
-                        '            End If
-                        '            res = AgregarActualizar_Registro_Items_IVA()
-                        '            Select Case res
-                        '                Case -20
-                        '                    Util.MsgStatus(Status1, "El nuevo total ingresado para el gasto es menor que el cargado originalmente. " & vbCrLf & "Debe anular el pago asociado para luego modificar este Gasto.", My.Resources.Resources.stop_error.ToBitmap)
-                        '                    Util.MsgStatus(Status1, "El nuevo total ingresado para el gasto es menor que el cargado originalmente. " & vbCrLf & "Debe anular el pago asociado para luego modificar este Gasto.", My.Resources.Resources.stop_error.ToBitmap, True)
-                        '                    Cancelar_Tran()
-                        '                    Exit Sub
-                        '                Case -1
-                        '                    Util.MsgStatus(Status1, "No se pudo agregar el registro. Error en la transacción.", My.Resources.Resources.stop_error.ToBitmap)
-                        '                    Util.MsgStatus(Status1, "No se pudo agregar el registro. Error en la transacción.", My.Resources.Resources.stop_error.ToBitmap, True)
-                        '                    Cancelar_Tran()
-                        '                    Exit Sub
-                        '                Case 0
-                        '                    Util.MsgStatus(Status1, "No se pudo agregar el registro.", My.Resources.Resources.stop_error.ToBitmap)
-                        '                    Util.MsgStatus(Status1, "No se pudo agregar el registro.", My.Resources.Resources.stop_error.ToBitmap, True)
-                        '                    Cancelar_Tran()
-                        '                    Exit Sub
-                        '                Case Else
-                        '                    res = AgregarRegistro_Impuestos()
-                        '                    Select Case res
-                        '                        Case Is <= 0
-                        '                            Util.MsgStatus(Status1, "No se pudieron actualizar los registros de los Impuestos.", My.Resources.Resources.stop_error.ToBitmap)
-                        '                            Util.MsgStatus(Status1, "No se pudieron actualizar los registros de los Impuestos.", My.Resources.Resources.stop_error.ToBitmap, True)
-                        '                            Cancelar_Tran()
-                        '                            Exit Sub
-                        '                        Case Else
-                        '                            Util.MsgStatus(Status1, "Guardando la información en la cuenta...", My.Resources.Resources.indicator_white)
-                        '                    End Select
-
-                        '                    If chkFacturaCancelada.Checked = True Then 'And grd.CurrentRow.Cells(14).Value = False Then
-                        '                        res = AgregarActualizar_Pago()
-                        '                        Select Case res
-                        '                            Case -1
-                        '                                Cancelar_Tran()
-                        '                                Util.MsgStatus(Status1, "No se pudo registrar el Pago del Gasto", My.Resources.Resources.stop_error.ToBitmap)
-                        '                                Util.MsgStatus(Status1, "No se pudo registrar el Pago del Gasto", My.Resources.Resources.stop_error.ToBitmap, True)
-                        '                                Exit Sub
-                        '                            Case 0
-                        '                                Cancelar_Tran()
-                        '                                Util.MsgStatus(Status1, "No se pudo registrar el Pago del Gasto", My.Resources.Resources.stop_error.ToBitmap)
-                        '                                Util.MsgStatus(Status1, "No se pudo registrar el Pago del Gasto", My.Resources.Resources.stop_error.ToBitmap, True)
-                        '                                Exit Sub
-                        '                            Case Else
-                        '                                Util.MsgStatus(Status1, "Guardando el detalle del pago...", My.Resources.Resources.indicator_white)
-                        '                                res = AgregarRegistro_PagosGastos()
-                        '                                Select Case res
-                        '                                    Case -3
-                        '                                        Cancelar_Tran()
-                        '                                        Util.MsgStatus(Status1, "No se pudo realizar la inserción del Pago (Detalle). Actualización en la tabla Gastos", My.Resources.Resources.stop_error.ToBitmap)
-                        '                                        Util.MsgStatus(Status1, "No se pudo realizar la inserción del Pago (Detalle). Actualización en la tabla Gastos", My.Resources.Resources.stop_error.ToBitmap, True)
-                        '                                        Exit Sub
-                        '                                    Case -2
-                        '                                        Cancelar_Tran()
-                        '                                        Util.MsgStatus(Status1, "No pudo registrar la inserción del Pago (Detalle).", My.Resources.Resources.stop_error.ToBitmap)
-                        '                                        Util.MsgStatus(Status1, "No pudo registrar la inserción del Pago (Detalle).", My.Resources.Resources.stop_error.ToBitmap, True)
-                        '                                        Exit Sub
-                        '                                    Case -1
-                        '                                        Cancelar_Tran()
-                        '                                        Util.MsgStatus(Status1, "Error Desconocido.", My.Resources.Resources.stop_error.ToBitmap)
-                        '                                        Util.MsgStatus(Status1, "Error Desconocido.", My.Resources.Resources.stop_error.ToBitmap, True)
-                        '                                        Exit Sub
-                        '                                    Case 0
-                        '                                        Cancelar_Tran()
-                        '                                        Util.MsgStatus(Status1, "No pudo registrar la inserción del Pago (Detalle).", My.Resources.Resources.stop_error.ToBitmap)
-                        '                                        Util.MsgStatus(Status1, "No pudo registrar la inserción del Pago (Detalle).", My.Resources.Resources.stop_error.ToBitmap, True)
-                        '                                        Exit Sub
-                        '                                    Case Else
-                        '                                        Util.MsgStatus(Status1, "Se guardó correctamente el movimiento", My.Resources.Resources.stop_error.ToBitmap)
-
-                        '                                        GoTo ContinuarTransaccion
-
-                        '                                End Select
-                        '                        End Select
-                        '                    End If
-                        '            End Select
-                        '    End Select
-
-                        'End If
-
-ContinuarTransaccion:
-                        'Me fijo si la recepción es para otra sucursales (WEB)
-                        'If cmbAlmacenes.Text.Contains("PERON") Then
-                        '    If InsertarTransRecepWEB() Then
-                        '        'Dim ds_Empresa As Data.DataSet
-                        '        ''inserto de manera local el envio
-                        '        'ds_Empresa = tranWEB.Sql_Get("Select NroMov from [" & NameTable_TransRecepWEB & "] where nroasociado = '" & txtCODIGO.Text & "' and IDDestino = " & cmbAlmacenes.SelectedValue)
-                        '        'If ds_Empresa.Tables(0).Rows.Count > 0 Then
-                        '        '    res = Agregar_Registro_TransRecepWEB_Enviado(ds_Empresa.Tables(0).Rows(0).Item(0).ToString)
-                        '        '    Select Case res
-                        '        '        Case -1
-                        '        '            Cancelar_Tran()
-                        '        '            Util.MsgStatus(Status1, "No se pudo insertar La Recepción Localmente (Encabezado).", My.Resources.Resources.stop_error.ToBitmap)
-                        '        '        Case 0
-                        '        '            Cancelar_Tran()
-                        '        '            Util.MsgStatus(Status1, "No se pudo registra el movimiento local (Encabezado).", My.Resources.Resources.stop_error.ToBitmap)
-                        '        '        Case Else
-                        '        '            res_item = AgregarRegistro_TransRecepWEB_Items_Enviado(ds_Empresa.Tables(0).Rows(0).Item(0).ToString)
-                        '        '            Select Case res_item
-                        '        '                Case -1
-                        '        '                    Cancelar_Tran()
-                        '        '                    Util.MsgStatus(Status1, "No se pudo insertar La recepción Localmente (Detalle).", My.Resources.Resources.stop_error.ToBitmap)
-                        '        '                Case 0
-                        '        '                    Cancelar_Tran()
-                        '        '                    Util.MsgStatus(Status1, "No se pudo registra el movimiento local (Detalle).", My.Resources.Resources.stop_error.ToBitmap)
-                        '        '                Case Else
-                        '        '                    Cerrar_Tran()
-                        '        '            End Select
-                        '        '    End Select
-                        '        'Else
-                        '        '    Cancelar_Tran()
-                        '        '    Util.MsgStatus(Status1, "No se pudo obtener el nro de transferencia de la WEB.", My.Resources.Resources.stop_error.ToBitmap)
-                        '        'End If
-                        '    Else
-                        '        Cancelar_Tran()
-                        '        Util.MsgStatus(Status1, "No se pudo registrar la Recepción de la sucursal en la Base de Datos WEB. Por favor intente más tarde.", My.Resources.Resources.stop_error.ToBitmap)
-                        '        Exit Sub
-                        '    End If
-                        'Else
                         Cerrar_Tran()
-                        'End If
 
                         bolModo = False
                         PrepararBotones()
 
-                        'SQL = "exec spRecepciones_Select_All  @Eliminado = 0"
-
                         MDIPrincipal.NoActualizarBase = False
                         btnActualizar_Click(sender, e)
-
-                        Setear_Grilla()
 
                         Util.MsgStatus(Status1, "Se ha actualizado el registro.", My.Resources.Resources.ok.ToBitmap)
 
                 End Select
-                '
-                ' cerrar la conexion si está abierta.
-                '
-                If Not conn_del_form Is Nothing Then
-                    CType(conn_del_form, IDisposable).Dispose()
-                End If
-            End If 'If bolpoliticas Then
-        End If 'If ReglasNegocio() Then
+        End Select
+
+
+        '
+        ' cerrar la conexion si está abierta.
+        '
+        If Not conn_del_form Is Nothing Then
+            CType(conn_del_form, IDisposable).Dispose()
+        End If
 
     End Sub
 
@@ -4345,69 +4154,68 @@ ContinuarTransaccion:
         '    Exit Sub
         'End If
 
-        Dim res As Integer
+        'Dim res As Integer
 
-        ''If BAJA Then
-        If chkEliminado.Checked = False Then
-            If MessageBox.Show("Esta acción reversará las Recepciones de todos los items." + vbCrLf + "¿Está seguro que desea eliminar?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
-                Util.MsgStatus(Status1, "Eliminando el registro...", My.Resources.Resources.indicator_white)
-                res = EliminarRegistro_Recepcion()
-                Select Case res
-                    Case -3
-                        Cancelar_Tran()
-                        Util.MsgStatus(Status1, "No se registró el mov. de stock.", My.Resources.stop_error.ToBitmap)
-                        Util.MsgStatus(Status1, "No se registró el mov. de stock.", My.Resources.stop_error.ToBitmap, True)
-                    Case -2
-                        Cancelar_Tran()
-                        Util.MsgStatus(Status1, "El registro no existe.", My.Resources.stop_error.ToBitmap)
-                        Util.MsgStatus(Status1, "El registro no existe.", My.Resources.stop_error.ToBitmap, True)
-                    Case -1
-                        Cancelar_Tran()
-                        Util.MsgStatus(Status1, "No se pudo borrar el registro.", My.Resources.stop_error.ToBitmap)
-                        Util.MsgStatus(Status1, "No se pudo borrar el registro.", My.Resources.stop_error.ToBitmap, True)
-                    Case 0
-                        Cancelar_Tran()
-                        Util.MsgStatus(Status1, "No se pudo borrar el registro.", My.Resources.stop_error.ToBitmap)
-                        Util.MsgStatus(Status1, "No se pudo borrar el registro.", My.Resources.stop_error.ToBitmap, True)
-                    Case Else
-                        res = EliminarRegistro_Gasto()
-                        Select Case res
-                            Case -8
-                                Cancelar_Tran()
-                                Util.MsgStatus(Status1, "El gasto está asociado a un Pago. Anule el pago al proveedor para luego anular el gasto.", My.Resources.Resources.stop_error.ToBitmap)
-                                Util.MsgStatus(Status1, "El gasto está asociado a un Pago. Anule el pago al proveedor para luego anular el gasto.", My.Resources.Resources.stop_error.ToBitmap, True)
-                            Case 0
-                                Cancelar_Tran()
-                                Util.MsgStatus(Status1, "No pudo realizarse la anulación.", My.Resources.Resources.stop_error.ToBitmap)
-                                Util.MsgStatus(Status1, "No pudo realizarse la anulación.", My.Resources.Resources.stop_error.ToBitmap, True)
-                            Case -1
-                                Cancelar_Tran()
-                                Util.MsgStatus(Status1, "No pudo realizarse la anulación.", My.Resources.Resources.stop_error.ToBitmap)
-                                Util.MsgStatus(Status1, "No pudo realizarse la anulación.", My.Resources.Resources.stop_error.ToBitmap, True)
-                            Case Else
-                                Cerrar_Tran()
-                                PrepararBotones()
+        '''If BAJA Then
+        'If chkEliminado.Checked = False Then
+        '    If MessageBox.Show("Esta acción reversará las Recepciones de todos los items." + vbCrLf + "¿Está seguro que desea eliminar?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
+        '        Util.MsgStatus(Status1, "Eliminando el registro...", My.Resources.Resources.indicator_white)
+        '        res = EliminarRegistro_Recepcion()
+        '        Select Case res
+        '            Case -3
+        '                Cancelar_Tran()
+        '                Util.MsgStatus(Status1, "No se registró el mov. de stock.", My.Resources.stop_error.ToBitmap)
+        '                Util.MsgStatus(Status1, "No se registró el mov. de stock.", My.Resources.stop_error.ToBitmap, True)
+        '            Case -2
+        '                Cancelar_Tran()
+        '                Util.MsgStatus(Status1, "El registro no existe.", My.Resources.stop_error.ToBitmap)
+        '                Util.MsgStatus(Status1, "El registro no existe.", My.Resources.stop_error.ToBitmap, True)
+        '            Case -1
+        '                Cancelar_Tran()
+        '                Util.MsgStatus(Status1, "No se pudo borrar el registro.", My.Resources.stop_error.ToBitmap)
+        '                Util.MsgStatus(Status1, "No se pudo borrar el registro.", My.Resources.stop_error.ToBitmap, True)
+        '            Case 0
+        '                Cancelar_Tran()
+        '                Util.MsgStatus(Status1, "No se pudo borrar el registro.", My.Resources.stop_error.ToBitmap)
+        '                Util.MsgStatus(Status1, "No se pudo borrar el registro.", My.Resources.stop_error.ToBitmap, True)
+        '            Case Else
+        '                res = EliminarRegistro_Gasto()
+        '                Select Case res
+        '                    Case -8
+        '                        Cancelar_Tran()
+        '                        Util.MsgStatus(Status1, "El gasto está asociado a un Pago. Anule el pago al proveedor para luego anular el gasto.", My.Resources.Resources.stop_error.ToBitmap)
+        '                        Util.MsgStatus(Status1, "El gasto está asociado a un Pago. Anule el pago al proveedor para luego anular el gasto.", My.Resources.Resources.stop_error.ToBitmap, True)
+        '                    Case 0
+        '                        Cancelar_Tran()
+        '                        Util.MsgStatus(Status1, "No pudo realizarse la anulación.", My.Resources.Resources.stop_error.ToBitmap)
+        '                        Util.MsgStatus(Status1, "No pudo realizarse la anulación.", My.Resources.Resources.stop_error.ToBitmap, True)
+        '                    Case -1
+        '                        Cancelar_Tran()
+        '                        Util.MsgStatus(Status1, "No pudo realizarse la anulación.", My.Resources.Resources.stop_error.ToBitmap)
+        '                        Util.MsgStatus(Status1, "No pudo realizarse la anulación.", My.Resources.Resources.stop_error.ToBitmap, True)
+        '                    Case Else
+        '                        Cerrar_Tran()
+        '                        PrepararBotones()
 
-                                'SQL = "exec spRecepciones_Select_All  @Eliminado = 0"
+        '                        'SQL = "exec spRecepciones_Select_All  @Eliminado = 0"
 
-                                btnActualizar_Click(sender, e)
-                                Setear_Grilla()
-                                Util.MsgStatus(Status1, "Se ha borrado el registro.", My.Resources.ok.ToBitmap)
-                                Util.MsgStatus(Status1, "Se ha borrado el registro.", My.Resources.ok.ToBitmap, True, True)
-                        End Select
-                End Select
-            Else
-                Util.MsgStatus(Status1, "Acción de eliminar cancelada.", My.Resources.stop_error.ToBitmap)
-                Util.MsgStatus(Status1, "Acción de eliminar cancelada.", My.Resources.stop_error.ToBitmap, True)
-            End If
-        Else
-            Util.MsgStatus(Status1, "El registro ya está eliminado.", My.Resources.stop_error.ToBitmap)
-            Util.MsgStatus(Status1, "El registro ya está eliminado.", My.Resources.stop_error.ToBitmap, True)
-        End If
-        ''Else
-        ''Util.MsgStatus(Status1, "No tiene permiso para eliminar registros.", My.Resources.stop_error.ToBitmap)
-        ''Util.MsgStatus(Status1, "No tiene permiso para eliminar registros.", My.Resources.stop_error.ToBitmap, True)
-        ''End If
+        '                        btnActualizar_Click(sender, e)
+        '                        Util.MsgStatus(Status1, "Se ha borrado el registro.", My.Resources.ok.ToBitmap)
+        '                        Util.MsgStatus(Status1, "Se ha borrado el registro.", My.Resources.ok.ToBitmap, True, True)
+        '                End Select
+        '        End Select
+        '    Else
+        '        Util.MsgStatus(Status1, "Acción de eliminar cancelada.", My.Resources.stop_error.ToBitmap)
+        '        Util.MsgStatus(Status1, "Acción de eliminar cancelada.", My.Resources.stop_error.ToBitmap, True)
+        '    End If
+        'Else
+        '    Util.MsgStatus(Status1, "El registro ya está eliminado.", My.Resources.stop_error.ToBitmap)
+        '    Util.MsgStatus(Status1, "El registro ya está eliminado.", My.Resources.stop_error.ToBitmap, True)
+        'End If
+        '''Else
+        '''Util.MsgStatus(Status1, "No tiene permiso para eliminar registros.", My.Resources.stop_error.ToBitmap)
+        '''Util.MsgStatus(Status1, "No tiene permiso para eliminar registros.", My.Resources.stop_error.ToBitmap, True)
+        '''End If
     End Sub
 
     Private Sub btnImprimir_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnImprimir.Click
@@ -4728,6 +4536,7 @@ ContinuarTransaccion:
                     Dim error_ajuste As DataRow = gl_dataset.Tables(1).NewRow()
                     error_ajuste("IdDetalle") = a_cargo("IdDetalle")
                     error_ajuste("IdFarmacia") = a_cargo("IdFarmacia")
+                    error_ajuste("estado") = "insert"
                     If cmbTipoPago.Text = "Anticipo" Then
                         error_ajuste("detalle") = "Pendiente de pago"
                     Else
@@ -4760,6 +4569,7 @@ ContinuarTransaccion:
                     row("detalle") = ColumnName
                     row("valor") = Decimal.Parse(grdDetalleLiquidacionFiltrada.Rows(j).Cells(i).Value) * -1
                     row("edit") = "x"
+                    row("estado") = "insert"
                     If (row("valor") <> 0) Then
                         gl_dataset.Tables(1).Rows.Add(row)
                     End If
@@ -4817,13 +4627,17 @@ ContinuarTransaccion:
 
             If result = DialogResult.Yes Then
 
-                panel.Rows.RemoveAt(row_index) ''Elimino la fila
+                'panel.Rows.RemoveAt(row_index) ''Elimino la fila
+                panel.Rows(row_index).visible = False ''Oculto la fila para luego eliminarla
+                panel.Rows(row_index)("estado").Value = "delete"
 
                 For i = 0 To panel.Rows.Count - 1
-                    If panel.GetCell(i, 2).Value = "Pendiente de pago" Then
-                        pendiente = $"<br/> Pendiente de pago: <font color=""Gray""><i>${Decimal.Parse(panel.GetCell(i, 3).Value * -1):N2}</i></font>"
-                    Else
-                        total += panel.GetCell(i, 3).Value
+                    If panel.GetCell(i, 3).Value = "Pendiente de pago" Then
+                        pendiente = $"<br/> Pendiente de pago: <font color=""Gray""><i>${Decimal.Parse(panel.GetCell(i, 4).Value * -1):N2}</i></font>"
+                    End If
+
+                    If panel.GetCell(i, 6).Value <> "delete" Then ''Sumo solo si la columna no está para eliminar
+                        total += panel.GetCell(i, 4).Value
                     End If
                 Next
                 parent("Subtotal").Value = total
@@ -4916,9 +4730,11 @@ ContinuarTransaccion:
         'Verifico el nombre del subpanel
 
         If panel.Name.Equals("Table2") = True Then
-            panel.Columns(0).Visible = False
-            panel.Columns(1).Visible = False
-            panel.Columns(4).Width = 30
+            panel.Columns(0).Visible = False 'ID
+            panel.Columns(1).Visible = False 'IdDetalle
+            panel.Columns(2).Visible = False 'IdFarmacia
+            panel.Columns(6).Visible = False 'estado
+            panel.Columns(5).Width = 30 'hago el boton de eliminar mas pequeño
 
             'panel.Visible = IIf(panel.Rows.Count > 0, True, False)
 
@@ -4926,14 +4742,15 @@ ContinuarTransaccion:
             Dim total As Decimal = 0
             Dim pendiente As String = ""
             For i = 0 To panel.Rows.Count - 1
-                If panel.GetCell(i, 2).Value = "Pendiente de pago" Then
-                    pendiente = $"<br/> Pendiente de pago: <font color=""Gray""><i>${Decimal.Parse(panel.GetCell(i, 3).Value * -1):N2}</i></font>"
-                Else
-                    total += panel.GetCell(i, 3).Value
-
+                If panel.GetCell(i, 3).Value = "Pendiente de pago" Then
+                    pendiente = $"<br/> Pendiente de pago: <font color=""Gray""><i>${Decimal.Parse(panel.GetCell(i, 4).Value * -1):N2}</i></font>"
                 End If
 
-                panel.GetCell(i, 4).EditorType = GetType(MyGridButtonXEditControl)
+                If panel.GetCell(i, 6).Value <> "delete" Then ''Sumo solo si la columna no está para eliminar
+                    total += panel.GetCell(i, 4).Value
+                End If
+
+                panel.GetCell(i, 5).EditorType = GetType(MyGridButtonXEditControl)
 
             Next
 
@@ -5006,6 +4823,7 @@ ContinuarTransaccion:
             concepto("valor") = valor
             concepto("edit") = New DataGridViewButtonXCell()
             concepto("edit") = "x"
+            concepto("estado") = "insert"
 
             gl_dataset.Tables(1).Rows.Add(concepto)
         Next
