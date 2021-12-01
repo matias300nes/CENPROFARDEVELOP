@@ -633,7 +633,29 @@ Public Class frmLiquidaciones
         ygrd = grd.Location.Y
         hgrd = grd.Height
 
-        variableajuste = 150
+        variableajuste = 125
+
+        'If chkGrillaInferior.Checked = True Then
+        '    chkGrillaInferior.Text = "Disminuir Grilla Inferior"
+        '    chkGrillaInferior.Location = New Point(chkGrillaInferior.Location.X, chkGrillaInferior.Location.Y - variableajuste)
+        '    GroupBox1.Height = GroupBox1.Height - variableajuste
+        '    grd.Location = New Point(xgrd, ygrd - variableajuste)
+        '    grd.Height = hgrd + variableajuste
+        '    grdItems.Height = grdItems.Height - variableajuste
+        '    Label19.Location = New Point(Label19.Location.X, Label19.Location.Y - variableajuste)
+        '    lblCantidadFilas.Location = New Point(lblCantidadFilas.Location.X, lblCantidadFilas.Location.Y - variableajuste)
+
+        'Else
+        '    chkGrillaInferior.Text = "Aumentar Grilla Inferior"
+        '    chkGrillaInferior.Location = New Point(chkGrillaInferior.Location.X, chkGrillaInferior.Location.Y + variableajuste)
+        '    GroupBox1.Height = GroupBox1.Height + variableajuste
+        '    grd.Location = New Point(xgrd, ygrd + variableajuste)
+        '    grd.Height = hgrd - variableajuste
+        '    grdItems.Height = grdItems.Height + variableajuste
+        '    Label19.Location = New Point(Label19.Location.X, Label19.Location.Y + variableajuste)
+        '    lblCantidadFilas.Location = New Point(lblCantidadFilas.Location.X, lblCantidadFilas.Location.Y + variableajuste)
+
+        'End If
 
         If chkGrillaInferior.Checked = True Then
             chkGrillaInferior.Text = "Disminuir Grilla Inferior"
@@ -645,6 +667,10 @@ Public Class frmLiquidaciones
             Label19.Location = New Point(Label19.Location.X, Label19.Location.Y - variableajuste)
             lblCantidadFilas.Location = New Point(lblCantidadFilas.Location.X, lblCantidadFilas.Location.Y - variableajuste)
 
+            rdPendientes.Location = New Point(rdPendientes.Location.X, rdPendientes.Location.Y - variableajuste)
+            rdAnuladas.Location = New Point(rdAnuladas.Location.X, rdAnuladas.Location.Y - variableajuste)
+            rdTodasOC.Location = New Point(rdTodasOC.Location.X, rdTodasOC.Location.Y - variableajuste)
+
         Else
             chkGrillaInferior.Text = "Aumentar Grilla Inferior"
             chkGrillaInferior.Location = New Point(chkGrillaInferior.Location.X, chkGrillaInferior.Location.Y + variableajuste)
@@ -654,6 +680,10 @@ Public Class frmLiquidaciones
             grdItems.Height = grdItems.Height + variableajuste
             Label19.Location = New Point(Label19.Location.X, Label19.Location.Y + variableajuste)
             lblCantidadFilas.Location = New Point(lblCantidadFilas.Location.X, lblCantidadFilas.Location.Y + variableajuste)
+
+            rdPendientes.Location = New Point(rdPendientes.Location.X, rdPendientes.Location.Y + variableajuste)
+            rdAnuladas.Location = New Point(rdAnuladas.Location.X, rdAnuladas.Location.Y + variableajuste)
+            rdTodasOC.Location = New Point(rdTodasOC.Location.X, rdTodasOC.Location.Y + variableajuste)
 
         End If
 
@@ -1510,12 +1540,33 @@ Public Class frmLiquidaciones
 
 
     Private Sub configurarform()
-        Me.Text = "Liquidación"
+        'Me.Text = "Liquidación"
+
+        ''Me.grd.Location = New Size(GroupBox1.Location.X, GroupBox1.Location.Y + GroupBox1.Size.Height + 7)
+
+        'Me.grd.Location = New Size(14, 65)
+        'Me.grd.BringToFront()
+
+        'If LLAMADO_POR_FORMULARIO Then
+        '    LLAMADO_POR_FORMULARIO = False
+        '    Me.Top = ARRIBA
+        '    Me.Left = IZQUIERDA
+        'Else
+        '    Me.Top = 0
+        '    Me.Left = (Screen.PrimaryScreen.WorkingArea.Width - Me.Width) \ 2
+        'End If
+
+        'Me.WindowState = FormWindowState.Maximized
+
+        ''Me.grd.Size = New Size(Screen.PrimaryScreen.WorkingArea.Width - 27, Me.Size.Height - 7 - GroupBox1.Size.Height - GroupBox1.Location.Y - 65)
+        ''Me.grd.Size = New Size(Screen.PrimaryScreen.WorkingArea.Width - 27, Me.Size.Height - 3 - GroupBox1.Size.Height - GroupBox1.Location.Y - 62) '65)
+        ''Me.grd.Size = New Size(4 / 6 * SuperGrdResultado.Width, 100) '65)
+        'Me.grd.Size = New Size(3.5 / 6 * SuperGrdResultado.Width, 100) '65)
+
+        Me.Text = "Emisión de Ordenes de Compra a Proveedores"
 
         'Me.grd.Location = New Size(GroupBox1.Location.X, GroupBox1.Location.Y + GroupBox1.Size.Height + 7)
-
-        Me.grd.Location = New Size(14, 65)
-        Me.grd.BringToFront()
+        Me.grd.Location = New Size(GroupBox1.Location.X, GroupBox1.Location.Y + GroupBox1.Size.Height + 5)
 
         If LLAMADO_POR_FORMULARIO Then
             LLAMADO_POR_FORMULARIO = False
@@ -1528,10 +1579,8 @@ Public Class frmLiquidaciones
 
         Me.WindowState = FormWindowState.Maximized
 
-        'Me.grd.Size = New Size(Screen.PrimaryScreen.WorkingArea.Width - 27, Me.Size.Height - 7 - GroupBox1.Size.Height - GroupBox1.Location.Y - 65)
-        'Me.grd.Size = New Size(Screen.PrimaryScreen.WorkingArea.Width - 27, Me.Size.Height - 3 - GroupBox1.Size.Height - GroupBox1.Location.Y - 62) '65)
-        'Me.grd.Size = New Size(4 / 6 * SuperGrdResultado.Width, 100) '65)
-        Me.grd.Size = New Size(3.5 / 6 * SuperGrdResultado.Width, 100) '65)
+        'Me.grd.Size = New Size(Screen.PrimaryScreen.WorkingArea.Width - 27, Me.Size.Height - 7 - GroupBox1.Size.Height - GroupBox1.Location.Y - 50)
+        Me.grd.Size = New Size(Screen.PrimaryScreen.WorkingArea.Width - 27, Me.Size.Height - 3 - GroupBox1.Size.Height - GroupBox1.Location.Y - 62) '65)
 
     End Sub
 

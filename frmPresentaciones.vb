@@ -1041,30 +1041,6 @@ Public Class frmPresentaciones
 
     Private Sub configurarform()
 
-        'Me.Text = "Presentación"
-
-        ''Me.grd.Location = New Size(GroupBox1.Location.X, GroupBox1.Location.Y + GroupBox1.Size.Height + 7)
-
-        'Me.grd.Location = New Size(14, 65)
-        'Me.grd.BringToFront()
-
-        'If LLAMADO_POR_FORMULARIO Then
-        '    LLAMADO_POR_FORMULARIO = False
-        '    Me.Top = ARRIBA
-        '    Me.Left = IZQUIERDA
-        'Else
-        '    Me.Top = 0
-        '    Me.Left = (Screen.PrimaryScreen.WorkingArea.Width - Me.Width) \ 2
-        'End If
-
-        'Me.WindowState = FormWindowState.Maximized
-
-        ''Me.grd.Size = New Size(Screen.PrimaryScreen.WorkingArea.Width - 27, Me.Size.Height - 7 - GroupBox1.Size.Height - GroupBox1.Location.Y - 65)
-        ''Me.grd.Size = New Size(Screen.PrimaryScreen.WorkingArea.Width - 27, Me.Size.Height - 3 - GroupBox1.Size.Height - GroupBox1.Location.Y - 62) '65)
-        ''Me.grd.Size = New Size(4 / 6 * SuperGrdResultado.Width, 100) '65)
-        'Me.grd.Size = New Size(3.5 / 6 * grdItems.Width, 100) '65)
-
-
         Me.Text = "Emisión de Ordenes de Compra a Proveedores"
 
         'Me.grd.Location = New Size(GroupBox1.Location.X, GroupBox1.Location.Y + GroupBox1.Size.Height + 7)

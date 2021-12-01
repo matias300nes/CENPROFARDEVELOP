@@ -45,21 +45,6 @@ Partial Class frmPresentaciones
         Me.Bonificacion = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Total = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Eliminar = New System.Windows.Forms.DataGridViewButtonColumn()
-        Me.GbFarmaciaForm = New System.Windows.Forms.GroupBox()
-        Me.txtBonificacion = New TextBoxConFormatoVB.FormattedTextBoxVB()
-        Me.Label13 = New System.Windows.Forms.Label()
-        Me.nudBonificacion = New System.Windows.Forms.NumericUpDown()
-        Me.cmbFarmacias = New System.Windows.Forms.ComboBox()
-        Me.btnAgregarItem = New System.Windows.Forms.Button()
-        Me.Label12 = New System.Windows.Forms.Label()
-        Me.txtImpRecaudado = New TextBoxConFormatoVB.FormattedTextBoxVB()
-        Me.txtImpACargoOs = New TextBoxConFormatoVB.FormattedTextBoxVB()
-        Me.Label6 = New System.Windows.Forms.Label()
-        Me.Label16 = New System.Windows.Forms.Label()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.Label10 = New System.Windows.Forms.Label()
-        Me.txtImpTotalAPagar = New TextBoxConFormatoVB.FormattedTextBoxVB()
-        Me.txtRecetas = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.txtCodigo = New System.Windows.Forms.TextBox()
         Me.chkMaterialesProveedor = New System.Windows.Forms.CheckBox()
@@ -89,6 +74,21 @@ Partial Class frmPresentaciones
         Me.txtID = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.dtpFECHA = New System.Windows.Forms.DateTimePicker()
         Me.Label3 = New System.Windows.Forms.Label()
+        Me.GbFarmaciaForm = New System.Windows.Forms.GroupBox()
+        Me.txtBonificacion = New TextBoxConFormatoVB.FormattedTextBoxVB()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.nudBonificacion = New System.Windows.Forms.NumericUpDown()
+        Me.cmbFarmacias = New System.Windows.Forms.ComboBox()
+        Me.btnAgregarItem = New System.Windows.Forms.Button()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.txtImpRecaudado = New TextBoxConFormatoVB.FormattedTextBoxVB()
+        Me.txtImpACargoOs = New TextBoxConFormatoVB.FormattedTextBoxVB()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.txtImpTotalAPagar = New TextBoxConFormatoVB.FormattedTextBoxVB()
+        Me.txtRecetas = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.ContextMenuStrip2 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.cmbUnidadVenta = New System.Windows.Forms.ToolStripComboBox()
         Me.ContextMenuStrip3 = New System.Windows.Forms.ContextMenuStrip(Me.components)
@@ -144,7 +144,7 @@ Partial Class frmPresentaciones
         Me.GroupBox1.ForeColor = System.Drawing.Color.Blue
         Me.GroupBox1.Location = New System.Drawing.Point(7, 24)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(2134, 511)
+        Me.GroupBox1.Size = New System.Drawing.Size(2151, 511)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         '
@@ -327,226 +327,6 @@ Partial Class frmPresentaciones
         Me.Eliminar.ToolTipText = "Eliminar Registro"
         Me.Eliminar.UseColumnTextForButtonValue = True
         Me.Eliminar.Width = 80
-        '
-        'GbFarmaciaForm
-        '
-        Me.GbFarmaciaForm.Controls.Add(Me.txtBonificacion)
-        Me.GbFarmaciaForm.Controls.Add(Me.Label13)
-        Me.GbFarmaciaForm.Controls.Add(Me.nudBonificacion)
-        Me.GbFarmaciaForm.Controls.Add(Me.cmbFarmacias)
-        Me.GbFarmaciaForm.Controls.Add(Me.btnAgregarItem)
-        Me.GbFarmaciaForm.Controls.Add(Me.Label12)
-        Me.GbFarmaciaForm.Controls.Add(Me.txtImpRecaudado)
-        Me.GbFarmaciaForm.Controls.Add(Me.txtImpACargoOs)
-        Me.GbFarmaciaForm.Controls.Add(Me.Label6)
-        Me.GbFarmaciaForm.Controls.Add(Me.Label16)
-        Me.GbFarmaciaForm.Controls.Add(Me.Label5)
-        Me.GbFarmaciaForm.Controls.Add(Me.Label10)
-        Me.GbFarmaciaForm.Controls.Add(Me.txtImpTotalAPagar)
-        Me.GbFarmaciaForm.Controls.Add(Me.txtRecetas)
-        Me.GbFarmaciaForm.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GbFarmaciaForm.Location = New System.Drawing.Point(15, 105)
-        Me.GbFarmaciaForm.Name = "GbFarmaciaForm"
-        Me.GbFarmaciaForm.Size = New System.Drawing.Size(335, 327)
-        Me.GbFarmaciaForm.TabIndex = 342
-        Me.GbFarmaciaForm.TabStop = False
-        Me.GbFarmaciaForm.Text = "Añadir farmacia"
-        '
-        'txtBonificacion
-        '
-        Me.txtBonificacion.AccessibleName = ""
-        Me.txtBonificacion.BackColor = System.Drawing.Color.White
-        Me.txtBonificacion.Decimals = CType(2, Byte)
-        Me.txtBonificacion.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
-        Me.txtBonificacion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtBonificacion.Format = TextBoxConFormatoVB.tbFormats.UnsignedFloatingPointNumber
-        Me.txtBonificacion.Location = New System.Drawing.Point(132, 165)
-        Me.txtBonificacion.MaxLength = 100
-        Me.txtBonificacion.Name = "txtBonificacion"
-        Me.txtBonificacion.Size = New System.Drawing.Size(175, 22)
-        Me.txtBonificacion.TabIndex = 340
-        Me.txtBonificacion.Text_1 = Nothing
-        Me.txtBonificacion.Text_2 = Nothing
-        Me.txtBonificacion.Text_3 = Nothing
-        Me.txtBonificacion.Text_4 = Nothing
-        Me.txtBonificacion.UserValues = Nothing
-        '
-        'Label13
-        '
-        Me.Label13.AutoSize = True
-        Me.Label13.BackColor = System.Drawing.Color.Transparent
-        Me.Label13.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label13.ForeColor = System.Drawing.Color.Blue
-        Me.Label13.Location = New System.Drawing.Point(38, 35)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(72, 16)
-        Me.Label13.TabIndex = 304
-        Me.Label13.Text = "Farmacias"
-        '
-        'nudBonificacion
-        '
-        Me.nudBonificacion.DecimalPlaces = 2
-        Me.nudBonificacion.Increment = New Decimal(New Integer() {1, 0, 0, 131072})
-        Me.nudBonificacion.Location = New System.Drawing.Point(38, 166)
-        Me.nudBonificacion.Maximum = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.nudBonificacion.Name = "nudBonificacion"
-        Me.nudBonificacion.Size = New System.Drawing.Size(88, 22)
-        Me.nudBonificacion.TabIndex = 9
-        '
-        'cmbFarmacias
-        '
-        Me.cmbFarmacias.AccessibleName = ""
-        Me.cmbFarmacias.DropDownHeight = 450
-        Me.cmbFarmacias.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmbFarmacias.FormattingEnabled = True
-        Me.cmbFarmacias.IntegralHeight = False
-        Me.cmbFarmacias.Location = New System.Drawing.Point(38, 54)
-        Me.cmbFarmacias.Name = "cmbFarmacias"
-        Me.cmbFarmacias.Size = New System.Drawing.Size(195, 24)
-        Me.cmbFarmacias.TabIndex = 5
-        '
-        'btnAgregarItem
-        '
-        Me.btnAgregarItem.Location = New System.Drawing.Point(126, 269)
-        Me.btnAgregarItem.Name = "btnAgregarItem"
-        Me.btnAgregarItem.Size = New System.Drawing.Size(78, 32)
-        Me.btnAgregarItem.TabIndex = 10
-        Me.btnAgregarItem.Text = "Agregar"
-        Me.btnAgregarItem.UseVisualStyleBackColor = True
-        '
-        'Label12
-        '
-        Me.Label12.AutoSize = True
-        Me.Label12.BackColor = System.Drawing.Color.Transparent
-        Me.Label12.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label12.ForeColor = System.Drawing.Color.Blue
-        Me.Label12.Location = New System.Drawing.Point(35, 90)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(69, 16)
-        Me.Label12.TabIndex = 305
-        Me.Label12.Text = "Imp. 100%"
-        '
-        'txtImpRecaudado
-        '
-        Me.txtImpRecaudado.AccessibleName = ""
-        Me.txtImpRecaudado.BackColor = System.Drawing.Color.White
-        Me.txtImpRecaudado.Decimals = CType(2, Byte)
-        Me.txtImpRecaudado.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
-        Me.txtImpRecaudado.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtImpRecaudado.Format = TextBoxConFormatoVB.tbFormats.UnsignedFloatingPointNumber
-        Me.txtImpRecaudado.Location = New System.Drawing.Point(38, 110)
-        Me.txtImpRecaudado.MaxLength = 100
-        Me.txtImpRecaudado.Name = "txtImpRecaudado"
-        Me.txtImpRecaudado.Size = New System.Drawing.Size(140, 22)
-        Me.txtImpRecaudado.TabIndex = 7
-        Me.txtImpRecaudado.Text_1 = Nothing
-        Me.txtImpRecaudado.Text_2 = Nothing
-        Me.txtImpRecaudado.Text_3 = Nothing
-        Me.txtImpRecaudado.Text_4 = Nothing
-        Me.txtImpRecaudado.UserValues = Nothing
-        '
-        'txtImpACargoOs
-        '
-        Me.txtImpACargoOs.AccessibleName = ""
-        Me.txtImpACargoOs.Decimals = CType(2, Byte)
-        Me.txtImpACargoOs.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
-        Me.txtImpACargoOs.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtImpACargoOs.Format = TextBoxConFormatoVB.tbFormats.UnsignedFloatingPointNumber
-        Me.txtImpACargoOs.Location = New System.Drawing.Point(184, 110)
-        Me.txtImpACargoOs.MaxLength = 100
-        Me.txtImpACargoOs.Name = "txtImpACargoOs"
-        Me.txtImpACargoOs.Size = New System.Drawing.Size(123, 22)
-        Me.txtImpACargoOs.TabIndex = 8
-        Me.txtImpACargoOs.Text_1 = Nothing
-        Me.txtImpACargoOs.Text_2 = Nothing
-        Me.txtImpACargoOs.Text_3 = Nothing
-        Me.txtImpACargoOs.Text_4 = Nothing
-        Me.txtImpACargoOs.UserValues = Nothing
-        '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.BackColor = System.Drawing.Color.Transparent
-        Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.ForeColor = System.Drawing.Color.Blue
-        Me.Label6.Location = New System.Drawing.Point(34, 145)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(81, 16)
-        Me.Label6.TabIndex = 339
-        Me.Label6.Text = "Bonificación"
-        '
-        'Label16
-        '
-        Me.Label16.AutoSize = True
-        Me.Label16.BackColor = System.Drawing.Color.Transparent
-        Me.Label16.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label16.ForeColor = System.Drawing.Color.Blue
-        Me.Label16.Location = New System.Drawing.Point(181, 90)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(81, 16)
-        Me.Label16.TabIndex = 330
-        Me.Label16.Text = "Imp. A/c O.S"
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.BackColor = System.Drawing.Color.Transparent
-        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.ForeColor = System.Drawing.Color.Blue
-        Me.Label5.Location = New System.Drawing.Point(35, 217)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(88, 16)
-        Me.Label5.TabIndex = 337
-        Me.Label5.Text = "Imp. A Pagar:"
-        '
-        'Label10
-        '
-        Me.Label10.AutoSize = True
-        Me.Label10.BackColor = System.Drawing.Color.Transparent
-        Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.ForeColor = System.Drawing.Color.Blue
-        Me.Label10.Location = New System.Drawing.Point(246, 35)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(59, 16)
-        Me.Label10.TabIndex = 335
-        Me.Label10.Text = "Recetas"
-        '
-        'txtImpTotalAPagar
-        '
-        Me.txtImpTotalAPagar.AccessibleName = ""
-        Me.txtImpTotalAPagar.Decimals = CType(2, Byte)
-        Me.txtImpTotalAPagar.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
-        Me.txtImpTotalAPagar.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtImpTotalAPagar.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.txtImpTotalAPagar.Location = New System.Drawing.Point(126, 214)
-        Me.txtImpTotalAPagar.MaxLength = 100
-        Me.txtImpTotalAPagar.Name = "txtImpTotalAPagar"
-        Me.txtImpTotalAPagar.ReadOnly = True
-        Me.txtImpTotalAPagar.Size = New System.Drawing.Size(179, 22)
-        Me.txtImpTotalAPagar.TabIndex = 336
-        Me.txtImpTotalAPagar.Text_1 = Nothing
-        Me.txtImpTotalAPagar.Text_2 = Nothing
-        Me.txtImpTotalAPagar.Text_3 = Nothing
-        Me.txtImpTotalAPagar.Text_4 = Nothing
-        Me.txtImpTotalAPagar.UserValues = Nothing
-        '
-        'txtRecetas
-        '
-        Me.txtRecetas.AccessibleName = ""
-        Me.txtRecetas.Decimals = CType(0, Byte)
-        Me.txtRecetas.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
-        Me.txtRecetas.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtRecetas.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
-        Me.txtRecetas.Location = New System.Drawing.Point(246, 54)
-        Me.txtRecetas.MaxLength = 4
-        Me.txtRecetas.Name = "txtRecetas"
-        Me.txtRecetas.Size = New System.Drawing.Size(60, 22)
-        Me.txtRecetas.TabIndex = 6
-        Me.txtRecetas.Text_1 = Nothing
-        Me.txtRecetas.Text_2 = Nothing
-        Me.txtRecetas.Text_3 = Nothing
-        Me.txtRecetas.Text_4 = Nothing
-        Me.txtRecetas.UserValues = Nothing
         '
         'Label2
         '
@@ -916,6 +696,226 @@ Partial Class frmPresentaciones
         Me.Label3.Size = New System.Drawing.Size(46, 16)
         Me.Label3.TabIndex = 52
         Me.Label3.Text = "Fecha"
+        '
+        'GbFarmaciaForm
+        '
+        Me.GbFarmaciaForm.Controls.Add(Me.txtBonificacion)
+        Me.GbFarmaciaForm.Controls.Add(Me.Label13)
+        Me.GbFarmaciaForm.Controls.Add(Me.nudBonificacion)
+        Me.GbFarmaciaForm.Controls.Add(Me.cmbFarmacias)
+        Me.GbFarmaciaForm.Controls.Add(Me.btnAgregarItem)
+        Me.GbFarmaciaForm.Controls.Add(Me.Label12)
+        Me.GbFarmaciaForm.Controls.Add(Me.txtImpRecaudado)
+        Me.GbFarmaciaForm.Controls.Add(Me.txtImpACargoOs)
+        Me.GbFarmaciaForm.Controls.Add(Me.Label6)
+        Me.GbFarmaciaForm.Controls.Add(Me.Label16)
+        Me.GbFarmaciaForm.Controls.Add(Me.Label5)
+        Me.GbFarmaciaForm.Controls.Add(Me.Label10)
+        Me.GbFarmaciaForm.Controls.Add(Me.txtImpTotalAPagar)
+        Me.GbFarmaciaForm.Controls.Add(Me.txtRecetas)
+        Me.GbFarmaciaForm.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GbFarmaciaForm.Location = New System.Drawing.Point(15, 105)
+        Me.GbFarmaciaForm.Name = "GbFarmaciaForm"
+        Me.GbFarmaciaForm.Size = New System.Drawing.Size(335, 327)
+        Me.GbFarmaciaForm.TabIndex = 342
+        Me.GbFarmaciaForm.TabStop = False
+        Me.GbFarmaciaForm.Text = "Añadir farmacia"
+        '
+        'txtBonificacion
+        '
+        Me.txtBonificacion.AccessibleName = ""
+        Me.txtBonificacion.BackColor = System.Drawing.Color.White
+        Me.txtBonificacion.Decimals = CType(2, Byte)
+        Me.txtBonificacion.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
+        Me.txtBonificacion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtBonificacion.Format = TextBoxConFormatoVB.tbFormats.UnsignedFloatingPointNumber
+        Me.txtBonificacion.Location = New System.Drawing.Point(132, 165)
+        Me.txtBonificacion.MaxLength = 100
+        Me.txtBonificacion.Name = "txtBonificacion"
+        Me.txtBonificacion.Size = New System.Drawing.Size(175, 22)
+        Me.txtBonificacion.TabIndex = 340
+        Me.txtBonificacion.Text_1 = Nothing
+        Me.txtBonificacion.Text_2 = Nothing
+        Me.txtBonificacion.Text_3 = Nothing
+        Me.txtBonificacion.Text_4 = Nothing
+        Me.txtBonificacion.UserValues = Nothing
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.BackColor = System.Drawing.Color.Transparent
+        Me.Label13.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label13.ForeColor = System.Drawing.Color.Blue
+        Me.Label13.Location = New System.Drawing.Point(38, 35)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(72, 16)
+        Me.Label13.TabIndex = 304
+        Me.Label13.Text = "Farmacias"
+        '
+        'nudBonificacion
+        '
+        Me.nudBonificacion.DecimalPlaces = 2
+        Me.nudBonificacion.Increment = New Decimal(New Integer() {1, 0, 0, 131072})
+        Me.nudBonificacion.Location = New System.Drawing.Point(38, 166)
+        Me.nudBonificacion.Maximum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.nudBonificacion.Name = "nudBonificacion"
+        Me.nudBonificacion.Size = New System.Drawing.Size(88, 22)
+        Me.nudBonificacion.TabIndex = 9
+        '
+        'cmbFarmacias
+        '
+        Me.cmbFarmacias.AccessibleName = ""
+        Me.cmbFarmacias.DropDownHeight = 450
+        Me.cmbFarmacias.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbFarmacias.FormattingEnabled = True
+        Me.cmbFarmacias.IntegralHeight = False
+        Me.cmbFarmacias.Location = New System.Drawing.Point(38, 54)
+        Me.cmbFarmacias.Name = "cmbFarmacias"
+        Me.cmbFarmacias.Size = New System.Drawing.Size(195, 24)
+        Me.cmbFarmacias.TabIndex = 5
+        '
+        'btnAgregarItem
+        '
+        Me.btnAgregarItem.Location = New System.Drawing.Point(126, 269)
+        Me.btnAgregarItem.Name = "btnAgregarItem"
+        Me.btnAgregarItem.Size = New System.Drawing.Size(78, 32)
+        Me.btnAgregarItem.TabIndex = 10
+        Me.btnAgregarItem.Text = "Agregar"
+        Me.btnAgregarItem.UseVisualStyleBackColor = True
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.BackColor = System.Drawing.Color.Transparent
+        Me.Label12.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label12.ForeColor = System.Drawing.Color.Blue
+        Me.Label12.Location = New System.Drawing.Point(35, 90)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(69, 16)
+        Me.Label12.TabIndex = 305
+        Me.Label12.Text = "Imp. 100%"
+        '
+        'txtImpRecaudado
+        '
+        Me.txtImpRecaudado.AccessibleName = ""
+        Me.txtImpRecaudado.BackColor = System.Drawing.Color.White
+        Me.txtImpRecaudado.Decimals = CType(2, Byte)
+        Me.txtImpRecaudado.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
+        Me.txtImpRecaudado.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtImpRecaudado.Format = TextBoxConFormatoVB.tbFormats.UnsignedFloatingPointNumber
+        Me.txtImpRecaudado.Location = New System.Drawing.Point(38, 110)
+        Me.txtImpRecaudado.MaxLength = 100
+        Me.txtImpRecaudado.Name = "txtImpRecaudado"
+        Me.txtImpRecaudado.Size = New System.Drawing.Size(140, 22)
+        Me.txtImpRecaudado.TabIndex = 7
+        Me.txtImpRecaudado.Text_1 = Nothing
+        Me.txtImpRecaudado.Text_2 = Nothing
+        Me.txtImpRecaudado.Text_3 = Nothing
+        Me.txtImpRecaudado.Text_4 = Nothing
+        Me.txtImpRecaudado.UserValues = Nothing
+        '
+        'txtImpACargoOs
+        '
+        Me.txtImpACargoOs.AccessibleName = ""
+        Me.txtImpACargoOs.Decimals = CType(2, Byte)
+        Me.txtImpACargoOs.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
+        Me.txtImpACargoOs.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtImpACargoOs.Format = TextBoxConFormatoVB.tbFormats.UnsignedFloatingPointNumber
+        Me.txtImpACargoOs.Location = New System.Drawing.Point(184, 110)
+        Me.txtImpACargoOs.MaxLength = 100
+        Me.txtImpACargoOs.Name = "txtImpACargoOs"
+        Me.txtImpACargoOs.Size = New System.Drawing.Size(123, 22)
+        Me.txtImpACargoOs.TabIndex = 8
+        Me.txtImpACargoOs.Text_1 = Nothing
+        Me.txtImpACargoOs.Text_2 = Nothing
+        Me.txtImpACargoOs.Text_3 = Nothing
+        Me.txtImpACargoOs.Text_4 = Nothing
+        Me.txtImpACargoOs.UserValues = Nothing
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.BackColor = System.Drawing.Color.Transparent
+        Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label6.ForeColor = System.Drawing.Color.Blue
+        Me.Label6.Location = New System.Drawing.Point(34, 145)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(81, 16)
+        Me.Label6.TabIndex = 339
+        Me.Label6.Text = "Bonificación"
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.BackColor = System.Drawing.Color.Transparent
+        Me.Label16.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label16.ForeColor = System.Drawing.Color.Blue
+        Me.Label16.Location = New System.Drawing.Point(181, 90)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(81, 16)
+        Me.Label16.TabIndex = 330
+        Me.Label16.Text = "Imp. A/c O.S"
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.BackColor = System.Drawing.Color.Transparent
+        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.ForeColor = System.Drawing.Color.Blue
+        Me.Label5.Location = New System.Drawing.Point(35, 217)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(88, 16)
+        Me.Label5.TabIndex = 337
+        Me.Label5.Text = "Imp. A Pagar:"
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.BackColor = System.Drawing.Color.Transparent
+        Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label10.ForeColor = System.Drawing.Color.Blue
+        Me.Label10.Location = New System.Drawing.Point(246, 35)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(59, 16)
+        Me.Label10.TabIndex = 335
+        Me.Label10.Text = "Recetas"
+        '
+        'txtImpTotalAPagar
+        '
+        Me.txtImpTotalAPagar.AccessibleName = ""
+        Me.txtImpTotalAPagar.Decimals = CType(2, Byte)
+        Me.txtImpTotalAPagar.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
+        Me.txtImpTotalAPagar.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtImpTotalAPagar.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
+        Me.txtImpTotalAPagar.Location = New System.Drawing.Point(126, 214)
+        Me.txtImpTotalAPagar.MaxLength = 100
+        Me.txtImpTotalAPagar.Name = "txtImpTotalAPagar"
+        Me.txtImpTotalAPagar.ReadOnly = True
+        Me.txtImpTotalAPagar.Size = New System.Drawing.Size(179, 22)
+        Me.txtImpTotalAPagar.TabIndex = 336
+        Me.txtImpTotalAPagar.Text_1 = Nothing
+        Me.txtImpTotalAPagar.Text_2 = Nothing
+        Me.txtImpTotalAPagar.Text_3 = Nothing
+        Me.txtImpTotalAPagar.Text_4 = Nothing
+        Me.txtImpTotalAPagar.UserValues = Nothing
+        '
+        'txtRecetas
+        '
+        Me.txtRecetas.AccessibleName = ""
+        Me.txtRecetas.Decimals = CType(0, Byte)
+        Me.txtRecetas.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
+        Me.txtRecetas.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtRecetas.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
+        Me.txtRecetas.Location = New System.Drawing.Point(246, 54)
+        Me.txtRecetas.MaxLength = 4
+        Me.txtRecetas.Name = "txtRecetas"
+        Me.txtRecetas.Size = New System.Drawing.Size(60, 22)
+        Me.txtRecetas.TabIndex = 6
+        Me.txtRecetas.Text_1 = Nothing
+        Me.txtRecetas.Text_2 = Nothing
+        Me.txtRecetas.Text_3 = Nothing
+        Me.txtRecetas.Text_4 = Nothing
+        Me.txtRecetas.UserValues = Nothing
         '
         'ContextMenuStrip2
         '
