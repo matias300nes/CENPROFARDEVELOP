@@ -20,19 +20,19 @@ Partial Class frmLiquidaciones
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim Background8 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
-        Dim Background9 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
-        Dim Background10 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
-        Dim Background11 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
-        Dim Background12 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
-        Dim Background13 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
-        Dim Background14 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim Background1 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
+        Dim Background2 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
+        Dim Background3 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
+        Dim Background4 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
+        Dim Background5 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
+        Dim Background6 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
+        Dim Background7 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.rdTodasOC = New System.Windows.Forms.RadioButton()
         Me.rdPendientes = New System.Windows.Forms.RadioButton()
@@ -95,16 +95,6 @@ Partial Class frmLiquidaciones
         Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
         Me.Label19 = New System.Windows.Forms.Label()
         Me.SuperGrdResultado = New DevComponents.DotNetBar.SuperGrid.SuperGridControl()
-        Me.grdItems = New System.Windows.Forms.DataGridView()
-        Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.IdFarmacia = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Farmacia = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.IdPresentacion = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Recetas = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Recaudado = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.AcargoOS = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Bonificacion = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Total = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.lblcuit = New System.Windows.Forms.Label()
         Me.lblPeriodo = New System.Windows.Forms.Label()
         Me.lblcmbObrasSociales = New System.Windows.Forms.Label()
@@ -118,7 +108,6 @@ Partial Class frmLiquidaciones
         Me.Label16 = New System.Windows.Forms.Label()
         Me.cmbAlmacenes = New System.Windows.Forms.ComboBox()
         Me.lblMontoIva = New System.Windows.Forms.Label()
-        Me.Label7 = New System.Windows.Forms.Label()
         Me.txtidpago = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.txtIdProveedor = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.txtID = New TextBoxConFormatoVB.FormattedTextBoxVB()
@@ -131,6 +120,16 @@ Partial Class frmLiquidaciones
         Me.dtpFECHA = New System.Windows.Forms.DateTimePicker()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.txtIdGasto = New TextBoxConFormatoVB.FormattedTextBoxVB()
+        Me.grdItems = New System.Windows.Forms.DataGridView()
+        Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.IdFarmacia = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Farmacia = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.IdPresentacion = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Recetas = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Recaudado = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.AcargoOS = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Bonificacion = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Total = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.chkGrillaInferior = New System.Windows.Forms.CheckBox()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BorrarElItemToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -139,7 +138,6 @@ Partial Class frmLiquidaciones
         Me.ContextMenuStripIVA = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BorrarElItemToolStripMenuItemIVA = New System.Windows.Forms.ToolStripMenuItem()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
-        Me.grdDebug = New System.Windows.Forms.DataGridView()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.GroupPanelDetalleLiquidacion.SuspendLayout()
@@ -157,17 +155,15 @@ Partial Class frmLiquidaciones
         CType(Me.NumericUpDown5, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdDetalleLiquidacionFiltrada, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdDetalleLiquidacion, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.grdItems, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdImpuestos, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.grdItems, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.ContextMenuStripIVA.SuspendLayout()
-        CType(Me.grdDebug, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'GroupBox1
         '
         Me.GroupBox1.BackColor = System.Drawing.SystemColors.Control
-        Me.GroupBox1.Controls.Add(Me.grdDebug)
         Me.GroupBox1.Controls.Add(Me.rdTodasOC)
         Me.GroupBox1.Controls.Add(Me.rdPendientes)
         Me.GroupBox1.Controls.Add(Me.GroupBox4)
@@ -180,7 +176,6 @@ Partial Class frmLiquidaciones
         Me.GroupBox1.Controls.Add(Me.ButtonX1)
         Me.GroupBox1.Controls.Add(Me.Label19)
         Me.GroupBox1.Controls.Add(Me.SuperGrdResultado)
-        Me.GroupBox1.Controls.Add(Me.grdItems)
         Me.GroupBox1.Controls.Add(Me.lblcuit)
         Me.GroupBox1.Controls.Add(Me.lblPeriodo)
         Me.GroupBox1.Controls.Add(Me.lblcmbObrasSociales)
@@ -194,7 +189,6 @@ Partial Class frmLiquidaciones
         Me.GroupBox1.Controls.Add(Me.Label16)
         Me.GroupBox1.Controls.Add(Me.cmbAlmacenes)
         Me.GroupBox1.Controls.Add(Me.lblMontoIva)
-        Me.GroupBox1.Controls.Add(Me.Label7)
         Me.GroupBox1.Controls.Add(Me.txtidpago)
         Me.GroupBox1.Controls.Add(Me.txtIdProveedor)
         Me.GroupBox1.Controls.Add(Me.txtID)
@@ -207,6 +201,7 @@ Partial Class frmLiquidaciones
         Me.GroupBox1.Controls.Add(Me.dtpFECHA)
         Me.GroupBox1.Controls.Add(Me.Label3)
         Me.GroupBox1.Controls.Add(Me.txtIdGasto)
+        Me.GroupBox1.Controls.Add(Me.grdItems)
         Me.GroupBox1.ForeColor = System.Drawing.Color.Black
         Me.GroupBox1.Location = New System.Drawing.Point(7, 24)
         Me.GroupBox1.Name = "GroupBox1"
@@ -895,16 +890,16 @@ Partial Class frmLiquidaciones
         '
         'SuperGrdResultado
         '
-        Background8.Color1 = System.Drawing.Color.Transparent
-        Background8.Color2 = System.Drawing.Color.Transparent
-        Me.SuperGrdResultado.DefaultVisualStyles.AlternateColumnCellStyles.Default.Background = Background8
-        Background9.Color1 = System.Drawing.Color.Transparent
-        Me.SuperGrdResultado.DefaultVisualStyles.AlternateRowCellStyles.Default.Background = Background9
-        Background10.Color1 = System.Drawing.Color.Transparent
-        Background10.Color2 = System.Drawing.Color.Transparent
-        Me.SuperGrdResultado.DefaultVisualStyles.CellStyles.Default.Background = Background10
-        Background11.Color1 = System.Drawing.Color.Transparent
-        Me.SuperGrdResultado.DefaultVisualStyles.RowStyles.Default.Background = Background11
+        Background1.Color1 = System.Drawing.Color.Transparent
+        Background1.Color2 = System.Drawing.Color.Transparent
+        Me.SuperGrdResultado.DefaultVisualStyles.AlternateColumnCellStyles.Default.Background = Background1
+        Background2.Color1 = System.Drawing.Color.Transparent
+        Me.SuperGrdResultado.DefaultVisualStyles.AlternateRowCellStyles.Default.Background = Background2
+        Background3.Color1 = System.Drawing.Color.Transparent
+        Background3.Color2 = System.Drawing.Color.Transparent
+        Me.SuperGrdResultado.DefaultVisualStyles.CellStyles.Default.Background = Background3
+        Background4.Color1 = System.Drawing.Color.Transparent
+        Me.SuperGrdResultado.DefaultVisualStyles.RowStyles.Default.Background = Background4
         Me.SuperGrdResultado.FilterExprColors.SysFunction = System.Drawing.Color.DarkRed
         Me.SuperGrdResultado.Location = New System.Drawing.Point(7, 184)
         Me.SuperGrdResultado.Margin = New System.Windows.Forms.Padding(2)
@@ -912,105 +907,19 @@ Partial Class frmLiquidaciones
         '
         '
         '
-        Background12.Color1 = System.Drawing.Color.Transparent
-        Me.SuperGrdResultado.PrimaryGrid.DefaultVisualStyles.AlternateColumnCellStyles.Default.Background = Background12
+        Background5.Color1 = System.Drawing.Color.Transparent
+        Me.SuperGrdResultado.PrimaryGrid.DefaultVisualStyles.AlternateColumnCellStyles.Default.Background = Background5
         Me.SuperGrdResultado.PrimaryGrid.DefaultVisualStyles.AlternateRowCellStyles.Default.AllowWrap = DevComponents.DotNetBar.SuperGrid.Style.Tbool.[True]
-        Background13.BackFillType = DevComponents.DotNetBar.SuperGrid.Style.BackFillType.VerticalCenter
-        Background13.Color1 = System.Drawing.Color.White
-        Background13.Color2 = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.SuperGrdResultado.PrimaryGrid.DefaultVisualStyles.AlternateRowCellStyles.Default.Background = Background13
-        Background14.Color1 = System.Drawing.Color.Transparent
-        Me.SuperGrdResultado.PrimaryGrid.DefaultVisualStyles.RowStyles.Default.Background = Background14
+        Background6.BackFillType = DevComponents.DotNetBar.SuperGrid.Style.BackFillType.VerticalCenter
+        Background6.Color1 = System.Drawing.Color.White
+        Background6.Color2 = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.SuperGrdResultado.PrimaryGrid.DefaultVisualStyles.AlternateRowCellStyles.Default.Background = Background6
+        Background7.Color1 = System.Drawing.Color.Transparent
+        Me.SuperGrdResultado.PrimaryGrid.DefaultVisualStyles.RowStyles.Default.Background = Background7
         Me.SuperGrdResultado.PrimaryGrid.SelectionGranularity = DevComponents.DotNetBar.SuperGrid.SelectionGranularity.Row
         Me.SuperGrdResultado.Size = New System.Drawing.Size(1058, 329)
         Me.SuperGrdResultado.TabIndex = 381
         Me.SuperGrdResultado.Text = "SuperGridControl1"
-        '
-        'grdItems
-        '
-        Me.grdItems.AllowUserToAddRows = False
-        Me.grdItems.AllowUserToDeleteRows = False
-        DataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
-        DataGridViewCellStyle7.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black
-        Me.grdItems.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle7
-        Me.grdItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.grdItems.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.IdFarmacia, Me.Farmacia, Me.IdPresentacion, Me.Recetas, Me.Recaudado, Me.AcargoOS, Me.Bonificacion, Me.Total})
-        Me.grdItems.Location = New System.Drawing.Point(795, 227)
-        Me.grdItems.Name = "grdItems"
-        Me.grdItems.RowHeadersWidth = 51
-        DataGridViewCellStyle9.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grdItems.RowsDefaultCellStyle = DataGridViewCellStyle9
-        Me.grdItems.Size = New System.Drawing.Size(206, 92)
-        Me.grdItems.TabIndex = 351
-        Me.grdItems.Visible = False
-        '
-        'DataGridViewTextBoxColumn1
-        '
-        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DataGridViewTextBoxColumn1.DefaultCellStyle = DataGridViewCellStyle8
-        Me.DataGridViewTextBoxColumn1.HeaderText = "Id"
-        Me.DataGridViewTextBoxColumn1.MinimumWidth = 6
-        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
-        Me.DataGridViewTextBoxColumn1.ReadOnly = True
-        Me.DataGridViewTextBoxColumn1.Visible = False
-        Me.DataGridViewTextBoxColumn1.Width = 125
-        '
-        'IdFarmacia
-        '
-        Me.IdFarmacia.HeaderText = "IdFarmacia"
-        Me.IdFarmacia.MinimumWidth = 6
-        Me.IdFarmacia.Name = "IdFarmacia"
-        Me.IdFarmacia.Width = 125
-        '
-        'Farmacia
-        '
-        Me.Farmacia.HeaderText = "Farmacia"
-        Me.Farmacia.MinimumWidth = 6
-        Me.Farmacia.Name = "Farmacia"
-        Me.Farmacia.Width = 125
-        '
-        'IdPresentacion
-        '
-        Me.IdPresentacion.HeaderText = "IdPresentacion"
-        Me.IdPresentacion.MinimumWidth = 6
-        Me.IdPresentacion.Name = "IdPresentacion"
-        Me.IdPresentacion.Width = 125
-        '
-        'Recetas
-        '
-        Me.Recetas.HeaderText = "Recetas"
-        Me.Recetas.MinimumWidth = 6
-        Me.Recetas.Name = "Recetas"
-        Me.Recetas.Width = 125
-        '
-        'Recaudado
-        '
-        Me.Recaudado.HeaderText = "Recaudado"
-        Me.Recaudado.MinimumWidth = 6
-        Me.Recaudado.Name = "Recaudado"
-        Me.Recaudado.Width = 125
-        '
-        'AcargoOS
-        '
-        Me.AcargoOS.HeaderText = "AcargoOS"
-        Me.AcargoOS.MinimumWidth = 6
-        Me.AcargoOS.Name = "AcargoOS"
-        Me.AcargoOS.Width = 125
-        '
-        'Bonificacion
-        '
-        Me.Bonificacion.HeaderText = "Bonificacion"
-        Me.Bonificacion.MinimumWidth = 6
-        Me.Bonificacion.Name = "Bonificacion"
-        Me.Bonificacion.Width = 125
-        '
-        'Total
-        '
-        Me.Total.HeaderText = "Total"
-        Me.Total.MinimumWidth = 6
-        Me.Total.Name = "Total"
-        Me.Total.Width = 125
         '
         'lblcuit
         '
@@ -1136,7 +1045,7 @@ Partial Class frmLiquidaciones
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(918, 197)
+        Me.Label4.Location = New System.Drawing.Point(799, 241)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(106, 13)
         Me.Label4.TabIndex = 21
@@ -1146,33 +1055,33 @@ Partial Class frmLiquidaciones
         '
         Me.grdImpuestos.AllowUserToAddRows = False
         Me.grdImpuestos.AllowUserToDeleteRows = False
-        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.grdImpuestos.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle10
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.grdImpuestos.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.grdImpuestos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle11.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle11.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.grdImpuestos.DefaultCellStyle = DataGridViewCellStyle11
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.grdImpuestos.DefaultCellStyle = DataGridViewCellStyle2
         Me.grdImpuestos.Location = New System.Drawing.Point(657, 323)
         Me.grdImpuestos.Name = "grdImpuestos"
-        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle12.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.grdImpuestos.RowHeadersDefaultCellStyle = DataGridViewCellStyle12
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.grdImpuestos.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.grdImpuestos.RowHeadersWidth = 51
         Me.grdImpuestos.Size = New System.Drawing.Size(364, 133)
         Me.grdImpuestos.TabIndex = 25
@@ -1180,7 +1089,7 @@ Partial Class frmLiquidaciones
         'Label16
         '
         Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(983, 218)
+        Me.Label16.Location = New System.Drawing.Point(954, 229)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(53, 13)
         Me.Label16.TabIndex = 274
@@ -1188,7 +1097,7 @@ Partial Class frmLiquidaciones
         '
         'cmbAlmacenes
         '
-        Me.cmbAlmacenes.AccessibleName = "*Depósito"
+        Me.cmbAlmacenes.AccessibleName = ""
         Me.cmbAlmacenes.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.cmbAlmacenes.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbAlmacenes.DropDownHeight = 500
@@ -1196,7 +1105,7 @@ Partial Class frmLiquidaciones
         Me.cmbAlmacenes.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbAlmacenes.FormattingEnabled = True
         Me.cmbAlmacenes.IntegralHeight = False
-        Me.cmbAlmacenes.Location = New System.Drawing.Point(930, 196)
+        Me.cmbAlmacenes.Location = New System.Drawing.Point(859, 234)
         Me.cmbAlmacenes.Name = "cmbAlmacenes"
         Me.cmbAlmacenes.Size = New System.Drawing.Size(91, 21)
         Me.cmbAlmacenes.TabIndex = 2
@@ -1212,15 +1121,6 @@ Partial Class frmLiquidaciones
         Me.lblMontoIva.TabIndex = 17
         Me.lblMontoIva.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.lblMontoIva.Visible = False
-        '
-        'Label7
-        '
-        Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(1012, 210)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(31, 13)
-        Me.Label7.TabIndex = 243
-        Me.Label7.Text = "Total"
         '
         'txtidpago
         '
@@ -1262,12 +1162,13 @@ Partial Class frmLiquidaciones
         '
         'txtID
         '
+        Me.txtID.AccessibleName = "ID"
         Me.txtID.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.txtID.Decimals = CType(2, Byte)
         Me.txtID.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtID.Enabled = False
         Me.txtID.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
-        Me.txtID.Location = New System.Drawing.Point(1081, 27)
+        Me.txtID.Location = New System.Drawing.Point(795, 132)
         Me.txtID.MaxLength = 8
         Me.txtID.Name = "txtID"
         Me.txtID.Size = New System.Drawing.Size(69, 20)
@@ -1355,7 +1256,7 @@ Partial Class frmLiquidaciones
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(765, 224)
+        Me.Label2.Location = New System.Drawing.Point(765, 281)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(79, 13)
         Me.Label2.TabIndex = 51
@@ -1399,6 +1300,92 @@ Partial Class frmLiquidaciones
         Me.txtIdGasto.Text_4 = Nothing
         Me.txtIdGasto.UserValues = Nothing
         Me.txtIdGasto.Visible = False
+        '
+        'grdItems
+        '
+        Me.grdItems.AllowUserToAddRows = False
+        Me.grdItems.AllowUserToDeleteRows = False
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black
+        Me.grdItems.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
+        Me.grdItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.grdItems.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.IdFarmacia, Me.Farmacia, Me.IdPresentacion, Me.Recetas, Me.Recaudado, Me.AcargoOS, Me.Bonificacion, Me.Total})
+        Me.grdItems.Location = New System.Drawing.Point(713, 218)
+        Me.grdItems.Name = "grdItems"
+        Me.grdItems.RowHeadersWidth = 51
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grdItems.RowsDefaultCellStyle = DataGridViewCellStyle6
+        Me.grdItems.Size = New System.Drawing.Size(206, 143)
+        Me.grdItems.TabIndex = 351
+        Me.grdItems.Visible = False
+        '
+        'DataGridViewTextBoxColumn1
+        '
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DataGridViewTextBoxColumn1.DefaultCellStyle = DataGridViewCellStyle5
+        Me.DataGridViewTextBoxColumn1.HeaderText = "Id"
+        Me.DataGridViewTextBoxColumn1.MinimumWidth = 6
+        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
+        Me.DataGridViewTextBoxColumn1.ReadOnly = True
+        Me.DataGridViewTextBoxColumn1.Visible = False
+        Me.DataGridViewTextBoxColumn1.Width = 125
+        '
+        'IdFarmacia
+        '
+        Me.IdFarmacia.HeaderText = "IdFarmacia"
+        Me.IdFarmacia.MinimumWidth = 6
+        Me.IdFarmacia.Name = "IdFarmacia"
+        Me.IdFarmacia.Width = 125
+        '
+        'Farmacia
+        '
+        Me.Farmacia.HeaderText = "Farmacia"
+        Me.Farmacia.MinimumWidth = 6
+        Me.Farmacia.Name = "Farmacia"
+        Me.Farmacia.Width = 125
+        '
+        'IdPresentacion
+        '
+        Me.IdPresentacion.HeaderText = "IdPresentacion"
+        Me.IdPresentacion.MinimumWidth = 6
+        Me.IdPresentacion.Name = "IdPresentacion"
+        Me.IdPresentacion.Width = 125
+        '
+        'Recetas
+        '
+        Me.Recetas.HeaderText = "Recetas"
+        Me.Recetas.MinimumWidth = 6
+        Me.Recetas.Name = "Recetas"
+        Me.Recetas.Width = 125
+        '
+        'Recaudado
+        '
+        Me.Recaudado.HeaderText = "Recaudado"
+        Me.Recaudado.MinimumWidth = 6
+        Me.Recaudado.Name = "Recaudado"
+        Me.Recaudado.Width = 125
+        '
+        'AcargoOS
+        '
+        Me.AcargoOS.HeaderText = "AcargoOS"
+        Me.AcargoOS.MinimumWidth = 6
+        Me.AcargoOS.Name = "AcargoOS"
+        Me.AcargoOS.Width = 125
+        '
+        'Bonificacion
+        '
+        Me.Bonificacion.HeaderText = "Bonificacion"
+        Me.Bonificacion.MinimumWidth = 6
+        Me.Bonificacion.Name = "Bonificacion"
+        Me.Bonificacion.Width = 125
+        '
+        'Total
+        '
+        Me.Total.HeaderText = "Total"
+        Me.Total.MinimumWidth = 6
+        Me.Total.Name = "Total"
+        Me.Total.Width = 125
         '
         'chkGrillaInferior
         '
@@ -1454,14 +1441,6 @@ Partial Class frmLiquidaciones
         Me.BorrarElItemToolStripMenuItemIVA.Size = New System.Drawing.Size(145, 22)
         Me.BorrarElItemToolStripMenuItemIVA.Text = "Borrar el Item"
         '
-        'grdDebug
-        '
-        Me.grdDebug.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.grdDebug.Location = New System.Drawing.Point(1001, 16)
-        Me.grdDebug.Name = "grdDebug"
-        Me.grdDebug.Size = New System.Drawing.Size(333, 127)
-        Me.grdDebug.TabIndex = 387
-        '
         'frmLiquidaciones
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1496,11 +1475,10 @@ Partial Class frmLiquidaciones
         CType(Me.NumericUpDown5, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdDetalleLiquidacionFiltrada, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdDetalleLiquidacion, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.grdItems, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdImpuestos, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.grdItems, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ContextMenuStrip1.ResumeLayout(False)
         Me.ContextMenuStripIVA.ResumeLayout(False)
-        CType(Me.grdDebug, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1523,7 +1501,6 @@ Partial Class frmLiquidaciones
     Friend WithEvents txtIdGasto As TextBoxConFormatoVB.FormattedTextBoxVB
     Friend WithEvents txtidpago As TextBoxConFormatoVB.FormattedTextBoxVB
     Friend WithEvents lblMontoIva As System.Windows.Forms.Label
-    Friend WithEvents Label7 As System.Windows.Forms.Label
     Friend WithEvents chkAnuladas As System.Windows.Forms.CheckBox
     Friend WithEvents ContextMenuStripIVA As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents BorrarElItemToolStripMenuItemIVA As System.Windows.Forms.ToolStripMenuItem
@@ -1611,5 +1588,4 @@ Partial Class frmLiquidaciones
     Friend WithEvents rdTodasOC As RadioButton
     Friend WithEvents rdPendientes As RadioButton
     Friend WithEvents rdAnuladas As RadioButton
-    Friend WithEvents grdDebug As DataGridView
 End Class

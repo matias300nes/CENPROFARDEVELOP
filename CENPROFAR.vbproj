@@ -145,6 +145,12 @@
     <Compile Include="frmClientes2.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmNuevaLiquidacion.Designer.vb">
+      <DependentUpon>frmNuevaLiquidacion.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmNuevaLiquidacion.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmObraSocial.designer.vb">
       <DependentUpon>frmObraSocial.vb</DependentUpon>
     </Compile>
@@ -797,6 +803,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmClientes2.resx">
       <DependentUpon>frmClientes2.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmNuevaLiquidacion.resx">
+      <DependentUpon>frmNuevaLiquidacion.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmObraSocial.resx">
       <DependentUpon>frmObraSocial.vb</DependentUpon>

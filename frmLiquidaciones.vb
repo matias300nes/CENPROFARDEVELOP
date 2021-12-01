@@ -181,7 +181,6 @@ Public Class frmLiquidaciones
         Label16.Visible = False
         GroupPanelDetalleLiquidacion.Visible = False
 
-        Label7.Visible = False
         'lblTotal.Visible = False
         cmbObraSocial.Visible = True
         lblcmbObrasSociales.Visible = True
@@ -762,7 +761,7 @@ Public Class frmLiquidaciones
     Dim gl_dataset As DataSet
     Private Sub Presentacion_request()
         Dim connection As SqlClient.SqlConnection = Nothing
-        Dim SQL As String
+        Dim sql_items As String
         Dim i As Integer
         Dim dtDetalle As New DataTable
         Dim dtConcepto As New DataTable()
@@ -777,16 +776,21 @@ Public Class frmLiquidaciones
         End Try
 
         Try
-            If txtID.Text = "" Then
-                SQL = "exec spPresentaciones_Det_Select_By_IDPresentacion @IDPresentacion = '1'"
-            Else
-                SQL = "exec spPresentaciones_Det_Select_By_IDPresentacion @IDPresentacion = " & txtID.Text & ""
-            End If
+            ''Detalle de liquidacion
+            sql_items = "exec spLiquidaciones_Det_Select_By_IDPresentacion @IDPresentacion = " & txtID.Text & ""
 
-            Dim cmd As New SqlCommand(SQL, connection)
+            Dim cmd As New SqlCommand(sql_items, connection)
             Dim da As New SqlDataAdapter(cmd)
 
             da.Fill(dtDetalle)
+
+            ''Conceptos de liquidacion
+            sql_items = "exec spConceptos_Select_By_IDPresentacion @IDPresentacion = " & txtID.Text & ""
+
+            Dim cmd_conceptos As New SqlCommand(sql_items, connection)
+            Dim da_conceptos As New SqlDataAdapter(cmd_conceptos)
+
+            da_conceptos.Fill(dtConcepto)
 
         Catch ex As Exception
             MsgBox(ex.Message)
@@ -796,24 +800,17 @@ Public Class frmLiquidaciones
             End If
         End Try
 
-        'dtDetalle.PrimaryKey = {
-        '        dtDetalle.Columns("CodigoFarmacia")
-        '}
+
         dtDetalle.PrimaryKey = {
                 dtDetalle.Columns("ID")
         }
         gl_dataset.Tables.Add(dtDetalle)
 
-        'dtConcepto.PrimaryKey = {
-        '        dtConcepto.Columns.Add("codigo", GetType(String)),
-        '        dtConcepto.Columns.Add("detalle", GetType(String))
-        '}
-
-        dtConcepto.Columns.Add("ID", GetType(Long))
-        dtConcepto.Columns.Add("IdDetalle", GetType(Long))
-        dtConcepto.Columns.Add("IdFarmacia", GetType(String))
-        dtConcepto.Columns.Add("detalle", GetType(String))
-        dtConcepto.Columns.Add("valor", GetType(Decimal))
+        'dtConcepto.Columns.Add("ID", GetType(Long))
+        'dtConcepto.Columns.Add("IdDetalle", GetType(Long))
+        'dtConcepto.Columns.Add("IdFarmacia", GetType(String))
+        'dtConcepto.Columns.Add("detalle", GetType(String))
+        'dtConcepto.Columns.Add("valor", GetType(Decimal))
         dtConcepto.Columns.Add("edit")
         dtConcepto.Columns.Add("estado", GetType(String))
 
@@ -835,8 +832,6 @@ Public Class frmLiquidaciones
         End If
 
         gl_dataset.Tables.Add(dtConcepto)
-
-        grdDebug.DataSource = gl_dataset.Tables(1)
 
         gl_dataset.Relations.Add("MasterGridDetail",
                       gl_dataset.Tables(0).Columns("ID"),
@@ -1544,40 +1539,11 @@ Public Class frmLiquidaciones
 
         txtID.Tag = "0"
         'txtCODIGO.Tag = "1"
-        cmbObraSocial.Tag = "2"
-        lblcuit.Tag = "3"
-        dtpFECHA.Tag = "4"
-        lblPeriodo.Tag = "5"
-        lblTotal.Tag = "6"
-
-        'txtIdProveedor.Tag = "5"
-        'cmbProveedor.Tag = "6"
-        'txtProveedor.Tag = "6"
-        'txtOC.Tag = "7"
-        'cmbOrdenDeCompra.Tag = "7"
-        'txtNroRemitoCompleto.Tag = "8"
-        'txtNroRemitoControl.Tag = "8"
-        'cmbTipoComprobante.Tag = "11"
-        'txtIdComprobante.Tag = "10"
-        'txtNroFacturaCompleto.Tag = "12"
-        'txtNroFacturaCompletoControl.Tag = "12"
-        'txtSubtotalExento.Tag = "13"
-        'txtSubtotal.Tag = "14"
-        'lblMontoIva.Tag = "15"
-        'lblImpuestos.Tag = "16"
-        'lblTotal.Tag = "17"
-        'txtNota.Tag = "18"
-        'chkEliminado.Tag = "19"
-        'chkFacturaCancelada.Tag = "20"
-        'txtIdGasto.Tag = "23"
-        'txtPtoVta.Tag = "24"
-        'txtNroFactura.Tag = "25"
-        'txtValorCambio.Tag = "26"
-        'txtTipoMoneda.Tag = "27"
-        'txtPtoVtaRemito.Tag = "28"
-        'txtNroCompRemito.Tag = "29"
-        'txtIdMoneda.Tag = "30"
-
+        'cmbObraSocial.Tag = "2"
+        'lblcuit.Tag = "3"
+        'dtpFECHA.Tag = "4"
+        'lblPeriodo.Tag = "5"
+        'lblTotal.Tag = "6"
     End Sub
 
     Private Sub Verificar_Datos()
@@ -2375,81 +2341,168 @@ Public Class frmLiquidaciones
             MessageBox.Show("No se pudo abrir una transaccion", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Function
         End If
+
+
+        Try
+            For Each detalle As DataRow In gl_dataset.Tables(0).Rows
+                ''ID
+                Dim param_id As New SqlClient.SqlParameter
+                param_id.ParameterName = "@id"
+                param_id.SqlDbType = SqlDbType.BigInt
+                param_id.Value = DBNull.Value
+                param_id.Direction = ParameterDirection.InputOutput
+
+                ''IdPresentacion_det
+                Dim param_idPresentacion_det As New SqlClient.SqlParameter
+                param_idPresentacion_det.ParameterName = "@idPresentacion_det"
+                param_IdPresentacion_det.SqlDbType = SqlDbType.BigInt
+                param_IdPresentacion_det.Value = detalle("id")
+                param_idPresentacion_det.Direction = ParameterDirection.Input
+
+                ''recetasA
+                Dim param_recetasA As New SqlClient.SqlParameter
+                param_recetasA.ParameterName = "@recetasA"
+                param_recetasA.SqlDbType = SqlDbType.Decimal
+                param_recetasA.Value = detalle("Recetas A")
+                param_recetasA.Direction = ParameterDirection.Input
+
+                ''recaudadoA
+                Dim param_recaudadoA As New SqlClient.SqlParameter
+                param_recaudadoA.ParameterName = "@recaudadoA"
+                param_recaudadoA.SqlDbType = SqlDbType.Decimal
+                param_recaudadoA.Value = detalle("Recaudado A")
+                param_recaudadoA.Direction = ParameterDirection.Input
+
+                ''aCargoOsA
+                Dim param_aCargoOsA As New SqlClient.SqlParameter
+                param_aCargoOsA.ParameterName = "@aCargoOsA"
+                param_aCargoOsA.SqlDbType = SqlDbType.Decimal
+                param_aCargoOsA.Value = detalle("A Cargo OS A")
+                param_aCargoOsA.Direction = ParameterDirection.Input
+
+                ''total
+                Dim param_total As New SqlClient.SqlParameter
+                param_total.ParameterName = "@total"
+                param_total.SqlDbType = SqlDbType.Decimal
+                param_total.Value = detalle("subtotal")
+                param_total.Direction = ParameterDirection.Input
+
+                ''user
+                Dim param_user As New SqlClient.SqlParameter
+                param_user.ParameterName = "@user"
+                param_user.SqlDbType = SqlDbType.Int
+                param_user.Value = UserID
+                param_user.Direction = ParameterDirection.Input
+
+                ''res
+                Dim param_res As New SqlClient.SqlParameter
+                param_res.ParameterName = "@res"
+                param_res.SqlDbType = SqlDbType.Int
+                param_res.Value = DBNull.Value
+                param_res.Direction = ParameterDirection.InputOutput
+
+
+                SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spLiquidaciones_Insert_Update",
+                                              param_id, param_idPresentacion_det, param_recetasA, param_recaudadoA,
+                                              param_aCargoOsA, param_total, param_user, param_res)
+
+                res = param_res.Value
+
+                If (res <= 0) Then
+                    Exit For
+                End If
+
+            Next
+
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
         GuardarLiquidacion = res
     End Function
 
     Private Function GuardarConceptos()
         Dim res As Integer = 0
 
-        For Each concepto As DataRow In gl_dataset.Tables(1).Rows
-            ''ID
-            Dim param_id As New SqlClient.SqlParameter
-            param_id.ParameterName = "@id"
-            param_id.SqlDbType = SqlDbType.BigInt
-            param_id.Value = concepto("id")
-            param_id.Direction = ParameterDirection.InputOutput
+        Try
+            For Each concepto As DataRow In gl_dataset.Tables(1).Rows
+                ''ID
+                Dim param_id As New SqlClient.SqlParameter
+                param_id.ParameterName = "@id"
+                param_id.SqlDbType = SqlDbType.BigInt
+                param_id.Value = concepto("id")
+                param_id.Direction = ParameterDirection.InputOutput
 
-            ''IdPresentacion
-            Dim param_idPresentacion As New SqlClient.SqlParameter
-            param_idPresentacion.ParameterName = "@idPresentacion"
-            param_idPresentacion.SqlDbType = SqlDbType.BigInt
-            param_idPresentacion.Value = txtID.Text
-            param_idPresentacion.Direction = ParameterDirection.Input
+                ''IdPresentacion
+                Dim param_idPresentacion As New SqlClient.SqlParameter
+                param_idPresentacion.ParameterName = "@idPresentacion"
+                param_idPresentacion.SqlDbType = SqlDbType.BigInt
+                param_idPresentacion.Value = txtID.Text
+                param_idPresentacion.Direction = ParameterDirection.Input
 
-            ''IdDetalle
-            Dim param_idDetalle As New SqlClient.SqlParameter
-            param_idDetalle.ParameterName = "@idDetalle"
-            param_idDetalle.SqlDbType = SqlDbType.BigInt
-            param_idDetalle.Value = concepto("IdDetalle")
-            param_idDetalle.Direction = ParameterDirection.Input
+                ''IdDetalle
+                Dim param_idDetalle As New SqlClient.SqlParameter
+                param_idDetalle.ParameterName = "@idDetalle"
+                param_idDetalle.SqlDbType = SqlDbType.BigInt
+                param_idDetalle.Value = concepto("IdDetalle")
+                param_idDetalle.Direction = ParameterDirection.Input
 
-            ''IdFarmacia
-            Dim param_idFarmacia As New SqlClient.SqlParameter
-            param_idFarmacia.ParameterName = "@idFarmacia"
-            param_idFarmacia.SqlDbType = SqlDbType.BigInt
-            param_idFarmacia.Value = concepto("IdFarmacia")
-            param_idFarmacia.Direction = ParameterDirection.Input
+                ''IdFarmacia
+                Dim param_idFarmacia As New SqlClient.SqlParameter
+                param_idFarmacia.ParameterName = "@idFarmacia"
+                param_idFarmacia.SqlDbType = SqlDbType.BigInt
+                param_idFarmacia.Value = concepto("IdFarmacia")
+                param_idFarmacia.Direction = ParameterDirection.Input
 
-            ''detalle
-            Dim param_detalle As New SqlClient.SqlParameter
-            param_detalle.ParameterName = "@detalle"
-            param_detalle.SqlDbType = SqlDbType.VarChar
-            param_detalle.Size = 100
-            param_detalle.Value = concepto("detalle")
-            param_detalle.Direction = ParameterDirection.Input
+                ''detalle
+                Dim param_detalle As New SqlClient.SqlParameter
+                param_detalle.ParameterName = "@detalle"
+                param_detalle.SqlDbType = SqlDbType.VarChar
+                param_detalle.Size = 100
+                param_detalle.Value = concepto("detalle")
+                param_detalle.Direction = ParameterDirection.Input
 
-            ''valor
-            Dim param_valor As New SqlClient.SqlParameter
-            param_valor.ParameterName = "@valor"
-            param_valor.SqlDbType = SqlDbType.Decimal
-            param_valor.Value = concepto("valor")
-            param_valor.Direction = ParameterDirection.Input
+                ''valor
+                Dim param_valor As New SqlClient.SqlParameter
+                param_valor.ParameterName = "@valor"
+                param_valor.SqlDbType = SqlDbType.Decimal
+                param_valor.Value = concepto("valor")
+                param_valor.Direction = ParameterDirection.Input
 
-            ''estado
-            Dim param_estado As New SqlClient.SqlParameter
-            param_estado.ParameterName = "@estado"
-            param_estado.SqlDbType = SqlDbType.VarChar
-            param_estado.Size = 50
-            param_estado.Value = concepto("estado")
-            param_estado.Direction = ParameterDirection.Input
+                ''estado
+                Dim param_estado As New SqlClient.SqlParameter
+                param_estado.ParameterName = "@estado"
+                param_estado.SqlDbType = SqlDbType.VarChar
+                param_estado.Size = 50
+                param_estado.Value = concepto("estado")
+                param_estado.Direction = ParameterDirection.Input
 
-            ''user
-            Dim param_user As New SqlClient.SqlParameter
-            param_user.ParameterName = "@user"
-            param_user.SqlDbType = SqlDbType.Int
-            param_user.Value = UserID
-            param_user.Direction = ParameterDirection.Input
+                ''user
+                Dim param_user As New SqlClient.SqlParameter
+                param_user.ParameterName = "@user"
+                param_user.SqlDbType = SqlDbType.Int
+                param_user.Value = UserID
+                param_user.Direction = ParameterDirection.Input
 
-            ''res
-            Dim param_res As New SqlClient.SqlParameter
-            param_res.ParameterName = "@res"
-            param_res.SqlDbType = SqlDbType.Int
-            param_res.Value = DBNull.Value
-            param_res.Direction = ParameterDirection.InputOutput
+                ''res
+                Dim param_res As New SqlClient.SqlParameter
+                param_res.ParameterName = "@res"
+                param_res.SqlDbType = SqlDbType.Int
+                param_res.Value = DBNull.Value
+                param_res.Direction = ParameterDirection.InputOutput
 
-            Try
 
-                SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spConceptos_Insert_Update",
+                SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spConceptos_Insert_Delete",
                                               param_id, param_idPresentacion, param_idDetalle, param_idFarmacia,
                                               param_detalle, param_valor, param_estado, param_user, param_res)
 
@@ -2459,10 +2512,21 @@ Public Class frmLiquidaciones
                     Exit For
                 End If
 
-            Catch ex As Exception
-                Throw ex
-            End Try
-        Next
+            Next
+
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
 
         GuardarConceptos = res
     End Function
@@ -4047,33 +4111,37 @@ Public Class frmLiquidaciones
 
     Private Sub btnNuevo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNuevo.Click
 
-        band = 0
+        'band = 0
 
-        bolModo = True
-        Util.MsgStatus(Status1, "Haga click en [Guardar] despues de completar los datos.")
-        PrepararBotones()
+        'bolModo = True
+        'Util.MsgStatus(Status1, "Haga click en [Guardar] despues de completar los datos.")
+        'PrepararBotones()
 
-        chkEliminado.Checked = False
+        'chkEliminado.Checked = False
 
-        grdItems.Enabled = True
-        dtpFECHA.Enabled = True
-        txtNota.Enabled = True
+        'grdItems.Enabled = True
+        'dtpFECHA.Enabled = True
+        'txtNota.Enabled = True
 
-        Util.LimpiarTextBox(Me.Controls)
-        PrepararGridItems()
+        'Util.LimpiarTextBox(Me.Controls)
+        'PrepararGridItems()
 
 
 
-        lblMontoIva.Text = "0"
-        'lblTotal.Text = "0"
+        'lblMontoIva.Text = "0"
+        ''lblTotal.Text = "0"
 
-        LlenarGrid_Impuestos()
+        'LlenarGrid_Impuestos()
 
-        cmbAlmacenes.SelectedIndex = 0
-        dtpFECHA.Value = Date.Today
-        dtpFECHA.Focus()
+        'cmbAlmacenes.SelectedIndex = 0
+        'dtpFECHA.Value = Date.Today
+        'dtpFECHA.Focus()
 
-        band = 1
+        'band = 1
+
+        Dim NuevoLiquidacion As New frmNuevaLiquidacion
+        frmNuevaLiquidacion.ShowDialog()
+
 
     End Sub
 
@@ -4621,7 +4689,7 @@ Public Class frmLiquidaciones
             Dim i As Integer
             Dim total As Decimal = 0
             Dim pendiente As String = ""
-            Dim result As DialogResult = MessageBox.Show($"Desea eliminar {panel.GetCell(row_index, 2).Value}?",
+            Dim result As DialogResult = MessageBox.Show($"Desea eliminar {panel.GetCell(row_index, 3).Value}?",
                               "Eliminar",
                               MessageBoxButtons.YesNo)
 
@@ -4656,7 +4724,6 @@ Public Class frmLiquidaciones
         SuperGrdResultado.PrimaryGrid.Columns("IdFarmacia").Visible = False
         SuperGrdResultado.PrimaryGrid.Columns("IdPresentacion").Visible = False
         SuperGrdResultado.PrimaryGrid.Columns("Bonificación").Visible = False
-        SuperGrdResultado.PrimaryGrid.Columns("Total").Visible = False
 
         'AddHandler SuperGrdResultado.PrimaryGrid.Columns("Subtotal"), AddressOf Totalchanged
 
