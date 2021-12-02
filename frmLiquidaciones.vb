@@ -176,7 +176,6 @@ Public Class frmLiquidaciones
     End Sub
 
     Private Sub frmRecepciones_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        lblPeriodo.Visible = False
         cmbAlmacenes.Visible = False
         Label16.Visible = False
         GroupPanelDetalleLiquidacion.Visible = False
@@ -262,8 +261,8 @@ Public Class frmLiquidaciones
 
         'IdObraSocial = cmbObraSocial.SelectedValue
 
-        'SQL = $"exec spPresentaciones_Select_All  @Eliminado = 0, @ObraSocial = '{IdObraSocial}'"
-        SQL = $"exec spPresentaciones_Select_All @Pendientes = {rdPendientes.Checked} ,@Eliminado = {rdAnuladas.Checked} ,@Todos = {rdTodasOC.Checked}"
+        'SQL = $"exec spPresentaciones_Select_All @Pendientes = {rdPendientes.Checked} ,@Eliminado = {rdAnuladas.Checked} ,@Todos = {rdTodasOC.Checked}"
+        SQL = $"exec spLiquidaciones_Select_All"
         LlenarGrilla()
 
         Permitir = True
@@ -307,11 +306,8 @@ Public Class frmLiquidaciones
 
         'grd_CurrentCellChanged(sender, e)
 
-        grd.Rows(0).Selected = True
 
         'Oculto las columnas en el grd
-        grd.Columns(1).Visible = False
-
         'grd.Columns(3).Visible = False
         'grd.Columns(4).Visible = False
         'grd.Columns(5).Visible = False
@@ -363,7 +359,7 @@ Public Class frmLiquidaciones
     End Sub
 
     Private Sub txtid_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) _
-    Handles txtID.KeyPress, txtCODIGO.KeyPress, txtNota.KeyPress
+    Handles txtID.KeyPress, txtCODIGOunused.KeyPress, txtNota.KeyPress
         If e.KeyChar = ChrW(Keys.Enter) Then
             e.Handled = True
             SendKeys.Send("{TAB}")
@@ -1587,12 +1583,15 @@ Public Class frmLiquidaciones
     Private Sub asignarTags()
 
         txtID.Tag = "0"
-        'txtCODIGO.Tag = "1"
-        'cmbObraSocial.Tag = "2"
-        'lblcuit.Tag = "3"
-        'dtpFECHA.Tag = "4"
-        'lblPeriodo.Tag = "5"
-        'lblTotal.Tag = "6"
+        txtCodigo.Tag = "1"
+        txtIdPresentacion.Tag = "2"
+        lblPresentacionCodigo.Tag = "3"
+        lblObraSocial.Tag = "4"
+        lblFecha_presentacion.Tag = "5"
+        lblPeriodo_presentacion.Tag = "6"
+        lblStatus_presentacion.Tag = "7"
+        lblObservacion.Tag = "8"
+        dtpFECHA.Tag = "9"
     End Sub
 
     Private Sub Verificar_Datos()
@@ -2404,8 +2403,8 @@ Public Class frmLiquidaciones
                 ''IdPresentacion_det
                 Dim param_idPresentacion_det As New SqlClient.SqlParameter
                 param_idPresentacion_det.ParameterName = "@idPresentacion_det"
-                param_IdPresentacion_det.SqlDbType = SqlDbType.BigInt
-                param_IdPresentacion_det.Value = detalle("id")
+                param_idPresentacion_det.SqlDbType = SqlDbType.BigInt
+                param_idPresentacion_det.Value = detalle("id")
                 param_idPresentacion_det.Direction = ParameterDirection.Input
 
                 ''recetasA
@@ -2451,7 +2450,7 @@ Public Class frmLiquidaciones
                 param_res.Direction = ParameterDirection.InputOutput
 
 
-                SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spLiquidaciones_Insert_Update",
+                SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spLiquidaciones_Det_Insert_Update",
                                               param_id, param_idPresentacion_det, param_recetasA, param_recaudadoA,
                                               param_aCargoOsA, param_total, param_user, param_res)
 
@@ -2683,7 +2682,7 @@ Public Class frmLiquidaciones
                                                param_fecha, param_nota, param_user, param_res)
 
                         txtID.Text = param_id.Value
-                        txtCODIGO.Text = param_codigo.Value
+                        txtCODIGOunused.Text = param_codigo.Value
                     Else
                         SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spRecepciones_Update",
                                               param_id, param_ControlRemito, param_ControlFactura,
@@ -3142,7 +3141,7 @@ Public Class frmLiquidaciones
                     param_codigo.Value = DBNull.Value
                     param_codigo.Direction = ParameterDirection.InputOutput
                 Else
-                    param_codigo.Value = txtCODIGO.Text
+                    param_codigo.Value = txtCODIGOunused.Text
                     param_codigo.Direction = ParameterDirection.Input
                 End If
 
@@ -3263,7 +3262,7 @@ Public Class frmLiquidaciones
                                             param_UsuarioGasto,
                                             param_user, param_res)
 
-                        txtCODIGO.Text = param_codigo.Value
+                        txtCODIGOunused.Text = param_codigo.Value
 
                     Else
                         SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spGastos_Update",
@@ -4160,37 +4159,32 @@ Public Class frmLiquidaciones
 
     Private Sub btnNuevo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNuevo.Click
 
-        'band = 0
+        band = 0
 
-        'bolModo = True
-        'Util.MsgStatus(Status1, "Haga click en [Guardar] despues de completar los datos.")
-        'PrepararBotones()
+        bolModo = True
+        Util.MsgStatus(Status1, "Haga click en [Guardar] despues de completar los datos.")
+        PrepararBotones()
 
-        'chkEliminado.Checked = False
-
-        'grdItems.Enabled = True
         'dtpFECHA.Enabled = True
         'txtNota.Enabled = True
 
-        'Util.LimpiarTextBox(Me.Controls)
-        'PrepararGridItems()
+        Util.LimpiarTextBox(Me.Controls)
+
+        ''Limpieza de labels
+        lblPresentacionCodigo.Text = "No seleccionada"
+        lblObraSocial.Text = "-"
+        lblObservacion.Text = "-"
+        lblPeriodo_presentacion.Text = "-"
+        lblFecha_presentacion.Text = "-"
+        lblStatus_presentacion.Text = "CONFECCIONANDO"
 
 
+        SuperGrdResultado.PrimaryGrid.DataSource = Nothing
 
-        'lblMontoIva.Text = "0"
-        ''lblTotal.Text = "0"
+        dtpFECHA.Value = Date.Today
+        dtpFECHA.Focus()
 
-        'LlenarGrid_Impuestos()
-
-        'cmbAlmacenes.SelectedIndex = 0
-        'dtpFECHA.Value = Date.Today
-        'dtpFECHA.Focus()
-
-        'band = 1
-
-        Dim NuevoLiquidacion As New frmNuevaLiquidacion
-        frmNuevaLiquidacion.ShowDialog()
-
+        band = 1
 
     End Sub
 
@@ -4346,7 +4340,7 @@ Public Class frmLiquidaciones
 
         nbreformreportes = "Recepción de Material"
 
-        param.AgregarParametros("Recepción Nro.:", "STRING", "", False, txtCODIGO.Text.ToString, "", Cnn)
+        param.AgregarParametros("Recepción Nro.:", "STRING", "", False, txtCODIGOunused.Text.ToString, "", Cnn)
 
         param.ShowDialog()
 
@@ -4954,4 +4948,8 @@ Public Class frmLiquidaciones
         Next
     End Sub
 
+    Private Sub btnCargarPresentacion_Click(sender As Object, e As EventArgs) Handles btnCargarPresentacion.Click
+        Dim NuevoLiquidacion As New frmNuevaLiquidacion
+        frmNuevaLiquidacion.ShowDialog()
+    End Sub
 End Class

@@ -19,7 +19,7 @@ Public Class frmNuevaLiquidacion
         Try
             connection = SqlHelper.GetConnection(ConnStringSEI)
             ''Detalle de liquidacion
-            Dim Sql = $"exec spPresentaciones_Select_All @Pendientes = 0 ,@Eliminado = 0 ,@Todos = 1"
+            Dim Sql = $"exec spPresentaciones_Select_All @estado = 'PENDIENTES', @eliminado = 0"
 
             Dim cmd As New SqlCommand(Sql, connection)
             Dim da As New SqlDataAdapter(cmd)
@@ -42,4 +42,5 @@ Public Class frmNuevaLiquidacion
     Private Sub frmNuevaLiquidacion_Load(sender As Object, e As EventArgs) Handles Me.Load
         LlenarGrilla()
     End Sub
+
 End Class
