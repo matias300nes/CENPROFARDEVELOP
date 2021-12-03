@@ -20,20 +20,25 @@ Partial Class frmLiquidaciones
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim Background8 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
-        Dim Background9 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
-        Dim Background10 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
-        Dim Background11 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
-        Dim Background12 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
-        Dim Background13 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
-        Dim Background14 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim Background1 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
+        Dim Background2 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
+        Dim Background3 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
+        Dim Background4 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
+        Dim Background5 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
+        Dim Background6 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
+        Dim Background7 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
+        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle18 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.txtCodigo = New System.Windows.Forms.TextBox()
+        Me.lblFecha_presentacion = New System.Windows.Forms.Label()
+        Me.lblPeriodo_presentacion = New System.Windows.Forms.Label()
+        Me.lblObservacion = New System.Windows.Forms.Label()
+        Me.lblObraSocial = New System.Windows.Forms.Label()
         Me.lblStatus_presentacion = New System.Windows.Forms.Label()
         Me.Label33 = New System.Windows.Forms.Label()
         Me.Label29 = New System.Windows.Forms.Label()
@@ -149,11 +154,6 @@ Partial Class frmLiquidaciones
         Me.ContextMenuStripIVA = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BorrarElItemToolStripMenuItemIVA = New System.Windows.Forms.ToolStripMenuItem()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
-        Me.lblObraSocial = New System.Windows.Forms.Label()
-        Me.lblObservacion = New System.Windows.Forms.Label()
-        Me.lblPeriodo_presentacion = New System.Windows.Forms.Label()
-        Me.lblFecha_presentacion = New System.Windows.Forms.Label()
-        Me.txtCodigo = New System.Windows.Forms.TextBox()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.GroupPanelDetalleLiquidacion.SuspendLayout()
@@ -224,9 +224,53 @@ Partial Class frmLiquidaciones
         Me.GroupBox1.ForeColor = System.Drawing.Color.Black
         Me.GroupBox1.Location = New System.Drawing.Point(0, 27)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(1500, 507)
+        Me.GroupBox1.Size = New System.Drawing.Size(1517, 507)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
+        '
+        'txtCodigo
+        '
+        Me.txtCodigo.Location = New System.Drawing.Point(15, 41)
+        Me.txtCodigo.Name = "txtCodigo"
+        Me.txtCodigo.ReadOnly = True
+        Me.txtCodigo.Size = New System.Drawing.Size(68, 20)
+        Me.txtCodigo.TabIndex = 415
+        '
+        'lblFecha_presentacion
+        '
+        Me.lblFecha_presentacion.Location = New System.Drawing.Point(848, 45)
+        Me.lblFecha_presentacion.Name = "lblFecha_presentacion"
+        Me.lblFecha_presentacion.Size = New System.Drawing.Size(102, 13)
+        Me.lblFecha_presentacion.TabIndex = 414
+        Me.lblFecha_presentacion.Text = "[Fecha]"
+        Me.lblFecha_presentacion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'lblPeriodo_presentacion
+        '
+        Me.lblPeriodo_presentacion.Location = New System.Drawing.Point(721, 45)
+        Me.lblPeriodo_presentacion.Name = "lblPeriodo_presentacion"
+        Me.lblPeriodo_presentacion.Size = New System.Drawing.Size(110, 13)
+        Me.lblPeriodo_presentacion.TabIndex = 413
+        Me.lblPeriodo_presentacion.Text = "[Período]"
+        Me.lblPeriodo_presentacion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'lblObservacion
+        '
+        Me.lblObservacion.Location = New System.Drawing.Point(526, 45)
+        Me.lblObservacion.Name = "lblObservacion"
+        Me.lblObservacion.Size = New System.Drawing.Size(179, 13)
+        Me.lblObservacion.TabIndex = 412
+        Me.lblObservacion.Text = "[Observación]"
+        Me.lblObservacion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'lblObraSocial
+        '
+        Me.lblObraSocial.Location = New System.Drawing.Point(392, 45)
+        Me.lblObraSocial.Name = "lblObraSocial"
+        Me.lblObraSocial.Size = New System.Drawing.Size(127, 13)
+        Me.lblObraSocial.TabIndex = 411
+        Me.lblObraSocial.Text = "[Obra Social]"
+        Me.lblObraSocial.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'lblStatus_presentacion
         '
@@ -320,7 +364,6 @@ Partial Class frmLiquidaciones
         Me.txtIdPresentacion.Name = "txtIdPresentacion"
         Me.txtIdPresentacion.Size = New System.Drawing.Size(73, 20)
         Me.txtIdPresentacion.TabIndex = 393
-        Me.txtIdPresentacion.Visible = False
         '
         'Label24
         '
@@ -1026,16 +1069,16 @@ Partial Class frmLiquidaciones
         '
         'SuperGrdResultado
         '
-        Background8.Color1 = System.Drawing.Color.Transparent
-        Background8.Color2 = System.Drawing.Color.Transparent
-        Me.SuperGrdResultado.DefaultVisualStyles.AlternateColumnCellStyles.Default.Background = Background8
-        Background9.Color1 = System.Drawing.Color.Transparent
-        Me.SuperGrdResultado.DefaultVisualStyles.AlternateRowCellStyles.Default.Background = Background9
-        Background10.Color1 = System.Drawing.Color.Transparent
-        Background10.Color2 = System.Drawing.Color.Transparent
-        Me.SuperGrdResultado.DefaultVisualStyles.CellStyles.Default.Background = Background10
-        Background11.Color1 = System.Drawing.Color.Transparent
-        Me.SuperGrdResultado.DefaultVisualStyles.RowStyles.Default.Background = Background11
+        Background1.Color1 = System.Drawing.Color.Transparent
+        Background1.Color2 = System.Drawing.Color.Transparent
+        Me.SuperGrdResultado.DefaultVisualStyles.AlternateColumnCellStyles.Default.Background = Background1
+        Background2.Color1 = System.Drawing.Color.Transparent
+        Me.SuperGrdResultado.DefaultVisualStyles.AlternateRowCellStyles.Default.Background = Background2
+        Background3.Color1 = System.Drawing.Color.Transparent
+        Background3.Color2 = System.Drawing.Color.Transparent
+        Me.SuperGrdResultado.DefaultVisualStyles.CellStyles.Default.Background = Background3
+        Background4.Color1 = System.Drawing.Color.Transparent
+        Me.SuperGrdResultado.DefaultVisualStyles.RowStyles.Default.Background = Background4
         Me.SuperGrdResultado.FilterExprColors.SysFunction = System.Drawing.Color.DarkRed
         Me.SuperGrdResultado.Location = New System.Drawing.Point(7, 136)
         Me.SuperGrdResultado.Margin = New System.Windows.Forms.Padding(2)
@@ -1043,15 +1086,15 @@ Partial Class frmLiquidaciones
         '
         '
         '
-        Background12.Color1 = System.Drawing.Color.Transparent
-        Me.SuperGrdResultado.PrimaryGrid.DefaultVisualStyles.AlternateColumnCellStyles.Default.Background = Background12
+        Background5.Color1 = System.Drawing.Color.Transparent
+        Me.SuperGrdResultado.PrimaryGrid.DefaultVisualStyles.AlternateColumnCellStyles.Default.Background = Background5
         Me.SuperGrdResultado.PrimaryGrid.DefaultVisualStyles.AlternateRowCellStyles.Default.AllowWrap = DevComponents.DotNetBar.SuperGrid.Style.Tbool.[True]
-        Background13.BackFillType = DevComponents.DotNetBar.SuperGrid.Style.BackFillType.VerticalCenter
-        Background13.Color1 = System.Drawing.Color.White
-        Background13.Color2 = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.SuperGrdResultado.PrimaryGrid.DefaultVisualStyles.AlternateRowCellStyles.Default.Background = Background13
-        Background14.Color1 = System.Drawing.Color.Transparent
-        Me.SuperGrdResultado.PrimaryGrid.DefaultVisualStyles.RowStyles.Default.Background = Background14
+        Background6.BackFillType = DevComponents.DotNetBar.SuperGrid.Style.BackFillType.VerticalCenter
+        Background6.Color1 = System.Drawing.Color.White
+        Background6.Color2 = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.SuperGrdResultado.PrimaryGrid.DefaultVisualStyles.AlternateRowCellStyles.Default.Background = Background6
+        Background7.Color1 = System.Drawing.Color.Transparent
+        Me.SuperGrdResultado.PrimaryGrid.DefaultVisualStyles.RowStyles.Default.Background = Background7
         Me.SuperGrdResultado.PrimaryGrid.SelectionGranularity = DevComponents.DotNetBar.SuperGrid.SelectionGranularity.Row
         Me.SuperGrdResultado.Size = New System.Drawing.Size(1061, 325)
         Me.SuperGrdResultado.TabIndex = 381
@@ -1194,25 +1237,25 @@ Partial Class frmLiquidaciones
         '
         Me.grdItems.AllowUserToAddRows = False
         Me.grdItems.AllowUserToDeleteRows = False
-        DataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
-        DataGridViewCellStyle7.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black
-        Me.grdItems.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle13.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
+        DataGridViewCellStyle13.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle13.ForeColor = System.Drawing.Color.Black
+        Me.grdItems.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle13
         Me.grdItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.grdItems.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.IdFarmacia, Me.Farmacia, Me.IdPresentacion, Me.Recetas, Me.Recaudado, Me.AcargoOS, Me.Bonificacion, Me.Total})
         Me.grdItems.Location = New System.Drawing.Point(30, 58)
         Me.grdItems.Name = "grdItems"
         Me.grdItems.RowHeadersWidth = 51
-        DataGridViewCellStyle9.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grdItems.RowsDefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle15.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grdItems.RowsDefaultCellStyle = DataGridViewCellStyle15
         Me.grdItems.Size = New System.Drawing.Size(206, 143)
         Me.grdItems.TabIndex = 351
         Me.grdItems.Visible = False
         '
         'DataGridViewTextBoxColumn1
         '
-        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DataGridViewTextBoxColumn1.DefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle14.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DataGridViewTextBoxColumn1.DefaultCellStyle = DataGridViewCellStyle14
         Me.DataGridViewTextBoxColumn1.HeaderText = "Id"
         Me.DataGridViewTextBoxColumn1.MinimumWidth = 6
         Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
@@ -1330,33 +1373,33 @@ Partial Class frmLiquidaciones
         '
         Me.grdImpuestos.AllowUserToAddRows = False
         Me.grdImpuestos.AllowUserToDeleteRows = False
-        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.grdImpuestos.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle10
+        DataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle16.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.grdImpuestos.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle16
         Me.grdImpuestos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle11.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle11.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.grdImpuestos.DefaultCellStyle = DataGridViewCellStyle11
+        DataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle17.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle17.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.grdImpuestos.DefaultCellStyle = DataGridViewCellStyle17
         Me.grdImpuestos.Location = New System.Drawing.Point(6, 98)
         Me.grdImpuestos.Name = "grdImpuestos"
-        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle12.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.grdImpuestos.RowHeadersDefaultCellStyle = DataGridViewCellStyle12
+        DataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle18.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.grdImpuestos.RowHeadersDefaultCellStyle = DataGridViewCellStyle18
         Me.grdImpuestos.RowHeadersWidth = 51
         Me.grdImpuestos.Size = New System.Drawing.Size(259, 102)
         Me.grdImpuestos.TabIndex = 25
@@ -1577,50 +1620,6 @@ Partial Class frmLiquidaciones
         Me.BorrarElItemToolStripMenuItemIVA.Size = New System.Drawing.Size(145, 22)
         Me.BorrarElItemToolStripMenuItemIVA.Text = "Borrar el Item"
         '
-        'lblObraSocial
-        '
-        Me.lblObraSocial.Location = New System.Drawing.Point(392, 45)
-        Me.lblObraSocial.Name = "lblObraSocial"
-        Me.lblObraSocial.Size = New System.Drawing.Size(127, 13)
-        Me.lblObraSocial.TabIndex = 411
-        Me.lblObraSocial.Text = "[Obra Social]"
-        Me.lblObraSocial.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'lblObservacion
-        '
-        Me.lblObservacion.Location = New System.Drawing.Point(526, 45)
-        Me.lblObservacion.Name = "lblObservacion"
-        Me.lblObservacion.Size = New System.Drawing.Size(179, 13)
-        Me.lblObservacion.TabIndex = 412
-        Me.lblObservacion.Text = "[Observación]"
-        Me.lblObservacion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'lblPeriodo_presentacion
-        '
-        Me.lblPeriodo_presentacion.Location = New System.Drawing.Point(721, 45)
-        Me.lblPeriodo_presentacion.Name = "lblPeriodo_presentacion"
-        Me.lblPeriodo_presentacion.Size = New System.Drawing.Size(110, 13)
-        Me.lblPeriodo_presentacion.TabIndex = 413
-        Me.lblPeriodo_presentacion.Text = "[Período]"
-        Me.lblPeriodo_presentacion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'lblFecha_presentacion
-        '
-        Me.lblFecha_presentacion.Location = New System.Drawing.Point(848, 45)
-        Me.lblFecha_presentacion.Name = "lblFecha_presentacion"
-        Me.lblFecha_presentacion.Size = New System.Drawing.Size(102, 13)
-        Me.lblFecha_presentacion.TabIndex = 414
-        Me.lblFecha_presentacion.Text = "[Fecha]"
-        Me.lblFecha_presentacion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'txtCodigo
-        '
-        Me.txtCodigo.Location = New System.Drawing.Point(15, 41)
-        Me.txtCodigo.Name = "txtCodigo"
-        Me.txtCodigo.ReadOnly = True
-        Me.txtCodigo.Size = New System.Drawing.Size(68, 20)
-        Me.txtCodigo.TabIndex = 415
-        '
         'frmLiquidaciones
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1773,7 +1772,6 @@ Partial Class frmLiquidaciones
     Friend WithEvents lblPresentacionCodigo As Label
     Friend WithEvents Label25 As Label
     Friend WithEvents btnCargarPresentacion As DevComponents.DotNetBar.ButtonX
-    Friend WithEvents txtIdPresentacion As TextBox
     Friend WithEvents Label27 As Label
     Friend WithEvents Label29 As Label
     Friend WithEvents Label28 As Label
@@ -1784,4 +1782,5 @@ Partial Class frmLiquidaciones
     Friend WithEvents lblObservacion As Label
     Friend WithEvents lblObraSocial As Label
     Friend WithEvents txtCodigo As TextBox
+    Friend WithEvents txtIdPresentacion As TextBox
 End Class
