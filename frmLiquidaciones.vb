@@ -2447,8 +2447,8 @@ Public Class frmLiquidaciones
             SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spLiquidaciones_Insert_Update",
                                       param_id, param_codigo, param_idPresentacion, param_fecha, param_total, param_user, param_res)
 
+            txtID.Text = param_id.Value
             res = param_res.Value
-
 
         Catch ex As Exception
             Dim errMessage As String = ""
@@ -4868,7 +4868,7 @@ Public Class frmLiquidaciones
         panel = e.GridPanel
         'SuperGrdResultado.PrimaryGrid.Columns("ID").Visible = False
         SuperGrdResultado.PrimaryGrid.Columns("IdFarmacia").Visible = False
-        SuperGrdResultado.PrimaryGrid.Columns("IdPresentacion").Visible = False
+        SuperGrdResultado.PrimaryGrid.Columns("IdLiquidacion").Visible = False
         SuperGrdResultado.PrimaryGrid.Columns("Bonificación").Visible = False
 
         'AddHandler SuperGrdResultado.PrimaryGrid.Columns("Subtotal"), AddressOf Totalchanged
