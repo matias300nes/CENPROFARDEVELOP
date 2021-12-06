@@ -66,18 +66,19 @@ Public Class frmNuevaLiquidacion
 
                 ''Llenado de items detalle en frmLiquidaciones
                 Dim SqlDetalle = $"select
-	                            pd.id				as ID,			   -- 0
-	                            pd.IdFarmacia		As IdFarmacia,	   -- 1
-	                            f.Codigo			AS CodigoFarmacia, -- 2
-	                            f.nombre			As Farmacia,       -- 3
-	                            null            	As IdLiquidacion,  -- 4
-	                            pd.recetas			as Recetas,        -- 5
-	                            pd.Recaudado		as Recaudado,	   -- 6
-	                            pd.AcargoOS			as 'A Cargo Os',   -- 7
-	                            null				as 'Recetas A',	   -- 8
-	                            null				as 'Recaudado A',  -- 9
-	                            null				as 'A Cargo OS A', -- 10
-	                            pd.Bonificacion		as Bonificación	   -- 11
+                                null                as IdLiquidacion_det,-- 0
+	                            pd.id				as ID,			     -- 1
+	                            pd.IdFarmacia		As IdFarmacia,	     -- 2
+	                            f.Codigo			AS CodigoFarmacia,   -- 3
+	                            f.nombre			As Farmacia,         -- 4
+	                            null            	As IdLiquidacion,    -- 5
+	                            pd.recetas			as Recetas,          -- 6
+	                            pd.Recaudado		as Recaudado,	     -- 7
+	                            pd.AcargoOS			as 'A Cargo Os',     -- 8
+	                            null				as 'Recetas A',	     -- 9
+	                            null				as 'Recaudado A',    -- 10
+	                            null				as 'A Cargo OS A',   -- 11
+	                            pd.Bonificacion		as Bonificación	     -- 12
 	
                             from Presentaciones_det pd
                             join Farmacias f on f.ID = pd.IdFarmacia
@@ -89,7 +90,7 @@ Public Class frmNuevaLiquidacion
 		                                IdFarmacia		as IdFarmacia,
 		                                'A Cargo OS'	as detalle,
 		                                AcargoOS		as valor,
-                                        'insert'         as estado
+                                        'insert'        as estado
 
 	                                from Presentaciones_det
 	                                where IdPresentacion = { .Cells(GridCols.ID).Value}"

@@ -339,8 +339,8 @@ Public Class frmLiquidaciones
     Private Sub txtID_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtID.TextChanged
         If txtID.Text <> "" And bolModo = False Then
             Presentacion_request(
-                "exec spLiquidaciones_Det_Select_By_IDPresentacion @IDPresentacion = " & txtID.Text & "",
-                "exec spConceptos_Select_By_IDPresentacion @IDLiquidacion = " & txtID.Text & ""
+                "exec spLiquidaciones_Det_Select_By_IDLiquidacion @IDLiquidacion = " & txtID.Text & "",
+                "exec spConceptos_Select_By_IDLiquidacion @IDLiquidacion = " & txtID.Text & ""
             )
         End If
     End Sub
@@ -2476,14 +2476,14 @@ Public Class frmLiquidaciones
                 Dim param_id As New SqlClient.SqlParameter
                 param_id.ParameterName = "@id"
                 param_id.SqlDbType = SqlDbType.BigInt
-                param_id.Value = DBNull.Value
+                param_id.Value = detalle("IdLiquidacion_det")
                 param_id.Direction = ParameterDirection.InputOutput
 
                 ''ID Liquidacion
                 Dim param_idLiquidacion As New SqlClient.SqlParameter
                 param_idLiquidacion.ParameterName = "@idLiquidacion"
                 param_idLiquidacion.SqlDbType = SqlDbType.BigInt
-                param_idLiquidacion.Value = detalle("idLiquidacion")
+                param_idLiquidacion.Value = IIf(txtID.Text = "", DBNull.Value, txtID.Text)
                 param_idLiquidacion.Direction = ParameterDirection.Input
 
                 ''IdPresentacion_det
