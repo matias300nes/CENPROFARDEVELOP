@@ -176,7 +176,6 @@ Public Class frmLiquidaciones
     End Sub
 
     Private Sub frmRecepciones_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        lblPeriodo.Visible = False
         cmbAlmacenes.Visible = False
         Label16.Visible = False
         GroupPanelDetalleLiquidacion.Visible = False
@@ -262,8 +261,8 @@ Public Class frmLiquidaciones
 
         'IdObraSocial = cmbObraSocial.SelectedValue
 
-        'SQL = $"exec spPresentaciones_Select_All  @Eliminado = 0, @ObraSocial = '{IdObraSocial}'"
-        SQL = $"exec spPresentaciones_Select_All @Pendientes = {rdPendientes.Checked} ,@Eliminado = {rdAnuladas.Checked} ,@Todos = {rdTodasOC.Checked}"
+        'SQL = $"exec spPresentaciones_Select_All @Pendientes = {rdPendientes.Checked} ,@Eliminado = {rdAnuladas.Checked} ,@Todos = {rdTodasOC.Checked}"
+        SQL = $"exec spLiquidaciones_Select_All"
         LlenarGrilla()
 
         Permitir = True
@@ -307,11 +306,8 @@ Public Class frmLiquidaciones
 
         'grd_CurrentCellChanged(sender, e)
 
-        grd.Rows(0).Selected = True
 
         'Oculto las columnas en el grd
-        grd.Columns(1).Visible = False
-
         'grd.Columns(3).Visible = False
         'grd.Columns(4).Visible = False
         'grd.Columns(5).Visible = False
@@ -342,7 +338,10 @@ Public Class frmLiquidaciones
 
     Private Sub txtID_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtID.TextChanged
         If txtID.Text <> "" And bolModo = False Then
-            Presentacion_request()
+            Presentacion_request(
+                "exec spLiquidaciones_Det_Select_By_IDPresentacion @IDPresentacion = " & txtID.Text & "",
+                "exec spConceptos_Select_By_IDPresentacion @IDLiquidacion = " & txtID.Text & ""
+            )
         End If
     End Sub
 
@@ -363,7 +362,7 @@ Public Class frmLiquidaciones
     End Sub
 
     Private Sub txtid_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) _
-    Handles txtID.KeyPress, txtCODIGO.KeyPress, txtNota.KeyPress
+    Handles txtID.KeyPress, txtCODIGOunused.KeyPress, txtNota.KeyPress
         If e.KeyChar = ChrW(Keys.Enter) Then
             e.Handled = True
             SendKeys.Send("{TAB}")
@@ -633,7 +632,29 @@ Public Class frmLiquidaciones
         ygrd = grd.Location.Y
         hgrd = grd.Height
 
-        variableajuste = 150
+        variableajuste = 125
+
+        'If chkGrillaInferior.Checked = True Then
+        '    chkGrillaInferior.Text = "Disminuir Grilla Inferior"
+        '    chkGrillaInferior.Location = New Point(chkGrillaInferior.Location.X, chkGrillaInferior.Location.Y - variableajuste)
+        '    GroupBox1.Height = GroupBox1.Height - variableajuste
+        '    grd.Location = New Point(xgrd, ygrd - variableajuste)
+        '    grd.Height = hgrd + variableajuste
+        '    grdItems.Height = grdItems.Height - variableajuste
+        '    Label19.Location = New Point(Label19.Location.X, Label19.Location.Y - variableajuste)
+        '    lblCantidadFilas.Location = New Point(lblCantidadFilas.Location.X, lblCantidadFilas.Location.Y - variableajuste)
+
+        'Else
+        '    chkGrillaInferior.Text = "Aumentar Grilla Inferior"
+        '    chkGrillaInferior.Location = New Point(chkGrillaInferior.Location.X, chkGrillaInferior.Location.Y + variableajuste)
+        '    GroupBox1.Height = GroupBox1.Height + variableajuste
+        '    grd.Location = New Point(xgrd, ygrd + variableajuste)
+        '    grd.Height = hgrd - variableajuste
+        '    grdItems.Height = grdItems.Height + variableajuste
+        '    Label19.Location = New Point(Label19.Location.X, Label19.Location.Y + variableajuste)
+        '    lblCantidadFilas.Location = New Point(lblCantidadFilas.Location.X, lblCantidadFilas.Location.Y + variableajuste)
+
+        'End If
 
         If chkGrillaInferior.Checked = True Then
             chkGrillaInferior.Text = "Disminuir Grilla Inferior"
@@ -645,6 +666,10 @@ Public Class frmLiquidaciones
             Label19.Location = New Point(Label19.Location.X, Label19.Location.Y - variableajuste)
             lblCantidadFilas.Location = New Point(lblCantidadFilas.Location.X, lblCantidadFilas.Location.Y - variableajuste)
 
+            rdPendientes.Location = New Point(rdPendientes.Location.X, rdPendientes.Location.Y - variableajuste)
+            rdAnuladas.Location = New Point(rdAnuladas.Location.X, rdAnuladas.Location.Y - variableajuste)
+            rdTodasOC.Location = New Point(rdTodasOC.Location.X, rdTodasOC.Location.Y - variableajuste)
+
         Else
             chkGrillaInferior.Text = "Aumentar Grilla Inferior"
             chkGrillaInferior.Location = New Point(chkGrillaInferior.Location.X, chkGrillaInferior.Location.Y + variableajuste)
@@ -654,6 +679,10 @@ Public Class frmLiquidaciones
             grdItems.Height = grdItems.Height + variableajuste
             Label19.Location = New Point(Label19.Location.X, Label19.Location.Y + variableajuste)
             lblCantidadFilas.Location = New Point(lblCantidadFilas.Location.X, lblCantidadFilas.Location.Y + variableajuste)
+
+            rdPendientes.Location = New Point(rdPendientes.Location.X, rdPendientes.Location.Y + variableajuste)
+            rdAnuladas.Location = New Point(rdAnuladas.Location.X, rdAnuladas.Location.Y + variableajuste)
+            rdTodasOC.Location = New Point(rdTodasOC.Location.X, rdTodasOC.Location.Y + variableajuste)
 
         End If
 
@@ -759,7 +788,7 @@ Public Class frmLiquidaciones
 
     Dim MasterGrdDetail As Boolean = False
     Dim gl_dataset As DataSet
-    Private Sub Presentacion_request()
+    Friend Sub Presentacion_request(sqlDetalle As String, sqlConceptos As String)
         Dim connection As SqlClient.SqlConnection = Nothing
         Dim sql_items As String
         Dim i As Integer
@@ -777,7 +806,7 @@ Public Class frmLiquidaciones
 
         Try
             ''Detalle de liquidacion
-            sql_items = "exec spLiquidaciones_Det_Select_By_IDPresentacion @IDPresentacion = " & txtID.Text & ""
+            sql_items = sqlDetalle
 
             Dim cmd As New SqlCommand(sql_items, connection)
             Dim da As New SqlDataAdapter(cmd)
@@ -785,7 +814,7 @@ Public Class frmLiquidaciones
             da.Fill(dtDetalle)
 
             ''Conceptos de liquidacion
-            sql_items = "exec spConceptos_Select_By_IDPresentacion @IDPresentacion = " & txtID.Text & ""
+            sql_items = sqlConceptos
 
             Dim cmd_conceptos As New SqlCommand(sql_items, connection)
             Dim da_conceptos As New SqlDataAdapter(cmd_conceptos)
@@ -812,7 +841,6 @@ Public Class frmLiquidaciones
         'dtConcepto.Columns.Add("detalle", GetType(String))
         'dtConcepto.Columns.Add("valor", GetType(Decimal))
         dtConcepto.Columns.Add("edit")
-        dtConcepto.Columns.Add("estado", GetType(String))
 
         dtConcepto.PrimaryKey = {
                 dtConcepto.Columns("IdDetalle"),
@@ -1510,12 +1538,33 @@ Public Class frmLiquidaciones
 
 
     Private Sub configurarform()
-        Me.Text = "Liquidación"
+        'Me.Text = "Liquidación"
+
+        ''Me.grd.Location = New Size(GroupBox1.Location.X, GroupBox1.Location.Y + GroupBox1.Size.Height + 7)
+
+        'Me.grd.Location = New Size(14, 65)
+        'Me.grd.BringToFront()
+
+        'If LLAMADO_POR_FORMULARIO Then
+        '    LLAMADO_POR_FORMULARIO = False
+        '    Me.Top = ARRIBA
+        '    Me.Left = IZQUIERDA
+        'Else
+        '    Me.Top = 0
+        '    Me.Left = (Screen.PrimaryScreen.WorkingArea.Width - Me.Width) \ 2
+        'End If
+
+        'Me.WindowState = FormWindowState.Maximized
+
+        ''Me.grd.Size = New Size(Screen.PrimaryScreen.WorkingArea.Width - 27, Me.Size.Height - 7 - GroupBox1.Size.Height - GroupBox1.Location.Y - 65)
+        ''Me.grd.Size = New Size(Screen.PrimaryScreen.WorkingArea.Width - 27, Me.Size.Height - 3 - GroupBox1.Size.Height - GroupBox1.Location.Y - 62) '65)
+        ''Me.grd.Size = New Size(4 / 6 * SuperGrdResultado.Width, 100) '65)
+        'Me.grd.Size = New Size(3.5 / 6 * SuperGrdResultado.Width, 100) '65)
+
+        Me.Text = "Emisión de Ordenes de Compra a Proveedores"
 
         'Me.grd.Location = New Size(GroupBox1.Location.X, GroupBox1.Location.Y + GroupBox1.Size.Height + 7)
-
-        Me.grd.Location = New Size(14, 65)
-        Me.grd.BringToFront()
+        Me.grd.Location = New Size(GroupBox1.Location.X, GroupBox1.Location.Y + GroupBox1.Size.Height + 5)
 
         If LLAMADO_POR_FORMULARIO Then
             LLAMADO_POR_FORMULARIO = False
@@ -1528,22 +1577,23 @@ Public Class frmLiquidaciones
 
         Me.WindowState = FormWindowState.Maximized
 
-        'Me.grd.Size = New Size(Screen.PrimaryScreen.WorkingArea.Width - 27, Me.Size.Height - 7 - GroupBox1.Size.Height - GroupBox1.Location.Y - 65)
-        'Me.grd.Size = New Size(Screen.PrimaryScreen.WorkingArea.Width - 27, Me.Size.Height - 3 - GroupBox1.Size.Height - GroupBox1.Location.Y - 62) '65)
-        'Me.grd.Size = New Size(4 / 6 * SuperGrdResultado.Width, 100) '65)
-        Me.grd.Size = New Size(3.5 / 6 * SuperGrdResultado.Width, 100) '65)
+        'Me.grd.Size = New Size(Screen.PrimaryScreen.WorkingArea.Width - 27, Me.Size.Height - 7 - GroupBox1.Size.Height - GroupBox1.Location.Y - 50)
+        Me.grd.Size = New Size(Screen.PrimaryScreen.WorkingArea.Width - 27, Me.Size.Height - 3 - GroupBox1.Size.Height - GroupBox1.Location.Y - 62) '65)
 
     End Sub
 
     Private Sub asignarTags()
 
         txtID.Tag = "0"
-        'txtCODIGO.Tag = "1"
-        'cmbObraSocial.Tag = "2"
-        'lblcuit.Tag = "3"
-        'dtpFECHA.Tag = "4"
-        'lblPeriodo.Tag = "5"
-        'lblTotal.Tag = "6"
+        txtCodigo.Tag = "1"
+        txtIdPresentacion.Tag = "2"
+        lblPresentacionCodigo.Tag = "3"
+        lblObraSocial.Tag = "4"
+        lblFecha_presentacion.Tag = "5"
+        lblPeriodo_presentacion.Tag = "6"
+        lblStatus_presentacion.Tag = "7"
+        lblObservacion.Tag = "8"
+        dtpFECHA.Tag = "9"
     End Sub
 
     Private Sub Verificar_Datos()
@@ -2330,7 +2380,6 @@ Public Class frmLiquidaciones
 #End Region
 
 #Region "   Funciones"
-
     Private Function GuardarLiquidacion()
         Dim connection As SqlClient.SqlConnection = Nothing
         Dim res As Integer = 0
@@ -2344,6 +2393,84 @@ Public Class frmLiquidaciones
 
 
         Try
+            ''ID
+            Dim param_id As New SqlClient.SqlParameter
+            param_id.ParameterName = "@id"
+            param_id.SqlDbType = SqlDbType.BigInt
+            param_id.Value = IIf(txtID.Text <> "", txtID.Text, DBNull.Value)
+            param_id.Direction = ParameterDirection.InputOutput
+
+            ''codigo
+            Dim param_codigo As New SqlClient.SqlParameter
+            param_codigo.ParameterName = "@codigo"
+            param_codigo.SqlDbType = SqlDbType.VarChar
+            param_codigo.Size = 8
+            param_codigo.Value = IIf(txtCodigo.Text <> "", txtCodigo.Text, DBNull.Value)
+            param_codigo.Direction = ParameterDirection.Input
+
+            ''IdPresentacion
+            Dim param_idPresentacion As New SqlClient.SqlParameter
+            param_idPresentacion.ParameterName = "@idPresentacion"
+            param_idPresentacion.SqlDbType = SqlDbType.BigInt
+            param_idPresentacion.Value = Long.Parse(txtIdPresentacion.Text)
+            param_idPresentacion.Direction = ParameterDirection.Input
+
+            ''fecha
+            Dim param_fecha As New SqlClient.SqlParameter
+            param_fecha.ParameterName = "@fecha"
+            param_fecha.SqlDbType = SqlDbType.DateTime
+            param_fecha.Value = Date.Parse(dtpFECHA.Value)
+            param_fecha.Direction = ParameterDirection.Input
+
+            ''total
+            Dim param_total As New SqlClient.SqlParameter
+            param_total.ParameterName = "@total"
+            param_total.SqlDbType = SqlDbType.Decimal
+            param_total.Value = Decimal.Parse(lblTotal.Text)
+            param_total.Direction = ParameterDirection.Input
+
+            ''user
+            Dim param_user As New SqlClient.SqlParameter
+            param_user.ParameterName = "@user"
+            param_user.SqlDbType = SqlDbType.Int
+            param_user.Value = UserID
+            param_user.Direction = ParameterDirection.Input
+
+            ''res
+            Dim param_res As New SqlClient.SqlParameter
+            param_res.ParameterName = "@res"
+            param_res.SqlDbType = SqlDbType.Int
+            param_res.Value = DBNull.Value
+            param_res.Direction = ParameterDirection.InputOutput
+
+
+            SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spLiquidaciones_Insert_Update",
+                                      param_id, param_codigo, param_idPresentacion, param_fecha, param_total, param_user, param_res)
+
+            res = param_res.Value
+
+
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
+        GuardarLiquidacion = res
+    End Function
+
+    Private Function GuardarLiquidacion_det()
+        Dim res As Integer = 0
+
+        Try
             For Each detalle As DataRow In gl_dataset.Tables(0).Rows
                 ''ID
                 Dim param_id As New SqlClient.SqlParameter
@@ -2352,11 +2479,18 @@ Public Class frmLiquidaciones
                 param_id.Value = DBNull.Value
                 param_id.Direction = ParameterDirection.InputOutput
 
+                ''ID Liquidacion
+                Dim param_idLiquidacion As New SqlClient.SqlParameter
+                param_idLiquidacion.ParameterName = "@idLiquidacion"
+                param_idLiquidacion.SqlDbType = SqlDbType.BigInt
+                param_idLiquidacion.Value = detalle("idLiquidacion")
+                param_idLiquidacion.Direction = ParameterDirection.Input
+
                 ''IdPresentacion_det
                 Dim param_idPresentacion_det As New SqlClient.SqlParameter
                 param_idPresentacion_det.ParameterName = "@idPresentacion_det"
-                param_IdPresentacion_det.SqlDbType = SqlDbType.BigInt
-                param_IdPresentacion_det.Value = detalle("id")
+                param_idPresentacion_det.SqlDbType = SqlDbType.BigInt
+                param_idPresentacion_det.Value = detalle("id")
                 param_idPresentacion_det.Direction = ParameterDirection.Input
 
                 ''recetasA
@@ -2402,9 +2536,9 @@ Public Class frmLiquidaciones
                 param_res.Direction = ParameterDirection.InputOutput
 
 
-                SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spLiquidaciones_Insert_Update",
-                                              param_id, param_idPresentacion_det, param_recetasA, param_recaudadoA,
-                                              param_aCargoOsA, param_total, param_user, param_res)
+                SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spLiquidaciones_Det_Insert_Update",
+                                              param_id, param_idLiquidacion, param_idPresentacion_det, param_recetasA,
+                                              param_recaudadoA, param_aCargoOsA, param_total, param_user, param_res)
 
                 res = param_res.Value
 
@@ -2428,7 +2562,7 @@ Public Class frmLiquidaciones
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
-        GuardarLiquidacion = res
+        GuardarLiquidacion_det = res
     End Function
 
     Private Function GuardarConceptos()
@@ -2443,12 +2577,12 @@ Public Class frmLiquidaciones
                 param_id.Value = concepto("id")
                 param_id.Direction = ParameterDirection.InputOutput
 
-                ''IdPresentacion
-                Dim param_idPresentacion As New SqlClient.SqlParameter
-                param_idPresentacion.ParameterName = "@idPresentacion"
-                param_idPresentacion.SqlDbType = SqlDbType.BigInt
-                param_idPresentacion.Value = txtID.Text
-                param_idPresentacion.Direction = ParameterDirection.Input
+                ''ID Liquidacion
+                Dim param_idLiquidacion As New SqlClient.SqlParameter
+                param_idLiquidacion.ParameterName = "@idLiquidacion"
+                param_idLiquidacion.SqlDbType = SqlDbType.BigInt
+                param_idLiquidacion.Value = IIf(txtID.Text = "", DBNull.Value, txtID.Text)
+                param_idLiquidacion.Direction = ParameterDirection.Input
 
                 ''IdDetalle
                 Dim param_idDetalle As New SqlClient.SqlParameter
@@ -2503,7 +2637,7 @@ Public Class frmLiquidaciones
 
 
                 SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spConceptos_Insert_Delete",
-                                              param_id, param_idPresentacion, param_idDetalle, param_idFarmacia,
+                                              param_id, param_idLiquidacion, param_idDetalle, param_idFarmacia,
                                               param_detalle, param_valor, param_estado, param_user, param_res)
 
                 res = param_res.Value
@@ -2634,7 +2768,7 @@ Public Class frmLiquidaciones
                                                param_fecha, param_nota, param_user, param_res)
 
                         txtID.Text = param_id.Value
-                        txtCODIGO.Text = param_codigo.Value
+                        txtCODIGOunused.Text = param_codigo.Value
                     Else
                         SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spRecepciones_Update",
                                               param_id, param_ControlRemito, param_ControlFactura,
@@ -3093,7 +3227,7 @@ Public Class frmLiquidaciones
                     param_codigo.Value = DBNull.Value
                     param_codigo.Direction = ParameterDirection.InputOutput
                 Else
-                    param_codigo.Value = txtCODIGO.Text
+                    param_codigo.Value = txtCODIGOunused.Text
                     param_codigo.Direction = ParameterDirection.Input
                 End If
 
@@ -3214,7 +3348,7 @@ Public Class frmLiquidaciones
                                             param_UsuarioGasto,
                                             param_user, param_res)
 
-                        txtCODIGO.Text = param_codigo.Value
+                        txtCODIGOunused.Text = param_codigo.Value
 
                     Else
                         SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spGastos_Update",
@@ -4111,37 +4245,32 @@ Public Class frmLiquidaciones
 
     Private Sub btnNuevo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNuevo.Click
 
-        'band = 0
+        band = 0
 
-        'bolModo = True
-        'Util.MsgStatus(Status1, "Haga click en [Guardar] despues de completar los datos.")
-        'PrepararBotones()
+        bolModo = True
+        Util.MsgStatus(Status1, "Haga click en [Guardar] despues de completar los datos.")
+        PrepararBotones()
 
-        'chkEliminado.Checked = False
-
-        'grdItems.Enabled = True
         'dtpFECHA.Enabled = True
         'txtNota.Enabled = True
 
-        'Util.LimpiarTextBox(Me.Controls)
-        'PrepararGridItems()
+        Util.LimpiarTextBox(Me.Controls)
+
+        ''Limpieza de labels
+        lblPresentacionCodigo.Text = "No seleccionada"
+        lblObraSocial.Text = "-"
+        lblObservacion.Text = "-"
+        lblPeriodo_presentacion.Text = "-"
+        lblFecha_presentacion.Text = "-"
+        lblStatus_presentacion.Text = "CONFECCIONANDO"
 
 
+        SuperGrdResultado.PrimaryGrid.DataSource = Nothing
 
-        'lblMontoIva.Text = "0"
-        ''lblTotal.Text = "0"
+        dtpFECHA.Value = Date.Today
+        dtpFECHA.Focus()
 
-        'LlenarGrid_Impuestos()
-
-        'cmbAlmacenes.SelectedIndex = 0
-        'dtpFECHA.Value = Date.Today
-        'dtpFECHA.Focus()
-
-        'band = 1
-
-        Dim NuevoLiquidacion As New frmNuevaLiquidacion
-        frmNuevaLiquidacion.ShowDialog()
-
+        band = 1
 
     End Sub
 
@@ -4149,12 +4278,12 @@ Public Class frmLiquidaciones
 
         If bolModo = False Then
             'MsgBox("No se permite la modificación de una recepción. Para modificar la factura vaya a Administración de Gastos en el menú Contabilidad", MsgBoxStyle.Information, "Control de Acceso")
-            If MessageBox.Show("¿Está seguro que desea modificar la Recepción seleccionada (solo Nro de Remito y Fecha)?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
+            If MessageBox.Show("¿Está seguro que desea modificar la Liquidación seleccionada?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
                 Exit Sub
             End If
         End If
 
-        Dim res As Integer, res_item As Integer
+        Dim res As Integer, res_item As Integer, res_concepto As Integer
 
 
         Util.MsgStatus(Status1, "Guardando el registro...", My.Resources.Resources.indicator_white)
@@ -4172,33 +4301,50 @@ Public Class frmLiquidaciones
                 Util.MsgStatus(Status1, "No se pudo agregar el registro (Encabezado).", My.Resources.Resources.stop_error.ToBitmap, True)
                 Exit Sub
             Case Else
-                Util.MsgStatus(Status1, "Guardando los items...", My.Resources.Resources.indicator_white)
-                'res_item = AgregarRegistro_Recepciones_Items(txtID.Text)
-                res_item = GuardarConceptos()
+                res_item = GuardarLiquidacion_det()
                 Select Case res_item
                     Case -1
                         Cancelar_Tran()
-                        Util.MsgStatus(Status1, "No se pudo registrar la recepción (Items).", My.Resources.Resources.stop_error.ToBitmap)
-                        Util.MsgStatus(Status1, "No se pudo registrar la recepción (Items).", My.Resources.Resources.stop_error.ToBitmap, True)
+                        Util.MsgStatus(Status1, "No se pudo actualizar el registro (Detalle).", My.Resources.Resources.stop_error.ToBitmap)
+                        Util.MsgStatus(Status1, "No se pudo actualizar el registro (Detalle).", My.Resources.Resources.stop_error.ToBitmap, True)
                         Exit Sub
                     Case 0
                         Cancelar_Tran()
-                        Util.MsgStatus(Status1, "No se pudo agregar el registro (Items).", My.Resources.Resources.stop_error.ToBitmap)
-                        Util.MsgStatus(Status1, "No se pudo agregar el registro (Items).", My.Resources.Resources.stop_error.ToBitmap, True)
+                        Util.MsgStatus(Status1, "No se pudo agregar el registro (Detalle).", My.Resources.Resources.stop_error.ToBitmap)
+                        Util.MsgStatus(Status1, "No se pudo agregar el registro (Detalle).", My.Resources.Resources.stop_error.ToBitmap, True)
                         Exit Sub
                     Case Else
-                        Cerrar_Tran()
+                        Util.MsgStatus(Status1, "Guardando los items...", My.Resources.Resources.indicator_white)
+                        'res_item = AgregarRegistro_Recepciones_Items(txtID.Text)
+                        res_concepto = GuardarConceptos()
+                        Select Case res_concepto
+                            Case -1
+                                Cancelar_Tran()
+                                Util.MsgStatus(Status1, "No se pudo registrar la recepción (Concepto).", My.Resources.Resources.stop_error.ToBitmap)
+                                Util.MsgStatus(Status1, "No se pudo registrar la recepción (Concepto).", My.Resources.Resources.stop_error.ToBitmap, True)
+                                Exit Sub
+                            Case 0
+                                Cancelar_Tran()
+                                Util.MsgStatus(Status1, "No se pudo agregar el registro (Concepto).", My.Resources.Resources.stop_error.ToBitmap)
+                                Util.MsgStatus(Status1, "No se pudo agregar el registro (Concepto).", My.Resources.Resources.stop_error.ToBitmap, True)
+                                Exit Sub
+                            Case Else
+                                Cerrar_Tran()
 
-                        bolModo = False
-                        PrepararBotones()
+                                bolModo = False
+                                PrepararBotones()
 
-                        MDIPrincipal.NoActualizarBase = False
-                        btnActualizar_Click(sender, e)
+                                MDIPrincipal.NoActualizarBase = False
+                                btnActualizar_Click(sender, e)
 
-                        Util.MsgStatus(Status1, "Se ha actualizado el registro.", My.Resources.Resources.ok.ToBitmap)
+                                Util.MsgStatus(Status1, "Se ha actualizado el registro.", My.Resources.Resources.ok.ToBitmap)
 
+                        End Select
                 End Select
+
         End Select
+
+
 
 
         '
@@ -4297,7 +4443,7 @@ Public Class frmLiquidaciones
 
         nbreformreportes = "Recepción de Material"
 
-        param.AgregarParametros("Recepción Nro.:", "STRING", "", False, txtCODIGO.Text.ToString, "", Cnn)
+        param.AgregarParametros("Recepción Nro.:", "STRING", "", False, txtCODIGOunused.Text.ToString, "", Cnn)
 
         param.ShowDialog()
 
@@ -4704,7 +4850,7 @@ Public Class frmLiquidaciones
                         pendiente = $"<br/> Pendiente de pago: <font color=""Gray""><i>${Decimal.Parse(panel.GetCell(i, 4).Value * -1):N2}</i></font>"
                     End If
 
-                    If panel.GetCell(i, 6).Value <> "delete" Then ''Sumo solo si la columna no está para eliminar
+                    If panel.GetCell(i, 5).Value <> "delete" Then ''Sumo solo si la columna no está para eliminar
                         total += panel.GetCell(i, 4).Value
                     End If
                 Next
@@ -4800,8 +4946,8 @@ Public Class frmLiquidaciones
             panel.Columns(0).Visible = False 'ID
             panel.Columns(1).Visible = False 'IdDetalle
             panel.Columns(2).Visible = False 'IdFarmacia
-            panel.Columns(6).Visible = False 'estado
-            panel.Columns(5).Width = 30 'hago el boton de eliminar mas pequeño
+            panel.Columns(5).Visible = False 'estado
+            panel.Columns(6).Width = 30 'hago el boton de eliminar mas pequeño
 
             'panel.Visible = IIf(panel.Rows.Count > 0, True, False)
 
@@ -4813,11 +4959,11 @@ Public Class frmLiquidaciones
                     pendiente = $"<br/> Pendiente de pago: <font color=""Gray""><i>${Decimal.Parse(panel.GetCell(i, 4).Value * -1):N2}</i></font>"
                 End If
 
-                If panel.GetCell(i, 6).Value <> "delete" Then ''Sumo solo si la columna no está para eliminar
+                If panel.GetCell(i, 5).Value <> "delete" Then ''Sumo solo si la columna no está para eliminar
                     total += panel.GetCell(i, 4).Value
                 End If
 
-                panel.GetCell(i, 5).EditorType = GetType(MyGridButtonXEditControl)
+                panel.GetCell(i, 6).EditorType = GetType(MyGridButtonXEditControl)
 
             Next
 
@@ -4905,4 +5051,8 @@ Public Class frmLiquidaciones
         Next
     End Sub
 
+    Private Sub btnCargarPresentacion_Click(sender As Object, e As EventArgs) Handles btnCargarPresentacion.Click
+        Dim NuevoLiquidacion As New frmNuevaLiquidacion
+        frmNuevaLiquidacion.ShowDialog()
+    End Sub
 End Class

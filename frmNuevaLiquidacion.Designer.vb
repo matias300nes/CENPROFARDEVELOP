@@ -25,7 +25,7 @@ Partial Class frmNuevaLiquidacion
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.grdPresentaciones = New System.Windows.Forms.DataGridView()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.btnListo = New DevComponents.DotNetBar.ButtonX()
         Me.TableLayoutPanel1.SuspendLayout()
         CType(Me.grdPresentaciones, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -36,24 +36,29 @@ Partial Class frmNuevaLiquidacion
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.14577!))
         Me.TableLayoutPanel1.Controls.Add(Me.grdPresentaciones, 0, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.Label1, 0, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.Button1, 0, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.btnListo, 0, 2)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 3
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 19.27083!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80.72916!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 74.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.708738!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90.29126!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 53.0!))
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(486, 384)
         Me.TableLayoutPanel1.TabIndex = 1
         '
         'grdPresentaciones
         '
+        Me.grdPresentaciones.AllowUserToAddRows = False
+        Me.grdPresentaciones.AllowUserToDeleteRows = False
         Me.grdPresentaciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.grdPresentaciones.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.grdPresentaciones.Location = New System.Drawing.Point(3, 62)
+        Me.grdPresentaciones.Location = New System.Drawing.Point(3, 35)
+        Me.grdPresentaciones.MultiSelect = False
         Me.grdPresentaciones.Name = "grdPresentaciones"
-        Me.grdPresentaciones.Size = New System.Drawing.Size(480, 244)
+        Me.grdPresentaciones.ReadOnly = True
+        Me.grdPresentaciones.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.grdPresentaciones.Size = New System.Drawing.Size(480, 292)
         Me.grdPresentaciones.TabIndex = 0
         '
         'Label1
@@ -65,14 +70,17 @@ Partial Class frmNuevaLiquidacion
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "Parametros"
         '
-        'Button1
+        'btnListo
         '
-        Me.Button1.Location = New System.Drawing.Point(3, 312)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 2
-        Me.Button1.Text = "Agregar"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.btnListo.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnListo.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.btnListo.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
+        Me.btnListo.Location = New System.Drawing.Point(198, 345)
+        Me.btnListo.Name = "btnListo"
+        Me.btnListo.Size = New System.Drawing.Size(89, 23)
+        Me.btnListo.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnListo.TabIndex = 2
+        Me.btnListo.Text = "Listo"
         '
         'frmNuevaLiquidacion
         '
@@ -92,5 +100,5 @@ Partial Class frmNuevaLiquidacion
     Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
     Friend WithEvents grdPresentaciones As DataGridView
     Friend WithEvents Label1 As Label
-    Friend WithEvents Button1 As Button
+    Friend WithEvents btnListo As DevComponents.DotNetBar.ButtonX
 End Class

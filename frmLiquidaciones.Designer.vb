@@ -27,16 +27,37 @@ Partial Class frmLiquidaciones
         Dim Background5 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
         Dim Background6 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
         Dim Background7 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle18 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.txtCodigo = New System.Windows.Forms.TextBox()
+        Me.lblFecha_presentacion = New System.Windows.Forms.Label()
+        Me.lblPeriodo_presentacion = New System.Windows.Forms.Label()
+        Me.lblObservacion = New System.Windows.Forms.Label()
+        Me.lblObraSocial = New System.Windows.Forms.Label()
+        Me.lblStatus_presentacion = New System.Windows.Forms.Label()
+        Me.Label33 = New System.Windows.Forms.Label()
+        Me.Label29 = New System.Windows.Forms.Label()
+        Me.Label28 = New System.Windows.Forms.Label()
+        Me.Label27 = New System.Windows.Forms.Label()
+        Me.Label26 = New System.Windows.Forms.Label()
+        Me.lblPresentacionCodigo = New System.Windows.Forms.Label()
+        Me.Label25 = New System.Windows.Forms.Label()
+        Me.btnCargarPresentacion = New DevComponents.DotNetBar.ButtonX()
+        Me.txtIdPresentacion = New System.Windows.Forms.TextBox()
+        Me.Label24 = New System.Windows.Forms.Label()
+        Me.lblID = New System.Windows.Forms.Label()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.chkGrillaInferior = New System.Windows.Forms.CheckBox()
         Me.rdTodasOC = New System.Windows.Forms.RadioButton()
         Me.rdPendientes = New System.Windows.Forms.RadioButton()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.lblTotal = New System.Windows.Forms.Label()
         Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
         Me.cmbTipoPago = New DevComponents.DotNetBar.Controls.ComboBoxEx()
         Me.pagoUnico = New DevComponents.Editors.ComboItem()
@@ -44,12 +65,10 @@ Partial Class frmLiquidaciones
         Me.chkComisionCentro = New System.Windows.Forms.CheckBox()
         Me.chkImpCheque = New System.Windows.Forms.CheckBox()
         Me.chkIngresosBrutos = New System.Windows.Forms.CheckBox()
-        Me.lblTotal = New System.Windows.Forms.Label()
         Me.Label23 = New System.Windows.Forms.Label()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.btnExcelWindow = New DevComponents.DotNetBar.ButtonX()
         Me.rdAnuladas = New System.Windows.Forms.RadioButton()
-        Me.Label15 = New System.Windows.Forms.Label()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.GroupPanelDetalleLiquidacion = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
@@ -92,34 +111,17 @@ Partial Class frmLiquidaciones
         Me.grdDetalleLiquidacion = New System.Windows.Forms.DataGridView()
         Me.chkAnuladas = New System.Windows.Forms.CheckBox()
         Me.lblCantidadFilas = New System.Windows.Forms.Label()
-        Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
         Me.Label19 = New System.Windows.Forms.Label()
         Me.SuperGrdResultado = New DevComponents.DotNetBar.SuperGrid.SuperGridControl()
         Me.lblcuit = New System.Windows.Forms.Label()
-        Me.lblPeriodo = New System.Windows.Forms.Label()
         Me.lblcmbObrasSociales = New System.Windows.Forms.Label()
         Me.cmbObraSocial = New System.Windows.Forms.ComboBox()
-        Me.txtIdComprobante = New TextBoxConFormatoVB.FormattedTextBoxVB()
-        Me.txtIdMoneda = New TextBoxConFormatoVB.FormattedTextBoxVB()
-        Me.txtNroFacturaCompletoControl = New TextBoxConFormatoVB.FormattedTextBoxVB()
-        Me.txtNroRemitoControl = New TextBoxConFormatoVB.FormattedTextBoxVB()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.grdImpuestos = New System.Windows.Forms.DataGridView()
-        Me.Label16 = New System.Windows.Forms.Label()
-        Me.cmbAlmacenes = New System.Windows.Forms.ComboBox()
-        Me.lblMontoIva = New System.Windows.Forms.Label()
-        Me.txtidpago = New TextBoxConFormatoVB.FormattedTextBoxVB()
-        Me.txtIdProveedor = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.txtID = New TextBoxConFormatoVB.FormattedTextBoxVB()
-        Me.txtNota = New TextBoxConFormatoVB.FormattedTextBoxVB()
-        Me.Label8 = New System.Windows.Forms.Label()
         Me.btnLlenarGrilla = New System.Windows.Forms.Button()
         Me.chkEliminado = New System.Windows.Forms.CheckBox()
-        Me.txtCODIGO = New TextBoxConFormatoVB.FormattedTextBoxVB()
-        Me.Label2 = New System.Windows.Forms.Label()
         Me.dtpFECHA = New System.Windows.Forms.DateTimePicker()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.txtIdGasto = New TextBoxConFormatoVB.FormattedTextBoxVB()
+        Me.GroupBox5 = New System.Windows.Forms.GroupBox()
+        Me.txtNota = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.grdItems = New System.Windows.Forms.DataGridView()
         Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.IdFarmacia = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -130,7 +132,21 @@ Partial Class frmLiquidaciones
         Me.AcargoOS = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Bonificacion = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Total = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.chkGrillaInferior = New System.Windows.Forms.CheckBox()
+        Me.txtIdGasto = New TextBoxConFormatoVB.FormattedTextBoxVB()
+        Me.txtidpago = New TextBoxConFormatoVB.FormattedTextBoxVB()
+        Me.lblMontoIva = New System.Windows.Forms.Label()
+        Me.grdImpuestos = New System.Windows.Forms.DataGridView()
+        Me.txtNroRemitoControl = New TextBoxConFormatoVB.FormattedTextBoxVB()
+        Me.txtNroFacturaCompletoControl = New TextBoxConFormatoVB.FormattedTextBoxVB()
+        Me.txtIdMoneda = New TextBoxConFormatoVB.FormattedTextBoxVB()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.txtCODIGOunused = New TextBoxConFormatoVB.FormattedTextBoxVB()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.cmbAlmacenes = New System.Windows.Forms.ComboBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.txtIdComprobante = New TextBoxConFormatoVB.FormattedTextBoxVB()
+        Me.txtIdProveedor = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BorrarElItemToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BuscarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -155,65 +171,253 @@ Partial Class frmLiquidaciones
         CType(Me.NumericUpDown5, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdDetalleLiquidacionFiltrada, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdDetalleLiquidacion, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.grdImpuestos, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox5.SuspendLayout()
         CType(Me.grdItems, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.grdImpuestos, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.ContextMenuStripIVA.SuspendLayout()
         Me.SuspendLayout()
         '
         'GroupBox1
         '
+        Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox1.BackColor = System.Drawing.SystemColors.Control
+        Me.GroupBox1.Controls.Add(Me.txtCodigo)
+        Me.GroupBox1.Controls.Add(Me.lblFecha_presentacion)
+        Me.GroupBox1.Controls.Add(Me.lblPeriodo_presentacion)
+        Me.GroupBox1.Controls.Add(Me.lblObservacion)
+        Me.GroupBox1.Controls.Add(Me.lblObraSocial)
+        Me.GroupBox1.Controls.Add(Me.lblStatus_presentacion)
+        Me.GroupBox1.Controls.Add(Me.Label33)
+        Me.GroupBox1.Controls.Add(Me.Label29)
+        Me.GroupBox1.Controls.Add(Me.Label28)
+        Me.GroupBox1.Controls.Add(Me.Label27)
+        Me.GroupBox1.Controls.Add(Me.Label26)
+        Me.GroupBox1.Controls.Add(Me.lblPresentacionCodigo)
+        Me.GroupBox1.Controls.Add(Me.Label25)
+        Me.GroupBox1.Controls.Add(Me.btnCargarPresentacion)
+        Me.GroupBox1.Controls.Add(Me.txtIdPresentacion)
+        Me.GroupBox1.Controls.Add(Me.Label24)
+        Me.GroupBox1.Controls.Add(Me.lblID)
+        Me.GroupBox1.Controls.Add(Me.Label7)
+        Me.GroupBox1.Controls.Add(Me.Label15)
+        Me.GroupBox1.Controls.Add(Me.chkGrillaInferior)
         Me.GroupBox1.Controls.Add(Me.rdTodasOC)
         Me.GroupBox1.Controls.Add(Me.rdPendientes)
         Me.GroupBox1.Controls.Add(Me.GroupBox4)
         Me.GroupBox1.Controls.Add(Me.rdAnuladas)
-        Me.GroupBox1.Controls.Add(Me.Label15)
         Me.GroupBox1.Controls.Add(Me.Label14)
         Me.GroupBox1.Controls.Add(Me.GroupPanelDetalleLiquidacion)
         Me.GroupBox1.Controls.Add(Me.chkAnuladas)
         Me.GroupBox1.Controls.Add(Me.lblCantidadFilas)
-        Me.GroupBox1.Controls.Add(Me.ButtonX1)
         Me.GroupBox1.Controls.Add(Me.Label19)
         Me.GroupBox1.Controls.Add(Me.SuperGrdResultado)
         Me.GroupBox1.Controls.Add(Me.lblcuit)
-        Me.GroupBox1.Controls.Add(Me.lblPeriodo)
         Me.GroupBox1.Controls.Add(Me.lblcmbObrasSociales)
         Me.GroupBox1.Controls.Add(Me.cmbObraSocial)
-        Me.GroupBox1.Controls.Add(Me.txtIdComprobante)
-        Me.GroupBox1.Controls.Add(Me.txtIdMoneda)
-        Me.GroupBox1.Controls.Add(Me.txtNroFacturaCompletoControl)
-        Me.GroupBox1.Controls.Add(Me.txtNroRemitoControl)
-        Me.GroupBox1.Controls.Add(Me.Label4)
-        Me.GroupBox1.Controls.Add(Me.grdImpuestos)
-        Me.GroupBox1.Controls.Add(Me.Label16)
-        Me.GroupBox1.Controls.Add(Me.cmbAlmacenes)
-        Me.GroupBox1.Controls.Add(Me.lblMontoIva)
-        Me.GroupBox1.Controls.Add(Me.txtidpago)
-        Me.GroupBox1.Controls.Add(Me.txtIdProveedor)
         Me.GroupBox1.Controls.Add(Me.txtID)
-        Me.GroupBox1.Controls.Add(Me.txtNota)
-        Me.GroupBox1.Controls.Add(Me.Label8)
         Me.GroupBox1.Controls.Add(Me.btnLlenarGrilla)
         Me.GroupBox1.Controls.Add(Me.chkEliminado)
-        Me.GroupBox1.Controls.Add(Me.txtCODIGO)
-        Me.GroupBox1.Controls.Add(Me.Label2)
         Me.GroupBox1.Controls.Add(Me.dtpFECHA)
-        Me.GroupBox1.Controls.Add(Me.Label3)
-        Me.GroupBox1.Controls.Add(Me.txtIdGasto)
-        Me.GroupBox1.Controls.Add(Me.grdItems)
+        Me.GroupBox1.Controls.Add(Me.GroupBox5)
         Me.GroupBox1.ForeColor = System.Drawing.Color.Black
-        Me.GroupBox1.Location = New System.Drawing.Point(7, 24)
+        Me.GroupBox1.Location = New System.Drawing.Point(0, 27)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(1360, 531)
+        Me.GroupBox1.Size = New System.Drawing.Size(1517, 507)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
+        '
+        'txtCodigo
+        '
+        Me.txtCodigo.Location = New System.Drawing.Point(15, 41)
+        Me.txtCodigo.Name = "txtCodigo"
+        Me.txtCodigo.ReadOnly = True
+        Me.txtCodigo.Size = New System.Drawing.Size(68, 20)
+        Me.txtCodigo.TabIndex = 415
+        '
+        'lblFecha_presentacion
+        '
+        Me.lblFecha_presentacion.Location = New System.Drawing.Point(848, 45)
+        Me.lblFecha_presentacion.Name = "lblFecha_presentacion"
+        Me.lblFecha_presentacion.Size = New System.Drawing.Size(102, 13)
+        Me.lblFecha_presentacion.TabIndex = 414
+        Me.lblFecha_presentacion.Text = "[Fecha]"
+        Me.lblFecha_presentacion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'lblPeriodo_presentacion
+        '
+        Me.lblPeriodo_presentacion.Location = New System.Drawing.Point(721, 45)
+        Me.lblPeriodo_presentacion.Name = "lblPeriodo_presentacion"
+        Me.lblPeriodo_presentacion.Size = New System.Drawing.Size(110, 13)
+        Me.lblPeriodo_presentacion.TabIndex = 413
+        Me.lblPeriodo_presentacion.Text = "[Período]"
+        Me.lblPeriodo_presentacion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'lblObservacion
+        '
+        Me.lblObservacion.Location = New System.Drawing.Point(526, 45)
+        Me.lblObservacion.Name = "lblObservacion"
+        Me.lblObservacion.Size = New System.Drawing.Size(179, 13)
+        Me.lblObservacion.TabIndex = 412
+        Me.lblObservacion.Text = "[Observación]"
+        Me.lblObservacion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'lblObraSocial
+        '
+        Me.lblObraSocial.Location = New System.Drawing.Point(392, 45)
+        Me.lblObraSocial.Name = "lblObraSocial"
+        Me.lblObraSocial.Size = New System.Drawing.Size(127, 13)
+        Me.lblObraSocial.TabIndex = 411
+        Me.lblObraSocial.Text = "[Obra Social]"
+        Me.lblObraSocial.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'lblStatus_presentacion
+        '
+        Me.lblStatus_presentacion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblStatus_presentacion.ForeColor = System.Drawing.Color.Green
+        Me.lblStatus_presentacion.Location = New System.Drawing.Point(969, 41)
+        Me.lblStatus_presentacion.Name = "lblStatus_presentacion"
+        Me.lblStatus_presentacion.Size = New System.Drawing.Size(149, 21)
+        Me.lblStatus_presentacion.TabIndex = 408
+        Me.lblStatus_presentacion.Text = "[Estado]"
+        Me.lblStatus_presentacion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'Label33
+        '
+        Me.Label33.AutoSize = True
+        Me.Label33.Location = New System.Drawing.Point(848, 26)
+        Me.Label33.Name = "Label33"
+        Me.Label33.Size = New System.Drawing.Size(37, 13)
+        Me.Label33.TabIndex = 406
+        Me.Label33.Text = "Fecha"
+        '
+        'Label29
+        '
+        Me.Label29.AutoSize = True
+        Me.Label29.Location = New System.Drawing.Point(969, 26)
+        Me.Label29.Name = "Label29"
+        Me.Label29.Size = New System.Drawing.Size(40, 13)
+        Me.Label29.TabIndex = 403
+        Me.Label29.Text = "Estado"
+        '
+        'Label28
+        '
+        Me.Label28.AutoSize = True
+        Me.Label28.Location = New System.Drawing.Point(721, 26)
+        Me.Label28.Name = "Label28"
+        Me.Label28.Size = New System.Drawing.Size(45, 13)
+        Me.Label28.TabIndex = 402
+        Me.Label28.Text = "Período"
+        '
+        'Label27
+        '
+        Me.Label27.AutoSize = True
+        Me.Label27.Location = New System.Drawing.Point(526, 26)
+        Me.Label27.Name = "Label27"
+        Me.Label27.Size = New System.Drawing.Size(67, 13)
+        Me.Label27.TabIndex = 400
+        Me.Label27.Text = "Observación"
+        '
+        'Label26
+        '
+        Me.Label26.AutoSize = True
+        Me.Label26.Location = New System.Drawing.Point(94, 25)
+        Me.Label26.Name = "Label26"
+        Me.Label26.Size = New System.Drawing.Size(37, 13)
+        Me.Label26.TabIndex = 399
+        Me.Label26.Text = "Fecha"
+        '
+        'lblPresentacionCodigo
+        '
+        Me.lblPresentacionCodigo.AutoSize = True
+        Me.lblPresentacionCodigo.Location = New System.Drawing.Point(208, 44)
+        Me.lblPresentacionCodigo.Name = "lblPresentacionCodigo"
+        Me.lblPresentacionCodigo.Size = New System.Drawing.Size(87, 13)
+        Me.lblPresentacionCodigo.TabIndex = 397
+        Me.lblPresentacionCodigo.Text = "No seleccionada"
+        '
+        'Label25
+        '
+        Me.Label25.AutoSize = True
+        Me.Label25.Location = New System.Drawing.Point(12, 23)
+        Me.Label25.Name = "Label25"
+        Me.Label25.Size = New System.Drawing.Size(61, 13)
+        Me.Label25.TabIndex = 396
+        Me.Label25.Text = "Liquidación"
+        '
+        'btnCargarPresentacion
+        '
+        Me.btnCargarPresentacion.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnCargarPresentacion.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
+        Me.btnCargarPresentacion.Location = New System.Drawing.Point(301, 41)
+        Me.btnCargarPresentacion.Name = "btnCargarPresentacion"
+        Me.btnCargarPresentacion.Size = New System.Drawing.Size(73, 20)
+        Me.btnCargarPresentacion.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnCargarPresentacion.TabIndex = 394
+        Me.btnCargarPresentacion.Text = "Cargar"
+        '
+        'txtIdPresentacion
+        '
+        Me.txtIdPresentacion.Enabled = False
+        Me.txtIdPresentacion.Location = New System.Drawing.Point(301, 23)
+        Me.txtIdPresentacion.Name = "txtIdPresentacion"
+        Me.txtIdPresentacion.Size = New System.Drawing.Size(73, 20)
+        Me.txtIdPresentacion.TabIndex = 393
+        '
+        'Label24
+        '
+        Me.Label24.AutoSize = True
+        Me.Label24.Location = New System.Drawing.Point(208, 25)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Size = New System.Drawing.Size(69, 13)
+        Me.Label24.TabIndex = 391
+        Me.Label24.Text = "Presentación"
+        '
+        'lblID
+        '
+        Me.lblID.AutoSize = True
+        Me.lblID.Location = New System.Drawing.Point(12, 72)
+        Me.lblID.Name = "lblID"
+        Me.lblID.Size = New System.Drawing.Size(18, 13)
+        Me.lblID.TabIndex = 390
+        Me.lblID.Text = "ID"
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.ForeColor = System.Drawing.SystemColors.WindowText
+        Me.Label7.Location = New System.Drawing.Point(1022, 117)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(52, 13)
+        Me.Label7.TabIndex = 387
+        Me.Label7.Text = "[Subtotal]"
+        '
+        'Label15
+        '
+        Me.Label15.AutoSize = True
+        Me.Label15.ForeColor = System.Drawing.SystemColors.WindowText
+        Me.Label15.Location = New System.Drawing.Point(923, 117)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(98, 13)
+        Me.Label15.TabIndex = 388
+        Me.Label15.Text = "Cantidad de Ítems: "
+        '
+        'chkGrillaInferior
+        '
+        Me.chkGrillaInferior.AutoSize = True
+        Me.chkGrillaInferior.Location = New System.Drawing.Point(179, 483)
+        Me.chkGrillaInferior.Name = "chkGrillaInferior"
+        Me.chkGrillaInferior.Size = New System.Drawing.Size(132, 17)
+        Me.chkGrillaInferior.TabIndex = 272
+        Me.chkGrillaInferior.Text = "Aumentar Grilla Inferior"
+        Me.chkGrillaInferior.UseVisualStyleBackColor = True
         '
         'rdTodasOC
         '
         Me.rdTodasOC.AutoSize = True
         Me.rdTodasOC.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.rdTodasOC.Location = New System.Drawing.Point(1220, 131)
+        Me.rdTodasOC.Location = New System.Drawing.Point(626, 483)
         Me.rdTodasOC.Name = "rdTodasOC"
         Me.rdTodasOC.Size = New System.Drawing.Size(60, 17)
         Me.rdTodasOC.TabIndex = 275
@@ -225,7 +429,7 @@ Partial Class frmLiquidaciones
         '
         Me.rdPendientes.AutoSize = True
         Me.rdPendientes.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.rdPendientes.Location = New System.Drawing.Point(1001, 131)
+        Me.rdPendientes.Location = New System.Drawing.Point(407, 483)
         Me.rdPendientes.Name = "rdPendientes"
         Me.rdPendientes.Size = New System.Drawing.Size(88, 17)
         Me.rdPendientes.TabIndex = 274
@@ -235,21 +439,32 @@ Partial Class frmLiquidaciones
         '
         'GroupBox4
         '
+        Me.GroupBox4.Controls.Add(Me.lblTotal)
         Me.GroupBox4.Controls.Add(Me.LabelX1)
         Me.GroupBox4.Controls.Add(Me.cmbTipoPago)
         Me.GroupBox4.Controls.Add(Me.chkComisionCentro)
         Me.GroupBox4.Controls.Add(Me.chkImpCheque)
         Me.GroupBox4.Controls.Add(Me.chkIngresosBrutos)
-        Me.GroupBox4.Controls.Add(Me.lblTotal)
         Me.GroupBox4.Controls.Add(Me.Label23)
         Me.GroupBox4.Controls.Add(Me.Label17)
         Me.GroupBox4.Controls.Add(Me.btnExcelWindow)
-        Me.GroupBox4.Location = New System.Drawing.Point(1081, 178)
+        Me.GroupBox4.Location = New System.Drawing.Point(1081, 142)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Size = New System.Drawing.Size(253, 293)
         Me.GroupBox4.TabIndex = 386
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Resúmen"
+        '
+        'lblTotal
+        '
+        Me.lblTotal.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTotal.ForeColor = System.Drawing.Color.DarkGreen
+        Me.lblTotal.Location = New System.Drawing.Point(6, 260)
+        Me.lblTotal.Name = "lblTotal"
+        Me.lblTotal.Size = New System.Drawing.Size(241, 24)
+        Me.lblTotal.TabIndex = 389
+        Me.lblTotal.Text = "$ [Total]"
+        Me.lblTotal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'LabelX1
         '
@@ -317,17 +532,6 @@ Partial Class frmLiquidaciones
         Me.chkIngresosBrutos.Text = "Ingresos Brutos"
         Me.chkIngresosBrutos.UseVisualStyleBackColor = True
         '
-        'lblTotal
-        '
-        Me.lblTotal.AutoSize = True
-        Me.lblTotal.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTotal.ForeColor = System.Drawing.Color.DarkGreen
-        Me.lblTotal.Location = New System.Drawing.Point(80, 261)
-        Me.lblTotal.Name = "lblTotal"
-        Me.lblTotal.Size = New System.Drawing.Size(110, 24)
-        Me.lblTotal.TabIndex = 389
-        Me.lblTotal.Text = "$ 141523,42"
-        '
         'Label23
         '
         Me.Label23.AutoSize = True
@@ -365,7 +569,7 @@ Partial Class frmLiquidaciones
         '
         Me.rdAnuladas.AutoSize = True
         Me.rdAnuladas.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.rdAnuladas.Location = New System.Drawing.Point(1116, 131)
+        Me.rdAnuladas.Location = New System.Drawing.Point(522, 483)
         Me.rdAnuladas.Name = "rdAnuladas"
         Me.rdAnuladas.Size = New System.Drawing.Size(77, 17)
         Me.rdAnuladas.TabIndex = 273
@@ -373,27 +577,16 @@ Partial Class frmLiquidaciones
         Me.rdAnuladas.Text = "Anuladas"
         Me.rdAnuladas.UseVisualStyleBackColor = True
         '
-        'Label15
-        '
-        Me.Label15.AutoSize = True
-        Me.Label15.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label15.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.Label15.Location = New System.Drawing.Point(6, 16)
-        Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(95, 18)
-        Me.Label15.TabIndex = 385
-        Me.Label15.Text = "Presentación"
-        '
         'Label14
         '
         Me.Label14.AutoSize = True
         Me.Label14.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label14.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.Label14.Location = New System.Drawing.Point(6, 160)
+        Me.Label14.Location = New System.Drawing.Point(6, 112)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(53, 18)
+        Me.Label14.Size = New System.Drawing.Size(131, 18)
         Me.Label14.TabIndex = 384
-        Me.Label14.Text = "Detalle"
+        Me.Label14.Text = "Detalle Liquidación"
         '
         'GroupPanelDetalleLiquidacion
         '
@@ -858,31 +1051,17 @@ Partial Class frmLiquidaciones
         '
         Me.lblCantidadFilas.AutoSize = True
         Me.lblCantidadFilas.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.lblCantidadFilas.Location = New System.Drawing.Point(1017, 168)
+        Me.lblCantidadFilas.Location = New System.Drawing.Point(111, 483)
         Me.lblCantidadFilas.Name = "lblCantidadFilas"
         Me.lblCantidadFilas.Size = New System.Drawing.Size(46, 13)
         Me.lblCantidadFilas.TabIndex = 270
         Me.lblCantidadFilas.Text = "Subtotal"
         '
-        'ButtonX1
-        '
-        Me.ButtonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.ButtonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.ButtonX1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonX1.Location = New System.Drawing.Point(1145, 483)
-        Me.ButtonX1.Name = "ButtonX1"
-        Me.ButtonX1.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(3)
-        Me.ButtonX1.Size = New System.Drawing.Size(135, 30)
-        Me.ButtonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.ButtonX1.TabIndex = 383
-        Me.ButtonX1.Text = "Liquidar"
-        Me.ButtonX1.TextColor = System.Drawing.SystemColors.WindowText
-        '
         'Label19
         '
         Me.Label19.AutoSize = True
         Me.Label19.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.Label19.Location = New System.Drawing.Point(918, 168)
+        Me.Label19.Location = New System.Drawing.Point(12, 483)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(98, 13)
         Me.Label19.TabIndex = 271
@@ -901,7 +1080,7 @@ Partial Class frmLiquidaciones
         Background4.Color1 = System.Drawing.Color.Transparent
         Me.SuperGrdResultado.DefaultVisualStyles.RowStyles.Default.Background = Background4
         Me.SuperGrdResultado.FilterExprColors.SysFunction = System.Drawing.Color.DarkRed
-        Me.SuperGrdResultado.Location = New System.Drawing.Point(7, 184)
+        Me.SuperGrdResultado.Location = New System.Drawing.Point(7, 136)
         Me.SuperGrdResultado.Margin = New System.Windows.Forms.Padding(2)
         Me.SuperGrdResultado.Name = "SuperGrdResultado"
         '
@@ -917,7 +1096,7 @@ Partial Class frmLiquidaciones
         Background7.Color1 = System.Drawing.Color.Transparent
         Me.SuperGrdResultado.PrimaryGrid.DefaultVisualStyles.RowStyles.Default.Background = Background7
         Me.SuperGrdResultado.PrimaryGrid.SelectionGranularity = DevComponents.DotNetBar.SuperGrid.SelectionGranularity.Row
-        Me.SuperGrdResultado.Size = New System.Drawing.Size(1058, 329)
+        Me.SuperGrdResultado.Size = New System.Drawing.Size(1061, 325)
         Me.SuperGrdResultado.TabIndex = 381
         Me.SuperGrdResultado.Text = "SuperGridControl1"
         '
@@ -930,23 +1109,14 @@ Partial Class frmLiquidaciones
         Me.lblcuit.TabIndex = 350
         Me.lblcuit.Text = "Cuit"
         '
-        'lblPeriodo
-        '
-        Me.lblPeriodo.AutoSize = True
-        Me.lblPeriodo.Location = New System.Drawing.Point(644, 0)
-        Me.lblPeriodo.Name = "lblPeriodo"
-        Me.lblPeriodo.Size = New System.Drawing.Size(43, 13)
-        Me.lblPeriodo.TabIndex = 349
-        Me.lblPeriodo.Text = "Periodo"
-        '
         'lblcmbObrasSociales
         '
         Me.lblcmbObrasSociales.AutoSize = True
-        Me.lblcmbObrasSociales.Location = New System.Drawing.Point(799, 34)
+        Me.lblcmbObrasSociales.Location = New System.Drawing.Point(391, 26)
         Me.lblcmbObrasSociales.Name = "lblcmbObrasSociales"
-        Me.lblcmbObrasSociales.Size = New System.Drawing.Size(78, 13)
+        Me.lblcmbObrasSociales.Size = New System.Drawing.Size(62, 13)
         Me.lblcmbObrasSociales.TabIndex = 346
-        Me.lblcmbObrasSociales.Text = "Obras Sociales"
+        Me.lblcmbObrasSociales.Text = "Obra Social"
         '
         'cmbObraSocial
         '
@@ -954,211 +1124,14 @@ Partial Class frmLiquidaciones
         Me.cmbObraSocial.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.cmbObraSocial.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbObraSocial.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbObraSocial.Enabled = False
         Me.cmbObraSocial.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbObraSocial.FormattingEnabled = True
-        Me.cmbObraSocial.Location = New System.Drawing.Point(798, 49)
+        Me.cmbObraSocial.Location = New System.Drawing.Point(97, 69)
         Me.cmbObraSocial.Name = "cmbObraSocial"
-        Me.cmbObraSocial.Size = New System.Drawing.Size(194, 21)
+        Me.cmbObraSocial.Size = New System.Drawing.Size(162, 21)
         Me.cmbObraSocial.TabIndex = 3
-        '
-        'txtIdComprobante
-        '
-        Me.txtIdComprobante.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtIdComprobante.Decimals = CType(2, Byte)
-        Me.txtIdComprobante.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
-        Me.txtIdComprobante.Enabled = False
-        Me.txtIdComprobante.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
-        Me.txtIdComprobante.Location = New System.Drawing.Point(533, -2)
-        Me.txtIdComprobante.MaxLength = 8
-        Me.txtIdComprobante.Name = "txtIdComprobante"
-        Me.txtIdComprobante.Size = New System.Drawing.Size(23, 20)
-        Me.txtIdComprobante.TabIndex = 297
-        Me.txtIdComprobante.Text_1 = Nothing
-        Me.txtIdComprobante.Text_2 = Nothing
-        Me.txtIdComprobante.Text_3 = Nothing
-        Me.txtIdComprobante.Text_4 = Nothing
-        Me.txtIdComprobante.UserValues = Nothing
-        Me.txtIdComprobante.Visible = False
-        '
-        'txtIdMoneda
-        '
-        Me.txtIdMoneda.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtIdMoneda.Decimals = CType(2, Byte)
-        Me.txtIdMoneda.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
-        Me.txtIdMoneda.Enabled = False
-        Me.txtIdMoneda.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
-        Me.txtIdMoneda.Location = New System.Drawing.Point(1013, 234)
-        Me.txtIdMoneda.MaxLength = 8
-        Me.txtIdMoneda.Name = "txtIdMoneda"
-        Me.txtIdMoneda.Size = New System.Drawing.Size(23, 20)
-        Me.txtIdMoneda.TabIndex = 296
-        Me.txtIdMoneda.Text_1 = Nothing
-        Me.txtIdMoneda.Text_2 = Nothing
-        Me.txtIdMoneda.Text_3 = Nothing
-        Me.txtIdMoneda.Text_4 = Nothing
-        Me.txtIdMoneda.UserValues = Nothing
-        Me.txtIdMoneda.Visible = False
-        '
-        'txtNroFacturaCompletoControl
-        '
-        Me.txtNroFacturaCompletoControl.AccessibleName = ""
-        Me.txtNroFacturaCompletoControl.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtNroFacturaCompletoControl.Decimals = CType(2, Byte)
-        Me.txtNroFacturaCompletoControl.DecSeparator = Global.Microsoft.VisualBasic.ChrW(46)
-        Me.txtNroFacturaCompletoControl.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtNroFacturaCompletoControl.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.txtNroFacturaCompletoControl.Location = New System.Drawing.Point(616, 253)
-        Me.txtNroFacturaCompletoControl.MaxLength = 20
-        Me.txtNroFacturaCompletoControl.Name = "txtNroFacturaCompletoControl"
-        Me.txtNroFacturaCompletoControl.ReadOnly = True
-        Me.txtNroFacturaCompletoControl.Size = New System.Drawing.Size(121, 20)
-        Me.txtNroFacturaCompletoControl.TabIndex = 287
-        Me.txtNroFacturaCompletoControl.Text_1 = Nothing
-        Me.txtNroFacturaCompletoControl.Text_2 = Nothing
-        Me.txtNroFacturaCompletoControl.Text_3 = Nothing
-        Me.txtNroFacturaCompletoControl.Text_4 = Nothing
-        Me.txtNroFacturaCompletoControl.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.txtNroFacturaCompletoControl.UserValues = Nothing
-        Me.txtNroFacturaCompletoControl.Visible = False
-        '
-        'txtNroRemitoControl
-        '
-        Me.txtNroRemitoControl.AccessibleName = ""
-        Me.txtNroRemitoControl.BackColor = System.Drawing.SystemColors.Window
-        Me.txtNroRemitoControl.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtNroRemitoControl.Decimals = CType(2, Byte)
-        Me.txtNroRemitoControl.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
-        Me.txtNroRemitoControl.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtNroRemitoControl.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.txtNroRemitoControl.Location = New System.Drawing.Point(598, 274)
-        Me.txtNroRemitoControl.MaxLength = 25
-        Me.txtNroRemitoControl.Name = "txtNroRemitoControl"
-        Me.txtNroRemitoControl.Size = New System.Drawing.Size(139, 20)
-        Me.txtNroRemitoControl.TabIndex = 286
-        Me.txtNroRemitoControl.Text_1 = Nothing
-        Me.txtNroRemitoControl.Text_2 = Nothing
-        Me.txtNroRemitoControl.Text_3 = Nothing
-        Me.txtNroRemitoControl.Text_4 = Nothing
-        Me.txtNroRemitoControl.UserValues = Nothing
-        Me.txtNroRemitoControl.Visible = False
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(799, 241)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(106, 13)
-        Me.Label4.TabIndex = 21
-        Me.Label4.Text = "Detalle de Impuestos"
-        '
-        'grdImpuestos
-        '
-        Me.grdImpuestos.AllowUserToAddRows = False
-        Me.grdImpuestos.AllowUserToDeleteRows = False
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.grdImpuestos.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
-        Me.grdImpuestos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.grdImpuestos.DefaultCellStyle = DataGridViewCellStyle2
-        Me.grdImpuestos.Location = New System.Drawing.Point(657, 323)
-        Me.grdImpuestos.Name = "grdImpuestos"
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.grdImpuestos.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
-        Me.grdImpuestos.RowHeadersWidth = 51
-        Me.grdImpuestos.Size = New System.Drawing.Size(364, 133)
-        Me.grdImpuestos.TabIndex = 25
-        '
-        'Label16
-        '
-        Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(954, 229)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(53, 13)
-        Me.Label16.TabIndex = 274
-        Me.Label16.Text = "Depósito*"
-        '
-        'cmbAlmacenes
-        '
-        Me.cmbAlmacenes.AccessibleName = ""
-        Me.cmbAlmacenes.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.cmbAlmacenes.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbAlmacenes.DropDownHeight = 500
-        Me.cmbAlmacenes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbAlmacenes.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmbAlmacenes.FormattingEnabled = True
-        Me.cmbAlmacenes.IntegralHeight = False
-        Me.cmbAlmacenes.Location = New System.Drawing.Point(859, 234)
-        Me.cmbAlmacenes.Name = "cmbAlmacenes"
-        Me.cmbAlmacenes.Size = New System.Drawing.Size(91, 21)
-        Me.cmbAlmacenes.TabIndex = 2
-        '
-        'lblMontoIva
-        '
-        Me.lblMontoIva.BackColor = System.Drawing.Color.White
-        Me.lblMontoIva.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.lblMontoIva.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblMontoIva.Location = New System.Drawing.Point(652, 300)
-        Me.lblMontoIva.Name = "lblMontoIva"
-        Me.lblMontoIva.Size = New System.Drawing.Size(85, 20)
-        Me.lblMontoIva.TabIndex = 17
-        Me.lblMontoIva.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.lblMontoIva.Visible = False
-        '
-        'txtidpago
-        '
-        Me.txtidpago.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtidpago.Decimals = CType(2, Byte)
-        Me.txtidpago.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
-        Me.txtidpago.Enabled = False
-        Me.txtidpago.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
-        Me.txtidpago.Location = New System.Drawing.Point(1001, 245)
-        Me.txtidpago.MaxLength = 8
-        Me.txtidpago.Name = "txtidpago"
-        Me.txtidpago.Size = New System.Drawing.Size(23, 20)
-        Me.txtidpago.TabIndex = 192
-        Me.txtidpago.Text_1 = Nothing
-        Me.txtidpago.Text_2 = Nothing
-        Me.txtidpago.Text_3 = Nothing
-        Me.txtidpago.Text_4 = Nothing
-        Me.txtidpago.UserValues = Nothing
-        Me.txtidpago.Visible = False
-        '
-        'txtIdProveedor
-        '
-        Me.txtIdProveedor.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtIdProveedor.Decimals = CType(2, Byte)
-        Me.txtIdProveedor.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
-        Me.txtIdProveedor.Enabled = False
-        Me.txtIdProveedor.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
-        Me.txtIdProveedor.Location = New System.Drawing.Point(561, -2)
-        Me.txtIdProveedor.MaxLength = 8
-        Me.txtIdProveedor.Name = "txtIdProveedor"
-        Me.txtIdProveedor.Size = New System.Drawing.Size(23, 20)
-        Me.txtIdProveedor.TabIndex = 130
-        Me.txtIdProveedor.Text_1 = Nothing
-        Me.txtIdProveedor.Text_2 = Nothing
-        Me.txtIdProveedor.Text_3 = Nothing
-        Me.txtIdProveedor.Text_4 = Nothing
-        Me.txtIdProveedor.UserValues = Nothing
-        Me.txtIdProveedor.Visible = False
+        Me.cmbObraSocial.Visible = False
         '
         'txtID
         '
@@ -1168,46 +1141,16 @@ Partial Class frmLiquidaciones
         Me.txtID.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtID.Enabled = False
         Me.txtID.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
-        Me.txtID.Location = New System.Drawing.Point(795, 132)
+        Me.txtID.Location = New System.Drawing.Point(26, 69)
         Me.txtID.MaxLength = 8
         Me.txtID.Name = "txtID"
-        Me.txtID.Size = New System.Drawing.Size(69, 20)
+        Me.txtID.Size = New System.Drawing.Size(57, 20)
         Me.txtID.TabIndex = 50
         Me.txtID.Text_1 = Nothing
         Me.txtID.Text_2 = Nothing
         Me.txtID.Text_3 = Nothing
         Me.txtID.Text_4 = Nothing
         Me.txtID.UserValues = Nothing
-        '
-        'txtNota
-        '
-        Me.txtNota.AccessibleName = "Nota"
-        Me.txtNota.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtNota.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtNota.Decimals = CType(2, Byte)
-        Me.txtNota.DecSeparator = Global.Microsoft.VisualBasic.ChrW(46)
-        Me.txtNota.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.txtNota.Location = New System.Drawing.Point(802, 184)
-        Me.txtNota.Name = "txtNota"
-        Me.txtNota.Size = New System.Drawing.Size(1, 20)
-        Me.txtNota.TabIndex = 8
-        Me.txtNota.Text_1 = Nothing
-        Me.txtNota.Text_2 = Nothing
-        Me.txtNota.Text_3 = Nothing
-        Me.txtNota.Text_4 = Nothing
-        Me.txtNota.UserValues = Nothing
-        Me.txtNota.Visible = False
-        '
-        'Label8
-        '
-        Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(795, 211)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(30, 13)
-        Me.Label8.TabIndex = 118
-        Me.Label8.Text = "Nota"
-        Me.Label8.Visible = False
         '
         'btnLlenarGrilla
         '
@@ -1232,98 +1175,87 @@ Partial Class frmLiquidaciones
         Me.chkEliminado.UseVisualStyleBackColor = True
         Me.chkEliminado.Visible = False
         '
-        'txtCODIGO
-        '
-        Me.txtCODIGO.AccessibleName = "CODIGO"
-        Me.txtCODIGO.BackColor = System.Drawing.SystemColors.Window
-        Me.txtCODIGO.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtCODIGO.Decimals = CType(2, Byte)
-        Me.txtCODIGO.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
-        Me.txtCODIGO.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtCODIGO.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.txtCODIGO.Location = New System.Drawing.Point(768, 240)
-        Me.txtCODIGO.MaxLength = 25
-        Me.txtCODIGO.Name = "txtCODIGO"
-        Me.txtCODIGO.ReadOnly = True
-        Me.txtCODIGO.Size = New System.Drawing.Size(76, 20)
-        Me.txtCODIGO.TabIndex = 0
-        Me.txtCODIGO.Text_1 = Nothing
-        Me.txtCODIGO.Text_2 = Nothing
-        Me.txtCODIGO.Text_3 = Nothing
-        Me.txtCODIGO.Text_4 = Nothing
-        Me.txtCODIGO.UserValues = Nothing
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(765, 281)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(79, 13)
-        Me.Label2.TabIndex = 51
-        Me.Label2.Text = "Nro Recepción"
-        '
         'dtpFECHA
         '
         Me.dtpFECHA.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpFECHA.Location = New System.Drawing.Point(798, 93)
+        Me.dtpFECHA.Location = New System.Drawing.Point(97, 41)
         Me.dtpFECHA.MaxDate = New Date(2099, 12, 31, 0, 0, 0, 0)
         Me.dtpFECHA.MinDate = New Date(2000, 1, 1, 0, 0, 0, 0)
         Me.dtpFECHA.Name = "dtpFECHA"
-        Me.dtpFECHA.Size = New System.Drawing.Size(102, 20)
+        Me.dtpFECHA.Size = New System.Drawing.Size(95, 20)
         Me.dtpFECHA.TabIndex = 1
         Me.dtpFECHA.Tag = "202"
         '
-        'Label3
+        'GroupBox5
         '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(795, 78)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(37, 13)
-        Me.Label3.TabIndex = 52
-        Me.Label3.Text = "Fecha"
+        Me.GroupBox5.Controls.Add(Me.txtNota)
+        Me.GroupBox5.Controls.Add(Me.grdItems)
+        Me.GroupBox5.Controls.Add(Me.txtIdGasto)
+        Me.GroupBox5.Controls.Add(Me.txtidpago)
+        Me.GroupBox5.Controls.Add(Me.lblMontoIva)
+        Me.GroupBox5.Controls.Add(Me.grdImpuestos)
+        Me.GroupBox5.Controls.Add(Me.txtNroRemitoControl)
+        Me.GroupBox5.Controls.Add(Me.txtNroFacturaCompletoControl)
+        Me.GroupBox5.Controls.Add(Me.txtIdMoneda)
+        Me.GroupBox5.Controls.Add(Me.Label8)
+        Me.GroupBox5.Controls.Add(Me.txtCODIGOunused)
+        Me.GroupBox5.Controls.Add(Me.Label4)
+        Me.GroupBox5.Controls.Add(Me.cmbAlmacenes)
+        Me.GroupBox5.Controls.Add(Me.Label2)
+        Me.GroupBox5.Controls.Add(Me.Label16)
+        Me.GroupBox5.Controls.Add(Me.txtIdComprobante)
+        Me.GroupBox5.Controls.Add(Me.txtIdProveedor)
+        Me.GroupBox5.Location = New System.Drawing.Point(617, 182)
+        Me.GroupBox5.Name = "GroupBox5"
+        Me.GroupBox5.Size = New System.Drawing.Size(277, 235)
+        Me.GroupBox5.TabIndex = 389
+        Me.GroupBox5.TabStop = False
+        Me.GroupBox5.Text = "Campos no utilizados"
+        Me.GroupBox5.Visible = False
         '
-        'txtIdGasto
+        'txtNota
         '
-        Me.txtIdGasto.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtIdGasto.Decimals = CType(2, Byte)
-        Me.txtIdGasto.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
-        Me.txtIdGasto.Enabled = False
-        Me.txtIdGasto.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
-        Me.txtIdGasto.Location = New System.Drawing.Point(1001, 190)
-        Me.txtIdGasto.MaxLength = 8
-        Me.txtIdGasto.Name = "txtIdGasto"
-        Me.txtIdGasto.Size = New System.Drawing.Size(35, 20)
-        Me.txtIdGasto.TabIndex = 191
-        Me.txtIdGasto.Text_1 = Nothing
-        Me.txtIdGasto.Text_2 = Nothing
-        Me.txtIdGasto.Text_3 = Nothing
-        Me.txtIdGasto.Text_4 = Nothing
-        Me.txtIdGasto.UserValues = Nothing
-        Me.txtIdGasto.Visible = False
+        Me.txtNota.AccessibleName = "Nota"
+        Me.txtNota.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtNota.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtNota.Decimals = CType(2, Byte)
+        Me.txtNota.DecSeparator = Global.Microsoft.VisualBasic.ChrW(46)
+        Me.txtNota.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
+        Me.txtNota.Location = New System.Drawing.Point(27, 115)
+        Me.txtNota.Name = "txtNota"
+        Me.txtNota.Size = New System.Drawing.Size(0, 20)
+        Me.txtNota.TabIndex = 8
+        Me.txtNota.Text_1 = Nothing
+        Me.txtNota.Text_2 = Nothing
+        Me.txtNota.Text_3 = Nothing
+        Me.txtNota.Text_4 = Nothing
+        Me.txtNota.UserValues = Nothing
+        Me.txtNota.Visible = False
         '
         'grdItems
         '
         Me.grdItems.AllowUserToAddRows = False
         Me.grdItems.AllowUserToDeleteRows = False
-        DataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black
-        Me.grdItems.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle13.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
+        DataGridViewCellStyle13.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle13.ForeColor = System.Drawing.Color.Black
+        Me.grdItems.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle13
         Me.grdItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.grdItems.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.IdFarmacia, Me.Farmacia, Me.IdPresentacion, Me.Recetas, Me.Recaudado, Me.AcargoOS, Me.Bonificacion, Me.Total})
-        Me.grdItems.Location = New System.Drawing.Point(713, 218)
+        Me.grdItems.Location = New System.Drawing.Point(30, 58)
         Me.grdItems.Name = "grdItems"
         Me.grdItems.RowHeadersWidth = 51
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grdItems.RowsDefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle15.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grdItems.RowsDefaultCellStyle = DataGridViewCellStyle15
         Me.grdItems.Size = New System.Drawing.Size(206, 143)
         Me.grdItems.TabIndex = 351
         Me.grdItems.Visible = False
         '
         'DataGridViewTextBoxColumn1
         '
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DataGridViewTextBoxColumn1.DefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle14.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DataGridViewTextBoxColumn1.DefaultCellStyle = DataGridViewCellStyle14
         Me.DataGridViewTextBoxColumn1.HeaderText = "Id"
         Me.DataGridViewTextBoxColumn1.MinimumWidth = 6
         Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
@@ -1387,16 +1319,263 @@ Partial Class frmLiquidaciones
         Me.Total.Name = "Total"
         Me.Total.Width = 125
         '
-        'chkGrillaInferior
+        'txtIdGasto
         '
-        Me.chkGrillaInferior.AutoSize = True
-        Me.chkGrillaInferior.Location = New System.Drawing.Point(652, 561)
-        Me.chkGrillaInferior.Name = "chkGrillaInferior"
-        Me.chkGrillaInferior.Size = New System.Drawing.Size(132, 17)
-        Me.chkGrillaInferior.TabIndex = 272
-        Me.chkGrillaInferior.Text = "Aumentar Grilla Inferior"
-        Me.chkGrillaInferior.UseVisualStyleBackColor = True
-        Me.chkGrillaInferior.Visible = False
+        Me.txtIdGasto.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtIdGasto.Decimals = CType(2, Byte)
+        Me.txtIdGasto.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
+        Me.txtIdGasto.Enabled = False
+        Me.txtIdGasto.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
+        Me.txtIdGasto.Location = New System.Drawing.Point(151, 141)
+        Me.txtIdGasto.MaxLength = 8
+        Me.txtIdGasto.Name = "txtIdGasto"
+        Me.txtIdGasto.Size = New System.Drawing.Size(35, 20)
+        Me.txtIdGasto.TabIndex = 191
+        Me.txtIdGasto.Text_1 = Nothing
+        Me.txtIdGasto.Text_2 = Nothing
+        Me.txtIdGasto.Text_3 = Nothing
+        Me.txtIdGasto.Text_4 = Nothing
+        Me.txtIdGasto.UserValues = Nothing
+        Me.txtIdGasto.Visible = False
+        '
+        'txtidpago
+        '
+        Me.txtidpago.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtidpago.Decimals = CType(2, Byte)
+        Me.txtidpago.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
+        Me.txtidpago.Enabled = False
+        Me.txtidpago.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
+        Me.txtidpago.Location = New System.Drawing.Point(182, 124)
+        Me.txtidpago.MaxLength = 8
+        Me.txtidpago.Name = "txtidpago"
+        Me.txtidpago.Size = New System.Drawing.Size(23, 20)
+        Me.txtidpago.TabIndex = 192
+        Me.txtidpago.Text_1 = Nothing
+        Me.txtidpago.Text_2 = Nothing
+        Me.txtidpago.Text_3 = Nothing
+        Me.txtidpago.Text_4 = Nothing
+        Me.txtidpago.UserValues = Nothing
+        Me.txtidpago.Visible = False
+        '
+        'lblMontoIva
+        '
+        Me.lblMontoIva.BackColor = System.Drawing.Color.White
+        Me.lblMontoIva.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.lblMontoIva.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblMontoIva.Location = New System.Drawing.Point(151, 124)
+        Me.lblMontoIva.Name = "lblMontoIva"
+        Me.lblMontoIva.Size = New System.Drawing.Size(85, 20)
+        Me.lblMontoIva.TabIndex = 17
+        Me.lblMontoIva.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lblMontoIva.Visible = False
+        '
+        'grdImpuestos
+        '
+        Me.grdImpuestos.AllowUserToAddRows = False
+        Me.grdImpuestos.AllowUserToDeleteRows = False
+        DataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle16.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.grdImpuestos.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle16
+        Me.grdImpuestos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle17.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle17.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.grdImpuestos.DefaultCellStyle = DataGridViewCellStyle17
+        Me.grdImpuestos.Location = New System.Drawing.Point(6, 98)
+        Me.grdImpuestos.Name = "grdImpuestos"
+        DataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle18.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.grdImpuestos.RowHeadersDefaultCellStyle = DataGridViewCellStyle18
+        Me.grdImpuestos.RowHeadersWidth = 51
+        Me.grdImpuestos.Size = New System.Drawing.Size(259, 102)
+        Me.grdImpuestos.TabIndex = 25
+        '
+        'txtNroRemitoControl
+        '
+        Me.txtNroRemitoControl.AccessibleName = ""
+        Me.txtNroRemitoControl.BackColor = System.Drawing.SystemColors.Window
+        Me.txtNroRemitoControl.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtNroRemitoControl.Decimals = CType(2, Byte)
+        Me.txtNroRemitoControl.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
+        Me.txtNroRemitoControl.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtNroRemitoControl.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
+        Me.txtNroRemitoControl.Location = New System.Drawing.Point(97, 98)
+        Me.txtNroRemitoControl.MaxLength = 25
+        Me.txtNroRemitoControl.Name = "txtNroRemitoControl"
+        Me.txtNroRemitoControl.Size = New System.Drawing.Size(139, 20)
+        Me.txtNroRemitoControl.TabIndex = 286
+        Me.txtNroRemitoControl.Text_1 = Nothing
+        Me.txtNroRemitoControl.Text_2 = Nothing
+        Me.txtNroRemitoControl.Text_3 = Nothing
+        Me.txtNroRemitoControl.Text_4 = Nothing
+        Me.txtNroRemitoControl.UserValues = Nothing
+        Me.txtNroRemitoControl.Visible = False
+        '
+        'txtNroFacturaCompletoControl
+        '
+        Me.txtNroFacturaCompletoControl.AccessibleName = ""
+        Me.txtNroFacturaCompletoControl.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtNroFacturaCompletoControl.Decimals = CType(2, Byte)
+        Me.txtNroFacturaCompletoControl.DecSeparator = Global.Microsoft.VisualBasic.ChrW(46)
+        Me.txtNroFacturaCompletoControl.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtNroFacturaCompletoControl.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
+        Me.txtNroFacturaCompletoControl.Location = New System.Drawing.Point(115, 77)
+        Me.txtNroFacturaCompletoControl.MaxLength = 20
+        Me.txtNroFacturaCompletoControl.Name = "txtNroFacturaCompletoControl"
+        Me.txtNroFacturaCompletoControl.ReadOnly = True
+        Me.txtNroFacturaCompletoControl.Size = New System.Drawing.Size(121, 20)
+        Me.txtNroFacturaCompletoControl.TabIndex = 287
+        Me.txtNroFacturaCompletoControl.Text_1 = Nothing
+        Me.txtNroFacturaCompletoControl.Text_2 = Nothing
+        Me.txtNroFacturaCompletoControl.Text_3 = Nothing
+        Me.txtNroFacturaCompletoControl.Text_4 = Nothing
+        Me.txtNroFacturaCompletoControl.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.txtNroFacturaCompletoControl.UserValues = Nothing
+        Me.txtNroFacturaCompletoControl.Visible = False
+        '
+        'txtIdMoneda
+        '
+        Me.txtIdMoneda.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtIdMoneda.Decimals = CType(2, Byte)
+        Me.txtIdMoneda.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
+        Me.txtIdMoneda.Enabled = False
+        Me.txtIdMoneda.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
+        Me.txtIdMoneda.Location = New System.Drawing.Point(182, 124)
+        Me.txtIdMoneda.MaxLength = 8
+        Me.txtIdMoneda.Name = "txtIdMoneda"
+        Me.txtIdMoneda.Size = New System.Drawing.Size(23, 20)
+        Me.txtIdMoneda.TabIndex = 296
+        Me.txtIdMoneda.Text_1 = Nothing
+        Me.txtIdMoneda.Text_2 = Nothing
+        Me.txtIdMoneda.Text_3 = Nothing
+        Me.txtIdMoneda.Text_4 = Nothing
+        Me.txtIdMoneda.UserValues = Nothing
+        Me.txtIdMoneda.Visible = False
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(94, 33)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(30, 13)
+        Me.Label8.TabIndex = 118
+        Me.Label8.Text = "Nota"
+        Me.Label8.Visible = False
+        '
+        'txtCODIGOunused
+        '
+        Me.txtCODIGOunused.AccessibleName = "CODIGO"
+        Me.txtCODIGOunused.BackColor = System.Drawing.SystemColors.Window
+        Me.txtCODIGOunused.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtCODIGOunused.Decimals = CType(2, Byte)
+        Me.txtCODIGOunused.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
+        Me.txtCODIGOunused.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtCODIGOunused.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
+        Me.txtCODIGOunused.Location = New System.Drawing.Point(58, 85)
+        Me.txtCODIGOunused.MaxLength = 25
+        Me.txtCODIGOunused.Name = "txtCODIGOunused"
+        Me.txtCODIGOunused.ReadOnly = True
+        Me.txtCODIGOunused.Size = New System.Drawing.Size(76, 20)
+        Me.txtCODIGOunused.TabIndex = 0
+        Me.txtCODIGOunused.Text_1 = Nothing
+        Me.txtCODIGOunused.Text_2 = Nothing
+        Me.txtCODIGOunused.Text_3 = Nothing
+        Me.txtCODIGOunused.Text_4 = Nothing
+        Me.txtCODIGOunused.UserValues = Nothing
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(24, 42)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(106, 13)
+        Me.Label4.TabIndex = 21
+        Me.Label4.Text = "Detalle de Impuestos"
+        '
+        'cmbAlmacenes
+        '
+        Me.cmbAlmacenes.AccessibleName = ""
+        Me.cmbAlmacenes.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.cmbAlmacenes.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cmbAlmacenes.DropDownHeight = 500
+        Me.cmbAlmacenes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbAlmacenes.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbAlmacenes.FormattingEnabled = True
+        Me.cmbAlmacenes.IntegralHeight = False
+        Me.cmbAlmacenes.Location = New System.Drawing.Point(71, 100)
+        Me.cmbAlmacenes.Name = "cmbAlmacenes"
+        Me.cmbAlmacenes.Size = New System.Drawing.Size(91, 21)
+        Me.cmbAlmacenes.TabIndex = 2
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(113, 131)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(79, 13)
+        Me.Label2.TabIndex = 51
+        Me.Label2.Text = "Nro Recepción"
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Location = New System.Drawing.Point(179, 42)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(53, 13)
+        Me.Label16.TabIndex = 274
+        Me.Label16.Text = "Depósito*"
+        '
+        'txtIdComprobante
+        '
+        Me.txtIdComprobante.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtIdComprobante.Decimals = CType(2, Byte)
+        Me.txtIdComprobante.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
+        Me.txtIdComprobante.Enabled = False
+        Me.txtIdComprobante.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
+        Me.txtIdComprobante.Location = New System.Drawing.Point(9, 20)
+        Me.txtIdComprobante.MaxLength = 8
+        Me.txtIdComprobante.Name = "txtIdComprobante"
+        Me.txtIdComprobante.Size = New System.Drawing.Size(23, 20)
+        Me.txtIdComprobante.TabIndex = 297
+        Me.txtIdComprobante.Text_1 = Nothing
+        Me.txtIdComprobante.Text_2 = Nothing
+        Me.txtIdComprobante.Text_3 = Nothing
+        Me.txtIdComprobante.Text_4 = Nothing
+        Me.txtIdComprobante.UserValues = Nothing
+        Me.txtIdComprobante.Visible = False
+        '
+        'txtIdProveedor
+        '
+        Me.txtIdProveedor.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtIdProveedor.Decimals = CType(2, Byte)
+        Me.txtIdProveedor.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
+        Me.txtIdProveedor.Enabled = False
+        Me.txtIdProveedor.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
+        Me.txtIdProveedor.Location = New System.Drawing.Point(37, 20)
+        Me.txtIdProveedor.MaxLength = 8
+        Me.txtIdProveedor.Name = "txtIdProveedor"
+        Me.txtIdProveedor.Size = New System.Drawing.Size(23, 20)
+        Me.txtIdProveedor.TabIndex = 130
+        Me.txtIdProveedor.Text_1 = Nothing
+        Me.txtIdProveedor.Text_2 = Nothing
+        Me.txtIdProveedor.Text_3 = Nothing
+        Me.txtIdProveedor.Text_4 = Nothing
+        Me.txtIdProveedor.UserValues = Nothing
+        Me.txtIdProveedor.Visible = False
         '
         'ContextMenuStrip1
         '
@@ -1447,11 +1626,9 @@ Partial Class frmLiquidaciones
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1364, 609)
         Me.Controls.Add(Me.GroupBox1)
-        Me.Controls.Add(Me.chkGrillaInferior)
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "frmLiquidaciones"
         Me.Text = "frmRecepciones"
-        Me.Controls.SetChildIndex(Me.chkGrillaInferior, 0)
         Me.Controls.SetChildIndex(Me.GroupBox1, 0)
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
@@ -1475,8 +1652,10 @@ Partial Class frmLiquidaciones
         CType(Me.NumericUpDown5, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdDetalleLiquidacionFiltrada, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdDetalleLiquidacion, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.grdImpuestos, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox5.ResumeLayout(False)
+        Me.GroupBox5.PerformLayout()
         CType(Me.grdItems, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.grdImpuestos, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ContextMenuStrip1.ResumeLayout(False)
         Me.ContextMenuStripIVA.ResumeLayout(False)
         Me.ResumeLayout(False)
@@ -1488,10 +1667,9 @@ Partial Class frmLiquidaciones
     Friend WithEvents Label8 As System.Windows.Forms.Label
     Friend WithEvents chkEliminado As System.Windows.Forms.CheckBox
     Friend WithEvents txtID As TextBoxConFormatoVB.FormattedTextBoxVB
-    Friend WithEvents txtCODIGO As TextBoxConFormatoVB.FormattedTextBoxVB
+    Friend WithEvents txtCODIGOunused As TextBoxConFormatoVB.FormattedTextBoxVB
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents dtpFECHA As System.Windows.Forms.DateTimePicker
-    Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend Shadows WithEvents ContextMenuStrip1 As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents BorrarElItemToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents BuscarToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
@@ -1530,7 +1708,6 @@ Partial Class frmLiquidaciones
     Friend WithEvents Bonificacion As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Total As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents lblcuit As System.Windows.Forms.Label
-    Friend WithEvents lblPeriodo As System.Windows.Forms.Label
     Friend WithEvents FileName As TextBoxConFormatoVB.FormattedTextBoxVB
     Friend WithEvents grdDetalleLiquidacion As System.Windows.Forms.DataGridView
     Friend WithEvents cboSheet As System.Windows.Forms.ComboBox
@@ -1570,10 +1747,8 @@ Partial Class frmLiquidaciones
     Friend WithEvents RecognitionLabel As Label
     Friend WithEvents PanelDescuentos As Panel
     Friend WithEvents SuperGrdResultado As DevComponents.DotNetBar.SuperGrid.SuperGridControl
-    Friend WithEvents ButtonX1 As DevComponents.DotNetBar.ButtonX
     Friend WithEvents btnExcelWindow As DevComponents.DotNetBar.ButtonX
     Friend WithEvents Label14 As Label
-    Friend WithEvents Label15 As Label
     Friend WithEvents GroupBox4 As GroupBox
     Friend WithEvents Label17 As Label
     Friend WithEvents lblTotal As Label
@@ -1588,4 +1763,24 @@ Partial Class frmLiquidaciones
     Friend WithEvents rdTodasOC As RadioButton
     Friend WithEvents rdPendientes As RadioButton
     Friend WithEvents rdAnuladas As RadioButton
+    Friend WithEvents Label7 As Label
+    Friend WithEvents Label15 As Label
+    Friend WithEvents lblID As Label
+    Friend WithEvents GroupBox5 As GroupBox
+    Friend WithEvents Label24 As Label
+    Friend WithEvents Label26 As Label
+    Friend WithEvents lblPresentacionCodigo As Label
+    Friend WithEvents Label25 As Label
+    Friend WithEvents btnCargarPresentacion As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents Label27 As Label
+    Friend WithEvents Label29 As Label
+    Friend WithEvents Label28 As Label
+    Friend WithEvents Label33 As Label
+    Friend WithEvents lblStatus_presentacion As Label
+    Friend WithEvents lblFecha_presentacion As Label
+    Friend WithEvents lblPeriodo_presentacion As Label
+    Friend WithEvents lblObservacion As Label
+    Friend WithEvents lblObraSocial As Label
+    Friend WithEvents txtCodigo As TextBox
+    Friend WithEvents txtIdPresentacion As TextBox
 End Class
