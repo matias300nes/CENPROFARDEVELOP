@@ -46,13 +46,19 @@ Public Class frmLiquidaciones
     'constantes para identificar las columnas de la grilla por nombre 
     ' en vez de número
 
-
-    '    IdObraSocial = "0"
-    'Farmacia = "1"
-    'Recetas = "2"
-    'ImpTotal = "3"
-    'Bonificacion = "4" 
-    'PorPagar = "5"
+    Enum GrdColumns
+        ID = 0
+        Codigo = 1
+        IdPresentacion = 2
+        PresentacionCodigo = 3
+        ObraSocial = 4
+        Periodo = 5
+        Fecha_presentacion = 6
+        Fecha_liquidacion = 7
+        Estado = 8
+        Observacion = 9
+        total = 10
+    End Enum
 
     Enum ColumnasDelGridItems
         ID = 0
@@ -66,18 +72,6 @@ Public Class frmLiquidaciones
         Bonificacion = 8
         Total = 9
     End Enum
-
-    'Enum ColumnasDelgrdDetLiquidacionOs
-    '    ID = 0
-    '    IdFarmacia = 1
-    '    Farmacia = 2
-    '    IdPresentacion = 3
-    '    Recetas = 4
-    '    Recaudado = 5
-    '    ACargoOS = 6
-    '    Bonificacion = 7
-    '    Total = 8
-    'End Enum
 
     Enum ColumnasDelGridItems1
         IDRecepcion_Det = 0
@@ -127,13 +121,6 @@ Public Class frmLiquidaciones
         IdMarca = 44
     End Enum
 
-    'Enum ColumnasDelGridItems1IVA
-    '    id = 0
-    '    Subtotal = 1
-    '    PorcIva = 2
-    '    MontoIVA = 3
-    'End Enum
-
     Enum ColumnasDelGridImpuestos
         Id = 0
         codigo = 1
@@ -179,7 +166,6 @@ Public Class frmLiquidaciones
         GroupPanelDetalleLiquidacion.Visible = False
 
         'lblTotal.Visible = False
-        cmbObraSocial.Visible = True
         lblcmbObrasSociales.Visible = True
         Cursor = Cursors.WaitCursor
 
@@ -228,14 +214,6 @@ Public Class frmLiquidaciones
 
         grdDetalleLiquidacionFiltrada.Font = New Font("Microsoft Sans Serif", 7, FontStyle.Regular)
 
-        'Try
-
-        '    Dim sqlstring As String = "update [" & NameTable_NotificacionesWEB & "] set BloqueoR = 1 where idalmacen <> " & Util.numero_almacen
-        '    tranWEB.Sql_Set(sqlstring)
-        'Catch ex As Exception
-
-        'End Try
-
         band = 0
         'Modifico botones del frmbase
         btnEliminar.Text = "Eliminar Liquidación"
@@ -253,8 +231,6 @@ Public Class frmLiquidaciones
         ' LlenarGrid_grdDetLiquidacionOs()
         configurarform()
         asignarTags()
-        rdPendientes.Checked = 1
-        LlenarcmbUsuarioGasto()
 
         'IdObraSocial = cmbObraSocial.SelectedValue
 
@@ -266,62 +242,41 @@ Public Class frmLiquidaciones
         CargarCajas()
         PrepararBotones()
 
-        'Setear_Grilla()
+
+        With grd
+            ''autosize mode
+            .AutoSizeColumnsMode = .AutoSizeColumnsMode.Fill
+
+            ''Hide not needed columns from grd
+            .Columns(GrdColumns.IdPresentacion).Visible = False
+            .Columns(GrdColumns.PresentacionCodigo).Visible = False
+
+            ''resize some columns
+            .Columns(GrdColumns.Codigo).Width = 80
+            .Columns(GrdColumns.Fecha_presentacion).Width = 180
+
+            .Columns(GrdColumns.Fecha_presentacion).DefaultCellStyle.Alignment =
+                .Columns(GrdColumns.Fecha_presentacion).DefaultCellStyle.Alignment.MiddleCenter
+
+            .Columns(GrdColumns.Fecha_liquidacion).Width = 180
+
+            .Columns(GrdColumns.Fecha_liquidacion).DefaultCellStyle.Alignment =
+                .Columns(GrdColumns.Fecha_liquidacion).DefaultCellStyle.Alignment.MiddleCenter
+
+            .Columns(GrdColumns.Fecha_liquidacion).Width = 180
+            .Columns(GrdColumns.Estado).Width = 120
+            .Columns(GrdColumns.total).Width = 120
+        End With
 
         If bolModo = True Then
-            'LlenarGrid_Items()
-            'LlenarGrid_IVA(0)
-            'LlenarGrid_Impuestos()
             band = 1
             btnNuevo_Click(sender, e)
         Else
             btnLlenarGrilla.Enabled = bolModo
-            ' LlenarGrid_Items2()
-            'chkAsociarFacturaCargada.Enabled = bolModo
-            'cmbAsociarFacturaCargada.Enabled = bolModo
-
-            Try
-                'LlenarGrid_IVA(CType(txtIdGasto.Text, Long))
-
-            Catch ex As Exception
-                MsgBox(ex.Message)
-            End Try
-
-            'LlenarGrid_Impuestos()
-
+            btnCargarPresentacion.Enabled = False
         End If
 
-
-        'cmbProveedor.SelectedIndex = 0
-
-
-
-        'txtProveedor.Visible = Not bolModo
-        'txtOC.Visible = Not bolModo
-
         permitir_evento_CellChanged = True
-
-        'grd_CurrentCellChanged(sender, e)
-
-
-        'Oculto las columnas en el grd
-        'grd.Columns(3).Visible = False
-        'grd.Columns(4).Visible = False
-        'grd.Columns(5).Visible = False
-        'grd.Columns(10).Visible = False
-        'grd.Columns(23).Visible = False
-        'grd.Columns(26).Visible = False
-        'grd.Columns(27).Visible = False
-        'grd.Columns(30).Visible = False
-        'grd.Columns(31).Visible = False
-
-
-
-        'If grd.RowCount > 0 Then
-        '    txtCantIVA.Value = grd.CurrentRow.Cells(31).Value
-        '    chkCargarFactura.Enabled = False
-        '    chkCargarFactura_CheckedChanged(sender, e)
-        'End If
 
         Contar_Filas()
 
@@ -367,39 +322,6 @@ Public Class frmLiquidaciones
         Cell_Y = e.RowIndex
     End Sub
 
-    Private Sub grdItems_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs)
-
-        'Dim columna As Integer = 0
-        'columna = grdItems.CurrentCell.ColumnIndex
-
-        ''If columna = ColumnasDelGridItems1.ID_OrdenDeCompra Then
-        'If columna = 7 Then
-        '    If e.KeyCode = Keys.F5 And bolModo Then
-        '        Dim f As New ICYS.frmOrdenCompra
-        '        LLAMADO_POR_FORMULARIO = True
-        '        ARRIBA = 40
-        '        IZQUIERDA = Me.Left - 150
-        '        'texto_del_combo = cmbPROVEEDORES.Text.ToUpper.ToString
-        '        f.ShowDialog()
-        '        'MsgBox(ID_ORDEN_DE_COMPRA_DET.ToString)
-
-        '        If STATUS_ORDEN_DE_COMPRA_DET = "CUMPLIDO" Then
-        '            MsgBox("El item seleccionado esta cumplido. NO se puede cargar.", MsgBoxStyle.Information, "Atención")
-        '        Else
-        '            Me.grdItems.CurrentRow.Cells.Item(ColumnasDelGridItems1.ID_OrdenDeCompra).Value = ID_ORDEN_DE_COMPRA
-        '            Me.grdItems.CurrentRow.Cells.Item(ColumnasDelGridItems1.ID_OrdenDeCompra_Det).Value = ID_ORDEN_DE_COMPRA_DET
-        '            Me.grdItems.CurrentRow.Cells.Item(ColumnasDelGridItems1.IDMaterial).Value = ID_MATERIAL
-        '            Me.grdItems.CurrentRow.Cells.Item(ColumnasDelGridItems1.Cod_Material).Value = CODIGO_MATERIAL
-        '            Me.grdItems.CurrentRow.Cells.Item(ColumnasDelGridItems1.Nombre_Material).Value = NOMBRE_MATERIAL
-        '            Me.grdItems.CurrentRow.Cells.Item(ColumnasDelGridItems1.IDUnidad).Value = ID_UNIDAD
-        '            Me.grdItems.CurrentRow.Cells.Item(ColumnasDelGridItems1.Unidad).Value = UNIDAD_MATERIAL
-
-        '        End If
-        '    End If
-        'End If
-
-    End Sub
-
     Private Sub cmbOrdenDeCompra_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         If band = 1 Then
             If llenandoCombo = False Then
@@ -416,102 +338,11 @@ Public Class frmLiquidaciones
         End If
     End Sub
 
-    Private Sub cmbTipoComprobante_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
-
-
-        lblTotal.Text = "0"
-
-
-        'If cmbTipoComprobante.Text = "FACTURAS A" Or _
-        '    cmbTipoComprobante.Text = "NOTAS DE CREDITO A" Or _
-        '    cmbTipoComprobante.Text = "NOTAS DE DEBITO A" Or _
-        '    cmbTipoComprobante.Text = "RECIBOS A" Or _
-        '    cmbTipoComprobante.Text = "FACTURAS M" Or _
-        '    cmbTipoComprobante.Text = "NOTAS DE CREDITO M" Or _
-        '    cmbTipoComprobante.Text = "NOTAS DE DEBITO M" Or _
-        '    cmbTipoComprobante.Text = "RECIBOS M" Or _
-        '    cmbTipoComprobante.Text = "TIQUE FACTURA A" Then
-        '    txtCantIVA.Enabled = True
-        '    txtCantIVA.Value = 1
-        '    txtMontoIVA10.Enabled = True
-        '    txtMontoIVA21.Enabled = True
-        '    txtMontoIVA27.Enabled = True
-        'Else
-        '    txtCantIVA.Enabled = False
-        '    txtCantIVA.Value = 0
-        '    txtMontoIVA10.Enabled = False
-        '    txtMontoIVA21.Enabled = False
-        '    txtMontoIVA27.Enabled = False
-        'End If
-
-    End Sub
-
-    Private Sub txtSubtotal_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs)
-        If band = 1 Then
-            'If txtSubtotal.Text <> "" Then
-
-            '    'If cmbTipoComprobante.Text = "FACTURAS A" Or _
-            '    '    cmbTipoComprobante.Text = "NOTAS DE CREDITO A" Or _
-            '    '    cmbTipoComprobante.Text = "NOTAS DE DEBITO A" Or _
-            '    '    cmbTipoComprobante.Text = "RECIBOS A" Or _
-            '    '    cmbTipoComprobante.Text = "FACTURAS M" Or _
-            '    '    cmbTipoComprobante.Text = "NOTAS DE CREDITO M" Or _
-            '    '    cmbTipoComprobante.Text = "NOTAS DE DEBITO M" Or _
-            '    '    cmbTipoComprobante.Text = "RECIBOS M" Or _
-            '    '    cmbTipoComprobante.Text = "TIQUE FACTURA A" Then
-
-            '    '    txtMontoIVA21.Text = Format(txtSubtotal.Text * 0.21, "###0.00")
-
-            '    '    CalcularMontoIVA()
-
-            '    'End If
-
-            '    If lblImpuestos.Text = "" Then lblImpuestos.Text = "0"
-            '    If lblMontoIva.Text = "" Then lblMontoIva.Text = "0"
-            '    If txtSubtotal.Text = "" Then txtSubtotal.Text = "0"
-            '    If txtSubtotalExento.Text = "" Then txtSubtotalExento.Text = "0"
-
-            '    lblTotal.Text = CDbl(txtSubtotalExento.Text) + CDbl(txtSubtotal.Text) + CDbl(lblMontoIva.Text) + CDbl(lblImpuestos.Text)
-
-            'End If
-
-        End If
-    End Sub
-
     Private Sub txtsubtotalNoGravado_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)
         If e.KeyChar = ChrW(Keys.Enter) Then
             e.Handled = True
             SendKeys.Send("{TAB}")
         End If
-    End Sub
-
-    Private Sub txtSubtotalNoGravado_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs)
-        If band = 1 Then
-            'If txtSubtotalExento.Text <> "" Then
-
-            '    If lblImpuestos.Text = "" Then lblImpuestos.Text = "0"
-            '    If lblMontoIva.Text = "" Then lblMontoIva.Text = "0"
-            '    If txtSubtotal.Text = "" Then txtSubtotal.Text = "0"
-
-            '    lblTotal.Text = CDbl(txtSubtotalExento.Text) + CDbl(txtSubtotal.Text) + CDbl(lblMontoIva.Text) + CDbl(lblImpuestos.Text)
-            'End If
-        End If
-    End Sub
-
-    Private Sub chkAnuladas_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkAnuladas.CheckedChanged
-        btnGuardar.Enabled = Not chkAnuladas.Checked
-        btnEliminar.Enabled = Not chkAnuladas.Checked
-        btnNuevo.Enabled = Not chkAnuladas.Checked
-        btnCancelar.Enabled = Not chkAnuladas.Checked
-
-        If chkAnuladas.Checked = True Then
-            'SQL = "exec spRecepciones_Select_All @Eliminado = 1"
-        Else
-            'SQL = "exec spRecepciones_Select_All @Eliminado = 0"
-        End If
-
-        LlenarGrilla()
-
     End Sub
 
     Private Sub chkGrillaInferior_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkGrillaInferior.CheckedChanged
@@ -522,28 +353,6 @@ Public Class frmLiquidaciones
 
         variableajuste = 125
 
-        'If chkGrillaInferior.Checked = True Then
-        '    chkGrillaInferior.Text = "Disminuir Grilla Inferior"
-        '    chkGrillaInferior.Location = New Point(chkGrillaInferior.Location.X, chkGrillaInferior.Location.Y - variableajuste)
-        '    GroupBox1.Height = GroupBox1.Height - variableajuste
-        '    grd.Location = New Point(xgrd, ygrd - variableajuste)
-        '    grd.Height = hgrd + variableajuste
-        '    grdItems.Height = grdItems.Height - variableajuste
-        '    Label19.Location = New Point(Label19.Location.X, Label19.Location.Y - variableajuste)
-        '    lblCantidadFilas.Location = New Point(lblCantidadFilas.Location.X, lblCantidadFilas.Location.Y - variableajuste)
-
-        'Else
-        '    chkGrillaInferior.Text = "Aumentar Grilla Inferior"
-        '    chkGrillaInferior.Location = New Point(chkGrillaInferior.Location.X, chkGrillaInferior.Location.Y + variableajuste)
-        '    GroupBox1.Height = GroupBox1.Height + variableajuste
-        '    grd.Location = New Point(xgrd, ygrd + variableajuste)
-        '    grd.Height = hgrd - variableajuste
-        '    grdItems.Height = grdItems.Height + variableajuste
-        '    Label19.Location = New Point(Label19.Location.X, Label19.Location.Y + variableajuste)
-        '    lblCantidadFilas.Location = New Point(lblCantidadFilas.Location.X, lblCantidadFilas.Location.Y + variableajuste)
-
-        'End If
-
         If chkGrillaInferior.Checked = True Then
             chkGrillaInferior.Text = "Disminuir Grilla Inferior"
             chkGrillaInferior.Location = New Point(chkGrillaInferior.Location.X, chkGrillaInferior.Location.Y - variableajuste)
@@ -551,11 +360,7 @@ Public Class frmLiquidaciones
             grd.Location = New Point(xgrd, ygrd - variableajuste)
             grd.Height = hgrd + variableajuste
             Label19.Location = New Point(Label19.Location.X, Label19.Location.Y - variableajuste)
-            lblCantidadFilas.Location = New Point(lblCantidadFilas.Location.X, lblCantidadFilas.Location.Y - variableajuste)
-
-            rdPendientes.Location = New Point(rdPendientes.Location.X, rdPendientes.Location.Y - variableajuste)
-            rdAnuladas.Location = New Point(rdAnuladas.Location.X, rdAnuladas.Location.Y - variableajuste)
-            rdTodasOC.Location = New Point(rdTodasOC.Location.X, rdTodasOC.Location.Y - variableajuste)
+            lblCantLiq.Location = New Point(lblCantLiq.Location.X, lblCantLiq.Location.Y - variableajuste)
 
         Else
             chkGrillaInferior.Text = "Aumentar Grilla Inferior"
@@ -564,61 +369,11 @@ Public Class frmLiquidaciones
             grd.Location = New Point(xgrd, ygrd + variableajuste)
             grd.Height = hgrd - variableajuste
             Label19.Location = New Point(Label19.Location.X, Label19.Location.Y + variableajuste)
-            lblCantidadFilas.Location = New Point(lblCantidadFilas.Location.X, lblCantidadFilas.Location.Y + variableajuste)
-
-            rdPendientes.Location = New Point(rdPendientes.Location.X, rdPendientes.Location.Y + variableajuste)
-            rdAnuladas.Location = New Point(rdAnuladas.Location.X, rdAnuladas.Location.Y + variableajuste)
-            rdTodasOC.Location = New Point(rdTodasOC.Location.X, rdTodasOC.Location.Y + variableajuste)
+            lblCantLiq.Location = New Point(lblCantLiq.Location.X, lblCantLiq.Location.Y + variableajuste)
 
         End If
 
     End Sub
-
-    Private Sub txtMontoIVA21_KeyPress(sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)
-        If e.KeyChar = ChrW(Keys.Enter) Then
-            CalcularMontoIVA()
-            e.Handled = True
-            SendKeys.Send("{TAB}")
-        End If
-    End Sub
-
-    Private Sub txtMontoIVA10_KeyPress(sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)
-        If e.KeyChar = ChrW(Keys.Enter) Then
-            CalcularMontoIVA()
-            e.Handled = True
-            SendKeys.Send("{TAB}")
-        End If
-    End Sub
-
-    Private Sub txtMontoIVA27_KeyPress(sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)
-        If e.KeyChar = ChrW(Keys.Enter) Then
-            CalcularMontoIVA()
-            e.Handled = True
-            SendKeys.Send("{TAB}")
-        End If
-    End Sub
-
-    Private Sub txtCantIVA_ValueChanged(sender As Object, e As EventArgs)
-        'If cmbTipoComprobante.Text = "FACTURAS A" Or _
-        '    cmbTipoComprobante.Text = "NOTAS DE CREDITO A" Or _
-        '    cmbTipoComprobante.Text = "NOTAS DE DEBITO A" Or _
-        '    cmbTipoComprobante.Text = "RECIBOS A" Or _
-        '    cmbTipoComprobante.Text = "FACTURAS M" Or _
-        '    cmbTipoComprobante.Text = "NOTAS DE CREDITO M" Or _
-        '    cmbTipoComprobante.Text = "NOTAS DE DEBITO M" Or _
-        '    cmbTipoComprobante.Text = "RECIBOS M" Or _
-        '    cmbTipoComprobante.Text = "TIQUE FACTURA A" Then
-
-        '    If txtCantIVA.Value = 0 Then
-        '        txtCantIVA.Value = 1
-        '    End If
-        'End If
-    End Sub
-
-
-
-
-
 
 
 #End Region
@@ -630,7 +385,6 @@ Public Class frmLiquidaciones
     Friend Sub Presentacion_request(sqlDetalle As String, sqlConceptos As String)
         Dim connection As SqlClient.SqlConnection = Nothing
         Dim sql_items As String
-        Dim i As Integer
         Dim dtDetalle As New DataTable
         Dim dtConcepto As New DataTable()
         gl_dataset = Nothing
@@ -778,10 +532,8 @@ Public Class frmLiquidaciones
             End If
         End With
 
-        'txtRecaudado.Text = String.Format("{0:N2}", Recaudado)
-        'txtACargoOS.Text = String.Format("{0:N2}", ACargoOS)
         lblTotal.Text = String.Format("{0:N2}", Total)
-        lblCantidadFilas.Text = count
+        lblCantidadItems.Text = count
     End Sub
 
     Private Sub btnExcelWindow_Click(sender As Object, e As EventArgs) Handles btnExcelWindow.Click
@@ -1399,7 +1151,7 @@ Public Class frmLiquidaciones
         ''Me.grd.Size = New Size(4 / 6 * SuperGrdResultado.Width, 100) '65)
         'Me.grd.Size = New Size(3.5 / 6 * SuperGrdResultado.Width, 100) '65)
 
-        Me.Text = "Emisión de Ordenes de Compra a Proveedores"
+        Me.Text = "Liquidación"
 
         'Me.grd.Location = New Size(GroupBox1.Location.X, GroupBox1.Location.Y + GroupBox1.Size.Height + 7)
         Me.grd.Location = New Size(GroupBox1.Location.X, GroupBox1.Location.Y + GroupBox1.Size.Height + 5)
@@ -1427,11 +1179,12 @@ Public Class frmLiquidaciones
         txtIdPresentacion.Tag = "2"
         lblPresentacionCodigo.Tag = "3"
         lblObraSocial.Tag = "4"
-        lblFecha_presentacion.Tag = "5"
-        lblPeriodo_presentacion.Tag = "6"
-        lblStatus_presentacion.Tag = "7"
-        lblObservacion.Tag = "8"
-        dtpFECHA.Tag = "9"
+        lblPeriodo_presentacion.Tag = "5"
+        lblFecha_presentacion.Tag = "6"
+        dtpFECHA.Tag = "7"
+        lblStatus_presentacion.Tag = "8"
+        lblObservacion.Tag = "9"
+
     End Sub
 
     Private Sub Verificar_Datos()
@@ -1731,55 +1484,6 @@ Public Class frmLiquidaciones
     End Sub
 
 
-
-
-    Private Sub LlenarcmbUsuarioGasto()
-        Dim connection As SqlClient.SqlConnection = Nothing
-        Dim ds As Data.DataSet
-
-        Try
-            connection = SqlHelper.GetConnection(ConnStringSEI)
-        Catch ex As Exception
-            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
-        End Try
-
-        Try
-
-            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, " SELECT ID, NOMBRE FROM OBRASSOCIALES WHERE ELIMINADO = 0")
-            ds.Dispose()
-
-            With cmbObraSocial
-                .DataSource = ds.Tables(0).DefaultView
-                .DisplayMember = "NOMBRE"
-                .ValueMember = "ID"
-                '.SelectedIndex = "ID"
-            End With
-
-        Catch ex As Exception
-            Dim errMessage As String = ""
-            Dim tempException As Exception = ex
-
-            While (Not tempException Is Nothing)
-                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
-                tempException = tempException.InnerException
-            End While
-
-            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
-              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            If Not connection Is Nothing Then
-                CType(connection, IDisposable).Dispose()
-            End If
-        End Try
-
-        IdObraSocial = cmbObraSocial.SelectedValue
-        bolIDOS = True
-    End Sub
-
-
-
     'Private Sub LlenarComboFacturasAsociadas()
 
     '    Dim ds_FacturasCargadas As Data.DataSet
@@ -1828,9 +1532,7 @@ Public Class frmLiquidaciones
     'End Sub
 
     Private Sub Contar_Filas()
-
-
-
+        lblCantLiq.Text = grd.Rows.Count
     End Sub
 
     Private Sub CalcularMontoIVA()
@@ -1857,7 +1559,7 @@ Public Class frmLiquidaciones
         'Abrir una transaccion para guardar y asegurar que se guarda todo
         If Abrir_Tran(connection) = False Then
             MessageBox.Show("No se pudo abrir una transaccion", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Function
+            GuardarLiquidacion = -1
         End If
 
 
@@ -2321,10 +2023,10 @@ Public Class frmLiquidaciones
         Util.MsgStatus(Status1, "Haga click en [Guardar] despues de completar los datos.")
         PrepararBotones()
 
-        'dtpFECHA.Enabled = True
-        'txtNota.Enabled = True
-
         Util.LimpiarTextBox(Me.Controls)
+
+        ''Enable buttons
+        btnCargarPresentacion.Enabled = True
 
         ''Limpieza de labels
         lblPresentacionCodigo.Text = "No seleccionada"
@@ -2404,6 +2106,9 @@ Public Class frmLiquidaciones
                                 bolModo = False
                                 PrepararBotones()
 
+                                ''disable buttons
+                                btnCargarPresentacion.Enabled = False
+
                                 MDIPrincipal.NoActualizarBase = False
                                 btnActualizar_Click(sender, e)
 
@@ -2411,11 +2116,7 @@ Public Class frmLiquidaciones
 
                         End Select
                 End Select
-
         End Select
-
-
-
 
         '
         ' cerrar la conexion si está abierta.
@@ -2440,7 +2141,7 @@ Public Class frmLiquidaciones
 
         'Dim res As Integer
 
-        '''If BAJA Then
+        ''If BAJA Then
         'If chkEliminado.Checked = False Then
         '    If MessageBox.Show("Esta acción reversará las Recepciones de todos los items." + vbCrLf + "¿Está seguro que desea eliminar?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
         '        Util.MsgStatus(Status1, "Eliminando el registro...", My.Resources.Resources.indicator_white)
@@ -2495,11 +2196,11 @@ Public Class frmLiquidaciones
         'Else
         '    Util.MsgStatus(Status1, "El registro ya está eliminado.", My.Resources.stop_error.ToBitmap)
         '    Util.MsgStatus(Status1, "El registro ya está eliminado.", My.Resources.stop_error.ToBitmap, True)
-        'End If
-        '''Else
-        '''Util.MsgStatus(Status1, "No tiene permiso para eliminar registros.", My.Resources.stop_error.ToBitmap)
-        '''Util.MsgStatus(Status1, "No tiene permiso para eliminar registros.", My.Resources.stop_error.ToBitmap, True)
-        '''End If
+        'End Ifs
+        ''Else
+        ''Util.MsgStatus(Status1, "No tiene permiso para eliminar registros.", My.Resources.stop_error.ToBitmap)
+        ''Util.MsgStatus(Status1, "No tiene permiso para eliminar registros.", My.Resources.stop_error.ToBitmap, True)
+        ''End If
     End Sub
 
     Private Sub btnImprimir_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnImprimir.Click
@@ -2542,7 +2243,8 @@ Public Class frmLiquidaciones
     End Sub
 
     Private Overloads Sub btnCancelar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCancelar.Click
-
+        ''Disable buttons
+        btnCargarPresentacion.Enabled = False
 
     End Sub
 
@@ -2719,6 +2421,7 @@ Public Class frmLiquidaciones
         Dim RowsCount = SuperGrdResultado.PrimaryGrid.Rows.Count
         panel = e.GridPanel
         'SuperGrdResultado.PrimaryGrid.Columns("ID").Visible = False
+        SuperGrdResultado.PrimaryGrid.Columns("IdLiquidacion_det").Visible = False
         SuperGrdResultado.PrimaryGrid.Columns("IdFarmacia").Visible = False
         SuperGrdResultado.PrimaryGrid.Columns("IdLiquidacion").Visible = False
         SuperGrdResultado.PrimaryGrid.Columns("Bonificación").Visible = False
@@ -2739,12 +2442,21 @@ Public Class frmLiquidaciones
                 i += 1
             End While
 
+            ''HEADER 1
             GroupHeader1.EndDisplayIndex = panel.Columns("A cargo OS").DisplayIndex
             GroupHeader1.StartDisplayIndex = panel.Columns("Recetas").DisplayIndex
             GroupHeader1.HeaderText = "Presentado"
 
             If Not Groupheaders.contains(GroupHeader1.Name) Then
                 Groupheaders.Add(GroupHeader1)
+            End If
+
+            ''HEADER 2
+            GroupHeader2.EndDisplayIndex = panel.Columns("A Cargo OS A").DisplayIndex
+            GroupHeader2.StartDisplayIndex = panel.Columns("Recetas A").DisplayIndex
+            GroupHeader2.HeaderText = "Aceptado"
+            If Not Groupheaders.contains(GroupHeader2.Name) Then
+                Groupheaders.Add(GroupHeader2)
             End If
 
             If MasterGrdDetail Then

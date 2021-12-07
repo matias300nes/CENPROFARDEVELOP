@@ -28,6 +28,7 @@ Partial Class frmLiquidaciones
         Dim Background6 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
         Dim Background7 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.txtID = New System.Windows.Forms.TextBox()
         Me.txtCodigo = New System.Windows.Forms.TextBox()
         Me.lblFecha_presentacion = New System.Windows.Forms.Label()
         Me.lblPeriodo_presentacion = New System.Windows.Forms.Label()
@@ -45,11 +46,9 @@ Partial Class frmLiquidaciones
         Me.txtIdPresentacion = New System.Windows.Forms.TextBox()
         Me.Label24 = New System.Windows.Forms.Label()
         Me.lblID = New System.Windows.Forms.Label()
-        Me.Label7 = New System.Windows.Forms.Label()
+        Me.lblCantLiq = New System.Windows.Forms.Label()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.chkGrillaInferior = New System.Windows.Forms.CheckBox()
-        Me.rdTodasOC = New System.Windows.Forms.RadioButton()
-        Me.rdPendientes = New System.Windows.Forms.RadioButton()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.lblTotal = New System.Windows.Forms.Label()
         Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
@@ -62,7 +61,6 @@ Partial Class frmLiquidaciones
         Me.Label23 = New System.Windows.Forms.Label()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.btnExcelWindow = New DevComponents.DotNetBar.ButtonX()
-        Me.rdAnuladas = New System.Windows.Forms.RadioButton()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.GroupPanelDetalleLiquidacion = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
@@ -103,17 +101,14 @@ Partial Class frmLiquidaciones
         Me.Label10 = New System.Windows.Forms.Label()
         Me.grdDetalleLiquidacionFiltrada = New System.Windows.Forms.DataGridView()
         Me.grdDetalleLiquidacion = New System.Windows.Forms.DataGridView()
-        Me.chkAnuladas = New System.Windows.Forms.CheckBox()
-        Me.lblCantidadFilas = New System.Windows.Forms.Label()
+        Me.lblCantidadItems = New System.Windows.Forms.Label()
         Me.Label19 = New System.Windows.Forms.Label()
         Me.SuperGrdResultado = New DevComponents.DotNetBar.SuperGrid.SuperGridControl()
         Me.lblcuit = New System.Windows.Forms.Label()
         Me.lblcmbObrasSociales = New System.Windows.Forms.Label()
-        Me.cmbObraSocial = New System.Windows.Forms.ComboBox()
         Me.btnLlenarGrilla = New System.Windows.Forms.Button()
         Me.chkEliminado = New System.Windows.Forms.CheckBox()
         Me.dtpFECHA = New System.Windows.Forms.DateTimePicker()
-        Me.GroupBox5 = New System.Windows.Forms.GroupBox()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BorrarElItemToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BuscarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -121,7 +116,6 @@ Partial Class frmLiquidaciones
         Me.ContextMenuStripIVA = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BorrarElItemToolStripMenuItemIVA = New System.Windows.Forms.ToolStripMenuItem()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
-        Me.txtID = New System.Windows.Forms.TextBox()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.GroupPanelDetalleLiquidacion.SuspendLayout()
@@ -166,36 +160,39 @@ Partial Class frmLiquidaciones
         Me.GroupBox1.Controls.Add(Me.txtIdPresentacion)
         Me.GroupBox1.Controls.Add(Me.Label24)
         Me.GroupBox1.Controls.Add(Me.lblID)
-        Me.GroupBox1.Controls.Add(Me.Label7)
+        Me.GroupBox1.Controls.Add(Me.lblCantLiq)
         Me.GroupBox1.Controls.Add(Me.Label15)
         Me.GroupBox1.Controls.Add(Me.chkGrillaInferior)
-        Me.GroupBox1.Controls.Add(Me.rdTodasOC)
-        Me.GroupBox1.Controls.Add(Me.rdPendientes)
         Me.GroupBox1.Controls.Add(Me.GroupBox4)
-        Me.GroupBox1.Controls.Add(Me.rdAnuladas)
         Me.GroupBox1.Controls.Add(Me.Label14)
         Me.GroupBox1.Controls.Add(Me.GroupPanelDetalleLiquidacion)
-        Me.GroupBox1.Controls.Add(Me.chkAnuladas)
-        Me.GroupBox1.Controls.Add(Me.lblCantidadFilas)
+        Me.GroupBox1.Controls.Add(Me.lblCantidadItems)
         Me.GroupBox1.Controls.Add(Me.Label19)
         Me.GroupBox1.Controls.Add(Me.SuperGrdResultado)
         Me.GroupBox1.Controls.Add(Me.lblcuit)
         Me.GroupBox1.Controls.Add(Me.lblcmbObrasSociales)
-        Me.GroupBox1.Controls.Add(Me.cmbObraSocial)
         Me.GroupBox1.Controls.Add(Me.btnLlenarGrilla)
         Me.GroupBox1.Controls.Add(Me.chkEliminado)
         Me.GroupBox1.Controls.Add(Me.dtpFECHA)
-        Me.GroupBox1.Controls.Add(Me.GroupBox5)
         Me.GroupBox1.ForeColor = System.Drawing.Color.Black
         Me.GroupBox1.Location = New System.Drawing.Point(0, 27)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(1551, 507)
+        Me.GroupBox1.Size = New System.Drawing.Size(1619, 481)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         '
+        'txtID
+        '
+        Me.txtID.AccessibleName = "ID"
+        Me.txtID.Location = New System.Drawing.Point(75, -3)
+        Me.txtID.Name = "txtID"
+        Me.txtID.Size = New System.Drawing.Size(22, 20)
+        Me.txtID.TabIndex = 416
+        Me.txtID.Visible = False
+        '
         'txtCodigo
         '
-        Me.txtCodigo.Location = New System.Drawing.Point(15, 41)
+        Me.txtCodigo.Location = New System.Drawing.Point(15, 47)
         Me.txtCodigo.Name = "txtCodigo"
         Me.txtCodigo.ReadOnly = True
         Me.txtCodigo.Size = New System.Drawing.Size(68, 20)
@@ -203,45 +200,45 @@ Partial Class frmLiquidaciones
         '
         'lblFecha_presentacion
         '
-        Me.lblFecha_presentacion.Location = New System.Drawing.Point(848, 45)
+        Me.lblFecha_presentacion.Location = New System.Drawing.Point(848, 51)
         Me.lblFecha_presentacion.Name = "lblFecha_presentacion"
         Me.lblFecha_presentacion.Size = New System.Drawing.Size(102, 13)
         Me.lblFecha_presentacion.TabIndex = 414
         Me.lblFecha_presentacion.Text = "[Fecha]"
-        Me.lblFecha_presentacion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblFecha_presentacion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'lblPeriodo_presentacion
         '
-        Me.lblPeriodo_presentacion.Location = New System.Drawing.Point(721, 45)
+        Me.lblPeriodo_presentacion.Location = New System.Drawing.Point(721, 51)
         Me.lblPeriodo_presentacion.Name = "lblPeriodo_presentacion"
         Me.lblPeriodo_presentacion.Size = New System.Drawing.Size(110, 13)
         Me.lblPeriodo_presentacion.TabIndex = 413
         Me.lblPeriodo_presentacion.Text = "[Período]"
-        Me.lblPeriodo_presentacion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblPeriodo_presentacion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'lblObservacion
         '
-        Me.lblObservacion.Location = New System.Drawing.Point(526, 45)
+        Me.lblObservacion.Location = New System.Drawing.Point(526, 51)
         Me.lblObservacion.Name = "lblObservacion"
         Me.lblObservacion.Size = New System.Drawing.Size(179, 13)
         Me.lblObservacion.TabIndex = 412
         Me.lblObservacion.Text = "[Observación]"
-        Me.lblObservacion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblObservacion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'lblObraSocial
         '
-        Me.lblObraSocial.Location = New System.Drawing.Point(392, 45)
+        Me.lblObraSocial.Location = New System.Drawing.Point(392, 51)
         Me.lblObraSocial.Name = "lblObraSocial"
         Me.lblObraSocial.Size = New System.Drawing.Size(127, 13)
         Me.lblObraSocial.TabIndex = 411
         Me.lblObraSocial.Text = "[Obra Social]"
-        Me.lblObraSocial.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblObraSocial.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'lblStatus_presentacion
         '
         Me.lblStatus_presentacion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblStatus_presentacion.ForeColor = System.Drawing.Color.Green
-        Me.lblStatus_presentacion.Location = New System.Drawing.Point(969, 41)
+        Me.lblStatus_presentacion.Location = New System.Drawing.Point(969, 47)
         Me.lblStatus_presentacion.Name = "lblStatus_presentacion"
         Me.lblStatus_presentacion.Size = New System.Drawing.Size(149, 21)
         Me.lblStatus_presentacion.TabIndex = 408
@@ -251,7 +248,7 @@ Partial Class frmLiquidaciones
         'Label33
         '
         Me.Label33.AutoSize = True
-        Me.Label33.Location = New System.Drawing.Point(848, 26)
+        Me.Label33.Location = New System.Drawing.Point(848, 32)
         Me.Label33.Name = "Label33"
         Me.Label33.Size = New System.Drawing.Size(37, 13)
         Me.Label33.TabIndex = 406
@@ -260,7 +257,7 @@ Partial Class frmLiquidaciones
         'Label29
         '
         Me.Label29.AutoSize = True
-        Me.Label29.Location = New System.Drawing.Point(969, 26)
+        Me.Label29.Location = New System.Drawing.Point(969, 32)
         Me.Label29.Name = "Label29"
         Me.Label29.Size = New System.Drawing.Size(40, 13)
         Me.Label29.TabIndex = 403
@@ -269,7 +266,7 @@ Partial Class frmLiquidaciones
         'Label28
         '
         Me.Label28.AutoSize = True
-        Me.Label28.Location = New System.Drawing.Point(721, 26)
+        Me.Label28.Location = New System.Drawing.Point(721, 32)
         Me.Label28.Name = "Label28"
         Me.Label28.Size = New System.Drawing.Size(45, 13)
         Me.Label28.TabIndex = 402
@@ -278,7 +275,7 @@ Partial Class frmLiquidaciones
         'Label27
         '
         Me.Label27.AutoSize = True
-        Me.Label27.Location = New System.Drawing.Point(526, 26)
+        Me.Label27.Location = New System.Drawing.Point(526, 32)
         Me.Label27.Name = "Label27"
         Me.Label27.Size = New System.Drawing.Size(67, 13)
         Me.Label27.TabIndex = 400
@@ -287,7 +284,7 @@ Partial Class frmLiquidaciones
         'Label26
         '
         Me.Label26.AutoSize = True
-        Me.Label26.Location = New System.Drawing.Point(94, 25)
+        Me.Label26.Location = New System.Drawing.Point(94, 31)
         Me.Label26.Name = "Label26"
         Me.Label26.Size = New System.Drawing.Size(37, 13)
         Me.Label26.TabIndex = 399
@@ -296,7 +293,7 @@ Partial Class frmLiquidaciones
         'lblPresentacionCodigo
         '
         Me.lblPresentacionCodigo.AutoSize = True
-        Me.lblPresentacionCodigo.Location = New System.Drawing.Point(208, 44)
+        Me.lblPresentacionCodigo.Location = New System.Drawing.Point(208, 50)
         Me.lblPresentacionCodigo.Name = "lblPresentacionCodigo"
         Me.lblPresentacionCodigo.Size = New System.Drawing.Size(87, 13)
         Me.lblPresentacionCodigo.TabIndex = 397
@@ -305,7 +302,7 @@ Partial Class frmLiquidaciones
         'Label25
         '
         Me.Label25.AutoSize = True
-        Me.Label25.Location = New System.Drawing.Point(12, 23)
+        Me.Label25.Location = New System.Drawing.Point(12, 29)
         Me.Label25.Name = "Label25"
         Me.Label25.Size = New System.Drawing.Size(61, 13)
         Me.Label25.TabIndex = 396
@@ -315,7 +312,7 @@ Partial Class frmLiquidaciones
         '
         Me.btnCargarPresentacion.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
         Me.btnCargarPresentacion.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.btnCargarPresentacion.Location = New System.Drawing.Point(301, 41)
+        Me.btnCargarPresentacion.Location = New System.Drawing.Point(301, 47)
         Me.btnCargarPresentacion.Name = "btnCargarPresentacion"
         Me.btnCargarPresentacion.Size = New System.Drawing.Size(73, 20)
         Me.btnCargarPresentacion.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
@@ -325,15 +322,16 @@ Partial Class frmLiquidaciones
         'txtIdPresentacion
         '
         Me.txtIdPresentacion.Enabled = False
-        Me.txtIdPresentacion.Location = New System.Drawing.Point(301, 23)
+        Me.txtIdPresentacion.Location = New System.Drawing.Point(301, 29)
         Me.txtIdPresentacion.Name = "txtIdPresentacion"
         Me.txtIdPresentacion.Size = New System.Drawing.Size(73, 20)
         Me.txtIdPresentacion.TabIndex = 393
+        Me.txtIdPresentacion.Visible = False
         '
         'Label24
         '
         Me.Label24.AutoSize = True
-        Me.Label24.Location = New System.Drawing.Point(208, 25)
+        Me.Label24.Location = New System.Drawing.Point(208, 31)
         Me.Label24.Name = "Label24"
         Me.Label24.Size = New System.Drawing.Size(69, 13)
         Me.Label24.TabIndex = 391
@@ -342,27 +340,28 @@ Partial Class frmLiquidaciones
         'lblID
         '
         Me.lblID.AutoSize = True
-        Me.lblID.Location = New System.Drawing.Point(12, 72)
+        Me.lblID.Location = New System.Drawing.Point(55, 0)
         Me.lblID.Name = "lblID"
         Me.lblID.Size = New System.Drawing.Size(18, 13)
         Me.lblID.TabIndex = 390
         Me.lblID.Text = "ID"
+        Me.lblID.Visible = False
         '
-        'Label7
+        'lblCantLiq
         '
-        Me.Label7.AutoSize = True
-        Me.Label7.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.Label7.Location = New System.Drawing.Point(1022, 117)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(52, 13)
-        Me.Label7.TabIndex = 387
-        Me.Label7.Text = "[Subtotal]"
+        Me.lblCantLiq.AutoSize = True
+        Me.lblCantLiq.ForeColor = System.Drawing.SystemColors.WindowText
+        Me.lblCantLiq.Location = New System.Drawing.Point(102, 452)
+        Me.lblCantLiq.Name = "lblCantLiq"
+        Me.lblCantLiq.Size = New System.Drawing.Size(52, 13)
+        Me.lblCantLiq.TabIndex = 387
+        Me.lblCantLiq.Text = "[Subtotal]"
         '
         'Label15
         '
         Me.Label15.AutoSize = True
         Me.Label15.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.Label15.Location = New System.Drawing.Point(923, 117)
+        Me.Label15.Location = New System.Drawing.Point(921, 94)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(98, 13)
         Me.Label15.TabIndex = 388
@@ -371,36 +370,12 @@ Partial Class frmLiquidaciones
         'chkGrillaInferior
         '
         Me.chkGrillaInferior.AutoSize = True
-        Me.chkGrillaInferior.Location = New System.Drawing.Point(179, 483)
+        Me.chkGrillaInferior.Location = New System.Drawing.Point(179, 452)
         Me.chkGrillaInferior.Name = "chkGrillaInferior"
         Me.chkGrillaInferior.Size = New System.Drawing.Size(132, 17)
         Me.chkGrillaInferior.TabIndex = 272
         Me.chkGrillaInferior.Text = "Aumentar Grilla Inferior"
         Me.chkGrillaInferior.UseVisualStyleBackColor = True
-        '
-        'rdTodasOC
-        '
-        Me.rdTodasOC.AutoSize = True
-        Me.rdTodasOC.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.rdTodasOC.Location = New System.Drawing.Point(626, 483)
-        Me.rdTodasOC.Name = "rdTodasOC"
-        Me.rdTodasOC.Size = New System.Drawing.Size(60, 17)
-        Me.rdTodasOC.TabIndex = 275
-        Me.rdTodasOC.TabStop = True
-        Me.rdTodasOC.Text = "Todas"
-        Me.rdTodasOC.UseVisualStyleBackColor = True
-        '
-        'rdPendientes
-        '
-        Me.rdPendientes.AutoSize = True
-        Me.rdPendientes.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.rdPendientes.Location = New System.Drawing.Point(407, 483)
-        Me.rdPendientes.Name = "rdPendientes"
-        Me.rdPendientes.Size = New System.Drawing.Size(88, 17)
-        Me.rdPendientes.TabIndex = 274
-        Me.rdPendientes.TabStop = True
-        Me.rdPendientes.Text = "Pendientes"
-        Me.rdPendientes.UseVisualStyleBackColor = True
         '
         'GroupBox4
         '
@@ -413,7 +388,7 @@ Partial Class frmLiquidaciones
         Me.GroupBox4.Controls.Add(Me.Label23)
         Me.GroupBox4.Controls.Add(Me.Label17)
         Me.GroupBox4.Controls.Add(Me.btnExcelWindow)
-        Me.GroupBox4.Location = New System.Drawing.Point(1081, 142)
+        Me.GroupBox4.Location = New System.Drawing.Point(1081, 122)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Size = New System.Drawing.Size(253, 293)
         Me.GroupBox4.TabIndex = 386
@@ -424,7 +399,7 @@ Partial Class frmLiquidaciones
         '
         Me.lblTotal.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblTotal.ForeColor = System.Drawing.Color.DarkGreen
-        Me.lblTotal.Location = New System.Drawing.Point(6, 260)
+        Me.lblTotal.Location = New System.Drawing.Point(6, 253)
         Me.lblTotal.Name = "lblTotal"
         Me.lblTotal.Size = New System.Drawing.Size(241, 24)
         Me.lblTotal.TabIndex = 389
@@ -437,7 +412,7 @@ Partial Class frmLiquidaciones
         '
         '
         Me.LabelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX1.Location = New System.Drawing.Point(21, 40)
+        Me.LabelX1.Location = New System.Drawing.Point(21, 33)
         Me.LabelX1.Margin = New System.Windows.Forms.Padding(2)
         Me.LabelX1.Name = "LabelX1"
         Me.LabelX1.Size = New System.Drawing.Size(74, 19)
@@ -451,7 +426,7 @@ Partial Class frmLiquidaciones
         Me.cmbTipoPago.FormattingEnabled = True
         Me.cmbTipoPago.ItemHeight = 16
         Me.cmbTipoPago.Items.AddRange(New Object() {Me.pagoUnico, Me.pagoAnticipo})
-        Me.cmbTipoPago.Location = New System.Drawing.Point(21, 60)
+        Me.cmbTipoPago.Location = New System.Drawing.Point(21, 53)
         Me.cmbTipoPago.Margin = New System.Windows.Forms.Padding(2)
         Me.cmbTipoPago.Name = "cmbTipoPago"
         Me.cmbTipoPago.Size = New System.Drawing.Size(102, 22)
@@ -480,7 +455,7 @@ Partial Class frmLiquidaciones
         'chkImpCheque
         '
         Me.chkImpCheque.AutoSize = True
-        Me.chkImpCheque.Location = New System.Drawing.Point(32, 181)
+        Me.chkImpCheque.Location = New System.Drawing.Point(32, 177)
         Me.chkImpCheque.Name = "chkImpCheque"
         Me.chkImpCheque.Size = New System.Drawing.Size(109, 17)
         Me.chkImpCheque.TabIndex = 391
@@ -490,7 +465,7 @@ Partial Class frmLiquidaciones
         'chkIngresosBrutos
         '
         Me.chkIngresosBrutos.AutoSize = True
-        Me.chkIngresosBrutos.Location = New System.Drawing.Point(32, 154)
+        Me.chkIngresosBrutos.Location = New System.Drawing.Point(32, 147)
         Me.chkIngresosBrutos.Name = "chkIngresosBrutos"
         Me.chkIngresosBrutos.Size = New System.Drawing.Size(99, 17)
         Me.chkIngresosBrutos.TabIndex = 390
@@ -500,7 +475,7 @@ Partial Class frmLiquidaciones
         'Label23
         '
         Me.Label23.AutoSize = True
-        Me.Label23.Location = New System.Drawing.Point(19, 247)
+        Me.Label23.Location = New System.Drawing.Point(19, 240)
         Me.Label23.Name = "Label23"
         Me.Label23.Size = New System.Drawing.Size(74, 13)
         Me.Label23.TabIndex = 388
@@ -510,7 +485,7 @@ Partial Class frmLiquidaciones
         '
         Me.Label17.AutoSize = True
         Me.Label17.ForeColor = System.Drawing.SystemColors.WindowFrame
-        Me.Label17.Location = New System.Drawing.Point(148, 103)
+        Me.Label17.Location = New System.Drawing.Point(143, 102)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(76, 13)
         Me.Label17.TabIndex = 387
@@ -521,7 +496,7 @@ Partial Class frmLiquidaciones
         Me.btnExcelWindow.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
         Me.btnExcelWindow.BackColor = System.Drawing.Color.Transparent
         Me.btnExcelWindow.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.btnExcelWindow.Location = New System.Drawing.Point(21, 103)
+        Me.btnExcelWindow.Location = New System.Drawing.Point(21, 96)
         Me.btnExcelWindow.Name = "btnExcelWindow"
         Me.btnExcelWindow.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(3)
         Me.btnExcelWindow.Size = New System.Drawing.Size(105, 25)
@@ -530,24 +505,12 @@ Partial Class frmLiquidaciones
         Me.btnExcelWindow.Text = "Importar Planilla"
         Me.btnExcelWindow.TextColor = System.Drawing.SystemColors.WindowText
         '
-        'rdAnuladas
-        '
-        Me.rdAnuladas.AutoSize = True
-        Me.rdAnuladas.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.rdAnuladas.Location = New System.Drawing.Point(522, 483)
-        Me.rdAnuladas.Name = "rdAnuladas"
-        Me.rdAnuladas.Size = New System.Drawing.Size(77, 17)
-        Me.rdAnuladas.TabIndex = 273
-        Me.rdAnuladas.TabStop = True
-        Me.rdAnuladas.Text = "Anuladas"
-        Me.rdAnuladas.UseVisualStyleBackColor = True
-        '
         'Label14
         '
         Me.Label14.AutoSize = True
         Me.Label14.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label14.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.Label14.Location = New System.Drawing.Point(6, 112)
+        Me.Label14.Location = New System.Drawing.Point(6, 86)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(131, 18)
         Me.Label14.TabIndex = 384
@@ -998,35 +961,21 @@ Partial Class frmLiquidaciones
         Me.grdDetalleLiquidacion.Size = New System.Drawing.Size(1007, 219)
         Me.grdDetalleLiquidacion.TabIndex = 355
         '
-        'chkAnuladas
+        'lblCantidadItems
         '
-        Me.chkAnuladas.AccessibleName = ""
-        Me.chkAnuladas.AutoSize = True
-        Me.chkAnuladas.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chkAnuladas.ForeColor = System.Drawing.Color.Red
-        Me.chkAnuladas.Location = New System.Drawing.Point(758, 4)
-        Me.chkAnuladas.Name = "chkAnuladas"
-        Me.chkAnuladas.Size = New System.Drawing.Size(179, 17)
-        Me.chkAnuladas.TabIndex = 28
-        Me.chkAnuladas.Text = "Ver Recepciones Anuladas"
-        Me.chkAnuladas.UseVisualStyleBackColor = True
-        Me.chkAnuladas.Visible = False
-        '
-        'lblCantidadFilas
-        '
-        Me.lblCantidadFilas.AutoSize = True
-        Me.lblCantidadFilas.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.lblCantidadFilas.Location = New System.Drawing.Point(111, 483)
-        Me.lblCantidadFilas.Name = "lblCantidadFilas"
-        Me.lblCantidadFilas.Size = New System.Drawing.Size(46, 13)
-        Me.lblCantidadFilas.TabIndex = 270
-        Me.lblCantidadFilas.Text = "Subtotal"
+        Me.lblCantidadItems.AutoSize = True
+        Me.lblCantidadItems.ForeColor = System.Drawing.SystemColors.WindowText
+        Me.lblCantidadItems.Location = New System.Drawing.Point(1017, 94)
+        Me.lblCantidadItems.Name = "lblCantidadItems"
+        Me.lblCantidadItems.Size = New System.Drawing.Size(52, 13)
+        Me.lblCantidadItems.TabIndex = 270
+        Me.lblCantidadItems.Text = "[Subtotal]"
         '
         'Label19
         '
         Me.Label19.AutoSize = True
         Me.Label19.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.Label19.Location = New System.Drawing.Point(12, 483)
+        Me.Label19.Location = New System.Drawing.Point(12, 452)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(98, 13)
         Me.Label19.TabIndex = 271
@@ -1045,12 +994,13 @@ Partial Class frmLiquidaciones
         Background4.Color1 = System.Drawing.Color.Transparent
         Me.SuperGrdResultado.DefaultVisualStyles.RowStyles.Default.Background = Background4
         Me.SuperGrdResultado.FilterExprColors.SysFunction = System.Drawing.Color.DarkRed
-        Me.SuperGrdResultado.Location = New System.Drawing.Point(7, 136)
+        Me.SuperGrdResultado.Location = New System.Drawing.Point(7, 110)
         Me.SuperGrdResultado.Margin = New System.Windows.Forms.Padding(2)
         Me.SuperGrdResultado.Name = "SuperGrdResultado"
         '
         '
         '
+        Me.SuperGrdResultado.PrimaryGrid.ColumnAutoSizeMode = DevComponents.DotNetBar.SuperGrid.ColumnAutoSizeMode.Fill
         Background5.Color1 = System.Drawing.Color.Transparent
         Me.SuperGrdResultado.PrimaryGrid.DefaultVisualStyles.AlternateColumnCellStyles.Default.Background = Background5
         Me.SuperGrdResultado.PrimaryGrid.DefaultVisualStyles.AlternateRowCellStyles.Default.AllowWrap = DevComponents.DotNetBar.SuperGrid.Style.Tbool.[True]
@@ -1061,7 +1011,7 @@ Partial Class frmLiquidaciones
         Background7.Color1 = System.Drawing.Color.Transparent
         Me.SuperGrdResultado.PrimaryGrid.DefaultVisualStyles.RowStyles.Default.Background = Background7
         Me.SuperGrdResultado.PrimaryGrid.SelectionGranularity = DevComponents.DotNetBar.SuperGrid.SelectionGranularity.Row
-        Me.SuperGrdResultado.Size = New System.Drawing.Size(1067, 325)
+        Me.SuperGrdResultado.Size = New System.Drawing.Size(1062, 325)
         Me.SuperGrdResultado.TabIndex = 381
         Me.SuperGrdResultado.Text = "SuperGridControl1"
         '
@@ -1077,26 +1027,11 @@ Partial Class frmLiquidaciones
         'lblcmbObrasSociales
         '
         Me.lblcmbObrasSociales.AutoSize = True
-        Me.lblcmbObrasSociales.Location = New System.Drawing.Point(391, 26)
+        Me.lblcmbObrasSociales.Location = New System.Drawing.Point(391, 32)
         Me.lblcmbObrasSociales.Name = "lblcmbObrasSociales"
         Me.lblcmbObrasSociales.Size = New System.Drawing.Size(62, 13)
         Me.lblcmbObrasSociales.TabIndex = 346
         Me.lblcmbObrasSociales.Text = "Obra Social"
-        '
-        'cmbObraSocial
-        '
-        Me.cmbObraSocial.AccessibleName = ""
-        Me.cmbObraSocial.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.cmbObraSocial.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbObraSocial.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbObraSocial.Enabled = False
-        Me.cmbObraSocial.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmbObraSocial.FormattingEnabled = True
-        Me.cmbObraSocial.Location = New System.Drawing.Point(97, 69)
-        Me.cmbObraSocial.Name = "cmbObraSocial"
-        Me.cmbObraSocial.Size = New System.Drawing.Size(162, 21)
-        Me.cmbObraSocial.TabIndex = 3
-        Me.cmbObraSocial.Visible = False
         '
         'btnLlenarGrilla
         '
@@ -1124,23 +1059,13 @@ Partial Class frmLiquidaciones
         'dtpFECHA
         '
         Me.dtpFECHA.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpFECHA.Location = New System.Drawing.Point(97, 41)
+        Me.dtpFECHA.Location = New System.Drawing.Point(97, 47)
         Me.dtpFECHA.MaxDate = New Date(2099, 12, 31, 0, 0, 0, 0)
         Me.dtpFECHA.MinDate = New Date(2000, 1, 1, 0, 0, 0, 0)
         Me.dtpFECHA.Name = "dtpFECHA"
         Me.dtpFECHA.Size = New System.Drawing.Size(95, 20)
         Me.dtpFECHA.TabIndex = 1
         Me.dtpFECHA.Tag = "202"
-        '
-        'GroupBox5
-        '
-        Me.GroupBox5.Location = New System.Drawing.Point(590, 80)
-        Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(277, 65)
-        Me.GroupBox5.TabIndex = 389
-        Me.GroupBox5.TabStop = False
-        Me.GroupBox5.Text = "Campos no utilizados"
-        Me.GroupBox5.Visible = False
         '
         'ContextMenuStrip1
         '
@@ -1184,14 +1109,6 @@ Partial Class frmLiquidaciones
         Me.BorrarElItemToolStripMenuItemIVA.Name = "BorrarElItemToolStripMenuItemIVA"
         Me.BorrarElItemToolStripMenuItemIVA.Size = New System.Drawing.Size(145, 22)
         Me.BorrarElItemToolStripMenuItemIVA.Text = "Borrar el Item"
-        '
-        'txtID
-        '
-        Me.txtID.AccessibleName = "ID"
-        Me.txtID.Location = New System.Drawing.Point(32, 69)
-        Me.txtID.Name = "txtID"
-        Me.txtID.Size = New System.Drawing.Size(51, 20)
-        Me.txtID.TabIndex = 416
         '
         'frmLiquidaciones
         '
@@ -1239,14 +1156,12 @@ Partial Class frmLiquidaciones
     Friend WithEvents BuscarToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents BuscarDescripcionToolStripMenuItem As System.Windows.Forms.ToolStripComboBox
     Friend WithEvents btnLlenarGrilla As System.Windows.Forms.Button
-    Friend WithEvents chkAnuladas As System.Windows.Forms.CheckBox
     Friend WithEvents ContextMenuStripIVA As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents BorrarElItemToolStripMenuItemIVA As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents Label19 As System.Windows.Forms.Label
-    Friend WithEvents lblCantidadFilas As System.Windows.Forms.Label
+    Friend WithEvents lblCantidadItems As System.Windows.Forms.Label
     Friend WithEvents chkGrillaInferior As System.Windows.Forms.CheckBox
     Friend WithEvents lblcmbObrasSociales As System.Windows.Forms.Label
-    Friend WithEvents cmbObraSocial As System.Windows.Forms.ComboBox
     Friend WithEvents grdDetalleLiquidacionFiltrada As System.Windows.Forms.DataGridView
     Friend WithEvents btnListo As System.Windows.Forms.Button
     Friend WithEvents lblcuit As System.Windows.Forms.Label
@@ -1302,13 +1217,9 @@ Partial Class frmLiquidaciones
     Friend WithEvents cmbTipoPago As DevComponents.DotNetBar.Controls.ComboBoxEx
     Friend WithEvents pagoUnico As DevComponents.Editors.ComboItem
     Friend WithEvents pagoAnticipo As DevComponents.Editors.ComboItem
-    Friend WithEvents rdTodasOC As RadioButton
-    Friend WithEvents rdPendientes As RadioButton
-    Friend WithEvents rdAnuladas As RadioButton
-    Friend WithEvents Label7 As Label
+    Friend WithEvents lblCantLiq As Label
     Friend WithEvents Label15 As Label
     Friend WithEvents lblID As Label
-    Friend WithEvents GroupBox5 As GroupBox
     Friend WithEvents Label24 As Label
     Friend WithEvents Label26 As Label
     Friend WithEvents lblPresentacionCodigo As Label
