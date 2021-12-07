@@ -346,8 +346,8 @@ Public Class frmLiquidaciones
         editando_celda = True
     End Sub
 
-    Private Sub txtid_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) _
-    Handles txtID.KeyPress
+    Private Sub txtid_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)
+
         If e.KeyChar = ChrW(Keys.Enter) Then
             e.Handled = True
             SendKeys.Send("{TAB}")
@@ -667,7 +667,6 @@ Public Class frmLiquidaciones
                 CType(connection, IDisposable).Dispose()
             End If
         End Try
-
 
         dtDetalle.PrimaryKey = {
                 dtDetalle.Columns("ID")

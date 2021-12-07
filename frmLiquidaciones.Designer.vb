@@ -110,7 +110,6 @@ Partial Class frmLiquidaciones
         Me.lblcuit = New System.Windows.Forms.Label()
         Me.lblcmbObrasSociales = New System.Windows.Forms.Label()
         Me.cmbObraSocial = New System.Windows.Forms.ComboBox()
-        Me.txtID = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.btnLlenarGrilla = New System.Windows.Forms.Button()
         Me.chkEliminado = New System.Windows.Forms.CheckBox()
         Me.dtpFECHA = New System.Windows.Forms.DateTimePicker()
@@ -122,6 +121,7 @@ Partial Class frmLiquidaciones
         Me.ContextMenuStripIVA = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BorrarElItemToolStripMenuItemIVA = New System.Windows.Forms.ToolStripMenuItem()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
+        Me.txtID = New System.Windows.Forms.TextBox()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.GroupPanelDetalleLiquidacion.SuspendLayout()
@@ -148,6 +148,7 @@ Partial Class frmLiquidaciones
         Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox1.BackColor = System.Drawing.SystemColors.Control
+        Me.GroupBox1.Controls.Add(Me.txtID)
         Me.GroupBox1.Controls.Add(Me.txtCodigo)
         Me.GroupBox1.Controls.Add(Me.lblFecha_presentacion)
         Me.GroupBox1.Controls.Add(Me.lblPeriodo_presentacion)
@@ -181,7 +182,6 @@ Partial Class frmLiquidaciones
         Me.GroupBox1.Controls.Add(Me.lblcuit)
         Me.GroupBox1.Controls.Add(Me.lblcmbObrasSociales)
         Me.GroupBox1.Controls.Add(Me.cmbObraSocial)
-        Me.GroupBox1.Controls.Add(Me.txtID)
         Me.GroupBox1.Controls.Add(Me.btnLlenarGrilla)
         Me.GroupBox1.Controls.Add(Me.chkEliminado)
         Me.GroupBox1.Controls.Add(Me.dtpFECHA)
@@ -189,7 +189,7 @@ Partial Class frmLiquidaciones
         Me.GroupBox1.ForeColor = System.Drawing.Color.Black
         Me.GroupBox1.Location = New System.Drawing.Point(0, 27)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(1534, 507)
+        Me.GroupBox1.Size = New System.Drawing.Size(1551, 507)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         '
@@ -1098,25 +1098,6 @@ Partial Class frmLiquidaciones
         Me.cmbObraSocial.TabIndex = 3
         Me.cmbObraSocial.Visible = False
         '
-        'txtID
-        '
-        Me.txtID.AccessibleName = "ID"
-        Me.txtID.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtID.Decimals = CType(2, Byte)
-        Me.txtID.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
-        Me.txtID.Enabled = False
-        Me.txtID.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
-        Me.txtID.Location = New System.Drawing.Point(26, 69)
-        Me.txtID.MaxLength = 8
-        Me.txtID.Name = "txtID"
-        Me.txtID.Size = New System.Drawing.Size(57, 20)
-        Me.txtID.TabIndex = 50
-        Me.txtID.Text_1 = Nothing
-        Me.txtID.Text_2 = Nothing
-        Me.txtID.Text_3 = Nothing
-        Me.txtID.Text_4 = Nothing
-        Me.txtID.UserValues = Nothing
-        '
         'btnLlenarGrilla
         '
         Me.btnLlenarGrilla.Location = New System.Drawing.Point(40, 234)
@@ -1204,6 +1185,14 @@ Partial Class frmLiquidaciones
         Me.BorrarElItemToolStripMenuItemIVA.Size = New System.Drawing.Size(145, 22)
         Me.BorrarElItemToolStripMenuItemIVA.Text = "Borrar el Item"
         '
+        'txtID
+        '
+        Me.txtID.AccessibleName = "ID"
+        Me.txtID.Location = New System.Drawing.Point(32, 69)
+        Me.txtID.Name = "txtID"
+        Me.txtID.Size = New System.Drawing.Size(51, 20)
+        Me.txtID.TabIndex = 416
+        '
         'frmLiquidaciones
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1244,7 +1233,6 @@ Partial Class frmLiquidaciones
     End Sub
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents chkEliminado As System.Windows.Forms.CheckBox
-    Friend WithEvents txtID As TextBoxConFormatoVB.FormattedTextBoxVB
     Friend WithEvents dtpFECHA As System.Windows.Forms.DateTimePicker
     Friend Shadows WithEvents ContextMenuStrip1 As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents BorrarElItemToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
@@ -1337,4 +1325,5 @@ Partial Class frmLiquidaciones
     Friend WithEvents lblObraSocial As Label
     Friend WithEvents txtCodigo As TextBox
     Friend WithEvents txtIdPresentacion As TextBox
+    Friend WithEvents txtID As TextBox
 End Class
