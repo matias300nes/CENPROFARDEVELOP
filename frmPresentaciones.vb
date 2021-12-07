@@ -830,7 +830,7 @@ Public Class frmPresentaciones
     End Sub
 
     '(currentcellchanged)
-    Protected Overloads Sub grd_CurrentCellChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles grd.CurrentCellChanged
+    Protected Overloads Sub grd_CurrentCellChanged(ByVal sender As Object, ByVal e As System.EventArgs)
         If Permitir Then
             'band = 0
             Try
@@ -2882,6 +2882,8 @@ Public Class frmPresentaciones
 
 
         If MessageBox.Show("Desea generar una nueva Presentación?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
+            LimpiarGridItems(grdItems)
+            'bolModo = False
             Exit Sub
         End If
 

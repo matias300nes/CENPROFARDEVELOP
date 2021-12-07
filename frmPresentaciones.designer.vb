@@ -165,7 +165,7 @@ Partial Class frmPresentaciones
         '
         'cmbEstado
         '
-        Me.cmbEstado.AccessibleName = "*ObraSocial"
+        Me.cmbEstado.AccessibleName = ""
         Me.cmbEstado.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.cmbEstado.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbEstado.DropDownHeight = 300
