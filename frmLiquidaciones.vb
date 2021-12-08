@@ -272,7 +272,6 @@ Public Class frmLiquidaciones
             band = 1
             btnNuevo_Click(sender, e)
         Else
-            btnLlenarGrilla.Enabled = bolModo
             btnCargarPresentacion.Enabled = False
         End If
 
@@ -2233,7 +2232,7 @@ Public Class frmLiquidaciones
 
     End Sub
 
-    Private Sub btnLlenarGrilla_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLlenarGrilla.Click
+    Private Sub btnLlenarGrilla_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         'Dim i As Integer
 
         If bolModo Then 'SOLO LLENA LA GRILLA EN MODO NUEVO...
