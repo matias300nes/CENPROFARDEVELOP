@@ -28,6 +28,11 @@ Partial Class frmLiquidaciones
         Dim Background6 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
         Dim Background7 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
+        Me.lblCantidadItems = New System.Windows.Forms.Label()
+        Me.lblCantLiq = New System.Windows.Forms.Label()
+        Me.chkGrillaInferior = New System.Windows.Forms.CheckBox()
+        Me.Label19 = New System.Windows.Forms.Label()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.SuperGrdResultado = New DevComponents.DotNetBar.SuperGrid.SuperGridControl()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
@@ -60,9 +65,7 @@ Partial Class frmLiquidaciones
         Me.txtIdPresentacion = New System.Windows.Forms.TextBox()
         Me.Label24 = New System.Windows.Forms.Label()
         Me.lblID = New System.Windows.Forms.Label()
-        Me.lblCantLiq = New System.Windows.Forms.Label()
         Me.Label15 = New System.Windows.Forms.Label()
-        Me.chkGrillaInferior = New System.Windows.Forms.CheckBox()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.GroupPanelDetalleLiquidacion = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
@@ -103,8 +106,6 @@ Partial Class frmLiquidaciones
         Me.Label10 = New System.Windows.Forms.Label()
         Me.grdDetalleLiquidacionFiltrada = New System.Windows.Forms.DataGridView()
         Me.grdDetalleLiquidacion = New System.Windows.Forms.DataGridView()
-        Me.lblCantidadItems = New System.Windows.Forms.Label()
-        Me.Label19 = New System.Windows.Forms.Label()
         Me.lblcuit = New System.Windows.Forms.Label()
         Me.lblcmbObrasSociales = New System.Windows.Forms.Label()
         Me.dtpFECHA = New System.Windows.Forms.DateTimePicker()
@@ -142,6 +143,7 @@ Partial Class frmLiquidaciones
         Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox1.BackColor = System.Drawing.SystemColors.Control
+        Me.GroupBox1.Controls.Add(Me.ButtonX1)
         Me.GroupBox1.Controls.Add(Me.lblCantidadItems)
         Me.GroupBox1.Controls.Add(Me.lblCantLiq)
         Me.GroupBox1.Controls.Add(Me.chkGrillaInferior)
@@ -174,9 +176,61 @@ Partial Class frmLiquidaciones
         Me.GroupBox1.ForeColor = System.Drawing.Color.Black
         Me.GroupBox1.Location = New System.Drawing.Point(0, 27)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(1653, 481)
+        Me.GroupBox1.Size = New System.Drawing.Size(1687, 481)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
+        '
+        'ButtonX1
+        '
+        Me.ButtonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.ButtonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
+        Me.ButtonX1.Location = New System.Drawing.Point(1219, 22)
+        Me.ButtonX1.Name = "ButtonX1"
+        Me.ButtonX1.Size = New System.Drawing.Size(75, 23)
+        Me.ButtonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.ButtonX1.TabIndex = 418
+        Me.ButtonX1.Text = "ButtonX1"
+        '
+        'lblCantidadItems
+        '
+        Me.lblCantidadItems.AutoSize = True
+        Me.lblCantidadItems.ForeColor = System.Drawing.SystemColors.WindowText
+        Me.lblCantidadItems.Location = New System.Drawing.Point(1017, 88)
+        Me.lblCantidadItems.Name = "lblCantidadItems"
+        Me.lblCantidadItems.Size = New System.Drawing.Size(52, 13)
+        Me.lblCantidadItems.TabIndex = 270
+        Me.lblCantidadItems.Text = "[Subtotal]"
+        Me.lblCantidadItems.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'lblCantLiq
+        '
+        Me.lblCantLiq.AutoSize = True
+        Me.lblCantLiq.ForeColor = System.Drawing.SystemColors.WindowText
+        Me.lblCantLiq.Location = New System.Drawing.Point(102, 452)
+        Me.lblCantLiq.Name = "lblCantLiq"
+        Me.lblCantLiq.Size = New System.Drawing.Size(52, 13)
+        Me.lblCantLiq.TabIndex = 387
+        Me.lblCantLiq.Text = "[Subtotal]"
+        '
+        'chkGrillaInferior
+        '
+        Me.chkGrillaInferior.AutoSize = True
+        Me.chkGrillaInferior.Location = New System.Drawing.Point(179, 452)
+        Me.chkGrillaInferior.Name = "chkGrillaInferior"
+        Me.chkGrillaInferior.Size = New System.Drawing.Size(132, 17)
+        Me.chkGrillaInferior.TabIndex = 272
+        Me.chkGrillaInferior.Text = "Aumentar Grilla Inferior"
+        Me.chkGrillaInferior.UseVisualStyleBackColor = True
+        '
+        'Label19
+        '
+        Me.Label19.AutoSize = True
+        Me.Label19.ForeColor = System.Drawing.SystemColors.WindowText
+        Me.Label19.Location = New System.Drawing.Point(12, 452)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(98, 13)
+        Me.Label19.TabIndex = 271
+        Me.Label19.Text = "Cantidad de Ítems: "
         '
         'TableLayoutPanel1
         '
@@ -192,7 +246,7 @@ Partial Class frmLiquidaciones
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1371, 346)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1405, 346)
         Me.TableLayoutPanel1.TabIndex = 417
         '
         'SuperGrdResultado
@@ -226,7 +280,7 @@ Partial Class frmLiquidaciones
         Background7.Color1 = System.Drawing.Color.Transparent
         Me.SuperGrdResultado.PrimaryGrid.DefaultVisualStyles.RowStyles.Default.Background = Background7
         Me.SuperGrdResultado.PrimaryGrid.SelectionGranularity = DevComponents.DotNetBar.SuperGrid.SelectionGranularity.Row
-        Me.SuperGrdResultado.Size = New System.Drawing.Size(1079, 326)
+        Me.SuperGrdResultado.Size = New System.Drawing.Size(1106, 326)
         Me.SuperGrdResultado.TabIndex = 381
         Me.SuperGrdResultado.Text = "SuperGridControl1"
         '
@@ -242,10 +296,10 @@ Partial Class frmLiquidaciones
         Me.GroupBox4.Controls.Add(Me.Label17)
         Me.GroupBox4.Controls.Add(Me.btnExcelWindow)
         Me.GroupBox4.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GroupBox4.Location = New System.Drawing.Point(1111, 4)
+        Me.GroupBox4.Location = New System.Drawing.Point(1138, 4)
         Me.GroupBox4.Margin = New System.Windows.Forms.Padding(10, 4, 10, 10)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(250, 332)
+        Me.GroupBox4.Size = New System.Drawing.Size(257, 332)
         Me.GroupBox4.TabIndex = 386
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Resúmen"
@@ -258,7 +312,7 @@ Partial Class frmLiquidaciones
         Me.lblTotal.ForeColor = System.Drawing.Color.DarkGreen
         Me.lblTotal.Location = New System.Drawing.Point(7, 254)
         Me.lblTotal.Name = "lblTotal"
-        Me.lblTotal.Size = New System.Drawing.Size(229, 24)
+        Me.lblTotal.Size = New System.Drawing.Size(236, 24)
         Me.lblTotal.TabIndex = 389
         Me.lblTotal.Text = "$ [Total]"
         Me.lblTotal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -274,7 +328,7 @@ Partial Class frmLiquidaciones
         Me.LabelX1.Location = New System.Drawing.Point(22, 34)
         Me.LabelX1.Margin = New System.Windows.Forms.Padding(2)
         Me.LabelX1.Name = "LabelX1"
-        Me.LabelX1.Size = New System.Drawing.Size(90, 19)
+        Me.LabelX1.Size = New System.Drawing.Size(97, 19)
         Me.LabelX1.TabIndex = 394
         Me.LabelX1.Text = "Tipo de pago"
         '
@@ -353,7 +407,7 @@ Partial Class frmLiquidaciones
         Me.Label17.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label17.AutoSize = True
         Me.Label17.ForeColor = System.Drawing.SystemColors.WindowFrame
-        Me.Label17.Location = New System.Drawing.Point(144, 103)
+        Me.Label17.Location = New System.Drawing.Point(151, 103)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(76, 13)
         Me.Label17.TabIndex = 387
@@ -540,16 +594,6 @@ Partial Class frmLiquidaciones
         Me.lblID.Text = "ID"
         Me.lblID.Visible = False
         '
-        'lblCantLiq
-        '
-        Me.lblCantLiq.AutoSize = True
-        Me.lblCantLiq.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.lblCantLiq.Location = New System.Drawing.Point(102, 452)
-        Me.lblCantLiq.Name = "lblCantLiq"
-        Me.lblCantLiq.Size = New System.Drawing.Size(52, 13)
-        Me.lblCantLiq.TabIndex = 387
-        Me.lblCantLiq.Text = "[Subtotal]"
-        '
         'Label15
         '
         Me.Label15.AutoSize = True
@@ -560,16 +604,6 @@ Partial Class frmLiquidaciones
         Me.Label15.TabIndex = 388
         Me.Label15.Text = "Cantidad de Ítems: "
         Me.Label15.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'chkGrillaInferior
-        '
-        Me.chkGrillaInferior.AutoSize = True
-        Me.chkGrillaInferior.Location = New System.Drawing.Point(179, 452)
-        Me.chkGrillaInferior.Name = "chkGrillaInferior"
-        Me.chkGrillaInferior.Size = New System.Drawing.Size(132, 17)
-        Me.chkGrillaInferior.TabIndex = 272
-        Me.chkGrillaInferior.Text = "Aumentar Grilla Inferior"
-        Me.chkGrillaInferior.UseVisualStyleBackColor = True
         '
         'Label14
         '
@@ -598,7 +632,7 @@ Partial Class frmLiquidaciones
         Me.GroupPanelDetalleLiquidacion.Controls.Add(Me.grdDetalleLiquidacionFiltrada)
         Me.GroupPanelDetalleLiquidacion.Controls.Add(Me.grdDetalleLiquidacion)
         Me.GroupPanelDetalleLiquidacion.DisabledBackColor = System.Drawing.Color.Empty
-        Me.GroupPanelDetalleLiquidacion.Location = New System.Drawing.Point(1339, 75)
+        Me.GroupPanelDetalleLiquidacion.Location = New System.Drawing.Point(1339, 72)
         Me.GroupPanelDetalleLiquidacion.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupPanelDetalleLiquidacion.Name = "GroupPanelDetalleLiquidacion"
         Me.GroupPanelDetalleLiquidacion.Size = New System.Drawing.Size(2000, 531)
@@ -1027,27 +1061,6 @@ Partial Class frmLiquidaciones
         Me.grdDetalleLiquidacion.Size = New System.Drawing.Size(1007, 219)
         Me.grdDetalleLiquidacion.TabIndex = 355
         '
-        'lblCantidadItems
-        '
-        Me.lblCantidadItems.AutoSize = True
-        Me.lblCantidadItems.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.lblCantidadItems.Location = New System.Drawing.Point(1017, 88)
-        Me.lblCantidadItems.Name = "lblCantidadItems"
-        Me.lblCantidadItems.Size = New System.Drawing.Size(52, 13)
-        Me.lblCantidadItems.TabIndex = 270
-        Me.lblCantidadItems.Text = "[Subtotal]"
-        Me.lblCantidadItems.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Label19
-        '
-        Me.Label19.AutoSize = True
-        Me.Label19.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.Label19.Location = New System.Drawing.Point(12, 452)
-        Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(98, 13)
-        Me.Label19.TabIndex = 271
-        Me.Label19.Text = "Cantidad de Ítems: "
-        '
         'lblcuit
         '
         Me.lblcuit.AutoSize = True
@@ -1247,4 +1260,5 @@ Partial Class frmLiquidaciones
     Friend WithEvents txtIdPresentacion As TextBox
     Friend WithEvents txtID As TextBox
     Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
+    Friend WithEvents ButtonX1 As DevComponents.DotNetBar.ButtonX
 End Class

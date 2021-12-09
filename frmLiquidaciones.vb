@@ -2615,7 +2615,12 @@ Public Class frmLiquidaciones
     End Sub
 
     Private Sub btnCargarPresentacion_Click(sender As Object, e As EventArgs) Handles btnCargarPresentacion.Click
-        Dim NuevoLiquidacion As New frmNuevaLiquidacion
-        frmNuevaLiquidacion.ShowDialog()
+        Dim NuevaLiquidacion As New frmNuevaLiquidacion
+        NuevaLiquidacion.ShowDialog()
+    End Sub
+
+    Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
+        Dim ImportExcel As New frmImportarExcel
+        ImportExcel.ShowDialog()
     End Sub
 End Class
