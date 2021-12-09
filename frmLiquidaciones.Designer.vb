@@ -176,7 +176,7 @@ Partial Class frmLiquidaciones
         Me.GroupBox1.ForeColor = System.Drawing.Color.Black
         Me.GroupBox1.Location = New System.Drawing.Point(0, 27)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(1687, 481)
+        Me.GroupBox1.Size = New System.Drawing.Size(1704, 481)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         '
@@ -246,7 +246,7 @@ Partial Class frmLiquidaciones
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1405, 346)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1422, 346)
         Me.TableLayoutPanel1.TabIndex = 417
         '
         'SuperGrdResultado
@@ -280,7 +280,7 @@ Partial Class frmLiquidaciones
         Background7.Color1 = System.Drawing.Color.Transparent
         Me.SuperGrdResultado.PrimaryGrid.DefaultVisualStyles.RowStyles.Default.Background = Background7
         Me.SuperGrdResultado.PrimaryGrid.SelectionGranularity = DevComponents.DotNetBar.SuperGrid.SelectionGranularity.Row
-        Me.SuperGrdResultado.Size = New System.Drawing.Size(1106, 326)
+        Me.SuperGrdResultado.Size = New System.Drawing.Size(1120, 326)
         Me.SuperGrdResultado.TabIndex = 381
         Me.SuperGrdResultado.Text = "SuperGridControl1"
         '
@@ -296,10 +296,10 @@ Partial Class frmLiquidaciones
         Me.GroupBox4.Controls.Add(Me.Label17)
         Me.GroupBox4.Controls.Add(Me.btnExcelWindow)
         Me.GroupBox4.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GroupBox4.Location = New System.Drawing.Point(1138, 4)
+        Me.GroupBox4.Location = New System.Drawing.Point(1152, 4)
         Me.GroupBox4.Margin = New System.Windows.Forms.Padding(10, 4, 10, 10)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(257, 332)
+        Me.GroupBox4.Size = New System.Drawing.Size(260, 332)
         Me.GroupBox4.TabIndex = 386
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Resúmen"
@@ -312,7 +312,7 @@ Partial Class frmLiquidaciones
         Me.lblTotal.ForeColor = System.Drawing.Color.DarkGreen
         Me.lblTotal.Location = New System.Drawing.Point(7, 254)
         Me.lblTotal.Name = "lblTotal"
-        Me.lblTotal.Size = New System.Drawing.Size(236, 24)
+        Me.lblTotal.Size = New System.Drawing.Size(239, 24)
         Me.lblTotal.TabIndex = 389
         Me.lblTotal.Text = "$ [Total]"
         Me.lblTotal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -328,7 +328,7 @@ Partial Class frmLiquidaciones
         Me.LabelX1.Location = New System.Drawing.Point(22, 34)
         Me.LabelX1.Margin = New System.Windows.Forms.Padding(2)
         Me.LabelX1.Name = "LabelX1"
-        Me.LabelX1.Size = New System.Drawing.Size(97, 19)
+        Me.LabelX1.Size = New System.Drawing.Size(100, 19)
         Me.LabelX1.TabIndex = 394
         Me.LabelX1.Text = "Tipo de pago"
         '
@@ -407,7 +407,7 @@ Partial Class frmLiquidaciones
         Me.Label17.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label17.AutoSize = True
         Me.Label17.ForeColor = System.Drawing.SystemColors.WindowFrame
-        Me.Label17.Location = New System.Drawing.Point(151, 103)
+        Me.Label17.Location = New System.Drawing.Point(154, 103)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(76, 13)
         Me.Label17.TabIndex = 387
@@ -458,19 +458,17 @@ Partial Class frmLiquidaciones
         '
         Me.lblPeriodo_presentacion.Location = New System.Drawing.Point(721, 51)
         Me.lblPeriodo_presentacion.Name = "lblPeriodo_presentacion"
-        Me.lblPeriodo_presentacion.Size = New System.Drawing.Size(110, 13)
+        Me.lblPeriodo_presentacion.Size = New System.Drawing.Size(110, 46)
         Me.lblPeriodo_presentacion.TabIndex = 413
         Me.lblPeriodo_presentacion.Text = "[Período]"
-        Me.lblPeriodo_presentacion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'lblObservacion
         '
         Me.lblObservacion.Location = New System.Drawing.Point(526, 51)
         Me.lblObservacion.Name = "lblObservacion"
-        Me.lblObservacion.Size = New System.Drawing.Size(179, 13)
+        Me.lblObservacion.Size = New System.Drawing.Size(179, 46)
         Me.lblObservacion.TabIndex = 412
         Me.lblObservacion.Text = "[Observación]"
-        Me.lblObservacion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'lblObraSocial
         '
