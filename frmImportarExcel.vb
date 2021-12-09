@@ -11,6 +11,29 @@ Imports DevComponents.DotNetBar.Controls
 Imports DevComponents.DotNetBar.SuperGrid.Style
 
 Public Class frmImportarExcel
+
+    Dim idPresentacion As Long
+    Dim tables As DataTableCollection
+    Dim WorkingOnTemplate As Boolean = False
+    Dim TemplateName = ""
+    Dim ExcelTemplate
+
+    ''VARIABLES PROVISORIAS
+    Dim cmbTipoPago As ComboBox
+
+    Public Sub New(idPresentacion As Long)
+
+        ' Esta llamada es exigida por el diseñador.
+        InitializeComponent()
+
+        ' Agregue cualquier inicialización después de la llamada a InitializeComponent().
+        Me.idPresentacion = idPresentacion
+
+    End Sub
+
+    ''Ini
+
+
     Private Sub frmImportarExcel_Load(sender As Object, e As EventArgs) Handles Me.Load
         With grdDetalleLiquidacion
             .VirtualMode = False
@@ -53,18 +76,8 @@ Public Class frmImportarExcel
         End With
 
         grdDetalleLiquidacionFiltrada.Font = New Font("Microsoft Sans Serif", 7, FontStyle.Regular)
+
     End Sub
-
-    Dim tables As DataTableCollection
-    Dim WorkingOnTemplate As Boolean = False
-    Dim TemplateName = ""
-
-    ''VARIABLES PROVISORIAS
-    Dim gl_dataset As DataSet
-    Dim idPresentacion As String
-    Dim cmbTipoPago As ComboBox
-    Dim masterGrdDetail As Boolean
-
 
     Private Sub btnImportExcel_Click(sender As Object, e As EventArgs) Handles btnImportExcel.Click
         Using ofd As OpenFileDialog = New OpenFileDialog() With {.Filter = "Excel Files |*.xls; *.xlsx"}
@@ -136,7 +149,7 @@ Public Class frmImportarExcel
         ColLabel.Text = e.ColumnIndex
 
     End Sub
-    Dim ExcelTemplate
+
     Private Sub Get_excel_templates()
         Dim connection As SqlClient.SqlConnection = Nothing
         Dim ds
@@ -271,12 +284,12 @@ Public Class frmImportarExcel
                     End If
                 Next
 
-                Sql = $"UPDATE [CENPROFAR].[dbo].[ExcelTemplates] SET {StrSet} where [Name] = '{TemplateName}'"
+                SQL = $"UPDATE [CENPROFAR].[dbo].[ExcelTemplates] SET {StrSet} where [Name] = '{TemplateName}'"
 
 
                 Try
                     connection = SqlHelper.GetConnection(ConnStringSEI)
-                    ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, Sql)
+                    ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, SQL)
                     ds.Dispose()
                 Catch ex As Exception
                     MessageBox.Show($"No se pudo conectar con la base de datos {ex.Message}", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -634,15 +647,7 @@ Public Class frmImportarExcel
     Private Sub btnListo_Click(sender As Object, e As EventArgs) Handles btnListo.Click
         Dim i As Integer
         Dim rowArray
-
-        ''PONE EN CONCEPTOS EL A CARGO OS
-        'For Each row As DataRow In dtDetalle.Rows
-        '    Dim a_cargo As DataRow = gl_dataset.Tables(1).NewRow()
-        '    a_cargo("codigo") = row("CodigoFarmacia")
-        '    a_cargo("detalle") = "A cargo OS"
-        '    a_cargo("valor") = row("A cargo OS")
-        '    gl_dataset.Tables(1).Rows.Add(a_cargo)
-        'Next
+        Dim Conceptos As DataTable
 
         ''CALCULO DE ERROR AJUSTE
         For i = 0 To grdDetalleLiquidacionFiltrada.Rows.Count - 1
@@ -651,12 +656,12 @@ Public Class frmImportarExcel
 
             ''Se queda con la primera coincidencia de farmacia y detalle de la grilla de detalles
             Dim a_cargo As DataRow
-            rowArray = gl_dataset.Tables(1).Select($"IdFarmacia = '{aceptado_farmacia}' and detalle = 'A cargo OS'")
+            rowArray = Conceptos.Select($"IdFarmacia = '{aceptado_farmacia}' and detalle = 'A cargo OS'")
             If rowArray.Length > 0 Then
                 a_cargo = rowArray(0)
 
                 If a_cargo("valor") <> aceptado Then
-                    Dim error_ajuste As DataRow = gl_dataset.Tables(1).NewRow()
+                    Dim error_ajuste As DataRow = Conceptos.NewRow()
                     error_ajuste("IdDetalle") = a_cargo("IdDetalle")
                     error_ajuste("IdFarmacia") = a_cargo("IdFarmacia")
                     error_ajuste("estado") = "insert"
@@ -667,7 +672,7 @@ Public Class frmImportarExcel
                     End If
 
                     error_ajuste("valor") = Decimal.Parse(aceptado - a_cargo("valor"))
-                    gl_dataset.Tables(1).Rows.Add(error_ajuste)
+                    Conceptos.Rows.Add(error_ajuste)
                 End If
             End If
 
@@ -682,9 +687,9 @@ Public Class frmImportarExcel
 
             ColumnName = grdDetalleLiquidacionFiltrada.Columns(i).Name
             For j = 0 To grdDetalleLiquidacionFiltrada.Rows.Count - 1
-                Dim row As DataRow = gl_dataset.Tables(1).NewRow()
+                Dim row As DataRow = Conceptos.NewRow()
                 ''Se queda con la primera coincidencia de farmacia para obtener IdDetalle
-                rowArray = gl_dataset.Tables(1).Select($"IdFarmacia = '{grdDetalleLiquidacionFiltrada.Rows(j).Cells("IdFarmacia").Value}'")
+                rowArray = Conceptos.Select($"IdFarmacia = '{grdDetalleLiquidacionFiltrada.Rows(j).Cells("IdFarmacia").Value}'")
                 If rowArray.Length > 0 Then
                     IdDetalle = rowArray(0)("IdDetalle")
                     row("IdDetalle") = IdDetalle
@@ -694,14 +699,84 @@ Public Class frmImportarExcel
                     row("edit") = "x"
                     row("estado") = "insert"
                     If (row("valor") <> 0) Then
-                        gl_dataset.Tables(1).Rows.Add(row)
+                        Conceptos.Rows.Add(row)
                     End If
                 End If
             Next
         Next
-
-        MasterGrdDetail = True
         Template_On_Sumbit()
 
     End Sub
+
+    'Private Sub btnListo_Click(sender As Object, e As EventArgs) Handles btnListo.Click
+    '    Dim i As Integer
+    '    Dim rowArray
+
+    '    ''PONE EN CONCEPTOS EL A CARGO OS
+    '    'For Each row As DataRow In dtDetalle.Rows
+    '    '    Dim a_cargo As DataRow = gl_dataset.Tables(1).NewRow()
+    '    '    a_cargo("codigo") = row("CodigoFarmacia")
+    '    '    a_cargo("detalle") = "A cargo OS"
+    '    '    a_cargo("valor") = row("A cargo OS")
+    '    '    gl_dataset.Tables(1).Rows.Add(a_cargo)
+    '    'Next
+
+    '    ''CALCULO DE ERROR AJUSTE
+    '    For i = 0 To grdDetalleLiquidacionFiltrada.Rows.Count - 1
+    '        Dim aceptado = Decimal.Parse(grdDetalleLiquidacionFiltrada.Rows(i).Cells("A cargo OS").Value)
+    '        Dim aceptado_farmacia = grdDetalleLiquidacionFiltrada.Rows(i).Cells("IdFarmacia").Value
+
+    '        ''Se queda con la primera coincidencia de farmacia y detalle de la grilla de detalles
+    '        Dim a_cargo As DataRow
+    '        rowArray = gl_dataset.Tables(1).Select($"IdFarmacia = '{aceptado_farmacia}' and detalle = 'A cargo OS'")
+    '        If rowArray.Length > 0 Then
+    '            a_cargo = rowArray(0)
+
+    '            If a_cargo("valor") <> aceptado Then
+    '                Dim error_ajuste As DataRow = gl_dataset.Tables(1).NewRow()
+    '                error_ajuste("IdDetalle") = a_cargo("IdDetalle")
+    '                error_ajuste("IdFarmacia") = a_cargo("IdFarmacia")
+    '                error_ajuste("estado") = "insert"
+    '                If cmbTipoPago.Text = "Anticipo" Then
+    '                    error_ajuste("detalle") = "Pendiente de pago"
+    '                Else
+    '                    error_ajuste("detalle") = "Error ajuste"
+    '                End If
+
+    '                error_ajuste("valor") = Decimal.Parse(aceptado - a_cargo("valor"))
+    '                gl_dataset.Tables(1).Rows.Add(error_ajuste)
+    '            End If
+    '        End If
+
+    '    Next
+
+    '    Dim ColumnName As String
+    '    Dim IdDetalle As Long
+
+    '    Dim j As Integer = 0
+    '    For i = 7 To grdDetalleLiquidacionFiltrada.Columns.Count - 2
+
+
+    '        ColumnName = grdDetalleLiquidacionFiltrada.Columns(i).Name
+    '        For j = 0 To grdDetalleLiquidacionFiltrada.Rows.Count - 1
+    '            Dim row As DataRow = gl_dataset.Tables(1).NewRow()
+    '            ''Se queda con la primera coincidencia de farmacia para obtener IdDetalle
+    '            rowArray = gl_dataset.Tables(1).Select($"IdFarmacia = '{grdDetalleLiquidacionFiltrada.Rows(j).Cells("IdFarmacia").Value}'")
+    '            If rowArray.Length > 0 Then
+    '                IdDetalle = rowArray(0)("IdDetalle")
+    '                row("IdDetalle") = IdDetalle
+    '                row("IdFarmacia") = grdDetalleLiquidacionFiltrada.Rows(j).Cells("IdFarmacia").Value
+    '                row("detalle") = ColumnName
+    '                row("valor") = Decimal.Parse(grdDetalleLiquidacionFiltrada.Rows(j).Cells(i).Value) * -1
+    '                row("edit") = "x"
+    '                row("estado") = "insert"
+    '                If (row("valor") <> 0) Then
+    '                    gl_dataset.Tables(1).Rows.Add(row)
+    '                End If
+    '            End If
+    '        Next
+    '    Next
+    '    Template_On_Sumbit()
+
+    'End Sub
 End Class

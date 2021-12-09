@@ -463,8 +463,7 @@ Partial Class frmImportarExcel
         '
         Me.grdDetalleLiquidacionFiltrada.AllowUserToAddRows = False
         Me.grdDetalleLiquidacionFiltrada.AllowUserToDeleteRows = False
-        Me.grdDetalleLiquidacionFiltrada.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.grdDetalleLiquidacionFiltrada.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.grdDetalleLiquidacionFiltrada.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.grdDetalleLiquidacionFiltrada.Location = New System.Drawing.Point(11, 293)
@@ -478,8 +477,7 @@ Partial Class frmImportarExcel
         'grdDetalleLiquidacion
         '
         Me.grdDetalleLiquidacion.AllowUserToAddRows = False
-        Me.grdDetalleLiquidacion.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.grdDetalleLiquidacion.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.grdDetalleLiquidacion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.grdDetalleLiquidacion.Location = New System.Drawing.Point(11, 30)

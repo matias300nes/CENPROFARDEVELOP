@@ -545,6 +545,14 @@ Public Class frmLiquidaciones
 
     End Sub
 
+    Friend Sub addAceptadosFromExcel()
+
+    End Sub
+
+    Friend Sub addConceptosFromExcel()
+
+    End Sub
+
     'Dim tables As DataTableCollection
     'Dim WorkingOnTemplate As Boolean = False
     'Dim TemplateName = ""
@@ -2636,7 +2644,7 @@ Public Class frmLiquidaciones
     End Sub
 
     Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
-        Dim ImportExcel As New frmImportarExcel
+        Dim ImportExcel As New frmImportarExcel(txtIdPresentacion.Text)
         ImportExcel.ShowDialog()
     End Sub
 End Class
