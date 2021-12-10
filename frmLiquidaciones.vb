@@ -163,7 +163,6 @@ Public Class frmLiquidaciones
     End Sub
 
     Private Sub frmRecepciones_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        GroupPanelDetalleLiquidacion.Visible = False
 
         'lblTotal.Visible = False
         lblcmbObrasSociales.Visible = True
@@ -212,7 +211,6 @@ Public Class frmLiquidaciones
         '    .Font = New Font("Microsoft Sans Serif", 8, FontStyle.Bold)
         'End With
 
-        grdDetalleLiquidacionFiltrada.Font = New Font("Microsoft Sans Serif", 7, FontStyle.Regular)
 
         band = 0
         'Modifico botones del frmbase
@@ -465,29 +463,29 @@ Public Class frmLiquidaciones
     End Sub
 
     ''Esta funcion actualiza y autocalcula valores importantes de la grilla
-    Private Sub UpdateGrdPrincipal()
+    Friend Sub UpdateGrdPrincipal()
 
         ''GRID PRINCIPAL
         Dim i As Integer
-        If MasterGrdDetail Then
-            If gl_dataset.Tables(0).Columns("Recetas A") Is Nothing Then
-                gl_dataset.Tables(0).Columns.Add("Recetas A")
-                gl_dataset.Tables(0).Columns.Add("Recaudado A")
-                gl_dataset.Tables(0).Columns.Add("A Cargo OS A")
-            End If
+        'If MasterGrdDetail Then
+        '    If gl_dataset.Tables(0).Columns("Recetas A") Is Nothing Then
+        '        gl_dataset.Tables(0).Columns.Add("Recetas A")
+        '        gl_dataset.Tables(0).Columns.Add("Recaudado A")
+        '        gl_dataset.Tables(0).Columns.Add("A Cargo OS A")
+        '    End If
 
-            Dim row As DataRow
-            For i = 0 To grdDetalleLiquidacionFiltrada.Rows.Count - 1
-                row = gl_dataset.Tables(0).Rows.Find(grdDetalleLiquidacionFiltrada.Rows(i).Cells("IdDetalle").Value)
-                If row IsNot Nothing Then 'If a row is found
-                    With row
-                        .Item("Recetas A") = grdDetalleLiquidacionFiltrada.Rows(i).Cells("Recetas").Value
-                        .Item("Recaudado A") = grdDetalleLiquidacionFiltrada.Rows(i).Cells("Recaudado").Value
-                        .Item("A Cargo OS A") = grdDetalleLiquidacionFiltrada.Rows(i).Cells("A Cargo OS").Value
-                    End With
-                End If
-            Next
-        End If
+        '    Dim row As DataRow
+        '    For i = 0 To grdDetalleLiquidacionFiltrada.Rows.Count - 1
+        '        row = gl_dataset.Tables(0).Rows.Find(grdDetalleLiquidacionFiltrada.Rows(i).Cells("IdDetalle").Value)
+        '        If row IsNot Nothing Then 'If a row is found
+        '            With row
+        '                .Item("Recetas A") = grdDetalleLiquidacionFiltrada.Rows(i).Cells("Recetas").Value
+        '                .Item("Recaudado A") = grdDetalleLiquidacionFiltrada.Rows(i).Cells("Recaudado").Value
+        '                .Item("A Cargo OS A") = grdDetalleLiquidacionFiltrada.Rows(i).Cells("A Cargo OS").Value
+        '            End With
+        '        End If
+        '    Next
+        'End If
 
         If gl_dataset.Tables(0).Columns("Subtotal") Is Nothing Then
             gl_dataset.Tables(0).Columns.Add("Subtotal", GetType(Decimal))
@@ -536,21 +534,35 @@ Public Class frmLiquidaciones
     End Sub
 
     Private Sub btnExcelWindow_Click(sender As Object, e As EventArgs) Handles btnExcelWindow.Click
-        GroupPanelDetalleLiquidacion.Visible = True
-        GroupPanelDetalleLiquidacion.Location = New Point(0, 0)
-        GroupPanelDetalleLiquidacion.BringToFront()
-        chkGrillaInferior.BringToFront()
-        Me.grd.Location = New Size(GroupBox1.Location.X, GroupBox1.Location.Y + GroupBox1.Size.Height + 5)
-        Me.grd.Size = New Size(Screen.PrimaryScreen.WorkingArea.Width - 27, Me.Size.Height - 3 - GroupBox1.Size.Height - GroupBox1.Location.Y - 62) '65)
-
+        Dim ImportExcel As New frmImportarExcel(txtIdPresentacion.Text)
+        ImportExcel.ShowDialog()
     End Sub
 
-    Friend Sub addAceptadosFromExcel()
+    Friend Sub addAceptadosFromExcel(dtAceptados As DataTable)
 
+        For Each item As DataRow In dtAceptados.Rows
+            Dim currentDetalle = gl_dataset.Tables(0).Select($"ID = '{item("IdDetalle")}'")(0)
+            Dim currentConcepto = gl_dataset.Tables(1).Select($"IdDetalle = '{item("IdDetalle")}' and detalle = 'A Cargo OS'")(0)
+
+            If currentDetalle IsNot Nothing Then
+                currentDetalle("Recetas A") = item("Recetas")
+                currentDetalle("Recaudado A") = item("Recaudado")
+                currentDetalle("A Cargo OS A") = item("A Cargo OS")
+            End If
+
+            If currentConcepto IsNot Nothing Then
+                currentConcepto("valor") = item("A Cargo OS")
+                currentConcepto("estado") = "update"
+            End If
+        Next
     End Sub
 
-    Friend Sub addConceptosFromExcel()
-
+    Friend Sub addConceptosFromExcel(dtConceptos As DataTable)
+        For Each item As DataRow In dtConceptos.Rows
+            Dim row As DataRow = gl_dataset.Tables(1).NewRow()
+            row.ItemArray = item.ItemArray
+            gl_dataset.Tables(1).Rows.Add(row)
+        Next
     End Sub
 
     'Dim tables As DataTableCollection
@@ -1359,100 +1371,6 @@ Public Class frmLiquidaciones
             End If
         End If
     End Sub
-
-    Private Sub LlenarGrid_grdDetLiquidacionOs()
-
-        If grdDetalleLiquidacionFiltrada.Columns.Count > 0 Then
-            grdDetalleLiquidacionFiltrada.Columns.Clear()
-        End If
-
-        If txtID.Text = "" Then
-            'SQL = "exec spRecepciones_Det_Select_By_IDRecepcion @idRecepcion = 1"
-            'SQL = "select * from osdetalleliquidacion"
-        Else
-            ' SQL = "exec spRecepciones_Det_Select_By_IDRecepcion @idRecepcion = " & txtID.Text
-            'SQL = "select * from osdetalleliquidacion"
-        End If
-
-        GetDatasetItems(grdDetalleLiquidacionFiltrada)
-
-        grdDetalleLiquidacionFiltrada.Columns(ColumnasDelGridItems1.IDRecepcion_Det).Visible = False
-
-        'grdFarmacias.Columns(ColumnasDelGridItems1.Cod_RecepcionDet).Visible = False
-
-        grdDetalleLiquidacionFiltrada.Columns(ColumnasDelGridItems1.IDMaterial).Visible = False
-
-        'grdFarmacias.Columns(ColumnasDelGridItems1.Cod_Material).ReadOnly = True 'Codigo material
-        'grdFarmacias.Columns(ColumnasDelGridItems1.Cod_Material).Width = 110
-
-        'grdFarmacias.Columns(4).ReadOnly = True
-        'grdFarmacias.Columns(4).Width = 400
-
-        'grdFarmacias.Columns(5).ReadOnly = True
-        'grdFarmacias.Columns(5).Width = 60
-
-        grdDetalleLiquidacionFiltrada.Columns(6).Visible = False
-        'grdFarmacias.Columns(8).Visible = False
-        grdDetalleLiquidacionFiltrada.Columns(9).Visible = False
-        grdDetalleLiquidacionFiltrada.Columns(10).Visible = False
-
-        With grdDetalleLiquidacionFiltrada
-            .VirtualMode = False
-            .AllowUserToAddRows = False
-            .AlternatingRowsDefaultCellStyle.BackColor = Color.AliceBlue
-            .RowsDefaultCellStyle.BackColor = Color.White
-            .AllowUserToOrderColumns = True
-            .SelectionMode = DataGridViewSelectionMode.CellSelect
-            .ForeColor = Color.Black
-        End With
-        With grdDetalleLiquidacionFiltrada.ColumnHeadersDefaultCellStyle
-            .BackColor = Color.Black  'Color.BlueViolet
-            .ForeColor = Color.White
-            .Font = New Font("TAHOMA", 8, FontStyle.Bold)
-        End With
-        grdDetalleLiquidacionFiltrada.Font = New Font("TAHOMA", 8, FontStyle.Regular)
-        'grdEnsayos.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells)
-
-        'Volver la fuente de datos a como estaba...
-        'SQL = "exec spRecepciones_Select_All @Eliminado = 0"
-    End Sub
-
-    'Private Sub LlenarGrid_Items2()
-
-    '    If grdDetLiquidacionOs.Columns.Count > 0 Then
-    '        grdDetLiquidacionOs.Columns.Clear()
-    '    End If
-
-    '    If txtID.Text = "" Then
-    '        SQL = "exec spPresentaciones_Det_Select_By_IDPresentacion @IDPresentacion = '1'"
-    '    Else
-    '        SQL = "exec spPresentaciones_Det_Select_By_IDPresentacion @IDPresentacion = " & txtID.Text
-    '    End If
-
-    '    GetDatasetItems(grdDetLiquidacionOs)
-
-
-    '    With grdDetLiquidacionOs
-    '        .VirtualMode = False
-    '        .AllowUserToAddRows = False
-    '        .AlternatingRowsDefaultCellStyle.BackColor = Color.AliceBlue
-    '        .RowsDefaultCellStyle.BackColor = Color.White
-    '        .AllowUserToOrderColumns = True
-    '        .SelectionMode = DataGridViewSelectionMode.CellSelect
-    '        .ForeColor = Color.Black
-    '    End With
-    '    With grdDetLiquidacionOs.ColumnHeadersDefaultCellStyle
-    '        .BackColor = Color.Black  'Color.BlueViolet
-    '        .ForeColor = Color.White
-    '        .Font = New Font("TAHOMA", 8, FontStyle.Bold)
-    '    End With
-    '    grdDetLiquidacionOs.Font = New Font("TAHOMA", 8, FontStyle.Regular)
-    '    'grdEnsayos.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells)
-
-    '    'Volver la fuente de datos a como estaba...
-    '    SQL = "exec spPresentaciones_Select_All @Eliminado = 0"
-    'End Sub
-
 
     Private Sub GetDatasetItems(ByVal grdchico As DataGridView)
         Dim connection As SqlClient.SqlConnection = Nothing
@@ -2530,10 +2448,10 @@ Public Class frmLiquidaciones
         'Verifico el nombre del subpanel
 
         If panel.Name.Equals("Table2") = True Then
-            panel.Columns(0).Visible = False 'ID
-            panel.Columns(1).Visible = False 'IdDetalle
-            panel.Columns(2).Visible = False 'IdFarmacia
-            panel.Columns(5).Visible = False 'estado
+            'panel.Columns(0).Visible = False 'ID
+            'panel.Columns(1).Visible = False 'IdDetalle
+            'panel.Columns(2).Visible = False 'IdFarmacia
+            'panel.Columns(5).Visible = False 'estado
             panel.Columns(6).Width = 30 'hago el boton de eliminar mas pequeño
 
             'panel.Visible = IIf(panel.Rows.Count > 0, True, False)
@@ -2607,25 +2525,36 @@ Public Class frmLiquidaciones
     End Sub
 
     Private Sub addConceptos(detalle As String, porcentaje As Decimal)
-        Dim dtDetalle As DataTable = gl_dataset.Tables(0)
         Dim valor As Decimal = 0
         Dim concepto As DataRow
 
-        For Each Farmacia As DataRow In dtDetalle.Rows
+        For Each Farmacia As DataRow In gl_dataset.Tables(0).Rows
             valor = -Farmacia("subtotal") * Decimal.Parse(porcentaje)
 
-            ''creo el concepto
-            concepto = gl_dataset.Tables(1).NewRow ' <- dtConceptos
+            Dim CurrentConcepto = gl_dataset.Tables(1).Select($"IdDetalle = '{Farmacia("ID")}' and detalle = '{detalle}'")(0)
+            If CurrentConcepto IsNot Nothing Then
+                CurrentConcepto("valor") = valor
+                If CurrentConcepto("estado") = "saved" Then
+                    CurrentConcepto("estado") = "update"
+                Else
+                    CurrentConcepto("estado") = "insert"
+                End If
+            Else
+                ''creo el concepto
+                concepto = gl_dataset.Tables(1).NewRow ' <- dtConceptos
 
-            concepto("IdDetalle") = Farmacia("ID")
-            concepto("IdFarmacia") = Farmacia("IdFarmacia")
-            concepto("detalle") = detalle
-            concepto("valor") = valor
-            'concepto("edit") = New DataGridViewButtonXCell()
-            concepto("edit") = True
-            concepto("estado") = "insert"
+                concepto("IdDetalle") = Farmacia("ID")
+                concepto("IdFarmacia") = Farmacia("IdFarmacia")
+                concepto("detalle") = detalle
+                concepto("valor") = valor
+                'concepto("edit") = New DataGridViewButtonXCell()
+                concepto("edit") = True
+                concepto("estado") = "insert"
 
-            gl_dataset.Tables(1).Rows.Add(concepto)
+                gl_dataset.Tables(1).Rows.Add(concepto)
+            End If
+
+
         Next
     End Sub
 
@@ -2639,12 +2568,8 @@ Public Class frmLiquidaciones
     End Sub
 
     Private Sub btnCargarPresentacion_Click(sender As Object, e As EventArgs) Handles btnCargarPresentacion.Click
-        Dim NuevaLiquidacion As New frmNuevaLiquidacion
+        Dim NuevaLiquidacion As New frmSelectPresentacion
         NuevaLiquidacion.ShowDialog()
     End Sub
 
-    Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
-        Dim ImportExcel As New frmImportarExcel(txtIdPresentacion.Text)
-        ImportExcel.ShowDialog()
-    End Sub
 End Class

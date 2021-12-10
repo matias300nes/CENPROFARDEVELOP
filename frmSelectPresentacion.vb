@@ -10,7 +10,7 @@ Imports DevComponents.DotNetBar.SuperGrid
 Imports DevComponents.DotNetBar.Controls
 Imports DevComponents.DotNetBar.SuperGrid.Style
 
-Public Class frmNuevaLiquidacion
+Public Class frmSelectPresentacion
 
     Enum GridCols
         ID = 0

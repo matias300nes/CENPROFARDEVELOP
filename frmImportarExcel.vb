@@ -647,36 +647,65 @@ Public Class frmImportarExcel
     Private Sub btnListo_Click(sender As Object, e As EventArgs) Handles btnListo.Click
         Dim i As Integer
         Dim rowArray
-        Dim Conceptos As DataTable
+        Dim dtGrdData As DataTable = grdDetalleLiquidacionFiltrada.DataSource
+
+        Dim dtAceptados As New DataTable()
+        dtAceptados.Columns.Add("IdDetalle", GetType(Long))
+        dtAceptados.Columns.Add("Recetas", GetType(Integer))
+        dtAceptados.Columns.Add("Recaudado", GetType(Decimal))
+        dtAceptados.Columns.Add("A Cargo OS", GetType(Decimal))
+
+        Dim dtConceptos As New DataTable()
+        dtConceptos.Columns.Add("ID", GetType(Long))
+        dtConceptos.Columns.Add("IdDetalle", GetType(Long))
+        dtConceptos.Columns.Add("IdFarmacia", GetType(String))
+        dtConceptos.Columns.Add("detalle", GetType(String))
+        dtConceptos.Columns.Add("valor", GetType(Decimal))
+        dtConceptos.Columns.Add("estado", GetType(String))
+        dtConceptos.Columns.Add("edit")
+
+        '---------------Recolección de aceptados----------------
+        For Each item As DataRow In dtGrdData.Rows
+            Dim row As DataRow = dtAceptados.NewRow()
+            row("IdDetalle") = item("IdDetalle")
+            row("Recetas") = item("Recetas")
+            row("Recaudado") = item("Recaudado")
+            row("A Cargo OS") = item("A Cargo OS")
+            dtAceptados.Rows.Add(row)
+        Next
+        frmLiquidaciones.addAceptadosFromExcel(dtAceptados)
+
+
+        '---------------Recolección de conceptos----------------
 
         ''CALCULO DE ERROR AJUSTE
-        For i = 0 To grdDetalleLiquidacionFiltrada.Rows.Count - 1
-            Dim aceptado = Decimal.Parse(grdDetalleLiquidacionFiltrada.Rows(i).Cells("A cargo OS").Value)
-            Dim aceptado_farmacia = grdDetalleLiquidacionFiltrada.Rows(i).Cells("IdFarmacia").Value
+        'For i = 0 To grdDetalleLiquidacionFiltrada.Rows.Count - 1
+        '    Dim aceptado = Decimal.Parse(grdDetalleLiquidacionFiltrada.Rows(i).Cells("A cargo OS").Value)
+        '    Dim aceptado_farmacia = grdDetalleLiquidacionFiltrada.Rows(i).Cells("IdFarmacia").Value
 
-            ''Se queda con la primera coincidencia de farmacia y detalle de la grilla de detalles
-            Dim a_cargo As DataRow
-            rowArray = Conceptos.Select($"IdFarmacia = '{aceptado_farmacia}' and detalle = 'A cargo OS'")
-            If rowArray.Length > 0 Then
-                a_cargo = rowArray(0)
+        '    'Se queda con la primera coincidencia de farmacia y detalle de la grilla de detalles
+        '    Dim a_cargo As DataRow
+        '    rowArray = Conceptos.Select($"IdFarmacia = '{aceptado_farmacia}' and detalle = 'A cargo OS'")
+        '    If rowArray.Length > 0 Then
+        '        a_cargo = rowArray(0)
 
-                If a_cargo("valor") <> aceptado Then
-                    Dim error_ajuste As DataRow = Conceptos.NewRow()
-                    error_ajuste("IdDetalle") = a_cargo("IdDetalle")
-                    error_ajuste("IdFarmacia") = a_cargo("IdFarmacia")
-                    error_ajuste("estado") = "insert"
-                    If cmbTipoPago.Text = "Anticipo" Then
-                        error_ajuste("detalle") = "Pendiente de pago"
-                    Else
-                        error_ajuste("detalle") = "Error ajuste"
-                    End If
+        '        If a_cargo("valor") <> aceptado Then
+        '            Dim error_ajuste As DataRow = Conceptos.NewRow()
+        '            error_ajuste("IdDetalle") = a_cargo("IdDetalle")
+        '            error_ajuste("IdFarmacia") = a_cargo("IdFarmacia")
+        '            error_ajuste("estado") = "insert"
+        '            If cmbTipoPago.Text = "Anticipo" Then
+        '                error_ajuste("detalle") = "Pendiente de pago"
+        '            Else
+        '                error_ajuste("detalle") = "Error ajuste"
+        '            End If
 
-                    error_ajuste("valor") = Decimal.Parse(aceptado - a_cargo("valor"))
-                    Conceptos.Rows.Add(error_ajuste)
-                End If
-            End If
+        '            error_ajuste("valor") = Decimal.Parse(aceptado - a_cargo("valor"))
+        '            Conceptos.Rows.Add(error_ajuste)
+        '        End If
+        '    End If
 
-        Next
+        'Next
 
         Dim ColumnName As String
         Dim IdDetalle As Long
@@ -684,99 +713,33 @@ Public Class frmImportarExcel
         Dim j As Integer = 0
         For i = 7 To grdDetalleLiquidacionFiltrada.Columns.Count - 2
 
-
             ColumnName = grdDetalleLiquidacionFiltrada.Columns(i).Name
             For j = 0 To grdDetalleLiquidacionFiltrada.Rows.Count - 1
-                Dim row As DataRow = Conceptos.NewRow()
+                Dim row As DataRow = dtConceptos.NewRow()
                 ''Se queda con la primera coincidencia de farmacia para obtener IdDetalle
-                rowArray = Conceptos.Select($"IdFarmacia = '{grdDetalleLiquidacionFiltrada.Rows(j).Cells("IdFarmacia").Value}'")
+                rowArray = dtGrdData.Select($"IdFarmacia = '{grdDetalleLiquidacionFiltrada.Rows(j).Cells("IdFarmacia").Value}'")
                 If rowArray.Length > 0 Then
                     IdDetalle = rowArray(0)("IdDetalle")
                     row("IdDetalle") = IdDetalle
                     row("IdFarmacia") = grdDetalleLiquidacionFiltrada.Rows(j).Cells("IdFarmacia").Value
                     row("detalle") = ColumnName
                     row("valor") = Decimal.Parse(grdDetalleLiquidacionFiltrada.Rows(j).Cells(i).Value) * -1
-                    row("edit") = "x"
+                    row("edit") = True
                     row("estado") = "insert"
                     If (row("valor") <> 0) Then
-                        Conceptos.Rows.Add(row)
+                        dtConceptos.Rows.Add(row)
                     End If
                 End If
             Next
         Next
         Template_On_Sumbit()
 
+        frmLiquidaciones.addConceptosFromExcel(dtConceptos)
+
+        frmLiquidaciones.UpdateGrdPrincipal()
+
+        Me.Dispose()
+        Me.Close()
+
     End Sub
-
-    'Private Sub btnListo_Click(sender As Object, e As EventArgs) Handles btnListo.Click
-    '    Dim i As Integer
-    '    Dim rowArray
-
-    '    ''PONE EN CONCEPTOS EL A CARGO OS
-    '    'For Each row As DataRow In dtDetalle.Rows
-    '    '    Dim a_cargo As DataRow = gl_dataset.Tables(1).NewRow()
-    '    '    a_cargo("codigo") = row("CodigoFarmacia")
-    '    '    a_cargo("detalle") = "A cargo OS"
-    '    '    a_cargo("valor") = row("A cargo OS")
-    '    '    gl_dataset.Tables(1).Rows.Add(a_cargo)
-    '    'Next
-
-    '    ''CALCULO DE ERROR AJUSTE
-    '    For i = 0 To grdDetalleLiquidacionFiltrada.Rows.Count - 1
-    '        Dim aceptado = Decimal.Parse(grdDetalleLiquidacionFiltrada.Rows(i).Cells("A cargo OS").Value)
-    '        Dim aceptado_farmacia = grdDetalleLiquidacionFiltrada.Rows(i).Cells("IdFarmacia").Value
-
-    '        ''Se queda con la primera coincidencia de farmacia y detalle de la grilla de detalles
-    '        Dim a_cargo As DataRow
-    '        rowArray = gl_dataset.Tables(1).Select($"IdFarmacia = '{aceptado_farmacia}' and detalle = 'A cargo OS'")
-    '        If rowArray.Length > 0 Then
-    '            a_cargo = rowArray(0)
-
-    '            If a_cargo("valor") <> aceptado Then
-    '                Dim error_ajuste As DataRow = gl_dataset.Tables(1).NewRow()
-    '                error_ajuste("IdDetalle") = a_cargo("IdDetalle")
-    '                error_ajuste("IdFarmacia") = a_cargo("IdFarmacia")
-    '                error_ajuste("estado") = "insert"
-    '                If cmbTipoPago.Text = "Anticipo" Then
-    '                    error_ajuste("detalle") = "Pendiente de pago"
-    '                Else
-    '                    error_ajuste("detalle") = "Error ajuste"
-    '                End If
-
-    '                error_ajuste("valor") = Decimal.Parse(aceptado - a_cargo("valor"))
-    '                gl_dataset.Tables(1).Rows.Add(error_ajuste)
-    '            End If
-    '        End If
-
-    '    Next
-
-    '    Dim ColumnName As String
-    '    Dim IdDetalle As Long
-
-    '    Dim j As Integer = 0
-    '    For i = 7 To grdDetalleLiquidacionFiltrada.Columns.Count - 2
-
-
-    '        ColumnName = grdDetalleLiquidacionFiltrada.Columns(i).Name
-    '        For j = 0 To grdDetalleLiquidacionFiltrada.Rows.Count - 1
-    '            Dim row As DataRow = gl_dataset.Tables(1).NewRow()
-    '            ''Se queda con la primera coincidencia de farmacia para obtener IdDetalle
-    '            rowArray = gl_dataset.Tables(1).Select($"IdFarmacia = '{grdDetalleLiquidacionFiltrada.Rows(j).Cells("IdFarmacia").Value}'")
-    '            If rowArray.Length > 0 Then
-    '                IdDetalle = rowArray(0)("IdDetalle")
-    '                row("IdDetalle") = IdDetalle
-    '                row("IdFarmacia") = grdDetalleLiquidacionFiltrada.Rows(j).Cells("IdFarmacia").Value
-    '                row("detalle") = ColumnName
-    '                row("valor") = Decimal.Parse(grdDetalleLiquidacionFiltrada.Rows(j).Cells(i).Value) * -1
-    '                row("edit") = "x"
-    '                row("estado") = "insert"
-    '                If (row("valor") <> 0) Then
-    '                    gl_dataset.Tables(1).Rows.Add(row)
-    '                End If
-    '            End If
-    '        Next
-    '    Next
-    '    Template_On_Sumbit()
-
-    'End Sub
 End Class
