@@ -150,7 +150,8 @@ Partial Class frmImportarExcel
         '
         'ColLabel
         '
-        Me.ColLabel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ColLabel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ColLabel.AutoSize = True
         Me.ColLabel.Location = New System.Drawing.Point(990, 255)
         Me.ColLabel.Name = "ColLabel"
@@ -173,7 +174,8 @@ Partial Class frmImportarExcel
         '
         'FilaLabel
         '
-        Me.FilaLabel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.FilaLabel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.FilaLabel.AutoSize = True
         Me.FilaLabel.Location = New System.Drawing.Point(928, 255)
         Me.FilaLabel.Name = "FilaLabel"
@@ -417,6 +419,8 @@ Partial Class frmImportarExcel
         '
         'Label11
         '
+        Me.Label11.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label11.AutoSize = True
         Me.Label11.Location = New System.Drawing.Point(10, 265)
         Me.Label11.Name = "Label11"
@@ -426,7 +430,8 @@ Partial Class frmImportarExcel
         '
         'Label6
         '
-        Me.Label6.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label6.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label6.AutoSize = True
         Me.Label6.Location = New System.Drawing.Point(968, 255)
         Me.Label6.Name = "Label6"
@@ -436,7 +441,8 @@ Partial Class frmImportarExcel
         '
         'Label5
         '
-        Me.Label5.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label5.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label5.AutoSize = True
         Me.Label5.Location = New System.Drawing.Point(905, 255)
         Me.Label5.Name = "Label5"
