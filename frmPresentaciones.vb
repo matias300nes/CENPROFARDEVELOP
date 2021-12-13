@@ -93,11 +93,9 @@ Public Class frmPresentaciones
                     btnNuevo_Click(sender, e)
                 End If
             Case Keys.F4 'grabar
-                btnGuardar_Click(sender, e)
-                'Case Keys.F1
-                '    If grdItems.Focused = True And grdItems.CurrentCell.ColumnIndex = 4 Then
-                '        BuscarProducto()
-                '    End If
+                If cmbEstado.Text = "PENDIENTES" Then
+                    btnGuardar_Click(sender, e)
+                End If
         End Select
     End Sub
 
@@ -124,6 +122,7 @@ Public Class frmPresentaciones
         btnEliminar.Text = "Anular Presentación"
         'rdPendientes.Checked = 1
 
+        llenarCmbEstados()
         LlenarCmbFarmacia()
         LlenarCmbObraSocial()
 
@@ -133,7 +132,7 @@ Public Class frmPresentaciones
 
         ''Traigo los encabezados de presentacion
         'SQL = $"exec spPresentaciones_Select_All @Pendientes = {rdPendientes.Checked} ,@Eliminado = {rdAnuladas.Checked} ,@Todos = {rdTodasOC.Checked}"
-        SQL = $"exec spPresentaciones_Select_All @Estado = {cmbEstado.Text} ,@Eliminado = {rdAnuladas.Checked}"
+        SQL = $"exec spPresentaciones_Select_All @Estado = {cmbEstado.Text} ,@Eliminado = 0"
 
         LlenarGrilla()
         Permitir = True
@@ -201,7 +200,7 @@ Public Class frmPresentaciones
 
     Private Sub txtImpACargoOs_KeyDown(sender As Object, e As KeyEventArgs) Handles txtImpACargoOs.KeyDown
         If e.KeyData = Keys.Enter Then
-            If cmbEstado.Text = "PENDIENTES" Then
+            If cmbEstado.Text = "PENDIENTES" Or bolModo = True Then
                 AñadirGridItem()
             End If
 
@@ -209,8 +208,10 @@ Public Class frmPresentaciones
     End Sub
 
     Private Sub nudBonificacion_KeyDown(sender As Object, e As KeyEventArgs) Handles nudBonificacion.KeyDown
-        If e.KeyData = Keys.Enter Then
-            AñadirGridItem()
+        If e.KeyData = Keys.Enter Or bolModo = True Then
+            If cmbEstado.Text = "PENDIENTES" Then
+                AñadirGridItem()
+            End If
         End If
     End Sub
 
@@ -594,6 +595,53 @@ Public Class frmPresentaciones
 
     End Sub
 
+
+    Private Sub llenarCmbEstados()
+        Dim connection As SqlClient.SqlConnection = Nothing
+        Dim ds As Data.DataSet
+
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+        Catch ex As Exception
+            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End Try
+
+        Try
+
+            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, " select distinct estado as Estado from Presentaciones")
+            ds.Dispose()
+
+            With cmbEstado
+                .DataSource = ds.Tables(0).DefaultView
+                .DisplayMember = "estado"
+                '.ValueMember = "ID"
+                .AutoCompleteMode = AutoCompleteMode.SuggestAppend
+                .AutoCompleteSource = AutoCompleteSource.ListItems
+                '.SelectedIndex = "ID"
+            End With
+
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If Not connection Is Nothing Then
+                CType(connection, IDisposable).Dispose()
+            End If
+        End Try
+
+        IdObraSocial = cmbObraSocial.SelectedValue
+        bolIDOS = True
+    End Sub
 
     Private Sub LlenarCmbFarmacia()
         Dim connection As SqlClient.SqlConnection = Nothing
@@ -1043,6 +1091,10 @@ Public Class frmPresentaciones
             Try
                 LlenarGrilla()
 
+                If bolModo = True Then
+
+                End If
+
                 If grd.Rows.Count > 0 Then
                     grd.Rows(0).Selected = True
                     txtID.Text = grd.Rows(0).Cells(0).Value
@@ -1056,40 +1108,39 @@ Public Class frmPresentaciones
             Catch ex As Exception
                 MsgBox(ex.Message)
             End Try
-
+            bloquearPresentacion(estado)
         End If
     End Sub
 
-    Private Sub bloquearPresentacion(idPresentacion)
 
-        Dim connection As SqlClient.SqlConnection = Nothing
 
-        Try
-            connection = SqlHelper.GetConnection(ConnStringSEI)
-        Catch ex As Exception
-            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
-        End Try
 
-        Dim ds As Data.DataSet
 
-        ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"select estado from presentaciones where id={idPresentacion}")
+    Private Sub bloquearPresentacion(cmbstatus)
 
-        ds.Dispose()
 
-        Dim estado = ds.Tables(0).Rows(0).Item(0)
-
-        If estado <> "PENDIENTE" Then
-            btnAgregarItem.Enabled = True
-            GbFarmaciaForm.Enabled = True
-            grdItems.Enabled = True
+        If cmbstatus = "PENDIENTES" Then
+            'GbFarmaciaForm.Enabled = True
+            'grdItems.Enabled = True
             btnAgregarItem.Enabled = True
             btnGuardar.Enabled = True
-        Else
+            btnNuevo.Enabled = True
+        End If
+
+        If cmbstatus = "" Then
+            btnAgregarItem.Enabled = True
+            btnGuardar.Enabled = True
+            btnNuevo.Enabled = True
+
+
+        End If
+
+        If cmbstatus <> "PENDIENTES" And cmbstatus <> "" Then
             btnAgregarItem.Enabled = False
-            grdItems.ReadOnly = True
-            btnAgregarItem.Enabled = False
+            'grdItems.ReadOnly = True
+
             btnGuardar.Enabled = False
+            btnNuevo.Enabled = True
         End If
 
     End Sub
@@ -1423,106 +1474,7 @@ Public Class frmPresentaciones
 
     End Sub
 
-    'Private Sub BuscarProducto()
 
-    '    LLAMADO_POR_FORMULARIO = True
-
-    '    Dim f As New frmMaterialesPrecios
-
-    '    f.Width = 1200
-    '    f.Height = 650
-    '    f.StartPosition = FormStartPosition.CenterScreen
-    '    f.grd.Width = 1150
-    '    f.grd.Height = 350
-    '    f.DesdePre = 3
-    '    f.FilaCodigo = Cell_Y 'e.RowIndex
-
-    '    f.ShowDialog(Me)
-
-    '    If grdItems.CurrentRow.Cells(ColumnasDelGridItems.Ubicacion).Value.ToString.Length > 6 Then
-    '        grdItems.CurrentRow.Cells(ColumnasDelGridItems.Cod_material).Style.BackColor = Color.LightGreen
-    '        grdItems.CurrentRow.Cells(ColumnasDelGridItems.Cod_Material_Prov).Style.BackColor = Color.LightGreen
-    '        grdItems.CurrentRow.Cells(ColumnasDelGridItems.Nombre_Material).Style.BackColor = Color.LightGreen
-    '    End If
-
-    '    grdItems.CurrentCell = grdItems(ColumnasDelGridItems.Qty, grdItems.CurrentRow.Index)
-
-    'End Sub
-
-    'Private Sub CalcularPrecio(ByRef cell As DataGridViewCell)
-    '    Dim Bonif1 As Double, Bonif2 As Double, Bonif3 As Double, Bonif4 As Double, Bonif5 As Double
-    '    'Dim precioxkg As Double, cantxlongitud As Double, pesoxunidad As Double,  precioxmt As Double
-    '    Dim preciolista As Double = 0
-    '    Dim preciobonif1 As Double = 0, preciobonif2 As Double = 0, preciobonif3 As Double = 0, preciobonif4 As Double = 0, preciobonif5 As Double = 0
-    '    Dim preciosinivabonif As Double = 0
-
-    '    'Dim cell As DataGridViewCell = grdItems.CurrentCell
-
-    '    Try
-    '        If grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif1).Value Is DBNull.Value Or
-    '            grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif1).Value Is Nothing Then
-    '            grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif1).Value = 0
-    '        End If
-
-    '        If grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif2).Value Is DBNull.Value Or
-    '            grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif2).Value Is Nothing Then
-    '            grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif2).Value = 0
-    '        End If
-
-    '        If grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif3).Value Is DBNull.Value Or
-    '            grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif3).Value Is Nothing Then
-    '            grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif3).Value = 0
-    '        End If
-
-    '        'If grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif4).Value Is DBNull.Value Or _
-    '        '    grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif4).Value Is Nothing Then
-    '        '    grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif4).Value = 0
-    '        'End If
-
-    '        'If grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif5).Value Is DBNull.Value Or _
-    '        '    grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif5).Value Is Nothing Then
-    '        '    grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif5).Value = 0
-    '        'End If
-
-    '        If grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Cantidad).Value Is DBNull.Value Or
-    '            grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Cantidad).Value Is Nothing Then
-    '            grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Cantidad).Value = 0.0
-    '        End If
-
-    '        'If grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Iva).Value Is DBNull.Value Or _
-    '        '   grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Iva).Value Is Nothing Then
-    '        '    grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Iva).Value = 0.0
-    '        'End If
-
-    '        Bonif1 = 1 - (CType(grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif1).Value, Double)) / 100
-    '        Bonif2 = 1 - (CType(grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif2).Value, Double)) / 100
-    '        Bonif3 = 1 - (CType(grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif3).Value, Double)) / 100
-    '        'Bonif4 = 1 - (CType(grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif4).Value, Double)) / 100
-    '        'Bonif5 = 1 - (CType(grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Bonif5).Value, Double)) / 100
-
-    '        'preciolista = IIf(grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.PrecioLista).Value Is DBNull.Value, 0, grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.PrecioLista).Value)
-
-    '        preciobonif1 = preciolista * Bonif1
-    '        preciobonif1 = preciobonif1 * Bonif2
-    '        preciobonif1 = preciobonif1 * Bonif3
-    '        preciobonif1 = preciobonif1 * Bonif4
-    '        preciobonif1 = preciobonif1 * Bonif5
-
-    '        preciosinivabonif = preciobonif1 '/ (1 + (grdItems.CurrentRow.Cells(ColumnasDelGridItems.IVA).Value / 100))
-
-    '        grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.PrecioUni).Value = CDbl(FormatNumber(preciosinivabonif, 2))
-
-    '        ' grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.MontoIVA).Value = Format(grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Cantidad).Value * preciosinivabonif * (grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Iva).Value / 100), "####0.00")
-
-    '        grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Subtotal).Value = CDbl(FormatNumber(preciosinivabonif * grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Cantidad).Value, 2))
-
-    '        Contar_Filas()
-
-    '    Catch ex As Exception
-    '        MsgBox(ex.Message)
-    '    End Try
-
-    'End Sub
 
     Private Sub HiloOcultarColumnasGridItems()
         Try
@@ -2013,599 +1965,7 @@ Public Class frmPresentaciones
         End Try
     End Function
 
-    'Private Function EliminarRegistroItem(ByVal IDoc As Long, ByVal item As Integer) As Integer
-    '    Dim res As Integer = 0
-    '    Dim connection As SqlClient.SqlConnection = Nothing
 
-    '    Try
-    '        connection = SqlHelper.GetConnection(ConnStringSEI)
-    '    Catch ex As Exception
-    '        MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-    '        Exit Function
-    '    End Try
-
-    '    Try
-    '        Try
-
-    '            Dim param_idoc As New SqlClient.SqlParameter
-    '            param_idoc.ParameterName = "@idoc"
-    '            param_idoc.SqlDbType = SqlDbType.BigInt
-    '            param_idoc.Value = IDoc
-    '            param_idoc.Direction = ParameterDirection.Input
-
-    '            Dim param_item As New SqlClient.SqlParameter
-    '            param_item.ParameterName = "@item"
-    '            param_item.SqlDbType = SqlDbType.BigInt
-    '            param_item.Value = item
-    '            param_item.Direction = ParameterDirection.Input
-
-    '            Dim param_subtotal As New SqlClient.SqlParameter
-    '            param_subtotal.ParameterName = "@subtotal"
-    '            param_subtotal.SqlDbType = SqlDbType.Decimal
-    '            param_subtotal.Precision = 18
-    '            param_subtotal.Scale = 2
-    '            param_subtotal.Value = txtRecaudado.Text
-    '            param_subtotal.Direction = ParameterDirection.Input
-
-    '            Dim param_montoivatotal As New SqlClient.SqlParameter
-    '            param_montoivatotal.ParameterName = "@MontoIvaTotal"
-    '            param_montoivatotal.SqlDbType = SqlDbType.Decimal
-    '            param_montoivatotal.Precision = 18
-    '            param_montoivatotal.Scale = 2
-    '            param_montoivatotal.Value = 0 'txtMontoIVA.Text
-    '            param_montoivatotal.Direction = ParameterDirection.Input
-
-    '            Dim param_total As New SqlClient.SqlParameter
-    '            param_total.ParameterName = "@Total"
-    '            param_total.SqlDbType = SqlDbType.Decimal
-    '            param_total.Precision = 18
-    '            param_total.Scale = 2
-    '            param_total.Value = txtTotal.Text
-    '            param_total.Direction = ParameterDirection.Input
-
-    '            Dim param_userdel As New SqlClient.SqlParameter
-    '            param_userdel.ParameterName = "@userdel"
-    '            param_userdel.SqlDbType = SqlDbType.Int
-    '            param_userdel.Value = UserID
-    '            param_userdel.Direction = ParameterDirection.Input
-
-    '            Dim param_res As New SqlClient.SqlParameter
-    '            param_res.ParameterName = "@res"
-    '            param_res.SqlDbType = SqlDbType.Int
-    '            param_res.Value = DBNull.Value
-    '            param_res.Direction = ParameterDirection.Output
-
-    '            Try
-    '                SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spOrdenDeCompra_Det_Delete_Item",
-    '                                          param_idoc, param_item, param_subtotal,
-    '                                          param_montoivatotal, param_total, param_userdel, param_res)
-    '                res = param_res.Value
-
-    '                EliminarRegistroItem = res
-
-    '            Catch ex As Exception
-    '                Throw ex
-    '            End Try
-    '        Finally
-
-    '        End Try
-    '    Catch ex As Exception
-    '        Dim errMessage As String = ""
-    '        Dim tempException As Exception = ex
-
-    '        While (Not tempException Is Nothing)
-    '            errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
-    '            tempException = tempException.InnerException
-    '        End While
-
-    '        MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-    '          + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
-    '          "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
-    '    Finally
-    '        If Not connection Is Nothing Then
-    '            CType(connection, IDisposable).Dispose()
-    '        End If
-    '    End Try
-
-    'End Function
-
-    'Private Function Agregar_Marca(ByVal NombreMarca As String, ByRef IdMarcaNueva As Long) As Integer
-
-    '    Try
-    '        Dim param_id As New SqlClient.SqlParameter
-    '        param_id.ParameterName = "@id"
-    '        param_id.SqlDbType = SqlDbType.BigInt
-    '        param_id.Value = DBNull.Value
-    '        param_id.Direction = ParameterDirection.InputOutput
-
-    '        Dim param_codigo As New SqlClient.SqlParameter
-    '        param_codigo.ParameterName = "@codigo"
-    '        param_codigo.SqlDbType = SqlDbType.VarChar
-    '        param_codigo.Size = 10
-    '        param_codigo.Value = DBNull.Value
-    '        param_codigo.Direction = ParameterDirection.Input
-
-    '        Dim param_nombre As New SqlClient.SqlParameter
-    '        param_nombre.ParameterName = "@nombre"
-    '        param_nombre.SqlDbType = SqlDbType.VarChar
-    '        param_nombre.Size = 300
-    '        param_nombre.Value = NombreMarca
-    '        param_nombre.Direction = ParameterDirection.Input
-
-    '        Dim param_res As New SqlClient.SqlParameter
-    '        param_res.ParameterName = "@res"
-    '        param_res.SqlDbType = SqlDbType.Int
-    '        param_res.Value = DBNull.Value
-    '        param_res.Direction = ParameterDirection.InputOutput
-
-    '        Try
-    '            SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spMarcas_Insert", param_id,
-    '                                      param_codigo, param_nombre, param_res)
-
-    '            IdMarcaNueva = param_id.Value
-
-    '            Agregar_Marca = param_res.Value
-
-
-    '        Catch ex As Exception
-    '            Throw ex
-    '        End Try
-
-    '    Catch ex As Exception
-    '        Dim errMessage As String = ""
-    '        Dim tempException As Exception = ex
-
-    '        While (Not tempException Is Nothing)
-    '            errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
-    '            tempException = tempException.InnerException
-    '        End While
-
-    '        MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-    '          + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
-    '          "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
-
-    '    End Try
-
-    'End Function
-
-    'Private Function Agregar_Material(ByVal Unidad As Long, ByVal Codigo As String, ByVal Nombre As String,
-    '                              ByVal PrecioVta As Double, ByVal Stock As Double, ByVal preciolista As Double,
-    '                              ByVal Ganancia As Double, ByVal PlazoEntrega As String, ByVal Codigo_Mat_Prov As String,
-    '                              ByVal IVA As Double, ByVal IdMoneda As Long, ByVal bonif1 As Double, ByVal bonif2 As Double, ByVal bonif3 As Double,
-    '                              ByVal bonif4 As Double, ByVal bonif5 As Double, ByRef IdMat_Prov As Long, ByRef idMarca As Long) As Long
-    '    Dim res As Integer = 0
-    '    Dim ultid As Integer = 0
-
-    '    Try
-
-    '        Dim param_id As New SqlClient.SqlParameter
-    '        param_id.ParameterName = "@id"
-    '        param_id.SqlDbType = SqlDbType.BigInt
-    '        param_id.Value = DBNull.Value
-    '        param_id.Direction = ParameterDirection.InputOutput
-
-    '        Dim param_idalmacen As New SqlClient.SqlParameter
-    '        param_idalmacen.ParameterName = "@idalmacen"
-    '        param_idalmacen.SqlDbType = SqlDbType.BigInt
-    '        param_idalmacen.Value = 1
-    '        param_idalmacen.Direction = ParameterDirection.Input
-
-    '        Dim param_idfamilia As New SqlClient.SqlParameter
-    '        param_idfamilia.ParameterName = "@idfamilia"
-    '        param_idfamilia.SqlDbType = SqlDbType.BigInt
-    '        param_idfamilia.Value = 30
-    '        param_idfamilia.Direction = ParameterDirection.Input
-
-    '        Dim param_idsubrubro As New SqlClient.SqlParameter
-    '        param_idsubrubro.ParameterName = "@idsubrubro"
-    '        param_idsubrubro.SqlDbType = SqlDbType.BigInt
-    '        param_idsubrubro.Value = 98
-    '        param_idsubrubro.Direction = ParameterDirection.Input
-
-    '        Dim param_idunidad As New SqlClient.SqlParameter
-    '        param_idunidad.ParameterName = "@idunidad"
-    '        param_idunidad.SqlDbType = SqlDbType.BigInt
-    '        param_idunidad.Value = Unidad
-    '        param_idunidad.Direction = ParameterDirection.Input
-
-    '        Dim param_idmoneda As New SqlClient.SqlParameter
-    '        param_idmoneda.ParameterName = "@idmoneda"
-    '        param_idmoneda.SqlDbType = SqlDbType.BigInt
-    '        param_idmoneda.Value = IdMoneda
-    '        param_idmoneda.Direction = ParameterDirection.Input
-
-    '        Dim param_codigo As New SqlClient.SqlParameter
-    '        param_codigo.ParameterName = "@codigo"
-    '        param_codigo.SqlDbType = SqlDbType.VarChar
-    '        param_codigo.Size = 25
-    '        param_codigo.Value = Codigo
-    '        param_codigo.Direction = ParameterDirection.Input
-
-    '        Dim param_nombre As New SqlClient.SqlParameter
-    '        param_nombre.ParameterName = "@nombre"
-    '        param_nombre.SqlDbType = SqlDbType.NVarChar
-    '        param_nombre.Size = 4000
-    '        param_nombre.Value = LTrim(RTrim(Nombre))
-    '        param_nombre.Direction = ParameterDirection.Input
-
-    '        Dim param_preciolista As New SqlClient.SqlParameter
-    '        param_preciolista.ParameterName = "@preciovtasiniva"
-    '        param_preciolista.SqlDbType = SqlDbType.Decimal
-    '        param_preciolista.Precision = 18
-    '        param_preciolista.Scale = 2
-    '        param_preciolista.Value = PrecioVta
-    '        param_preciolista.Direction = ParameterDirection.Input
-
-    '        Dim param_ganancia As New SqlClient.SqlParameter
-    '        param_ganancia.ParameterName = "@ganancia"
-    '        param_ganancia.SqlDbType = SqlDbType.Decimal
-    '        param_ganancia.Precision = 18
-    '        param_ganancia.Scale = 2
-    '        param_ganancia.Value = Ganancia
-    '        param_ganancia.Direction = ParameterDirection.Input
-
-    '        Dim param_minimo As New SqlClient.SqlParameter
-    '        param_minimo.ParameterName = "@minimo"
-    '        param_minimo.SqlDbType = SqlDbType.Decimal
-    '        param_minimo.Precision = 18
-    '        param_minimo.Scale = 2
-    '        param_minimo.Value = 0
-    '        param_minimo.Direction = ParameterDirection.Input
-
-    '        Dim param_maximo As New SqlClient.SqlParameter
-    '        param_maximo.ParameterName = "@maximo"
-    '        param_maximo.SqlDbType = SqlDbType.Decimal
-    '        param_maximo.Precision = 18
-    '        param_maximo.Scale = 4
-    '        param_maximo.Value = 0
-    '        param_maximo.Direction = ParameterDirection.Input
-
-    '        Dim param_stockinicial As New SqlClient.SqlParameter
-    '        param_stockinicial.ParameterName = "@stockinicial"
-    '        param_stockinicial.SqlDbType = SqlDbType.Decimal
-    '        param_stockinicial.Precision = 18
-    '        param_stockinicial.Scale = 2
-    '        param_stockinicial.Value = 0
-    '        param_stockinicial.Direction = ParameterDirection.Input
-
-    '        Dim param_CodBarra As New SqlClient.SqlParameter
-    '        param_CodBarra.ParameterName = "@CodBarra"
-    '        param_CodBarra.SqlDbType = SqlDbType.VarChar
-    '        param_CodBarra.Size = 50
-    '        param_CodBarra.Value = ""
-    '        param_CodBarra.Direction = ParameterDirection.Input
-
-    '        Dim param_Pasillo As New SqlClient.SqlParameter
-    '        param_Pasillo.ParameterName = "@Pasillo"
-    '        param_Pasillo.SqlDbType = SqlDbType.VarChar
-    '        param_Pasillo.Size = 50
-    '        param_Pasillo.Value = ""
-    '        param_Pasillo.Direction = ParameterDirection.Input
-
-    '        Dim param_Estante As New SqlClient.SqlParameter
-    '        param_Estante.ParameterName = "@Estante"
-    '        param_Estante.SqlDbType = SqlDbType.VarChar
-    '        param_Estante.Size = 50
-    '        param_Estante.Value = ""
-    '        param_Estante.Direction = ParameterDirection.Input
-
-    '        Dim param_Fila As New SqlClient.SqlParameter
-    '        param_Fila.ParameterName = "@Fila"
-    '        param_Fila.SqlDbType = SqlDbType.VarChar
-    '        param_Fila.Size = 50
-    '        param_Fila.Value = ""
-    '        param_Fila.Direction = ParameterDirection.Input
-
-    '        Dim param_ControlStock As New SqlClient.SqlParameter
-    '        param_ControlStock.ParameterName = "@ControlStock"
-    '        param_ControlStock.SqlDbType = SqlDbType.Bit
-    '        param_ControlStock.Value = 0
-    '        param_ControlStock.Direction = ParameterDirection.Input
-
-    '        Dim param_useradd As New SqlClient.SqlParameter
-    '        param_useradd.ParameterName = "@useradd"
-    '        param_useradd.SqlDbType = SqlDbType.Int
-    '        param_useradd.Value = UserID
-    '        param_useradd.Direction = ParameterDirection.Input
-
-    '        Dim param_res As New SqlClient.SqlParameter
-    '        param_res.ParameterName = "@res"
-    '        param_res.SqlDbType = SqlDbType.Int
-    '        param_res.Value = DBNull.Value
-    '        param_res.Direction = ParameterDirection.InputOutput
-
-    '        Try
-    '            SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spMateriales_Insert",
-    '                                param_id, param_idalmacen, param_idfamilia, param_idsubrubro, param_idunidad,
-    '                                param_idmoneda, param_codigo, param_nombre, param_preciolista, param_ganancia,
-    '                                param_minimo, param_maximo, param_stockinicial, param_CodBarra, param_Pasillo,
-    '                                param_Estante, param_Fila, param_ControlStock, param_useradd,
-    '                                param_res)
-
-    '            res = param_res.Value
-
-    '            If res > 0 Then
-    '                ultid = param_id.Value
-    '                res = Agregar_Proveedor(param_id.Value, Codigo_Mat_Prov, Unidad, PrecioVta, preciolista,
-    '                                        PlazoEntrega, IVA, Ganancia, IdMoneda,
-    '                                        bonif1, bonif2, bonif3, bonif4, bonif5, IdMat_Prov, idMarca)
-
-    '                If res > 0 Then
-    '                    Agregar_Material = ultid
-    '                Else
-    '                    Agregar_Material = -1
-    '                End If
-
-    '            End If
-
-    '        Catch ex As Exception
-    '            Throw ex
-    '        End Try
-
-    '    Catch ex As Exception
-    '        Dim errMessage As String = ""
-    '        Dim tempException As Exception = ex
-
-    '        While (Not tempException Is Nothing)
-    '            errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
-    '            tempException = tempException.InnerException
-    '        End While
-
-    '        MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-    '          + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
-    '          "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
-    '    End Try
-
-    'End Function
-
-    'Private Function Agregar_Proveedor(ByVal idmaterial As Long, ByVal CodMatProv As String, ByVal IdUnidad As Long,
-    '                                ByVal precio As Double, ByVal preciolista As Double, ByVal plazoentrega As String,
-    '                                ByVal IVA As Double, ByVal ganancia As Double, ByVal idmonedaCompra As Long, ByVal bonif1 As Double, ByVal bonif2 As Double, ByVal bonif3 As Double,
-    '                                ByVal bonif4 As Double, ByVal bonif5 As Double, ByRef IdMat_Prov As Long, ByRef idMarca As Long) As Integer
-
-    '    Dim res As Integer = 0
-
-    '    Dim param_id As New SqlClient.SqlParameter
-    '    param_id.ParameterName = "@id"
-    '    param_id.SqlDbType = SqlDbType.BigInt
-    '    param_id.Value = DBNull.Value
-    '    param_id.Direction = ParameterDirection.InputOutput
-
-    '    Dim param_idmaterial As New SqlClient.SqlParameter
-    '    param_idmaterial.ParameterName = "@idmaterial"
-    '    param_idmaterial.SqlDbType = SqlDbType.BigInt
-    '    param_idmaterial.Value = idmaterial
-    '    param_idmaterial.Direction = ParameterDirection.Input
-
-    '    Dim param_CodMatProv As New SqlClient.SqlParameter
-    '    param_CodMatProv.ParameterName = "@Codigo_Mat_Prov"
-    '    param_CodMatProv.SqlDbType = SqlDbType.VarChar
-    '    param_CodMatProv.Size = 50
-    '    param_CodMatProv.Value = CodMatProv
-    '    param_CodMatProv.Direction = ParameterDirection.Input
-
-    '    Dim param_idProveedor As New SqlClient.SqlParameter
-    '    param_idProveedor.ParameterName = "@idProveedor"
-    '    param_idProveedor.SqlDbType = SqlDbType.BigInt
-    '    param_idProveedor.Value = txtIdObrasocial.Text
-    '    param_idProveedor.Direction = ParameterDirection.Input
-
-    '    Dim param_PlazoEntrega As New SqlClient.SqlParameter
-    '    param_PlazoEntrega.ParameterName = "@PlazoEntrega"
-    '    param_PlazoEntrega.SqlDbType = SqlDbType.VarChar
-    '    param_PlazoEntrega.Size = 50
-    '    param_PlazoEntrega.Value = plazoentrega
-    '    param_PlazoEntrega.Direction = ParameterDirection.Input
-
-    '    Dim param_idunidadcompra As New SqlClient.SqlParameter
-    '    param_idunidadcompra.ParameterName = "@idunidadcompra"
-    '    param_idunidadcompra.SqlDbType = SqlDbType.BigInt
-    '    param_idunidadcompra.Value = IdUnidad
-    '    param_idunidadcompra.Direction = ParameterDirection.Input
-
-    '    Dim param_idmonedacompra As New SqlClient.SqlParameter
-    '    param_idmonedacompra.ParameterName = "@idmonedacompra"
-    '    param_idmonedacompra.SqlDbType = SqlDbType.BigInt
-    '    param_idmonedacompra.Value = idmonedaCompra
-    '    param_idmonedacompra.Direction = ParameterDirection.Input
-
-    '    Dim param_bonificacion1 As New SqlClient.SqlParameter
-    '    param_bonificacion1.ParameterName = "@bonif1"
-    '    param_bonificacion1.SqlDbType = SqlDbType.Decimal
-    '    param_bonificacion1.Precision = 18
-    '    param_bonificacion1.Scale = 2
-    '    param_bonificacion1.Value = 0
-    '    param_bonificacion1.Direction = ParameterDirection.Input
-
-    '    Dim param_bonificacion2 As New SqlClient.SqlParameter
-    '    param_bonificacion2.ParameterName = "@bonif2"
-    '    param_bonificacion2.SqlDbType = SqlDbType.Decimal
-    '    param_bonificacion2.Precision = 18
-    '    param_bonificacion2.Scale = 2
-    '    param_bonificacion2.Value = 0
-    '    param_bonificacion2.Direction = ParameterDirection.Input
-
-    '    Dim param_bonif1_dis As New SqlClient.SqlParameter
-    '    param_bonif1_dis.ParameterName = "@bonif1_dis"
-    '    param_bonif1_dis.SqlDbType = SqlDbType.Decimal
-    '    param_bonif1_dis.Precision = 18
-    '    param_bonif1_dis.Scale = 2
-    '    param_bonif1_dis.Value = 0
-    '    param_bonif1_dis.Direction = ParameterDirection.Input
-
-    '    Dim param_bonif2_dis As New SqlClient.SqlParameter
-    '    param_bonif2_dis.ParameterName = "@bonif2_dis"
-    '    param_bonif2_dis.SqlDbType = SqlDbType.Decimal
-    '    param_bonif2_dis.Precision = 18
-    '    param_bonif2_dis.Scale = 2
-    '    param_bonif2_dis.Value = 0
-    '    param_bonif2_dis.Direction = ParameterDirection.Input
-
-    '    Dim param_bonificacion3 As New SqlClient.SqlParameter
-    '    param_bonificacion3.ParameterName = "@bonif3"
-    '    param_bonificacion3.SqlDbType = SqlDbType.Decimal
-    '    param_bonificacion3.Precision = 18
-    '    param_bonificacion3.Scale = 2
-    '    param_bonificacion3.Value = bonif3
-    '    param_bonificacion3.Direction = ParameterDirection.Input
-
-    '    Dim param_bonificacion4 As New SqlClient.SqlParameter
-    '    param_bonificacion4.ParameterName = "@bonif4"
-    '    param_bonificacion4.SqlDbType = SqlDbType.Decimal
-    '    param_bonificacion4.Precision = 18
-    '    param_bonificacion4.Scale = 2
-    '    param_bonificacion4.Value = bonif4
-    '    param_bonificacion4.Direction = ParameterDirection.Input
-
-    '    Dim param_bonificacion5 As New SqlClient.SqlParameter
-    '    param_bonificacion5.ParameterName = "@bonif5"
-    '    param_bonificacion5.SqlDbType = SqlDbType.Decimal
-    '    param_bonificacion5.Precision = 18
-    '    param_bonificacion5.Scale = 2
-    '    param_bonificacion5.Value = bonif5
-    '    param_bonificacion5.Direction = ParameterDirection.Input
-
-    '    Dim param_ganancia As New SqlClient.SqlParameter
-    '    param_ganancia.ParameterName = "@ganancia"
-    '    param_ganancia.SqlDbType = SqlDbType.Decimal
-    '    param_ganancia.Precision = 18
-    '    param_ganancia.Scale = 2
-    '    param_ganancia.Value = ganancia
-    '    param_ganancia.Direction = ParameterDirection.Input
-
-    '    Dim param_ganancia_dist As New SqlClient.SqlParameter
-    '    param_ganancia_dist.ParameterName = "@ganancia_dis"
-    '    param_ganancia_dist.SqlDbType = SqlDbType.Decimal
-    '    param_ganancia_dist.Precision = 18
-    '    param_ganancia_dist.Scale = 2
-    '    param_ganancia_dist.Value = ganancia
-    '    param_ganancia_dist.Direction = ParameterDirection.Input
-
-    '    Dim param_precioxmt As New SqlClient.SqlParameter
-    '    param_precioxmt.ParameterName = "@precioxmt"
-    '    param_precioxmt.SqlDbType = SqlDbType.Decimal
-    '    param_precioxmt.Precision = 18
-    '    param_precioxmt.Scale = 2
-    '    param_precioxmt.Value = 0
-    '    param_precioxmt.Direction = ParameterDirection.Input
-
-    '    Dim param_precioxkg As New SqlClient.SqlParameter
-    '    param_precioxkg.ParameterName = "@precioxkg"
-    '    param_precioxkg.SqlDbType = SqlDbType.Decimal
-    '    param_precioxkg.Precision = 18
-    '    param_precioxkg.Scale = 2
-    '    param_precioxkg.Value = 0
-    '    param_precioxkg.Direction = ParameterDirection.Input
-
-    '    Dim param_pesoxmetro As New SqlClient.SqlParameter
-    '    param_pesoxmetro.ParameterName = "@pesoxmetro"
-    '    param_pesoxmetro.SqlDbType = SqlDbType.Decimal
-    '    param_pesoxmetro.Precision = 18
-    '    param_pesoxmetro.Scale = 2
-    '    param_pesoxmetro.Value = 0
-    '    param_pesoxmetro.Direction = ParameterDirection.Input
-
-    '    Dim param_cantxlongitud As New SqlClient.SqlParameter
-    '    param_cantxlongitud.ParameterName = "@cantxlongitud"
-    '    param_cantxlongitud.SqlDbType = SqlDbType.Decimal
-    '    param_cantxlongitud.Precision = 18
-    '    param_cantxlongitud.Scale = 2
-    '    param_cantxlongitud.Value = 0
-    '    param_cantxlongitud.Direction = ParameterDirection.Input
-
-    '    Dim param_pesoxunidad As New SqlClient.SqlParameter
-    '    param_pesoxunidad.ParameterName = "@pesoxunidad"
-    '    param_pesoxunidad.SqlDbType = SqlDbType.Decimal
-    '    param_pesoxunidad.Precision = 18
-    '    param_pesoxunidad.Scale = 2
-    '    param_pesoxunidad.Value = 0
-    '    param_pesoxunidad.Direction = ParameterDirection.Input
-
-    '    Dim param_preciolista As New SqlClient.SqlParameter
-    '    param_preciolista.ParameterName = "@preciolista"
-    '    param_preciolista.SqlDbType = SqlDbType.Decimal
-    '    param_preciolista.Precision = 18
-    '    param_preciolista.Scale = 2
-    '    param_preciolista.Value = 0
-    '    param_preciolista.Direction = ParameterDirection.Input
-
-    '    Dim param_preciolista_dis As New SqlClient.SqlParameter
-    '    param_preciolista_dis.ParameterName = "@preciolista_distribuidor"
-    '    param_preciolista_dis.SqlDbType = SqlDbType.Decimal
-    '    param_preciolista_dis.Precision = 18
-    '    param_preciolista_dis.Scale = 2
-    '    param_preciolista_dis.Value = 0
-    '    param_preciolista_dis.Direction = ParameterDirection.Input
-
-    '    Dim param_preciovtasiniva As New SqlClient.SqlParameter
-    '    param_preciovtasiniva.ParameterName = "@PrecioVentaSinIva"
-    '    param_preciovtasiniva.SqlDbType = SqlDbType.Decimal
-    '    param_preciovtasiniva.Precision = 18
-    '    param_preciovtasiniva.Scale = 2
-    '    param_preciovtasiniva.Value = 0
-    '    param_preciovtasiniva.Direction = ParameterDirection.Input
-
-    '    Dim param_iva As New SqlClient.SqlParameter
-    '    param_iva.ParameterName = "@Iva"
-    '    param_iva.SqlDbType = SqlDbType.Decimal
-    '    param_iva.Precision = 18
-    '    param_iva.Scale = 2
-    '    param_iva.Value = 0
-    '    param_iva.Direction = ParameterDirection.Input
-
-    '    Dim param_iva_dis As New SqlClient.SqlParameter
-    '    param_iva_dis.ParameterName = "@Iva_dis"
-    '    param_iva_dis.SqlDbType = SqlDbType.Decimal
-    '    param_iva_dis.Precision = 18
-    '    param_iva_dis.Scale = 2
-    '    param_iva_dis.Value = 0
-    '    param_iva_dis.Direction = ParameterDirection.Input
-
-    '    Dim param_idmarca As New SqlClient.SqlParameter
-    '    param_idmarca.ParameterName = "@idmarca"
-    '    param_idmarca.SqlDbType = SqlDbType.BigInt
-    '    param_idmarca.Value = idMarca
-    '    param_idmarca.Direction = ParameterDirection.Input
-
-    '    Dim param_res As New SqlClient.SqlParameter
-    '    param_res.ParameterName = "@res"
-    '    param_res.SqlDbType = SqlDbType.Int
-    '    param_res.Value = DBNull.Value
-    '    param_res.Direction = ParameterDirection.InputOutput
-
-    '    Try
-    '        SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spMateriales_Proveedor_Det_Insert",
-    '                                  param_id, param_idmaterial, param_CodMatProv, param_idProveedor, param_PlazoEntrega, param_idunidadcompra, param_idmonedacompra,
-    '                                  param_bonificacion1, param_bonificacion2, param_bonif1_dis, param_bonif2_dis,
-    '                                  param_bonificacion3, param_bonificacion4, param_bonificacion5, param_ganancia, param_ganancia_dist,
-    '                                  param_precioxmt, param_precioxkg, param_pesoxmetro, param_cantxlongitud, param_pesoxunidad,
-    '                                  param_preciolista, param_preciolista_dis, param_preciovtasiniva,
-    '                                  param_iva, param_iva_dis, param_idmarca, param_res)
-
-    '        res = CInt(param_res.Value)
-
-    '        If res > 0 Then
-    '            IdMat_Prov = param_id.Value
-    '        End If
-
-    '        Agregar_Proveedor = res
-
-    '    Catch ex As Exception
-    '        Dim errMessage As String = ""
-    '        Dim tempException As Exception = ex
-
-    '        Agregar_Proveedor = -1
-
-    '        While (Not tempException Is Nothing)
-    '            errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
-    '            tempException = tempException.InnerException
-    '        End While
-
-    '        MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-    '          + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
-    '          "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
-    '    End Try
-    'End Function
 
     Private Function Abrir_Tran(ByRef cnn As SqlClient.SqlConnection) As Boolean
         If tran Is Nothing Then
@@ -2619,87 +1979,7 @@ Public Class frmPresentaciones
         End If
     End Function
 
-    'Private Function BuscarIdPorCodigo(ByVal codCC As String, ByVal codUsuario As String, ByRef idCC As Long, ByRef idUsuario As Long) As Integer
-    '    Dim res As Integer = 0
-    '    Dim connection As SqlClient.SqlConnection = Nothing
 
-    '    Try
-    '        connection = SqlHelper.GetConnection(ConnStringSEI)
-    '    Catch ex As Exception
-    '        MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-    '        Exit Function
-    '    End Try
-
-    '    Try
-
-    '        Try
-    '            Dim param_codigocc As New SqlClient.SqlParameter
-    '            param_codigocc.ParameterName = "@codigocc"
-    '            param_codigocc.SqlDbType = SqlDbType.VarChar
-    '            param_codigocc.Size = 25
-    '            param_codigocc.Value = codCC
-    '            param_codigocc.Direction = ParameterDirection.Input
-
-    '            Dim param_param_codigousuario As New SqlClient.SqlParameter
-    '            param_param_codigousuario.ParameterName = "@codigousuario"
-    '            param_param_codigousuario.SqlDbType = SqlDbType.VarChar
-    '            param_param_codigousuario.Size = 25
-    '            param_param_codigousuario.Value = codUsuario
-    '            param_param_codigousuario.Direction = ParameterDirection.Input
-
-    '            Dim param_idcc As New SqlClient.SqlParameter
-    '            param_idcc.ParameterName = "@idcc"
-    '            param_idcc.SqlDbType = SqlDbType.BigInt
-    '            param_idcc.Value = DBNull.Value
-    '            param_idcc.Direction = ParameterDirection.Output
-
-    '            Dim param_idusuario As New SqlClient.SqlParameter
-    '            param_idusuario.ParameterName = "@idusuario"
-    '            param_idusuario.SqlDbType = SqlDbType.BigInt
-    '            param_idusuario.Value = 0
-    '            param_idusuario.Direction = ParameterDirection.Output
-
-    '            Dim param_res As New SqlClient.SqlParameter
-    '            param_res.ParameterName = "@res"
-    '            param_res.SqlDbType = SqlDbType.Int
-    '            param_res.Value = DBNull.Value
-    '            param_res.Direction = ParameterDirection.InputOutput
-
-    '            Try
-    '                SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spBuscarIdPorCodigo", param_codigocc, param_param_codigousuario, param_idcc, param_idusuario, param_res)
-    '                res = param_res.Value
-
-    '                If Not param_idcc.Value Is DBNull.Value Then
-    '                    idCC = param_idcc.Value
-    '                End If
-
-    '                If Not param_idusuario.Value Is DBNull.Value Then
-    '                    idUsuario = param_idusuario.Value
-    '                End If
-
-    '                BuscarIdPorCodigo = res
-
-    '            Catch ex As Exception
-    '                Throw ex
-    '            End Try
-    '        Finally
-
-    '        End Try
-    '    Catch ex As Exception
-    '        Dim errMessage As String = ""
-    '        Dim tempException As Exception = ex
-
-    '        While (Not tempException Is Nothing)
-    '            errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
-    '            tempException = tempException.InnerException
-    '        End While
-
-    '        MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-    '          + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
-    '          "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
-
-    '    End Try
-    'End Function
 
     Private Function CuentaRecepcionesPorOrdenDeCompra(ByVal IDoc As String) As Integer
         Dim res As Integer = 0
@@ -2881,12 +2161,12 @@ Public Class frmPresentaciones
     Private Sub btnNuevo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNuevo.Click
 
 
-        If MessageBox.Show("Desea generar una nueva Presentación?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
-            LimpiarGridItems(grdItems)
-            'bolModo = False
-            Exit Sub
-        End If
-
+        'If MessageBox.Show("Desea generar una nueva Presentación?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
+        '    LimpiarGridItems(grdItems)
+        '    'bolModo = False
+        '    Exit Sub
+        'End If
+        bloquearPresentacion(cmbEstado.Text)
         band = 0
         bolModo = True
         Util.MsgStatus(Status1, "Haga click en [Guardar] despues de completar los datos.")
@@ -3185,9 +2465,9 @@ Public Class frmPresentaciones
     End Sub
 
     Private Sub lblStatus_TextChanged(sender As Object, e As EventArgs) Handles lblStatus.TextChanged
-        If txtID.Text <> "" Then
-            bloquearPresentacion(txtID.Text)
-        End If
+
+        bloquearPresentacion(cmbEstado.Text)
+
     End Sub
 
 
