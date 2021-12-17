@@ -108,7 +108,7 @@ Public Class frmPresentaciones
     End Sub
 
     Private Sub frmPresentaciones_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-
+        ''prueba nacho
         Cursor = Cursors.WaitCursor
 
         ToolStrip_lblCodMaterial.Visible = True
