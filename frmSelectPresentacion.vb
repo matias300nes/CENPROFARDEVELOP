@@ -30,7 +30,7 @@ Public Class frmSelectPresentacion
         Try
             connection = SqlHelper.GetConnection(ConnStringSEI)
             ''Detalle de liquidacion
-            Dim Sql = $"exec spPresentaciones_Select_All @estado = 'PENDIENTES', @eliminado = 0"
+            Dim Sql = $"exec spPresentaciones_Select_All @estado = 'PENDIENTE', @eliminado = 0"
 
             Dim cmd As New SqlCommand(Sql, connection)
             Dim da As New SqlDataAdapter(cmd)
@@ -75,9 +75,9 @@ Public Class frmSelectPresentacion
 	                            pd.recetas			as Recetas,          -- 6
 	                            pd.Recaudado		as Recaudado,	     -- 7
 	                            pd.AcargoOS			as 'A Cargo Os',     -- 8
-	                            null				as 'Recetas A',	     -- 9
-	                            null				as 'Recaudado A',    -- 10
-	                            null				as 'A Cargo OS A',   -- 11
+	                            0.00				as 'Recetas A',	     -- 9
+	                            0.00				as 'Recaudado A',    -- 10
+	                            0.00				as 'A Cargo OS A',   -- 11
 	                            pd.Bonificacion		as Bonificación	     -- 12
 	
                             from Presentaciones_det pd
@@ -90,8 +90,8 @@ Public Class frmSelectPresentacion
 		                                IdFarmacia		as IdFarmacia,
 		                                'A Cargo OS'	as detalle,
 		                                AcargoOS		as valor,
-                                        'insert'        as estado
-
+                                        'insert'        as estado,
+                                            0           as edit
 	                                from Presentaciones_det
 	                                where IdPresentacion = { .Cells(GridCols.ID).Value}"
 

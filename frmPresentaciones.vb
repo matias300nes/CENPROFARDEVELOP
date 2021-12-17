@@ -93,7 +93,7 @@ Public Class frmPresentaciones
                     btnNuevo_Click(sender, e)
                 End If
             Case Keys.F4 'grabar
-                If cmbEstado.Text = "PENDIENTES" Then
+                If cmbEstado.Text = "PENDIENTE" Then
                     btnGuardar_Click(sender, e)
                 End If
         End Select
@@ -127,12 +127,12 @@ Public Class frmPresentaciones
         LlenarCmbObraSocial()
 
         If cmbEstado.Text = "" Then
-            cmbEstado.Text = "PENDIENTES"
+            cmbEstado.Text = "PENDIENTE"
         End If
 
         ''Traigo los encabezados de presentacion
         'SQL = $"exec spPresentaciones_Select_All @Pendientes = {rdPendientes.Checked} ,@Eliminado = {rdAnuladas.Checked} ,@Todos = {rdTodasOC.Checked}"
-        SQL = $"exec spPresentaciones_Select_All @Estado = {cmbEstado.Text} ,@Eliminado = 0"
+        SQL = $"exec spPresentaciones_Select_All @Estado = {cmbEstado.Text.Replace(" ", "")} ,@Eliminado = 0"
 
         LlenarGrilla()
         Permitir = True
@@ -200,7 +200,7 @@ Public Class frmPresentaciones
 
     Private Sub txtImpACargoOs_KeyDown(sender As Object, e As KeyEventArgs) Handles txtImpACargoOs.KeyDown
         If e.KeyData = Keys.Enter Then
-            If cmbEstado.Text = "PENDIENTES" Or bolModo = True Then
+            If cmbEstado.Text = "PENDIENTE" Or bolModo = True Then
                 AñadirGridItem()
             End If
 
@@ -208,8 +208,8 @@ Public Class frmPresentaciones
     End Sub
 
     Private Sub nudBonificacion_KeyDown(sender As Object, e As KeyEventArgs) Handles nudBonificacion.KeyDown
-        If e.KeyData = Keys.Enter Or bolModo = True Then
-            If cmbEstado.Text = "PENDIENTES" Then
+        If e.KeyData = Keys.Enter Then
+            If cmbEstado.Text = "PENDIENTE" Or bolModo = True Then
                 AñadirGridItem()
             End If
         End If
@@ -609,10 +609,10 @@ Public Class frmPresentaciones
 
         Try
 
-            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, " select distinct estado as Estado from Presentaciones")
+            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, " select distinct [estado] as Estado from Presentaciones")
             ds.Dispose()
 
-            With cmbEstado
+            With Me.cmbEstado
                 .DataSource = ds.Tables(0).DefaultView
                 .DisplayMember = "estado"
                 '.ValueMember = "ID"
@@ -988,9 +988,9 @@ Public Class frmPresentaciones
             Label19.Location = New Point(Label19.Location.X, Label19.Location.Y - variableajuste)
             lblCantidadFilas.Location = New Point(lblCantidadFilas.Location.X, lblCantidadFilas.Location.Y - variableajuste)
 
-            rdPendientes.Location = New Point(rdPendientes.Location.X, rdPendientes.Location.Y - variableajuste)
-            rdAnuladas.Location = New Point(rdAnuladas.Location.X, rdAnuladas.Location.Y - variableajuste)
-            rdTodasOC.Location = New Point(rdTodasOC.Location.X, rdTodasOC.Location.Y - variableajuste)
+            'rdPendientes.Location = New Point(rdPendientes.Location.X, rdPendientes.Location.Y - variableajuste)
+            'rdAnuladas.Location = New Point(rdAnuladas.Location.X, rdAnuladas.Location.Y - variableajuste)
+            'rdTodasOC.Location = New Point(rdTodasOC.Location.X, rdTodasOC.Location.Y - variableajuste)
 
             Label4.Location = New Point(Label4.Location.X, Label4.Location.Y - variableajuste)
             txtRecaudado.Location = New Point(txtRecaudado.Location.X, txtRecaudado.Location.Y - variableajuste)
@@ -1012,9 +1012,9 @@ Public Class frmPresentaciones
             Label19.Location = New Point(Label19.Location.X, Label19.Location.Y + variableajuste)
             lblCantidadFilas.Location = New Point(lblCantidadFilas.Location.X, lblCantidadFilas.Location.Y + variableajuste)
 
-            rdPendientes.Location = New Point(rdPendientes.Location.X, rdPendientes.Location.Y + variableajuste)
-            rdAnuladas.Location = New Point(rdAnuladas.Location.X, rdAnuladas.Location.Y + variableajuste)
-            rdTodasOC.Location = New Point(rdTodasOC.Location.X, rdTodasOC.Location.Y + variableajuste)
+            'rdPendientes.Location = New Point(rdPendientes.Location.X, rdPendientes.Location.Y + variableajuste)
+            'rdAnuladas.Location = New Point(rdAnuladas.Location.X, rdAnuladas.Location.Y + variableajuste)
+            'rdTodasOC.Location = New Point(rdTodasOC.Location.X, rdTodasOC.Location.Y + variableajuste)
 
             Label4.Location = New Point(Label4.Location.X, Label4.Location.Y + variableajuste)
             txtRecaudado.Location = New Point(txtRecaudado.Location.X, txtRecaudado.Location.Y + variableajuste)
@@ -1032,7 +1032,7 @@ Public Class frmPresentaciones
 
     Private Sub grdItems_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles grdItems.CellContentClick
 
-        If cmbEstado.Text = "PENDIENTES" Then
+        If cmbEstado.Text = "PENDIENTE" Then
             If grdItems.Columns(e.ColumnIndex).Name = "Eliminar" And e.RowIndex > -1 Then
                 Dim result As DialogResult = MessageBox.Show($"Desea eliminar el item {grdItems.Rows(e.RowIndex).Cells(ColumnasDelGridItems.Nombre).Value}?",
                                   "Eliminar",
@@ -1119,7 +1119,7 @@ Public Class frmPresentaciones
     Private Sub bloquearPresentacion(cmbstatus)
 
 
-        If cmbstatus = "PENDIENTES" Then
+        If cmbstatus = "PENDIENTE" Then
             'GbFarmaciaForm.Enabled = True
             'grdItems.Enabled = True
             btnAgregarItem.Enabled = True
@@ -1135,7 +1135,7 @@ Public Class frmPresentaciones
 
         End If
 
-        If cmbstatus <> "PENDIENTES" And cmbstatus <> "" Then
+        If cmbstatus <> "PENDIENTE" And cmbstatus <> "" Then
             btnAgregarItem.Enabled = False
             'grdItems.ReadOnly = True
 
@@ -1650,7 +1650,7 @@ Public Class frmPresentaciones
     Private Function AgregarActualizar_Registro() As Integer
         Dim connection As SqlClient.SqlConnection = Nothing
         Dim res As Integer = 0
-
+        Dim prueba
         Try
 
             connection = SqlHelper.GetConnection(ConnStringSEI)
@@ -1741,6 +1741,7 @@ Public Class frmPresentaciones
                                                 param_periodo, param_total, param_useradd, param_res)
 
                         txtID.Text = param_id.Value
+                        prueba = param_codigo.Value
                         txtCodigo.Text = param_codigo.Value
                     Else
                         SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spPresentaciones_Update",
@@ -2280,9 +2281,9 @@ Public Class frmPresentaciones
                                 Cerrar_Tran()
 
                                 'rdPendientes.Checked = 1
-                                cmbEstado.Text = "PENDIENTES"
+                                cmbEstado.Text = "PENDIENTE"
                                 'SQL = $"exec spPresentaciones_Select_All @Pendientes = {rdPendientes.Checked} ,@Eliminado = {rdAnuladas.Checked} ,@Todos = {rdTodasOC.Checked}"
-                                SQL = $"exec spPresentaciones_Select_All @Estado = {cmbEstado.Text} ,@Eliminado = {rdAnuladas.Checked}"
+                                SQL = $"exec spPresentaciones_Select_All @Estado = {cmbEstado.Text.Replace(" ", "")} ,@Eliminado = 0"
                                 bolModo = False
                                 PrepararBotones()
                                 MDIPrincipal.NoActualizarBase = False

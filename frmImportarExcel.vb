@@ -8,7 +8,7 @@ Imports ReportesNet
 Imports System.Data.OleDb
 Imports DevComponents.DotNetBar.SuperGrid
 Imports DevComponents.DotNetBar.Controls
-Imports DevComponents.DotNetBar.SuperGrid.Style
+Imports DevComponents.DotNetBar.SuperGrSuperGrid.Style
 
 Public Class frmImportarExcel
 
@@ -671,6 +671,8 @@ Public Class frmImportarExcel
             row("Recetas") = item("Recetas")
             row("Recaudado") = item("Recaudado")
             row("A Cargo OS") = item("A Cargo OS")
+            'MsgBox(row("Recaudado").ToString)
+            'MsgBox(row("A Cargo OS").ToString)
             dtAceptados.Rows.Add(row)
         Next
         frmLiquidaciones.addAceptadosFromExcel(dtAceptados)
@@ -724,7 +726,7 @@ Public Class frmImportarExcel
                     row("IdFarmacia") = grdDetalleLiquidacionFiltrada.Rows(j).Cells("IdFarmacia").Value
                     row("detalle") = ColumnName
                     row("valor") = Decimal.Parse(grdDetalleLiquidacionFiltrada.Rows(j).Cells(i).Value) * -1
-                    row("edit") = True
+                    'row("edit") = True
                     row("estado") = "insert"
                     If (row("valor") <> 0) Then
                         dtConceptos.Rows.Add(row)
@@ -742,4 +744,6 @@ Public Class frmImportarExcel
         Me.Close()
 
     End Sub
+
+
 End Class

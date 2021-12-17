@@ -60,9 +60,6 @@ Partial Class frmPresentaciones
         Me.chkGrillaInferior = New System.Windows.Forms.CheckBox()
         Me.Label19 = New System.Windows.Forms.Label()
         Me.lblCantidadFilas = New System.Windows.Forms.Label()
-        Me.rdTodasOC = New System.Windows.Forms.RadioButton()
-        Me.rdPendientes = New System.Windows.Forms.RadioButton()
-        Me.rdAnuladas = New System.Windows.Forms.RadioButton()
         Me.txtIdObrasocial = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.txtRecaudado = New TextBoxConFormatoVB.FormattedTextBoxVB()
@@ -128,9 +125,6 @@ Partial Class frmPresentaciones
         Me.GroupBox1.Controls.Add(Me.chkGrillaInferior)
         Me.GroupBox1.Controls.Add(Me.Label19)
         Me.GroupBox1.Controls.Add(Me.lblCantidadFilas)
-        Me.GroupBox1.Controls.Add(Me.rdTodasOC)
-        Me.GroupBox1.Controls.Add(Me.rdPendientes)
-        Me.GroupBox1.Controls.Add(Me.rdAnuladas)
         Me.GroupBox1.Controls.Add(Me.txtIdObrasocial)
         Me.GroupBox1.Controls.Add(Me.Label4)
         Me.GroupBox1.Controls.Add(Me.txtRecaudado)
@@ -157,7 +151,7 @@ Partial Class frmPresentaciones
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(523, 537)
+        Me.Label9.Location = New System.Drawing.Point(523, 570)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(52, 17)
         Me.Label9.TabIndex = 345
@@ -173,10 +167,10 @@ Partial Class frmPresentaciones
         Me.cmbEstado.FormattingEnabled = True
         Me.cmbEstado.IntegralHeight = False
         Me.cmbEstado.Items.AddRange(New Object() {"TODAS", "PENDIENTES", "PARA LIQUIDAR", "LIQUIDADAS", "PAGAS"})
-        Me.cmbEstado.Location = New System.Drawing.Point(526, 558)
+        Me.cmbEstado.Location = New System.Drawing.Point(526, 591)
         Me.cmbEstado.Margin = New System.Windows.Forms.Padding(4)
         Me.cmbEstado.Name = "cmbEstado"
-        Me.cmbEstado.Size = New System.Drawing.Size(244, 28)
+        Me.cmbEstado.Size = New System.Drawing.Size(278, 28)
         Me.cmbEstado.TabIndex = 343
         '
         'grdItems
@@ -418,7 +412,7 @@ Partial Class frmPresentaciones
         Me.txtPeriodo.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPeriodo.Name = "txtPeriodo"
         Me.txtPeriodo.Size = New System.Drawing.Size(257, 26)
-        Me.txtPeriodo.TabIndex = 4
+        Me.txtPeriodo.TabIndex = 3
         Me.txtPeriodo.Text_1 = Nothing
         Me.txtPeriodo.Text_2 = Nothing
         Me.txtPeriodo.Text_3 = Nothing
@@ -532,45 +526,6 @@ Partial Class frmPresentaciones
         Me.lblCantidadFilas.TabIndex = 185
         Me.lblCantidadFilas.Text = "Subtotal"
         '
-        'rdTodasOC
-        '
-        Me.rdTodasOC.AutoSize = True
-        Me.rdTodasOC.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.rdTodasOC.Location = New System.Drawing.Point(835, 594)
-        Me.rdTodasOC.Margin = New System.Windows.Forms.Padding(4)
-        Me.rdTodasOC.Name = "rdTodasOC"
-        Me.rdTodasOC.Size = New System.Drawing.Size(74, 21)
-        Me.rdTodasOC.TabIndex = 184
-        Me.rdTodasOC.TabStop = True
-        Me.rdTodasOC.Text = "Todas"
-        Me.rdTodasOC.UseVisualStyleBackColor = True
-        '
-        'rdPendientes
-        '
-        Me.rdPendientes.AutoSize = True
-        Me.rdPendientes.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.rdPendientes.Location = New System.Drawing.Point(543, 594)
-        Me.rdPendientes.Margin = New System.Windows.Forms.Padding(4)
-        Me.rdPendientes.Name = "rdPendientes"
-        Me.rdPendientes.Size = New System.Drawing.Size(110, 21)
-        Me.rdPendientes.TabIndex = 183
-        Me.rdPendientes.TabStop = True
-        Me.rdPendientes.Text = "Pendientes"
-        Me.rdPendientes.UseVisualStyleBackColor = True
-        '
-        'rdAnuladas
-        '
-        Me.rdAnuladas.AutoSize = True
-        Me.rdAnuladas.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.rdAnuladas.Location = New System.Drawing.Point(696, 594)
-        Me.rdAnuladas.Margin = New System.Windows.Forms.Padding(4)
-        Me.rdAnuladas.Name = "rdAnuladas"
-        Me.rdAnuladas.Size = New System.Drawing.Size(96, 21)
-        Me.rdAnuladas.TabIndex = 182
-        Me.rdAnuladas.TabStop = True
-        Me.rdAnuladas.Text = "Anuladas"
-        Me.rdAnuladas.UseVisualStyleBackColor = True
-        '
         'txtIdObrasocial
         '
         Me.txtIdObrasocial.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
@@ -648,7 +603,7 @@ Partial Class frmPresentaciones
         Me.cmbObraSocial.Margin = New System.Windows.Forms.Padding(4)
         Me.cmbObraSocial.Name = "cmbObraSocial"
         Me.cmbObraSocial.Size = New System.Drawing.Size(349, 28)
-        Me.cmbObraSocial.TabIndex = 2
+        Me.cmbObraSocial.TabIndex = 1
         '
         'lblEstadoPresentacion
         '
@@ -673,7 +628,7 @@ Partial Class frmPresentaciones
         Me.txtObservacion.Margin = New System.Windows.Forms.Padding(4)
         Me.txtObservacion.Name = "txtObservacion"
         Me.txtObservacion.Size = New System.Drawing.Size(487, 26)
-        Me.txtObservacion.TabIndex = 3
+        Me.txtObservacion.TabIndex = 2
         Me.txtObservacion.Text_1 = Nothing
         Me.txtObservacion.Text_2 = Nothing
         Me.txtObservacion.Text_3 = Nothing
@@ -744,7 +699,7 @@ Partial Class frmPresentaciones
         Me.dtpFECHA.MinDate = New Date(2000, 1, 1, 0, 0, 0, 0)
         Me.dtpFECHA.Name = "dtpFECHA"
         Me.dtpFECHA.Size = New System.Drawing.Size(135, 26)
-        Me.dtpFECHA.TabIndex = 1
+        Me.dtpFECHA.TabIndex = 0
         Me.dtpFECHA.Tag = "202"
         '
         'Label3
@@ -797,7 +752,7 @@ Partial Class frmPresentaciones
         Me.txtBonificacion.MaxLength = 100
         Me.txtBonificacion.Name = "txtBonificacion"
         Me.txtBonificacion.Size = New System.Drawing.Size(232, 26)
-        Me.txtBonificacion.TabIndex = 340
+        Me.txtBonificacion.TabIndex = 5
         Me.txtBonificacion.Text_1 = Nothing
         Me.txtBonificacion.Text_2 = Nothing
         Me.txtBonificacion.Text_3 = Nothing
@@ -826,7 +781,7 @@ Partial Class frmPresentaciones
         Me.nudBonificacion.Maximum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.nudBonificacion.Name = "nudBonificacion"
         Me.nudBonificacion.Size = New System.Drawing.Size(117, 26)
-        Me.nudBonificacion.TabIndex = 9
+        Me.nudBonificacion.TabIndex = 4
         '
         'cmbFarmacias
         '
@@ -839,7 +794,7 @@ Partial Class frmPresentaciones
         Me.cmbFarmacias.Margin = New System.Windows.Forms.Padding(4)
         Me.cmbFarmacias.Name = "cmbFarmacias"
         Me.cmbFarmacias.Size = New System.Drawing.Size(259, 28)
-        Me.cmbFarmacias.TabIndex = 5
+        Me.cmbFarmacias.TabIndex = 0
         '
         'btnAgregarItem
         '
@@ -847,7 +802,7 @@ Partial Class frmPresentaciones
         Me.btnAgregarItem.Margin = New System.Windows.Forms.Padding(4)
         Me.btnAgregarItem.Name = "btnAgregarItem"
         Me.btnAgregarItem.Size = New System.Drawing.Size(104, 39)
-        Me.btnAgregarItem.TabIndex = 10
+        Me.btnAgregarItem.TabIndex = 7
         Me.btnAgregarItem.Text = "Agregar"
         Me.btnAgregarItem.UseVisualStyleBackColor = True
         '
@@ -877,7 +832,7 @@ Partial Class frmPresentaciones
         Me.txtImpRecaudado.MaxLength = 100
         Me.txtImpRecaudado.Name = "txtImpRecaudado"
         Me.txtImpRecaudado.Size = New System.Drawing.Size(185, 26)
-        Me.txtImpRecaudado.TabIndex = 7
+        Me.txtImpRecaudado.TabIndex = 2
         Me.txtImpRecaudado.Text_1 = Nothing
         Me.txtImpRecaudado.Text_2 = Nothing
         Me.txtImpRecaudado.Text_3 = Nothing
@@ -896,7 +851,7 @@ Partial Class frmPresentaciones
         Me.txtImpACargoOs.MaxLength = 100
         Me.txtImpACargoOs.Name = "txtImpACargoOs"
         Me.txtImpACargoOs.Size = New System.Drawing.Size(163, 26)
-        Me.txtImpACargoOs.TabIndex = 8
+        Me.txtImpACargoOs.TabIndex = 3
         Me.txtImpACargoOs.Text_1 = Nothing
         Me.txtImpACargoOs.Text_2 = Nothing
         Me.txtImpACargoOs.Text_3 = Nothing
@@ -968,7 +923,7 @@ Partial Class frmPresentaciones
         Me.txtImpTotalAPagar.Name = "txtImpTotalAPagar"
         Me.txtImpTotalAPagar.ReadOnly = True
         Me.txtImpTotalAPagar.Size = New System.Drawing.Size(237, 26)
-        Me.txtImpTotalAPagar.TabIndex = 336
+        Me.txtImpTotalAPagar.TabIndex = 6
         Me.txtImpTotalAPagar.Text_1 = Nothing
         Me.txtImpTotalAPagar.Text_2 = Nothing
         Me.txtImpTotalAPagar.Text_3 = Nothing
@@ -987,7 +942,7 @@ Partial Class frmPresentaciones
         Me.txtRecetas.MaxLength = 4
         Me.txtRecetas.Name = "txtRecetas"
         Me.txtRecetas.Size = New System.Drawing.Size(79, 26)
-        Me.txtRecetas.TabIndex = 6
+        Me.txtRecetas.TabIndex = 1
         Me.txtRecetas.Text_1 = Nothing
         Me.txtRecetas.Text_2 = Nothing
         Me.txtRecetas.Text_3 = Nothing
@@ -1095,9 +1050,6 @@ Partial Class frmPresentaciones
     Friend WithEvents ContextMenuStrip3 As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents cmbMonedasCompra As System.Windows.Forms.ToolStripComboBox
     Friend WithEvents txtIdObrasocial As TextBoxConFormatoVB.FormattedTextBoxVB
-    Friend WithEvents rdAnuladas As System.Windows.Forms.RadioButton
-    Friend WithEvents rdTodasOC As System.Windows.Forms.RadioButton
-    Friend WithEvents rdPendientes As System.Windows.Forms.RadioButton
     Friend WithEvents Label19 As System.Windows.Forms.Label
     Friend WithEvents lblCantidadFilas As System.Windows.Forms.Label
     Friend WithEvents chkGrillaInferior As System.Windows.Forms.CheckBox

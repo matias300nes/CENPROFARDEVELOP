@@ -422,6 +422,14 @@ Public Class frmLiquidaciones
         dtDetalle.PrimaryKey = {
                 dtDetalle.Columns("ID")
         }
+
+        ''Chequeo que el tipo de dato sea decimal
+        'Try
+        '    dtDetalle.Columns("A Cargo OS A").DataType = GetType(Decimal)
+        'Catch ex As Exception
+        '    MsgBox(ex)
+        'End Try
+
         gl_dataset.Tables.Add(dtDetalle)
 
         'dtConcepto.Columns.Add("ID", GetType(Long))
@@ -542,15 +550,18 @@ Public Class frmLiquidaciones
 
         For Each item As DataRow In dtAceptados.Rows
             Dim currentDetalle = gl_dataset.Tables(0).Select($"ID = '{item("IdDetalle")}'")(0)
-            Dim currentConcepto = gl_dataset.Tables(1).Select($"IdDetalle = '{item("IdDetalle")}' and detalle = 'A Cargo OS'")(0)
 
-            If currentDetalle IsNot Nothing Then
+            Dim currentConcepto = gl_dataset.Tables(1).Select($"IdDetalle = '{item("IdDetalle")}' and detalle = 'A Cargo OS'")(0)
+            'Dim currentConcepto = gl_dataset.Tables(1).Select($"IdDetalle = '{item("IdDetalle")}' and detalle = 'A Cargo OS'")
+            ''nacho
+            If currentDetalle IsNot Nothing Then 'If currentDetalle Is DBNull.Value Then
                 currentDetalle("Recetas A") = item("Recetas")
                 currentDetalle("Recaudado A") = item("Recaudado")
                 currentDetalle("A Cargo OS A") = item("A Cargo OS")
-            End If
 
-            If currentConcepto IsNot Nothing Then
+            End If
+            ''nacho 
+            If currentConcepto IsNot Nothing Then ' If currentConcepto Is DBNull.Value Then
                 currentConcepto("valor") = item("A Cargo OS")
                 currentConcepto("estado") = "update"
             End If
@@ -2400,6 +2411,8 @@ Public Class frmLiquidaciones
                 Groupheaders.Add(GroupHeader2)
             End If
 
+
+
             If MasterGrdDetail Then
                 ''Envio el subtotal al final
                 For i = panel.Columns("Subtotal").ColumnIndex + 1 To panel.Columns.Count - 1
@@ -2439,7 +2452,7 @@ Public Class frmLiquidaciones
             End If
         End If
 
-        If panel.Name.Equals("") = True Then
+            If panel.Name.Equals("") = True Then
             panelSuperior = panel
         End If
 
@@ -2531,8 +2544,9 @@ Public Class frmLiquidaciones
         For Each Farmacia As DataRow In gl_dataset.Tables(0).Rows
             valor = -Farmacia("subtotal") * Decimal.Parse(porcentaje)
 
-            Dim CurrentConcepto = gl_dataset.Tables(1).Select($"IdDetalle = '{Farmacia("ID")}' and detalle = '{detalle}'")(0)
-            If CurrentConcepto IsNot Nothing Then
+            'Dim CurrentConcepto = gl_dataset.Tables(1).Select($"IdDetalle = '{Farmacia("ID")}' and detalle = '{detalle}'")(0)
+            Dim CurrentConcepto = gl_dataset.Tables(1).Select($"IdDetalle = '{Farmacia("ID")}' and detalle = '{detalle}'")
+            If CurrentConcepto Is DBNull.Value Then ' If CurrentConcepto IsNot Nothing Then
                 CurrentConcepto("valor") = valor
                 If CurrentConcepto("estado") = "saved" Then
                     CurrentConcepto("estado") = "update"
