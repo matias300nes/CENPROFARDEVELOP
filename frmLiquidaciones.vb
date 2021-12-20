@@ -2413,6 +2413,31 @@ Public Class frmLiquidaciones
 
 
 
+            'Pinto la fila con error
+
+            If cmbTipoPago.Text = "Unico" Then
+                For Each fila As GridRow In panel.Rows
+                    With fila
+                        If .Cells("Recetas A").Value IsNot DBNull.Value Then
+                            If .Cells("Recetas").Value <> .Cells("Recetas A").Value Then
+                                .CellStyles.Default.Background.Color1 = Color.SandyBrown
+                                .CellStyles.Default.TextColor = Color.White
+                            End If
+                        End If
+                        If .Cells("A Cargo OS A").Value IsNot DBNull.Value Then
+                            If .Cells("A Cargo Os").Value <> .Cells("A Cargo OS A").Value Then
+                                .CellStyles.Default.Background.Color1 = Color.SandyBrown
+                                .CellStyles.Default.TextColor = Color.White
+                            End If
+                        End If
+                    End With
+
+                Next fila
+            End If
+
+
+
+
             If MasterGrdDetail Then
                 ''Envio el subtotal al final
                 For i = panel.Columns("Subtotal").ColumnIndex + 1 To panel.Columns.Count - 1
