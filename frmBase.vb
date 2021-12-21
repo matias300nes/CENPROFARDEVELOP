@@ -283,10 +283,13 @@ Public Class frmBase
             MsgStatus(Status1, "Registro " & (grd.CurrentRow.Index + 1).ToString & " de " & grd.Rows.Count.ToString)
         Else
             bolModo = True
-            PrepararBotones()
+            'PrepararBotones()
             Util.LimpiarTextBox(Me.Controls)
             Util.MsgStatus(Status1, "Haga click en [Guardar] despues de completar los datos.")
         End If
+
+
+
 
         'grd.Columns(0).Frozen = True
     End Sub

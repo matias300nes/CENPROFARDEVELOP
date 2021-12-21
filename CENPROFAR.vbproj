@@ -7,9 +7,9 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{748621E3-13EA-42B3-A4A3-5F15C448AE4B}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>SEYC.My.MyApplication</StartupObject>
-    <RootNamespace>SEYC</RootNamespace>
-    <AssemblyName>SEYC</AssemblyName>
+    <StartupObject>CENPROFAR.My.MyApplication</StartupObject>
+    <RootNamespace>CENPROFAR</RootNamespace>
+    <AssemblyName>CENPROFAR</AssemblyName>
     <MyType>WindowsForms</MyType>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -17,7 +17,7 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <ApplicationIcon>Resources\IconoPuntoVenta3.ico</ApplicationIcon>
+    <ApplicationIcon>icons8-configuración-del-administrador-48.ico</ApplicationIcon>
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile />
@@ -42,7 +42,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>SEYC.xml</DocumentationFile>
+    <DocumentationFile>CENPROFAR.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
     <UseVSHostingProcess>true</UseVSHostingProcess>
     <PlatformTarget>x86</PlatformTarget>
@@ -54,16 +54,19 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>SEYC.xml</DocumentationFile>
+    <DocumentationFile>CENPROFAR.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevComponents.DotNetBar.Keyboard, Version=12.5.0.6, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL" />
     <Reference Include="DevComponents.DotNetBar.Schedule, Version=12.5.0.6, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL" />
+    <Reference Include="DevComponents.DotNetBar.SuperGrid, Version=12.5.0.6, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL" />
+    <Reference Include="DevComponents.DotNetBar2, Version=12.5.0.6, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL" />
     <Reference Include="DevComponents.DotNetBar2_2015">
       <HintPath>Utiles\bin\Debug\DevComponents.DotNetBar2_2015.dll</HintPath>
     </Reference>
+    <Reference Include="DevComponents.Instrumentation, Version=12.5.0.6, Culture=neutral, PublicKeyToken=f90dc37c26666a67" />
     <Reference Include="ExcelDataReader, Version=3.6.0.0, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
       <HintPath>packages\ExcelDataReader.3.6.0\lib\net20\ExcelDataReader.dll</HintPath>
       <Private>True</Private>
@@ -95,6 +98,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Messaging" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Windows.Forms" />
@@ -105,7 +109,7 @@
     </Reference>
     <Reference Include="Utiles, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Utiles\bin\Debug\Utiles.dll</HintPath>
+      <HintPath>Utiles\bin\Debug\Utiles.dll</HintPath>
     </Reference>
     <Reference Include="WebServicePorkys">
       <HintPath>..\..\WebServicePorkys\WebServicePorkys\WebServicePorkys\bin\WebServicePorkys.dll</HintPath>
@@ -141,10 +145,34 @@
     <Compile Include="frmClientes2.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmRecepciones.Designer.vb">
-      <DependentUpon>frmRecepciones.vb</DependentUpon>
+    <Compile Include="frmImportarExcel.Designer.vb">
+      <DependentUpon>frmImportarExcel.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmRecepciones.vb">
+    <Compile Include="frmImportarExcel.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSelectPresentacion.Designer.vb">
+      <DependentUpon>frmSelectPresentacion.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmSelectPresentacion.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmObraSocial.designer.vb">
+      <DependentUpon>frmObraSocial.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmObraSocial.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPresentaciones.designer.vb">
+      <DependentUpon>frmPresentaciones.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmPresentaciones.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLiquidaciones.Designer.vb">
+      <DependentUpon>frmLiquidaciones.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmLiquidaciones.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmRecepciones_old.Designer.vb">
@@ -409,12 +437,6 @@
       <DependentUpon>frmPresupuestos.vb</DependentUpon>
     </Compile>
     <Compile Include="frmPresupuestos.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.vb">
-      <DependentUpon>Form1.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Form1.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmGastosSueldos.designer.vb">
@@ -752,6 +774,7 @@
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -787,8 +810,22 @@
     <EmbeddedResource Include="frmClientes2.resx">
       <DependentUpon>frmClientes2.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmRecepciones.resx">
-      <DependentUpon>frmRecepciones.vb</DependentUpon>
+    <EmbeddedResource Include="frmImportarExcel.resx">
+      <DependentUpon>frmImportarExcel.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSelectPresentacion.resx">
+      <DependentUpon>frmSelectPresentacion.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmObraSocial.resx">
+      <DependentUpon>frmObraSocial.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPresentaciones.resx">
+      <DependentUpon>frmPresentaciones.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLiquidaciones.resx">
+      <DependentUpon>frmLiquidaciones.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmRecepciones_old.resx">
@@ -943,9 +980,6 @@
     <EmbeddedResource Include="frmPresupuestos.resx">
       <DependentUpon>frmPresupuestos.vb</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmGastosSueldos.resx">
       <DependentUpon>frmGastosSueldos.vb</DependentUpon>
@@ -1297,6 +1331,24 @@
     <None Include="Resources\IconoEnvio.png" />
     <None Include="Resources\KAIZEN2.jpg" />
     <None Include="Resources\IconoPuntoVenta3.ico" />
+    <Content Include="icons8-configuración-del-administrador-48.ico" />
+    <None Include="Resources\farmacia.png" />
+    <None Include="Resources\obraSocial.png" />
+    <None Include="Resources\presentacion.png" />
+    <None Include="Resources\liquidacion.png" />
+    <None Include="Resources\btnnuevo.png" />
+    <None Include="Resources\btnguardar.png" />
+    <None Include="Resources\btncargacontinua.png" />
+    <None Include="Resources\btneliminar.png" />
+    <None Include="Resources\btncancelar.png" />
+    <None Include="Resources\btnactivar.png" />
+    <None Include="Resources\btnsalir.png" />
+    <None Include="Resources\btnactualizar.png" />
+    <None Include="Resources\btnprimero.png" />
+    <None Include="Resources\btnanterior.png" />
+    <None Include="Resources\btnsiguiente.png" />
+    <None Include="Resources\btnultimo.png" />
+    <None Include="Resources\btnimprimir.png" />
     <Content Include="SEI.ico" />
     <None Include="Resources\ArchivoExcel_2.JPG" />
     <None Include="Resources\ArchivoExcel_1.JPG" />

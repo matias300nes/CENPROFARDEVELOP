@@ -130,7 +130,7 @@ Public Class Login
             'Comentado CP 28-1-2011 Util.Logueado_OK = Util.comprobarUsuario(txtuser.Text.ToLower.Trim, SHA1)
             If My.Application.Info.AssemblyName.ToString = "SEI" Or My.Application.Info.AssemblyName.ToString = "CAMELIAS" Or My.Application.Info.AssemblyName.ToString = "SAMBA" _
                  Or My.Application.Info.AssemblyName.ToString = "ROCHA" Or My.Application.Info.AssemblyName.ToString = "BIANCO" Or My.Application.Info.AssemblyName.ToString = "PORKYS" _
-                Or My.Application.Info.AssemblyName.ToString = "ALMAS" Or My.Application.Info.AssemblyName.ToString = "TESL" Then
+                Or My.Application.Info.AssemblyName.ToString = "ALMAS" Or My.Application.Info.AssemblyName.ToString = "TESL" Or My.Application.Info.AssemblyName.ToString = "CENPROFAR" Then
 
                 Util.Logueado_OK = Util.comprobarUsuario2(tmp_ID, txtuser.Text.ToLower.Trim, txtpassword.Text, SHA1, tmp_ok, tmp_nombre, tmp_vencida, tmp_repetida, ConnStringSEI)
             Else

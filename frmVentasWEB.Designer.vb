@@ -1258,7 +1258,7 @@ Partial Class frmVentasWEB
         '
         Me.PicClientes.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.PicClientes.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.PicClientes.Image = Global.SEYC.My.Resources.Resources.Info
+        Me.PicClientes.Image = Global.CENPROFAR.My.Resources.Resources.Info
         Me.PicClientes.Location = New System.Drawing.Point(751, 29)
         Me.PicClientes.Name = "PicClientes"
         Me.PicClientes.Size = New System.Drawing.Size(18, 21)
@@ -1270,7 +1270,7 @@ Partial Class frmVentasWEB
         '
         Me.PicRepartidor.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.PicRepartidor.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.PicRepartidor.Image = Global.SEYC.My.Resources.Resources.Info
+        Me.PicRepartidor.Image = Global.CENPROFAR.My.Resources.Resources.Info
         Me.PicRepartidor.Location = New System.Drawing.Point(962, 29)
         Me.PicRepartidor.Name = "PicRepartidor"
         Me.PicRepartidor.Size = New System.Drawing.Size(18, 21)
@@ -1299,7 +1299,7 @@ Partial Class frmVentasWEB
         '
         'btnActualizarMat
         '
-        Me.btnActualizarMat.BackgroundImage = Global.SEYC.My.Resources.Resources.Sincro
+        Me.btnActualizarMat.BackgroundImage = Global.CENPROFAR.My.Resources.Resources.Sincro
         Me.btnActualizarMat.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.btnActualizarMat.Location = New System.Drawing.Point(596, 96)
         Me.btnActualizarMat.Margin = New System.Windows.Forms.Padding(2)

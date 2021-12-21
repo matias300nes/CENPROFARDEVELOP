@@ -1,7 +1,7 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class frmClientes
 
-    Inherits SEYC.frmBase
+    Inherits CENPROFAR.frmBase
 
     <System.Diagnostics.DebuggerNonUserCode()> _
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
@@ -238,7 +238,7 @@ Partial Class frmClientes
         Me.PicExcelExportar.BackColor = System.Drawing.Color.Transparent
         Me.PicExcelExportar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.PicExcelExportar.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.PicExcelExportar.Image = Global.SEYC.My.Resources.Resources.ms_excel
+        Me.PicExcelExportar.Image = Global.CENPROFAR.My.Resources.Resources.ms_excel
         Me.PicExcelExportar.Location = New System.Drawing.Point(913, 0)
         Me.PicExcelExportar.Name = "PicExcelExportar"
         Me.PicExcelExportar.Size = New System.Drawing.Size(37, 31)

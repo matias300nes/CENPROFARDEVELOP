@@ -356,7 +356,7 @@ Partial Class frmVentaSalon
         'PicSincro
         '
         Me.PicSincro.BackColor = System.Drawing.Color.White
-        Me.PicSincro.Image = Global.SEYC.My.Resources.Resources.Sincro
+        Me.PicSincro.Image = Global.CENPROFAR.My.Resources.Resources.Sincro
         Me.PicSincro.ImageLocation = ""
         Me.PicSincro.Location = New System.Drawing.Point(1150, 156)
         Me.PicSincro.Margin = New System.Windows.Forms.Padding(4)
@@ -411,7 +411,7 @@ Partial Class frmVentaSalon
         Me.lblPVI.BackColor = System.Drawing.Color.Transparent
         Me.lblPVI.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblPVI.ForeColor = System.Drawing.Color.White
-        Me.lblPVI.Image = Global.SEYC.My.Resources.Resources.PtoVtaPorkys
+        Me.lblPVI.Image = Global.CENPROFAR.My.Resources.Resources.PtoVtaPorkys
         Me.lblPVI.Location = New System.Drawing.Point(1231, -1)
         Me.lblPVI.Name = "lblPVI"
         Me.lblPVI.Size = New System.Drawing.Size(80, 74)
@@ -957,7 +957,7 @@ Partial Class frmVentaSalon
         '
         'lblCandadoTarjetas2
         '
-        Me.lblCandadoTarjetas2.Image = Global.SEYC.My.Resources.Resources.CandadoCerrado
+        Me.lblCandadoTarjetas2.Image = Global.CENPROFAR.My.Resources.Resources.CandadoCerrado
         Me.lblCandadoTarjetas2.Location = New System.Drawing.Point(-3, 288)
         Me.lblCandadoTarjetas2.Name = "lblCandadoTarjetas2"
         Me.lblCandadoTarjetas2.Size = New System.Drawing.Size(29, 23)
@@ -965,7 +965,7 @@ Partial Class frmVentaSalon
         '
         'lblCandadoTarjetas1
         '
-        Me.lblCandadoTarjetas1.Image = Global.SEYC.My.Resources.Resources.CandadoCerrado
+        Me.lblCandadoTarjetas1.Image = Global.CENPROFAR.My.Resources.Resources.CandadoCerrado
         Me.lblCandadoTarjetas1.Location = New System.Drawing.Point(-3, 105)
         Me.lblCandadoTarjetas1.Name = "lblCandadoTarjetas1"
         Me.lblCandadoTarjetas1.Size = New System.Drawing.Size(29, 23)
@@ -973,7 +973,7 @@ Partial Class frmVentaSalon
         '
         'lblCandadoContado
         '
-        Me.lblCandadoContado.Image = Global.SEYC.My.Resources.Resources.CandadoCerrado
+        Me.lblCandadoContado.Image = Global.CENPROFAR.My.Resources.Resources.CandadoCerrado
         Me.lblCandadoContado.Location = New System.Drawing.Point(-3, 37)
         Me.lblCandadoContado.Name = "lblCandadoContado"
         Me.lblCandadoContado.Size = New System.Drawing.Size(29, 23)

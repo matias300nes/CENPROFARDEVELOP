@@ -52,7 +52,7 @@ Public Class MDIPrincipal
             'Catch ex As Exception
 
             'End Try
-            End
+            'End
         Else
             e.Cancel = True
         End If
@@ -461,8 +461,8 @@ logindenuevo:
     End Sub
 
     Private Sub RecepcionesDeMaterialToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RecepcionesDeMaterialToolStripMenuItem.Click
-        frmRecepciones.MdiParent = Me
-        frmRecepciones.Show()
+        frmLiquidaciones.MdiParent = Me
+        frmLiquidaciones.Show()
     End Sub
 
     Private Sub TransferenciasToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
@@ -4271,8 +4271,24 @@ Pedidos:
         frmClientes2.Show()
     End Sub
 
-    Private Sub DasdasdToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DasdasdToolStripMenuItem.Click
+    Private Sub FarmaciasToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FarmaciasToolStripMenuItem.Click
         frmFarmacias.MdiParent = Me
         frmFarmacias.Show()
     End Sub
+
+    Private Sub ObrasSocialesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ObrasSocialesToolStripMenuItem.Click
+        frmObraSocial.MdiParent = Me
+        frmObraSocial.Show()
+    End Sub
+
+    Private Sub LiquidacionesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LiquidacionesToolStripMenuItem.Click
+        frmLiquidaciones.MdiParent = Me
+        frmLiquidaciones.Show()
+    End Sub
+
+    Private Sub PresentacionesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PresentacionesToolStripMenuItem.Click
+        frmPresentaciones.MdiParent = Me
+        frmPresentaciones.Show()
+    End Sub
+
 End Class

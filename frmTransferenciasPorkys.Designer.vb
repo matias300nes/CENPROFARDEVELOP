@@ -268,7 +268,7 @@ Partial Class frmTransferenciasPorkys
         '
         'btnActualizarMat
         '
-        Me.btnActualizarMat.BackgroundImage = Global.SEYC.My.Resources.Resources.Sincro
+        Me.btnActualizarMat.BackgroundImage = Global.CENPROFAR.My.Resources.Resources.Sincro
         Me.btnActualizarMat.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.btnActualizarMat.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnActualizarMat.Location = New System.Drawing.Point(636, 153)
@@ -302,7 +302,7 @@ Partial Class frmTransferenciasPorkys
         '
         Me.PicEncargado.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.PicEncargado.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.PicEncargado.Image = Global.SEYC.My.Resources.Resources.Info
+        Me.PicEncargado.Image = Global.CENPROFAR.My.Resources.Resources.Info
         Me.PicEncargado.Location = New System.Drawing.Point(1020, 38)
         Me.PicEncargado.Margin = New System.Windows.Forms.Padding(4)
         Me.PicEncargado.Name = "PicEncargado"
