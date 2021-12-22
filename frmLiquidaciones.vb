@@ -216,7 +216,7 @@ Public Class frmLiquidaciones
         'Modifico botones del frmbase
         btnEliminar.Text = "Cancelar Liquidación"
         ToolStrip_lblCodMaterial.Text = "Cod. Liq."
-        btnCancelar.Visible = False
+        'btnCancelar.Visible = False
         btnPrimero.Visible = False
         btnAnterior.Visible = False
         btnSiguiente.Visible = False

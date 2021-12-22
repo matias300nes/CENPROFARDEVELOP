@@ -430,7 +430,7 @@ Partial Class frmBase
         Me.grd.ReadOnly = True
         Me.grd.RowHeadersWidth = 51
         Me.grd.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.grd.Size = New System.Drawing.Size(1299, 237)
+        Me.grd.Size = New System.Drawing.Size(1265, 237)
         Me.grd.TabIndex = 62
         '
         'OpenFileDialog1
