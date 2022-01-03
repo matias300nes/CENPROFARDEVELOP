@@ -1148,7 +1148,7 @@ Public Class frmPresentaciones
         txtCodigo.Tag = "1"
         dtpFECHA.Tag = "2"
         txtIdObrasocial.Tag = "3"
-        cmbObraSocial.Tag = "4"
+        cmbObraSocial.Tag = "3" ''nacho mati
         txtPeriodo.Tag = "5"
         lblStatus.Tag = "6"
         txtTotal.Tag = "7"
@@ -1318,7 +1318,7 @@ Public Class frmPresentaciones
 
             Dim data As New GroupedDataTable(dt, "IdFarmacia")
 
-            grdDebug.DataSource = data.grouped
+            'grdDebug.DataSource = data.grouped
 
             CalcularTotales()
 
