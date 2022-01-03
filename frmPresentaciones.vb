@@ -1316,67 +1316,9 @@ Public Class frmPresentaciones
 
             Next
 
-            ''DEBUG
-            'Dim dt_grouped As New DataTable()
-            'dt_grouped = dt.Clone()
-            'Dim added As Boolean = False
-            'Dim current_row_index As Integer
-            'Dim j
-            'Dim primaryColumn = "IdFarmacia"
-
-            'For current_row_index = 0 To dt.Rows.Count - 1
-            '    Dim current_row As DataRow = dt.Rows(current_row_index)
-            '    added = False
-
-            '    j = 0
-            '    While (j < dt_grouped.Rows.Count And added = False)
-            '        If current_row(primaryColumn) = dt_grouped.Rows(j)(primaryColumn) Then
-            '            added = True
-            '        End If
-            '        j += 1
-            '    End While
-
-            '    If Not added Then
-            '        Dim new_row As DataRow = dt_grouped.NewRow()
-            '        For i = current_row_index To dt.Rows.Count - 1
-            '            If dt.Rows(i)(primaryColumn) = current_row(primaryColumn) Then
-            '                'new_row("IdDetalle") = current_row("IdDetalle")
-            '                'new_row("IdFarmacia") = current_row("IdFarmacia")
-            '                'new_row("Codigo") = current_row("Codigo")
-            '                'new_row("Nombre") = current_row("Nombre")
-            '                'For j = 4 To dt.Columns.Count - 1
-            '                '    If i = current_row_index Then
-            '                '        new_row(j) = Decimal.Parse(dt.Rows(i)(j))
-            '                '    Else
-            '                '        new_row(j) += Decimal.Parse(dt.Rows(i)(j))
-            '                '    End If
-            '                'Next
-            '                For j = 0 To dt.Columns.Count - 1
-
-            '                    If TypeOf current_row(j) Is Decimal Then
-
-            '                        If i = current_row_index Then
-            '                            new_row(j) = dt.Rows(i)(j)
-            '                        Else
-            '                            new_row(j) += dt.Rows(i)(j)
-            '                        End If
-            '                    Else
-            '                        ''Valor comun
-            '                        If i = current_row_index Then
-            '                            new_row(j) = current_row(j)
-            '                        End If
-            '                    End If
-            '                Next
-            '            End If
-            '        Next
-            '        dt_grouped.Rows.Add(new_row)
-
-            '    End If
-            'Next
             Dim data As New GroupedDataTable(dt, "IdFarmacia")
 
             grdDebug.DataSource = data.grouped
-            ''END
 
             CalcularTotales()
 
@@ -1387,6 +1329,7 @@ Public Class frmPresentaciones
                 CType(connection, IDisposable).Dispose()
             End If
         End Try
+
 
         'GetDatasetItems()
 
@@ -2531,21 +2474,22 @@ Public Class frmPresentaciones
     End Sub
 
     Private Sub txtID_TextChanged(sender As Object, e As EventArgs) Handles txtID.TextChanged
-        Dim dv = New DataView()
+
     End Sub
 
     Private Class GroupedDataTable
         Public notGrouped As DataTable
         Public grouped As DataTable
 
-        Public Property primaryColumn As String
+        Public primaryColumn As String
 
-        Public Sub New(dt As DataTable, primaryColumn As String)
+        Public Sub New(dt As DataTable, GroupColumn As String)
+            primaryColumn = GroupColumn
             notGrouped = dt
-            grouped = group(dt)
+            grouped = group(dt, GroupColumn)
         End Sub
 
-        Private Function group(dt As DataTable) As DataTable
+        Private Function group(dt As DataTable, groupColumn As String) As DataTable
             Dim dt_grouped As New DataTable()
             dt_grouped = dt.Clone()
             Dim added As Boolean = False
@@ -2553,62 +2497,13 @@ Public Class frmPresentaciones
             Dim j
             Dim i
 
-            'For current_row_index = 0 To dt.Rows.Count - 1
-            '    Dim current_row As DataRow = dt.Rows(current_row_index)
-            '    added = False
-
-            '    j = 0
-            '    While (j < dt_grouped.Rows.Count And added = False)
-            '        If current_row(Me.primaryColumn) = dt_grouped.Rows(j)(Me.primaryColumn) Then
-            '            added = True
-            '        End If
-            '        j += 1
-            '    End While
-
-            '    If Not added Then
-            '        Dim new_row As DataRow = dt_grouped.NewRow()
-            '        For i = current_row_index To dt.Rows.Count - 1
-            '            If dt.Rows(i)(Me.primaryColumn) = current_row(Me.primaryColumn) Then
-            '                'new_row("IdDetalle") = current_row("IdDetalle")
-            '                'new_row("IdFarmacia") = current_row("IdFarmacia")
-            '                'new_row("Codigo") = current_row("Codigo")
-            '                'new_row("Nombre") = current_row("Nombre")
-            '                'For j = 4 To dt.Columns.Count - 1
-            '                '    If i = current_row_index Then
-            '                '        new_row(j) = Decimal.Parse(dt.Rows(i)(j))
-            '                '    Else
-            '                '        new_row(j) += Decimal.Parse(dt.Rows(i)(j))
-            '                '    End If
-            '                'Next
-            '                For j = 0 To dt.Columns.Count - 1
-
-            '                    If TypeOf current_row(j) Is Decimal Then
-            '                        new_row(j) = 1
-            '                        If i = current_row_index Then
-            '                            new_row(j) = current_row(j)
-            '                        Else
-            '                            new_row(j) += current_row(j)
-            '                        End If
-            '                    Else
-            '                        ''Valor comun
-            '                        If i = current_row_index Then
-            '                            new_row(j) = current_row(j)
-            '                        End If
-            '                    End If
-            '                Next
-            '            End If
-            '        Next
-            '        dt_grouped.Rows.Add(new_row)
-
-            '    End If
-            'Next
             For current_row_index = 0 To dt.Rows.Count - 1
                 Dim current_row As DataRow = dt.Rows(current_row_index)
                 added = False
 
                 j = 0
                 While (j < dt_grouped.Rows.Count And added = False)
-                    If current_row(primaryColumn) = dt_grouped.Rows(j)(primaryColumn) Then
+                    If current_row(groupColumn) = dt_grouped.Rows(j)(groupColumn) Then
                         added = True
                     End If
                     j += 1
@@ -2617,7 +2512,7 @@ Public Class frmPresentaciones
                 If Not added Then
                     Dim new_row As DataRow = dt_grouped.NewRow()
                     For i = current_row_index To dt.Rows.Count - 1
-                        If dt.Rows(i)(primaryColumn) = current_row(primaryColumn) Then
+                        If dt.Rows(i)(groupColumn) = current_row(groupColumn) Then
                             'new_row("IdDetalle") = current_row("IdDetalle")
                             'new_row("IdFarmacia") = current_row("IdFarmacia")
                             'new_row("Codigo") = current_row("Codigo")

@@ -20,14 +20,15 @@ Partial Class frmLiquidaciones
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim Background1 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
-        Dim Background2 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
-        Dim Background3 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
-        Dim Background4 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
-        Dim Background5 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
-        Dim Background6 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
-        Dim Background7 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
+        Dim Background8 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
+        Dim Background9 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
+        Dim Background10 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
+        Dim Background11 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
+        Dim Background12 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
+        Dim Background13 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
+        Dim Background14 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.chkAgrupado = New System.Windows.Forms.CheckBox()
         Me.lblCantidadItems = New System.Windows.Forms.Label()
         Me.lblCantLiq = New System.Windows.Forms.Label()
         Me.chkGrillaInferior = New System.Windows.Forms.CheckBox()
@@ -88,6 +89,7 @@ Partial Class frmLiquidaciones
         Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox1.BackColor = System.Drawing.SystemColors.Control
+        Me.GroupBox1.Controls.Add(Me.chkAgrupado)
         Me.GroupBox1.Controls.Add(Me.lblCantidadItems)
         Me.GroupBox1.Controls.Add(Me.lblCantLiq)
         Me.GroupBox1.Controls.Add(Me.chkGrillaInferior)
@@ -119,9 +121,20 @@ Partial Class frmLiquidaciones
         Me.GroupBox1.ForeColor = System.Drawing.Color.Black
         Me.GroupBox1.Location = New System.Drawing.Point(0, 27)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(1543, 481)
+        Me.GroupBox1.Size = New System.Drawing.Size(1724, 481)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
+        '
+        'chkAgrupado
+        '
+        Me.chkAgrupado.AutoSize = True
+        Me.chkAgrupado.Enabled = False
+        Me.chkAgrupado.Location = New System.Drawing.Point(211, 69)
+        Me.chkAgrupado.Name = "chkAgrupado"
+        Me.chkAgrupado.Size = New System.Drawing.Size(133, 17)
+        Me.chkAgrupado.TabIndex = 418
+        Me.chkAgrupado.Text = "Agrupada por farmacia"
+        Me.chkAgrupado.UseVisualStyleBackColor = True
         '
         'lblCantidadItems
         '
@@ -178,21 +191,21 @@ Partial Class frmLiquidaciones
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1135, 346)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1287, 346)
         Me.TableLayoutPanel1.TabIndex = 417
         '
         'SuperGrdResultado
         '
-        Background1.Color1 = System.Drawing.Color.Transparent
-        Background1.Color2 = System.Drawing.Color.Transparent
-        Me.SuperGrdResultado.DefaultVisualStyles.AlternateColumnCellStyles.Default.Background = Background1
-        Background2.Color1 = System.Drawing.Color.Transparent
-        Me.SuperGrdResultado.DefaultVisualStyles.AlternateRowCellStyles.Default.Background = Background2
-        Background3.Color1 = System.Drawing.Color.Transparent
-        Background3.Color2 = System.Drawing.Color.Transparent
-        Me.SuperGrdResultado.DefaultVisualStyles.CellStyles.Default.Background = Background3
-        Background4.Color1 = System.Drawing.Color.Transparent
-        Me.SuperGrdResultado.DefaultVisualStyles.RowStyles.Default.Background = Background4
+        Background8.Color1 = System.Drawing.Color.Transparent
+        Background8.Color2 = System.Drawing.Color.Transparent
+        Me.SuperGrdResultado.DefaultVisualStyles.AlternateColumnCellStyles.Default.Background = Background8
+        Background9.Color1 = System.Drawing.Color.Transparent
+        Me.SuperGrdResultado.DefaultVisualStyles.AlternateRowCellStyles.Default.Background = Background9
+        Background10.Color1 = System.Drawing.Color.Transparent
+        Background10.Color2 = System.Drawing.Color.Transparent
+        Me.SuperGrdResultado.DefaultVisualStyles.CellStyles.Default.Background = Background10
+        Background11.Color1 = System.Drawing.Color.Transparent
+        Me.SuperGrdResultado.DefaultVisualStyles.RowStyles.Default.Background = Background11
         Me.SuperGrdResultado.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperGrdResultado.FilterExprColors.SysFunction = System.Drawing.Color.DarkRed
         Me.SuperGrdResultado.Location = New System.Drawing.Point(10, 10)
@@ -202,17 +215,17 @@ Partial Class frmLiquidaciones
         '
         '
         Me.SuperGrdResultado.PrimaryGrid.ColumnAutoSizeMode = DevComponents.DotNetBar.SuperGrid.ColumnAutoSizeMode.Fill
-        Background5.Color1 = System.Drawing.Color.Transparent
-        Me.SuperGrdResultado.PrimaryGrid.DefaultVisualStyles.AlternateColumnCellStyles.Default.Background = Background5
+        Background12.Color1 = System.Drawing.Color.Transparent
+        Me.SuperGrdResultado.PrimaryGrid.DefaultVisualStyles.AlternateColumnCellStyles.Default.Background = Background12
         Me.SuperGrdResultado.PrimaryGrid.DefaultVisualStyles.AlternateRowCellStyles.Default.AllowWrap = DevComponents.DotNetBar.SuperGrid.Style.Tbool.[True]
-        Background6.BackFillType = DevComponents.DotNetBar.SuperGrid.Style.BackFillType.VerticalCenter
-        Background6.Color1 = System.Drawing.Color.White
-        Background6.Color2 = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.SuperGrdResultado.PrimaryGrid.DefaultVisualStyles.AlternateRowCellStyles.Default.Background = Background6
-        Background7.Color1 = System.Drawing.Color.Transparent
-        Me.SuperGrdResultado.PrimaryGrid.DefaultVisualStyles.RowStyles.Default.Background = Background7
+        Background13.BackFillType = DevComponents.DotNetBar.SuperGrid.Style.BackFillType.VerticalCenter
+        Background13.Color1 = System.Drawing.Color.White
+        Background13.Color2 = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.SuperGrdResultado.PrimaryGrid.DefaultVisualStyles.AlternateRowCellStyles.Default.Background = Background13
+        Background14.Color1 = System.Drawing.Color.Transparent
+        Me.SuperGrdResultado.PrimaryGrid.DefaultVisualStyles.RowStyles.Default.Background = Background14
         Me.SuperGrdResultado.PrimaryGrid.SelectionGranularity = DevComponents.DotNetBar.SuperGrid.SelectionGranularity.Row
-        Me.SuperGrdResultado.Size = New System.Drawing.Size(889, 326)
+        Me.SuperGrdResultado.Size = New System.Drawing.Size(1012, 326)
         Me.SuperGrdResultado.TabIndex = 381
         Me.SuperGrdResultado.Text = "SuperGridControl1"
         '
@@ -228,10 +241,10 @@ Partial Class frmLiquidaciones
         Me.GroupBox4.Controls.Add(Me.Label17)
         Me.GroupBox4.Controls.Add(Me.btnExcelWindow)
         Me.GroupBox4.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GroupBox4.Location = New System.Drawing.Point(921, 4)
+        Me.GroupBox4.Location = New System.Drawing.Point(1044, 4)
         Me.GroupBox4.Margin = New System.Windows.Forms.Padding(10, 4, 10, 10)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(204, 332)
+        Me.GroupBox4.Size = New System.Drawing.Size(233, 332)
         Me.GroupBox4.TabIndex = 386
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Resúmen"
@@ -244,7 +257,7 @@ Partial Class frmLiquidaciones
         Me.lblTotal.ForeColor = System.Drawing.Color.DarkGreen
         Me.lblTotal.Location = New System.Drawing.Point(7, 254)
         Me.lblTotal.Name = "lblTotal"
-        Me.lblTotal.Size = New System.Drawing.Size(183, 24)
+        Me.lblTotal.Size = New System.Drawing.Size(212, 24)
         Me.lblTotal.TabIndex = 389
         Me.lblTotal.Text = "$ [Total]"
         Me.lblTotal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -260,7 +273,7 @@ Partial Class frmLiquidaciones
         Me.LabelX1.Location = New System.Drawing.Point(22, 34)
         Me.LabelX1.Margin = New System.Windows.Forms.Padding(2)
         Me.LabelX1.Name = "LabelX1"
-        Me.LabelX1.Size = New System.Drawing.Size(44, 19)
+        Me.LabelX1.Size = New System.Drawing.Size(73, 19)
         Me.LabelX1.TabIndex = 394
         Me.LabelX1.Text = "Tipo de pago"
         '
@@ -339,7 +352,7 @@ Partial Class frmLiquidaciones
         Me.Label17.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label17.AutoSize = True
         Me.Label17.ForeColor = System.Drawing.SystemColors.WindowFrame
-        Me.Label17.Location = New System.Drawing.Point(119, 103)
+        Me.Label17.Location = New System.Drawing.Point(148, 103)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(76, 13)
         Me.Label17.TabIndex = 387
@@ -365,9 +378,8 @@ Partial Class frmLiquidaciones
         Me.txtID.AccessibleName = "ID"
         Me.txtID.Location = New System.Drawing.Point(75, -3)
         Me.txtID.Name = "txtID"
-        Me.txtID.Size = New System.Drawing.Size(22, 20)
+        Me.txtID.Size = New System.Drawing.Size(56, 20)
         Me.txtID.TabIndex = 416
-        Me.txtID.Visible = False
         '
         'txtCodigo
         '
@@ -522,7 +534,6 @@ Partial Class frmLiquidaciones
         Me.lblID.Size = New System.Drawing.Size(18, 13)
         Me.lblID.TabIndex = 390
         Me.lblID.Text = "ID"
-        Me.lblID.Visible = False
         '
         'Label15
         '
@@ -622,7 +633,7 @@ Partial Class frmLiquidaciones
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1135, 609)
+        Me.ClientSize = New System.Drawing.Size(1282, 609)
         Me.Controls.Add(Me.GroupBox1)
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "frmLiquidaciones"
@@ -688,4 +699,5 @@ Partial Class frmLiquidaciones
     Friend WithEvents txtIdPresentacion As TextBox
     Friend WithEvents txtID As TextBox
     Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
+    Friend WithEvents chkAgrupado As CheckBox
 End Class

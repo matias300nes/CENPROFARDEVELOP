@@ -63,37 +63,92 @@ Public Class frmSelectPresentacion
                 frmLiquidaciones.lblPeriodo_presentacion.Text = IIf(.Cells(GridCols.Periodo).Value Is DBNull.Value, "", .Cells(GridCols.Periodo).Value)
                 frmLiquidaciones.lblFecha_presentacion.Text = IIf(.Cells(GridCols.Fecha).Value Is DBNull.Value, "", .Cells(GridCols.Fecha).Value)
                 frmLiquidaciones.lblStatus_presentacion.Text = IIf(.Cells(GridCols.Estado).Value Is DBNull.Value, "", .Cells(GridCols.Estado).Value)
+                frmLiquidaciones.chkAgrupado.Checked = chkAgrupar.Checked
+
+                Dim sqlDetalle As String
+                Dim sqlConceptos As String
 
                 ''Llenado de items detalle en frmLiquidaciones
-                Dim SqlDetalle = $"select
-                                null                as IdLiquidacion_det,-- 0
-	                            pd.id				as ID,			     -- 1
-	                            pd.IdFarmacia		As IdFarmacia,	     -- 2
-	                            f.Codigo			AS CodigoFarmacia,   -- 3
-	                            f.nombre			As Farmacia,         -- 4
-	                            null            	As IdLiquidacion,    -- 5
-	                            pd.recetas			as Recetas,          -- 6
-	                            pd.Recaudado		as Recaudado,	     -- 7
-	                            pd.AcargoOS			as 'A Cargo Os',     -- 8
-	                            0.00				as 'Recetas A',	     -- 9
-	                            0.00				as 'Recaudado A',    -- 10
-	                            0.00				as 'A Cargo OS A',   -- 11
-	                            pd.Bonificacion		as Bonificación	     -- 12
+                If chkAgrupar.Checked Then
+                    sqlDetalle = $"
+                        select 
+                            null					as IdLiquidacion_det,	-- 0
+                            -1						as IdPresentacion_det,	-- 1
+                            pd.IdFarmacia			as IdFarmacia,			-- 2
+                            ROW_NUMBER() OVER(order by f. nombre) as nº,	-- 3
+                            f.Codigo				AS CodigoFarmacia,		-- 4
+                            f.nombre				As Farmacia,			-- 5
+                            null					As IdLiquidacion,		-- 6
+                            sum(pd.recetas)			as Recetas,				-- 7
+                            sum(pd.Recaudado)		as Recaudado,			-- 8
+                            sum(pd.AcargoOS)		as 'A Cargo Os',		-- 9
+                            0.00					as 'Recetas A',			-- 10
+                            0.00					as 'Recaudado A',		-- 11
+                            0.00					as 'A Cargo OS A',		-- 12
+                            sum(pd.Bonificacion)	as Bonificación			-- 13
+                        from Presentaciones_det pd
+                        join Farmacias f on f.ID = pd.IdFarmacia
+                        where pd.IdPresentacion = { .Cells(GridCols.ID).Value}
+                        group by			
+                            pd.IdFarmacia,
+                            f.Codigo,
+                            f.nombre
+                    "
+                    sqlConceptos = $"
+                        select 
+		                    null				as ID,
+		                    ROW_NUMBER() OVER(order by f. nombre)as IdDetalle,
+		                    pd.IdFarmacia		as IdFarmacia,
+		                    'A Cargo OS'		as detalle,
+		                    sum(pd.AcargoOS)	as valor,
+                            'insert'			as estado,
+                                0				as edit
+	                    from Presentaciones_det pd
+		                    join Farmacias f on f.ID = pd.IdFarmacia
+	                    where pd.IdPresentacion = { .Cells(GridCols.ID).Value}
+	                    group by
+		                    pd.IdFarmacia,
+		                    f.Nombre
+                    "
+                Else
+                    sqlDetalle = $"
+                        select
+		                        null					as IdLiquidacion_det,	-- 0
+		                        pd.ID					as IdPresentacion_det,	-- 1
+		                        pd.IdFarmacia			as IdFarmacia,			-- 2
+		                        ROW_NUMBER() OVER(order by f. nombre) as nº,	-- 3
+		                        f.Codigo				AS CodigoFarmacia,		-- 4
+		                        f.nombre				As Farmacia,			-- 5
+		                        null					As IdLiquidacion,		-- 6
+		                        pd.recetas				as Recetas,				-- 7
+		                        pd.Recaudado			as Recaudado,			-- 8
+		                        pd.AcargoOS				as 'A Cargo Os',		-- 9
+		                        0.00					as 'Recetas A',			-- 10
+		                        0.00					as 'Recaudado A',		-- 11
+		                        0.00					as 'A Cargo OS A',		-- 12
+		                        pd.Bonificacion			as Bonificación			-- 13
 	
-                            from Presentaciones_det pd
-                            join Farmacias f on f.ID = pd.IdFarmacia
-                            where IdPresentacion = { .Cells(GridCols.ID).Value}"
+                        from Presentaciones_det pd
+                        join Farmacias f on f.ID = pd.IdFarmacia
+                        where pd.IdPresentacion = { .Cells(GridCols.ID).Value}
+                    "
+                    sqlConceptos = $"
+                        select 
+		                    null			as ID,
+		                    ROW_NUMBER() OVER(order by f. nombre)as IdDetalle,
+		                    pd.IdFarmacia		as IdFarmacia,
+		                    'A Cargo OS'	as detalle,
+		                    pd.AcargoOS		as valor,
+                            'insert'        as estado,
+                                0           as edit
+	                    from Presentaciones_det pd
+		                    join Farmacias f on f.ID = pd.IdFarmacia
+	                    where pd.IdPresentacion = { .Cells(GridCols.ID).Value}
+                    "
+                End If
 
-                Dim sqlConceptos = $"select 
-		                                null			as ID,
-		                                ID				as IdDetalle,
-		                                IdFarmacia		as IdFarmacia,
-		                                'A Cargo OS'	as detalle,
-		                                AcargoOS		as valor,
-                                        'insert'        as estado,
-                                            0           as edit
-	                                from Presentaciones_det
-	                                where IdPresentacion = { .Cells(GridCols.ID).Value}"
+
+
 
                 frmLiquidaciones.Presentacion_request(SqlDetalle, sqlConceptos)
             End With
@@ -106,4 +161,6 @@ Public Class frmSelectPresentacion
             MsgBox("Seleccione una presentación para poder continuar.")
         End If
     End Sub
+
+
 End Class

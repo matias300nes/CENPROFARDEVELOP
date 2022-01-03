@@ -58,6 +58,7 @@ Public Class frmLiquidaciones
         Estado = 8
         Observacion = 9
         total = 10
+        Agrupado = 11
     End Enum
 
     Enum ColumnasDelGridItems
@@ -248,6 +249,7 @@ Public Class frmLiquidaciones
             ''Hide not needed columns from grd
             .Columns(GrdColumns.IdPresentacion).Visible = False
             .Columns(GrdColumns.PresentacionCodigo).Visible = False
+            .Columns(GrdColumns.Agrupado).Visible = False
 
             ''resize some columns
             .Columns(GrdColumns.Codigo).Width = 80
@@ -459,7 +461,7 @@ Public Class frmLiquidaciones
         gl_dataset.Tables.Add(dtConcepto)
 
         gl_dataset.Relations.Add("MasterGridDetail",
-                      gl_dataset.Tables(0).Columns("ID"),
+                      gl_dataset.Tables(0).Columns("nº"),
                       gl_dataset.Tables(1).Columns("IdDetalle")
         )
 
@@ -1214,6 +1216,7 @@ Public Class frmLiquidaciones
         dtpFECHA.Tag = "7"
         lblStatus_presentacion.Tag = "8"
         lblObservacion.Tag = "9"
+        chkAgrupado.Tag = "11"
 
     End Sub
 
@@ -1536,6 +1539,12 @@ Public Class frmLiquidaciones
             param_total.Value = Decimal.Parse(lblTotal.Text)
             param_total.Direction = ParameterDirection.Input
 
+            Dim param_agrupado As New SqlClient.SqlParameter
+            param_agrupado.ParameterName = "@agrupado"
+            param_agrupado.SqlDbType = SqlDbType.Bit
+            param_agrupado.Value = chkAgrupado.Checked
+            param_agrupado.Direction = ParameterDirection.Input
+
             ''user
             Dim param_user As New SqlClient.SqlParameter
             param_user.ParameterName = "@user"
@@ -1552,7 +1561,8 @@ Public Class frmLiquidaciones
 
 
             SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spLiquidaciones_Insert_Update",
-                                      param_id, param_codigo, param_idPresentacion, param_fecha, param_total, param_user, param_res)
+                                      param_id, param_codigo, param_idPresentacion, param_fecha, param_total,
+                                      param_agrupado, param_user, param_res)
 
             txtID.Text = param_id.Value
             res = param_res.Value
@@ -1586,6 +1596,13 @@ Public Class frmLiquidaciones
                 param_id.Value = detalle("IdLiquidacion_det")
                 param_id.Direction = ParameterDirection.InputOutput
 
+                ''index
+                Dim param_index As New SqlClient.SqlParameter
+                param_index.ParameterName = "@index"
+                param_index.SqlDbType = SqlDbType.Int
+                param_index.Value = detalle("nº")
+                param_index.Direction = ParameterDirection.Input
+
                 ''ID Liquidacion
                 Dim param_idLiquidacion As New SqlClient.SqlParameter
                 param_idLiquidacion.ParameterName = "@idLiquidacion"
@@ -1597,8 +1614,15 @@ Public Class frmLiquidaciones
                 Dim param_idPresentacion_det As New SqlClient.SqlParameter
                 param_idPresentacion_det.ParameterName = "@idPresentacion_det"
                 param_idPresentacion_det.SqlDbType = SqlDbType.BigInt
-                param_idPresentacion_det.Value = detalle("id")
+                param_idPresentacion_det.Value = detalle("idPresentacion_det")
                 param_idPresentacion_det.Direction = ParameterDirection.Input
+
+                ''idFarmacia
+                Dim param_idFarmacia As New SqlClient.SqlParameter
+                param_idFarmacia.ParameterName = "@idFarmacia"
+                param_idFarmacia.SqlDbType = SqlDbType.Int
+                param_idFarmacia.Value = detalle("IdFarmacia")
+                param_idFarmacia.Direction = ParameterDirection.Input
 
                 ''recetasA
                 Dim param_recetasA As New SqlClient.SqlParameter
@@ -1644,8 +1668,9 @@ Public Class frmLiquidaciones
 
 
                 SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spLiquidaciones_Det_Insert_Update",
-                                              param_id, param_idLiquidacion, param_idPresentacion_det, param_recetasA,
-                                              param_recaudadoA, param_aCargoOsA, param_total, param_user, param_res)
+                                              param_id, param_index, param_idLiquidacion, param_idPresentacion_det,
+                                              param_idFarmacia, param_recetasA, param_recaudadoA, param_aCargoOsA,
+                                               param_total, param_user, param_res)
 
                 res = param_res.Value
 
@@ -2372,7 +2397,7 @@ Public Class frmLiquidaciones
     Private Sub SuperGrdResultado_DataBindingComplete(sender As Object, e As GridDataBindingCompleteEventArgs) Handles SuperGrdResultado.DataBindingComplete
         Dim RowsCount = SuperGrdResultado.PrimaryGrid.Rows.Count
         panel = e.GridPanel
-        'SuperGrdResultado.PrimaryGrid.Columns("ID").Visible = False
+        SuperGrdResultado.PrimaryGrid.Columns("IdPresentacion_det").Visible = False
         SuperGrdResultado.PrimaryGrid.Columns("IdLiquidacion_det").Visible = False
         SuperGrdResultado.PrimaryGrid.Columns("IdFarmacia").Visible = False
         SuperGrdResultado.PrimaryGrid.Columns("IdLiquidacion").Visible = False
@@ -2570,7 +2595,7 @@ Public Class frmLiquidaciones
             valor = -Farmacia("subtotal") * Decimal.Parse(porcentaje)
 
             'Dim CurrentConcepto = gl_dataset.Tables(1).Select($"IdDetalle = '{Farmacia("ID")}' and detalle = '{detalle}'")(0)
-            Dim CurrentConcepto = gl_dataset.Tables(1).Select($"IdDetalle = '{Farmacia("ID")}' and detalle = '{detalle}'")
+            Dim CurrentConcepto = gl_dataset.Tables(1).Select($"IdDetalle = '{Farmacia("nº")}' and detalle = '{detalle}'")
             If CurrentConcepto Is DBNull.Value Then ' If CurrentConcepto IsNot Nothing Then
                 CurrentConcepto("valor") = valor
                 If CurrentConcepto("estado") = "saved" Then
@@ -2582,7 +2607,7 @@ Public Class frmLiquidaciones
                 ''creo el concepto
                 concepto = gl_dataset.Tables(1).NewRow ' <- dtConceptos
 
-                concepto("IdDetalle") = Farmacia("ID")
+                concepto("IdDetalle") = Farmacia("nº")
                 concepto("IdFarmacia") = Farmacia("IdFarmacia")
                 concepto("detalle") = detalle
                 concepto("valor") = valor
