@@ -30,7 +30,7 @@ Public Class frmSelectPresentacion
         Try
             connection = SqlHelper.GetConnection(ConnStringSEI)
             ''Detalle de liquidacion
-            Dim Sql = $"exec spPresentaciones_Select_All @estado = 'PENDIENTE', @eliminado = 0"
+            Dim Sql = $"exec spPresentaciones_Select_All @estado = '{cmbEstado.Text.Replace(" ", "")}', @eliminado = 0"
 
             Dim cmd As New SqlCommand(Sql, connection)
             Dim da As New SqlDataAdapter(cmd)
@@ -48,8 +48,53 @@ Public Class frmSelectPresentacion
 
     End Sub
 
+    Private Sub llenarCmbEstados()
+        Dim connection As SqlClient.SqlConnection = Nothing
+        Dim ds As Data.DataSet
+
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+        Catch ex As Exception
+            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End Try
+
+        Try
+
+            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, " select distinct [estado] as Estado from Presentaciones where estado = 'PRESENTADO' or estado = 'PAGO PARCIAL'")
+            ds.Dispose()
+
+            With Me.cmbEstado
+                .DataSource = ds.Tables(0).DefaultView
+                .DisplayMember = "estado"
+                '.ValueMember = "ID"
+                .AutoCompleteMode = AutoCompleteMode.SuggestAppend
+                .AutoCompleteSource = AutoCompleteSource.ListItems
+                '.SelectedIndex = "ID"
+            End With
+
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If Not connection Is Nothing Then
+                CType(connection, IDisposable).Dispose()
+            End If
+        End Try
+    End Sub
+
     Private Sub frmNuevaLiquidacion_Load(sender As Object, e As EventArgs) Handles Me.Load
         LlenarGrilla()
+        llenarCmbEstados()
     End Sub
 
     Private Sub btnListo_Click(sender As Object, e As EventArgs) Handles btnListo.Click
@@ -162,5 +207,11 @@ Public Class frmSelectPresentacion
         End If
     End Sub
 
+    Private Sub chkAgrupar_CheckedChanged(sender As Object, e As EventArgs) Handles chkAgrupar.CheckedChanged
 
+    End Sub
+
+    Private Sub cmbEstado_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbEstado.SelectedIndexChanged
+        LlenarGrilla()
+    End Sub
 End Class
