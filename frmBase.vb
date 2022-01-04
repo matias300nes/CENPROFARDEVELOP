@@ -270,7 +270,7 @@ Public Class frmBase
             paginar(d)
         Else
             'sino, se mantiene la grilla sin filtros como era antes de este cambio
-            paginar(ds.Tables(0)) 'Asignar los datos paginados a la grilla
+            paginar(ds.Tables(0)) 'Asignar los datos paginados a la grilla 'nacho
         End If
         'Catch ex As Exception
 
@@ -1266,4 +1266,7 @@ Public Class frmBase
         End If
     End Sub
 
+    Private Sub grd_SelectionChanged(sender As Object, e As EventArgs) Handles grd.SelectionChanged
+
+    End Sub
 End Class

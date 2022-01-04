@@ -107,6 +107,15 @@ Public Class frmPresentaciones
         End If
     End Sub
 
+    Private Sub grd_SelectionChanged(sender As Object, e As EventArgs) Handles grd.SelectionChanged
+        ''DataGridView1.SelectedRows.Count().ToString()
+        If grd.SelectedRows.Count() > 1 Then
+            btnUnificarPresentaciones.Enabled = True
+        Else
+            btnUnificarPresentaciones.Enabled = False
+        End If
+    End Sub
+
     Private Sub frmPresentaciones_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         ''prueba nacho
         Cursor = Cursors.WaitCursor
@@ -188,6 +197,8 @@ Public Class frmPresentaciones
         'grd.Columns(19).Visible = False
         'grd.Columns(20).Visible = False
 
+        grd.MultiSelect = True
+        btnUnificarPresentaciones.Enabled = False
         Cursor = Cursors.Default
 
     End Sub
@@ -2283,7 +2294,7 @@ Public Class frmPresentaciones
                                 Cerrar_Tran()
 
                                 'rdPendientes.Checked = 1
-                                cmbEstado.Text = "PENDIENTE"
+                                cmbEstado.Text = "PRESENTADO"
                                 'SQL = $"exec spPresentaciones_Select_All @Pendientes = {rdPendientes.Checked} ,@Eliminado = {rdAnuladas.Checked} ,@Todos = {rdTodasOC.Checked}"
                                 SQL = $"exec spPresentaciones_Select_All @Estado = {cmbEstado.Text.Replace(" ", "")} ,@Eliminado = 0"
                                 bolModo = False
@@ -2430,9 +2441,9 @@ Public Class frmPresentaciones
     End Sub
 
     Private Overloads Sub btnCancelar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCancelar.Click
-        'rdPendientes.Checked = 1
-        'btnCopiarOC.Enabled = True
-        'btnFinalizar.Enabled = True
+        Util.LimpiarTextBox(Me.Controls)
+        LimpiarGridItems(grdItems)
+        grd.ClearSelection()
         bolModo = False
     End Sub
 
@@ -2550,6 +2561,116 @@ Public Class frmPresentaciones
             Return dt_grouped
         End Function
     End Class
+
+    Private Sub btnUnificarPresentaciones_Click(sender As Object, e As EventArgs) Handles btnUnificarPresentaciones.Click
+        Dim connection As SqlClient.SqlConnection = Nothing
+        Dim dsRowsSelected As Data.DataSet
+        Dim FilasSeleccionadas As DataGridViewSelectedRowCollection = grd.SelectedRows
+        Dim condicion As String = ""
+        Dim sql As String = ""
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+        Catch ex As Exception
+            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End Try
+
+        Try
+
+
+
+            For Each fila As DataGridViewRow In FilasSeleccionadas
+                Dim id As String = fila.Cells(0).Value.ToString
+                If condicion = "" Then
+                    condicion = $"p.id = {id} "
+                Else
+                    condicion += $"or p.id = {id} "
+                End If
+            Next
+
+            Dim result As DialogResult = MessageBox.Show(
+                                  $"¿Desea agrupar los items por farmacia?",
+                                  "Confirmar",
+                                  MessageBoxButtons.YesNo)
+
+            If result = DialogResult.Yes Then
+                sql = $"select
+	                                                                                0					as ID,			   -- 0
+	                                                                                pd.IdFarmacia			As IdFarmacia,	   -- 1
+	                                                                                f.Codigo				AS CodigoFarmacia, -- 2
+	                                                                                f.nombre				As Farmacia,       -- 3
+	                                                                                null					As IdPresentacion, -- 4
+	                                                                                sum(pd.recetas)			as Recetas,        -- 5
+	                                                                                sum(pd.Recaudado)		as Recaudado,	   -- 6
+	                                                                                sum(pd.AcargoOS)		as 'A Cargo Os',   -- 7
+	                                                                                sum(pd.Bonificacion)	as Bonificación,   -- 8
+	                                                                                sum(pd.total)			As Total           -- 9	
+                                                                                from Presentaciones_det Pd
+	                                                                                JOIN Presentaciones p ON pd.IdPresentacion = p.id
+	                                                                                join Farmacias f on f.ID = pd.IdFarmacia
+                                                                                where pd.Eliminado = 0 and ({condicion})
+                                                                                group by
+	                                                                                pd.IdFarmacia,
+	                                                                                f.Codigo,
+	                                                                                f.Nombre"
+
+
+            Else
+                sql = $"select
+	                                                                                0				as ID,			   -- 0
+	                                                                                pd.IdFarmacia		As IdFarmacia,	   -- 1
+	                                                                                f.Codigo			AS CodigoFarmacia, -- 2
+	                                                                                f.nombre			As Farmacia,       -- 3
+	                                                                                null				As IdPresentacion, -- 4
+	                                                                                pd.recetas			as Recetas,        -- 5
+	                                                                                pd.Recaudado		as Recaudado,	   -- 6
+	                                                                                pd.AcargoOS			as 'A Cargo Os',   -- 7
+	                                                                                pd.Bonificacion		as Bonificación,   -- 8
+	                                                                                pd.total			As Total           -- 9	
+                                                                                from Presentaciones_det Pd
+	                                                                                JOIN Presentaciones p ON pd.IdPresentacion = p.id
+	                                                                                join Farmacias f on f.ID = pd.IdFarmacia
+                                                                                where pd.Eliminado = 0 and ({condicion})"
+            End If
+            dsRowsSelected = SqlHelper.ExecuteDataset(connection, CommandType.Text, sql)
+            dsRowsSelected.Dispose()
+            btnNuevo_Click(sender, e)
+            Dim dt = dsRowsSelected.Tables(0)
+            Dim i As Integer
+            For i = 0 To dt.Rows.Count - 1
+
+                grdItems.Rows.Add(
+                    dt.Rows(i)(ColumnasDelGridItems.ID).ToString(),
+                    dt.Rows(i)(ColumnasDelGridItems.IdFarmacia).ToString(),
+                    dt.Rows(i)(ColumnasDelGridItems.CodigoFarmacia).ToString(),
+                    dt.Rows(i)(ColumnasDelGridItems.Nombre).ToString(),
+                    dt.Rows(i)(ColumnasDelGridItems.IdPresentacion).ToString(),
+                    dt.Rows(i)(ColumnasDelGridItems.Recetas).ToString(),
+                    dt.Rows(i)(ColumnasDelGridItems.Recaudado).ToString(),
+                    dt.Rows(i)(ColumnasDelGridItems.ACargoOS).ToString(),
+                    dt.Rows(i)(ColumnasDelGridItems.Bonificacion).ToString(),
+                    dt.Rows(i)(ColumnasDelGridItems.Total).ToString())
+
+
+            Next
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If Not connection Is Nothing Then
+                CType(connection, IDisposable).Dispose()
+            End If
+        End Try
+    End Sub
 
 
 
