@@ -56,9 +56,10 @@ Public Class frmLiquidaciones
         Fecha_presentacion = 6
         Fecha_liquidacion = 7
         Estado = 8
-        Observacion = 9
-        total = 10
-        Agrupado = 11
+        Liquidado = 9
+        Observacion = 10
+        total = 11
+        Agrupado = 12
     End Enum
 
     Enum ColumnasDelGridItems
@@ -216,6 +217,7 @@ Public Class frmLiquidaciones
         band = 0
         'Modifico botones del frmbase
         btnEliminar.Text = "Cancelar Liquidación"
+        btnEliminar.Enabled = False
         ToolStrip_lblCodMaterial.Text = "Cod. Liq."
         'btnCancelar.Visible = False
         btnPrimero.Visible = False
@@ -240,6 +242,7 @@ Public Class frmLiquidaciones
         Permitir = True
         CargarCajas()
         PrepararBotones()
+        btnEliminar.Enabled = Not chkLiquidado.Checked
 
 
         With grd
@@ -250,6 +253,7 @@ Public Class frmLiquidaciones
             .Columns(GrdColumns.IdPresentacion).Visible = False
             .Columns(GrdColumns.PresentacionCodigo).Visible = False
             .Columns(GrdColumns.Agrupado).Visible = False
+            .Columns(GrdColumns.Liquidado).Visible = False
 
             ''resize some columns
             .Columns(GrdColumns.Codigo).Width = 80
@@ -1214,9 +1218,10 @@ Public Class frmLiquidaciones
         lblPeriodo_presentacion.Tag = "5"
         lblFecha_presentacion.Tag = "6"
         dtpFECHA.Tag = "7"
-        lblStatus_presentacion.Tag = "8"
-        lblObservacion.Tag = "9"
-        chkAgrupado.Tag = "11"
+        lblStatus.Tag = "8"
+        chkLiquidado.Tag = "9"
+        lblObservacion.Tag = "10"
+        chkAgrupado.Tag = "12"
 
     End Sub
 
@@ -1545,6 +1550,12 @@ Public Class frmLiquidaciones
             param_agrupado.Value = chkAgrupado.Checked
             param_agrupado.Direction = ParameterDirection.Input
 
+            Dim param_liquidado As New SqlClient.SqlParameter
+            param_liquidado.ParameterName = "@liquidado"
+            param_liquidado.SqlDbType = SqlDbType.Bit
+            param_liquidado.Value = chkLiquidado.Checked
+            param_liquidado.Direction = ParameterDirection.Input
+
             ''user
             Dim param_user As New SqlClient.SqlParameter
             param_user.ParameterName = "@user"
@@ -1562,7 +1573,7 @@ Public Class frmLiquidaciones
 
             SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spLiquidaciones_Insert_Update",
                                       param_id, param_codigo, param_idPresentacion, param_fecha, param_total,
-                                      param_agrupado, param_user, param_res)
+                                      param_agrupado, param_liquidado, param_user, param_res)
 
             txtID.Text = param_id.Value
             res = param_res.Value
@@ -2004,7 +2015,7 @@ Public Class frmLiquidaciones
         lblObservacion.Text = "-"
         lblPeriodo_presentacion.Text = "-"
         lblFecha_presentacion.Text = "-"
-        lblStatus_presentacion.Text = "CONFECCIONANDO"
+        lblStatus.Text = "CONFECCIONANDO"
 
 
         SuperGrdResultado.PrimaryGrid.DataSource = Nothing
@@ -2081,6 +2092,7 @@ Public Class frmLiquidaciones
 
                                 MDIPrincipal.NoActualizarBase = False
                                 btnActualizar_Click(sender, e)
+                                btnEliminar.Enabled = Not chkLiquidado.Checked
 
                                 Util.MsgStatus(Status1, "Se ha actualizado el registro.", My.Resources.Resources.ok.ToBitmap)
 
@@ -2098,79 +2110,65 @@ Public Class frmLiquidaciones
     End Sub
 
     Private Sub btnEliminar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEliminar.Click
-        '
-        ' Para borrar un vale hay que tener un permiso especial de eliminacion
-        ' ademas, no se puede borrar un vale ya eliminado de antes.
-        ' La eliminacion es lógica...y se reversan los items para ajustar el inventario
 
-        'If chkFacturaCancelada.Checked = True Then
-        '    Util.MsgStatus(Status1, "No se puede anular la recepción porque está asociada a un pago que se efectuó. Anule el pago asociado y luego anule esta recepción.", My.Resources.stop_error.ToBitmap)
-        '    Util.MsgStatus(Status1, "No se puede anular la recepción porque está asociada a un pago que se efectuó." & vbCrLf & "Anule el pago asociado y luego anule esta recepción.", My.Resources.stop_error.ToBitmap, True)
-        '    Exit Sub
-        'End If
+        If MessageBox.Show("¿Está seguro que desea cancelar la Liquidación seleccionada?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
+            Exit Sub
+        End If
 
-        'Dim res As Integer
+        Dim connection As SqlClient.SqlConnection = Nothing
+        Dim res As Integer = 0
 
-        ''If BAJA Then
-        'If chkEliminado.Checked = False Then
-        '    If MessageBox.Show("Esta acción reversará las Recepciones de todos los items." + vbCrLf + "¿Está seguro que desea eliminar?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
-        '        Util.MsgStatus(Status1, "Eliminando el registro...", My.Resources.Resources.indicator_white)
-        '        res = EliminarRegistro_Recepcion()
-        '        Select Case res
-        '            Case -3
-        '                Cancelar_Tran()
-        '                Util.MsgStatus(Status1, "No se registró el mov. de stock.", My.Resources.stop_error.ToBitmap)
-        '                Util.MsgStatus(Status1, "No se registró el mov. de stock.", My.Resources.stop_error.ToBitmap, True)
-        '            Case -2
-        '                Cancelar_Tran()
-        '                Util.MsgStatus(Status1, "El registro no existe.", My.Resources.stop_error.ToBitmap)
-        '                Util.MsgStatus(Status1, "El registro no existe.", My.Resources.stop_error.ToBitmap, True)
-        '            Case -1
-        '                Cancelar_Tran()
-        '                Util.MsgStatus(Status1, "No se pudo borrar el registro.", My.Resources.stop_error.ToBitmap)
-        '                Util.MsgStatus(Status1, "No se pudo borrar el registro.", My.Resources.stop_error.ToBitmap, True)
-        '            Case 0
-        '                Cancelar_Tran()
-        '                Util.MsgStatus(Status1, "No se pudo borrar el registro.", My.Resources.stop_error.ToBitmap)
-        '                Util.MsgStatus(Status1, "No se pudo borrar el registro.", My.Resources.stop_error.ToBitmap, True)
-        '            Case Else
-        '                res = EliminarRegistro_Gasto()
-        '                Select Case res
-        '                    Case -8
-        '                        Cancelar_Tran()
-        '                        Util.MsgStatus(Status1, "El gasto está asociado a un Pago. Anule el pago al proveedor para luego anular el gasto.", My.Resources.Resources.stop_error.ToBitmap)
-        '                        Util.MsgStatus(Status1, "El gasto está asociado a un Pago. Anule el pago al proveedor para luego anular el gasto.", My.Resources.Resources.stop_error.ToBitmap, True)
-        '                    Case 0
-        '                        Cancelar_Tran()
-        '                        Util.MsgStatus(Status1, "No pudo realizarse la anulación.", My.Resources.Resources.stop_error.ToBitmap)
-        '                        Util.MsgStatus(Status1, "No pudo realizarse la anulación.", My.Resources.Resources.stop_error.ToBitmap, True)
-        '                    Case -1
-        '                        Cancelar_Tran()
-        '                        Util.MsgStatus(Status1, "No pudo realizarse la anulación.", My.Resources.Resources.stop_error.ToBitmap)
-        '                        Util.MsgStatus(Status1, "No pudo realizarse la anulación.", My.Resources.Resources.stop_error.ToBitmap, True)
-        '                    Case Else
-        '                        Cerrar_Tran()
-        '                        PrepararBotones()
+        connection = SqlHelper.GetConnection(ConnStringSEI)
+        'Abrir una transaccion para guardar y asegurar que se guarda todo
+        If Abrir_Tran(connection) = False Then
+            MessageBox.Show("No se pudo abrir una transaccion", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End If
 
-        '                        'SQL = "exec spRecepciones_Select_All  @Eliminado = 0"
 
-        '                        btnActualizar_Click(sender, e)
-        '                        Util.MsgStatus(Status1, "Se ha borrado el registro.", My.Resources.ok.ToBitmap)
-        '                        Util.MsgStatus(Status1, "Se ha borrado el registro.", My.Resources.ok.ToBitmap, True, True)
-        '                End Select
-        '        End Select
-        '    Else
-        '        Util.MsgStatus(Status1, "Acción de eliminar cancelada.", My.Resources.stop_error.ToBitmap)
-        '        Util.MsgStatus(Status1, "Acción de eliminar cancelada.", My.Resources.stop_error.ToBitmap, True)
-        '    End If
-        'Else
-        '    Util.MsgStatus(Status1, "El registro ya está eliminado.", My.Resources.stop_error.ToBitmap)
-        '    Util.MsgStatus(Status1, "El registro ya está eliminado.", My.Resources.stop_error.ToBitmap, True)
-        'End Ifs
-        ''Else
-        ''Util.MsgStatus(Status1, "No tiene permiso para eliminar registros.", My.Resources.stop_error.ToBitmap)
-        ''Util.MsgStatus(Status1, "No tiene permiso para eliminar registros.", My.Resources.stop_error.ToBitmap, True)
-        ''End If
+        Try
+            ''ID
+            Dim param_id As New SqlClient.SqlParameter
+            param_id.ParameterName = "@idLiquidacion"
+            param_id.SqlDbType = SqlDbType.BigInt
+            param_id.Value = IIf(txtID.Text <> "", txtID.Text, DBNull.Value)
+            param_id.Direction = ParameterDirection.Input
+
+            SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spLiquidaciones_Cancelar", param_id)
+
+            Cerrar_Tran()
+
+            bolModo = False
+            PrepararBotones()
+
+            ''disable buttons
+            btnCargarPresentacion.Enabled = False
+
+            MDIPrincipal.NoActualizarBase = False
+            btnActualizar_Click(sender, e)
+            btnEliminar.Enabled = Not chkLiquidado.Checked
+
+            Util.MsgStatus(Status1, "Se ha cancelado la liquidacion.", My.Resources.Resources.ok.ToBitmap)
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            Cancelar_Tran()
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
+        If Not conn_del_form Is Nothing Then
+            CType(conn_del_form, IDisposable).Dispose()
+        End If
+
     End Sub
 
     Private Sub btnImprimir_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnImprimir.Click
@@ -2635,5 +2633,112 @@ Public Class frmLiquidaciones
         Dim NuevaLiquidacion As New frmSelectPresentacion
         NuevaLiquidacion.ShowDialog()
     End Sub
+
+    Private Sub btnLiquidar_Click(sender As Object, e As EventArgs) Handles btnLiquidar.Click
+        Dim result As DialogResult = MessageBox.Show(
+                              $"¿Desea confirmar la liquidación {txtCodigo.Text}?{vbLf}Se generará el pago correspondiente sobre el saldo de profesionales{vbLf}Monto: ${lblTotal.Text}",
+                              "Confirmar liquidación",
+                              MessageBoxButtons.YesNo)
+
+        If result = DialogResult.Yes Then
+            Dim res As Integer, res_item As Integer, res_concepto As Integer, res_pago As Integer
+
+            ''Cambio bit de liquidado
+            chkLiquidado.Checked = True
+
+            Util.MsgStatus(Status1, "Guardando el registro...", My.Resources.Resources.indicator_white)
+            'res = AgregarActualizar_Registro_Recepciones(ControlFactura, ControlRemito)
+            res = GuardarLiquidacion()
+            Select Case res
+                Case -1
+                    Cancelar_Tran()
+                    Util.MsgStatus(Status1, "No se pudo actualizar el registro (Encabezado).", My.Resources.Resources.stop_error.ToBitmap)
+                    Util.MsgStatus(Status1, "No se pudo actualizar el registro (Encabezado).", My.Resources.Resources.stop_error.ToBitmap, True)
+                    Exit Sub
+                Case 0
+                    Cancelar_Tran()
+                    Util.MsgStatus(Status1, "No se pudo agregar el registro (Encabezado).", My.Resources.Resources.stop_error.ToBitmap)
+                    Util.MsgStatus(Status1, "No se pudo agregar el registro (Encabezado).", My.Resources.Resources.stop_error.ToBitmap, True)
+                    Exit Sub
+                Case Else
+                    res_item = GuardarLiquidacion_det()
+                    Select Case res_item
+                        Case -1
+                            Cancelar_Tran()
+                            Util.MsgStatus(Status1, "No se pudo actualizar el registro (Detalle).", My.Resources.Resources.stop_error.ToBitmap)
+                            Util.MsgStatus(Status1, "No se pudo actualizar el registro (Detalle).", My.Resources.Resources.stop_error.ToBitmap, True)
+                            Exit Sub
+                        Case 0
+                            Cancelar_Tran()
+                            Util.MsgStatus(Status1, "No se pudo agregar el registro (Detalle).", My.Resources.Resources.stop_error.ToBitmap)
+                            Util.MsgStatus(Status1, "No se pudo agregar el registro (Detalle).", My.Resources.Resources.stop_error.ToBitmap, True)
+                            Exit Sub
+                        Case Else
+                            Util.MsgStatus(Status1, "Guardando los items...", My.Resources.Resources.indicator_white)
+                            'res_item = AgregarRegistro_Recepciones_Items(txtID.Text)
+                            res_concepto = GuardarConceptos()
+                            Select Case res_concepto
+                                Case -1
+                                    Cancelar_Tran()
+                                    Util.MsgStatus(Status1, "No se pudo registrar el registro (Concepto).", My.Resources.Resources.stop_error.ToBitmap)
+                                    Util.MsgStatus(Status1, "No se pudo registrar el registro (Concepto).", My.Resources.Resources.stop_error.ToBitmap, True)
+                                    Exit Sub
+                                Case 0
+                                    Cancelar_Tran()
+                                    Util.MsgStatus(Status1, "No se pudo agregar el registro (Concepto).", My.Resources.Resources.stop_error.ToBitmap)
+                                    Util.MsgStatus(Status1, "No se pudo agregar el registro (Concepto).", My.Resources.Resources.stop_error.ToBitmap, True)
+                                    Exit Sub
+                                Case Else
+                                    res_pago = GenerarPago()
+                                    Select Case res_pago
+                                        Case Else
+                                            Cerrar_Tran()
+
+                                            bolModo = False
+                                            PrepararBotones()
+
+                                            ''disable buttons
+                                            btnCargarPresentacion.Enabled = False
+
+                                            MDIPrincipal.NoActualizarBase = False
+                                            btnActualizar_Click(sender, e)
+                                            btnEliminar.Enabled = Not chkLiquidado.Checked
+
+                                            Util.MsgStatus(Status1, "Se ha actualizado el registro.", My.Resources.Resources.ok.ToBitmap)
+                                    End Select
+
+
+                            End Select
+                    End Select
+            End Select
+
+            '
+            ' cerrar la conexion si está abierta.
+            '
+            If Not conn_del_form Is Nothing Then
+                CType(conn_del_form, IDisposable).Dispose()
+            End If
+        End If
+    End Sub
+
+    Private Function GenerarPago() As Integer
+        MsgBox("Generando pago...")
+        Return 1
+    End Function
+
+    Private Sub chkLiquidado_CheckedChanged(sender As Object, e As EventArgs) Handles chkLiquidado.CheckedChanged
+        If chkLiquidado.Checked = True Then
+            btnGuardar.Enabled = False
+            btnLiquidar.Enabled = False
+            btnExcelWindow.Enabled = False
+            btnEliminar.Enabled = False
+        Else
+            btnGuardar.Enabled = True
+            btnLiquidar.Enabled = True
+            btnExcelWindow.Enabled = True
+            btnEliminar.Enabled = False
+        End If
+    End Sub
+
 
 End Class
