@@ -687,7 +687,7 @@ Public Module Util
                 If TypeOf (oControl) Is DevComponents.DotNetBar.Controls.ComboBoxEx Then
                     If oControl.Tag <> "" Then
                         Try
-                            oControl.checked = IIf(g.CurrentRow.Cells(CType(oControl.Tag, Integer)).Value Is DBNull.Value, "", g.CurrentRow.Cells(CType(oControl.Tag, Integer)).Value)
+                            oControl.SelectedValue = IIf(g.CurrentRow.Cells(CType(oControl.Tag, Integer)).Value Is DBNull.Value, "", g.CurrentRow.Cells(CType(oControl.Tag, Integer)).Value)
                         Catch ex As Exception
                             'MsgBox("9")
                         End Try

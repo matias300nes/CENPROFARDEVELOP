@@ -28,12 +28,13 @@ Partial Class frmLiquidaciones
         Dim Background6 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
         Dim Background7 As DevComponents.DotNetBar.SuperGrid.Style.Background = New DevComponents.DotNetBar.SuperGrid.Style.Background()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.lblFecha_liquidado = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.lblFecha_creacion = New System.Windows.Forms.Label()
         Me.chkLiquidado = New System.Windows.Forms.CheckBox()
         Me.chkAgrupado = New System.Windows.Forms.CheckBox()
         Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
         Me.cmbTipoPago = New DevComponents.DotNetBar.Controls.ComboBoxEx()
-        Me.pagoFinal = New DevComponents.Editors.ComboItem()
-        Me.pagoParcial = New DevComponents.Editors.ComboItem()
         Me.lblCantidadItems = New System.Windows.Forms.Label()
         Me.lblCantLiq = New System.Windows.Forms.Label()
         Me.chkGrillaInferior = New System.Windows.Forms.CheckBox()
@@ -71,7 +72,6 @@ Partial Class frmLiquidaciones
         Me.Label14 = New System.Windows.Forms.Label()
         Me.lblcuit = New System.Windows.Forms.Label()
         Me.lblcmbObrasSociales = New System.Windows.Forms.Label()
-        Me.dtpFECHA = New System.Windows.Forms.DateTimePicker()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BorrarElItemToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BuscarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -91,6 +91,9 @@ Partial Class frmLiquidaciones
         Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox1.BackColor = System.Drawing.SystemColors.Control
+        Me.GroupBox1.Controls.Add(Me.lblFecha_liquidado)
+        Me.GroupBox1.Controls.Add(Me.Label2)
+        Me.GroupBox1.Controls.Add(Me.lblFecha_creacion)
         Me.GroupBox1.Controls.Add(Me.chkLiquidado)
         Me.GroupBox1.Controls.Add(Me.chkAgrupado)
         Me.GroupBox1.Controls.Add(Me.LabelX1)
@@ -122,13 +125,39 @@ Partial Class frmLiquidaciones
         Me.GroupBox1.Controls.Add(Me.Label14)
         Me.GroupBox1.Controls.Add(Me.lblcuit)
         Me.GroupBox1.Controls.Add(Me.lblcmbObrasSociales)
-        Me.GroupBox1.Controls.Add(Me.dtpFECHA)
         Me.GroupBox1.ForeColor = System.Drawing.Color.Black
         Me.GroupBox1.Location = New System.Drawing.Point(0, 27)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(1775, 481)
+        Me.GroupBox1.Size = New System.Drawing.Size(1881, 481)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
+        '
+        'lblFecha_liquidado
+        '
+        Me.lblFecha_liquidado.Location = New System.Drawing.Point(1184, 51)
+        Me.lblFecha_liquidado.Name = "lblFecha_liquidado"
+        Me.lblFecha_liquidado.Size = New System.Drawing.Size(102, 13)
+        Me.lblFecha_liquidado.TabIndex = 422
+        Me.lblFecha_liquidado.Text = "[Fecha]"
+        Me.lblFecha_liquidado.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(1184, 31)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(82, 13)
+        Me.Label2.TabIndex = 421
+        Me.Label2.Text = "Fecha liquidado"
+        '
+        'lblFecha_creacion
+        '
+        Me.lblFecha_creacion.Location = New System.Drawing.Point(94, 51)
+        Me.lblFecha_creacion.Name = "lblFecha_creacion"
+        Me.lblFecha_creacion.Size = New System.Drawing.Size(102, 13)
+        Me.lblFecha_creacion.TabIndex = 420
+        Me.lblFecha_creacion.Text = "[Fecha]"
+        Me.lblFecha_creacion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'chkLiquidado
         '
@@ -171,22 +200,13 @@ Partial Class frmLiquidaciones
         Me.cmbTipoPago.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
         Me.cmbTipoPago.FormattingEnabled = True
         Me.cmbTipoPago.ItemHeight = 16
-        Me.cmbTipoPago.Items.AddRange(New Object() {Me.pagoFinal, Me.pagoParcial})
         Me.cmbTipoPago.Location = New System.Drawing.Point(210, 46)
         Me.cmbTipoPago.Margin = New System.Windows.Forms.Padding(2)
         Me.cmbTipoPago.Name = "cmbTipoPago"
         Me.cmbTipoPago.Size = New System.Drawing.Size(90, 22)
         Me.cmbTipoPago.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.cmbTipoPago.TabIndex = 393
-        Me.cmbTipoPago.Text = "Unico"
-        '
-        'pagoFinal
-        '
-        Me.pagoFinal.Text = "Final"
-        '
-        'pagoParcial
-        '
-        Me.pagoParcial.Text = "Parcial"
+        Me.cmbTipoPago.WatermarkEnabled = False
         '
         'lblCantidadItems
         '
@@ -243,7 +263,7 @@ Partial Class frmLiquidaciones
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1316, 346)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1342, 346)
         Me.TableLayoutPanel1.TabIndex = 417
         '
         'SuperGrdResultado
@@ -277,7 +297,7 @@ Partial Class frmLiquidaciones
         Background7.Color1 = System.Drawing.Color.Transparent
         Me.SuperGrdResultado.PrimaryGrid.DefaultVisualStyles.RowStyles.Default.Background = Background7
         Me.SuperGrdResultado.PrimaryGrid.SelectionGranularity = DevComponents.DotNetBar.SuperGrid.SelectionGranularity.Row
-        Me.SuperGrdResultado.Size = New System.Drawing.Size(1035, 326)
+        Me.SuperGrdResultado.Size = New System.Drawing.Size(1056, 326)
         Me.SuperGrdResultado.TabIndex = 381
         Me.SuperGrdResultado.Text = "SuperGridControl1"
         '
@@ -293,10 +313,10 @@ Partial Class frmLiquidaciones
         Me.GroupBox4.Controls.Add(Me.Label17)
         Me.GroupBox4.Controls.Add(Me.btnExcelWindow)
         Me.GroupBox4.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GroupBox4.Location = New System.Drawing.Point(1067, 4)
+        Me.GroupBox4.Location = New System.Drawing.Point(1088, 4)
         Me.GroupBox4.Margin = New System.Windows.Forms.Padding(10, 4, 10, 10)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(239, 332)
+        Me.GroupBox4.Size = New System.Drawing.Size(244, 332)
         Me.GroupBox4.TabIndex = 386
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Resúmen"
@@ -312,7 +332,7 @@ Partial Class frmLiquidaciones
         Me.btnLiquidar.Location = New System.Drawing.Point(56, 263)
         Me.btnLiquidar.Name = "btnLiquidar"
         Me.btnLiquidar.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(3)
-        Me.btnLiquidar.Size = New System.Drawing.Size(137, 28)
+        Me.btnLiquidar.Size = New System.Drawing.Size(142, 28)
         Me.btnLiquidar.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnLiquidar.TabIndex = 393
         Me.btnLiquidar.Text = "Liquidar"
@@ -326,7 +346,7 @@ Partial Class frmLiquidaciones
         Me.lblTotal.ForeColor = System.Drawing.Color.DarkGreen
         Me.lblTotal.Location = New System.Drawing.Point(7, 205)
         Me.lblTotal.Name = "lblTotal"
-        Me.lblTotal.Size = New System.Drawing.Size(218, 24)
+        Me.lblTotal.Size = New System.Drawing.Size(223, 24)
         Me.lblTotal.TabIndex = 389
         Me.lblTotal.Text = "$ [Total]"
         Me.lblTotal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -383,7 +403,7 @@ Partial Class frmLiquidaciones
         Me.Label17.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label17.AutoSize = True
         Me.Label17.ForeColor = System.Drawing.SystemColors.WindowFrame
-        Me.Label17.Location = New System.Drawing.Point(154, 54)
+        Me.Label17.Location = New System.Drawing.Point(159, 54)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(76, 13)
         Me.Label17.TabIndex = 387
@@ -423,7 +443,7 @@ Partial Class frmLiquidaciones
         '
         'lblFecha_presentacion
         '
-        Me.lblFecha_presentacion.Location = New System.Drawing.Point(956, 51)
+        Me.lblFecha_presentacion.Location = New System.Drawing.Point(743, 50)
         Me.lblFecha_presentacion.Name = "lblFecha_presentacion"
         Me.lblFecha_presentacion.Size = New System.Drawing.Size(102, 13)
         Me.lblFecha_presentacion.TabIndex = 414
@@ -432,7 +452,7 @@ Partial Class frmLiquidaciones
         '
         'lblPeriodo_presentacion
         '
-        Me.lblPeriodo_presentacion.Location = New System.Drawing.Point(829, 51)
+        Me.lblPeriodo_presentacion.Location = New System.Drawing.Point(633, 50)
         Me.lblPeriodo_presentacion.Name = "lblPeriodo_presentacion"
         Me.lblPeriodo_presentacion.Size = New System.Drawing.Size(110, 35)
         Me.lblPeriodo_presentacion.TabIndex = 413
@@ -440,9 +460,9 @@ Partial Class frmLiquidaciones
         '
         'lblObservacion
         '
-        Me.lblObservacion.Location = New System.Drawing.Point(634, 51)
+        Me.lblObservacion.Location = New System.Drawing.Point(867, 50)
         Me.lblObservacion.Name = "lblObservacion"
-        Me.lblObservacion.Size = New System.Drawing.Size(179, 46)
+        Me.lblObservacion.Size = New System.Drawing.Size(179, 35)
         Me.lblObservacion.TabIndex = 412
         Me.lblObservacion.Text = "[Observación]"
         '
@@ -459,9 +479,9 @@ Partial Class frmLiquidaciones
         '
         Me.lblStatus.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblStatus.ForeColor = System.Drawing.Color.Green
-        Me.lblStatus.Location = New System.Drawing.Point(1077, 47)
+        Me.lblStatus.Location = New System.Drawing.Point(1047, 46)
         Me.lblStatus.Name = "lblStatus"
-        Me.lblStatus.Size = New System.Drawing.Size(149, 21)
+        Me.lblStatus.Size = New System.Drawing.Size(127, 21)
         Me.lblStatus.TabIndex = 408
         Me.lblStatus.Text = "[Estado]"
         Me.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -469,16 +489,16 @@ Partial Class frmLiquidaciones
         'Label33
         '
         Me.Label33.AutoSize = True
-        Me.Label33.Location = New System.Drawing.Point(956, 32)
+        Me.Label33.Location = New System.Drawing.Point(743, 31)
         Me.Label33.Name = "Label33"
-        Me.Label33.Size = New System.Drawing.Size(37, 13)
+        Me.Label33.Size = New System.Drawing.Size(93, 13)
         Me.Label33.TabIndex = 406
-        Me.Label33.Text = "Fecha"
+        Me.Label33.Text = "Fecha presentado"
         '
         'Label29
         '
         Me.Label29.AutoSize = True
-        Me.Label29.Location = New System.Drawing.Point(1077, 32)
+        Me.Label29.Location = New System.Drawing.Point(1047, 31)
         Me.Label29.Name = "Label29"
         Me.Label29.Size = New System.Drawing.Size(40, 13)
         Me.Label29.TabIndex = 403
@@ -487,7 +507,7 @@ Partial Class frmLiquidaciones
         'Label28
         '
         Me.Label28.AutoSize = True
-        Me.Label28.Location = New System.Drawing.Point(829, 32)
+        Me.Label28.Location = New System.Drawing.Point(633, 31)
         Me.Label28.Name = "Label28"
         Me.Label28.Size = New System.Drawing.Size(45, 13)
         Me.Label28.TabIndex = 402
@@ -496,7 +516,7 @@ Partial Class frmLiquidaciones
         'Label27
         '
         Me.Label27.AutoSize = True
-        Me.Label27.Location = New System.Drawing.Point(634, 32)
+        Me.Label27.Location = New System.Drawing.Point(867, 31)
         Me.Label27.Name = "Label27"
         Me.Label27.Size = New System.Drawing.Size(67, 13)
         Me.Label27.TabIndex = 400
@@ -507,9 +527,9 @@ Partial Class frmLiquidaciones
         Me.Label26.AutoSize = True
         Me.Label26.Location = New System.Drawing.Point(94, 31)
         Me.Label26.Name = "Label26"
-        Me.Label26.Size = New System.Drawing.Size(37, 13)
+        Me.Label26.Size = New System.Drawing.Size(81, 13)
         Me.Label26.TabIndex = 399
-        Me.Label26.Text = "Fecha"
+        Me.Label26.Text = "Fecha creación"
         '
         'lblPresentacionCodigo
         '
@@ -607,17 +627,6 @@ Partial Class frmLiquidaciones
         Me.lblcmbObrasSociales.TabIndex = 346
         Me.lblcmbObrasSociales.Text = "Obra Social"
         '
-        'dtpFECHA
-        '
-        Me.dtpFECHA.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpFECHA.Location = New System.Drawing.Point(97, 47)
-        Me.dtpFECHA.MaxDate = New Date(2099, 12, 31, 0, 0, 0, 0)
-        Me.dtpFECHA.MinDate = New Date(2000, 1, 1, 0, 0, 0, 0)
-        Me.dtpFECHA.Name = "dtpFECHA"
-        Me.dtpFECHA.Size = New System.Drawing.Size(95, 20)
-        Me.dtpFECHA.TabIndex = 1
-        Me.dtpFECHA.Tag = "202"
-        '
         'ContextMenuStrip1
         '
         Me.ContextMenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
@@ -665,7 +674,7 @@ Partial Class frmLiquidaciones
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1282, 609)
+        Me.ClientSize = New System.Drawing.Size(1303, 609)
         Me.Controls.Add(Me.GroupBox1)
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "frmLiquidaciones"
@@ -683,7 +692,6 @@ Partial Class frmLiquidaciones
 
     End Sub
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
-    Friend WithEvents dtpFECHA As System.Windows.Forms.DateTimePicker
     Friend Shadows WithEvents ContextMenuStrip1 As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents BorrarElItemToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents BuscarToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
@@ -708,8 +716,6 @@ Partial Class frmLiquidaciones
     Friend WithEvents chkIngresosBrutos As CheckBox
     Friend WithEvents LabelX1 As DevComponents.DotNetBar.LabelX
     Friend WithEvents cmbTipoPago As DevComponents.DotNetBar.Controls.ComboBoxEx
-    Friend WithEvents pagoFinal As DevComponents.Editors.ComboItem
-    Friend WithEvents pagoParcial As DevComponents.Editors.ComboItem
     Friend WithEvents lblCantLiq As Label
     Friend WithEvents Label15 As Label
     Friend WithEvents lblID As Label
@@ -734,4 +740,7 @@ Partial Class frmLiquidaciones
     Friend WithEvents chkAgrupado As CheckBox
     Friend WithEvents btnLiquidar As DevComponents.DotNetBar.ButtonX
     Friend WithEvents chkLiquidado As CheckBox
+    Friend WithEvents lblFecha_creacion As Label
+    Friend WithEvents lblFecha_liquidado As Label
+    Friend WithEvents Label2 As Label
 End Class
