@@ -109,7 +109,8 @@ Public Class frmSelectPresentacion
                 frmLiquidaciones.lblFecha_presentacion.Text = IIf(.Cells(GridCols.Fecha).Value Is DBNull.Value, "", .Cells(GridCols.Fecha).Value)
                 frmLiquidaciones.lblStatus.Text = IIf(.Cells(GridCols.Estado).Value Is DBNull.Value, "", .Cells(GridCols.Estado).Value)
                 frmLiquidaciones.chkAgrupado.Checked = chkAgrupar.Checked
-
+                frmLiquidaciones.btnExcelWindow.Enabled = True
+                frmLiquidaciones.btnLiquidar.Enabled = True
                 Dim sqlDetalle As String
                 Dim sqlConceptos As String
 

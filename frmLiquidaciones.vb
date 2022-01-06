@@ -53,13 +53,15 @@ Public Class frmLiquidaciones
         PresentacionCodigo = 3
         ObraSocial = 4
         Periodo = 5
-        Fecha_presentacion = 6
-        Fecha_liquidacion = 7
+        TipoPago = 6
+        Liquidado = 7
         Estado = 8
-        Liquidado = 9
-        Observacion = 10
-        total = 11
-        Agrupado = 12
+        Fecha_presentacion = 9
+        Fecha_creacion = 10
+        Fecha_liquidacion = 11
+        Observacion = 12
+        total = 13
+        Agrupado = 14
     End Enum
 
     Enum ColumnasDelGridItems
@@ -213,6 +215,29 @@ Public Class frmLiquidaciones
         '    .Font = New Font("Microsoft Sans Serif", 8, FontStyle.Bold)
         'End With
 
+        ''Agrego tipos de pago al combobox
+        Dim dtTipoPago As New DataTable
+        With dtTipoPago
+            .Columns.Add("DisplayMember")
+            .Columns.Add("ValueMember")
+
+            Dim row1 As DataRow = .NewRow()
+            row1("DisplayMember") = "Final"
+            row1("ValueMember") = "FINAL"
+            .Rows.Add(row1)
+
+            Dim row2 As DataRow = .NewRow()
+            row2("DisplayMember") = "Parcial"
+            row2("ValueMember") = "PARCIAL"
+            .Rows.Add(row2)
+        End With
+
+        With cmbTipoPago
+            .DataSource = dtTipoPago
+            .DisplayMember = "DisplayMember"
+            .ValueMember = "ValueMember"
+        End With
+
 
         band = 0
         'Modifico botones del frmbase
@@ -254,6 +279,7 @@ Public Class frmLiquidaciones
             .Columns(GrdColumns.PresentacionCodigo).Visible = False
             .Columns(GrdColumns.Agrupado).Visible = False
             .Columns(GrdColumns.Liquidado).Visible = False
+            .Columns(GrdColumns.Fecha_creacion).Visible = False
 
             ''resize some columns
             .Columns(GrdColumns.Codigo).Width = 80
@@ -283,7 +309,7 @@ Public Class frmLiquidaciones
 
         Contar_Filas()
 
-        dtpFECHA.MaxDate = Today.Date
+        'dtpFECHA.MaxDate = Today.Date
 
         band = 1
 
@@ -312,8 +338,8 @@ Public Class frmLiquidaciones
         End If
     End Sub
 
-    Private Sub dtpfecha_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) _
-     Handles dtpFECHA.KeyPress
+    Private Sub dtpfecha_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)
+
         If e.KeyChar = ChrW(Keys.Enter) Then
             e.Handled = True
             SendKeys.Send("{TAB}")
@@ -1216,12 +1242,14 @@ Public Class frmLiquidaciones
         lblPresentacionCodigo.Tag = "3"
         lblObraSocial.Tag = "4"
         lblPeriodo_presentacion.Tag = "5"
-        lblFecha_presentacion.Tag = "6"
-        dtpFECHA.Tag = "7"
+        cmbTipoPago.Tag = "6"
+        chkLiquidado.Tag = "7"
         lblStatus.Tag = "8"
-        chkLiquidado.Tag = "9"
-        lblObservacion.Tag = "10"
-        chkAgrupado.Tag = "12"
+        lblFecha_presentacion.Tag = "9"
+        lblFecha_creacion.Tag = "10"
+        lblFecha_liquidado.Tag = "11"
+        lblObservacion.Tag = "12"
+        chkAgrupado.Tag = "14"
 
     End Sub
 
@@ -1530,12 +1558,19 @@ Public Class frmLiquidaciones
             param_idPresentacion.Value = Long.Parse(txtIdPresentacion.Text)
             param_idPresentacion.Direction = ParameterDirection.Input
 
-            ''fecha
-            Dim param_fecha As New SqlClient.SqlParameter
-            param_fecha.ParameterName = "@fecha"
-            param_fecha.SqlDbType = SqlDbType.DateTime
-            param_fecha.Value = Date.Parse(dtpFECHA.Value)
-            param_fecha.Direction = ParameterDirection.Input
+            ''TipoPago
+            Dim param_TipoPago As New SqlClient.SqlParameter
+            param_TipoPago.ParameterName = "@tipoPago"
+            param_TipoPago.SqlDbType = SqlDbType.VarChar
+            param_TipoPago.Value = cmbTipoPago.SelectedValue.ToString
+            param_TipoPago.Direction = ParameterDirection.Input
+
+            '''fecha
+            'Dim param_fecha As New SqlClient.SqlParameter
+            'param_fecha.ParameterName = "@fecha"
+            'param_fecha.SqlDbType = SqlDbType.DateTime
+            'param_fecha.Value = Date.Parse(lblFecha_liquidado.Text)
+            'param_fecha.Direction = ParameterDirection.Input
 
             ''total
             Dim param_total As New SqlClient.SqlParameter
@@ -1572,7 +1607,7 @@ Public Class frmLiquidaciones
 
 
             SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spLiquidaciones_Insert_Update",
-                                      param_id, param_codigo, param_idPresentacion, param_fecha, param_total,
+                                      param_id, param_codigo, param_idPresentacion, param_TipoPago, param_total,
                                       param_agrupado, param_liquidado, param_user, param_res)
 
             txtID.Text = param_id.Value
@@ -2008,6 +2043,9 @@ Public Class frmLiquidaciones
 
         ''Enable buttons
         btnCargarPresentacion.Enabled = True
+        btnEliminar.Enabled = False
+        btnExcelWindow.Enabled = False
+        btnLiquidar.Enabled = False
 
         ''Limpieza de labels
         lblPresentacionCodigo.Text = "No seleccionada"
@@ -2015,13 +2053,19 @@ Public Class frmLiquidaciones
         lblObservacion.Text = "-"
         lblPeriodo_presentacion.Text = "-"
         lblFecha_presentacion.Text = "-"
+        lblFecha_creacion.Text = Today.Date.ToString
+        lblFecha_liquidado.Text = "-"
         lblStatus.Text = "CONFECCIONANDO"
+        lblCantidadItems.Text = "0"
+        lblTotal.Text = "$ 0"
 
 
         SuperGrdResultado.PrimaryGrid.DataSource = Nothing
 
-        dtpFECHA.Value = Date.Today
-        dtpFECHA.Focus()
+        lblFecha_creacion.Text = Date.Today.ToString
+
+        'dtpFECHA.Value = Date.Today
+        'dtpFECHA.Focus()
 
         band = 1
 
@@ -2736,7 +2780,7 @@ Public Class frmLiquidaciones
             btnGuardar.Enabled = True
             btnLiquidar.Enabled = True
             btnExcelWindow.Enabled = True
-            btnEliminar.Enabled = False
+            btnEliminar.Enabled = True
         End If
     End Sub
 
