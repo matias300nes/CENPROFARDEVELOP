@@ -93,7 +93,7 @@ Public Class frmPresentaciones
                     btnNuevo_Click(sender, e)
                 End If
             Case Keys.F4 'grabar
-                If cmbEstado.Text = "PENDIENTE" Then
+                If cmbEstado.Text = "PRESENTADO" Then
                     btnGuardar_Click(sender, e)
                 End If
         End Select
@@ -110,9 +110,9 @@ Public Class frmPresentaciones
     Private Sub grd_SelectionChanged(sender As Object, e As EventArgs) Handles grd.SelectionChanged
         ''DataGridView1.SelectedRows.Count().ToString()
         If grd.SelectedRows.Count() > 1 Then
-            btnUnificarPresentaciones.Enabled = True
+            btnUnificar.Enabled = True
         Else
-            btnUnificarPresentaciones.Enabled = False
+            btnUnificar.Enabled = False
         End If
     End Sub
 
@@ -125,6 +125,9 @@ Public Class frmPresentaciones
 
         band = 0
 
+        Me.ToolTipbtnSeparar.SetToolTip(btnSeparar, "Separa la(s) farmacias seleccionadas creando una nueva presentación con esas farmacias")
+        Me.ToolTipbtnUnificar.SetToolTip(btnUnificar, "Unifica varias presentaciones con distinto o igual periodo")
+
         configurarform()
         asignarTags()
 
@@ -136,7 +139,7 @@ Public Class frmPresentaciones
         LlenarCmbObraSocial()
 
         If cmbEstado.Text = "" Then
-            cmbEstado.Text = "PENDIENTE"
+            cmbEstado.Text = "PRESENTADO"
         End If
 
         ''Traigo los encabezados de presentacion
@@ -147,7 +150,8 @@ Public Class frmPresentaciones
         Permitir = True
         CargarCajas()
         PrepararBotones()
-
+        'HiloOcultarColumnasGridItems()
+        EstiloGrdItems()
 
         permitir_evento_CellChanged = True
 
@@ -198,7 +202,7 @@ Public Class frmPresentaciones
         'grd.Columns(20).Visible = False
 
         grd.MultiSelect = True
-        btnUnificarPresentaciones.Enabled = False
+        btnUnificar.Enabled = False
         Cursor = Cursors.Default
 
     End Sub
@@ -211,7 +215,7 @@ Public Class frmPresentaciones
 
     Private Sub txtImpACargoOs_KeyDown(sender As Object, e As KeyEventArgs) Handles txtImpACargoOs.KeyDown
         If e.KeyData = Keys.Enter Then
-            If cmbEstado.Text = "PENDIENTE" Or bolModo = True Then
+            If cmbEstado.Text = "PRESENTADO" Or bolModo = True Then
                 AñadirGridItem()
             End If
 
@@ -220,7 +224,7 @@ Public Class frmPresentaciones
 
     Private Sub nudBonificacion_KeyDown(sender As Object, e As KeyEventArgs) Handles nudBonificacion.KeyDown
         If e.KeyData = Keys.Enter Then
-            If cmbEstado.Text = "PENDIENTE" Or bolModo = True Then
+            If cmbEstado.Text = "PRESENTADO" Or bolModo = True Then
                 AñadirGridItem()
             End If
         End If
@@ -1043,13 +1047,14 @@ Public Class frmPresentaciones
 
     Private Sub grdItems_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles grdItems.CellContentClick
         If grdItems.Columns(e.ColumnIndex).Name = "Eliminar" And e.RowIndex > -1 Then
-            If cmbEstado.Text = "PENDIENTE" Then
+            If cmbEstado.Text = "PRESENTADO" Then
                 Dim result As DialogResult = MessageBox.Show($"Desea eliminar el item {grdItems.Rows(e.RowIndex).Cells(ColumnasDelGridItems.Nombre).Value}?",
                                   "Eliminar",
                                   MessageBoxButtons.YesNo)
 
                 If result = DialogResult.Yes Then
-                    If bolModo Then
+                    'MsgBox(bolModo)
+                    If grdItems.Rows(e.RowIndex).Cells(ColumnasDelGridItems.ID).Value = 0 Then
                         grdItems.Rows.RemoveAt(e.RowIndex) 'la borramos directamente
                     Else
                         grdItems.Rows(e.RowIndex).Visible = False
@@ -1127,7 +1132,7 @@ Public Class frmPresentaciones
     Private Sub bloquearPresentacion(cmbstatus)
 
 
-        If cmbstatus = "PENDIENTE" Then
+        If cmbstatus = "PRESENTADO" Then
             'GbFarmaciaForm.Enabled = True
             'grdItems.Enabled = True
             btnAgregarItem.Enabled = True
@@ -1143,7 +1148,7 @@ Public Class frmPresentaciones
 
         End If
 
-        If cmbstatus <> "PENDIENTE" And cmbstatus <> "" Then
+        If cmbstatus <> "PRESENTADO" And cmbstatus <> "" Then
             btnAgregarItem.Enabled = False
             'grdItems.ReadOnly = True
 
@@ -1488,101 +1493,46 @@ Public Class frmPresentaciones
     End Sub
 
 
+    Private Sub EstiloGrdItems()
+        With grdItems
+            .VirtualMode = False
+            .AllowUserToAddRows = False
+            .AlternatingRowsDefaultCellStyle.BackColor = Color.Aquamarine
+            .RowsDefaultCellStyle.BackColor = Color.White
+            .AllowUserToOrderColumns = False
+            '.SelectionMode = DataGridViewSelectionMode.CellSelect
+            .SelectionMode = DataGridViewSelectionMode.FullRowSelect
+            '.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells
+        End With
+
+        With grdItems.ColumnHeadersDefaultCellStyle
+            .BackColor = Color.Black  'Color.BlueViolet
+            .ForeColor = Color.White
+            .Font = New Font("Microsoft Sans Serif", 10, FontStyle.Bold)
+        End With
+
+        grdItems.Font = New Font("Microsoft Sans Serif", 9, FontStyle.Regular)
+    End Sub
+
+
 
     Private Sub HiloOcultarColumnasGridItems()
         Try
-            'grdItems.Columns(ColumnasDelGridItems.IdOrdenDeCompra_Det).ReadOnly = True
-            'grdItems.Columns(ColumnasDelGridItems.IdOrdenDeCompra_Det).Width = 70
-            'grdItems.Columns(ColumnasDelGridItems.IdOrdenDeCompra_Det).Visible = False
-
-            ''grdItems.Columns(ColumnasDelGridItems.Cod_OrdenDeCompra_Det).ReadOnly = True
-            ''grdItems.Columns(ColumnasDelGridItems.Cod_OrdenDeCompra_Det).Width = 70
-            ''grdItems.Columns(ColumnasDelGridItems.Cod_OrdenDeCompra_Det).Visible = False
-
-            'grdItems.Columns(ColumnasDelGridItems.IdMaterial).Visible = False
-
-            ''grdItems.Columns(ColumnasDelGridItems.Cod_material).Width = 90
-
-            'grdItems.Columns(ColumnasDelGridItems.Producto).Width = 260
-
-            'grdItems.Columns(ColumnasDelGridItems.QtyStockTotal).ReadOnly = True
-            'grdItems.Columns(ColumnasDelGridItems.QtyStockTotal).Width = 50
-            'grdItems.Columns(ColumnasDelGridItems.QtyStockTotal).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-
-            ''grdItems.Columns(ColumnasDelGridItems.Precio).Visible = False
-
-            ''grdItems.Columns(ColumnasDelGridItems.PrecioLista).Width = 70
-            ''grdItems.Columns(ColumnasDelGridItems.PrecioLista).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-
-            ''grdItems.Columns(ColumnasDelGridItems.Iva).Width = 40
-            ''grdItems.Columns(ColumnasDelGridItems.Iva).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-
-            ''grdItems.Columns(ColumnasDelGridItems.MontoIVA).ReadOnly = True
-            ''grdItems.Columns(ColumnasDelGridItems.MontoIVA).Width = 60
-            ''grdItems.Columns(ColumnasDelGridItems.MontoIVA).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-
-            'grdItems.Columns(ColumnasDelGridItems.Bonif1).Width = 45
-            'grdItems.Columns(ColumnasDelGridItems.Bonif1).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-
-            'grdItems.Columns(ColumnasDelGridItems.Bonif2).Width = 45
-            'grdItems.Columns(ColumnasDelGridItems.Bonif2).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-
-            'grdItems.Columns(ColumnasDelGridItems.Bonif3).Width = 50
-            'grdItems.Columns(ColumnasDelGridItems.Bonif3).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-
-            ''grdItems.Columns(ColumnasDelGridItems.Bonif4).Width = 50
-            ''grdItems.Columns(ColumnasDelGridItems.Bonif4).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-
-            ''grdItems.Columns(ColumnasDelGridItems.Bonif5).Width = 50
-            ''grdItems.Columns(ColumnasDelGridItems.Bonif5).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-
-            ''grdItems.Columns(ColumnasDelGridItems.PrecioProvPesos).ReadOnly = True
-            ''grdItems.Columns(ColumnasDelGridItems.PrecioProvPesos).Width = 65
-            ''grdItems.Columns(ColumnasDelGridItems.PrecioProvPesos).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-            ''grdItems.Columns(ColumnasDelGridItems.PrecioProvPesos).Visible = False
-
-            ''grdItems.Columns(ColumnasDelGridItems.PrecioVta).ReadOnly = True
-            ''grdItems.Columns(ColumnasDelGridItems.PrecioVta).Width = 70
-            ''grdItems.Columns(ColumnasDelGridItems.PrecioVta).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-            ''grdItems.Columns(ColumnasDelGridItems.PrecioVta).Visible = False
-
-            'grdItems.Columns(ColumnasDelGridItems.PrecioUni).ReadOnly = True
-            'grdItems.Columns(ColumnasDelGridItems.PrecioUni).Width = 70
-            'grdItems.Columns(ColumnasDelGridItems.PrecioUni).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-
-
-            ''grdItems.Columns(ColumnasDelGridItems.Qty).ReadOnly = True
-            'grdItems.Columns(ColumnasDelGridItems.Cantidad).Width = 50
-            'grdItems.Columns(ColumnasDelGridItems.Cantidad).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-
-            'grdItems.Columns(ColumnasDelGridItems.Subtotal).ReadOnly = True 'subtotal
-            'grdItems.Columns(ColumnasDelGridItems.Subtotal).Width = 80
-            'grdItems.Columns(ColumnasDelGridItems.Subtotal).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-
-            'grdItems.Columns(ColumnasDelGridItems.Status).ReadOnly = True
-            'grdItems.Columns(ColumnasDelGridItems.Status).Width = 70
-            'grdItems.Columns(ColumnasDelGridItems.Status).Visible = Not bolModo
-            'grdItems.Columns(ColumnasDelGridItems.Status).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
-
-            'grdItems.Columns(ColumnasDelGridItems.Saldo).Visible = Not bolModo
-            'grdItems.Columns(ColumnasDelGridItems.Saldo).ReadOnly = True
-            'grdItems.Columns(ColumnasDelGridItems.Saldo).Width = 50
-            'grdItems.Columns(ColumnasDelGridItems.Saldo).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-
-            'grdItems.Columns(ColumnasDelGridItems.Nota_Det).Width = 250
-
-            ''grdItems.Columns(ColumnasDelGridItems.orden).Visible = False
 
             With grdItems
                 .VirtualMode = False
-                .AllowUserToAddRows = True
-                .AllowUserToDeleteRows = True
+                .AllowUserToAddRows = False 'True
+                .AllowUserToDeleteRows = False 'True
                 .AlternatingRowsDefaultCellStyle.BackColor = Color.AliceBlue
                 .RowsDefaultCellStyle.BackColor = Color.White
                 .AllowUserToOrderColumns = False
-                .SelectionMode = DataGridViewSelectionMode.CellSelect
+                '.SelectionMode = DataGridViewSelectionMode.CellSelect
                 .ForeColor = Color.Black
+                .MultiSelect = True
+                .SelectionMode = DataGridViewSelectionMode.FullRowSelect
+                .AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells
             End With
+
 
             With grdItems.ColumnHeadersDefaultCellStyle
                 .BackColor = Color.Black  'Color.BlueViolet
@@ -1591,17 +1541,6 @@ Public Class frmPresentaciones
             End With
 
             grdItems.Font = New Font("TAHOMA", 8, FontStyle.Regular)
-
-            'Dim i As Integer
-
-            'For i = 0 To grdItems.Rows.Count - 2
-            '    If grdItems.Rows(i).Cells(ColumnasDelGridItems.Ubicacion).Value.ToString.Length > 6 Then
-            '        grdItems.Rows(i).Cells(ColumnasDelGridItems.Cod_material).Style.BackColor = Color.LightGreen
-            '        grdItems.Rows(i).Cells(ColumnasDelGridItems.Nombre_Material).Style.BackColor = Color.LightGreen
-            '    End If
-            'Next
-
-            ' Contar_Filas()
 
         Catch ex As Exception
 
@@ -2562,39 +2501,47 @@ Public Class frmPresentaciones
         End Function
     End Class
 
-    Private Sub btnUnificarPresentaciones_Click(sender As Object, e As EventArgs) Handles btnUnificarPresentaciones.Click
-        Dim connection As SqlClient.SqlConnection = Nothing
-        Dim dsRowsSelected As Data.DataSet
-        Dim FilasSeleccionadas As DataGridViewSelectedRowCollection = grd.SelectedRows
-        Dim condicion As String = ""
-        Dim sql As String = ""
-        Try
-            connection = SqlHelper.GetConnection(ConnStringSEI)
-        Catch ex As Exception
-            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
-        End Try
-
-        Try
-
-
-
-            For Each fila As DataGridViewRow In FilasSeleccionadas
-                Dim id As String = fila.Cells(0).Value.ToString
-                If condicion = "" Then
-                    condicion = $"p.id = {id} "
-                Else
-                    condicion += $"or p.id = {id} "
-                End If
-            Next
-
-            Dim result As DialogResult = MessageBox.Show(
-                                  $"¿Desea agrupar los items por farmacia?",
+    Private Sub btnUnificar_Click(sender As Object, e As EventArgs) Handles btnUnificar.Click
+        Dim confirma As DialogResult = MessageBox.Show(
+                                  $"Está apunto de unificar varias presentaciones en una nueva presentación. 
+                                  ¿Está seguro que desea continuar?",
                                   "Confirmar",
                                   MessageBoxButtons.YesNo)
 
-            If result = DialogResult.Yes Then
-                sql = $"select
+        If confirma = DialogResult.Yes Then
+
+            Dim connection As SqlClient.SqlConnection = Nothing
+            Dim dsRowsSelected As Data.DataSet
+            Dim FilasSeleccionadas As DataGridViewSelectedRowCollection = grd.SelectedRows
+            Dim condicion As String = ""
+            Dim sql As String = ""
+            Try
+                connection = SqlHelper.GetConnection(ConnStringSEI)
+            Catch ex As Exception
+                MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Exit Sub
+            End Try
+
+            Try
+
+
+
+                For Each fila As DataGridViewRow In FilasSeleccionadas
+                    Dim id As String = fila.Cells(0).Value.ToString
+                    If condicion = "" Then
+                        condicion = $"p.id = {id} "
+                    Else
+                        condicion += $"or p.id = {id} "
+                    End If
+                Next
+
+                Dim result As DialogResult = MessageBox.Show(
+                                      $"¿Desea agrupar los items por farmacia?",
+                                      "Confirmar",
+                                      MessageBoxButtons.YesNo)
+
+                If result = DialogResult.Yes Then
+                    sql = $"select
 	                                                                                0					as ID,			   -- 0
 	                                                                                pd.IdFarmacia			As IdFarmacia,	   -- 1
 	                                                                                f.Codigo				AS CodigoFarmacia, -- 2
@@ -2615,8 +2562,8 @@ Public Class frmPresentaciones
 	                                                                                f.Nombre"
 
 
-            Else
-                sql = $"select
+                Else
+                    sql = $"select
 	                                                                                0				as ID,			   -- 0
 	                                                                                pd.IdFarmacia		As IdFarmacia,	   -- 1
 	                                                                                f.Codigo			AS CodigoFarmacia, -- 2
@@ -2631,45 +2578,171 @@ Public Class frmPresentaciones
 	                                                                                JOIN Presentaciones p ON pd.IdPresentacion = p.id
 	                                                                                join Farmacias f on f.ID = pd.IdFarmacia
                                                                                 where pd.Eliminado = 0 and ({condicion})"
-            End If
-            dsRowsSelected = SqlHelper.ExecuteDataset(connection, CommandType.Text, sql)
-            dsRowsSelected.Dispose()
-            btnNuevo_Click(sender, e)
-            Dim dt = dsRowsSelected.Tables(0)
-            Dim i As Integer
-            For i = 0 To dt.Rows.Count - 1
+                End If
+                dsRowsSelected = SqlHelper.ExecuteDataset(connection, CommandType.Text, sql)
+                dsRowsSelected.Dispose()
+                btnNuevo_Click(sender, e)
+                Dim dt = dsRowsSelected.Tables(0)
+                Dim i As Integer
+                For i = 0 To dt.Rows.Count - 1
 
-                grdItems.Rows.Add(
-                    dt.Rows(i)(ColumnasDelGridItems.ID).ToString(),
-                    dt.Rows(i)(ColumnasDelGridItems.IdFarmacia).ToString(),
-                    dt.Rows(i)(ColumnasDelGridItems.CodigoFarmacia).ToString(),
-                    dt.Rows(i)(ColumnasDelGridItems.Nombre).ToString(),
-                    dt.Rows(i)(ColumnasDelGridItems.IdPresentacion).ToString(),
-                    dt.Rows(i)(ColumnasDelGridItems.Recetas).ToString(),
-                    dt.Rows(i)(ColumnasDelGridItems.Recaudado).ToString(),
-                    dt.Rows(i)(ColumnasDelGridItems.ACargoOS).ToString(),
-                    dt.Rows(i)(ColumnasDelGridItems.Bonificacion).ToString(),
-                    dt.Rows(i)(ColumnasDelGridItems.Total).ToString())
+                    grdItems.Rows.Add(
+                        dt.Rows(i)(ColumnasDelGridItems.ID).ToString(),
+                        dt.Rows(i)(ColumnasDelGridItems.IdFarmacia).ToString(),
+                        dt.Rows(i)(ColumnasDelGridItems.CodigoFarmacia).ToString(),
+                        dt.Rows(i)(ColumnasDelGridItems.Nombre).ToString(),
+                        dt.Rows(i)(ColumnasDelGridItems.IdPresentacion).ToString(),
+                        dt.Rows(i)(ColumnasDelGridItems.Recetas).ToString(),
+                        dt.Rows(i)(ColumnasDelGridItems.Recaudado).ToString(),
+                        dt.Rows(i)(ColumnasDelGridItems.ACargoOS).ToString(),
+                        dt.Rows(i)(ColumnasDelGridItems.Bonificacion).ToString(),
+                        dt.Rows(i)(ColumnasDelGridItems.Total).ToString())
 
 
-            Next
-        Catch ex As Exception
-            Dim errMessage As String = ""
-            Dim tempException As Exception = ex
+                Next
+            Catch ex As Exception
+                Dim errMessage As String = ""
+                Dim tempException As Exception = ex
 
-            While (Not tempException Is Nothing)
-                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
-                tempException = tempException.InnerException
-            End While
+                While (Not tempException Is Nothing)
+                    errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                    tempException = tempException.InnerException
+                End While
 
-            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
-              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            If Not connection Is Nothing Then
-                CType(connection, IDisposable).Dispose()
-            End If
-        End Try
+                MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+                  + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+                  "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Finally
+                If Not connection Is Nothing Then
+                    CType(connection, IDisposable).Dispose()
+                End If
+            End Try
+
+        Else
+            Exit Sub
+        End If
+
+
+
+
+    End Sub
+
+    Private Sub btnSeparar_Click(sender As Object, e As EventArgs) Handles btnSeparar.Click
+
+        Dim confirma As DialogResult = MessageBox.Show(
+                                  $"Está apunto de separar varias farmacias para insertarla en una nueva presentación. 
+                                  ¿Está seguro que desea continuar?",
+                                  "Confirmar",
+                                  MessageBoxButtons.YesNo)
+
+        If confirma = DialogResult.Yes Then
+
+            Dim connection As SqlClient.SqlConnection = Nothing
+            Dim dsRowsSelected As Data.DataSet
+            Dim FilasSeleccionadas As DataGridViewSelectedRowCollection = grdItems.SelectedRows
+            Dim condicion As String = ""
+            Dim sql As String = ""
+            Dim dt_Items As New DataTable
+            Dim obrasocial = cmbObraSocial.Text
+
+            dt_Items.Columns.Add("Id")
+            dt_Items.Columns.Add("IdFarmacia")
+            dt_Items.Columns.Add("CodigoFarmacia")
+            dt_Items.Columns.Add("Nombre")
+            dt_Items.Columns.Add("IdPresentacion")
+            dt_Items.Columns.Add("Recetas")
+            dt_Items.Columns.Add("Recaudado")
+            dt_Items.Columns.Add("ACargoOs")
+            dt_Items.Columns.Add("Bonificacion")
+            dt_Items.Columns.Add("Total")
+
+            Try
+                connection = SqlHelper.GetConnection(ConnStringSEI)
+            Catch ex As Exception
+                MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Exit Sub
+            End Try
+
+            Try
+
+
+
+                For Each fila As DataGridViewRow In FilasSeleccionadas
+                    Dim row As DataRow = dt_Items.NewRow
+                    row("Id") = 0 'fila.Cells(ColumnasDelGridItems.ID).Value.ToString
+                    row("IdFarmacia") = fila.Cells(ColumnasDelGridItems.IdFarmacia).Value.ToString
+                    row("CodigoFarmacia") = fila.Cells(ColumnasDelGridItems.CodigoFarmacia).Value.ToString
+                    row("Nombre") = fila.Cells(ColumnasDelGridItems.Nombre).Value.ToString
+                    row("Idpresentacion") = 0 'fila.Cells(ColumnasDelGridItems.IdPresentacion).Value.ToString
+                    row("Recetas") = fila.Cells(ColumnasDelGridItems.Recetas).Value.ToString
+                    row("Recaudado") = fila.Cells(ColumnasDelGridItems.Recaudado).Value.ToString
+                    row("ACargoOS") = fila.Cells(ColumnasDelGridItems.ACargoOS).Value.ToString
+                    row("Bonificacion") = fila.Cells(ColumnasDelGridItems.Bonificacion).Value.ToString
+                    row("Total") = fila.Cells(ColumnasDelGridItems.Total).Value.ToString
+
+                    dt_Items.Rows.Add(row)
+
+                    ''Elimino de la grilla las filas que quiero desagrupar
+                    If cmbEstado.Text = "PRESENTADO" Then
+                        If grdItems.Rows(fila.Index).Cells(ColumnasDelGridItems.ID).Value = 0 Then
+                            grdItems.Rows.RemoveAt(fila.Index) 'la borramos directamente
+                        Else
+                            grdItems.Rows(fila.Index).Visible = False
+                        End If
+                        CalcularTotales()
+                    Else
+                        MsgBox("No puede eliminar un item que ya tiene una liquidación asociada.")
+                    End If
+
+
+
+                Next
+
+                bolModo = False
+                btnGuardar_Click(sender, e)
+
+                btnNuevo_Click(sender, e)
+
+                For Each row As DataRow In dt_Items.Rows
+                    grdItems.Rows.Add(
+                        row("Id"),
+                        row("IdFarmacia"),
+                        row("CodigoFarmacia"),
+                        row("Nombre"),
+                        row("Idpresentacion"),
+                        row("Recetas"),
+                        row("Recaudado"),
+                        row("ACargoOS"),
+                        row("Bonificacion"),
+                        row("Total"))
+                Next
+
+                cmbObraSocial.Text = obrasocial
+
+                btnGuardar_Click(sender, e)
+
+            Catch ex As Exception
+                Dim errMessage As String = ""
+                Dim tempException As Exception = ex
+
+                While (Not tempException Is Nothing)
+                    errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                    tempException = tempException.InnerException
+                End While
+
+                MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+                  + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+                  "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                'Finally
+                '    If Not connection Is Nothing Then
+                '        CType(connection, IDisposable).Dispose()
+                '    End If
+            End Try
+
+        Else
+            Exit Sub
+        End If
+
     End Sub
 
 
