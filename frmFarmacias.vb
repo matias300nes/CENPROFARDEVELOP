@@ -543,14 +543,14 @@ Public Class frmFarmacias
                 Dim param_CodPAMI As New SqlClient.SqlParameter
                 param_CodPAMI.ParameterName = "@CodPAMI"
                 param_CodPAMI.SqlDbType = SqlDbType.BigInt
-                param_CodPAMI.Value = IIf(txtCodPAMI.Text = "", 0, Long.Parse(txtCodPAMI.Text))
+                param_CodPAMI.Value = IIf(txtCodPAMI.Text = "", DBNull.Value, txtCodPAMI.Text)
                 param_CodPAMI.Direction = ParameterDirection.Input
 
                 Dim param_CodFACAF As New SqlClient.SqlParameter
                 param_CodFACAF.ParameterName = "@CodFACAF"
                 param_CodFACAF.SqlDbType = SqlDbType.NVarChar
                 param_CodFACAF.Size = 300
-                param_CodFACAF.Value = txtCodFACAF.Text
+                param_CodFACAF.Value = IIf(txtCodFACAF.Text = "", DBNull.Value, txtCodFACAF.Text)
                 param_CodFACAF.Direction = ParameterDirection.Input
 
                 Dim param_nombre As New SqlClient.SqlParameter
