@@ -27,7 +27,9 @@ Partial Class frmPresentaciones
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.btnUnificarPresentaciones = New System.Windows.Forms.Button()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.btnUnificar = New System.Windows.Forms.Button()
+        Me.btnSeparar = New System.Windows.Forms.Button()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.cmbEstado = New System.Windows.Forms.ComboBox()
         Me.grdItems = New System.Windows.Forms.DataGridView()
@@ -96,7 +98,11 @@ Partial Class frmPresentaciones
         Me.ContextMenuMarcas = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.ActivarNuevaMarcaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmbMarcaCompra = New System.Windows.Forms.ToolStripComboBox()
+        Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
+        Me.ToolTipbtnSeparar = New System.Windows.Forms.ToolTip(Me.components)
+        Me.ToolTipbtnUnificar = New System.Windows.Forms.ToolTip(Me.components)
         Me.GroupBox1.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
         CType(Me.grdItems, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.GbFarmaciaForm.SuspendLayout()
@@ -110,7 +116,7 @@ Partial Class frmPresentaciones
         '
         Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.GroupBox1.Controls.Add(Me.btnUnificarPresentaciones)
+        Me.GroupBox1.Controls.Add(Me.GroupBox2)
         Me.GroupBox1.Controls.Add(Me.Label9)
         Me.GroupBox1.Controls.Add(Me.cmbEstado)
         Me.GroupBox1.Controls.Add(Me.grdItems)
@@ -146,24 +152,45 @@ Partial Class frmPresentaciones
         Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4)
-        Me.GroupBox1.Size = New System.Drawing.Size(2868, 629)
+        Me.GroupBox1.Size = New System.Drawing.Size(3421, 629)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         '
-        'btnUnificarPresentaciones
+        'GroupBox2
         '
-        Me.btnUnificarPresentaciones.Location = New System.Drawing.Point(866, 584)
-        Me.btnUnificarPresentaciones.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnUnificarPresentaciones.Name = "btnUnificarPresentaciones"
-        Me.btnUnificarPresentaciones.Size = New System.Drawing.Size(104, 39)
-        Me.btnUnificarPresentaciones.TabIndex = 340
-        Me.btnUnificarPresentaciones.Text = "Unificar"
-        Me.btnUnificarPresentaciones.UseVisualStyleBackColor = True
+        Me.GroupBox2.Controls.Add(Me.btnUnificar)
+        Me.GroupBox2.Controls.Add(Me.btnSeparar)
+        Me.GroupBox2.Location = New System.Drawing.Point(851, 557)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(292, 72)
+        Me.GroupBox2.TabIndex = 347
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "Herramientas"
+        '
+        'btnUnificar
+        '
+        Me.btnUnificar.Location = New System.Drawing.Point(27, 22)
+        Me.btnUnificar.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnUnificar.Name = "btnUnificar"
+        Me.btnUnificar.Size = New System.Drawing.Size(101, 38)
+        Me.btnUnificar.TabIndex = 340
+        Me.btnUnificar.Text = "Unificar"
+        Me.btnUnificar.UseVisualStyleBackColor = True
+        '
+        'btnSeparar
+        '
+        Me.btnSeparar.Location = New System.Drawing.Point(164, 22)
+        Me.btnSeparar.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnSeparar.Name = "btnSeparar"
+        Me.btnSeparar.Size = New System.Drawing.Size(101, 38)
+        Me.btnSeparar.TabIndex = 346
+        Me.btnSeparar.Text = "Separar"
+        Me.btnSeparar.UseVisualStyleBackColor = True
         '
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(523, 570)
+        Me.Label9.Location = New System.Drawing.Point(428, 571)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(52, 17)
         Me.Label9.TabIndex = 345
@@ -179,7 +206,7 @@ Partial Class frmPresentaciones
         Me.cmbEstado.FormattingEnabled = True
         Me.cmbEstado.IntegralHeight = False
         Me.cmbEstado.Items.AddRange(New Object() {"TODAS", "PENDIENTES", "PARA LIQUIDAR", "LIQUIDADAS", "PAGAS"})
-        Me.cmbEstado.Location = New System.Drawing.Point(525, 591)
+        Me.cmbEstado.Location = New System.Drawing.Point(431, 591)
         Me.cmbEstado.Margin = New System.Windows.Forms.Padding(4)
         Me.cmbEstado.Name = "cmbEstado"
         Me.cmbEstado.Size = New System.Drawing.Size(279, 28)
@@ -435,7 +462,7 @@ Partial Class frmPresentaciones
         '
         Me.Label20.AutoSize = True
         Me.Label20.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label20.Location = New System.Drawing.Point(1331, 596)
+        Me.Label20.Location = New System.Drawing.Point(1494, 570)
         Me.Label20.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label20.Name = "Label20"
         Me.Label20.Size = New System.Drawing.Size(98, 18)
@@ -450,7 +477,7 @@ Partial Class frmPresentaciones
         Me.txtACargoOS.DecSeparator = Global.Microsoft.VisualBasic.ChrW(46)
         Me.txtACargoOS.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtACargoOS.Format = TextBoxConFormatoVB.tbFormats.SignedFloatingPointNumber
-        Me.txtACargoOS.Location = New System.Drawing.Point(1440, 592)
+        Me.txtACargoOS.Location = New System.Drawing.Point(1497, 592)
         Me.txtACargoOS.Margin = New System.Windows.Forms.Padding(4)
         Me.txtACargoOS.Name = "txtACargoOS"
         Me.txtACargoOS.ReadOnly = True
@@ -467,7 +494,7 @@ Partial Class frmPresentaciones
         '
         Me.Label18.AutoSize = True
         Me.Label18.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label18.Location = New System.Drawing.Point(1591, 596)
+        Me.Label18.Location = New System.Drawing.Point(1644, 568)
         Me.Label18.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(46, 18)
@@ -510,7 +537,7 @@ Partial Class frmPresentaciones
         '
         Me.chkGrillaInferior.AutoSize = True
         Me.chkGrillaInferior.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chkGrillaInferior.Location = New System.Drawing.Point(239, 594)
+        Me.chkGrillaInferior.Location = New System.Drawing.Point(212, 595)
         Me.chkGrillaInferior.Margin = New System.Windows.Forms.Padding(4)
         Me.chkGrillaInferior.Name = "chkGrillaInferior"
         Me.chkGrillaInferior.Size = New System.Drawing.Size(200, 21)
@@ -562,7 +589,7 @@ Partial Class frmPresentaciones
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(1037, 596)
+        Me.Label4.Location = New System.Drawing.Point(1343, 570)
         Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(111, 18)
@@ -577,7 +604,7 @@ Partial Class frmPresentaciones
         Me.txtRecaudado.DecSeparator = Global.Microsoft.VisualBasic.ChrW(46)
         Me.txtRecaudado.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtRecaudado.Format = TextBoxConFormatoVB.tbFormats.SignedFloatingPointNumber
-        Me.txtRecaudado.Location = New System.Drawing.Point(1169, 592)
+        Me.txtRecaudado.Location = New System.Drawing.Point(1346, 592)
         Me.txtRecaudado.Margin = New System.Windows.Forms.Padding(4)
         Me.txtRecaudado.Name = "txtRecaudado"
         Me.txtRecaudado.ReadOnly = True
@@ -1018,7 +1045,7 @@ Partial Class frmPresentaciones
         Me.AccessibleName = "OrdenDeCompra"
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1371, 750)
+        Me.ClientSize = New System.Drawing.Size(1924, 750)
         Me.Controls.Add(Me.GroupBox1)
         Me.Margin = New System.Windows.Forms.Padding(5)
         Me.Name = "frmPresentaciones"
@@ -1026,6 +1053,7 @@ Partial Class frmPresentaciones
         Me.Controls.SetChildIndex(Me.GroupBox1, 0)
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
+        Me.GroupBox2.ResumeLayout(False)
         CType(Me.grdItems, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ContextMenuStrip1.ResumeLayout(False)
         Me.GbFarmaciaForm.ResumeLayout(False)
@@ -1107,5 +1135,10 @@ Partial Class frmPresentaciones
     Friend WithEvents txtBonificacion As TextBoxConFormatoVB.FormattedTextBoxVB
     Friend WithEvents Label9 As Label
     Friend WithEvents cmbEstado As ComboBox
-    Friend WithEvents btnUnificarPresentaciones As Button
+    Friend WithEvents btnUnificar As Button
+    Friend WithEvents btnSeparar As Button
+    Friend WithEvents GroupBox2 As GroupBox
+    Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
+    Friend WithEvents ToolTipbtnSeparar As ToolTip
+    Friend WithEvents ToolTipbtnUnificar As ToolTip
 End Class
