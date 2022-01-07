@@ -801,14 +801,18 @@ Public Class frmObraSocial
 
             ds.Dispose()
 
-            If ds.Tables(0).Rows.Count > 0 Then
-                With Me.cmbLocalidad
-                    .DataSource = ds.Tables(0).DefaultView
-                    .DisplayMember = "Nombre"
-                    .ValueMember = "ID"
-                    .AutoCompleteMode = AutoCompleteMode.SuggestAppend
-                    .AutoCompleteSource = AutoCompleteSource.ListItems
-                End With
+            'If ds.Tables(0).Rows.Count > 0 Then
+            With Me.cmbLocalidad
+                .DataSource = ds.Tables(0).DefaultView
+                .DisplayMember = "Nombre"
+                .ValueMember = "ID"
+                .AutoCompleteMode = AutoCompleteMode.SuggestAppend
+                .AutoCompleteSource = AutoCompleteSource.ListItems
+            End With
+            'End If
+
+            If ds.Tables(0).Rows.Count = 0 Then
+                cmbLocalidad.Text = ""
             End If
 
         Catch ex As Exception
@@ -820,9 +824,10 @@ Public Class frmObraSocial
     End Sub
 
 
-    Private Sub cmbLocalidad_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbLocalidad.SelectedIndexChanged
+    Private Sub cmbLocalidad_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbLocalidad.SelectedValueChanged
 
-        If llenandoCombo = True Then
+        'If llenandoCombo = True Then
+        If TypeOf cmbLocalidad.SelectedValue Is Long Then
             ''LLENAR COMBOBOX LOCALIDADES
             Dim connection As SqlClient.SqlConnection = Nothing
             Try
@@ -874,7 +879,7 @@ Public Class frmObraSocial
 
     End Sub
 
-    Private Sub txtCodigoPostal_TextChanged(sender As Object, e As EventArgs) Handles txtCodigoPostal.TextChanged
+    Private Sub txtCodigoPostal_LostFocus(sender As Object, e As EventArgs) Handles txtCodigoPostal.LostFocus
         If txtCodigoPostal.Text.Length = 4 Then
             Dim connection As SqlClient.SqlConnection = Nothing
             Try
