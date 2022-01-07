@@ -786,6 +786,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Saldos.Designer.vb">
+      <DependentUpon>Saldos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Saldos.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Service References\WS_Porkys\Reference.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1202,6 +1208,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMovDia_Caja_Operacion.resx">
       <DependentUpon>frmMovDia_Caja_Operacion.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Saldos.resx">
+      <DependentUpon>Saldos.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
