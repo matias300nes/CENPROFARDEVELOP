@@ -153,6 +153,8 @@ Partial Class MDIPrincipal
         Me.ToolStripStatusLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolTip = New System.Windows.Forms.ToolTip(Me.components)
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.ConceptosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.FarmaciaConceptosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip.SuspendLayout()
         Me.ToolStrip.SuspendLayout()
         Me.StatusStrip.SuspendLayout()
@@ -171,7 +173,7 @@ Partial Class MDIPrincipal
         '
         'AuxiliaresToolStripMenuItem
         '
-        Me.AuxiliaresToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FarmaciasToolStripMenuItem, Me.ObrasSocialesToolStripMenuItem, Me.PresentacionesToolStripMenuItem, Me.LiquidacionesToolStripMenuItem, Me.MaterialesToolStripMenuItem1, Me.ActualizarPreciosToolStripMenuItem, Me.PromocionesToolStripMenuItem, Me.ListaDePreciosToolStripMenuItem, Me.MaquinasYHerramientasToolStripMenuItem, Me.ToolStripSeparator14, Me.ClientesToolStripMenuItem, Me.ProveedoresToolStripMenuItem, Me.ListaPreciosToolStripMenuItem, Me.ToolStripSeparator15, Me.MarcasToolStripMenuItem, Me.FamiliasToolStripMenuItem, Me.NotasToolStripMenuItem, Me.ImpuestosToolStripMenuItem, Me.CondicionesDePagoToolStripMenuItem, Me.UnidadesToolStripMenuItem1, Me.ToolStripSeparator19, Me.TablerosToolStripMenuItem, Me.ToolStripSeparator20, Me.EnsayosParaTransformadoresToolStripMenuItem, Me.ToolStripSeparator22, Me.ToolStripMenuItem1, Me.ToolStripSeparator21, Me.SalirToolStripMenuItem})
+        Me.AuxiliaresToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FarmaciasToolStripMenuItem, Me.ObrasSocialesToolStripMenuItem, Me.PresentacionesToolStripMenuItem, Me.LiquidacionesToolStripMenuItem, Me.ConceptosToolStripMenuItem, Me.FarmaciaConceptosToolStripMenuItem, Me.MaterialesToolStripMenuItem1, Me.ActualizarPreciosToolStripMenuItem, Me.PromocionesToolStripMenuItem, Me.ListaDePreciosToolStripMenuItem, Me.MaquinasYHerramientasToolStripMenuItem, Me.ToolStripSeparator14, Me.ClientesToolStripMenuItem, Me.ProveedoresToolStripMenuItem, Me.ListaPreciosToolStripMenuItem, Me.ToolStripSeparator15, Me.MarcasToolStripMenuItem, Me.FamiliasToolStripMenuItem, Me.NotasToolStripMenuItem, Me.ImpuestosToolStripMenuItem, Me.CondicionesDePagoToolStripMenuItem, Me.UnidadesToolStripMenuItem1, Me.ToolStripSeparator19, Me.TablerosToolStripMenuItem, Me.ToolStripSeparator20, Me.EnsayosParaTransformadoresToolStripMenuItem, Me.ToolStripSeparator22, Me.ToolStripMenuItem1, Me.ToolStripSeparator21, Me.SalirToolStripMenuItem})
         Me.AuxiliaresToolStripMenuItem.Name = "AuxiliaresToolStripMenuItem"
         Me.AuxiliaresToolStripMenuItem.Size = New System.Drawing.Size(59, 24)
         Me.AuxiliaresToolStripMenuItem.Text = "Inicio"
@@ -1064,7 +1066,7 @@ Partial Class MDIPrincipal
         '
         Me.StatusStrip.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.StatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel})
-        Me.StatusStrip.Location = New System.Drawing.Point(0, 570)
+        Me.StatusStrip.Location = New System.Drawing.Point(0, 660)
         Me.StatusStrip.Name = "StatusStrip"
         Me.StatusStrip.Padding = New System.Windows.Forms.Padding(1, 0, 19, 0)
         Me.StatusStrip.Size = New System.Drawing.Size(1272, 26)
@@ -1081,13 +1083,25 @@ Partial Class MDIPrincipal
         '
         Me.Timer1.Interval = 1200000
         '
+        'ConceptosToolStripMenuItem
+        '
+        Me.ConceptosToolStripMenuItem.Name = "ConceptosToolStripMenuItem"
+        Me.ConceptosToolStripMenuItem.Size = New System.Drawing.Size(302, 26)
+        Me.ConceptosToolStripMenuItem.Text = "Conceptos"
+        '
+        'FarmaciaConceptosToolStripMenuItem
+        '
+        Me.FarmaciaConceptosToolStripMenuItem.Name = "FarmaciaConceptosToolStripMenuItem"
+        Me.FarmaciaConceptosToolStripMenuItem.Size = New System.Drawing.Size(302, 26)
+        Me.FarmaciaConceptosToolStripMenuItem.Text = "Farmacia_Conceptos"
+        '
         'MDIPrincipal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Lime
         Me.BackgroundImage = Global.CENPROFAR.My.Resources.Resources.KAIZEN2
-        Me.ClientSize = New System.Drawing.Size(1272, 596)
+        Me.ClientSize = New System.Drawing.Size(1272, 686)
         Me.Controls.Add(Me.ToolStrip)
         Me.Controls.Add(Me.MenuStrip)
         Me.Controls.Add(Me.StatusStrip)
@@ -1240,4 +1254,6 @@ Partial Class MDIPrincipal
     Friend WithEvents ObrasSocialesToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents LiquidacionesToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents PresentacionesToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ConceptosToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents FarmaciaConceptosToolStripMenuItem As ToolStripMenuItem
 End Class
