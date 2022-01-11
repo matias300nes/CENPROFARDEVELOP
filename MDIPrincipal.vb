@@ -4291,4 +4291,8 @@ Pedidos:
         frmPresentaciones.Show()
     End Sub
 
+    Private Sub SaldosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SaldosToolStripMenuItem.Click
+        frmSaldos.MdiParent = Me
+        frmSaldos.Show()
+    End Sub
 End Class
