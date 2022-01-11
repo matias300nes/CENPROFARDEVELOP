@@ -134,7 +134,7 @@ Public Class frmSelectPresentacion
                             sum(pd.Bonificacion)	as Bonificación			-- 13
                         from Presentaciones_det pd
                         join Farmacias f on f.ID = pd.IdFarmacia
-                        where pd.IdPresentacion = { .Cells(GridCols.ID).Value}
+                        where pd.IdPresentacion = { .Cells(GridCols.ID).Value} and pd.eliminado = 0
                         group by			
                             pd.IdFarmacia,
                             f.Codigo,
@@ -151,7 +151,7 @@ Public Class frmSelectPresentacion
                                 0				as edit
 	                    from Presentaciones_det pd
 		                    join Farmacias f on f.ID = pd.IdFarmacia
-	                    where pd.IdPresentacion = { .Cells(GridCols.ID).Value}
+	                    where pd.IdPresentacion = { .Cells(GridCols.ID).Value} and pd.eliminado = 0
 	                    group by
 		                    pd.IdFarmacia,
 		                    f.Nombre
@@ -175,8 +175,8 @@ Public Class frmSelectPresentacion
 		                        pd.Bonificacion			as Bonificación			-- 13
 	
                         from Presentaciones_det pd
-                        join Farmacias f on f.ID = pd.IdFarmacia
-                        where pd.IdPresentacion = { .Cells(GridCols.ID).Value}
+                        join Farmacias f on f.ID = pd.IdFarmacia 
+                        where pd.IdPresentacion = { .Cells(GridCols.ID).Value} and pd.eliminado = 0
                     "
                     sqlConceptos = $"
                         select 
@@ -189,7 +189,7 @@ Public Class frmSelectPresentacion
                                 0           as edit
 	                    from Presentaciones_det pd
 		                    join Farmacias f on f.ID = pd.IdFarmacia
-	                    where pd.IdPresentacion = { .Cells(GridCols.ID).Value}
+	                    where pd.IdPresentacion = { .Cells(GridCols.ID).Value} and pd.eliminado = 0
                     "
                 End If
 
