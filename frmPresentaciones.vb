@@ -50,6 +50,7 @@ Public Class frmPresentaciones
 
     Dim porceniva As Double = 21
 
+
     Enum ColumnasDelGridItems
         ''NACHO
         ID = 0
@@ -107,7 +108,7 @@ Public Class frmPresentaciones
         End If
     End Sub
 
-    Private Sub grd_SelectionChanged(sender As Object, e As EventArgs) Handles grd.SelectionChanged
+    Private Sub grd_SelectionChanged(sender As Object, e As EventArgs) 'Handles grd.SelectionChanged
         ''DataGridView1.SelectedRows.Count().ToString()
         If grd.SelectedRows.Count() > 1 Then
             btnUnificar.Enabled = True
@@ -1667,7 +1668,7 @@ Public Class frmPresentaciones
                 param_total.SqlDbType = SqlDbType.Decimal
                 param_total.Precision = 18
                 param_total.Scale = 2
-                param_total.Value = 0 'Decimal.Parse(txtSubtotal.Text)
+                param_total.Value = Decimal.Parse(txtTotal.Text)
                 param_total.Direction = ParameterDirection.Input
 
                 Dim param_useradd As New SqlClient.SqlParameter
@@ -2743,6 +2744,46 @@ Public Class frmPresentaciones
             Exit Sub
         End If
 
+    End Sub
+
+    Private Sub dtiPeriodo_ValueChanged(sender As Object, e As EventArgs) Handles dtiPeriodo.ValueChanged
+        dtiPeriodo.MonthCalendar.ToString()
+        Dim mes = dtiPeriodo.Value.Month.ToString
+
+        Dim año = dtiPeriodo.Value.Year
+
+        Select Case mes
+            Case 1
+                mes = "Enero"
+            Case 2
+                mes = "Febrero"
+            Case 3
+                mes = "Marzo"
+            Case 4
+                mes = "Abril"
+            Case 5
+                mes = "Mayo"
+            Case 6
+                mes = "Junio"
+            Case 7
+                mes = "Julio"
+            Case 8
+                mes = "Agosto"
+            Case 9
+                mes = "Septiembre"
+            Case 10
+                mes = "Octubre"
+            Case 11
+                mes = "Noviembre"
+            Case 12
+                mes = "Diciembre"
+        End Select
+
+        'MsgBox(mes.ToString.ToUpper)
+
+        Dim periodo = mes.ToString.ToUpper + " - " + año.ToString
+
+        txtPeriodo.Text = periodo
     End Sub
 
 
