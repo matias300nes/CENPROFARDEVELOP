@@ -443,6 +443,7 @@ Public Class frmLiquidaciones
 
             da_conceptos.Fill(dtConcepto)
 
+
         Catch ex As Exception
             MsgBox(ex.Message)
         Finally
@@ -553,24 +554,54 @@ Public Class frmLiquidaciones
     Private Sub CalcularTotales()
         ''CALCULA LOS TOTALES DE LA GRIDITEMS
         Dim i As Integer
-        Dim count As Integer = 0
         Dim Recaudado As Decimal = 0
         Dim ACargoOS As Decimal = 0
+        Dim ACargoOS_A As Decimal = 0
         Dim Total As Decimal = 0
+        Dim Transferencia As Decimal = 0
 
         With gl_dataset.Tables(0)
             If .Rows.Count > 0 Then
                 For i = 0 To gl_dataset.Tables(0).Rows.Count - 1
                     If .Rows(i)("Subtotal") IsNot DBNull.Value Then
                         Total += .Rows(i)("Subtotal")
-                        count += 1
+                    End If
+
+                    If .Rows(i)("A Cargo OS") IsNot DBNull.Value Then
+                        ACargoOS += .Rows(i)("A Cargo OS")
+                    End If
+
+                    If .Rows(i)("A Cargo OS A") IsNot DBNull.Value Then
+                        ACargoOS_A += .Rows(i)("A Cargo OS A")
+                    End If
+
+                Next
+            End If
+        End With
+
+        With gl_dataset.Tables(1)
+            Transferencia = Total
+            If .Rows.Count > 0 Then
+                For Each concepto As DataRow In gl_dataset.Tables(1).Rows
+                    If concepto("detalle") = "Impuesto cheque" Or
+                       concepto("detalle") = "Comisión centro" Or
+                       concepto("detalle") = "Ingresos Brutos" Then
+
+                        Transferencia -= concepto("valor")
+
                     End If
                 Next
             End If
         End With
 
+        If ACargoOS = ACargoOS_A And cmbTipoPago.Text = "Parcial" And chkLiquidado.Checked = False Then
+            MsgBox("Los importes presentados y aceptados son iguales, se configurará la liquidación como pago final")
+            cmbTipoPago.SelectedValue = "FINAL"
+        End If
+
         lblTotal.Text = String.Format("{0:N2}", Total)
-        lblCantidadItems.Text = count
+        lblTransferencia.Text = String.Format("{0:N2}", Transferencia)
+        lblCantidadItems.Text = gl_dataset.Tables(0).Rows.Count
     End Sub
 
     Private Sub btnExcelWindow_Click(sender As Object, e As EventArgs) Handles btnExcelWindow.Click
@@ -2553,10 +2584,12 @@ Public Class frmLiquidaciones
         'Verifico el nombre del subpanel
 
         If panel.Name.Equals("Table2") = True Then
-            'panel.Columns(0).Visible = False 'ID
-            'panel.Columns(1).Visible = False 'IdDetalle
-            'panel.Columns(2).Visible = False 'IdFarmacia
-            'panel.Columns(5).Visible = False 'estado
+            panel.AllowEdit = False
+            panel.ColumnDragBehavior = False
+            panel.Columns(0).Visible = False 'ID
+            panel.Columns(1).Visible = False 'IdDetalle
+            panel.Columns(2).Visible = False 'IdFarmacia
+            panel.Columns(5).Visible = False 'estado
             panel.Columns(6).Width = 30 'hago el boton de eliminar mas pequeño
 
             'panel.Visible = IIf(panel.Rows.Count > 0, True, False)
@@ -2689,6 +2722,14 @@ Public Class frmLiquidaciones
 
             ''Cambio bit de liquidado
             chkLiquidado.Checked = True
+
+            ''Hago que todos los conceptos no puedan ser eliminados
+            For Each concepto As DataRow In gl_dataset.Tables(1).Rows
+                If concepto("edit") = True Then
+                    concepto("edit") = False
+                    concepto("estado") = "update"
+                End If
+            Next
 
             Util.MsgStatus(Status1, "Guardando el registro...", My.Resources.Resources.indicator_white)
             'res = AgregarActualizar_Registro_Recepciones(ControlFactura, ControlRemito)

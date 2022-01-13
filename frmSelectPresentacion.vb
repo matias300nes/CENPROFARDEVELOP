@@ -140,22 +140,22 @@ Public Class frmSelectPresentacion
                             f.Codigo,
                             f.nombre
                     "
-                    sqlConceptos = $"
-                        select 
-		                    null				as ID,
-		                    ROW_NUMBER() OVER(order by f. nombre)as IdDetalle,
-		                    pd.IdFarmacia		as IdFarmacia,
-		                    'A Cargo OS'		as detalle,
-		                    sum(pd.AcargoOS)	as valor,
-                            'insert'			as estado,
-                                0				as edit
-	                    from Presentaciones_det pd
-		                    join Farmacias f on f.ID = pd.IdFarmacia
-	                    where pd.IdPresentacion = { .Cells(GridCols.ID).Value} and pd.eliminado = 0
-	                    group by
-		                    pd.IdFarmacia,
-		                    f.Nombre
-                    "
+                    'sqlConceptos = $"
+                    '    select 
+                    '  null				as ID,
+                    '  ROW_NUMBER() OVER(order by f. nombre)as IdDetalle,
+                    '  pd.IdFarmacia		as IdFarmacia,
+                    '  'A Cargo OS'		as detalle,
+                    '  sum(pd.AcargoOS)	as valor,
+                    '        'insert'			as estado,
+                    '            0				as edit
+                    ' from Presentaciones_det pd
+                    '  join Farmacias f on f.ID = pd.IdFarmacia
+                    ' where pd.IdPresentacion = { .Cells(GridCols.ID).Value} and pd.eliminado = 0
+                    ' group by
+                    '  pd.IdFarmacia,
+                    '  f.Nombre
+                    '"
                 Else
                     sqlDetalle = $"
                         select
@@ -178,23 +178,22 @@ Public Class frmSelectPresentacion
                         join Farmacias f on f.ID = pd.IdFarmacia 
                         where pd.IdPresentacion = { .Cells(GridCols.ID).Value} and pd.eliminado = 0
                     "
-                    sqlConceptos = $"
-                        select 
-		                    null			as ID,
-		                    ROW_NUMBER() OVER(order by f. nombre)as IdDetalle,
-		                    pd.IdFarmacia		as IdFarmacia,
-		                    'A Cargo OS'	as detalle,
-		                    pd.AcargoOS		as valor,
-                            'insert'        as estado,
-                                0           as edit
-	                    from Presentaciones_det pd
-		                    join Farmacias f on f.ID = pd.IdFarmacia
-	                    where pd.IdPresentacion = { .Cells(GridCols.ID).Value} and pd.eliminado = 0
-                    "
+                    'sqlConceptos = $"
+                    '    select 
+                    '  null			as ID,
+                    '  ROW_NUMBER() OVER(order by f. nombre)as IdDetalle,
+                    '  pd.IdFarmacia		as IdFarmacia,
+                    '  'A Cargo OS'	as detalle,
+                    '  pd.AcargoOS		as valor,
+                    '        'insert'        as estado,
+                    '            0           as edit
+                    ' from Presentaciones_det pd
+                    '  join Farmacias f on f.ID = pd.IdFarmacia
+                    ' where pd.IdPresentacion = { .Cells(GridCols.ID).Value} and pd.eliminado = 0
+                    '"
                 End If
 
-
-
+                sqlConceptos = $"exec spConceptosNuevaLiquidacion_Select @agrupado = {chkAgrupar.Checked}, @idpresentacion = { .Cells(GridCols.ID).Value}"
 
                 frmLiquidaciones.Presentacion_request(SqlDetalle, sqlConceptos)
             End With
