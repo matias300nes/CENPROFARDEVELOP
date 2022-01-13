@@ -2786,6 +2786,15 @@ Public Class frmPresentaciones
         txtPeriodo.Text = periodo
     End Sub
 
+    Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
+        GbPeriodo.Visible = Not GbPeriodo.Visible
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        txtPeriodoX.Text = $"{LbPeriodo_parte.Text} {LbPeriodo_Mes.Text}-{LbPeriodo_año.Text}"
+        GbPeriodo.Visible = Not GbPeriodo.Visible
+    End Sub
+
 
 
 #End Region
