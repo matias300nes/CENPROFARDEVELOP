@@ -542,7 +542,7 @@ Public Class frmImportarExcel
         ''nacho cambió: f.codigo -> f.id
 
         Dim SQL_Farmacias = $"SELECT pd.ID as IdDetalle, f.ID as IdFarmacia, f.Codigo, f.CodFACAF, f.codpami, f.Nombre, pd.IdPresentacion FROM Farmacias f INNER JOIN Presentaciones_det pd on f.Id = pd.IdFarmacia
-                              WHERE pd.IdPresentacion = {idPresentacion}"
+                              WHERE pd.IdPresentacion = {idPresentacion} and pd.eliminado = 0"
 
         Try
             ds_Farmacias = SqlHelper.ExecuteDataset(connection, CommandType.Text, SQL_Farmacias)
@@ -651,6 +651,7 @@ Public Class frmImportarExcel
 
         Dim dtAceptados As New DataTable()
         dtAceptados.Columns.Add("IdDetalle", GetType(Long))
+        dtAceptados.Columns.Add("IdFarmacia", GetType(String))
         dtAceptados.Columns.Add("Recetas", GetType(Integer))
         dtAceptados.Columns.Add("Recaudado", GetType(Decimal))
         dtAceptados.Columns.Add("A Cargo OS", GetType(Decimal))
@@ -668,6 +669,7 @@ Public Class frmImportarExcel
         For Each item As DataRow In dtGrdData.Rows
             Dim row As DataRow = dtAceptados.NewRow()
             row("IdDetalle") = item("IdDetalle")
+            row("IdFarmacia") = item("IdFarmacia")
             row("Recetas") = item("Recetas")
             row("Recaudado") = item("Recaudado")
             row("A Cargo OS") = item("A Cargo OS")
@@ -678,36 +680,8 @@ Public Class frmImportarExcel
         frmLiquidaciones.addAceptadosFromExcel(dtAceptados)
 
 
+
         '---------------Recolección de conceptos----------------
-
-        ''CALCULO DE ERROR AJUSTE
-        'For i = 0 To grdDetalleLiquidacionFiltrada.Rows.Count - 1
-        '    Dim aceptado = Decimal.Parse(grdDetalleLiquidacionFiltrada.Rows(i).Cells("A cargo OS").Value)
-        '    Dim aceptado_farmacia = grdDetalleLiquidacionFiltrada.Rows(i).Cells("IdFarmacia").Value
-
-        '    'Se queda con la primera coincidencia de farmacia y detalle de la grilla de detalles
-        '    Dim a_cargo As DataRow
-        '    rowArray = Conceptos.Select($"IdFarmacia = '{aceptado_farmacia}' and detalle = 'A cargo OS'")
-        '    If rowArray.Length > 0 Then
-        '        a_cargo = rowArray(0)
-
-        '        If a_cargo("valor") <> aceptado Then
-        '            Dim error_ajuste As DataRow = Conceptos.NewRow()
-        '            error_ajuste("IdDetalle") = a_cargo("IdDetalle")
-        '            error_ajuste("IdFarmacia") = a_cargo("IdFarmacia")
-        '            error_ajuste("estado") = "insert"
-        '            If cmbTipoPago.Text = "Anticipo" Then
-        '                error_ajuste("detalle") = "Pendiente de pago"
-        '            Else
-        '                error_ajuste("detalle") = "Error ajuste"
-        '            End If
-
-        '            error_ajuste("valor") = Decimal.Parse(aceptado - a_cargo("valor"))
-        '            Conceptos.Rows.Add(error_ajuste)
-        '        End If
-        '    End If
-
-        'Next
 
         Dim ColumnName As String
         Dim IdDetalle As Long
@@ -726,11 +700,12 @@ Public Class frmImportarExcel
                     row("IdFarmacia") = grdDetalleLiquidacionFiltrada.Rows(j).Cells("IdFarmacia").Value
                     row("detalle") = ColumnName
                     row("valor") = Decimal.Parse(grdDetalleLiquidacionFiltrada.Rows(j).Cells(i).Value) * -1
-                    'row("edit") = True
+                    row("edit") = True
                     row("estado") = "insert"
                     If (row("valor") <> 0) Then
                         dtConceptos.Rows.Add(row)
                     End If
+
                 End If
             Next
         Next
