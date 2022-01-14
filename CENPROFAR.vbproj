@@ -815,6 +815,12 @@
     <Compile Include="frmMovDia_Caja_Operacion.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="UserControl1.Designer.vb">
+      <DependentUpon>UserControl1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl1.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="AboutBox1.resx">
@@ -1230,6 +1236,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmSaldos.resx">
       <DependentUpon>frmSaldos.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControl1.resx">
+      <DependentUpon>UserControl1.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

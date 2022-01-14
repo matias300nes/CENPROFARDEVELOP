@@ -20,13 +20,21 @@ Partial Class frmPresentaciones
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle18 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
+        Me.txtPeriodoX = New System.Windows.Forms.TextBox()
+        Me.GbPeriodo = New System.Windows.Forms.GroupBox()
+        Me.Button2 = New System.Windows.Forms.Button()
+        Me.LbPeriodo_Mes = New System.Windows.Forms.ListBox()
+        Me.LbPeriodo_año = New System.Windows.Forms.ListBox()
+        Me.LbPeriodo_parte = New System.Windows.Forms.ListBox()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.cmbPPago = New System.Windows.Forms.ComboBox()
         Me.dtiPeriodo = New DevComponents.Editors.DateTimeAdv.DateTimeInput()
@@ -104,15 +112,9 @@ Partial Class frmPresentaciones
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.ToolTipbtnSeparar = New System.Windows.Forms.ToolTip(Me.components)
         Me.ToolTipbtnUnificar = New System.Windows.Forms.ToolTip(Me.components)
-        Me.txtPeriodoX = New System.Windows.Forms.TextBox()
-        Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.GbPeriodo = New System.Windows.Forms.GroupBox()
-        Me.LbPeriodo_parte = New System.Windows.Forms.ListBox()
-        Me.LbPeriodo_año = New System.Windows.Forms.ListBox()
-        Me.LbPeriodo_Mes = New System.Windows.Forms.ListBox()
-        Me.Button2 = New System.Windows.Forms.Button()
+        Me.ComboBoxEx1 = New DevComponents.DotNetBar.Controls.ComboBoxEx()
         Me.GroupBox1.SuspendLayout()
+        Me.GbPeriodo.SuspendLayout()
         CType(Me.dtiPeriodo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
         CType(Me.grdItems, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -122,7 +124,6 @@ Partial Class frmPresentaciones
         Me.ContextMenuStrip2.SuspendLayout()
         Me.ContextMenuStrip3.SuspendLayout()
         Me.ContextMenuMarcas.SuspendLayout()
-        Me.GbPeriodo.SuspendLayout()
         Me.SuspendLayout()
         '
         'GroupBox1
@@ -130,6 +131,7 @@ Partial Class frmPresentaciones
         Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox1.BackColor = System.Drawing.Color.Transparent
+        Me.GroupBox1.Controls.Add(Me.ComboBoxEx1)
         Me.GroupBox1.Controls.Add(Me.ButtonX1)
         Me.GroupBox1.Controls.Add(Me.txtPeriodoX)
         Me.GroupBox1.Controls.Add(Me.GbPeriodo)
@@ -171,9 +173,89 @@ Partial Class frmPresentaciones
         Me.GroupBox1.ForeColor = System.Drawing.Color.Blue
         Me.GroupBox1.Location = New System.Drawing.Point(7, 24)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(2583, 511)
+        Me.GroupBox1.Size = New System.Drawing.Size(2884, 511)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
+        '
+        'ButtonX1
+        '
+        Me.ButtonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.ButtonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
+        Me.ButtonX1.Font = New System.Drawing.Font("Microsoft Sans Serif", 5.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonX1.Location = New System.Drawing.Point(558, 69)
+        Me.ButtonX1.Name = "ButtonX1"
+        Me.ButtonX1.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor()
+        Me.ButtonX1.Size = New System.Drawing.Size(16, 16)
+        Me.ButtonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.ButtonX1.TabIndex = 352
+        Me.ButtonX1.Text = "l"
+        '
+        'txtPeriodoX
+        '
+        Me.txtPeriodoX.Location = New System.Drawing.Point(362, 66)
+        Me.txtPeriodoX.Multiline = True
+        Me.txtPeriodoX.Name = "txtPeriodoX"
+        Me.txtPeriodoX.Size = New System.Drawing.Size(215, 22)
+        Me.txtPeriodoX.TabIndex = 351
+        '
+        'GbPeriodo
+        '
+        Me.GbPeriodo.Controls.Add(Me.Button2)
+        Me.GbPeriodo.Controls.Add(Me.LbPeriodo_Mes)
+        Me.GbPeriodo.Controls.Add(Me.LbPeriodo_año)
+        Me.GbPeriodo.Controls.Add(Me.LbPeriodo_parte)
+        Me.GbPeriodo.Location = New System.Drawing.Point(362, 83)
+        Me.GbPeriodo.Name = "GbPeriodo"
+        Me.GbPeriodo.Size = New System.Drawing.Size(215, 128)
+        Me.GbPeriodo.TabIndex = 354
+        Me.GbPeriodo.TabStop = False
+        Me.GbPeriodo.Visible = False
+        '
+        'Button2
+        '
+        Me.Button2.Location = New System.Drawing.Point(174, 99)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(35, 23)
+        Me.Button2.TabIndex = 358
+        Me.Button2.Text = "ok"
+        Me.Button2.UseVisualStyleBackColor = True
+        '
+        'LbPeriodo_Mes
+        '
+        Me.LbPeriodo_Mes.FormattingEnabled = True
+        Me.LbPeriodo_Mes.Items.AddRange(New Object() {"enero", "febrero", "marzo", "abril", "Mayo", "junio", "julio", "agosto", "octubre", "noviembre", "diciembre"})
+        Me.LbPeriodo_Mes.Location = New System.Drawing.Point(75, 13)
+        Me.LbPeriodo_Mes.Name = "LbPeriodo_Mes"
+        Me.LbPeriodo_Mes.Size = New System.Drawing.Size(64, 82)
+        Me.LbPeriodo_Mes.TabIndex = 357
+        '
+        'LbPeriodo_año
+        '
+        Me.LbPeriodo_año.FormattingEnabled = True
+        Me.LbPeriodo_año.Items.AddRange(New Object() {"2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027"})
+        Me.LbPeriodo_año.Location = New System.Drawing.Point(145, 13)
+        Me.LbPeriodo_año.Name = "LbPeriodo_año"
+        Me.LbPeriodo_año.Size = New System.Drawing.Size(64, 82)
+        Me.LbPeriodo_año.TabIndex = 356
+        '
+        'LbPeriodo_parte
+        '
+        Me.LbPeriodo_parte.FormattingEnabled = True
+        Me.LbPeriodo_parte.Items.AddRange(New Object() {"1Q", "2Q", "Mensual"})
+        Me.LbPeriodo_parte.Location = New System.Drawing.Point(5, 13)
+        Me.LbPeriodo_parte.Name = "LbPeriodo_parte"
+        Me.LbPeriodo_parte.ScrollAlwaysVisible = True
+        Me.LbPeriodo_parte.Size = New System.Drawing.Size(64, 82)
+        Me.LbPeriodo_parte.TabIndex = 355
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(686, 82)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 23)
+        Me.Button1.TabIndex = 353
+        Me.Button1.Text = "Button1"
+        Me.Button1.UseVisualStyleBackColor = True
         '
         'Label1
         '
@@ -212,7 +294,7 @@ Partial Class frmPresentaciones
         Me.dtiPeriodo.FieldNavigation = DevComponents.Editors.eInputFieldNavigation.None
         Me.dtiPeriodo.IsPopupCalendarOpen = False
         Me.dtiPeriodo.Location = New System.Drawing.Point(1174, 36)
-        Me.dtiPeriodo.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.dtiPeriodo.Margin = New System.Windows.Forms.Padding(2)
         '
         '
         '
@@ -254,9 +336,9 @@ Partial Class frmPresentaciones
         Me.GroupBox2.Controls.Add(Me.btnUnificar)
         Me.GroupBox2.Controls.Add(Me.btnSeparar)
         Me.GroupBox2.Location = New System.Drawing.Point(638, 453)
-        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(2)
         Me.GroupBox2.Size = New System.Drawing.Size(219, 58)
         Me.GroupBox2.TabIndex = 347
         Me.GroupBox2.TabStop = False
@@ -309,27 +391,27 @@ Partial Class frmPresentaciones
         '
         Me.grdItems.AllowUserToAddRows = False
         Me.grdItems.AllowUserToDeleteRows = False
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black
-        Me.grdItems.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.grdItems.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle13.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
+        DataGridViewCellStyle13.ForeColor = System.Drawing.Color.Black
+        Me.grdItems.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle13
+        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle14.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.grdItems.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle14
         Me.grdItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.grdItems.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Id, Me.IdFarmacia, Me.CodigoFarmacia, Me.Nombre, Me.IdPresentacion, Me.Recetas, Me.Recaudad, Me.ACargoOS, Me.Bonificacion, Me.Total, Me.Eliminar})
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle6.ForeColor = System.Drawing.Color.Blue
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.grdItems.DefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle18.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle18.ForeColor = System.Drawing.Color.Blue
+        DataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.grdItems.DefaultCellStyle = DataGridViewCellStyle18
         Me.grdItems.Location = New System.Drawing.Point(346, 111)
         Me.grdItems.Name = "grdItems"
         Me.grdItems.RowHeadersWidth = 51
@@ -426,8 +508,8 @@ Partial Class frmPresentaciones
         '
         'IdPresentacion
         '
-        DataGridViewCellStyle3.NullValue = Nothing
-        Me.IdPresentacion.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle15.NullValue = Nothing
+        Me.IdPresentacion.DefaultCellStyle = DataGridViewCellStyle15
         Me.IdPresentacion.HeaderText = "Id Presentación"
         Me.IdPresentacion.MinimumWidth = 6
         Me.IdPresentacion.Name = "IdPresentacion"
@@ -458,9 +540,9 @@ Partial Class frmPresentaciones
         '
         'Bonificacion
         '
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle4.NullValue = Nothing
-        Me.Bonificacion.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle16.NullValue = Nothing
+        Me.Bonificacion.DefaultCellStyle = DataGridViewCellStyle16
         Me.Bonificacion.HeaderText = "Bonificación"
         Me.Bonificacion.MinimumWidth = 6
         Me.Bonificacion.Name = "Bonificacion"
@@ -469,8 +551,8 @@ Partial Class frmPresentaciones
         '
         'Total
         '
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.Total.DefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.Total.DefaultCellStyle = DataGridViewCellStyle17
         Me.Total.HeaderText = "Total"
         Me.Total.MinimumWidth = 6
         Me.Total.Name = "Total"
@@ -511,7 +593,7 @@ Partial Class frmPresentaciones
         Me.chkMaterialesProveedor.AutoSize = True
         Me.chkMaterialesProveedor.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.chkMaterialesProveedor.Location = New System.Drawing.Point(90, 65)
-        Me.chkMaterialesProveedor.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.chkMaterialesProveedor.Margin = New System.Windows.Forms.Padding(2)
         Me.chkMaterialesProveedor.Name = "chkMaterialesProveedor"
         Me.chkMaterialesProveedor.Size = New System.Drawing.Size(104, 19)
         Me.chkMaterialesProveedor.TabIndex = 331
@@ -1091,98 +1173,32 @@ Partial Class frmPresentaciones
         Me.cmbMarcaCompra.Size = New System.Drawing.Size(300, 150)
         Me.cmbMarcaCompra.Text = "Buscar Marca"
         '
-        'txtPeriodoX
+        'ComboBoxEx1
         '
-        Me.txtPeriodoX.Location = New System.Drawing.Point(362, 66)
-        Me.txtPeriodoX.Multiline = True
-        Me.txtPeriodoX.Name = "txtPeriodoX"
-        Me.txtPeriodoX.Size = New System.Drawing.Size(186, 23)
-        Me.txtPeriodoX.TabIndex = 351
-        '
-        'ButtonX1
-        '
-        Me.ButtonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.ButtonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.ButtonX1.Location = New System.Drawing.Point(548, 66)
-        Me.ButtonX1.Name = "ButtonX1"
-        Me.ButtonX1.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor()
-        Me.ButtonX1.Size = New System.Drawing.Size(29, 23)
-        Me.ButtonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.ButtonX1.TabIndex = 352
-        Me.ButtonX1.Text = "ver"
-        '
-        'Button1
-        '
-        Me.Button1.Location = New System.Drawing.Point(686, 82)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 353
-        Me.Button1.Text = "Button1"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
-        'GbPeriodo
-        '
-        Me.GbPeriodo.Controls.Add(Me.Button2)
-        Me.GbPeriodo.Controls.Add(Me.LbPeriodo_Mes)
-        Me.GbPeriodo.Controls.Add(Me.LbPeriodo_año)
-        Me.GbPeriodo.Controls.Add(Me.LbPeriodo_parte)
-        Me.GbPeriodo.Location = New System.Drawing.Point(362, 83)
-        Me.GbPeriodo.Name = "GbPeriodo"
-        Me.GbPeriodo.Size = New System.Drawing.Size(215, 128)
-        Me.GbPeriodo.TabIndex = 354
-        Me.GbPeriodo.TabStop = False
-        Me.GbPeriodo.Visible = False
-        '
-        'LbPeriodo_parte
-        '
-        Me.LbPeriodo_parte.FormattingEnabled = True
-        Me.LbPeriodo_parte.Items.AddRange(New Object() {"1Q", "2Q", "Mensual"})
-        Me.LbPeriodo_parte.Location = New System.Drawing.Point(5, 12)
-        Me.LbPeriodo_parte.Name = "LbPeriodo_parte"
-        Me.LbPeriodo_parte.ScrollAlwaysVisible = True
-        Me.LbPeriodo_parte.Size = New System.Drawing.Size(64, 82)
-        Me.LbPeriodo_parte.TabIndex = 355
-        '
-        'LbPeriodo_año
-        '
-        Me.LbPeriodo_año.FormattingEnabled = True
-        Me.LbPeriodo_año.Items.AddRange(New Object() {"2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027"})
-        Me.LbPeriodo_año.Location = New System.Drawing.Point(75, 12)
-        Me.LbPeriodo_año.Name = "LbPeriodo_año"
-        Me.LbPeriodo_año.Size = New System.Drawing.Size(64, 82)
-        Me.LbPeriodo_año.TabIndex = 356
-        '
-        'LbPeriodo_Mes
-        '
-        Me.LbPeriodo_Mes.FormattingEnabled = True
-        Me.LbPeriodo_Mes.Items.AddRange(New Object() {"enero", "febrero", "marzo", "abril", "Mayo", "junio", "julio", "agosto", "octubre", "noviembre", "diciembre"})
-        Me.LbPeriodo_Mes.Location = New System.Drawing.Point(145, 12)
-        Me.LbPeriodo_Mes.Name = "LbPeriodo_Mes"
-        Me.LbPeriodo_Mes.Size = New System.Drawing.Size(64, 82)
-        Me.LbPeriodo_Mes.TabIndex = 357
-        '
-        'Button2
-        '
-        Me.Button2.Location = New System.Drawing.Point(174, 99)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(35, 23)
-        Me.Button2.TabIndex = 358
-        Me.Button2.Text = "ok"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.ComboBoxEx1.DisplayMember = "Text"
+        Me.ComboBoxEx1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
+        Me.ComboBoxEx1.FormattingEnabled = True
+        Me.ComboBoxEx1.ItemHeight = 14
+        Me.ComboBoxEx1.Location = New System.Drawing.Point(126, 70)
+        Me.ComboBoxEx1.Name = "ComboBoxEx1"
+        Me.ComboBoxEx1.Size = New System.Drawing.Size(121, 20)
+        Me.ComboBoxEx1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.ComboBoxEx1.TabIndex = 355
         '
         'frmPresentaciones
         '
         Me.AccessibleName = "OrdenDeCompra"
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1028, 609)
+        Me.ClientSize = New System.Drawing.Size(1295, 609)
         Me.Controls.Add(Me.GroupBox1)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "frmPresentaciones"
         Me.Text = "frmOrdenCompra"
         Me.Controls.SetChildIndex(Me.GroupBox1, 0)
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
+        Me.GbPeriodo.ResumeLayout(False)
         CType(Me.dtiPeriodo, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox2.ResumeLayout(False)
         CType(Me.grdItems, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1193,7 +1209,6 @@ Partial Class frmPresentaciones
         Me.ContextMenuStrip2.ResumeLayout(False)
         Me.ContextMenuStrip3.ResumeLayout(False)
         Me.ContextMenuMarcas.ResumeLayout(False)
-        Me.GbPeriodo.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1284,4 +1299,5 @@ Partial Class frmPresentaciones
     Friend WithEvents LbPeriodo_Mes As ListBox
     Friend WithEvents LbPeriodo_año As ListBox
     Friend WithEvents Button2 As Button
+    Friend WithEvents ComboBoxEx1 As DevComponents.DotNetBar.Controls.ComboBoxEx
 End Class
