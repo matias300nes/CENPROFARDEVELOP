@@ -2746,52 +2746,12 @@ Public Class frmPresentaciones
 
     End Sub
 
-    Private Sub dtiPeriodo_ValueChanged(sender As Object, e As EventArgs) Handles dtiPeriodo.ValueChanged
-        dtiPeriodo.MonthCalendar.ToString()
-        Dim mes = dtiPeriodo.Value.Month.ToString
-
-        Dim año = dtiPeriodo.Value.Year
-
-        Select Case mes
-            Case 1
-                mes = "Enero"
-            Case 2
-                mes = "Febrero"
-            Case 3
-                mes = "Marzo"
-            Case 4
-                mes = "Abril"
-            Case 5
-                mes = "Mayo"
-            Case 6
-                mes = "Junio"
-            Case 7
-                mes = "Julio"
-            Case 8
-                mes = "Agosto"
-            Case 9
-                mes = "Septiembre"
-            Case 10
-                mes = "Octubre"
-            Case 11
-                mes = "Noviembre"
-            Case 12
-                mes = "Diciembre"
-        End Select
-
-        'MsgBox(mes.ToString.ToUpper)
-
-        Dim periodo = mes.ToString.ToUpper + " - " + año.ToString
-
-        txtPeriodo.Text = periodo
-    End Sub
-
-    Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
+    Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles btnPeriodo.Click
         GbPeriodo.Visible = Not GbPeriodo.Visible
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        txtPeriodoX.Text = $"{LbPeriodo_parte.Text} {LbPeriodo_Mes.Text}-{LbPeriodo_año.Text}"
+        txtPeriodo.Text = $"{LbPeriodo_parte.Text} {LbPeriodo_Mes.Text}-{LbPeriodo_año.Text}"
         GbPeriodo.Visible = Not GbPeriodo.Visible
     End Sub
 
