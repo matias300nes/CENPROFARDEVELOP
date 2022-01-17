@@ -612,9 +612,9 @@ Public Class frmLiquidaciones
     Friend Sub addAceptadosFromExcel(dtAceptados As DataTable)
 
         For Each item As DataRow In dtAceptados.Rows
-            Dim currentDetalle = gl_dataset.Tables(0).Select($"ID = '{item("IdDetalle")}'")(0)
+            Dim currentDetalle = gl_dataset.Tables(0).Select($"IdFarmacia = '{item("IdFarmacia")}'")(0)
 
-            Dim currentConcepto = gl_dataset.Tables(1).Select($"IdDetalle = '{item("IdDetalle")}' and detalle = 'A Cargo OS'")(0)
+            Dim currentConcepto = gl_dataset.Tables(1).Select($"IdDetalle = '{currentDetalle("nº")}' and detalle = 'A Cargo OS'")(0)
             'Dim currentConcepto = gl_dataset.Tables(1).Select($"IdDetalle = '{item("IdDetalle")}' and detalle = 'A Cargo OS'")
             ''nacho
             If currentDetalle IsNot Nothing Then 'If currentDetalle Is DBNull.Value Then
@@ -622,18 +622,35 @@ Public Class frmLiquidaciones
                 currentDetalle("Recaudado A") = item("Recaudado")
                 currentDetalle("A Cargo OS A") = item("A Cargo OS")
 
+
+                ''Genero el concepto que contempla diferencia entre aceptado y presentado
+                If cmbTipoPago.Text = "Final" Then
+                    Dim row As DataRow = gl_dataset.Tables(1).NewRow()
+                    row("IdDetalle") = currentDetalle("nº")
+                    row("IdFarmacia") = item("IdFarmacia")
+                    row("detalle") = "Error ajuste"
+                    row("valor") = currentDetalle("A Cargo OS A") - currentDetalle("A Cargo OS")
+                    row("edit") = True
+                    row("estado") = "insert"
+                    gl_dataset.Tables(1).Rows.Add(row)
+                End If
             End If
             ''nacho 
             If currentConcepto IsNot Nothing Then ' If currentConcepto Is DBNull.Value Then
-                currentConcepto("valor") = item("A Cargo OS")
-                currentConcepto("estado") = "update"
+                'currentConcepto("valor") = item("A Cargo OS")
+                'currentConcepto("estado") = "update"
             End If
+
+
         Next
     End Sub
 
     Friend Sub addConceptosFromExcel(dtConceptos As DataTable)
+
         For Each item As DataRow In dtConceptos.Rows
+            Dim currentDetalle = gl_dataset.Tables(0).Select($"IdFarmacia = '{item("IdFarmacia")}'")(0)
             Dim row As DataRow = gl_dataset.Tables(1).NewRow()
+            item("IdDetalle") = currentDetalle("nº")
             row.ItemArray = item.ItemArray
             gl_dataset.Tables(1).Rows.Add(row)
         Next
@@ -2113,73 +2130,74 @@ Public Class frmLiquidaciones
 
         Dim res As Integer, res_item As Integer, res_concepto As Integer
 
+        If ReglasNegocio() Then
+            Util.MsgStatus(Status1, "Guardando el registro...", My.Resources.Resources.indicator_white)
+            'res = AgregarActualizar_Registro_Recepciones(ControlFactura, ControlRemito)
+            res = GuardarLiquidacion()
+            Select Case res
+                Case -1
+                    Cancelar_Tran()
+                    Util.MsgStatus(Status1, "No se pudo actualizar el registro (Encabezado).", My.Resources.Resources.stop_error.ToBitmap)
+                    Util.MsgStatus(Status1, "No se pudo actualizar el registro (Encabezado).", My.Resources.Resources.stop_error.ToBitmap, True)
+                    Exit Sub
+                Case 0
+                    Cancelar_Tran()
+                    Util.MsgStatus(Status1, "No se pudo agregar el registro (Encabezado).", My.Resources.Resources.stop_error.ToBitmap)
+                    Util.MsgStatus(Status1, "No se pudo agregar el registro (Encabezado).", My.Resources.Resources.stop_error.ToBitmap, True)
+                    Exit Sub
+                Case Else
+                    res_item = GuardarLiquidacion_det()
+                    Select Case res_item
+                        Case -1
+                            Cancelar_Tran()
+                            Util.MsgStatus(Status1, "No se pudo actualizar el registro (Detalle).", My.Resources.Resources.stop_error.ToBitmap)
+                            Util.MsgStatus(Status1, "No se pudo actualizar el registro (Detalle).", My.Resources.Resources.stop_error.ToBitmap, True)
+                            Exit Sub
+                        Case 0
+                            Cancelar_Tran()
+                            Util.MsgStatus(Status1, "No se pudo agregar el registro (Detalle).", My.Resources.Resources.stop_error.ToBitmap)
+                            Util.MsgStatus(Status1, "No se pudo agregar el registro (Detalle).", My.Resources.Resources.stop_error.ToBitmap, True)
+                            Exit Sub
+                        Case Else
+                            Util.MsgStatus(Status1, "Guardando los items...", My.Resources.Resources.indicator_white)
+                            'res_item = AgregarRegistro_Recepciones_Items(txtID.Text)
+                            res_concepto = GuardarConceptos()
+                            Select Case res_concepto
+                                Case -1
+                                    Cancelar_Tran()
+                                    Util.MsgStatus(Status1, "No se pudo registrar la recepción (Concepto).", My.Resources.Resources.stop_error.ToBitmap)
+                                    Util.MsgStatus(Status1, "No se pudo registrar la recepción (Concepto).", My.Resources.Resources.stop_error.ToBitmap, True)
+                                    Exit Sub
+                                Case 0
+                                    Cancelar_Tran()
+                                    Util.MsgStatus(Status1, "No se pudo agregar el registro (Concepto).", My.Resources.Resources.stop_error.ToBitmap)
+                                    Util.MsgStatus(Status1, "No se pudo agregar el registro (Concepto).", My.Resources.Resources.stop_error.ToBitmap, True)
+                                    Exit Sub
+                                Case Else
+                                    Cerrar_Tran()
 
-        Util.MsgStatus(Status1, "Guardando el registro...", My.Resources.Resources.indicator_white)
-        'res = AgregarActualizar_Registro_Recepciones(ControlFactura, ControlRemito)
-        res = GuardarLiquidacion()
-        Select Case res
-            Case -1
-                Cancelar_Tran()
-                Util.MsgStatus(Status1, "No se pudo actualizar el registro (Encabezado).", My.Resources.Resources.stop_error.ToBitmap)
-                Util.MsgStatus(Status1, "No se pudo actualizar el registro (Encabezado).", My.Resources.Resources.stop_error.ToBitmap, True)
-                Exit Sub
-            Case 0
-                Cancelar_Tran()
-                Util.MsgStatus(Status1, "No se pudo agregar el registro (Encabezado).", My.Resources.Resources.stop_error.ToBitmap)
-                Util.MsgStatus(Status1, "No se pudo agregar el registro (Encabezado).", My.Resources.Resources.stop_error.ToBitmap, True)
-                Exit Sub
-            Case Else
-                res_item = GuardarLiquidacion_det()
-                Select Case res_item
-                    Case -1
-                        Cancelar_Tran()
-                        Util.MsgStatus(Status1, "No se pudo actualizar el registro (Detalle).", My.Resources.Resources.stop_error.ToBitmap)
-                        Util.MsgStatus(Status1, "No se pudo actualizar el registro (Detalle).", My.Resources.Resources.stop_error.ToBitmap, True)
-                        Exit Sub
-                    Case 0
-                        Cancelar_Tran()
-                        Util.MsgStatus(Status1, "No se pudo agregar el registro (Detalle).", My.Resources.Resources.stop_error.ToBitmap)
-                        Util.MsgStatus(Status1, "No se pudo agregar el registro (Detalle).", My.Resources.Resources.stop_error.ToBitmap, True)
-                        Exit Sub
-                    Case Else
-                        Util.MsgStatus(Status1, "Guardando los items...", My.Resources.Resources.indicator_white)
-                        'res_item = AgregarRegistro_Recepciones_Items(txtID.Text)
-                        res_concepto = GuardarConceptos()
-                        Select Case res_concepto
-                            Case -1
-                                Cancelar_Tran()
-                                Util.MsgStatus(Status1, "No se pudo registrar la recepción (Concepto).", My.Resources.Resources.stop_error.ToBitmap)
-                                Util.MsgStatus(Status1, "No se pudo registrar la recepción (Concepto).", My.Resources.Resources.stop_error.ToBitmap, True)
-                                Exit Sub
-                            Case 0
-                                Cancelar_Tran()
-                                Util.MsgStatus(Status1, "No se pudo agregar el registro (Concepto).", My.Resources.Resources.stop_error.ToBitmap)
-                                Util.MsgStatus(Status1, "No se pudo agregar el registro (Concepto).", My.Resources.Resources.stop_error.ToBitmap, True)
-                                Exit Sub
-                            Case Else
-                                Cerrar_Tran()
+                                    bolModo = False
+                                    PrepararBotones()
 
-                                bolModo = False
-                                PrepararBotones()
+                                    ''disable buttons
+                                    btnCargarPresentacion.Enabled = False
 
-                                ''disable buttons
-                                btnCargarPresentacion.Enabled = False
+                                    MDIPrincipal.NoActualizarBase = False
+                                    btnActualizar_Click(sender, e)
+                                    btnEliminar.Enabled = Not chkLiquidado.Checked
 
-                                MDIPrincipal.NoActualizarBase = False
-                                btnActualizar_Click(sender, e)
-                                btnEliminar.Enabled = Not chkLiquidado.Checked
+                                    Util.MsgStatus(Status1, "Se ha actualizado el registro.", My.Resources.Resources.ok.ToBitmap)
 
-                                Util.MsgStatus(Status1, "Se ha actualizado el registro.", My.Resources.Resources.ok.ToBitmap)
+                            End Select
+                    End Select
+            End Select
 
-                        End Select
-                End Select
-        End Select
-
-        '
-        ' cerrar la conexion si está abierta.
-        '
-        If Not conn_del_form Is Nothing Then
-            CType(conn_del_form, IDisposable).Dispose()
+            '
+            ' cerrar la conexion si está abierta.
+            '
+            If Not conn_del_form Is Nothing Then
+                CType(conn_del_form, IDisposable).Dispose()
+            End If
         End If
 
     End Sub
@@ -2584,13 +2602,16 @@ Public Class frmLiquidaciones
         'Verifico el nombre del subpanel
 
         If panel.Name.Equals("Table2") = True Then
-            panel.AllowEdit = False
             panel.ColumnDragBehavior = False
             panel.Columns(0).Visible = False 'ID
             panel.Columns(1).Visible = False 'IdDetalle
             panel.Columns(2).Visible = False 'IdFarmacia
             panel.Columns(5).Visible = False 'estado
             panel.Columns(6).Width = 30 'hago el boton de eliminar mas pequeño
+
+            panel.Columns(3).AllowEdit = False
+            panel.Columns(4).AllowEdit = False
+            panel.Columns(6).AllowEdit = True 'Permito interaccion con el boton de eliminar
 
             'panel.Visible = IIf(panel.Rows.Count > 0, True, False)
 
@@ -2717,7 +2738,7 @@ Public Class frmLiquidaciones
                               "Confirmar liquidación",
                               MessageBoxButtons.YesNo)
 
-        If result = DialogResult.Yes Then
+        If result = DialogResult.Yes And ReglasNegocio() Then
             Dim res As Integer, res_item As Integer, res_concepto As Integer, res_pago As Integer
 
             ''Cambio bit de liquidado
