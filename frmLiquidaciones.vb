@@ -321,7 +321,7 @@ Public Class frmLiquidaciones
         If txtID.Text <> "" And bolModo = False Then
             Presentacion_request(
                 "exec spLiquidaciones_Det_Select_By_IDLiquidacion @IDLiquidacion = " & txtID.Text & "",
-                "exec spConceptos_Select_By_IDLiquidacion @IDLiquidacion = " & txtID.Text & ""
+                "exec spLiquidaciones_det_Conceptos_Select_By_IDLiquidacion @IDLiquidacion = " & txtID.Text & ""
             )
         End If
     End Sub
@@ -428,20 +428,32 @@ Public Class frmLiquidaciones
 
         Try
             ''Detalle de liquidacion
-            sql_items = sqlDetalle
+            If sqlDetalle IsNot Nothing Then
+                sql_items = sqlDetalle
 
-            Dim cmd As New SqlCommand(sql_items, connection)
-            Dim da As New SqlDataAdapter(cmd)
+                Dim cmd As New SqlCommand(sql_items, connection)
+                Dim da As New SqlDataAdapter(cmd)
 
-            da.Fill(dtDetalle)
+                da.Fill(dtDetalle)
+            End If
 
             ''Conceptos de liquidacion
-            sql_items = sqlConceptos
+            If sqlConceptos IsNot Nothing Then
+                sql_items = sqlConceptos
 
-            Dim cmd_conceptos As New SqlCommand(sql_items, connection)
-            Dim da_conceptos As New SqlDataAdapter(cmd_conceptos)
+                Dim cmd_conceptos As New SqlCommand(sql_items, connection)
+                Dim da_conceptos As New SqlDataAdapter(cmd_conceptos)
 
-            da_conceptos.Fill(dtConcepto)
+                da_conceptos.Fill(dtConcepto)
+            Else
+                dtConcepto.Columns.Add("ID", GetType(Long))
+                dtConcepto.Columns.Add("IdDetalle", GetType(Long))
+                dtConcepto.Columns.Add("IdFarmacia", GetType(String))
+                dtConcepto.Columns.Add("detalle", GetType(String))
+                dtConcepto.Columns.Add("valor", GetType(Decimal))
+                dtConcepto.Columns.Add("estado", GetType(String))
+                dtConcepto.Columns.Add("edit")
+            End If
 
 
         Catch ex As Exception
@@ -477,17 +489,17 @@ Public Class frmLiquidaciones
                 dtConcepto.Columns("detalle")
         }
 
-        If Not dtConcepto.Rows.Count > 0 Then
-            For Each row As DataRow In dtDetalle.Rows()
-                Dim concepto As DataRow = dtConcepto.NewRow()
-                concepto("IdDetalle") = row("ID")
-                concepto("IdFarmacia") = row("IdFarmacia")
-                concepto("detalle") = "A Cargo OS"
-                concepto("valor") = Decimal.Parse(row("A Cargo OS"))
-                concepto("estado") = "insert"
-                dtConcepto.Rows.Add(concepto)
-            Next
-        End If
+        'If Not dtConcepto.Rows.Count > 0 Then
+        '    For Each row As DataRow In dtDetalle.Rows()
+        '        Dim concepto As DataRow = dtConcepto.NewRow()
+        '        concepto("IdDetalle") = row("ID")
+        '        concepto("IdFarmacia") = row("IdFarmacia")
+        '        concepto("detalle") = "A Cargo OS"
+        '        concepto("valor") = Decimal.Parse(row("A Cargo OS"))
+        '        concepto("estado") = "insert"
+        '        dtConcepto.Rows.Add(concepto)
+        '    Next
+        'End If
 
         gl_dataset.Tables.Add(dtConcepto)
 
@@ -557,6 +569,7 @@ Public Class frmLiquidaciones
         Dim Recaudado As Decimal = 0
         Dim ACargoOS As Decimal = 0
         Dim ACargoOS_A As Decimal = 0
+        Dim ACargoOS_P As Decimal = 0
         Dim Total As Decimal = 0
         Dim Transferencia As Decimal = 0
 
@@ -573,6 +586,10 @@ Public Class frmLiquidaciones
 
                     If .Rows(i)("A Cargo OS A") IsNot DBNull.Value Then
                         ACargoOS_A += .Rows(i)("A Cargo OS A")
+                    End If
+
+                    If .Rows(i)("A Cargo OS P") IsNot DBNull.Value Then
+                        ACargoOS_P += .Rows(i)("A Cargo OS P")
                     End If
 
                 Next
@@ -594,9 +611,10 @@ Public Class frmLiquidaciones
             End If
         End With
 
-        If ACargoOS = ACargoOS_A And cmbTipoPago.Text = "Parcial" And chkLiquidado.Checked = False Then
+        If ACargoOS = ACargoOS_A + ACargoOS_P And cmbTipoPago.Text = "Parcial" And chkLiquidado.Checked = False Then
             MsgBox("Los importes presentados y aceptados son iguales, se configurará la liquidación como pago final")
             cmbTipoPago.SelectedValue = "FINAL"
+            UpdateGrdPrincipal()
         End If
 
         lblTotal.Text = String.Format("{0:N2}", Total)
@@ -1870,7 +1888,7 @@ Public Class frmLiquidaciones
                     param_res.Direction = ParameterDirection.InputOutput
 
 
-                    SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spConceptos_Insert_Delete",
+                    SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spLiquidaciones_det_Conceptos_Insert_Delete",
                                                   param_id, param_idLiquidacion, param_idDetalle, param_idFarmacia,
                                                   param_detalle, param_valor, param_estado, param_eliminable,
                                                   param_user, param_res)
@@ -2450,7 +2468,6 @@ Public Class frmLiquidaciones
             Dim parent = EditorCell.GridPanel.Parent
             Dim panel = EditorCell.GridPanel
             Dim i As Integer
-            Dim total As Decimal = 0
             Dim pendiente As String = ""
             Dim result As DialogResult = MessageBox.Show($"Desea eliminar {panel.GetCell(row_index, 3).Value}?",
                               "Eliminar",
@@ -2467,10 +2484,27 @@ Public Class frmLiquidaciones
                     panel.Rows.RemoveAt(row_index)
                 End If
 
-                For i = 0 To panel.Rows.Count - 1
-                    If panel.GetCell(i, 3).Value = "Pendiente de pago" Then
-                        pendiente = $"<br/> Pendiente de pago: <font color=""Gray""><i>${Decimal.Parse(panel.GetCell(i, 4).Value * -1):N2}</i></font>"
+                Dim ajusteExists As Boolean = False
+                Dim valorInicial As Decimal = 0.00
+                For i = 0 To panel.rows.count - 1
+                    If panel.GetCell(i, 3).Value = "Error ajuste" Then
+                        ajusteExists = True
                     End If
+                Next
+
+                ''De esta manera identifico que valor tomar como inicial
+                If ajusteExists Or parent("A Cargo OS A").Value = 0.00 Then
+                    Dim pagado = IIf(parent("A Cargo OS P").Value Is DBNull.Value, 0, parent("A Cargo OS P").Value)
+                    valorInicial = parent("A Cargo OS").Value - pagado
+                Else
+                    valorInicial = parent("A Cargo OS A").Value
+                End If
+
+                Dim total As Decimal = valorInicial
+                For i = 0 To panel.Rows.Count - 1
+                    'If panel.GetCell(i, 3).Value = "Pendiente de pago" Then
+                    '    pendiente = $"<br/> Pendiente de pago: <font color=""Gray""><i>${Decimal.Parse(panel.GetCell(i, 4).Value * -1):N2}</i></font>"
+                    'End If
 
                     If panel.GetCell(i, 5).Value <> "delete" Then ''Sumo solo si la columna no está para eliminar
                         total += panel.GetCell(i, 4).Value
@@ -2527,6 +2561,16 @@ Public Class frmLiquidaciones
                 Groupheaders.Add(GroupHeader2)
             End If
 
+            ''HEADER 3
+            Dim GroupHeader3 As New ColumnGroupHeader()
+            GroupHeader3.EndDisplayIndex = panel.Columns("Final").DisplayIndex
+            GroupHeader3.StartDisplayIndex = panel.Columns("A Cargo OS P").DisplayIndex
+            GroupHeader3.HeaderText = "Pagado"
+            If Not Groupheaders.contains(GroupHeader3.Name) Then
+                Groupheaders.Add(GroupHeader3)
+            End If
+
+
 
 
             'Pinto la fila con error
@@ -2555,43 +2599,43 @@ Public Class frmLiquidaciones
 
 
             If MasterGrdDetail Then
-                ''Envio el subtotal al final
-                For i = panel.Columns("Subtotal").ColumnIndex + 1 To panel.Columns.Count - 1
-                    panel.Columns(i).DisplayIndex -= 1
-                Next
-                panel.Columns("Subtotal").DisplayIndex = panel.Columns.Count - 1
+                    ''Envio el subtotal al final
+                    For i = panel.Columns("Subtotal").ColumnIndex + 1 To panel.Columns.Count - 1
+                        panel.Columns(i).DisplayIndex -= 1
+                    Next
+                    panel.Columns("Subtotal").DisplayIndex = panel.Columns.Count - 1
 
-                GroupHeader2.EndDisplayIndex = panel.Columns("A Cargo OS A").DisplayIndex
-                GroupHeader2.StartDisplayIndex = panel.Columns("Recetas A").DisplayIndex
-                GroupHeader2.HeaderText = "Aceptado"
-                If Not Groupheaders.contains(GroupHeader2.Name) Then
-                    Groupheaders.Add(GroupHeader2)
-                End If
+                    GroupHeader2.EndDisplayIndex = panel.Columns("A Cargo OS A").DisplayIndex
+                    GroupHeader2.StartDisplayIndex = panel.Columns("Recetas A").DisplayIndex
+                    GroupHeader2.HeaderText = "Aceptado"
+                    If Not Groupheaders.contains(GroupHeader2.Name) Then
+                        Groupheaders.Add(GroupHeader2)
+                    End If
 
 
-                'Pinto la fila con error
+                    'Pinto la fila con error
 
-                If cmbTipoPago.Text = "Unico" Then
-                    For Each fila As GridRow In panel.Rows
-                        With fila
-                            If .Cells("Recetas A").Value IsNot DBNull.Value Then
-                                If .Cells("Recetas").Value <> .Cells("Recetas A").Value Then
-                                    .CellStyles.Default.Background.Color1 = Color.SandyBrown
-                                    .CellStyles.Default.TextColor = Color.White
+                    If cmbTipoPago.Text = "Unico" Then
+                        For Each fila As GridRow In panel.Rows
+                            With fila
+                                If .Cells("Recetas A").Value IsNot DBNull.Value Then
+                                    If .Cells("Recetas").Value <> .Cells("Recetas A").Value Then
+                                        .CellStyles.Default.Background.Color1 = Color.SandyBrown
+                                        .CellStyles.Default.TextColor = Color.White
+                                    End If
                                 End If
-                            End If
-                            If .Cells("A Cargo OS A").Value IsNot DBNull.Value Then
-                                If .Cells("A Cargo Os").Value <> .Cells("A Cargo OS A").Value Then
-                                    .CellStyles.Default.Background.Color1 = Color.SandyBrown
-                                    .CellStyles.Default.TextColor = Color.White
+                                If .Cells("A Cargo OS A").Value IsNot DBNull.Value Then
+                                    If .Cells("A Cargo Os").Value <> .Cells("A Cargo OS A").Value Then
+                                        .CellStyles.Default.Background.Color1 = Color.SandyBrown
+                                        .CellStyles.Default.TextColor = Color.White
+                                    End If
                                 End If
-                            End If
-                        End With
+                            End With
 
-                    Next fila
+                        Next fila
+                    End If
                 End If
             End If
-        End If
 
             If panel.Name.Equals("") = True Then
             panelSuperior = panel
@@ -2616,22 +2660,36 @@ Public Class frmLiquidaciones
             'panel.Visible = IIf(panel.Rows.Count > 0, True, False)
 
             Dim i As Integer
-            Dim total As Decimal = 0
             Dim pendiente As String = ""
+            Dim ajusteExists As Boolean = False
+            Dim valorInicial As Decimal = 0.00
+            Dim parent = panel.GridPanel.Parent
             For i = 0 To panel.Rows.Count - 1
-                If panel.GetCell(i, 3).Value = "Pendiente de pago" Then
-                    pendiente = $"<br/> Pendiente de pago: <font color=""Gray""><i>${Decimal.Parse(panel.GetCell(i, 4).Value * -1):N2}</i></font>"
+                If panel.GetCell(i, 3).Value = "Error ajuste" Then
+                    ajusteExists = True
                 End If
+            Next
+
+            ''De esta manera identifico que valor tomar como inicial
+            If ajusteExists Or parent("A Cargo OS A").Value = 0.00 Then
+                Dim pagado = IIf(parent("A Cargo OS P").Value Is DBNull.Value, 0, parent("A Cargo OS P").Value)
+                valorInicial = parent("A Cargo OS").Value - pagado
+            Else
+                valorInicial = parent("A Cargo OS A").Value
+            End If
+
+            Dim total As Decimal = valorInicial
+            For i = 0 To panel.Rows.Count - 1
+                'If panel.GetCell(i, 3).Value = "Pendiente de pago" Then
+                '    pendiente = $"<br/> Pendiente de pago: <font color=""Gray""><i>${Decimal.Parse(panel.GetCell(i, 4).Value * -1):N2}</i></font>"
+                'End If
 
                 If panel.GetCell(i, 5).Value <> "delete" Then ''Sumo solo si la columna no está para eliminar
                     total += panel.GetCell(i, 4).Value
                 End If
 
                 panel.GetCell(i, 6).EditorType = GetType(MyGridButtonXEditControl)
-
             Next
-
-            Dim parent = panel.GridPanel.Parent
             parent("Subtotal").Value = total
 
             panel.Footer = New GridFooter()

@@ -115,7 +115,8 @@ Public Class frmSelectPresentacion
                 Dim sqlConceptos As String
 
                 sqlDetalle = $"exec spNuevaLiquidacionDetalle_Select @agrupado = {chkAgrupar.Checked}, @idpresentacion = { .Cells(GridCols.ID).Value}"
-                sqlConceptos = $"exec spNuevaLiquidacionConceptos_Select @agrupado = {chkAgrupar.Checked}, @idpresentacion = { .Cells(GridCols.ID).Value}"
+                'sqlConceptos = $"exec spNuevaLiquidacionConceptos_Select @agrupado = {chkAgrupar.Checked}, @idpresentacion = { .Cells(GridCols.ID).Value}"
+                sqlConceptos = Nothing
 
                 frmLiquidaciones.Presentacion_request(SqlDetalle, sqlConceptos)
             End With
