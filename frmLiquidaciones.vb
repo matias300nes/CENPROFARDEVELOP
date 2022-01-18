@@ -547,9 +547,25 @@ Public Class frmLiquidaciones
         End If
 
         'Calculo de subtotalMasterGridDetail
+        Dim ajusteExists As Boolean = False
+        Dim valorInicial As Decimal = 0.00
         For Each row As DataRow In gl_dataset.Tables(0).Rows
-            row("Subtotal") = 0
             Dim childrows = row.GetChildRows(gl_dataset.Relations(0))
+            For Each detail As DataRow In childrows
+                If detail("detalle") = "Error ajuste" Then
+                    ajusteExists = True
+                End If
+            Next
+
+            If ajusteExists Or row("A Cargo OS A") Is DBNull.Value Then
+                Dim pagado = IIf(row("A Cargo OS P") Is DBNull.Value, 0, row("A Cargo OS P"))
+                valorInicial = row("A Cargo OS") - pagado
+            Else
+                valorInicial = row("A Cargo OS A")
+            End If
+
+            row("Subtotal") = valorInicial
+
             For Each detail As DataRow In childrows
                 If detail("estado") <> "delete" Then
                     row("Subtotal") += detail("valor")
@@ -628,11 +644,21 @@ Public Class frmLiquidaciones
     End Sub
 
     Friend Sub addAceptadosFromExcel(dtAceptados As DataTable)
-
+        Dim currentDetalle As DataRow
+        Dim currentConcepto As DataRow
         For Each item As DataRow In dtAceptados.Rows
-            Dim currentDetalle = gl_dataset.Tables(0).Select($"IdFarmacia = '{item("IdFarmacia")}'")(0)
+            Dim collection = gl_dataset.Tables(0).Select($"IdFarmacia = '{item("IdFarmacia")}'")
+            If collection.Length > 0 Then
+                currentDetalle = collection(0)
 
-            Dim currentConcepto = gl_dataset.Tables(1).Select($"IdDetalle = '{currentDetalle("nº")}' and detalle = 'A Cargo OS'")(0)
+                collection = gl_dataset.Tables(1).Select($"IdDetalle = '{currentDetalle("nº")}' and detalle = 'A Cargo OS'")
+
+                If collection.Length > 0 Then
+                    currentConcepto = collection(0)
+                End If
+            End If
+
+
             'Dim currentConcepto = gl_dataset.Tables(1).Select($"IdDetalle = '{item("IdDetalle")}' and detalle = 'A Cargo OS'")
             ''nacho
             If currentDetalle IsNot Nothing Then 'If currentDetalle Is DBNull.Value Then
@@ -643,14 +669,19 @@ Public Class frmLiquidaciones
 
                 ''Genero el concepto que contempla diferencia entre aceptado y presentado
                 If cmbTipoPago.Text = "Final" Then
-                    Dim row As DataRow = gl_dataset.Tables(1).NewRow()
-                    row("IdDetalle") = currentDetalle("nº")
-                    row("IdFarmacia") = item("IdFarmacia")
-                    row("detalle") = "Error ajuste"
-                    row("valor") = currentDetalle("A Cargo OS A") - currentDetalle("A Cargo OS")
-                    row("edit") = True
-                    row("estado") = "insert"
-                    gl_dataset.Tables(1).Rows.Add(row)
+                    If currentDetalle("A Cargo OS A") IsNot DBNull.Value Then
+                        Dim row As DataRow = gl_dataset.Tables(1).NewRow()
+                        Dim pagado = IIf(currentDetalle("A Cargo OS P") IsNot DBNull.Value, currentDetalle("A Cargo OS P"), 0)
+                        row("IdDetalle") = currentDetalle("nº")
+                        row("IdFarmacia") = item("IdFarmacia")
+                        row("detalle") = "Error ajuste"
+                        row("valor") = currentDetalle("A Cargo OS A") - (currentDetalle("A Cargo OS") - pagado)
+                        row("edit") = False
+
+                        If row("valor") <> 0 Then
+                            añadirConcepto(row)
+                        End If
+                    End If
                 End If
             End If
             ''nacho 
@@ -667,49 +698,11 @@ Public Class frmLiquidaciones
 
         For Each item As DataRow In dtConceptos.Rows
             Dim currentDetalle = gl_dataset.Tables(0).Select($"IdFarmacia = '{item("IdFarmacia")}'")(0)
-            Dim row As DataRow = gl_dataset.Tables(1).NewRow()
             item("IdDetalle") = currentDetalle("nº")
-            row.ItemArray = item.ItemArray
-            gl_dataset.Tables(1).Rows.Add(row)
+            añadirConcepto(item)
         Next
     End Sub
 
-    'Dim tables As DataTableCollection
-    'Dim WorkingOnTemplate As Boolean = False
-    'Dim TemplateName = ""
-
-    'Private Sub btnImportExcel_Click(sender As Object, e As EventArgs) Handles btnImportExcel.Click
-    '    Using ofd As OpenFileDialog = New OpenFileDialog() With {.Filter = "Excel Files |*.xls; *.xlsx"}
-    '        If ofd.ShowDialog = DialogResult.OK Then
-
-    '            FileName.Text = ofd.FileName
-    '            TemplateName = ofd.SafeFileName.Split("-")(0).ToString
-    '            Using stream = File.Open(ofd.FileName, FileMode.Open, FileAccess.Read)
-    '                Using reader As IExcelDataReader = ExcelReaderFactory.CreateReader(stream)
-    '                    Dim result As DataSet = reader.AsDataSet(New ExcelDataSetConfiguration() With {
-    '                                                             .ConfigureDataTable = Function(__) New ExcelDataTableConfiguration() With {
-    '                                                             .UseHeaderRow = True
-    '                                                         }})
-    '                    tables = result.Tables
-    '                    cboSheet.Items.Clear()
-    '                    For Each table As DataTable In tables
-    '                        If table.Columns.Count > 0 Then
-    '                            cboSheet.Items.Add(table.TableName)
-    '                        End If
-    '                    Next
-    '                End Using
-    '            End Using
-
-    '            grdDetalleLiquidacion.BringToFront()
-
-    '            cboSheet.SelectedIndex = 0
-
-    '            btnScan.Enabled = True
-
-    '        End If
-    '    End Using
-
-    'End Sub
 
     Private Sub CalcularDetalleSuperGrd(datasetLiquidacion As DataSet)
         If DataBindingComplete = True Then
@@ -721,538 +714,6 @@ Public Class frmLiquidaciones
         End If
     End Sub
 
-
-    'Private Sub CboSheet_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboSheet.SelectedIndexChanged
-    '    Dim dt As DataTable = tables(cboSheet.SelectedItem.ToString())
-    '    grdDetalleLiquidacion.DataSource = dt
-
-
-    '    Dim discounts As String() = New String(6) {"", "Bonificacion", "N. Credito", "Debitos", "Ajustes", "Recupero Aj", "Recupero Gs"}
-
-    '    Dim max As Integer = grdDetalleLiquidacion.Columns.Count - 1
-    '    For Each obj As Object In GroupBox2.Controls
-    '        If TypeOf obj Is NumericUpDown Then
-    '            obj.Value = 0
-    '            obj.Maximum = max
-    '        End If
-    '    Next
-
-    '    For Each obj As Object In PanelDescuentos.Controls
-    '        If TypeOf obj Is NumericUpDown Then
-    '            obj.Value = 0
-    '            obj.Maximum = max
-    '        End If
-    '        If TypeOf obj Is ComboBox Then
-    '            obj.Items.Clear()
-    '            For Each discount As String In discounts
-    '                obj.Items.add(discount)
-    '            Next
-    '            obj.SelectedIndex = 0
-    '        End If
-    '    Next
-    '    Get_excel_templates()
-
-    'End Sub
-
-    'Private Sub grdDetalleLiquidacion_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles grdDetalleLiquidacion.CellContentClick
-    '    FilaLabel.Text = e.RowIndex
-    '    ColLabel.Text = e.ColumnIndex
-
-    'End Sub
-    'Dim ExcelTemplate
-    'Private Sub Get_excel_templates()
-    '    Dim connection As SqlClient.SqlConnection = Nothing
-
-    '    Try
-    '        connection = SqlHelper.GetConnection(ConnStringSEI)
-    '    Catch ex As Exception
-    '        MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-    '        Exit Sub
-    '    End Try
-
-    '    Try
-    '        Dim SQL = $" SELECT Recetas, Recaudado, ACargoOS, Bonificacion, [N. Credito], Debitos, Ajustes, [Recupero Aj], [Recupero Gs] FROM ExcelTemplates as t where t.name = '{TemplateName}'"
-    '        ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, SQL)
-    '        ds.Dispose()
-    '        ExcelTemplate = ds
-
-    '        If ds.Tables(0).Rows.Count > 0 Then
-    '            WorkingOnTemplate = True
-    '            RecognitionLabel.Visible = True
-    '            RecognitionLabel.Text = $"Se reconoció: {TemplateName}"
-
-    '            NumericUpDown1.Value = ds.Tables(0).Rows(0)(0)
-    '            NumericUpDown2.Value = ds.Tables(0).Rows(0)(1)
-    '            NumericUpDown3.Value = ds.Tables(0).Rows(0)(2)
-
-    '            Dim cbolist As New List(Of ComboBox)
-    '            Dim numericlist As New List(Of NumericUpDown)
-    '            For Each obj As Object In PanelDescuentos.Controls
-    '                If TypeOf obj Is ComboBox Then
-    '                    cbolist.Add(obj)
-    '                    obj.SelectedIndex = 0
-    '                End If
-    '                If TypeOf obj Is NumericUpDown Then
-    '                    numericlist.Add(obj)
-    '                    obj.Value = 0
-    '                End If
-    '            Next
-
-    '            Dim i As Integer
-    '            Dim j As Integer = 0
-    '            For i = 3 To ds.Tables(0).Columns.Count - 1
-    '                If ds.Tables(0).Rows(0)(i) IsNot DBNull.Value Then
-    '                    cbolist.Find(Function(x) x.Tag = j).SelectedItem = ds.Tables(0).Columns(i).ColumnName
-    '                    numericlist.Find(Function(x) x.Tag = j).Value = ds.Tables(0).Rows(0)(i)
-    '                    j += 1
-    '                End If
-    '            Next
-
-    '            Scan_columns()
-    '        Else
-    '            btnListo.Enabled = False
-    '            WorkingOnTemplate = False
-    '            RecognitionLabel.Visible = False
-    '            grdDetalleLiquidacionFiltrada.Columns.Clear()
-    '            grdDetalleLiquidacionFiltrada.Rows.Clear()
-    '        End If
-
-    '    Catch ex As Exception
-    '        MsgBox("Se produjo un error al intentar completar las columnas " & ex.Message)
-    '    End Try
-
-
-
-    'End Sub
-
-    'Public Sub Template_On_Sumbit()
-    '    Dim connection As SqlClient.SqlConnection = Nothing
-    '    Dim cbolist As New List(Of ComboBox)
-    '    Dim numericlist As New List(Of NumericUpDown)
-    '    For Each obj As Object In PanelDescuentos.Controls
-    '        If TypeOf obj Is ComboBox Then
-    '            If obj.SelectedItem <> "" Then
-    '                cbolist.Add(obj)
-    '            End If
-    '        End If
-    '        If TypeOf obj Is NumericUpDown Then
-    '            If obj.Value <> 0 Then
-    '                numericlist.Add(obj)
-    '            End If
-    '        End If
-    '    Next
-
-    '    cbolist.Sort(Function(x, y) x.Tag.CompareTo(y.Tag))
-    '    numericlist.Sort(Function(x, y) x.Tag.CompareTo(y.Tag))
-
-
-    '    If WorkingOnTemplate Then
-    '        Dim i
-    '        Dim j = 0
-    '        Dim cell_value
-    '        Dim need_to_update = False
-    '        Dim StrSet = ""
-    '        ''con esta list me aseguro que los demas campos sin modificar sean null
-    '        Dim fields2clean As New List(Of String) From {"Bonificacion", "N. Credito", "Debitos", "Ajustes", "Recupero Aj", "Recupero Gs"}
-
-    '        Dim ExcelTemplate_len As Integer = 0
-    '        For i = 3 To ExcelTemplate.Tables(0).Columns.Count - 1
-    '            If ExcelTemplate.Tables(0).Rows(0)(i) IsNot DBNull.Value Then
-    '                ExcelTemplate_len += 1
-    '            End If
-    '        Next
-
-    '        If ExcelTemplate_len <> cbolist.Count Then
-    '            need_to_update = True
-    '        Else
-    '            For i = 0 To cbolist.Count - 1
-    '                cell_value = IIf(ExcelTemplate.Tables(0).Rows(0)(cbolist(i).SelectedItem) Is DBNull.Value, 0, ExcelTemplate.Tables(0).Rows(0)(cbolist(i).SelectedItem))
-
-    '                If numericlist(i).Value <> cell_value Then
-    '                    need_to_update = True
-    '                End If
-    '            Next
-    '        End If
-
-    '        If need_to_update Then
-    '            For i = 0 To cbolist.Count - 1
-    '                If StrSet = "" Then
-    '                    StrSet += $"[{cbolist(i).SelectedItem}] = {numericlist(i).Value}"
-    '                Else
-    '                    StrSet += $", [{cbolist(i).SelectedItem}] = {numericlist(i).Value}"
-    '                End If
-    '                fields2clean.Remove(cbolist(i).SelectedItem)
-    '            Next
-
-    '            For Each field As String In fields2clean
-    '                If StrSet = "" Then
-    '                    StrSet += $"[{field}] = NULL"
-    '                Else
-    '                    StrSet += $", [{field}] = NULL"
-    '                End If
-    '            Next
-
-    '            SQL = $"UPDATE [CENPROFAR].[dbo].[ExcelTemplates] SET {StrSet} where [Name] = '{TemplateName}'"
-
-
-    '            Try
-    '                connection = SqlHelper.GetConnection(ConnStringSEI)
-    '                ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, SQL)
-    '                ds.Dispose()
-    '            Catch ex As Exception
-    '                MessageBox.Show($"No se pudo conectar con la base de datos {ex.Message}", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-    '                Exit Sub
-    '            End Try
-
-    '            MsgBox($"Se actualizo template {TemplateName}")
-    '        End If
-
-    '    Else
-    '        Dim StrCols = "Name, Recetas, Recaudado, ACargoOS"
-    '        Dim StrValues = $"'{TemplateName}', {NumericUpDown1.Value}, {NumericUpDown2.Value}, {NumericUpDown3.Value}"
-
-    '        Dim i As Integer
-    '        For i = 0 To cbolist.Count - 1
-    '            StrCols = StrCols + $", [{cbolist(i).SelectedItem}]"
-    '            StrValues += $", {numericlist(i).Value}"
-    '        Next
-
-    '        Dim SQL = $"INSERT INTO [CENPROFAR].[dbo].[ExcelTemplates] ({StrCols}) VALUES ({StrValues})"
-
-    '        Try
-    '            connection = SqlHelper.GetConnection(ConnStringSEI)
-    '            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, SQL)
-    '            ds.Dispose()
-    '        Catch ex As Exception
-    '            MessageBox.Show($"No se pudo conectar con la base de datos {ex.Message}", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-    '            Exit Sub
-    '        End Try
-
-    '    End If
-    'End Sub
-
-    'Public Function GetSimilarity(string1 As String, string2 As String) As Single
-    '    Dim dis As Single = ComputeDistance(string1, string2)
-    '    Dim maxLen As Single = string1.Length
-    '    If maxLen < string2.Length Then
-    '        maxLen = string2.Length
-    '    End If
-    '    If maxLen = 0.0F Then
-    '        Return 1.0F
-    '    Else
-    '        Return 1.0F - dis / maxLen
-    '    End If
-    'End Function
-
-    'Private Function ComputeDistance(s As String, t As String) As Integer
-    '    Dim n As Integer = s.Length
-    '    Dim m As Integer = t.Length
-    '    Dim distance As Integer(,) = New Integer(n, m) {}
-    '    ' matrix
-    '    Dim cost As Integer = 0
-    '    If n = 0 Then
-    '        Return m
-    '    End If
-    '    If m = 0 Then
-    '        Return n
-    '    End If
-    '    'init1
-
-    '    Dim i As Integer = 0
-    '    While i <= n
-    '        distance(i, 0) = System.Math.Max(System.Threading.Interlocked.Increment(i), i - 1)
-    '    End While
-    '    Dim j As Integer = 0
-    '    While j <= m
-    '        distance(0, j) = System.Math.Max(System.Threading.Interlocked.Increment(j), j - 1)
-    '    End While
-    '    'find min distance
-
-    '    For i = 1 To n
-    '        For j = 1 To m
-    '            cost = (If(t.Substring(j - 1, 1) = s.Substring(i - 1, 1), 0, 1))
-    '            distance(i, j) = Math.Min(distance(i - 1, j) + 1, Math.Min(distance(i, j - 1) + 1, distance(i - 1, j - 1) + cost))
-    '        Next
-    '    Next
-    '    Return distance(n, m)
-    'End Function
-
-    'Private Function Buscar_FarmaciaByName(name As String, dtFarmacias As DataTable)
-    '    Dim dt_ResultadoComparacionFarmacias As New DataTable
-    '    Dim i As Integer
-    '    dt_ResultadoComparacionFarmacias.Columns.Add("CodigoInterno")
-    '    dt_ResultadoComparacionFarmacias.Columns.Add("Porcentaje")
-    '    For i = 0 To dtFarmacias.Rows.Count - 1
-    '        'comparo los nombres de las farmacias
-    '        Dim farmaciaDb = dtFarmacias.Rows(i).Item(3).ToString
-    '        Dim farmaciaGrd = name
-
-    '        Dim porcentajeComparacion = GetSimilarity(farmaciaGrd, farmaciaDb)
-
-    '        If porcentajeComparacion >= 0.7 Then
-
-    '            Dim rowdt As DataRow = dt_ResultadoComparacionFarmacias.NewRow()
-    '            rowdt("CodigoInterno") = dtFarmacias.Rows(i).Item(0)
-    '            rowdt("Porcentaje") = porcentajeComparacion
-    '            dt_ResultadoComparacionFarmacias.Rows.Add(rowdt)
-    '            dt_ResultadoComparacionFarmacias.DefaultView.Sort = "Porcentaje DESC"
-    '            dt_ResultadoComparacionFarmacias = dt_ResultadoComparacionFarmacias.DefaultView.ToTable
-
-    '        End If
-    '    Next
-    '    'traigo el codigo interno de la farmacia con mayor porcentaje de aproximacion
-    '    If dt_ResultadoComparacionFarmacias.Rows.Count > 0 Then
-    '        For Each row As DataRow In dtFarmacias.Rows
-    '            If dt_ResultadoComparacionFarmacias.Rows(0).Item("CodigoInterno") = row("Codigo") Then
-    '                Return row
-    '            End If
-    '        Next
-    '    End If
-
-    '    Return Nothing
-
-    'End Function
-
-    'Private Function getFarmacia(row As DataRow, dtFarmacias As DataTable) ''Recibe una fila y busca si es una farmacia dentro de una tabla dada
-    '    Dim best_row
-    '    Dim isCode As Boolean
-    '    Dim Int As Integer
-
-    '    If row(0) IsNot DBNull.Value Then
-    '        isCode = False
-    '        ''MODULO FACAF
-    '        If row(0).ToString.Contains("F0") Then
-    '            dtFarmacias.PrimaryKey = {
-    '                dtFarmacias.Columns("CodFACAF")
-    '            }
-    '            isCode = True
-    '        End If
-
-    '        'MODULO PAMI
-    '        If row(0).ToString.Length = 9 And IsNumeric(row(0).ToString) And Integer.TryParse(row(0), Int) Then
-    '            dtFarmacias.PrimaryKey = {
-    '                dtFarmacias.Columns("codpami")
-    '            }
-    '            isCode = True
-    '        End If
-
-    '        If isCode Then
-    '            Dim farmacia = dtFarmacias.Rows.Find({row(0)})
-
-    '            If farmacia IsNot Nothing Then
-    '                Return farmacia
-    '            Else
-    '                best_row = Buscar_FarmaciaByName(row(2).ToString, dtFarmacias)
-    '                If best_row IsNot Nothing Then
-    '                    Return best_row
-    '                Else
-    '                    Return Nothing
-    '                End If
-    '            End If
-    '        End If
-    '    End If
-
-    '    Return Nothing
-
-    'End Function
-
-    'Private Sub Scan_columns()
-
-    '    'toma las columnas
-    '    Dim RecetasIndex As Integer = NumericUpDown1.Value
-    '    Dim RecaudadoIndex As Integer = NumericUpDown2.Value
-    '    Dim AcargoOSIndex As Integer = NumericUpDown3.Value
-
-    '    Dim dt_filtrada As New DataTable()
-
-    '    Dim DiscountIndex As Integer
-
-    '    Dim cbolist As New List(Of ComboBox)
-    '    Dim numericlist As New List(Of NumericUpDown)
-
-
-
-    '    If grdDetalleLiquidacionFiltrada.Rows.Count <> 0 Then
-    '        grdDetalleLiquidacionFiltrada.DataSource = Nothing
-    '    End If
-
-
-    '    If NumericUpDown1.Value = 0 Or NumericUpDown2.Value = 0 Or NumericUpDown3.Value = 0 Then
-    '        btnListo.Enabled = False
-    '        MsgBox($"Las columnas de receta, recaudado y a cargo son obligatorias")
-    '        Return
-    '    End If
-
-    '    For Each obj As Object In PanelDescuentos.Controls
-    '        If TypeOf obj Is ComboBox Then
-    '            If obj.SelectedItem <> "" Then
-    '                cbolist.Add(obj)
-    '            End If
-    '        End If
-    '        If TypeOf obj Is NumericUpDown Then
-    '            numericlist.Add(obj)
-    '        End If
-    '    Next
-
-    '    Dim ocupied As New List(Of String)
-    '    For Each cbo As ComboBox In cbolist
-    '        If Not ocupied.Contains(cbo.SelectedItem) Then
-    '            ocupied.Add(cbo.SelectedItem)
-    '        Else
-    '            btnListo.Enabled = False
-    '            MsgBox($"El descuento {cbo.SelectedItem} no puede repetirse más de una vez")
-    '            Return
-    '        End If
-    '    Next
-
-    '    cbolist.Sort(Function(x, y) x.Tag.CompareTo(y.Tag))
-    '    numericlist.Sort(Function(x, y) x.Tag.CompareTo(y.Tag))
-    '    Dim i As Integer
-
-    '    For i = 0 To cbolist.Count() - 1
-    '        If numericlist(i).Value = 0 Then
-    '            btnListo.Enabled = False
-    '            MsgBox($"No puede seleccionarse la columna 0 para {cbolist(i).SelectedItem}")
-    '            Return
-    '        End If
-    '    Next
-    '    ''revisar
-    '    dt_filtrada.Columns.Add("IdDetalle", GetType(Long))
-    '    dt_filtrada.Columns.Add("IdFarmacia", GetType(Long))
-    '    dt_filtrada.Columns.Add("Codigo", GetType(String))
-    '    dt_filtrada.Columns.Add("Nombre", GetType(String))
-    '    dt_filtrada.Columns.Add("Recetas", GetType(Integer))
-    '    dt_filtrada.Columns.Add("Recaudado", GetType(Decimal))
-    '    dt_filtrada.Columns.Add("A cargo OS", GetType(Decimal))
-
-    '    For Each cbo As ComboBox In cbolist
-    '        With cbo
-    '            dt_filtrada.Columns.Add(.SelectedItem, GetType(Decimal))
-    '        End With
-    '    Next
-
-    '    dt_filtrada.Columns.Add("Total", GetType(Decimal))
-
-    '    Dim j As Integer
-    '    Dim FirstColumnCell As String
-    '    Dim subtotal As Decimal
-    '    Dim farmacia As DataRow
-    '    Dim CurrentRow As DataRow
-    '    Dim idPresentacion As Long = grd.Rows(0).Cells(0).Value
-    '    If grd.CurrentRow IsNot Nothing Then
-    '        idPresentacion = grd.CurrentRow.Cells(0).Value
-    '    End If
-    '    Dim connection = SqlHelper.GetConnection(ConnStringSEI)
-    '    Dim ds_Farmacias As New DataSet
-
-    '    Dim dtFarmacias As New DataTable
-    '    ''nacho cambió: f.codigo -> f.id
-
-    '    Dim SQL_Farmacias = $"SELECT pd.ID as IdDetalle, f.ID as IdFarmacia, f.Codigo, f.CodFACAF, f.codpami, f.Nombre, pd.IdPresentacion FROM Farmacias f INNER JOIN Presentaciones_det pd on f.Id = pd.IdFarmacia
-    '                          WHERE pd.IdPresentacion = {idPresentacion}"
-
-    '    Try
-    '        ds_Farmacias = SqlHelper.ExecuteDataset(connection, CommandType.Text, SQL_Farmacias)
-    '        ds_Farmacias.EnforceConstraints = False
-    '        dtFarmacias = ds_Farmacias.Tables(0)
-    '    Catch ex As Exception
-    '        MessageBox.Show($"No se pudo conectar con la base de datos {ex.Message}", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-    '    End Try
-
-
-    '    For j = 0 To grdDetalleLiquidacion.Rows.Count - 1
-    '        CurrentRow = (TryCast(grdDetalleLiquidacion.Rows(j).DataBoundItem, DataRowView)).Row
-
-    '        subtotal = 0
-
-    '        FirstColumnCell = IIf(grdDetalleLiquidacion.Rows(j).Cells(0).Value IsNot Nothing, grdDetalleLiquidacion.Rows(j).Cells(0).Value.ToString, "")
-
-    '        farmacia = getFarmacia(CurrentRow, dtFarmacias)
-
-    '        Try
-    '            If farmacia IsNot Nothing Then
-    '                '//////Get a reference to the new row ///////
-    '                Dim Row As DataRow = dt_filtrada.NewRow()
-
-    '                'This won't fail since the columns exist 
-    '                'Row("Codigo") = grdDetalleLiquidacion.Rows(j).Cells(0).Value
-    '                Row("IdDetalle") = farmacia("IdDetalle")
-    '                Row("IdFarmacia") = farmacia("IdFarmacia")
-    '                Row("Codigo") = farmacia("Codigo")
-    '                Row("Nombre") = farmacia("Nombre")
-    '                Row("Recetas") = grdDetalleLiquidacion.Rows(j).Cells(RecetasIndex).Value
-    '                Row("Recaudado") = grdDetalleLiquidacion.Rows(j).Cells(RecaudadoIndex).Value
-    '                Row("A cargo OS") = grdDetalleLiquidacion.Rows(j).Cells(AcargoOSIndex).Value
-    '                subtotal = Decimal.Parse(grdDetalleLiquidacion.Rows(j).Cells(AcargoOSIndex).Value)
-
-    '                For i = 0 To cbolist.Count() - 1
-    '                    DiscountIndex = numericlist(i).Value
-    '                    subtotal -= Decimal.Parse(grdDetalleLiquidacion.Rows(j).Cells(DiscountIndex).Value)
-    '                    Row(cbolist(i).SelectedItem) = grdDetalleLiquidacion.Rows(j).Cells(DiscountIndex).Value
-    '                Next
-
-    '                Row("Total") = subtotal
-
-    '                dt_filtrada.Rows.Add(Row)
-    '            End If
-    '        Catch ex As Exception
-    '            MsgBox(ex)
-    '        End Try
-
-    '    Next
-
-    '    ''Cierro conexion que use para consultar codigos
-    '    ds.Dispose()
-
-    '    Dim dt_grouped As New DataTable()
-    '    dt_grouped = dt_filtrada.Clone()
-    '    Dim added As Boolean = False
-    '    Dim current_row_index As Integer
-
-    '    For current_row_index = 0 To dt_filtrada.Rows.Count - 1
-    '        Dim current_row As DataRow = dt_filtrada.Rows(current_row_index)
-    '        added = False
-
-    '        j = 0
-    '        While (j < dt_grouped.Rows.Count And added = False)
-    '            If current_row("Codigo") = dt_grouped.Rows(j)("Codigo") Then
-    '                added = True
-    '            End If
-    '            j += 1
-    '        End While
-
-    '        If Not added Then
-    '            Dim new_row As DataRow = dt_grouped.NewRow()
-    '            For i = current_row_index To dt_filtrada.Rows.Count - 1
-    '                If dt_filtrada.Rows(i)("Codigo") = current_row("Codigo") Then
-    '                    new_row("IdDetalle") = current_row("IdDetalle")
-    '                    new_row("IdFarmacia") = current_row("IdFarmacia")
-    '                    new_row("Codigo") = current_row("Codigo")
-    '                    new_row("Nombre") = current_row("Nombre")
-    '                    For j = 4 To dt_filtrada.Columns.Count - 1
-    '                        If i = current_row_index Then
-    '                            new_row(j) = Decimal.Parse(dt_filtrada.Rows(i)(j))
-    '                        Else
-    '                            new_row(j) += Decimal.Parse(dt_filtrada.Rows(i)(j))
-    '                        End If
-    '                    Next
-    '                End If
-    '            Next
-    '            dt_grouped.Rows.Add(new_row)
-
-    '        End If
-    '    Next
-
-    '    grdDetalleLiquidacionFiltrada.DataSource = dt_grouped
-
-    '    btnListo.Enabled = True
-    '    ' DataGridView1.BringToFront()
-    'End Sub
-
-
-    'Private Sub BtnScan_Click(sender As Object, e As EventArgs) Handles btnScan.Click
-    '    Scan_columns()
-    'End Sub
 
 
     Private Sub configurarform()
@@ -1736,6 +1197,20 @@ Public Class frmLiquidaciones
                 param_idFarmacia.Value = detalle("IdFarmacia")
                 param_idFarmacia.Direction = ParameterDirection.Input
 
+                ''Pagado
+                Dim param_pagadoACargoOS As New SqlClient.SqlParameter
+                param_pagadoACargoOS.ParameterName = "@pagadoACargoOS"
+                param_pagadoACargoOS.SqlDbType = SqlDbType.Int
+                param_pagadoACargoOS.Value = detalle("A Cargo OS P")
+                param_pagadoACargoOS.Direction = ParameterDirection.Input
+
+                ''Pagado
+                Dim param_pagadoFinal As New SqlClient.SqlParameter
+                param_pagadoFinal.ParameterName = "@pagadoFinal"
+                param_pagadoFinal.SqlDbType = SqlDbType.Int
+                param_pagadoFinal.Value = detalle("Final")
+                param_pagadoFinal.Direction = ParameterDirection.Input
+
                 ''recetasA
                 Dim param_recetasA As New SqlClient.SqlParameter
                 param_recetasA.ParameterName = "@recetasA"
@@ -1781,8 +1256,8 @@ Public Class frmLiquidaciones
 
                 SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spLiquidaciones_Det_Insert_Update",
                                               param_id, param_index, param_idLiquidacion, param_idPresentacion_det,
-                                              param_idFarmacia, param_recetasA, param_recaudadoA, param_aCargoOsA,
-                                               param_total, param_user, param_res)
+                                              param_idFarmacia, param_pagadoACargoOS, param_pagadoFinal, param_recetasA,
+                                              param_recaudadoA, param_aCargoOsA, param_total, param_user, param_res)
 
                 res = param_res.Value
 
@@ -2493,7 +1968,7 @@ Public Class frmLiquidaciones
                 Next
 
                 ''De esta manera identifico que valor tomar como inicial
-                If ajusteExists Or parent("A Cargo OS A").Value = 0.00 Then
+                If ajusteExists Or parent("A Cargo OS A").Value Is DBNull.Value Then
                     Dim pagado = IIf(parent("A Cargo OS P").Value Is DBNull.Value, 0, parent("A Cargo OS P").Value)
                     valorInicial = parent("A Cargo OS").Value - pagado
                 Else
@@ -2647,10 +2122,10 @@ Public Class frmLiquidaciones
 
         If panel.Name.Equals("Table2") = True Then
             panel.ColumnDragBehavior = False
-            panel.Columns(0).Visible = False 'ID
-            panel.Columns(1).Visible = False 'IdDetalle
-            panel.Columns(2).Visible = False 'IdFarmacia
-            panel.Columns(5).Visible = False 'estado
+            'panel.Columns(0).Visible = False 'ID
+            'panel.Columns(1).Visible = False 'IdDetalle
+            'panel.Columns(2).Visible = False 'IdFarmacia
+            'panel.Columns(5).Visible = False 'estado
             panel.Columns(6).Width = 30 'hago el boton de eliminar mas pequeño
 
             panel.Columns(3).AllowEdit = False
@@ -2668,10 +2143,13 @@ Public Class frmLiquidaciones
                 If panel.GetCell(i, 3).Value = "Error ajuste" Then
                     ajusteExists = True
                 End If
+                If panel.GetCell(i, 5).Value = "delete" Then
+                    panel.Rows(i).Visible = False
+                End If
             Next
 
             ''De esta manera identifico que valor tomar como inicial
-            If ajusteExists Or parent("A Cargo OS A").Value = 0.00 Then
+            If ajusteExists Or parent("A Cargo OS A").Value Is DBNull.Value Then
                 Dim pagado = IIf(parent("A Cargo OS P").Value Is DBNull.Value, 0, parent("A Cargo OS P").Value)
                 valorInicial = parent("A Cargo OS").Value - pagado
             Else
@@ -2783,6 +2261,46 @@ Public Class frmLiquidaciones
         For Each row As DataRow In rows
             row.Delete()
         Next
+    End Sub
+
+    Private Sub añadirConcepto(concepto As DataRow)
+        Dim collection = gl_dataset.Tables(1).Select($"IdDetalle = '{concepto("IdDetalle")}' and detalle = '{concepto("detalle")}'")
+        If collection.Length > 0 Then
+            'UPDATE
+            Dim CurrentConcepto = collection(0)
+
+            CurrentConcepto("valor") = concepto("valor")
+            CurrentConcepto("edit") = concepto("edit")
+            If CurrentConcepto("estado") <> "insert" Then
+                CurrentConcepto("estado") = "update"
+            End If
+
+        Else
+            'INSERT
+            Dim new_concepto As DataRow = gl_dataset.Tables(1).NewRow ' <- dtConceptos
+
+            new_concepto("IdDetalle") = concepto("IdDetalle")
+            new_concepto("IdFarmacia") = concepto("IdFarmacia")
+            new_concepto("detalle") = concepto("detalle")
+            new_concepto("valor") = concepto("valor")
+            new_concepto("edit") = concepto("edit")
+            new_concepto("estado") = "insert"
+
+            gl_dataset.Tables(1).Rows.Add(new_concepto)
+        End If
+    End Sub
+
+    Private Sub eliminarConcepto(concepto As DataRow)
+        Dim collection = gl_dataset.Tables(1).Select($"IdDetalle = '{concepto("IdDetalle")}' and detalle = '{concepto("detalle")}'")
+        If collection.Length > 0 Then
+            Dim CurrentConcepto = collection(0)
+
+            If CurrentConcepto("estado") = "insert" Then
+                CurrentConcepto.delete()
+            Else
+                CurrentConcepto("estado") = "delete"
+            End If
+        End If
     End Sub
 
     Private Sub btnCargarPresentacion_Click(sender As Object, e As EventArgs) Handles btnCargarPresentacion.Click
@@ -2904,5 +2422,31 @@ Public Class frmLiquidaciones
         End If
     End Sub
 
+    Private Sub cmbTipoPago_SelectionChanging(sender As Object, e As EventArgs) Handles cmbTipoPago.SelectionChangeCommitted
+        ''Genero el concepto que contempla diferencia entre aceptado y presentado
+        If Not (cmbTipoPago.Text = "Final") Then ''uso not porque el evento me trae el estado anterior a la seleccion
+            For Each detalle As DataRow In gl_dataset.Tables(0).Rows
+                If detalle("A Cargo OS A") IsNot DBNull.Value Then
+                    Dim row As DataRow = gl_dataset.Tables(1).NewRow()
+                    Dim pagado = IIf(detalle("A Cargo OS P") IsNot DBNull.Value, detalle("A Cargo OS P"), 0)
+                    row("IdDetalle") = detalle("nº")
+                    row("IdFarmacia") = detalle("IdFarmacia")
+                    row("detalle") = "Error ajuste"
+                    row("valor") = detalle("A Cargo OS A") - (detalle("A Cargo OS") - pagado)
+                    row("edit") = False
 
+                    If row("valor") <> 0 Then
+                        añadirConcepto(row)
+                    End If
+                End If
+            Next
+        Else
+            Dim selection = gl_dataset.Tables(1).Select("detalle = 'Error ajuste'")
+            For Each concepto As DataRow In selection
+                eliminarConcepto(concepto)
+            Next
+        End If
+
+        UpdateGrdPrincipal()
+    End Sub
 End Class
