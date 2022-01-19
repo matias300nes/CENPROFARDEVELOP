@@ -1193,21 +1193,21 @@ Public Class frmLiquidaciones
                 ''idFarmacia
                 Dim param_idFarmacia As New SqlClient.SqlParameter
                 param_idFarmacia.ParameterName = "@idFarmacia"
-                param_idFarmacia.SqlDbType = SqlDbType.Int
+                param_idFarmacia.SqlDbType = SqlDbType.BigInt
                 param_idFarmacia.Value = detalle("IdFarmacia")
                 param_idFarmacia.Direction = ParameterDirection.Input
 
                 ''Pagado
                 Dim param_pagadoACargoOS As New SqlClient.SqlParameter
                 param_pagadoACargoOS.ParameterName = "@pagadoACargoOS"
-                param_pagadoACargoOS.SqlDbType = SqlDbType.Int
+                param_pagadoACargoOS.SqlDbType = SqlDbType.Decimal
                 param_pagadoACargoOS.Value = detalle("A Cargo OS P")
                 param_pagadoACargoOS.Direction = ParameterDirection.Input
 
                 ''Pagado
                 Dim param_pagadoFinal As New SqlClient.SqlParameter
                 param_pagadoFinal.ParameterName = "@pagadoFinal"
-                param_pagadoFinal.SqlDbType = SqlDbType.Int
+                param_pagadoFinal.SqlDbType = SqlDbType.Decimal
                 param_pagadoFinal.Value = detalle("Final")
                 param_pagadoFinal.Direction = ParameterDirection.Input
 
@@ -1602,7 +1602,7 @@ Public Class frmLiquidaciones
 
 
         SuperGrdResultado.PrimaryGrid.DataSource = Nothing
-
+        gl_dataset = Nothing
         lblFecha_creacion.Text = Date.Today.ToString
 
         'dtpFECHA.Value = Date.Today
@@ -2324,7 +2324,7 @@ Public Class frmLiquidaciones
             For Each concepto As DataRow In gl_dataset.Tables(1).Rows
                 If concepto("edit") = True Then
                     concepto("edit") = False
-                    concepto("estado") = "update"
+                    añadirConcepto(concepto)
                 End If
             Next
 
@@ -2424,29 +2424,31 @@ Public Class frmLiquidaciones
 
     Private Sub cmbTipoPago_SelectionChanging(sender As Object, e As EventArgs) Handles cmbTipoPago.SelectionChangeCommitted
         ''Genero el concepto que contempla diferencia entre aceptado y presentado
-        If Not (cmbTipoPago.Text = "Final") Then ''uso not porque el evento me trae el estado anterior a la seleccion
-            For Each detalle As DataRow In gl_dataset.Tables(0).Rows
-                If detalle("A Cargo OS A") IsNot DBNull.Value Then
-                    Dim row As DataRow = gl_dataset.Tables(1).NewRow()
-                    Dim pagado = IIf(detalle("A Cargo OS P") IsNot DBNull.Value, detalle("A Cargo OS P"), 0)
-                    row("IdDetalle") = detalle("nº")
-                    row("IdFarmacia") = detalle("IdFarmacia")
-                    row("detalle") = "Error ajuste"
-                    row("valor") = detalle("A Cargo OS A") - (detalle("A Cargo OS") - pagado)
-                    row("edit") = False
+        If gl_dataset IsNot Nothing Then
+            If Not (cmbTipoPago.Text = "Final") Then ''uso not porque el evento me trae el estado anterior a la seleccion
+                For Each detalle As DataRow In gl_dataset.Tables(0).Rows
+                    If detalle("A Cargo OS A") IsNot DBNull.Value Then
+                        Dim row As DataRow = gl_dataset.Tables(1).NewRow()
+                        Dim pagado = IIf(detalle("A Cargo OS P") IsNot DBNull.Value, detalle("A Cargo OS P"), 0)
+                        row("IdDetalle") = detalle("nº")
+                        row("IdFarmacia") = detalle("IdFarmacia")
+                        row("detalle") = "Error ajuste"
+                        row("valor") = detalle("A Cargo OS A") - (detalle("A Cargo OS") - pagado)
+                        row("edit") = False
 
-                    If row("valor") <> 0 Then
-                        añadirConcepto(row)
+                        If row("valor") <> 0 Then
+                            añadirConcepto(row)
+                        End If
                     End If
-                End If
-            Next
-        Else
-            Dim selection = gl_dataset.Tables(1).Select("detalle = 'Error ajuste'")
-            For Each concepto As DataRow In selection
-                eliminarConcepto(concepto)
-            Next
-        End If
+                Next
+            Else
+                Dim selection = gl_dataset.Tables(1).Select("detalle = 'Error ajuste'")
+                For Each concepto As DataRow In selection
+                    eliminarConcepto(concepto)
+                Next
+            End If
 
-        UpdateGrdPrincipal()
+            UpdateGrdPrincipal()
+        End If
     End Sub
 End Class
