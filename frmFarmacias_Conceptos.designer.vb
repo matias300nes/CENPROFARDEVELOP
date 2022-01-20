@@ -63,6 +63,8 @@ Partial Class frmFarmacias_Conceptos
         Me.txtTelefono = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.txtEmail = New TextBoxConFormatoVB.FormattedTextBoxVB()
+        Me.mandatariaNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.mandatariaCodigo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GroupBox1.SuspendLayout()
         CType(Me.SuperTabControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControl1.SuspendLayout()
@@ -201,7 +203,7 @@ Partial Class frmFarmacias_Conceptos
         Me.GroupBox1.DisabledBackColor = System.Drawing.Color.Empty
         Me.GroupBox1.Location = New System.Drawing.Point(12, 28)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(1123, 291)
+        Me.GroupBox1.Size = New System.Drawing.Size(1140, 291)
         '
         '
         '
@@ -439,8 +441,8 @@ Partial Class frmFarmacias_Conceptos
         Me.SuperTabControl1.ControlBox.MenuBox.Name = ""
         Me.SuperTabControl1.ControlBox.Name = ""
         Me.SuperTabControl1.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabControl1.ControlBox.MenuBox, Me.SuperTabControl1.ControlBox.CloseBox})
-        Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel1)
         Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel3)
+        Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel1)
         Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel2)
         Me.SuperTabControl1.Location = New System.Drawing.Point(570, 11)
         Me.SuperTabControl1.Margin = New System.Windows.Forms.Padding(2)
@@ -490,20 +492,22 @@ Partial Class frmFarmacias_Conceptos
         Me.SuperTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControlPanel3.Location = New System.Drawing.Point(0, 26)
         Me.SuperTabControlPanel3.Name = "SuperTabControlPanel3"
-        Me.SuperTabControlPanel3.Size = New System.Drawing.Size(648, 159)
+        Me.SuperTabControlPanel3.Size = New System.Drawing.Size(532, 229)
         Me.SuperTabControlPanel3.TabIndex = 0
         Me.SuperTabControlPanel3.TabItem = Me.stiCodigos
         '
         'grdCodigos
         '
+        Me.grdCodigos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.grdCodigos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.grdCodigos.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.mandatariaNombre, Me.mandatariaCodigo})
         Me.grdCodigos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.grdCodigos.Location = New System.Drawing.Point(0, 0)
         Me.grdCodigos.Margin = New System.Windows.Forms.Padding(2)
         Me.grdCodigos.Name = "grdCodigos"
         Me.grdCodigos.RowHeadersWidth = 51
         Me.grdCodigos.RowTemplate.Height = 24
-        Me.grdCodigos.Size = New System.Drawing.Size(648, 159)
+        Me.grdCodigos.Size = New System.Drawing.Size(532, 229)
         Me.grdCodigos.TabIndex = 1
         '
         'stiCodigos
@@ -519,7 +523,7 @@ Partial Class frmFarmacias_Conceptos
         Me.SuperTabControlPanel2.Location = New System.Drawing.Point(0, 26)
         Me.SuperTabControlPanel2.Margin = New System.Windows.Forms.Padding(2)
         Me.SuperTabControlPanel2.Name = "SuperTabControlPanel2"
-        Me.SuperTabControlPanel2.Size = New System.Drawing.Size(1094, 192)
+        Me.SuperTabControlPanel2.Size = New System.Drawing.Size(532, 229)
         Me.SuperTabControlPanel2.TabIndex = 0
         Me.SuperTabControlPanel2.TabItem = Me.stiProfesionales
         '
@@ -721,6 +725,17 @@ Partial Class frmFarmacias_Conceptos
         Me.txtEmail.Text_4 = Nothing
         Me.txtEmail.UserValues = Nothing
         '
+        'mandatariaNombre
+        '
+        Me.mandatariaNombre.HeaderText = "Mandataria"
+        Me.mandatariaNombre.Name = "mandatariaNombre"
+        Me.mandatariaNombre.ReadOnly = True
+        '
+        'mandatariaCodigo
+        '
+        Me.mandatariaCodigo.HeaderText = "Código"
+        Me.mandatariaCodigo.Name = "mandatariaCodigo"
+        '
         'frmFarmacias_Conceptos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -799,4 +814,6 @@ Partial Class frmFarmacias_Conceptos
     Friend WithEvents Label5 As Label
     Friend WithEvents Label4 As Label
     Friend WithEvents FormattedTextBoxVB1 As TextBoxConFormatoVB.FormattedTextBoxVB
+    Friend WithEvents mandatariaNombre As DataGridViewTextBoxColumn
+    Friend WithEvents mandatariaCodigo As DataGridViewTextBoxColumn
 End Class
