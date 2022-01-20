@@ -507,10 +507,10 @@ Partial Class frmFarmacias_Conceptos
         '
         Me.SuperTabControlPanel3.Controls.Add(Me.grdCodigos)
         Me.SuperTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SuperTabControlPanel3.Location = New System.Drawing.Point(0, 32)
+        Me.SuperTabControlPanel3.Location = New System.Drawing.Point(0, 27)
         Me.SuperTabControlPanel3.Margin = New System.Windows.Forms.Padding(4)
         Me.SuperTabControlPanel3.Name = "SuperTabControlPanel3"
-        Me.SuperTabControlPanel3.Size = New System.Drawing.Size(864, 196)
+        Me.SuperTabControlPanel3.Size = New System.Drawing.Size(709, 287)
         Me.SuperTabControlPanel3.TabIndex = 0
         Me.SuperTabControlPanel3.TabItem = Me.stiCodigos
         '
@@ -523,7 +523,7 @@ Partial Class frmFarmacias_Conceptos
         Me.grdCodigos.Name = "grdCodigos"
         Me.grdCodigos.RowHeadersWidth = 51
         Me.grdCodigos.RowTemplate.Height = 24
-        Me.grdCodigos.Size = New System.Drawing.Size(864, 196)
+        Me.grdCodigos.Size = New System.Drawing.Size(709, 287)
         Me.grdCodigos.TabIndex = 1
         '
         'stiCodigos
@@ -536,10 +536,10 @@ Partial Class frmFarmacias_Conceptos
         'SuperTabControlPanel2
         '
         Me.SuperTabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SuperTabControlPanel2.Location = New System.Drawing.Point(0, 32)
+        Me.SuperTabControlPanel2.Location = New System.Drawing.Point(0, 27)
         Me.SuperTabControlPanel2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.SuperTabControlPanel2.Name = "SuperTabControlPanel2"
-        Me.SuperTabControlPanel2.Size = New System.Drawing.Size(1459, 236)
+        Me.SuperTabControlPanel2.Size = New System.Drawing.Size(709, 287)
         Me.SuperTabControlPanel2.TabIndex = 0
         Me.SuperTabControlPanel2.TabItem = Me.stiProfesionales
         '
