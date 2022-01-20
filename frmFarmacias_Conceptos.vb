@@ -860,7 +860,7 @@ Public Class frmFarmacias_Conceptos
     End Sub
 
 
-    Private Sub cmbLocalidad_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbLocalidad.SelectedIndexChanged
+    Private Sub cmbLocalidad_SelectedIndexChanged(sender As Object, e As EventArgs)
 
         If llenandoCombo = True Then
             ''LLENAR COMBOBOX LOCALIDADES
@@ -898,7 +898,7 @@ Public Class frmFarmacias_Conceptos
     End Sub
 
 
-    Private Sub cmbProvincia_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbProvincia.SelectedValueChanged
+    Private Sub cmbProvincia_SelectedValueChanged(sender As Object, e As EventArgs)
         If llenandoCombo = True Then
             ''LLENAR COMBOBOX LOCALIDADES
 
@@ -912,7 +912,7 @@ Public Class frmFarmacias_Conceptos
 
     End Sub
 
-    Private Sub txtCodigoPostal_TextChanged(sender As Object, e As EventArgs) Handles txtCodigoPostal.TextChanged
+    Private Sub txtCodigoPostal_TextChanged(sender As Object, e As EventArgs)
         If txtCodigoPostal.Text.Length = 4 Then
             Dim connection As SqlClient.SqlConnection = Nothing
             Try
