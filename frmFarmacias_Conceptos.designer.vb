@@ -39,12 +39,12 @@ Partial Class frmFarmacias_Conceptos
         Me.Label17 = New System.Windows.Forms.Label()
         Me.cmbProvincia = New DevComponents.DotNetBar.Controls.ComboBoxEx()
         Me.SuperTabControl1 = New DevComponents.DotNetBar.SuperTabControl()
-        Me.SuperTabControlPanel1 = New DevComponents.DotNetBar.SuperTabControlPanel()
-        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
-        Me.stiConceptos = New DevComponents.DotNetBar.SuperTabItem()
         Me.SuperTabControlPanel3 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.grdCodigos = New System.Windows.Forms.DataGridView()
         Me.stiCodigos = New DevComponents.DotNetBar.SuperTabItem()
+        Me.SuperTabControlPanel1 = New DevComponents.DotNetBar.SuperTabControlPanel()
+        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.stiConceptos = New DevComponents.DotNetBar.SuperTabItem()
         Me.SuperTabControlPanel2 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.stiProfesionales = New DevComponents.DotNetBar.SuperTabItem()
         Me.btnAdd = New DevComponents.DotNetBar.ButtonItem()
@@ -68,10 +68,10 @@ Partial Class frmFarmacias_Conceptos
         Me.GroupBox1.SuspendLayout()
         CType(Me.SuperTabControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControl1.SuspendLayout()
-        Me.SuperTabControlPanel1.SuspendLayout()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControlPanel3.SuspendLayout()
         CType(Me.grdCodigos, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SuperTabControlPanel1.SuspendLayout()
+        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'txtID
@@ -203,7 +203,7 @@ Partial Class frmFarmacias_Conceptos
         Me.GroupBox1.DisabledBackColor = System.Drawing.Color.Empty
         Me.GroupBox1.Location = New System.Drawing.Point(12, 28)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(1140, 291)
+        Me.GroupBox1.Size = New System.Drawing.Size(1174, 291)
         '
         '
         '
@@ -441,9 +441,9 @@ Partial Class frmFarmacias_Conceptos
         Me.SuperTabControl1.ControlBox.MenuBox.Name = ""
         Me.SuperTabControl1.ControlBox.Name = ""
         Me.SuperTabControl1.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabControl1.ControlBox.MenuBox, Me.SuperTabControl1.ControlBox.CloseBox})
+        Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel2)
         Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel3)
         Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel1)
-        Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel2)
         Me.SuperTabControl1.Location = New System.Drawing.Point(570, 11)
         Me.SuperTabControl1.Margin = New System.Windows.Forms.Padding(2)
         Me.SuperTabControl1.Name = "SuperTabControl1"
@@ -455,6 +455,39 @@ Partial Class frmFarmacias_Conceptos
         Me.SuperTabControl1.TabIndex = 65
         Me.SuperTabControl1.Tabs.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.stiConceptos, Me.stiCodigos, Me.stiProfesionales, Me.btnAdd, Me.btnEliminar})
         Me.SuperTabControl1.Text = "SuperTabControl1"
+        '
+        'SuperTabControlPanel3
+        '
+        Me.SuperTabControlPanel3.Controls.Add(Me.grdCodigos)
+        Me.SuperTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SuperTabControlPanel3.Location = New System.Drawing.Point(0, 26)
+        Me.SuperTabControlPanel3.Name = "SuperTabControlPanel3"
+        Me.SuperTabControlPanel3.Size = New System.Drawing.Size(532, 229)
+        Me.SuperTabControlPanel3.TabIndex = 0
+        Me.SuperTabControlPanel3.TabItem = Me.stiCodigos
+        '
+        'grdCodigos
+        '
+        Me.grdCodigos.AllowUserToAddRows = False
+        Me.grdCodigos.AllowUserToDeleteRows = False
+        Me.grdCodigos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.grdCodigos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.grdCodigos.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.mandatariaNombre, Me.mandatariaCodigo})
+        Me.grdCodigos.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.grdCodigos.Location = New System.Drawing.Point(0, 0)
+        Me.grdCodigos.Margin = New System.Windows.Forms.Padding(2)
+        Me.grdCodigos.Name = "grdCodigos"
+        Me.grdCodigos.RowHeadersWidth = 51
+        Me.grdCodigos.RowTemplate.Height = 24
+        Me.grdCodigos.Size = New System.Drawing.Size(532, 229)
+        Me.grdCodigos.TabIndex = 1
+        '
+        'stiCodigos
+        '
+        Me.stiCodigos.AttachedControl = Me.SuperTabControlPanel3
+        Me.stiCodigos.GlobalItem = False
+        Me.stiCodigos.Name = "stiCodigos"
+        Me.stiCodigos.Text = "Códigos"
         '
         'SuperTabControlPanel1
         '
@@ -485,37 +518,6 @@ Partial Class frmFarmacias_Conceptos
         Me.stiConceptos.GlobalItem = False
         Me.stiConceptos.Name = "stiConceptos"
         Me.stiConceptos.Text = "Conceptos"
-        '
-        'SuperTabControlPanel3
-        '
-        Me.SuperTabControlPanel3.Controls.Add(Me.grdCodigos)
-        Me.SuperTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SuperTabControlPanel3.Location = New System.Drawing.Point(0, 26)
-        Me.SuperTabControlPanel3.Name = "SuperTabControlPanel3"
-        Me.SuperTabControlPanel3.Size = New System.Drawing.Size(532, 229)
-        Me.SuperTabControlPanel3.TabIndex = 0
-        Me.SuperTabControlPanel3.TabItem = Me.stiCodigos
-        '
-        'grdCodigos
-        '
-        Me.grdCodigos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
-        Me.grdCodigos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.grdCodigos.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.mandatariaNombre, Me.mandatariaCodigo})
-        Me.grdCodigos.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.grdCodigos.Location = New System.Drawing.Point(0, 0)
-        Me.grdCodigos.Margin = New System.Windows.Forms.Padding(2)
-        Me.grdCodigos.Name = "grdCodigos"
-        Me.grdCodigos.RowHeadersWidth = 51
-        Me.grdCodigos.RowTemplate.Height = 24
-        Me.grdCodigos.Size = New System.Drawing.Size(532, 229)
-        Me.grdCodigos.TabIndex = 1
-        '
-        'stiCodigos
-        '
-        Me.stiCodigos.AttachedControl = Me.SuperTabControlPanel3
-        Me.stiCodigos.GlobalItem = False
-        Me.stiCodigos.Name = "stiCodigos"
-        Me.stiCodigos.Text = "Códigos"
         '
         'SuperTabControlPanel2
         '
@@ -734,6 +736,7 @@ Partial Class frmFarmacias_Conceptos
         'mandatariaCodigo
         '
         Me.mandatariaCodigo.HeaderText = "Código"
+        Me.mandatariaCodigo.MaxInputLength = 30
         Me.mandatariaCodigo.Name = "mandatariaCodigo"
         '
         'frmFarmacias_Conceptos
@@ -753,10 +756,10 @@ Partial Class frmFarmacias_Conceptos
         Me.GroupBox1.PerformLayout()
         CType(Me.SuperTabControl1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SuperTabControl1.ResumeLayout(False)
-        Me.SuperTabControlPanel1.ResumeLayout(False)
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SuperTabControlPanel3.ResumeLayout(False)
         CType(Me.grdCodigos, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SuperTabControlPanel1.ResumeLayout(False)
+        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
