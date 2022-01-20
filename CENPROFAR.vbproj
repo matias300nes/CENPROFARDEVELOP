@@ -168,6 +168,12 @@
     <Compile Include="frmImportarExcel.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmSelectConcepto.Designer.vb">
+      <DependentUpon>frmSelectConcepto.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmSelectConcepto.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmSelectPresentacion.Designer.vb">
       <DependentUpon>frmSelectPresentacion.vb</DependentUpon>
     </Compile>
@@ -846,6 +852,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmImportarExcel.resx">
       <DependentUpon>frmImportarExcel.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSelectConcepto.resx">
+      <DependentUpon>frmSelectConcepto.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSelectPresentacion.resx">
       <DependentUpon>frmSelectPresentacion.vb</DependentUpon>
