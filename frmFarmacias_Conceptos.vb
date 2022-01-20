@@ -395,14 +395,14 @@ Public Class frmFarmacias_Conceptos
                 Dim param_CodPAMI As New SqlClient.SqlParameter
                 param_CodPAMI.ParameterName = "@CodPAMI"
                 param_CodPAMI.SqlDbType = SqlDbType.BigInt
-                param_CodPAMI.Value = IIf(txtCodPAMI.Text = "", DBNull.Value, txtCodPAMI.Text) ''IIf(txtCodPAMI.Text = "", DBNull.Value, Long.Parse(txtCodPAMI.Text))
+                'param_CodPAMI.Value = IIf(txtCodPAMI.Text = "", DBNull.Value, txtCodPAMI.Text) ''IIf(txtCodPAMI.Text = "", DBNull.Value, Long.Parse(txtCodPAMI.Text))
                 param_CodPAMI.Direction = ParameterDirection.Input
 
                 Dim param_CodFACAF As New SqlClient.SqlParameter
                 param_CodFACAF.ParameterName = "@CodFACAF"
                 param_CodFACAF.SqlDbType = SqlDbType.NVarChar
                 param_CodFACAF.Size = 300
-                param_CodFACAF.Value = IIf(txtCodFACAF.Text = "", DBNull.Value, txtCodFACAF.Text) ''IIf(txtCodFACAF.Text = "", DBNull.Value, Long.Parse(txtCodFACAF.Text))
+                'param_CodFACAF.Value = IIf(txtCodFACAF.Text = "", DBNull.Value, txtCodFACAF.Text) ''IIf(txtCodFACAF.Text = "", DBNull.Value, Long.Parse(txtCodFACAF.Text))
                 param_CodFACAF.Direction = ParameterDirection.Input
 
                 Dim param_nombre As New SqlClient.SqlParameter
@@ -543,14 +543,14 @@ Public Class frmFarmacias_Conceptos
                 Dim param_CodPAMI As New SqlClient.SqlParameter
                 param_CodPAMI.ParameterName = "@CodPAMI"
                 param_CodPAMI.SqlDbType = SqlDbType.BigInt
-                param_CodPAMI.Value = IIf(txtCodPAMI.Text = "", DBNull.Value, txtCodPAMI.Text)
+                'param_CodPAMI.Value = IIf(txtCodPAMI.Text = "", DBNull.Value, txtCodPAMI.Text)
                 param_CodPAMI.Direction = ParameterDirection.Input
 
                 Dim param_CodFACAF As New SqlClient.SqlParameter
                 param_CodFACAF.ParameterName = "@CodFACAF"
                 param_CodFACAF.SqlDbType = SqlDbType.NVarChar
                 param_CodFACAF.Size = 300
-                param_CodFACAF.Value = IIf(txtCodFACAF.Text = "", DBNull.Value, txtCodFACAF.Text)
+                'param_CodFACAF.Value = IIf(txtCodFACAF.Text = "", DBNull.Value, txtCodFACAF.Text)
                 param_CodFACAF.Direction = ParameterDirection.Input
 
                 Dim param_nombre As New SqlClient.SqlParameter
@@ -762,8 +762,8 @@ Public Class frmFarmacias_Conceptos
     Private Sub asignarTags()
         txtID.Tag = "0"
         txtCODIGO.Tag = "1"
-        txtCodPAMI.Tag = "2"
-        txtCodFACAF.Tag = "3"
+        'txtCodPAMI.Tag = "2"
+        'txtCodFACAF.Tag = "3"
         txtFarmacia.Tag = "4"
         txtCuit.Tag = "5"
         txtDomicilio.Tag = "6"
@@ -939,9 +939,7 @@ Public Class frmFarmacias_Conceptos
         End If
     End Sub
 
-    Private Sub ButtonItem1_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
 
-    End Sub
 
 
 
