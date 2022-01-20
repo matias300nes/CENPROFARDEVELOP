@@ -939,6 +939,11 @@ Public Class frmFarmacias_Conceptos
         End If
     End Sub
 
+    Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
+        Dim cargarConcepto As New frmSelectConcepto
+        cargarConcepto.ShowDialog()
+    End Sub
+
 
 
 
