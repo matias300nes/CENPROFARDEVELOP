@@ -24,13 +24,13 @@ Partial Class frmFarmacias_Conceptos
         Me.Label3 = New System.Windows.Forms.Label()
         Me.GroupBox1 = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.Label14 = New System.Windows.Forms.Label()
-        Me.FormattedTextBoxVB2 = New TextBoxConFormatoVB.FormattedTextBoxVB()
+        Me.txtCBU = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.cmbPreferenciaPago = New DevComponents.DotNetBar.Controls.ComboBoxEx()
         Me.ComboItem1 = New DevComponents.Editors.ComboItem()
         Me.ComboItem2 = New DevComponents.Editors.ComboItem()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.FormattedTextBoxVB1 = New TextBoxConFormatoVB.FormattedTextBoxVB()
+        Me.txtRazonSocial = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.cmbEstado = New DevComponents.DotNetBar.Controls.ComboBoxEx()
         Me.txtCodigoPostal = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.Label13 = New System.Windows.Forms.Label()
@@ -41,6 +41,8 @@ Partial Class frmFarmacias_Conceptos
         Me.SuperTabControl1 = New DevComponents.DotNetBar.SuperTabControl()
         Me.SuperTabControlPanel3 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.grdCodigos = New System.Windows.Forms.DataGridView()
+        Me.mandatariaNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.mandatariaCodigo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.stiCodigos = New DevComponents.DotNetBar.SuperTabItem()
         Me.SuperTabControlPanel1 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
@@ -63,8 +65,6 @@ Partial Class frmFarmacias_Conceptos
         Me.txtTelefono = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.txtEmail = New TextBoxConFormatoVB.FormattedTextBoxVB()
-        Me.mandatariaNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.mandatariaCodigo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GroupBox1.SuspendLayout()
         CType(Me.SuperTabControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControl1.SuspendLayout()
@@ -168,11 +168,11 @@ Partial Class frmFarmacias_Conceptos
         Me.GroupBox1.CanvasColor = System.Drawing.SystemColors.Control
         Me.GroupBox1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007
         Me.GroupBox1.Controls.Add(Me.Label14)
-        Me.GroupBox1.Controls.Add(Me.FormattedTextBoxVB2)
+        Me.GroupBox1.Controls.Add(Me.txtCBU)
         Me.GroupBox1.Controls.Add(Me.cmbPreferenciaPago)
         Me.GroupBox1.Controls.Add(Me.Label5)
         Me.GroupBox1.Controls.Add(Me.Label4)
-        Me.GroupBox1.Controls.Add(Me.FormattedTextBoxVB1)
+        Me.GroupBox1.Controls.Add(Me.txtRazonSocial)
         Me.GroupBox1.Controls.Add(Me.cmbEstado)
         Me.GroupBox1.Controls.Add(Me.txtCodigoPostal)
         Me.GroupBox1.Controls.Add(Me.Label13)
@@ -246,22 +246,22 @@ Partial Class frmFarmacias_Conceptos
         Me.Label14.TabIndex = 291
         Me.Label14.Text = "CBU*"
         '
-        'FormattedTextBoxVB2
+        'txtCBU
         '
-        Me.FormattedTextBoxVB2.AccessibleName = "*Cuit"
-        Me.FormattedTextBoxVB2.Decimals = CType(0, Byte)
-        Me.FormattedTextBoxVB2.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
-        Me.FormattedTextBoxVB2.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
-        Me.FormattedTextBoxVB2.Location = New System.Drawing.Point(366, 80)
-        Me.FormattedTextBoxVB2.MaxLength = 22
-        Me.FormattedTextBoxVB2.Name = "FormattedTextBoxVB2"
-        Me.FormattedTextBoxVB2.Size = New System.Drawing.Size(178, 20)
-        Me.FormattedTextBoxVB2.TabIndex = 290
-        Me.FormattedTextBoxVB2.Text_1 = Nothing
-        Me.FormattedTextBoxVB2.Text_2 = Nothing
-        Me.FormattedTextBoxVB2.Text_3 = Nothing
-        Me.FormattedTextBoxVB2.Text_4 = Nothing
-        Me.FormattedTextBoxVB2.UserValues = Nothing
+        Me.txtCBU.AccessibleName = ""
+        Me.txtCBU.Decimals = CType(0, Byte)
+        Me.txtCBU.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
+        Me.txtCBU.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
+        Me.txtCBU.Location = New System.Drawing.Point(366, 80)
+        Me.txtCBU.MaxLength = 22
+        Me.txtCBU.Name = "txtCBU"
+        Me.txtCBU.Size = New System.Drawing.Size(178, 20)
+        Me.txtCBU.TabIndex = 290
+        Me.txtCBU.Text_1 = Nothing
+        Me.txtCBU.Text_2 = Nothing
+        Me.txtCBU.Text_3 = Nothing
+        Me.txtCBU.Text_4 = Nothing
+        Me.txtCBU.UserValues = Nothing
         '
         'cmbPreferenciaPago
         '
@@ -310,22 +310,22 @@ Partial Class frmFarmacias_Conceptos
         Me.Label4.TabIndex = 287
         Me.Label4.Text = "Razon Social*"
         '
-        'FormattedTextBoxVB1
+        'txtRazonSocial
         '
-        Me.FormattedTextBoxVB1.AccessibleName = "*Nombre"
-        Me.FormattedTextBoxVB1.Decimals = CType(2, Byte)
-        Me.FormattedTextBoxVB1.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
-        Me.FormattedTextBoxVB1.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.FormattedTextBoxVB1.Location = New System.Drawing.Point(324, 27)
-        Me.FormattedTextBoxVB1.MaxLength = 50
-        Me.FormattedTextBoxVB1.Name = "FormattedTextBoxVB1"
-        Me.FormattedTextBoxVB1.Size = New System.Drawing.Size(220, 20)
-        Me.FormattedTextBoxVB1.TabIndex = 286
-        Me.FormattedTextBoxVB1.Text_1 = Nothing
-        Me.FormattedTextBoxVB1.Text_2 = Nothing
-        Me.FormattedTextBoxVB1.Text_3 = Nothing
-        Me.FormattedTextBoxVB1.Text_4 = Nothing
-        Me.FormattedTextBoxVB1.UserValues = Nothing
+        Me.txtRazonSocial.AccessibleName = "*RazonSocial"
+        Me.txtRazonSocial.Decimals = CType(2, Byte)
+        Me.txtRazonSocial.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
+        Me.txtRazonSocial.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
+        Me.txtRazonSocial.Location = New System.Drawing.Point(324, 27)
+        Me.txtRazonSocial.MaxLength = 50
+        Me.txtRazonSocial.Name = "txtRazonSocial"
+        Me.txtRazonSocial.Size = New System.Drawing.Size(220, 20)
+        Me.txtRazonSocial.TabIndex = 286
+        Me.txtRazonSocial.Text_1 = Nothing
+        Me.txtRazonSocial.Text_2 = Nothing
+        Me.txtRazonSocial.Text_3 = Nothing
+        Me.txtRazonSocial.Text_4 = Nothing
+        Me.txtRazonSocial.UserValues = Nothing
         '
         'cmbEstado
         '
@@ -441,9 +441,9 @@ Partial Class frmFarmacias_Conceptos
         Me.SuperTabControl1.ControlBox.MenuBox.Name = ""
         Me.SuperTabControl1.ControlBox.Name = ""
         Me.SuperTabControl1.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabControl1.ControlBox.MenuBox, Me.SuperTabControl1.ControlBox.CloseBox})
-        Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel2)
         Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel3)
         Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel1)
+        Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel2)
         Me.SuperTabControl1.Location = New System.Drawing.Point(570, 11)
         Me.SuperTabControl1.Margin = New System.Windows.Forms.Padding(2)
         Me.SuperTabControl1.Name = "SuperTabControl1"
@@ -476,11 +476,27 @@ Partial Class frmFarmacias_Conceptos
         Me.grdCodigos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.grdCodigos.Location = New System.Drawing.Point(0, 0)
         Me.grdCodigos.Margin = New System.Windows.Forms.Padding(2)
+        Me.grdCodigos.MultiSelect = False
         Me.grdCodigos.Name = "grdCodigos"
         Me.grdCodigos.RowHeadersWidth = 51
         Me.grdCodigos.RowTemplate.Height = 24
+        Me.grdCodigos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.grdCodigos.Size = New System.Drawing.Size(532, 229)
         Me.grdCodigos.TabIndex = 1
+        '
+        'mandatariaNombre
+        '
+        Me.mandatariaNombre.HeaderText = "Mandataria"
+        Me.mandatariaNombre.Name = "mandatariaNombre"
+        Me.mandatariaNombre.ReadOnly = True
+        Me.mandatariaNombre.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        '
+        'mandatariaCodigo
+        '
+        Me.mandatariaCodigo.HeaderText = "Código"
+        Me.mandatariaCodigo.MaxInputLength = 30
+        Me.mandatariaCodigo.Name = "mandatariaCodigo"
+        Me.mandatariaCodigo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
         '
         'stiCodigos
         '
@@ -727,18 +743,6 @@ Partial Class frmFarmacias_Conceptos
         Me.txtEmail.Text_4 = Nothing
         Me.txtEmail.UserValues = Nothing
         '
-        'mandatariaNombre
-        '
-        Me.mandatariaNombre.HeaderText = "Mandataria"
-        Me.mandatariaNombre.Name = "mandatariaNombre"
-        Me.mandatariaNombre.ReadOnly = True
-        '
-        'mandatariaCodigo
-        '
-        Me.mandatariaCodigo.HeaderText = "Código"
-        Me.mandatariaCodigo.MaxInputLength = 30
-        Me.mandatariaCodigo.Name = "mandatariaCodigo"
-        '
         'frmFarmacias_Conceptos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -810,13 +814,13 @@ Partial Class frmFarmacias_Conceptos
     Friend WithEvents Label6 As Label
     Friend WithEvents txtDomicilio As TextBox
     Friend WithEvents Label14 As Label
-    Friend WithEvents FormattedTextBoxVB2 As TextBoxConFormatoVB.FormattedTextBoxVB
+    Friend WithEvents txtCBU As TextBoxConFormatoVB.FormattedTextBoxVB
     Friend WithEvents cmbPreferenciaPago As DevComponents.DotNetBar.Controls.ComboBoxEx
     Friend WithEvents ComboItem1 As DevComponents.Editors.ComboItem
     Friend WithEvents ComboItem2 As DevComponents.Editors.ComboItem
     Friend WithEvents Label5 As Label
     Friend WithEvents Label4 As Label
-    Friend WithEvents FormattedTextBoxVB1 As TextBoxConFormatoVB.FormattedTextBoxVB
+    Friend WithEvents txtRazonSocial As TextBoxConFormatoVB.FormattedTextBoxVB
     Friend WithEvents mandatariaNombre As DataGridViewTextBoxColumn
     Friend WithEvents mandatariaCodigo As DataGridViewTextBoxColumn
 End Class

@@ -19,6 +19,27 @@ Public Class frmFarmacias_Conceptos
         FARMAPLUS = 3
         CSF = 4
     End Enum
+
+    Enum GridItemsCols
+        ID = 0
+        Codigo = 1
+        CodPAMI = 2
+        CodFACAF = 3
+        CodFarmaLink = 4
+        CodFarmaPlus = 5
+        CodCSF = 6
+        Farmacia = 7
+        Cuit = 8
+        Domicilio = 9
+        Telefono = 10
+        Email = 11
+        Contribuyente = 12
+        EstadoFarmacia = 13
+        MotivoBaja = 14
+        IdProvincia = 15
+        IdLocalidad = 16
+        Localidad = 17
+    End Enum
 #End Region
 
 
@@ -52,6 +73,23 @@ Public Class frmFarmacias_Conceptos
         grdCodigos.Rows.Add("Compañia Servicios Farmaceuticos", DBNull.Value)
 
         LlenarGrilla()
+
+        ''Ocultar columnas no necesarias
+        With grd
+            .Columns(GridItemsCols.CodPAMI).Visible = False
+            .Columns(GridItemsCols.CodFarmaLink).Visible = False
+            .Columns(GridItemsCols.CodFarmaPlus).Visible = False
+            .Columns(GridItemsCols.CodCSF).Visible = False
+            .Columns(GridItemsCols.Contribuyente).Visible = False
+            '.Columns(GridItemsCols.Cuit).Visible = False
+            .Columns(GridItemsCols.Domicilio).Visible = False
+            .Columns(GridItemsCols.EstadoFarmacia).Visible = False
+            .Columns(GridItemsCols.IdLocalidad).Visible = False
+            .Columns(GridItemsCols.IdProvincia).Visible = False
+            .Columns(GridItemsCols.MotivoBaja).Visible = False
+            '.Columns(GridItemsCols.Telefono).Visible = False
+            '.Columns(GridItemsCols.Localidad).Visible = False
+        End With
 
         Permitir = True
 
@@ -824,20 +862,18 @@ Public Class frmFarmacias_Conceptos
     Private Sub asignarTags()
         txtID.Tag = "0"
         txtCODIGO.Tag = "1"
-        'txtCodPAMI.Tag = "2"
-        'txtCodFACAF.Tag = "3"
-        txtFarmacia.Tag = "4"
-        txtCuit.Tag = "5"
-        txtDomicilio.Tag = "6"
-        txtTelefono.Tag = "7"
-        txtEmail.Tag = "8"
-        txtTipoContribuyente.Tag = "9"
-        cmbEstado.Text = "10"
-        txtMotivoBaja.Text = "11"
-        cmbLocalidad.Tag = "12"
-        cmbProvincia.Tag = "13"
-
-
+        txtFarmacia.Tag = "7"
+        txtRazonSocial.Tag = ""
+        txtCuit.Tag = "8"
+        cmbPreferenciaPago.Tag = ""
+        txtDomicilio.Tag = "9"
+        txtTelefono.Tag = "10"
+        txtEmail.Tag = "11"
+        txtTipoContribuyente.Tag = "12"
+        cmbEstado.Text = "13"
+        txtMotivoBaja.Text = "14"
+        cmbProvincia.Tag = "15"
+        cmbLocalidad.Tag = "16"
 
     End Sub
 
@@ -1004,6 +1040,18 @@ Public Class frmFarmacias_Conceptos
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
         Dim cargarConcepto As New frmSelectConcepto
         cargarConcepto.ShowDialog()
+    End Sub
+
+    Private Sub txtID_TextChanged(sender As Object, e As EventArgs) Handles txtID.TextChanged
+
+        ''Actualizo la grila de codigos
+        If grd.CurrentRow IsNot Nothing Then
+            grdCodigos.Rows(Codigos.FACAF).Cells(1).Value = grd.CurrentRow.Cells(GridItemsCols.CodFACAF).Value
+            grdCodigos.Rows(Codigos.PAMI).Cells(1).Value = grd.CurrentRow.Cells(GridItemsCols.CodPAMI).Value
+            grdCodigos.Rows(Codigos.FARMALINK).Cells(1).Value = grd.CurrentRow.Cells(GridItemsCols.CodFarmaLink).Value
+            grdCodigos.Rows(Codigos.FARMAPLUS).Cells(1).Value = grd.CurrentRow.Cells(GridItemsCols.CodFarmaPlus).Value
+            grdCodigos.Rows(Codigos.CSF).Cells(1).Value = grd.CurrentRow.Cells(GridItemsCols.CodCSF).Value
+        End If
     End Sub
 
 
