@@ -80,9 +80,9 @@ Partial Class frmSelectConcepto
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(709, 517)
         Me.Controls.Add(Me.TableLayoutPanel1)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "frmSelectConcepto"
-        Me.Text = "frmNuevaLiquidacion"
+        Me.Text = "frmNuevoConcepto"
         Me.TableLayoutPanel1.ResumeLayout(False)
         CType(Me.grdConceptos, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)

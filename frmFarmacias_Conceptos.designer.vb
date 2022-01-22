@@ -38,13 +38,15 @@ Partial Class frmFarmacias_Conceptos
         Me.cmbLocalidad = New DevComponents.DotNetBar.Controls.ComboBoxEx()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.cmbProvincia = New DevComponents.DotNetBar.Controls.ComboBoxEx()
-        Me.SuperTabControl1 = New DevComponents.DotNetBar.SuperTabControl()
+        Me.SuperTabControl = New DevComponents.DotNetBar.SuperTabControl()
+        Me.SuperTabControlPanel3 = New DevComponents.DotNetBar.SuperTabControlPanel()
+        Me.grdCodigos = New System.Windows.Forms.DataGridView()
+        Me.mandatariaNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.mandatariaCodigo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.stiCodigos = New DevComponents.DotNetBar.SuperTabItem()
         Me.SuperTabControlPanel1 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.stiConceptos = New DevComponents.DotNetBar.SuperTabItem()
-        Me.SuperTabControlPanel3 = New DevComponents.DotNetBar.SuperTabControlPanel()
-        Me.grdCodigos = New System.Windows.Forms.DataGridView()
-        Me.stiCodigos = New DevComponents.DotNetBar.SuperTabItem()
         Me.SuperTabControlPanel2 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.stiProfesionales = New DevComponents.DotNetBar.SuperTabItem()
         Me.btnAdd = New DevComponents.DotNetBar.ButtonItem()
@@ -63,15 +65,13 @@ Partial Class frmFarmacias_Conceptos
         Me.txtTelefono = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.txtEmail = New TextBoxConFormatoVB.FormattedTextBoxVB()
-        Me.mandatariaNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.mandatariaCodigo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GroupBox1.SuspendLayout()
-        CType(Me.SuperTabControl1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.SuperTabControl1.SuspendLayout()
-        Me.SuperTabControlPanel1.SuspendLayout()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.SuperTabControl, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SuperTabControl.SuspendLayout()
         Me.SuperTabControlPanel3.SuspendLayout()
         CType(Me.grdCodigos, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SuperTabControlPanel1.SuspendLayout()
+        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'txtID
@@ -81,10 +81,11 @@ Partial Class frmFarmacias_Conceptos
         Me.txtID.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtID.Enabled = False
         Me.txtID.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
-        Me.txtID.Location = New System.Drawing.Point(198, -3)
+        Me.txtID.Location = New System.Drawing.Point(264, -4)
+        Me.txtID.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtID.MaxLength = 8
         Me.txtID.Name = "txtID"
-        Me.txtID.Size = New System.Drawing.Size(69, 20)
+        Me.txtID.Size = New System.Drawing.Size(91, 22)
         Me.txtID.TabIndex = 50
         Me.txtID.Text_1 = Nothing
         Me.txtID.Text_2 = Nothing
@@ -96,9 +97,10 @@ Partial Class frmFarmacias_Conceptos
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(418, 23)
+        Me.Label1.Location = New System.Drawing.Point(557, 28)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(16, 13)
+        Me.Label1.Size = New System.Drawing.Size(19, 17)
         Me.Label1.TabIndex = 50
         Me.Label1.Text = "Id"
         Me.Label1.Visible = False
@@ -110,11 +112,12 @@ Partial Class frmFarmacias_Conceptos
         Me.txtCODIGO.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtCODIGO.Enabled = False
         Me.txtCODIGO.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.txtCODIGO.Location = New System.Drawing.Point(16, 27)
+        Me.txtCODIGO.Location = New System.Drawing.Point(21, 33)
+        Me.txtCODIGO.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtCODIGO.MaxLength = 25
         Me.txtCODIGO.Name = "txtCODIGO"
         Me.txtCODIGO.ReadOnly = True
-        Me.txtCODIGO.Size = New System.Drawing.Size(78, 20)
+        Me.txtCODIGO.Size = New System.Drawing.Size(103, 22)
         Me.txtCODIGO.TabIndex = 0
         Me.txtCODIGO.Text_1 = Nothing
         Me.txtCODIGO.Text_2 = Nothing
@@ -127,9 +130,10 @@ Partial Class frmFarmacias_Conceptos
         Me.Label2.AutoSize = True
         Me.Label2.BackColor = System.Drawing.Color.Transparent
         Me.Label2.ForeColor = System.Drawing.Color.Blue
-        Me.Label2.Location = New System.Drawing.Point(14, 11)
+        Me.Label2.Location = New System.Drawing.Point(19, 14)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(40, 13)
+        Me.Label2.Size = New System.Drawing.Size(52, 17)
         Me.Label2.TabIndex = 51
         Me.Label2.Text = "Código"
         '
@@ -139,10 +143,11 @@ Partial Class frmFarmacias_Conceptos
         Me.txtFarmacia.Decimals = CType(2, Byte)
         Me.txtFarmacia.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtFarmacia.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.txtFarmacia.Location = New System.Drawing.Point(101, 27)
+        Me.txtFarmacia.Location = New System.Drawing.Point(135, 33)
+        Me.txtFarmacia.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtFarmacia.MaxLength = 50
         Me.txtFarmacia.Name = "txtFarmacia"
-        Me.txtFarmacia.Size = New System.Drawing.Size(215, 20)
+        Me.txtFarmacia.Size = New System.Drawing.Size(285, 22)
         Me.txtFarmacia.TabIndex = 3
         Me.txtFarmacia.Text_1 = Nothing
         Me.txtFarmacia.Text_2 = Nothing
@@ -155,9 +160,10 @@ Partial Class frmFarmacias_Conceptos
         Me.Label3.AutoSize = True
         Me.Label3.BackColor = System.Drawing.Color.Transparent
         Me.Label3.ForeColor = System.Drawing.Color.Blue
-        Me.Label3.Location = New System.Drawing.Point(98, 11)
+        Me.Label3.Location = New System.Drawing.Point(131, 14)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(48, 13)
+        Me.Label3.Size = New System.Drawing.Size(63, 17)
         Me.Label3.TabIndex = 52
         Me.Label3.Text = "Nombre*"
         '
@@ -180,7 +186,7 @@ Partial Class frmFarmacias_Conceptos
         Me.GroupBox1.Controls.Add(Me.cmbLocalidad)
         Me.GroupBox1.Controls.Add(Me.Label17)
         Me.GroupBox1.Controls.Add(Me.cmbProvincia)
-        Me.GroupBox1.Controls.Add(Me.SuperTabControl1)
+        Me.GroupBox1.Controls.Add(Me.SuperTabControl)
         Me.GroupBox1.Controls.Add(Me.Label9)
         Me.GroupBox1.Controls.Add(Me.chkEliminados)
         Me.GroupBox1.Controls.Add(Me.Label7)
@@ -201,9 +207,10 @@ Partial Class frmFarmacias_Conceptos
         Me.GroupBox1.Controls.Add(Me.txtFarmacia)
         Me.GroupBox1.Controls.Add(Me.Label2)
         Me.GroupBox1.DisabledBackColor = System.Drawing.Color.Empty
-        Me.GroupBox1.Location = New System.Drawing.Point(12, 28)
+        Me.GroupBox1.Location = New System.Drawing.Point(16, 34)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(1140, 291)
+        Me.GroupBox1.Size = New System.Drawing.Size(1520, 358)
         '
         '
         '
@@ -240,9 +247,10 @@ Partial Class frmFarmacias_Conceptos
         Me.Label14.AutoSize = True
         Me.Label14.BackColor = System.Drawing.Color.Transparent
         Me.Label14.ForeColor = System.Drawing.Color.Blue
-        Me.Label14.Location = New System.Drawing.Point(363, 64)
+        Me.Label14.Location = New System.Drawing.Point(484, 79)
+        Me.Label14.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(33, 13)
+        Me.Label14.Size = New System.Drawing.Size(41, 17)
         Me.Label14.TabIndex = 291
         Me.Label14.Text = "CBU*"
         '
@@ -252,10 +260,11 @@ Partial Class frmFarmacias_Conceptos
         Me.FormattedTextBoxVB2.Decimals = CType(0, Byte)
         Me.FormattedTextBoxVB2.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.FormattedTextBoxVB2.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
-        Me.FormattedTextBoxVB2.Location = New System.Drawing.Point(366, 80)
+        Me.FormattedTextBoxVB2.Location = New System.Drawing.Point(488, 98)
+        Me.FormattedTextBoxVB2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.FormattedTextBoxVB2.MaxLength = 22
         Me.FormattedTextBoxVB2.Name = "FormattedTextBoxVB2"
-        Me.FormattedTextBoxVB2.Size = New System.Drawing.Size(178, 20)
+        Me.FormattedTextBoxVB2.Size = New System.Drawing.Size(236, 22)
         Me.FormattedTextBoxVB2.TabIndex = 290
         Me.FormattedTextBoxVB2.Text_1 = Nothing
         Me.FormattedTextBoxVB2.Text_2 = Nothing
@@ -273,9 +282,10 @@ Partial Class frmFarmacias_Conceptos
         Me.cmbPreferenciaPago.FormattingEnabled = True
         Me.cmbPreferenciaPago.ItemHeight = 14
         Me.cmbPreferenciaPago.Items.AddRange(New Object() {Me.ComboItem1, Me.ComboItem2})
-        Me.cmbPreferenciaPago.Location = New System.Drawing.Point(238, 81)
+        Me.cmbPreferenciaPago.Location = New System.Drawing.Point(317, 100)
+        Me.cmbPreferenciaPago.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbPreferenciaPago.Name = "cmbPreferenciaPago"
-        Me.cmbPreferenciaPago.Size = New System.Drawing.Size(117, 20)
+        Me.cmbPreferenciaPago.Size = New System.Drawing.Size(155, 20)
         Me.cmbPreferenciaPago.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.cmbPreferenciaPago.TabIndex = 288
         '
@@ -292,9 +302,10 @@ Partial Class frmFarmacias_Conceptos
         Me.Label5.AutoSize = True
         Me.Label5.BackColor = System.Drawing.Color.Transparent
         Me.Label5.ForeColor = System.Drawing.Color.Blue
-        Me.Label5.Location = New System.Drawing.Point(235, 65)
+        Me.Label5.Location = New System.Drawing.Point(313, 80)
+        Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(103, 13)
+        Me.Label5.Size = New System.Drawing.Size(137, 17)
         Me.Label5.TabIndex = 289
         Me.Label5.Text = "Preferencia de pago"
         '
@@ -304,9 +315,10 @@ Partial Class frmFarmacias_Conceptos
         Me.Label4.AutoSize = True
         Me.Label4.BackColor = System.Drawing.Color.Transparent
         Me.Label4.ForeColor = System.Drawing.Color.Blue
-        Me.Label4.Location = New System.Drawing.Point(321, 11)
+        Me.Label4.Location = New System.Drawing.Point(428, 14)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(74, 13)
+        Me.Label4.Size = New System.Drawing.Size(96, 17)
         Me.Label4.TabIndex = 287
         Me.Label4.Text = "Razon Social*"
         '
@@ -316,10 +328,11 @@ Partial Class frmFarmacias_Conceptos
         Me.FormattedTextBoxVB1.Decimals = CType(2, Byte)
         Me.FormattedTextBoxVB1.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.FormattedTextBoxVB1.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.FormattedTextBoxVB1.Location = New System.Drawing.Point(324, 27)
+        Me.FormattedTextBoxVB1.Location = New System.Drawing.Point(432, 33)
+        Me.FormattedTextBoxVB1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.FormattedTextBoxVB1.MaxLength = 50
         Me.FormattedTextBoxVB1.Name = "FormattedTextBoxVB1"
-        Me.FormattedTextBoxVB1.Size = New System.Drawing.Size(220, 20)
+        Me.FormattedTextBoxVB1.Size = New System.Drawing.Size(292, 22)
         Me.FormattedTextBoxVB1.TabIndex = 286
         Me.FormattedTextBoxVB1.Text_1 = Nothing
         Me.FormattedTextBoxVB1.Text_2 = Nothing
@@ -334,10 +347,10 @@ Partial Class frmFarmacias_Conceptos
         Me.cmbEstado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbEstado.FormattingEnabled = True
         Me.cmbEstado.ItemHeight = 16
-        Me.cmbEstado.Location = New System.Drawing.Point(17, 244)
-        Me.cmbEstado.Margin = New System.Windows.Forms.Padding(2)
+        Me.cmbEstado.Location = New System.Drawing.Point(23, 300)
+        Me.cmbEstado.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.cmbEstado.Name = "cmbEstado"
-        Me.cmbEstado.Size = New System.Drawing.Size(135, 22)
+        Me.cmbEstado.Size = New System.Drawing.Size(179, 22)
         Me.cmbEstado.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.cmbEstado.TabIndex = 0
         '
@@ -346,10 +359,11 @@ Partial Class frmFarmacias_Conceptos
         Me.txtCodigoPostal.Decimals = CType(2, Byte)
         Me.txtCodigoPostal.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtCodigoPostal.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
-        Me.txtCodigoPostal.Location = New System.Drawing.Point(203, 187)
+        Me.txtCodigoPostal.Location = New System.Drawing.Point(271, 230)
+        Me.txtCodigoPostal.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtCodigoPostal.MaxLength = 4
         Me.txtCodigoPostal.Name = "txtCodigoPostal"
-        Me.txtCodigoPostal.Size = New System.Drawing.Size(59, 20)
+        Me.txtCodigoPostal.Size = New System.Drawing.Size(77, 22)
         Me.txtCodigoPostal.TabIndex = 1
         Me.txtCodigoPostal.Text_1 = Nothing
         Me.txtCodigoPostal.Text_2 = Nothing
@@ -362,9 +376,10 @@ Partial Class frmFarmacias_Conceptos
         Me.Label13.AutoSize = True
         Me.Label13.BackColor = System.Drawing.Color.Transparent
         Me.Label13.ForeColor = System.Drawing.Color.Blue
-        Me.Label13.Location = New System.Drawing.Point(163, 227)
+        Me.Label13.Location = New System.Drawing.Point(217, 279)
+        Me.Label13.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(63, 13)
+        Me.Label13.Size = New System.Drawing.Size(81, 17)
         Me.Label13.TabIndex = 278
         Me.Label13.Text = "Motivo Baja"
         '
@@ -374,10 +389,11 @@ Partial Class frmFarmacias_Conceptos
         Me.txtMotivoBaja.Decimals = CType(2, Byte)
         Me.txtMotivoBaja.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtMotivoBaja.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.txtMotivoBaja.Location = New System.Drawing.Point(166, 244)
+        Me.txtMotivoBaja.Location = New System.Drawing.Point(221, 300)
+        Me.txtMotivoBaja.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtMotivoBaja.MaxLength = 100
         Me.txtMotivoBaja.Name = "txtMotivoBaja"
-        Me.txtMotivoBaja.Size = New System.Drawing.Size(150, 20)
+        Me.txtMotivoBaja.Size = New System.Drawing.Size(199, 22)
         Me.txtMotivoBaja.TabIndex = 1
         Me.txtMotivoBaja.Text_1 = Nothing
         Me.txtMotivoBaja.Text_2 = Nothing
@@ -394,9 +410,10 @@ Partial Class frmFarmacias_Conceptos
         Me.cmbLocalidad.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
         Me.cmbLocalidad.FormattingEnabled = True
         Me.cmbLocalidad.ItemHeight = 14
-        Me.cmbLocalidad.Location = New System.Drawing.Point(413, 187)
+        Me.cmbLocalidad.Location = New System.Drawing.Point(551, 230)
+        Me.cmbLocalidad.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbLocalidad.Name = "cmbLocalidad"
-        Me.cmbLocalidad.Size = New System.Drawing.Size(131, 20)
+        Me.cmbLocalidad.Size = New System.Drawing.Size(173, 20)
         Me.cmbLocalidad.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.cmbLocalidad.TabIndex = 3
         '
@@ -405,9 +422,10 @@ Partial Class frmFarmacias_Conceptos
         Me.Label17.AutoSize = True
         Me.Label17.BackColor = System.Drawing.Color.Transparent
         Me.Label17.ForeColor = System.Drawing.Color.Blue
-        Me.Label17.Location = New System.Drawing.Point(14, 227)
+        Me.Label17.Location = New System.Drawing.Point(19, 279)
+        Me.Label17.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(43, 13)
+        Me.Label17.Size = New System.Drawing.Size(56, 17)
         Me.Label17.TabIndex = 272
         Me.Label17.Text = "Estado:"
         '
@@ -420,13 +438,14 @@ Partial Class frmFarmacias_Conceptos
         Me.cmbProvincia.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbProvincia.FormattingEnabled = True
         Me.cmbProvincia.ItemHeight = 14
-        Me.cmbProvincia.Location = New System.Drawing.Point(274, 187)
+        Me.cmbProvincia.Location = New System.Drawing.Point(365, 230)
+        Me.cmbProvincia.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbProvincia.Name = "cmbProvincia"
-        Me.cmbProvincia.Size = New System.Drawing.Size(130, 20)
+        Me.cmbProvincia.Size = New System.Drawing.Size(172, 20)
         Me.cmbProvincia.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.cmbProvincia.TabIndex = 2
         '
-        'SuperTabControl1
+        'SuperTabControl
         '
         '
         '
@@ -434,65 +453,36 @@ Partial Class frmFarmacias_Conceptos
         '
         '
         '
-        Me.SuperTabControl1.ControlBox.CloseBox.Name = ""
+        Me.SuperTabControl.ControlBox.CloseBox.Name = ""
         '
         '
         '
-        Me.SuperTabControl1.ControlBox.MenuBox.Name = ""
-        Me.SuperTabControl1.ControlBox.Name = ""
-        Me.SuperTabControl1.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabControl1.ControlBox.MenuBox, Me.SuperTabControl1.ControlBox.CloseBox})
-        Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel3)
-        Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel1)
-        Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel2)
-        Me.SuperTabControl1.Location = New System.Drawing.Point(570, 11)
-        Me.SuperTabControl1.Margin = New System.Windows.Forms.Padding(2)
-        Me.SuperTabControl1.Name = "SuperTabControl1"
-        Me.SuperTabControl1.ReorderTabsEnabled = True
-        Me.SuperTabControl1.SelectedTabFont = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold)
-        Me.SuperTabControl1.SelectedTabIndex = 0
-        Me.SuperTabControl1.Size = New System.Drawing.Size(532, 255)
-        Me.SuperTabControl1.TabFont = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.SuperTabControl1.TabIndex = 65
-        Me.SuperTabControl1.Tabs.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.stiConceptos, Me.stiCodigos, Me.stiProfesionales, Me.btnAdd, Me.btnEliminar})
-        Me.SuperTabControl1.Text = "SuperTabControl1"
-        '
-        'SuperTabControlPanel1
-        '
-        Me.SuperTabControlPanel1.Controls.Add(Me.DataGridView1)
-        Me.SuperTabControlPanel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SuperTabControlPanel1.Location = New System.Drawing.Point(0, 26)
-        Me.SuperTabControlPanel1.Margin = New System.Windows.Forms.Padding(2)
-        Me.SuperTabControlPanel1.Name = "SuperTabControlPanel1"
-        Me.SuperTabControlPanel1.Size = New System.Drawing.Size(532, 229)
-        Me.SuperTabControlPanel1.TabIndex = 1
-        Me.SuperTabControlPanel1.TabItem = Me.stiConceptos
-        '
-        'DataGridView1
-        '
-        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.DataGridView1.Location = New System.Drawing.Point(0, 0)
-        Me.DataGridView1.Margin = New System.Windows.Forms.Padding(2)
-        Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.RowHeadersWidth = 51
-        Me.DataGridView1.RowTemplate.Height = 24
-        Me.DataGridView1.Size = New System.Drawing.Size(532, 229)
-        Me.DataGridView1.TabIndex = 0
-        '
-        'stiConceptos
-        '
-        Me.stiConceptos.AttachedControl = Me.SuperTabControlPanel1
-        Me.stiConceptos.GlobalItem = False
-        Me.stiConceptos.Name = "stiConceptos"
-        Me.stiConceptos.Text = "Conceptos"
+        Me.SuperTabControl.ControlBox.MenuBox.Name = ""
+        Me.SuperTabControl.ControlBox.Name = ""
+        Me.SuperTabControl.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabControl.ControlBox.MenuBox, Me.SuperTabControl.ControlBox.CloseBox})
+        Me.SuperTabControl.Controls.Add(Me.SuperTabControlPanel1)
+        Me.SuperTabControl.Controls.Add(Me.SuperTabControlPanel3)
+        Me.SuperTabControl.Controls.Add(Me.SuperTabControlPanel2)
+        Me.SuperTabControl.Location = New System.Drawing.Point(760, 14)
+        Me.SuperTabControl.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.SuperTabControl.Name = "SuperTabControl"
+        Me.SuperTabControl.ReorderTabsEnabled = True
+        Me.SuperTabControl.SelectedTabFont = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold)
+        Me.SuperTabControl.SelectedTabIndex = 0
+        Me.SuperTabControl.Size = New System.Drawing.Size(709, 314)
+        Me.SuperTabControl.TabFont = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.SuperTabControl.TabIndex = 65
+        Me.SuperTabControl.Tabs.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.stiConceptos, Me.stiCodigos, Me.stiProfesionales, Me.btnAdd, Me.btnEliminar})
+        Me.SuperTabControl.Text = "SuperTabControl1"
         '
         'SuperTabControlPanel3
         '
         Me.SuperTabControlPanel3.Controls.Add(Me.grdCodigos)
         Me.SuperTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SuperTabControlPanel3.Location = New System.Drawing.Point(0, 26)
+        Me.SuperTabControlPanel3.Location = New System.Drawing.Point(0, 27)
+        Me.SuperTabControlPanel3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.SuperTabControlPanel3.Name = "SuperTabControlPanel3"
-        Me.SuperTabControlPanel3.Size = New System.Drawing.Size(532, 229)
+        Me.SuperTabControlPanel3.Size = New System.Drawing.Size(709, 287)
         Me.SuperTabControlPanel3.TabIndex = 0
         Me.SuperTabControlPanel3.TabItem = Me.stiCodigos
         '
@@ -503,12 +493,25 @@ Partial Class frmFarmacias_Conceptos
         Me.grdCodigos.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.mandatariaNombre, Me.mandatariaCodigo})
         Me.grdCodigos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.grdCodigos.Location = New System.Drawing.Point(0, 0)
-        Me.grdCodigos.Margin = New System.Windows.Forms.Padding(2)
+        Me.grdCodigos.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.grdCodigos.Name = "grdCodigos"
         Me.grdCodigos.RowHeadersWidth = 51
         Me.grdCodigos.RowTemplate.Height = 24
-        Me.grdCodigos.Size = New System.Drawing.Size(532, 229)
+        Me.grdCodigos.Size = New System.Drawing.Size(709, 287)
         Me.grdCodigos.TabIndex = 1
+        '
+        'mandatariaNombre
+        '
+        Me.mandatariaNombre.HeaderText = "Mandataria"
+        Me.mandatariaNombre.MinimumWidth = 6
+        Me.mandatariaNombre.Name = "mandatariaNombre"
+        Me.mandatariaNombre.ReadOnly = True
+        '
+        'mandatariaCodigo
+        '
+        Me.mandatariaCodigo.HeaderText = "Código"
+        Me.mandatariaCodigo.MinimumWidth = 6
+        Me.mandatariaCodigo.Name = "mandatariaCodigo"
         '
         'stiCodigos
         '
@@ -517,13 +520,43 @@ Partial Class frmFarmacias_Conceptos
         Me.stiCodigos.Name = "stiCodigos"
         Me.stiCodigos.Text = "Códigos"
         '
+        'SuperTabControlPanel1
+        '
+        Me.SuperTabControlPanel1.Controls.Add(Me.DataGridView1)
+        Me.SuperTabControlPanel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SuperTabControlPanel1.Location = New System.Drawing.Point(0, 27)
+        Me.SuperTabControlPanel1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.SuperTabControlPanel1.Name = "SuperTabControlPanel1"
+        Me.SuperTabControlPanel1.Size = New System.Drawing.Size(709, 287)
+        Me.SuperTabControlPanel1.TabIndex = 1
+        Me.SuperTabControlPanel1.TabItem = Me.stiConceptos
+        '
+        'DataGridView1
+        '
+        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DataGridView1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.DataGridView1.Location = New System.Drawing.Point(0, 0)
+        Me.DataGridView1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.DataGridView1.Name = "DataGridView1"
+        Me.DataGridView1.RowHeadersWidth = 51
+        Me.DataGridView1.RowTemplate.Height = 24
+        Me.DataGridView1.Size = New System.Drawing.Size(709, 287)
+        Me.DataGridView1.TabIndex = 0
+        '
+        'stiConceptos
+        '
+        Me.stiConceptos.AttachedControl = Me.SuperTabControlPanel1
+        Me.stiConceptos.GlobalItem = False
+        Me.stiConceptos.Name = "stiConceptos"
+        Me.stiConceptos.Text = "Conceptos"
+        '
         'SuperTabControlPanel2
         '
         Me.SuperTabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SuperTabControlPanel2.Location = New System.Drawing.Point(0, 26)
-        Me.SuperTabControlPanel2.Margin = New System.Windows.Forms.Padding(2)
+        Me.SuperTabControlPanel2.Location = New System.Drawing.Point(0, 32)
+        Me.SuperTabControlPanel2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.SuperTabControlPanel2.Name = "SuperTabControlPanel2"
-        Me.SuperTabControlPanel2.Size = New System.Drawing.Size(532, 229)
+        Me.SuperTabControlPanel2.Size = New System.Drawing.Size(709, 282)
         Me.SuperTabControlPanel2.TabIndex = 0
         Me.SuperTabControlPanel2.TabItem = Me.stiProfesionales
         '
@@ -551,9 +584,10 @@ Partial Class frmFarmacias_Conceptos
         Me.Label9.AutoSize = True
         Me.Label9.BackColor = System.Drawing.Color.Transparent
         Me.Label9.ForeColor = System.Drawing.Color.Blue
-        Me.Label9.Location = New System.Drawing.Point(271, 171)
+        Me.Label9.Location = New System.Drawing.Point(361, 210)
+        Me.Label9.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(55, 13)
+        Me.Label9.Size = New System.Drawing.Size(71, 17)
         Me.Label9.TabIndex = 268
         Me.Label9.Text = "Provincia*"
         '
@@ -563,9 +597,10 @@ Partial Class frmFarmacias_Conceptos
         Me.chkEliminados.BackColor = System.Drawing.Color.Transparent
         Me.chkEliminados.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.chkEliminados.ForeColor = System.Drawing.Color.Red
-        Me.chkEliminados.Location = New System.Drawing.Point(435, 244)
+        Me.chkEliminados.Location = New System.Drawing.Point(580, 300)
+        Me.chkEliminados.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkEliminados.Name = "chkEliminados"
-        Me.chkEliminados.Size = New System.Drawing.Size(109, 17)
+        Me.chkEliminados.Size = New System.Drawing.Size(138, 21)
         Me.chkEliminados.TabIndex = 256
         Me.chkEliminados.Text = "Ver Eliminados"
         Me.chkEliminados.UseVisualStyleBackColor = False
@@ -575,9 +610,10 @@ Partial Class frmFarmacias_Conceptos
         Me.Label7.AutoSize = True
         Me.Label7.BackColor = System.Drawing.Color.Transparent
         Me.Label7.ForeColor = System.Drawing.Color.Blue
-        Me.Label7.Location = New System.Drawing.Point(200, 169)
+        Me.Label7.Location = New System.Drawing.Point(267, 208)
+        Me.Label7.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(61, 13)
+        Me.Label7.Size = New System.Drawing.Size(80, 17)
         Me.Label7.TabIndex = 264
         Me.Label7.Text = "Cód. Postal"
         '
@@ -586,9 +622,10 @@ Partial Class frmFarmacias_Conceptos
         Me.Label10.AutoSize = True
         Me.Label10.BackColor = System.Drawing.Color.Transparent
         Me.Label10.ForeColor = System.Drawing.Color.Blue
-        Me.Label10.Location = New System.Drawing.Point(117, 65)
+        Me.Label10.Location = New System.Drawing.Point(156, 80)
+        Me.Label10.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(96, 13)
+        Me.Label10.Size = New System.Drawing.Size(128, 17)
         Me.Label10.TabIndex = 285
         Me.Label10.Text = "Tipo Contribuyente"
         '
@@ -598,9 +635,10 @@ Partial Class frmFarmacias_Conceptos
         Me.Label8.AutoSize = True
         Me.Label8.BackColor = System.Drawing.Color.Transparent
         Me.Label8.ForeColor = System.Drawing.Color.Blue
-        Me.Label8.Location = New System.Drawing.Point(411, 171)
+        Me.Label8.Location = New System.Drawing.Point(548, 210)
+        Me.Label8.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(57, 13)
+        Me.Label8.Size = New System.Drawing.Size(74, 17)
         Me.Label8.TabIndex = 266
         Me.Label8.Text = "Localidad*"
         '
@@ -610,10 +648,11 @@ Partial Class frmFarmacias_Conceptos
         Me.txtTipoContribuyente.Decimals = CType(2, Byte)
         Me.txtTipoContribuyente.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtTipoContribuyente.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.txtTipoContribuyente.Location = New System.Drawing.Point(119, 81)
+        Me.txtTipoContribuyente.Location = New System.Drawing.Point(159, 100)
+        Me.txtTipoContribuyente.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtTipoContribuyente.MaxLength = 50
         Me.txtTipoContribuyente.Name = "txtTipoContribuyente"
-        Me.txtTipoContribuyente.Size = New System.Drawing.Size(107, 20)
+        Me.txtTipoContribuyente.Size = New System.Drawing.Size(141, 22)
         Me.txtTipoContribuyente.TabIndex = 9
         Me.txtTipoContribuyente.Text_1 = Nothing
         Me.txtTipoContribuyente.Text_2 = Nothing
@@ -626,18 +665,20 @@ Partial Class frmFarmacias_Conceptos
         Me.Label6.AutoSize = True
         Me.Label6.BackColor = System.Drawing.Color.Transparent
         Me.Label6.ForeColor = System.Drawing.Color.Blue
-        Me.Label6.Location = New System.Drawing.Point(14, 170)
+        Me.Label6.Location = New System.Drawing.Point(19, 209)
+        Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(49, 13)
+        Me.Label6.Size = New System.Drawing.Size(64, 17)
         Me.Label6.TabIndex = 262
         Me.Label6.Text = "Domicilio"
         '
         'txtDomicilio
         '
-        Me.txtDomicilio.Location = New System.Drawing.Point(17, 187)
+        Me.txtDomicilio.Location = New System.Drawing.Point(23, 230)
+        Me.txtDomicilio.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtDomicilio.MaxLength = 200
         Me.txtDomicilio.Name = "txtDomicilio"
-        Me.txtDomicilio.Size = New System.Drawing.Size(176, 20)
+        Me.txtDomicilio.Size = New System.Drawing.Size(233, 22)
         Me.txtDomicilio.TabIndex = 0
         '
         'Label15
@@ -646,9 +687,10 @@ Partial Class frmFarmacias_Conceptos
         Me.Label15.AutoSize = True
         Me.Label15.BackColor = System.Drawing.Color.Transparent
         Me.Label15.ForeColor = System.Drawing.Color.Blue
-        Me.Label15.Location = New System.Drawing.Point(14, 65)
+        Me.Label15.Location = New System.Drawing.Point(19, 80)
+        Me.Label15.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(29, 13)
+        Me.Label15.Size = New System.Drawing.Size(37, 17)
         Me.Label15.TabIndex = 283
         Me.Label15.Text = "Cuit*"
         '
@@ -658,10 +700,11 @@ Partial Class frmFarmacias_Conceptos
         Me.txtCuit.Decimals = CType(2, Byte)
         Me.txtCuit.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtCuit.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
-        Me.txtCuit.Location = New System.Drawing.Point(17, 81)
+        Me.txtCuit.Location = New System.Drawing.Point(23, 100)
+        Me.txtCuit.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtCuit.MaxLength = 11
         Me.txtCuit.Name = "txtCuit"
-        Me.txtCuit.Size = New System.Drawing.Size(92, 20)
+        Me.txtCuit.Size = New System.Drawing.Size(121, 22)
         Me.txtCuit.TabIndex = 4
         Me.txtCuit.Text_1 = Nothing
         Me.txtCuit.Text_2 = Nothing
@@ -674,9 +717,10 @@ Partial Class frmFarmacias_Conceptos
         Me.Label12.AutoSize = True
         Me.Label12.BackColor = System.Drawing.Color.Transparent
         Me.Label12.ForeColor = System.Drawing.Color.Blue
-        Me.Label12.Location = New System.Drawing.Point(14, 118)
+        Me.Label12.Location = New System.Drawing.Point(19, 145)
+        Me.Label12.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(49, 13)
+        Me.Label12.Size = New System.Drawing.Size(64, 17)
         Me.Label12.TabIndex = 269
         Me.Label12.Text = "Teléfono"
         '
@@ -686,10 +730,11 @@ Partial Class frmFarmacias_Conceptos
         Me.txtTelefono.Decimals = CType(2, Byte)
         Me.txtTelefono.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtTelefono.Format = TextBoxConFormatoVB.tbFormats.SignedNumber
-        Me.txtTelefono.Location = New System.Drawing.Point(16, 135)
+        Me.txtTelefono.Location = New System.Drawing.Point(21, 166)
+        Me.txtTelefono.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtTelefono.MaxLength = 50
         Me.txtTelefono.Name = "txtTelefono"
-        Me.txtTelefono.Size = New System.Drawing.Size(117, 20)
+        Me.txtTelefono.Size = New System.Drawing.Size(155, 22)
         Me.txtTelefono.TabIndex = 7
         Me.txtTelefono.Text_1 = Nothing
         Me.txtTelefono.Text_2 = Nothing
@@ -702,9 +747,10 @@ Partial Class frmFarmacias_Conceptos
         Me.Label11.AutoSize = True
         Me.Label11.BackColor = System.Drawing.Color.Transparent
         Me.Label11.ForeColor = System.Drawing.Color.Blue
-        Me.Label11.Location = New System.Drawing.Point(144, 118)
+        Me.Label11.Location = New System.Drawing.Point(192, 145)
+        Me.Label11.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(32, 13)
+        Me.Label11.Size = New System.Drawing.Size(42, 17)
         Me.Label11.TabIndex = 267
         Me.Label11.Text = "Email"
         '
@@ -714,10 +760,11 @@ Partial Class frmFarmacias_Conceptos
         Me.txtEmail.Decimals = CType(2, Byte)
         Me.txtEmail.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtEmail.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.txtEmail.Location = New System.Drawing.Point(145, 135)
+        Me.txtEmail.Location = New System.Drawing.Point(193, 166)
+        Me.txtEmail.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtEmail.MaxLength = 50
         Me.txtEmail.Name = "txtEmail"
-        Me.txtEmail.Size = New System.Drawing.Size(221, 20)
+        Me.txtEmail.Size = New System.Drawing.Size(293, 22)
         Me.txtEmail.TabIndex = 8
         Me.txtEmail.Text_1 = Nothing
         Me.txtEmail.Text_2 = Nothing
@@ -725,25 +772,14 @@ Partial Class frmFarmacias_Conceptos
         Me.txtEmail.Text_4 = Nothing
         Me.txtEmail.UserValues = Nothing
         '
-        'mandatariaNombre
-        '
-        Me.mandatariaNombre.HeaderText = "Mandataria"
-        Me.mandatariaNombre.Name = "mandatariaNombre"
-        Me.mandatariaNombre.ReadOnly = True
-        '
-        'mandatariaCodigo
-        '
-        Me.mandatariaCodigo.HeaderText = "Código"
-        Me.mandatariaCodigo.Name = "mandatariaCodigo"
-        '
         'frmFarmacias_Conceptos
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1147, 434)
+        Me.ClientSize = New System.Drawing.Size(1529, 534)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.Label1)
-        Me.Margin = New System.Windows.Forms.Padding(4)
+        Me.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.MaximizeBox = False
         Me.Name = "frmFarmacias_Conceptos"
         Me.Text = "Farmacias"
@@ -751,12 +787,12 @@ Partial Class frmFarmacias_Conceptos
         Me.Controls.SetChildIndex(Me.GroupBox1, 0)
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
-        CType(Me.SuperTabControl1, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.SuperTabControl1.ResumeLayout(False)
-        Me.SuperTabControlPanel1.ResumeLayout(False)
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.SuperTabControl, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SuperTabControl.ResumeLayout(False)
         Me.SuperTabControlPanel3.ResumeLayout(False)
         CType(Me.grdCodigos, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SuperTabControlPanel1.ResumeLayout(False)
+        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -787,7 +823,7 @@ Partial Class frmFarmacias_Conceptos
     Friend WithEvents txtTipoContribuyente As TextBoxConFormatoVB.FormattedTextBoxVB
     Friend WithEvents Label15 As Label
     Friend WithEvents txtCuit As TextBoxConFormatoVB.FormattedTextBoxVB
-    Friend WithEvents SuperTabControl1 As DevComponents.DotNetBar.SuperTabControl
+    Friend WithEvents SuperTabControl As DevComponents.DotNetBar.SuperTabControl
     Friend WithEvents SuperTabControlPanel1 As DevComponents.DotNetBar.SuperTabControlPanel
     Friend WithEvents stiConceptos As DevComponents.DotNetBar.SuperTabItem
     Friend WithEvents DataGridView1 As DataGridView
