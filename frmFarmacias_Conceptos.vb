@@ -11,6 +11,37 @@ Public Class frmFarmacias_Conceptos
     Dim codigo As String
     Dim llenandoCombo As Boolean
 
+#Region "Enums"
+    Enum Codigos
+        FACAF = 0
+        PAMI = 1
+        FARMALINK = 2
+        FARMAPLUS = 3
+        CSF = 4
+    End Enum
+
+    Enum GridItemsCols
+        ID = 0
+        Codigo = 1
+        CodPAMI = 2
+        CodFACAF = 3
+        CodFarmaLink = 4
+        CodFarmaPlus = 5
+        CodCSF = 6
+        Farmacia = 7
+        Cuit = 8
+        Domicilio = 9
+        Telefono = 10
+        Email = 11
+        Contribuyente = 12
+        EstadoFarmacia = 13
+        MotivoBaja = 14
+        IdProvincia = 15
+        IdLocalidad = 16
+        Localidad = 17
+    End Enum
+#End Region
+
 
 #Region "Componentes Formulario"
 
@@ -34,13 +65,38 @@ Public Class frmFarmacias_Conceptos
         LlenarCmbProvincias()
         llenandoCombo = True
 
+        ''LLenar grdCodigos
+        grdCodigos.Rows.Add("FACAF", DBNull.Value)
+        grdCodigos.Rows.Add("PAMI", DBNull.Value)
+        grdCodigos.Rows.Add("FARMALINK", DBNull.Value)
+        grdCodigos.Rows.Add("FARM+", DBNull.Value)
+        grdCodigos.Rows.Add("Compañia Servicios Farmaceuticos", DBNull.Value)
+
         LlenarGrilla()
+
+        ''Ocultar columnas no necesarias
+        With grd
+            .Columns(GridItemsCols.CodPAMI).Visible = False
+            .Columns(GridItemsCols.CodFarmaLink).Visible = False
+            .Columns(GridItemsCols.CodFarmaPlus).Visible = False
+            .Columns(GridItemsCols.CodCSF).Visible = False
+            .Columns(GridItemsCols.Contribuyente).Visible = False
+            '.Columns(GridItemsCols.Cuit).Visible = False
+            .Columns(GridItemsCols.Domicilio).Visible = False
+            .Columns(GridItemsCols.EstadoFarmacia).Visible = False
+            .Columns(GridItemsCols.IdLocalidad).Visible = False
+            .Columns(GridItemsCols.IdProvincia).Visible = False
+            .Columns(GridItemsCols.MotivoBaja).Visible = False
+            '.Columns(GridItemsCols.Telefono).Visible = False
+            '.Columns(GridItemsCols.Localidad).Visible = False
+        End With
 
         Permitir = True
 
         CargarCajas()
 
         PrepararBotones()
+
 
     End Sub
 
@@ -365,7 +421,7 @@ Public Class frmFarmacias_Conceptos
     End Function
 
 
-    ''hice back
+
     Private Function AgregarRegistro() As Integer
         Dim connection As SqlClient.SqlConnection = Nothing
         Dim IdLocalidad As Integer
@@ -395,15 +451,36 @@ Public Class frmFarmacias_Conceptos
                 Dim param_CodPAMI As New SqlClient.SqlParameter
                 param_CodPAMI.ParameterName = "@CodPAMI"
                 param_CodPAMI.SqlDbType = SqlDbType.BigInt
-                'param_CodPAMI.Value = IIf(txtCodPAMI.Text = "", DBNull.Value, txtCodPAMI.Text) ''IIf(txtCodPAMI.Text = "", DBNull.Value, Long.Parse(txtCodPAMI.Text))
+                param_CodPAMI.Value = grdCodigos.Rows(Codigos.PAMI).Cells(1).Value
                 param_CodPAMI.Direction = ParameterDirection.Input
 
                 Dim param_CodFACAF As New SqlClient.SqlParameter
                 param_CodFACAF.ParameterName = "@CodFACAF"
                 param_CodFACAF.SqlDbType = SqlDbType.NVarChar
                 param_CodFACAF.Size = 300
-                'param_CodFACAF.Value = IIf(txtCodFACAF.Text = "", DBNull.Value, txtCodFACAF.Text) ''IIf(txtCodFACAF.Text = "", DBNull.Value, Long.Parse(txtCodFACAF.Text))
+                param_CodFACAF.Value = grdCodigos.Rows(Codigos.FACAF).Cells(1).Value
                 param_CodFACAF.Direction = ParameterDirection.Input
+
+                Dim param_CodFarmaLink As New SqlClient.SqlParameter
+                param_CodFarmaLink.ParameterName = "@CodFarmaLink"
+                param_CodFarmaLink.SqlDbType = SqlDbType.NVarChar
+                param_CodFarmaLink.Size = 300
+                param_CodFarmaLink.Value = grdCodigos.Rows(Codigos.FARMALINK).Cells(1).Value
+                param_CodFarmaLink.Direction = ParameterDirection.Input
+
+                Dim param_CodFarmaPlus As New SqlClient.SqlParameter
+                param_CodFarmaPlus.ParameterName = "@CodFarmaPlus"
+                param_CodFarmaPlus.SqlDbType = SqlDbType.NVarChar
+                param_CodFarmaPlus.Size = 300
+                param_CodFarmaPlus.Value = grdCodigos.Rows(Codigos.FARMAPLUS).Cells(1).Value
+                param_CodFarmaPlus.Direction = ParameterDirection.Input
+
+                Dim param_CodCSF As New SqlClient.SqlParameter
+                param_CodCSF.ParameterName = "@CodCSF"
+                param_CodCSF.SqlDbType = SqlDbType.NVarChar
+                param_CodCSF.Size = 300
+                param_CodCSF.Value = grdCodigos.Rows(0).Cells(Codigos.CSF).Value
+                param_CodCSF.Direction = ParameterDirection.Input
 
                 Dim param_nombre As New SqlClient.SqlParameter
                 param_nombre.ParameterName = "@nombre"
@@ -474,9 +551,10 @@ Public Class frmFarmacias_Conceptos
 
                 Try
                     SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spFarmacias_Insert", param_id,
-                                          param_codigo, param_CodFACAF, param_CodPAMI, param_nombre, param_cuit,
-                                          param_domicilio, param_localidad, param_telefono, param_email, param_contribuyente,
-                                          param_estadofarmacia, param_motivobaja, param_res)
+                                          param_codigo, param_CodFACAF, param_CodPAMI, param_CodFarmaLink, param_CodFarmaPlus,
+                                          param_CodCSF, param_nombre, param_cuit, param_domicilio, param_localidad,
+                                          param_telefono, param_email, param_contribuyente, param_estadofarmacia, param_motivobaja,
+                                          param_res)
 
                     txtID.Text = param_id.Value
                     codigo = param_codigo.Value
@@ -543,15 +621,36 @@ Public Class frmFarmacias_Conceptos
                 Dim param_CodPAMI As New SqlClient.SqlParameter
                 param_CodPAMI.ParameterName = "@CodPAMI"
                 param_CodPAMI.SqlDbType = SqlDbType.BigInt
-                'param_CodPAMI.Value = IIf(txtCodPAMI.Text = "", DBNull.Value, txtCodPAMI.Text)
+                param_CodPAMI.Value = grdCodigos.Rows(Codigos.PAMI).Cells(1).Value
                 param_CodPAMI.Direction = ParameterDirection.Input
 
                 Dim param_CodFACAF As New SqlClient.SqlParameter
                 param_CodFACAF.ParameterName = "@CodFACAF"
                 param_CodFACAF.SqlDbType = SqlDbType.NVarChar
                 param_CodFACAF.Size = 300
-                'param_CodFACAF.Value = IIf(txtCodFACAF.Text = "", DBNull.Value, txtCodFACAF.Text)
+                param_CodFACAF.Value = grdCodigos.Rows(Codigos.FACAF).Cells(1).Value
                 param_CodFACAF.Direction = ParameterDirection.Input
+
+                Dim param_CodFarmaLink As New SqlClient.SqlParameter
+                param_CodFarmaLink.ParameterName = "@CodFarmaLink"
+                param_CodFarmaLink.SqlDbType = SqlDbType.NVarChar
+                param_CodFarmaLink.Size = 300
+                param_CodFarmaLink.Value = grdCodigos.Rows(Codigos.FARMALINK).Cells(1).Value
+                param_CodFarmaLink.Direction = ParameterDirection.Input
+
+                Dim param_CodFarmaPlus As New SqlClient.SqlParameter
+                param_CodFarmaPlus.ParameterName = "@CodFarmaPlus"
+                param_CodFarmaPlus.SqlDbType = SqlDbType.NVarChar
+                param_CodFarmaPlus.Size = 300
+                param_CodFarmaPlus.Value = grdCodigos.Rows(Codigos.FARMAPLUS).Cells(1).Value
+                param_CodFarmaPlus.Direction = ParameterDirection.Input
+
+                Dim param_CodCSF As New SqlClient.SqlParameter
+                param_CodCSF.ParameterName = "@CodCSF"
+                param_CodCSF.SqlDbType = SqlDbType.NVarChar
+                param_CodCSF.Size = 300
+                param_CodCSF.Value = grdCodigos.Rows(Codigos.CSF).Cells(1).Value
+                param_CodCSF.Direction = ParameterDirection.Input
 
                 Dim param_nombre As New SqlClient.SqlParameter
                 param_nombre.ParameterName = "@nombre"
@@ -623,7 +722,8 @@ Public Class frmFarmacias_Conceptos
 
                 Try
                     SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spFarmacias_Update", param_id, param_cod,
-                                          param_nombre, param_CodFACAF, param_CodPAMI, param_cuit, param_domicilio, param_localidad, param_telefono,
+                                          param_nombre, param_CodFACAF, param_CodPAMI, param_CodFarmaLink, param_CodFarmaPlus,
+                                          param_CodCSF, param_cuit, param_domicilio, param_localidad, param_telefono,
                                           param_email, param_contribuyente, param_estadofarmacia, param_motivobaja, param_res)
 
                     ActualizarRegistro = param_res.Value
@@ -762,20 +862,18 @@ Public Class frmFarmacias_Conceptos
     Private Sub asignarTags()
         txtID.Tag = "0"
         txtCODIGO.Tag = "1"
-        'txtCodPAMI.Tag = "2"
-        'txtCodFACAF.Tag = "3"
-        txtFarmacia.Tag = "4"
-        txtCuit.Tag = "5"
-        txtDomicilio.Tag = "6"
-        txtTelefono.Tag = "7"
-        txtEmail.Tag = "8"
-        txtTipoContribuyente.Tag = "9"
-        cmbEstado.Text = "10"
-        txtMotivoBaja.Text = "11"
-        cmbLocalidad.Tag = "12"
-        cmbProvincia.Tag = "13"
-
-
+        txtFarmacia.Tag = "7"
+        txtRazonSocial.Tag = ""
+        txtCuit.Tag = "8"
+        cmbPreferenciaPago.Tag = ""
+        txtDomicilio.Tag = "9"
+        txtTelefono.Tag = "10"
+        txtEmail.Tag = "11"
+        txtTipoContribuyente.Tag = "12"
+        cmbEstado.Text = "13"
+        txtMotivoBaja.Text = "14"
+        cmbProvincia.Tag = "15"
+        cmbLocalidad.Tag = "16"
 
     End Sub
 
@@ -944,18 +1042,22 @@ Public Class frmFarmacias_Conceptos
         cargarConcepto.ShowDialog()
     End Sub
 
+    Private Sub txtID_TextChanged(sender As Object, e As EventArgs) Handles txtID.TextChanged
+
+        ''Actualizo la grila de codigos
+        If grd.CurrentRow IsNot Nothing Then
+            grdCodigos.Rows(Codigos.FACAF).Cells(1).Value = grd.CurrentRow.Cells(GridItemsCols.CodFACAF).Value
+            grdCodigos.Rows(Codigos.PAMI).Cells(1).Value = grd.CurrentRow.Cells(GridItemsCols.CodPAMI).Value
+            grdCodigos.Rows(Codigos.FARMALINK).Cells(1).Value = grd.CurrentRow.Cells(GridItemsCols.CodFarmaLink).Value
+            grdCodigos.Rows(Codigos.FARMAPLUS).Cells(1).Value = grd.CurrentRow.Cells(GridItemsCols.CodFarmaPlus).Value
+            grdCodigos.Rows(Codigos.CSF).Cells(1).Value = grd.CurrentRow.Cells(GridItemsCols.CodCSF).Value
+        End If
+    End Sub
 
 
 
 
 
 #End Region
-
-
-
-
-
-
-
 
 End Class
