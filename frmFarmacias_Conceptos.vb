@@ -5,11 +5,12 @@ Imports ReportesNet
 
 
 Public Class frmFarmacias_Conceptos
-
+    Dim count As Integer
     Dim bolpoliticas As Boolean
     Public Origen As Integer
     Dim codigo As String
     Dim llenandoCombo As Boolean
+
 
 #Region "Enums"
     Enum Codigos
@@ -55,6 +56,8 @@ Public Class frmFarmacias_Conceptos
     End Sub
 
     Private Sub frmFarmacias_Conceptos_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+
+
         'AsignarPermisos(UserID, Me.Name, ALTA, MODIFICA, BAJA, BAJA_FISICA)
         configurarform()
         asignarTags()
@@ -479,7 +482,7 @@ Public Class frmFarmacias_Conceptos
                 param_CodCSF.ParameterName = "@CodCSF"
                 param_CodCSF.SqlDbType = SqlDbType.NVarChar
                 param_CodCSF.Size = 300
-                param_CodCSF.Value = grdCodigos.Rows(0).Cells(Codigos.CSF).Value
+                param_CodCSF.Value = grdCodigos.Rows(Codigos.CSF).Cells(1).Value
                 param_CodCSF.Direction = ParameterDirection.Input
 
                 Dim param_nombre As New SqlClient.SqlParameter
@@ -488,6 +491,27 @@ Public Class frmFarmacias_Conceptos
                 param_nombre.Size = 300
                 param_nombre.Value = txtFarmacia.Text.ToUpper
                 param_nombre.Direction = ParameterDirection.Input
+
+                Dim param_razonSocial As New SqlClient.SqlParameter
+                param_razonSocial.ParameterName = "@RazonSocial"
+                param_razonSocial.SqlDbType = SqlDbType.VarChar
+                param_razonSocial.Size = 100
+                param_razonSocial.Value = txtRazonSocial.Text.ToUpper
+                param_razonSocial.Direction = ParameterDirection.Input
+
+                Dim param_preferenciaPago As New SqlClient.SqlParameter
+                param_preferenciaPago.ParameterName = "@PreferenciaPago"
+                param_preferenciaPago.SqlDbType = SqlDbType.VarChar
+                param_preferenciaPago.Size = 100
+                param_preferenciaPago.Value = cmbPreferenciaPago.Text.ToUpper
+                param_preferenciaPago.Direction = ParameterDirection.Input
+
+                Dim param_cbu As New SqlClient.SqlParameter
+                param_cbu.ParameterName = "@Cbu"
+                param_cbu.SqlDbType = SqlDbType.VarChar
+                param_cbu.Size = 100
+                param_cbu.Value = txtCBU.Text.ToUpper
+                param_cbu.Direction = ParameterDirection.Input
 
                 Dim param_cuit As New SqlClient.SqlParameter
                 param_cuit.ParameterName = "@Cuit"
@@ -552,7 +576,7 @@ Public Class frmFarmacias_Conceptos
                 Try
                     SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spFarmacias_Insert", param_id,
                                           param_codigo, param_CodFACAF, param_CodPAMI, param_CodFarmaLink, param_CodFarmaPlus,
-                                          param_CodCSF, param_nombre, param_cuit, param_domicilio, param_localidad,
+                                          param_CodCSF, param_nombre, param_razonSocial, param_preferenciaPago, param_cbu, param_cuit, param_domicilio, param_localidad,
                                           param_telefono, param_email, param_contribuyente, param_estadofarmacia, param_motivobaja,
                                           param_res)
 
@@ -659,6 +683,27 @@ Public Class frmFarmacias_Conceptos
                 param_nombre.Value = txtFarmacia.Text.ToUpper
                 param_nombre.Direction = ParameterDirection.Input
 
+                Dim param_razonSocial As New SqlClient.SqlParameter
+                param_razonSocial.ParameterName = "@RazonSocial"
+                param_razonSocial.SqlDbType = SqlDbType.VarChar
+                param_razonSocial.Size = 100
+                param_razonSocial.Value = txtRazonSocial.Text.ToUpper
+                param_razonSocial.Direction = ParameterDirection.Input
+
+                Dim param_preferenciaPago As New SqlClient.SqlParameter
+                param_preferenciaPago.ParameterName = "@PreferenciaPago"
+                param_preferenciaPago.SqlDbType = SqlDbType.VarChar
+                param_preferenciaPago.Size = 100
+                param_preferenciaPago.Value = cmbPreferenciaPago.Text.ToUpper
+                param_preferenciaPago.Direction = ParameterDirection.Input
+
+                Dim param_cbu As New SqlClient.SqlParameter
+                param_cbu.ParameterName = "@Cbu"
+                param_cbu.SqlDbType = SqlDbType.VarChar
+                param_cbu.Size = 100
+                param_cbu.Value = txtCBU.Text.ToUpper
+                param_cbu.Direction = ParameterDirection.Input
+
                 Dim param_cuit As New SqlClient.SqlParameter
                 param_cuit.ParameterName = "@Cuit"
                 param_cuit.SqlDbType = SqlDbType.BigInt
@@ -723,7 +768,7 @@ Public Class frmFarmacias_Conceptos
                 Try
                     SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spFarmacias_Update", param_id, param_cod,
                                           param_nombre, param_CodFACAF, param_CodPAMI, param_CodFarmaLink, param_CodFarmaPlus,
-                                          param_CodCSF, param_cuit, param_domicilio, param_localidad, param_telefono,
+                                          param_CodCSF, param_razonSocial, param_preferenciaPago, param_cbu, param_cuit, param_domicilio, param_localidad, param_telefono,
                                           param_email, param_contribuyente, param_estadofarmacia, param_motivobaja, param_res)
 
                     ActualizarRegistro = param_res.Value
@@ -863,17 +908,18 @@ Public Class frmFarmacias_Conceptos
         txtID.Tag = "0"
         txtCODIGO.Tag = "1"
         txtFarmacia.Tag = "7"
-        txtRazonSocial.Tag = ""
         txtCuit.Tag = "8"
-        cmbPreferenciaPago.Tag = ""
-        txtDomicilio.Tag = "9"
-        txtTelefono.Tag = "10"
-        txtEmail.Tag = "11"
-        txtTipoContribuyente.Tag = "12"
-        cmbEstado.Text = "13"
-        txtMotivoBaja.Text = "14"
-        cmbProvincia.Tag = "15"
-        cmbLocalidad.Tag = "16"
+        txtRazonSocial.Tag = "9"
+        cmbPreferenciaPago.Tag = "10"
+        txtCBU.Tag = "11"
+        txtDomicilio.Tag = "12"
+        txtTelefono.Tag = "13"
+        txtEmail.Tag = "14"
+        txtTipoContribuyente.Tag = "15"
+        cmbEstado.Text = "16"
+        txtMotivoBaja.Text = "17"
+        cmbProvincia.Tag = "18"
+        cmbLocalidad.Tag = "19"
 
     End Sub
 

@@ -12,16 +12,17 @@ Imports DevComponents.DotNetBar.SuperGrid.Style
 
 Public Class frmSelectConcepto
 
-    Enum GridCols
-        ID = 0
-        Codigo = 1
-        Fecha = 2
-        IdObraSocial = 3
-        ObraSocial = 4
-        Periodo = 5
-        Estado = 6
-        Total = 7
-        Observaciones = 8
+    Dim dtConceptos_Created As Boolean
+    Dim count As Integer = 0
+    Enum ColumnasDelGrdConceptos
+        Id = 0
+        Nombre = 2
+        Descripcion = 3
+        ConceptoPago = 4
+        PerteneceA = 5
+        TipoDeValor = 6
+        Valor = 7
+        CampoAplicable = 8
     End Enum
 
     Private Sub LlenarGrilla()
@@ -53,36 +54,87 @@ Public Class frmSelectConcepto
     Private Sub frmNuevaLiquidacion_Load(sender As Object, e As EventArgs) Handles Me.Load
         LlenarGrilla()
 
+        crearDtConceptos()
+    End Sub
+
+
+    Dim dtConceptos_Clone As New DataTable
+
+
+
+    Private Sub crearDtConceptos()
+        If count < 1 Then
+
+        End If
+
+        count += 1
+        dtConceptos_Created = True
     End Sub
 
     Private Sub btnListo_Click(sender As Object, e As EventArgs) Handles btnListo.Click
+
         If grdConceptos.CurrentRow IsNot Nothing Then
             ''Llenado de labels en frmLiquidaciones
             With grdConceptos.CurrentRow
-                frmLiquidaciones.txtIdPresentacion.Text = .Cells(GridCols.ID).Value
-                frmLiquidaciones.lblPresentacionCodigo.Text = IIf(.Cells(GridCols.Codigo).Value Is DBNull.Value, "", .Cells(GridCols.Codigo).Value)
-                frmLiquidaciones.lblObraSocial.Text = IIf(.Cells(GridCols.ObraSocial).Value Is DBNull.Value, "", .Cells(GridCols.ObraSocial).Value)
-                frmLiquidaciones.lblObservacion.Text = IIf(.Cells(GridCols.Observaciones).Value Is DBNull.Value, "", .Cells(GridCols.Observaciones).Value)
-                frmLiquidaciones.lblPeriodo_presentacion.Text = IIf(.Cells(GridCols.Periodo).Value Is DBNull.Value, "", .Cells(GridCols.Periodo).Value)
-                frmLiquidaciones.lblFecha_presentacion.Text = IIf(.Cells(GridCols.Fecha).Value Is DBNull.Value, "", .Cells(GridCols.Fecha).Value)
-                frmLiquidaciones.lblStatus.Text = IIf(.Cells(GridCols.Estado).Value Is DBNull.Value, "", .Cells(GridCols.Estado).Value)
-                frmLiquidaciones.btnExcelWindow.Enabled = True
-                frmLiquidaciones.btnLiquidar.Enabled = True
-                Dim sqlDetalle As String
-                Dim sqlConceptos As String
 
-                'sqlDetalle = $"exec spNuevaLiquidacionDetalle_Select @agrupado = {chkAgrupar.Checked}, @idpresentacion = { .Cells(GridCols.ID).Value}"
-                'sqlConceptos = $"exec spNuevaLiquidacionConceptos_Select @agrupado = {chkAgrupar.Checked}, @idpresentacion = { .Cells(GridCols.ID).Value}"
-                sqlConceptos = Nothing
+                Dim id = .Cells(ColumnasDelGrdConceptos.Id).Value
+                Dim nombre = IIf(.Cells(ColumnasDelGrdConceptos.Nombre).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.Nombre).Value)
+                Dim descripcion = IIf(.Cells(ColumnasDelGrdConceptos.Descripcion).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.Descripcion).Value)
+                Dim conceptopago = IIf(.Cells(ColumnasDelGrdConceptos.ConceptoPago).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.ConceptoPago).Value)
+                Dim pertenecea = IIf(.Cells(ColumnasDelGrdConceptos.PerteneceA).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.PerteneceA).Value)
+                Dim tipovalor = IIf(.Cells(ColumnasDelGrdConceptos.TipoDeValor).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.TipoDeValor).Value)
+                Dim valor = IIf(.Cells(ColumnasDelGrdConceptos.Valor).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.Valor).Value)
+                Dim campoaplicable = IIf(.Cells(ColumnasDelGrdConceptos.CampoAplicable).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.CampoAplicable).Value)
 
-                frmLiquidaciones.Presentacion_request(sqlDetalle, sqlConceptos)
+                frmFarmacias_Conceptos.grdConceptosPanel.Rows.Add(id, nombre, descripcion, conceptopago, pertenecea, tipovalor, valor, campoaplicable)
             End With
+
 
             Me.Dispose()
             Me.Close()
+
         Else
             MsgBox("Seleccione una presentación para poder continuar.")
         End If
+
+
+        'Dim dtConceptos As New DataTable
+        'dtConceptos.Columns.Add("Id")
+        'dtConceptos.Columns.Add("Nombre")
+        'dtConceptos.Columns.Add("Descripcion")
+        'dtConceptos.Columns.Add("Concepto Pago")
+        'dtConceptos.Columns.Add("Pertenece a")
+        'dtConceptos.Columns.Add("Tipo de valor")
+        'dtConceptos.Columns.Add("Valor")
+        'dtConceptos.Columns.Add("Campo Aplicable")
+
+        'If grdConceptos.CurrentRow IsNot Nothing Then
+        '    ''Llenado de labels en frmLiquidaciones
+        '    With grdConceptos.CurrentRow
+        '        Dim row As DataRow = dtConceptos.NewRow
+        '        row("Id") = .Cells(ColumnasDelGrdConceptos.Id).Value
+        '        row("Nombre") = IIf(.Cells(ColumnasDelGrdConceptos.Nombre).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.Nombre).Value)
+        '        row("Descripcion") = IIf(.Cells(ColumnasDelGrdConceptos.Descripcion).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.Descripcion).Value)
+        '        row("Concepto Pago") = IIf(.Cells(ColumnasDelGrdConceptos.ConceptoPago).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.ConceptoPago).Value)
+        '        row("Pertenece a") = IIf(.Cells(ColumnasDelGrdConceptos.PerteneceA).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.PerteneceA).Value)
+        '        row("Tipo de valor") = IIf(.Cells(ColumnasDelGrdConceptos.TipoDeValor).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.TipoDeValor).Value)
+        '        row("Valor") = IIf(.Cells(ColumnasDelGrdConceptos.Valor).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.Valor).Value)
+        '        row("Campo Aplicable") = IIf(.Cells(ColumnasDelGrdConceptos.CampoAplicable).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.CampoAplicable).Value)
+        '        dtConceptos.Rows.Add(row)
+        '    End With
+        '    dtConceptos_Clone = dtConceptos.Clone()
+
+        '    frmFarmacias_Conceptos.grdConceptosPanel.DataSource = dtConceptos
+
+        'Me.Dispose()
+        '    Me.Close()
+
+        'Else
+        '    MsgBox("Seleccione una presentación para poder continuar.")
+        'End If
+
+
+
     End Sub
 
     Private Sub chkAgrupar_CheckedChanged(sender As Object, e As EventArgs)
@@ -106,7 +158,7 @@ Public Class frmSelectConcepto
 
     '    Try
 
-    '        ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, " select distinct [estado] as Estado from Presentaciones where estado = 'PRESENTADO' or estado = 'PAGO PARCIAL'")
+    '        ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, " Select distinct [estado] As Estado from Presentaciones where estado = 'PRESENTADO' or estado = 'PAGO PARCIAL'")
     '        ds.Dispose()
 
     '        With Me.cmbEstado
