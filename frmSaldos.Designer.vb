@@ -22,13 +22,8 @@ Partial Class frmSaldos
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
-        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridView2 = New System.Windows.Forms.DataGridView()
+        Me.grdFarmacia = New System.Windows.Forms.DataGridView()
+        Me.grdHistorial = New System.Windows.Forms.DataGridView()
         Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -42,68 +37,37 @@ Partial Class frmSaldos
         Me.Label3 = New System.Windows.Forms.Label()
         Me.lblTotal = New System.Windows.Forms.Label()
         Me.Label23 = New System.Windows.Forms.Label()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.txtID = New System.Windows.Forms.TextBox()
+        CType(Me.grdFarmacia, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.grdHistorial, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'DataGridView1
+        'grdFarmacia
         '
-        Me.DataGridView1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.grdFarmacia.AllowUserToAddRows = False
+        Me.grdFarmacia.AllowUserToDeleteRows = False
+        Me.grdFarmacia.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.DataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
-        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column3, Me.Column2, Me.Column5, Me.Column4})
-        Me.DataGridView1.Location = New System.Drawing.Point(17, 45)
-        Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.Size = New System.Drawing.Size(798, 189)
-        Me.DataGridView1.TabIndex = 0
+        Me.grdFarmacia.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.grdFarmacia.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.grdFarmacia.Location = New System.Drawing.Point(17, 45)
+        Me.grdFarmacia.Name = "grdFarmacia"
+        Me.grdFarmacia.ReadOnly = True
+        Me.grdFarmacia.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.grdFarmacia.Size = New System.Drawing.Size(798, 210)
+        Me.grdFarmacia.TabIndex = 0
         '
-        'Column1
+        'grdHistorial
         '
-        Me.Column1.FillWeight = 45.27187!
-        Me.Column1.HeaderText = "Código"
-        Me.Column1.Name = "Column1"
-        Me.Column1.ReadOnly = True
-        '
-        'Column3
-        '
-        Me.Column3.FillWeight = 133.552!
-        Me.Column3.HeaderText = "Razon Social"
-        Me.Column3.Name = "Column3"
-        Me.Column3.ReadOnly = True
-        '
-        'Column2
-        '
-        Me.Column2.FillWeight = 133.552!
-        Me.Column2.HeaderText = "Farmacia"
-        Me.Column2.Name = "Column2"
-        Me.Column2.ReadOnly = True
-        '
-        'Column5
-        '
-        Me.Column5.FillWeight = 111.482!
-        Me.Column5.HeaderText = "Forma de Pago"
-        Me.Column5.Name = "Column5"
-        Me.Column5.ReadOnly = True
-        '
-        'Column4
-        '
-        Me.Column4.FillWeight = 76.14214!
-        Me.Column4.HeaderText = "Saldo actual"
-        Me.Column4.Name = "Column4"
-        Me.Column4.ReadOnly = True
-        '
-        'DataGridView2
-        '
-        Me.DataGridView2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.grdHistorial.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.DataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
-        Me.DataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView2.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.DataGridViewTextBoxColumn2, Me.DataGridViewTextBoxColumn3, Me.DataGridViewTextBoxColumn4, Me.DataGridViewTextBoxColumn5})
-        Me.DataGridView2.Location = New System.Drawing.Point(17, 282)
-        Me.DataGridView2.Name = "DataGridView2"
-        Me.DataGridView2.Size = New System.Drawing.Size(798, 189)
-        Me.DataGridView2.TabIndex = 1
+        Me.grdHistorial.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.grdHistorial.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.grdHistorial.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.DataGridViewTextBoxColumn2, Me.DataGridViewTextBoxColumn3, Me.DataGridViewTextBoxColumn4, Me.DataGridViewTextBoxColumn5})
+        Me.grdHistorial.Location = New System.Drawing.Point(17, 311)
+        Me.grdHistorial.Name = "grdHistorial"
+        Me.grdHistorial.Size = New System.Drawing.Size(798, 210)
+        Me.grdHistorial.TabIndex = 1
         '
         'DataGridViewTextBoxColumn1
         '
@@ -152,7 +116,7 @@ Partial Class frmSaldos
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(17, 257)
+        Me.Label2.Location = New System.Drawing.Point(17, 286)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(111, 13)
         Me.Label2.TabIndex = 3
@@ -164,7 +128,7 @@ Partial Class frmSaldos
         Me.ButtonX3.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonX3.BackColor = System.Drawing.SystemColors.Control
         Me.ButtonX3.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.ButtonX3.Location = New System.Drawing.Point(351, 247)
+        Me.ButtonX3.Location = New System.Drawing.Point(351, 276)
         Me.ButtonX3.Name = "ButtonX3"
         Me.ButtonX3.Size = New System.Drawing.Size(124, 23)
         Me.ButtonX3.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
@@ -178,7 +142,7 @@ Partial Class frmSaldos
         Me.ButtonX4.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonX4.BackColor = System.Drawing.SystemColors.Control
         Me.ButtonX4.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.ButtonX4.Location = New System.Drawing.Point(490, 247)
+        Me.ButtonX4.Location = New System.Drawing.Point(490, 276)
         Me.ButtonX4.Name = "ButtonX4"
         Me.ButtonX4.Size = New System.Drawing.Size(107, 23)
         Me.ButtonX4.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
@@ -207,7 +171,7 @@ Partial Class frmSaldos
         Me.lblTotal.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblTotal.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblTotal.ForeColor = System.Drawing.Color.DarkGreen
-        Me.lblTotal.Location = New System.Drawing.Point(684, 245)
+        Me.lblTotal.Location = New System.Drawing.Point(684, 274)
         Me.lblTotal.Name = "lblTotal"
         Me.lblTotal.Size = New System.Drawing.Size(130, 24)
         Me.lblTotal.TabIndex = 391
@@ -219,17 +183,26 @@ Partial Class frmSaldos
         Me.Label23.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label23.AutoSize = True
         Me.Label23.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label23.Location = New System.Drawing.Point(644, 250)
+        Me.Label23.Location = New System.Drawing.Point(644, 279)
         Me.Label23.Name = "Label23"
         Me.Label23.Size = New System.Drawing.Size(42, 16)
         Me.Label23.TabIndex = 390
         Me.Label23.Text = "Total:"
         '
+        'txtID
+        '
+        Me.txtID.Location = New System.Drawing.Point(76, 12)
+        Me.txtID.Name = "txtID"
+        Me.txtID.ReadOnly = True
+        Me.txtID.Size = New System.Drawing.Size(57, 20)
+        Me.txtID.TabIndex = 392
+        '
         'frmSaldos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(834, 496)
+        Me.ClientSize = New System.Drawing.Size(834, 544)
+        Me.Controls.Add(Me.txtID)
         Me.Controls.Add(Me.Label23)
         Me.Controls.Add(Me.lblTotal)
         Me.Controls.Add(Me.Label3)
@@ -238,31 +211,26 @@ Partial Class frmSaldos
         Me.Controls.Add(Me.ButtonX3)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.DataGridView2)
-        Me.Controls.Add(Me.DataGridView1)
+        Me.Controls.Add(Me.grdHistorial)
+        Me.Controls.Add(Me.grdFarmacia)
         Me.MinimumSize = New System.Drawing.Size(750, 39)
         Me.Name = "frmSaldos"
         Me.Text = "Saldos"
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.grdFarmacia, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.grdHistorial, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
 
-    Friend WithEvents DataGridView1 As DataGridView
-    Friend WithEvents DataGridView2 As DataGridView
+    Friend WithEvents grdFarmacia As DataGridView
+    Friend WithEvents grdHistorial As DataGridView
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents ButtonX3 As DevComponents.DotNetBar.ButtonX
     Friend WithEvents ButtonX4 As DevComponents.DotNetBar.ButtonX
     Friend WithEvents TextBox1 As TextBox
     Friend WithEvents Label3 As Label
-    Friend WithEvents Column1 As DataGridViewTextBoxColumn
-    Friend WithEvents Column3 As DataGridViewTextBoxColumn
-    Friend WithEvents Column2 As DataGridViewTextBoxColumn
-    Friend WithEvents Column5 As DataGridViewTextBoxColumn
-    Friend WithEvents Column4 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn1 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn2 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn3 As DataGridViewTextBoxColumn
@@ -270,4 +238,5 @@ Partial Class frmSaldos
     Friend WithEvents DataGridViewTextBoxColumn5 As DataGridViewTextBoxColumn
     Friend WithEvents lblTotal As Label
     Friend WithEvents Label23 As Label
+    Friend WithEvents txtID As TextBox
 End Class
