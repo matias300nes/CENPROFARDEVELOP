@@ -74,6 +74,8 @@ Public Class frmSaldos
         da.Fill(dtFarmacias)
 
         grdFarmacia.DataSource = dtFarmacias
+
+        'grdFarmacia.RowHeadersVisible = False
     End Sub
 
     Private Sub requestGrdItemsData()
@@ -104,21 +106,20 @@ Public Class frmSaldos
         Dim sql As String = $"exec spSaldos_HistorialCta_SelectByIdFarmacia @IdFarmacia = {txtID.Text}"
         Try
             connection = SqlHelper.GetConnection(ConnStringSEI)
+
+            Dim cmd As New SqlCommand(sql, connection)
+            Dim da As New SqlDataAdapter(cmd)
+
+            da.Fill(dt)
+
+            grdHistorial.DataSource = dt
         Catch ex As Exception
             MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End Try
 
-        Dim cmd As New SqlCommand(sql, connection)
-        Dim da As New SqlDataAdapter(cmd)
-
-        da.Fill(dt)
-
-        grdHistorial.DataSource = dt
     End Sub
 
-    Private _tmrDelaySearch As Timer
-    Private Timeout As Integer = 500
     Private Sub txtBuscar_TextChanged(sender As Object, e As EventArgs) Handles txtBuscar.TextChanged
         ''buscador
         Dim dv As New DataView(dtFarmacias)

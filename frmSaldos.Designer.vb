@@ -64,6 +64,7 @@ Partial Class frmSaldos
         Me.grdHistorial.MultiSelect = False
         Me.grdHistorial.Name = "grdHistorial"
         Me.grdHistorial.ReadOnly = True
+        Me.grdHistorial.RowHeadersVisible = False
         Me.grdHistorial.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.grdHistorial.Size = New System.Drawing.Size(798, 210)
         Me.grdHistorial.TabIndex = 1
