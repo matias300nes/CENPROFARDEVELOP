@@ -28,7 +28,7 @@ Partial Class frmSaldos
         Me.Label2 = New System.Windows.Forms.Label()
         Me.ButtonX3 = New DevComponents.DotNetBar.ButtonX()
         Me.ButtonX4 = New DevComponents.DotNetBar.ButtonX()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.txtBuscar = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.lblTotal = New System.Windows.Forms.Label()
         Me.Label23 = New System.Windows.Forms.Label()
@@ -54,12 +54,17 @@ Partial Class frmSaldos
         '
         'grdHistorial
         '
+        Me.grdHistorial.AllowUserToAddRows = False
+        Me.grdHistorial.AllowUserToDeleteRows = False
         Me.grdHistorial.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.grdHistorial.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.grdHistorial.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.grdHistorial.Location = New System.Drawing.Point(17, 311)
+        Me.grdHistorial.MultiSelect = False
         Me.grdHistorial.Name = "grdHistorial"
+        Me.grdHistorial.ReadOnly = True
+        Me.grdHistorial.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.grdHistorial.Size = New System.Drawing.Size(798, 210)
         Me.grdHistorial.TabIndex = 1
         '
@@ -109,12 +114,12 @@ Partial Class frmSaldos
         Me.ButtonX4.Text = "Aplicar conceptos"
         Me.ButtonX4.TextColor = System.Drawing.SystemColors.InfoText
         '
-        'TextBox1
+        'txtBuscar
         '
-        Me.TextBox1.Location = New System.Drawing.Point(188, 12)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(219, 20)
-        Me.TextBox1.TabIndex = 8
+        Me.txtBuscar.Location = New System.Drawing.Point(188, 12)
+        Me.txtBuscar.Name = "txtBuscar"
+        Me.txtBuscar.Size = New System.Drawing.Size(219, 20)
+        Me.txtBuscar.TabIndex = 8
         '
         'Label3
         '
@@ -165,7 +170,7 @@ Partial Class frmSaldos
         Me.Controls.Add(Me.Label23)
         Me.Controls.Add(Me.lblTotal)
         Me.Controls.Add(Me.Label3)
-        Me.Controls.Add(Me.TextBox1)
+        Me.Controls.Add(Me.txtBuscar)
         Me.Controls.Add(Me.ButtonX4)
         Me.Controls.Add(Me.ButtonX3)
         Me.Controls.Add(Me.Label2)
@@ -188,7 +193,7 @@ Partial Class frmSaldos
     Friend WithEvents Label2 As Label
     Friend WithEvents ButtonX3 As DevComponents.DotNetBar.ButtonX
     Friend WithEvents ButtonX4 As DevComponents.DotNetBar.ButtonX
-    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents txtBuscar As TextBox
     Friend WithEvents Label3 As Label
     Friend WithEvents lblTotal As Label
     Friend WithEvents Label23 As Label
