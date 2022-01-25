@@ -5,6 +5,9 @@ Imports Utiles.Util
 Public Class frmSaldos
 
 #Region "Funciones y procedimientos"
+    Private Sub setStyles()
+
+    End Sub
     Private Sub requestGrdData()
         Dim connection As SqlClient.SqlConnection = Nothing
         Dim dt As New DataTable()
@@ -31,6 +34,7 @@ Public Class frmSaldos
 
 #Region "Eventos"
     Private Sub frmSaldos_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        setStyles()
         requestGrdData()
     End Sub
 
