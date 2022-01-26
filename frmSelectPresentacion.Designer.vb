@@ -44,9 +44,10 @@ Partial Class frmSelectPresentacion
         Me.grdPresentaciones.MultiSelect = False
         Me.grdPresentaciones.Name = "grdPresentaciones"
         Me.grdPresentaciones.ReadOnly = True
+        Me.grdPresentaciones.RowHeadersVisible = False
         Me.grdPresentaciones.RowHeadersWidth = 51
         Me.grdPresentaciones.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.grdPresentaciones.Size = New System.Drawing.Size(526, 291)
+        Me.grdPresentaciones.Size = New System.Drawing.Size(503, 291)
         Me.grdPresentaciones.TabIndex = 0
         '
         'btnListo
@@ -54,7 +55,7 @@ Partial Class frmSelectPresentacion
         Me.btnListo.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
         Me.btnListo.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.btnListo.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.btnListo.Location = New System.Drawing.Point(221, 384)
+        Me.btnListo.Location = New System.Drawing.Point(210, 384)
         Me.btnListo.Name = "btnListo"
         Me.btnListo.Size = New System.Drawing.Size(89, 23)
         Me.btnListo.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
@@ -86,7 +87,7 @@ Partial Class frmSelectPresentacion
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 75.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 48.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(532, 420)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(509, 420)
         Me.TableLayoutPanel1.TabIndex = 3
         '
         'GroupBox1
@@ -99,7 +100,7 @@ Partial Class frmSelectPresentacion
         Me.GroupBox1.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Padding = New System.Windows.Forms.Padding(2)
-        Me.GroupBox1.Size = New System.Drawing.Size(528, 71)
+        Me.GroupBox1.Size = New System.Drawing.Size(505, 71)
         Me.GroupBox1.TabIndex = 4
         Me.GroupBox1.TabStop = False
         '
@@ -130,10 +131,10 @@ Partial Class frmSelectPresentacion
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(532, 420)
+        Me.ClientSize = New System.Drawing.Size(509, 420)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Name = "frmSelectPresentacion"
-        Me.Text = "frmNuevaLiquidacion"
+        Me.Text = "Seleccionar presentación"
         CType(Me.grdPresentaciones, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.GroupBox1.ResumeLayout(False)

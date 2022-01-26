@@ -279,7 +279,7 @@ Public Class frmLiquidaciones
             .Columns(GrdColumns.PresentacionCodigo).Visible = False
             .Columns(GrdColumns.Agrupado).Visible = False
             .Columns(GrdColumns.Liquidado).Visible = False
-            .Columns(GrdColumns.Fecha_creacion).Visible = False
+            '.Columns(GrdColumns.Fecha_creacion).Visible = False
 
             ''resize some columns
             .Columns(GrdColumns.Codigo).Width = 80
@@ -2372,6 +2372,7 @@ Public Class frmLiquidaciones
                                     Exit Sub
                                 Case Else
                                     res_pago = GenerarPago()
+                                    MsgBox(res_pago)
                                     Select Case res_pago
                                         Case Else
                                             Cerrar_Tran()
@@ -2388,12 +2389,9 @@ Public Class frmLiquidaciones
 
                                             Util.MsgStatus(Status1, "Se ha actualizado el registro.", My.Resources.Resources.ok.ToBitmap)
                                     End Select
-
-
                             End Select
                     End Select
             End Select
-
             '
             ' cerrar la conexion si está abierta.
             '
@@ -2404,8 +2402,93 @@ Public Class frmLiquidaciones
     End Sub
 
     Private Function GenerarPago() As Integer
-        MsgBox("Generando pago...")
-        Return 1
+        Dim res As Integer = 0
+
+        Try
+            For Each farmacia As DataRow In gl_dataset.Tables(0).Rows
+                ''ID
+                Dim param_id As New SqlClient.SqlParameter
+                param_id.ParameterName = "@id"
+                param_id.SqlDbType = SqlDbType.BigInt
+                param_id.Value = DBNull.Value
+                param_id.Direction = ParameterDirection.InputOutput
+
+                ''IdFarmacia
+                Dim param_idFarmacia As New SqlClient.SqlParameter
+                param_idFarmacia.ParameterName = "@idFarmacia"
+                param_idFarmacia.SqlDbType = SqlDbType.BigInt
+                param_idFarmacia.Value = farmacia("IdFarmacia")
+                param_idFarmacia.Direction = ParameterDirection.Input
+
+                ''detalle
+                Dim param_detalle As New SqlClient.SqlParameter
+                param_detalle.ParameterName = "@detalle"
+                param_detalle.SqlDbType = SqlDbType.VarChar
+                param_detalle.Size = 200
+                param_detalle.Value = "LIQUIDACION"
+                param_detalle.Direction = ParameterDirection.Input
+
+                ''debito
+                Dim param_debito As New SqlClient.SqlParameter
+                param_debito.ParameterName = "@debito"
+                param_debito.SqlDbType = SqlDbType.Decimal
+                param_debito.Value = DBNull.Value
+                param_debito.Direction = ParameterDirection.Input
+
+                ''credito
+                Dim param_credito As New SqlClient.SqlParameter
+                param_credito.ParameterName = "@credito"
+                param_credito.SqlDbType = SqlDbType.Decimal
+                param_credito.Value = DBNull.Value
+                param_credito.Direction = ParameterDirection.Input
+
+                If farmacia("subtotal") >= 0 Then
+                    param_credito.Value = farmacia("subtotal")
+                Else
+                    param_debito.Value = farmacia("subtotal")
+                End If
+
+                ''user
+                Dim param_user As New SqlClient.SqlParameter
+                param_user.ParameterName = "@user"
+                param_user.SqlDbType = SqlDbType.Int
+                param_user.Value = UserID
+                param_user.Direction = ParameterDirection.Input
+
+                ''res
+                Dim param_res As New SqlClient.SqlParameter
+                param_res.ParameterName = "@res"
+                param_res.SqlDbType = SqlDbType.Int
+                param_res.Value = DBNull.Value
+                param_res.Direction = ParameterDirection.InputOutput
+
+
+                SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spHistorialCta_Insert",
+                                              param_id, param_idFarmacia, param_detalle, param_debito, param_credito,
+                                              param_user, param_res)
+
+                res = param_res.Value
+
+                If (res <= 0) Then
+                    GenerarPago = res
+                End If
+            Next
+
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
+        GenerarPago = res
     End Function
 
     Private Sub chkLiquidado_CheckedChanged(sender As Object, e As EventArgs) Handles chkLiquidado.CheckedChanged

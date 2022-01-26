@@ -136,6 +136,45 @@ Public Class frmSelectPresentacion
         LlenarGrilla()
     End Sub
 
+    Private Sub grdPresentaciones_SelectionChanged(sender As Object, e As EventArgs) Handles grdPresentaciones.SelectionChanged
+        If grdPresentaciones.CurrentRow IsNot Nothing Then
+            Dim connection As SqlClient.SqlConnection = Nothing
+            Dim ds As Data.DataSet
+            Try
+                connection = SqlHelper.GetConnection(ConnStringSEI)
+
+                ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"select count(l.id) as [Pagos anteriores], l.Agrupado 
+                                                                            from liquidaciones l
+                                                                            where l.IdPresentacion = {grdPresentaciones.CurrentRow.Cells(0).Value}
+                                                                            group by l.Agrupado")
+                ds.Dispose()
+
+                If ds.Tables(0).Rows.Count > 0 Then
+                    MsgBox($"anteriores: { ds.Tables(0).Rows(0)("Pagos anteriores") } agrupado: {ds.Tables(0).Rows(0)("Agrupado")}")
+                End If
+
+
+            Catch ex As Exception
+                Dim errMessage As String = ""
+                Dim tempException As Exception = ex
+
+                While (Not tempException Is Nothing)
+                    errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                    tempException = tempException.InnerException
+                End While
+
+                MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+                  + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+                  "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Finally
+                If Not connection Is Nothing Then
+                    CType(connection, IDisposable).Dispose()
+                End If
+            End Try
+        End If
+
+    End Sub
+
     'Private Sub grdPresentaciones_SelectionChanged(sender As Object, e As DataGridViewCellEventArgs) Handles grdPresentaciones.SelectionChanged
     '    Dim connection As SqlClient.SqlConnection = Nothing
     '    Dim ds As Data.DataSet

@@ -103,7 +103,7 @@ Public Class frmSaldos
     Private Sub txtID_TextChanged(sender As Object, e As EventArgs) Handles txtID.TextChanged
         Dim connection As SqlClient.SqlConnection = Nothing
         Dim dt As New DataTable()
-        Dim sql As String = $"exec spSaldos_HistorialCta_SelectByIdFarmacia @IdFarmacia = {txtID.Text}"
+        Dim sql As String = $"exec HistorialCta_SelectByIdFarmacia @IdFarmacia = {txtID.Text}"
         Try
             connection = SqlHelper.GetConnection(ConnStringSEI)
 
