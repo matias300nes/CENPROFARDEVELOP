@@ -33,6 +33,7 @@ Partial Class frmSaldos
         Me.lblTotal = New System.Windows.Forms.Label()
         Me.Label23 = New System.Windows.Forms.Label()
         Me.txtID = New System.Windows.Forms.TextBox()
+        Me.btnPersonalizado = New DevComponents.DotNetBar.ButtonX()
         CType(Me.grdFarmacia, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdHistorial, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -93,9 +94,9 @@ Partial Class frmSaldos
         Me.ButtonX3.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonX3.BackColor = System.Drawing.SystemColors.Control
         Me.ButtonX3.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.ButtonX3.Location = New System.Drawing.Point(351, 276)
+        Me.ButtonX3.Location = New System.Drawing.Point(348, 276)
         Me.ButtonX3.Name = "ButtonX3"
-        Me.ButtonX3.Size = New System.Drawing.Size(124, 23)
+        Me.ButtonX3.Size = New System.Drawing.Size(133, 23)
         Me.ButtonX3.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.ButtonX3.TabIndex = 6
         Me.ButtonX3.Text = "Cheques/Transferencia"
@@ -162,11 +163,26 @@ Partial Class frmSaldos
         Me.txtID.Size = New System.Drawing.Size(57, 20)
         Me.txtID.TabIndex = 392
         '
+        'btnPersonalizado
+        '
+        Me.btnPersonalizado.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnPersonalizado.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnPersonalizado.BackColor = System.Drawing.SystemColors.Control
+        Me.btnPersonalizado.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
+        Me.btnPersonalizado.Location = New System.Drawing.Point(211, 276)
+        Me.btnPersonalizado.Name = "btnPersonalizado"
+        Me.btnPersonalizado.Size = New System.Drawing.Size(120, 23)
+        Me.btnPersonalizado.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnPersonalizado.TabIndex = 393
+        Me.btnPersonalizado.Text = "Pago personalizado"
+        Me.btnPersonalizado.TextColor = System.Drawing.SystemColors.InfoText
+        '
         'frmSaldos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(834, 544)
+        Me.Controls.Add(Me.btnPersonalizado)
         Me.Controls.Add(Me.txtID)
         Me.Controls.Add(Me.Label23)
         Me.Controls.Add(Me.lblTotal)
@@ -199,4 +215,5 @@ Partial Class frmSaldos
     Friend WithEvents lblTotal As Label
     Friend WithEvents Label23 As Label
     Friend WithEvents txtID As TextBox
+    Friend WithEvents btnPersonalizado As DevComponents.DotNetBar.ButtonX
 End Class

@@ -29,6 +29,9 @@ Partial Class frmSelectPresentacion
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.cmbEstado = New DevComponents.DotNetBar.Controls.ComboBoxEx()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.lblCantPagos = New System.Windows.Forms.Label()
+        Me.cmbPago = New DevComponents.DotNetBar.Controls.ComboBoxEx()
         CType(Me.grdPresentaciones, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -65,7 +68,7 @@ Partial Class frmSelectPresentacion
         'chkAgrupar
         '
         Me.chkAgrupar.AutoSize = True
-        Me.chkAgrupar.Location = New System.Drawing.Point(154, 37)
+        Me.chkAgrupar.Location = New System.Drawing.Point(170, 38)
         Me.chkAgrupar.Name = "chkAgrupar"
         Me.chkAgrupar.Size = New System.Drawing.Size(127, 17)
         Me.chkAgrupar.TabIndex = 0
@@ -92,6 +95,9 @@ Partial Class frmSelectPresentacion
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.cmbPago)
+        Me.GroupBox1.Controls.Add(Me.lblCantPagos)
+        Me.GroupBox1.Controls.Add(Me.Label2)
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Controls.Add(Me.cmbEstado)
         Me.GroupBox1.Controls.Add(Me.chkAgrupar)
@@ -107,7 +113,7 @@ Partial Class frmSelectPresentacion
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(15, 19)
+        Me.Label1.Location = New System.Drawing.Point(15, 18)
         Me.Label1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(43, 13)
@@ -120,12 +126,44 @@ Partial Class frmSelectPresentacion
         Me.cmbEstado.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
         Me.cmbEstado.FormattingEnabled = True
         Me.cmbEstado.ItemHeight = 16
-        Me.cmbEstado.Location = New System.Drawing.Point(17, 37)
+        Me.cmbEstado.Location = New System.Drawing.Point(17, 36)
         Me.cmbEstado.Margin = New System.Windows.Forms.Padding(2)
         Me.cmbEstado.Name = "cmbEstado"
         Me.cmbEstado.Size = New System.Drawing.Size(125, 22)
         Me.cmbEstado.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.cmbEstado.TabIndex = 4
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(320, 39)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(116, 13)
+        Me.Label2.TabIndex = 6
+        Me.Label2.Text = "Cant. pagos anteriores:"
+        '
+        'lblCantPagos
+        '
+        Me.lblCantPagos.AutoSize = True
+        Me.lblCantPagos.Location = New System.Drawing.Point(440, 40)
+        Me.lblCantPagos.Name = "lblCantPagos"
+        Me.lblCantPagos.Size = New System.Drawing.Size(13, 13)
+        Me.lblCantPagos.TabIndex = 7
+        Me.lblCantPagos.Text = "0"
+        Me.lblCantPagos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'cmbPago
+        '
+        Me.cmbPago.DisplayMember = "Text"
+        Me.cmbPago.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
+        Me.cmbPago.FormattingEnabled = True
+        Me.cmbPago.ItemHeight = 14
+        Me.cmbPago.Location = New System.Drawing.Point(176, 12)
+        Me.cmbPago.Name = "cmbPago"
+        Me.cmbPago.Size = New System.Drawing.Size(142, 20)
+        Me.cmbPago.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.cmbPago.TabIndex = 8
+        Me.cmbPago.Visible = False
         '
         'frmSelectPresentacion
         '
@@ -149,4 +187,7 @@ Partial Class frmSelectPresentacion
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents cmbEstado As DevComponents.DotNetBar.Controls.ComboBoxEx
     Friend WithEvents Label1 As Label
+    Friend WithEvents lblCantPagos As Label
+    Friend WithEvents Label2 As Label
+    Friend WithEvents cmbPago As DevComponents.DotNetBar.Controls.ComboBoxEx
 End Class
