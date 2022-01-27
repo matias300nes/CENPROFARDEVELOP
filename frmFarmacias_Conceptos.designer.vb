@@ -72,6 +72,7 @@ Partial Class frmFarmacias_Conceptos
         Me.Pertenecea = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TipoValor = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Valor = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Frecuencia = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.CampoAplicable = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GroupBox1.SuspendLayout()
         CType(Me.SuperTabControl1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -497,7 +498,7 @@ Partial Class frmFarmacias_Conceptos
         'grdConceptosPanel
         '
         Me.grdConceptosPanel.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.grdConceptosPanel.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Id, Me.Nombre, Me.Descripcion, Me.ConceptoPago, Me.Pertenecea, Me.TipoValor, Me.Valor, Me.CampoAplicable})
+        Me.grdConceptosPanel.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Id, Me.Nombre, Me.Descripcion, Me.ConceptoPago, Me.Pertenecea, Me.TipoValor, Me.Valor, Me.Frecuencia, Me.CampoAplicable})
         Me.grdConceptosPanel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.grdConceptosPanel.Location = New System.Drawing.Point(0, 0)
         Me.grdConceptosPanel.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -837,6 +838,13 @@ Partial Class frmFarmacias_Conceptos
         Me.Valor.Name = "Valor"
         Me.Valor.Width = 125
         '
+        'Frecuencia
+        '
+        Me.Frecuencia.HeaderText = "Frecuencia"
+        Me.Frecuencia.MinimumWidth = 6
+        Me.Frecuencia.Name = "Frecuencia"
+        Me.Frecuencia.Width = 125
+        '
         'CampoAplicable
         '
         Me.CampoAplicable.HeaderText = "Campo Aplicable"
@@ -931,5 +939,6 @@ Partial Class frmFarmacias_Conceptos
     Friend WithEvents Pertenecea As DataGridViewTextBoxColumn
     Friend WithEvents TipoValor As DataGridViewTextBoxColumn
     Friend WithEvents Valor As DataGridViewTextBoxColumn
+    Friend WithEvents Frecuencia As DataGridViewTextBoxColumn
     Friend WithEvents CampoAplicable As DataGridViewTextBoxColumn
 End Class
