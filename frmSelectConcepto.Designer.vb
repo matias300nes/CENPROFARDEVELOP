@@ -25,8 +25,14 @@ Partial Class frmSelectConcepto
         Me.btnListo = New DevComponents.DotNetBar.ButtonX()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.grdConceptos = New System.Windows.Forms.DataGridView()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.txtValor = New System.Windows.Forms.TextBox()
+        Me.txtFrecuencia = New System.Windows.Forms.TextBox()
+        Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
+        Me.LabelX2 = New DevComponents.DotNetBar.LabelX()
         Me.TableLayoutPanel1.SuspendLayout()
         CType(Me.grdConceptos, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnListo
@@ -46,13 +52,14 @@ Partial Class frmSelectConcepto
         '
         Me.TableLayoutPanel1.ColumnCount = 1
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Controls.Add(Me.grdConceptos, 0, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.btnListo, 0, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.grdConceptos, 0, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.GroupBox1, 0, 0)
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
         Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 3
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 95.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 59.0!))
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(709, 517)
@@ -64,15 +71,65 @@ Partial Class frmSelectConcepto
         Me.grdConceptos.AllowUserToDeleteRows = False
         Me.grdConceptos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.grdConceptos.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.grdConceptos.Location = New System.Drawing.Point(4, 43)
+        Me.grdConceptos.Location = New System.Drawing.Point(4, 99)
         Me.grdConceptos.Margin = New System.Windows.Forms.Padding(4)
         Me.grdConceptos.MultiSelect = False
         Me.grdConceptos.Name = "grdConceptos"
         Me.grdConceptos.ReadOnly = True
         Me.grdConceptos.RowHeadersWidth = 51
         Me.grdConceptos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.grdConceptos.Size = New System.Drawing.Size(701, 411)
+        Me.grdConceptos.Size = New System.Drawing.Size(701, 355)
         Me.grdConceptos.TabIndex = 0
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.LabelX2)
+        Me.GroupBox1.Controls.Add(Me.LabelX1)
+        Me.GroupBox1.Controls.Add(Me.txtFrecuencia)
+        Me.GroupBox1.Controls.Add(Me.txtValor)
+        Me.GroupBox1.Location = New System.Drawing.Point(4, 12)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(701, 80)
+        Me.GroupBox1.TabIndex = 3
+        Me.GroupBox1.TabStop = False
+        '
+        'txtValor
+        '
+        Me.txtValor.Location = New System.Drawing.Point(8, 52)
+        Me.txtValor.Name = "txtValor"
+        Me.txtValor.Size = New System.Drawing.Size(124, 22)
+        Me.txtValor.TabIndex = 0
+        '
+        'txtFrecuencia
+        '
+        Me.txtFrecuencia.Location = New System.Drawing.Point(149, 52)
+        Me.txtFrecuencia.Name = "txtFrecuencia"
+        Me.txtFrecuencia.Size = New System.Drawing.Size(130, 22)
+        Me.txtFrecuencia.TabIndex = 1
+        '
+        'LabelX1
+        '
+        '
+        '
+        '
+        Me.LabelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX1.Location = New System.Drawing.Point(8, 29)
+        Me.LabelX1.Name = "LabelX1"
+        Me.LabelX1.Size = New System.Drawing.Size(75, 17)
+        Me.LabelX1.TabIndex = 2
+        Me.LabelX1.Text = "Valor"
+        '
+        'LabelX2
+        '
+        '
+        '
+        '
+        Me.LabelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX2.Location = New System.Drawing.Point(149, 29)
+        Me.LabelX2.Name = "LabelX2"
+        Me.LabelX2.Size = New System.Drawing.Size(75, 17)
+        Me.LabelX2.TabIndex = 3
+        Me.LabelX2.Text = "Frecuencia"
         '
         'frmSelectConcepto
         '
@@ -85,6 +142,8 @@ Partial Class frmSelectConcepto
         Me.Text = "frmNuevoConcepto"
         Me.TableLayoutPanel1.ResumeLayout(False)
         CType(Me.grdConceptos, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -92,4 +151,9 @@ Partial Class frmSelectConcepto
     Friend WithEvents btnListo As DevComponents.DotNetBar.ButtonX
     Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
     Friend WithEvents grdConceptos As DataGridView
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents LabelX2 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents LabelX1 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents txtFrecuencia As TextBox
+    Friend WithEvents txtValor As TextBox
 End Class

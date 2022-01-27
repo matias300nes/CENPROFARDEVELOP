@@ -26,19 +26,19 @@ Public Class frmSelectConcepto
     End Enum
 
     Private Sub LlenarGrilla()
-        Dim dtPresentaciones As New DataTable
+        Dim dtConceptos As New DataTable
         Dim connection = Nothing
         Try
             connection = SqlHelper.GetConnection(ConnStringSEI)
             ''Detalle de liquidacion
-            Dim Sql = $"exec spConceptos_Select_Valor @eliminado = 0"
+            Dim Sql = $"exec spConceptos_Select_All @eliminado = 0"
 
             Dim cmd As New SqlCommand(Sql, connection)
             Dim da As New SqlDataAdapter(cmd)
 
-            da.Fill(dtPresentaciones)
+            da.Fill(dtConceptos)
 
-            grdConceptos.DataSource = dtPresentaciones
+            grdConceptos.DataSource = dtConceptos
         Catch ex As Exception
             MsgBox(ex.Message)
         Finally
@@ -49,32 +49,14 @@ Public Class frmSelectConcepto
 
     End Sub
 
-
-
     Private Sub frmNuevaLiquidacion_Load(sender As Object, e As EventArgs) Handles Me.Load
         LlenarGrilla()
-
-        crearDtConceptos()
-    End Sub
-
-
-    Dim dtConceptos_Clone As New DataTable
-
-
-
-    Private Sub crearDtConceptos()
-        If count < 1 Then
-
-        End If
-
-        count += 1
-        dtConceptos_Created = True
     End Sub
 
     Private Sub btnListo_Click(sender As Object, e As EventArgs) Handles btnListo.Click
 
         If grdConceptos.CurrentRow IsNot Nothing Then
-            ''Llenado de labels en frmLiquidaciones
+            ''Llenado de grdConceptosPanel
             With grdConceptos.CurrentRow
 
                 Dim id = .Cells(ColumnasDelGrdConceptos.Id).Value
@@ -83,10 +65,11 @@ Public Class frmSelectConcepto
                 Dim conceptopago = IIf(.Cells(ColumnasDelGrdConceptos.ConceptoPago).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.ConceptoPago).Value)
                 Dim pertenecea = IIf(.Cells(ColumnasDelGrdConceptos.PerteneceA).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.PerteneceA).Value)
                 Dim tipovalor = IIf(.Cells(ColumnasDelGrdConceptos.TipoDeValor).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.TipoDeValor).Value)
-                Dim valor = IIf(.Cells(ColumnasDelGrdConceptos.Valor).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.Valor).Value)
+                Dim valor = txtValor.Text
+                Dim frecuencia = txtFrecuencia.Text
                 Dim campoaplicable = IIf(.Cells(ColumnasDelGrdConceptos.CampoAplicable).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.CampoAplicable).Value)
 
-                frmFarmacias_Conceptos.grdConceptosPanel.Rows.Add(id, nombre, descripcion, conceptopago, pertenecea, tipovalor, valor, campoaplicable)
+                frmFarmacias_Conceptos.grdConceptosPanel.Rows.Add(id, nombre, descripcion, conceptopago, pertenecea, tipovalor, valor, frecuencia, campoaplicable)
             End With
 
 
@@ -94,47 +77,8 @@ Public Class frmSelectConcepto
             Me.Close()
 
         Else
-            MsgBox("Seleccione una presentación para poder continuar.")
+            MsgBox("Seleccione un concepto para poder continuar.")
         End If
-
-
-        'Dim dtConceptos As New DataTable
-        'dtConceptos.Columns.Add("Id")
-        'dtConceptos.Columns.Add("Nombre")
-        'dtConceptos.Columns.Add("Descripcion")
-        'dtConceptos.Columns.Add("Concepto Pago")
-        'dtConceptos.Columns.Add("Pertenece a")
-        'dtConceptos.Columns.Add("Tipo de valor")
-        'dtConceptos.Columns.Add("Valor")
-        'dtConceptos.Columns.Add("Campo Aplicable")
-
-        'If grdConceptos.CurrentRow IsNot Nothing Then
-        '    ''Llenado de labels en frmLiquidaciones
-        '    With grdConceptos.CurrentRow
-        '        Dim row As DataRow = dtConceptos.NewRow
-        '        row("Id") = .Cells(ColumnasDelGrdConceptos.Id).Value
-        '        row("Nombre") = IIf(.Cells(ColumnasDelGrdConceptos.Nombre).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.Nombre).Value)
-        '        row("Descripcion") = IIf(.Cells(ColumnasDelGrdConceptos.Descripcion).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.Descripcion).Value)
-        '        row("Concepto Pago") = IIf(.Cells(ColumnasDelGrdConceptos.ConceptoPago).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.ConceptoPago).Value)
-        '        row("Pertenece a") = IIf(.Cells(ColumnasDelGrdConceptos.PerteneceA).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.PerteneceA).Value)
-        '        row("Tipo de valor") = IIf(.Cells(ColumnasDelGrdConceptos.TipoDeValor).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.TipoDeValor).Value)
-        '        row("Valor") = IIf(.Cells(ColumnasDelGrdConceptos.Valor).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.Valor).Value)
-        '        row("Campo Aplicable") = IIf(.Cells(ColumnasDelGrdConceptos.CampoAplicable).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.CampoAplicable).Value)
-        '        dtConceptos.Rows.Add(row)
-        '    End With
-        '    dtConceptos_Clone = dtConceptos.Clone()
-
-        '    frmFarmacias_Conceptos.grdConceptosPanel.DataSource = dtConceptos
-
-        'Me.Dispose()
-        '    Me.Close()
-
-        'Else
-        '    MsgBox("Seleccione una presentación para poder continuar.")
-        'End If
-
-
-
     End Sub
 
     Private Sub chkAgrupar_CheckedChanged(sender As Object, e As EventArgs)
