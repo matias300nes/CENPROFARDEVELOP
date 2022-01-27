@@ -42,6 +42,8 @@ Public Class frmSaldos
             '.Columns(grdFarmaciaCols.Nombre).Width = 200
             .Columns(grdFarmaciaCols.PreferenciaPago).Width = 70
             .Columns(grdFarmaciaCols.Saldo).Width = 100
+
+            .Columns(grdFarmaciaCols.Saldo).DefaultCellStyle.Format = "c"
         End With
 
         With grdHistorial
@@ -49,7 +51,14 @@ Public Class frmSaldos
 
             .Columns(grdHistorialCols.Fecha).Width = 70
             .Columns(grdHistorialCols.Detalle).Width = 200
+
+            .Columns(grdHistorialCols.Fecha).DefaultCellStyle.Format = "d"
+            .Columns(grdHistorialCols.Credito).DefaultCellStyle.Format = "c"
+            .Columns(grdHistorialCols.Debito).DefaultCellStyle.Format = "c"
+            .Columns(grdHistorialCols.Total).DefaultCellStyle.Format = "c"
+            .Columns(grdHistorialCols.Saldo).DefaultCellStyle.Format = "c"
         End With
+
 
         For Each column As DataGridViewColumn In grdHistorial.Columns
             column.SortMode = DataGridViewColumnSortMode.NotSortable

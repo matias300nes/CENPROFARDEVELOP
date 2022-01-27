@@ -98,6 +98,7 @@ Public Class frmSelectPresentacion
     End Sub
 
     Private Sub btnListo_Click(sender As Object, e As EventArgs) Handles btnListo.Click
+
         If grdPresentaciones.CurrentRow IsNot Nothing Then
             ''Llenado de labels en frmLiquidaciones
             With grdPresentaciones.CurrentRow
@@ -118,7 +119,7 @@ Public Class frmSelectPresentacion
                 'sqlConceptos = $"exec spNuevaLiquidacionConceptos_Select @agrupado = {chkAgrupar.Checked}, @idpresentacion = { .Cells(GridCols.ID).Value}"
                 sqlConceptos = Nothing
 
-                frmLiquidaciones.Presentacion_request(SqlDetalle, sqlConceptos)
+                frmLiquidaciones.Presentacion_request(sqlDetalle, sqlConceptos)
             End With
 
             Me.Dispose()
@@ -133,11 +134,13 @@ Public Class frmSelectPresentacion
     End Sub
 
     Private Sub cmbEstado_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbEstado.SelectedIndexChanged
+        lblCantPagos.Text = "0"
         LlenarGrilla()
+        chkAgrupar.Enabled = IIf(cmbEstado.Text = "PAGO PARCIAL", False, True)
     End Sub
 
     Private Sub grdPresentaciones_SelectionChanged(sender As Object, e As EventArgs) Handles grdPresentaciones.SelectionChanged
-        If grdPresentaciones.CurrentRow IsNot Nothing Then
+        If grdPresentaciones.CurrentRow IsNot Nothing And cmbEstado.Text = "PAGO PARCIAL" Then
             Dim connection As SqlClient.SqlConnection = Nothing
             Dim ds As Data.DataSet
             Try
@@ -150,9 +153,12 @@ Public Class frmSelectPresentacion
                 ds.Dispose()
 
                 If ds.Tables(0).Rows.Count > 0 Then
-                    MsgBox($"anteriores: { ds.Tables(0).Rows(0)("Pagos anteriores") } agrupado: {ds.Tables(0).Rows(0)("Agrupado")}")
+                    chkAgrupar.Checked = ds.Tables(0).Rows(0)("Agrupado")
+                    lblCantPagos.Text = ds.Tables(0).Rows(0)("Pagos anteriores")
+                Else
+                    chkAgrupar.Checked = True
+                    lblCantPagos.Text = "0"
                 End If
-
 
             Catch ex As Exception
                 Dim errMessage As String = ""
@@ -174,48 +180,4 @@ Public Class frmSelectPresentacion
         End If
 
     End Sub
-
-    'Private Sub grdPresentaciones_SelectionChanged(sender As Object, e As DataGridViewCellEventArgs) Handles grdPresentaciones.SelectionChanged
-    '    Dim connection As SqlClient.SqlConnection = Nothing
-    '    Dim ds As Data.DataSet
-
-    '    Try
-    '        connection = SqlHelper.GetConnection(ConnStringSEI)
-    '    Catch ex As Exception
-    '        MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-    '        Exit Sub
-    '    End Try
-
-    '    Try
-
-    '        ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, " select distinct [estado] as Estado from Presentaciones where estado = 'PRESENTADO' or estado = 'PAGO PARCIAL'")
-    '        ds.Dispose()
-
-    '        With Me.cmbEstado
-    '            .DataSource = ds.Tables(0).DefaultView
-    '            .DisplayMember = "estado"
-    '            '.ValueMember = "ID"
-    '            .AutoCompleteMode = AutoCompleteMode.SuggestAppend
-    '            .AutoCompleteSource = AutoCompleteSource.ListItems
-    '            '.SelectedIndex = "ID"
-    '        End With
-
-    '    Catch ex As Exception
-    '        Dim errMessage As String = ""
-    '        Dim tempException As Exception = ex
-
-    '        While (Not tempException Is Nothing)
-    '            errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
-    '            tempException = tempException.InnerException
-    '        End While
-
-    '        MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-    '          + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
-    '          "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
-    '    Finally
-    '        If Not connection Is Nothing Then
-    '            CType(connection, IDisposable).Dispose()
-    '        End If
-    '    End Try
-    'End Sub
 End Class

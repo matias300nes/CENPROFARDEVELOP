@@ -627,11 +627,14 @@ Public Class frmLiquidaciones
             End If
         End With
 
-        If ACargoOS = ACargoOS_A + ACargoOS_P And cmbTipoPago.Text = "Parcial" And chkLiquidado.Checked = False Then
-            MsgBox("Los importes presentados y aceptados son iguales, se configurará la liquidación como pago final")
-            cmbTipoPago.SelectedValue = "FINAL"
-            UpdateGrdPrincipal()
-        End If
+        'If (ACargoOS <= ACargoOS_A + ACargoOS_P Or ACargoOS <= ACargoOS_A + Total) And
+        '    cmbTipoPago.Text = "Parcial" And
+        '    chkLiquidado.Checked = False Then
+
+        '    MsgBox("Los importes presentados y aceptados son iguales, se configurará la liquidación como pago final")
+        '    cmbTipoPago.SelectedValue = "FINAL"
+        '    UpdateGrdPrincipal()
+        'End If
 
         lblTotal.Text = String.Format("{0:N2}", Total)
         lblTransferencia.Text = String.Format("{0:N2}", Transferencia)
@@ -2372,7 +2375,6 @@ Public Class frmLiquidaciones
                                     Exit Sub
                                 Case Else
                                     res_pago = GenerarPago()
-                                    MsgBox(res_pago)
                                     Select Case res_pago
                                         Case Else
                                             Cerrar_Tran()
@@ -2505,10 +2507,10 @@ Public Class frmLiquidaciones
         End If
     End Sub
 
-    Private Sub cmbTipoPago_SelectionChanging(sender As Object, e As EventArgs) Handles cmbTipoPago.SelectionChangeCommitted
+    Private Sub cmbTipoPago_SelectionChangeCommitted(sender As Object, e As EventArgs) Handles cmbTipoPago.SelectionChangeCommitted
         ''Genero el concepto que contempla diferencia entre aceptado y presentado
         If gl_dataset IsNot Nothing Then
-            If Not (cmbTipoPago.Text = "Final") Then ''uso not porque el evento me trae el estado anterior a la seleccion
+            If sender.selectedvalue = "FINAL" Then ''uso not porque el evento me trae el estado anterior a la seleccion
                 For Each detalle As DataRow In gl_dataset.Tables(0).Rows
                     If detalle("A Cargo OS A") IsNot DBNull.Value Then
                         Dim row As DataRow = gl_dataset.Tables(1).NewRow()
@@ -2524,7 +2526,7 @@ Public Class frmLiquidaciones
                         End If
                     End If
                 Next
-            Else
+            ElseIf sender.selectedvalue = "PARCIAL" Then
                 Dim selection = gl_dataset.Tables(1).Select("detalle = 'Error ajuste'")
                 For Each concepto As DataRow In selection
                     eliminarConcepto(concepto)
