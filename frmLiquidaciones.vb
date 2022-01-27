@@ -636,8 +636,8 @@ Public Class frmLiquidaciones
         '    UpdateGrdPrincipal()
         'End If
 
-        lblTotal.Text = String.Format("{0:N2}", Total)
-        lblTransferencia.Text = String.Format("{0:N2}", Transferencia)
+        lblTotal.Text = "$ " + String.Format("{0:N2}", Total)
+        lblTransferencia.Text = "$ " + String.Format("{0:N2}", Transferencia)
         lblCantidadItems.Text = gl_dataset.Tables(0).Rows.Count
     End Sub
 
@@ -1593,6 +1593,7 @@ Public Class frmLiquidaciones
 
         ''Limpieza de labels
         lblPresentacionCodigo.Text = "No seleccionada"
+        cmbTipoPago.SelectedValue = "FINAL"
         lblObraSocial.Text = "-"
         lblObservacion.Text = "-"
         lblPeriodo_presentacion.Text = "-"
@@ -1602,6 +1603,7 @@ Public Class frmLiquidaciones
         lblStatus.Text = "CONFECCIONANDO"
         lblCantidadItems.Text = "0"
         lblTotal.Text = "$ 0"
+        lblTransferencia.Text = "$ 0"
 
 
         SuperGrdResultado.PrimaryGrid.DataSource = Nothing
@@ -2427,7 +2429,7 @@ Public Class frmLiquidaciones
                 param_detalle.ParameterName = "@detalle"
                 param_detalle.SqlDbType = SqlDbType.VarChar
                 param_detalle.Size = 200
-                param_detalle.Value = "LIQUIDACION"
+                param_detalle.Value = $"LIQ. {lblObraSocial.Text} {lblPeriodo_presentacion}"
                 param_detalle.Direction = ParameterDirection.Input
 
                 ''debito

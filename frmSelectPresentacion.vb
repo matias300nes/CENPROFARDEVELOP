@@ -155,6 +155,7 @@ Public Class frmSelectPresentacion
                 If ds.Tables(0).Rows.Count > 0 Then
                     chkAgrupar.Checked = ds.Tables(0).Rows(0)("Agrupado")
                     lblCantPagos.Text = ds.Tables(0).Rows(0)("Pagos anteriores")
+                    cmbPago.DataSource = {$"{ds.Tables(0).Rows(0)("Pagos anteriores") + 1}º PAGO", $"{ds.Tables(0).Rows(0)("Pagos anteriores") + 1}º PAGO - FINAL"}
                 Else
                     chkAgrupar.Checked = True
                     lblCantPagos.Text = "0"

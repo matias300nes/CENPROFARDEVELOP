@@ -137,5 +137,10 @@ Public Class frmSaldos
 
     End Sub
 
+    Private Sub btnPersonalizado_Click(sender As Object, e As EventArgs) Handles btnPersonalizado.Click
+        Dim AgregarCheques As New frmAgregarCheques
+        AgregarCheques.ShowDialog()
+    End Sub
+
 #End Region
 End Class

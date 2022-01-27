@@ -31,6 +31,7 @@ Partial Class frmSelectPresentacion
         Me.cmbEstado = New DevComponents.DotNetBar.Controls.ComboBoxEx()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.lblCantPagos = New System.Windows.Forms.Label()
+        Me.cmbPago = New DevComponents.DotNetBar.Controls.ComboBoxEx()
         CType(Me.grdPresentaciones, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -94,6 +95,7 @@ Partial Class frmSelectPresentacion
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.cmbPago)
         Me.GroupBox1.Controls.Add(Me.lblCantPagos)
         Me.GroupBox1.Controls.Add(Me.Label2)
         Me.GroupBox1.Controls.Add(Me.Label1)
@@ -150,6 +152,19 @@ Partial Class frmSelectPresentacion
         Me.lblCantPagos.Text = "0"
         Me.lblCantPagos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
+        'cmbPago
+        '
+        Me.cmbPago.DisplayMember = "Text"
+        Me.cmbPago.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
+        Me.cmbPago.FormattingEnabled = True
+        Me.cmbPago.ItemHeight = 14
+        Me.cmbPago.Location = New System.Drawing.Point(176, 12)
+        Me.cmbPago.Name = "cmbPago"
+        Me.cmbPago.Size = New System.Drawing.Size(142, 20)
+        Me.cmbPago.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.cmbPago.TabIndex = 8
+        Me.cmbPago.Visible = False
+        '
         'frmSelectPresentacion
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -174,4 +189,5 @@ Partial Class frmSelectPresentacion
     Friend WithEvents Label1 As Label
     Friend WithEvents lblCantPagos As Label
     Friend WithEvents Label2 As Label
+    Friend WithEvents cmbPago As DevComponents.DotNetBar.Controls.ComboBoxEx
 End Class
