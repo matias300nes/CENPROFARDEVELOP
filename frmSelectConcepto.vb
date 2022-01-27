@@ -16,6 +16,7 @@ Public Class frmSelectConcepto
     Dim count As Integer = 0
     Enum ColumnasDelGrdConceptos
         Id = 0
+        Codigo = 1
         Nombre = 2
         Descripcion = 3
         ConceptoPago = 4
@@ -60,6 +61,7 @@ Public Class frmSelectConcepto
             With grdConceptos.CurrentRow
 
                 Dim id = .Cells(ColumnasDelGrdConceptos.Id).Value
+                Dim codigo = IIf(.Cells(ColumnasDelGrdConceptos.Codigo).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.Codigo).Value)
                 Dim nombre = IIf(.Cells(ColumnasDelGrdConceptos.Nombre).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.Nombre).Value)
                 Dim descripcion = IIf(.Cells(ColumnasDelGrdConceptos.Descripcion).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.Descripcion).Value)
                 Dim conceptopago = IIf(.Cells(ColumnasDelGrdConceptos.ConceptoPago).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.ConceptoPago).Value)
@@ -69,7 +71,7 @@ Public Class frmSelectConcepto
                 Dim frecuencia = txtFrecuencia.Text
                 Dim campoaplicable = IIf(.Cells(ColumnasDelGrdConceptos.CampoAplicable).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.CampoAplicable).Value)
 
-                frmFarmacias_Conceptos.grdConceptosPanel.Rows.Add(id, nombre, descripcion, conceptopago, pertenecea, tipovalor, valor, frecuencia, campoaplicable)
+                frmFarmacias_Conceptos.grdConceptosPanel.Rows.Add(id, codigo, nombre, descripcion, conceptopago, pertenecea, tipovalor, valor, frecuencia, campoaplicable)
             End With
 
 

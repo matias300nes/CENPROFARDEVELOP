@@ -50,7 +50,7 @@ Partial Class frmFarmacias_Conceptos
         Me.SuperTabControlPanel2 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.stiProfesionales = New DevComponents.DotNetBar.SuperTabItem()
         Me.btnAdd = New DevComponents.DotNetBar.ButtonItem()
-        Me.btnEliminar = New DevComponents.DotNetBar.ButtonItem()
+        Me.btnEliminarPanel = New DevComponents.DotNetBar.ButtonItem()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.chkEliminados = New System.Windows.Forms.CheckBox()
         Me.Label7 = New System.Windows.Forms.Label()
@@ -66,6 +66,7 @@ Partial Class frmFarmacias_Conceptos
         Me.Label11 = New System.Windows.Forms.Label()
         Me.txtEmail = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.Id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.cod = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Nombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Descripcion = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ConceptoPago = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -481,7 +482,7 @@ Partial Class frmFarmacias_Conceptos
         Me.SuperTabControl1.Size = New System.Drawing.Size(709, 314)
         Me.SuperTabControl1.TabFont = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SuperTabControl1.TabIndex = 65
-        Me.SuperTabControl1.Tabs.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.stiConceptos, Me.stiCodigos, Me.stiProfesionales, Me.btnAdd, Me.btnEliminar})
+        Me.SuperTabControl1.Tabs.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.stiConceptos, Me.stiCodigos, Me.stiProfesionales, Me.btnAdd, Me.btnEliminarPanel})
         Me.SuperTabControl1.Text = "SuperTabControl1"
         '
         'SuperTabControlPanel1
@@ -498,13 +499,15 @@ Partial Class frmFarmacias_Conceptos
         'grdConceptosPanel
         '
         Me.grdConceptosPanel.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.grdConceptosPanel.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Id, Me.Nombre, Me.Descripcion, Me.ConceptoPago, Me.Pertenecea, Me.TipoValor, Me.Valor, Me.Frecuencia, Me.CampoAplicable})
+        Me.grdConceptosPanel.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Id, Me.cod, Me.Nombre, Me.Descripcion, Me.ConceptoPago, Me.Pertenecea, Me.TipoValor, Me.Valor, Me.Frecuencia, Me.CampoAplicable})
         Me.grdConceptosPanel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.grdConceptosPanel.Location = New System.Drawing.Point(0, 0)
         Me.grdConceptosPanel.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.grdConceptosPanel.MultiSelect = False
         Me.grdConceptosPanel.Name = "grdConceptosPanel"
         Me.grdConceptosPanel.RowHeadersWidth = 51
         Me.grdConceptosPanel.RowTemplate.Height = 24
+        Me.grdConceptosPanel.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.grdConceptosPanel.Size = New System.Drawing.Size(709, 287)
         Me.grdConceptosPanel.TabIndex = 0
         '
@@ -591,10 +594,10 @@ Partial Class frmFarmacias_Conceptos
         Me.btnAdd.Name = "btnAdd"
         Me.btnAdd.Text = "Agregar"
         '
-        'btnEliminar
+        'btnEliminarPanel
         '
-        Me.btnEliminar.Name = "btnEliminar"
-        Me.btnEliminar.Text = "Eliminar"
+        Me.btnEliminarPanel.Name = "btnEliminarPanel"
+        Me.btnEliminarPanel.Text = "Eliminar"
         '
         'Label9
         '
@@ -796,6 +799,13 @@ Partial Class frmFarmacias_Conceptos
         Me.Id.Name = "Id"
         Me.Id.Width = 125
         '
+        'cod
+        '
+        Me.cod.HeaderText = "Codigo"
+        Me.cod.MinimumWidth = 6
+        Me.cod.Name = "cod"
+        Me.cod.Width = 125
+        '
         'Nombre
         '
         Me.Nombre.HeaderText = "Nombre"
@@ -910,7 +920,7 @@ Partial Class frmFarmacias_Conceptos
     Friend WithEvents SuperTabControlPanel2 As DevComponents.DotNetBar.SuperTabControlPanel
     Friend WithEvents stiProfesionales As DevComponents.DotNetBar.SuperTabItem
     Friend WithEvents btnAdd As DevComponents.DotNetBar.ButtonItem
-    Friend WithEvents btnEliminar As DevComponents.DotNetBar.ButtonItem
+    Friend WithEvents btnEliminarPanel As DevComponents.DotNetBar.ButtonItem
     Friend WithEvents SuperTabControlPanel3 As DevComponents.DotNetBar.SuperTabControlPanel
     Friend WithEvents grdCodigos As DataGridView
     Friend WithEvents stiCodigos As DevComponents.DotNetBar.SuperTabItem
@@ -933,6 +943,7 @@ Partial Class frmFarmacias_Conceptos
     Friend WithEvents mandatariaNombre As DataGridViewTextBoxColumn
     Friend WithEvents mandatariaCodigo As DataGridViewTextBoxColumn
     Friend WithEvents Id As DataGridViewTextBoxColumn
+    Friend WithEvents cod As DataGridViewTextBoxColumn
     Friend WithEvents Nombre As DataGridViewTextBoxColumn
     Friend WithEvents Descripcion As DataGridViewTextBoxColumn
     Friend WithEvents ConceptoPago As DataGridViewTextBoxColumn
