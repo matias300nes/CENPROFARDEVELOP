@@ -23,14 +23,15 @@ Public Class frmFarmacias_Conceptos
 
     Enum ColumnasDelGrdConceptosPanel
         Id = 0
-        Nombre = 1
-        Descripcion = 2
-        ConceptoPago = 3
-        PerteneceA = 4
-        TipoValor = 5
-        Valor = 6
-        Frecuencia = 7
-        CampoAplicable = 8
+        Codigo = 1
+        Nombre = 2
+        Descripcion = 3
+        ConceptoPago = 4
+        PerteneceA = 5
+        TipoValor = 6
+        Valor = 7
+        Frecuencia = 8
+        CampoAplicable = 9
     End Enum
     Enum GridItemsCols
         ID = 0
@@ -925,6 +926,7 @@ Public Class frmFarmacias_Conceptos
             For i = 0 To dt.Rows.Count - 1
                 grdConceptosPanel.Rows.Add(
                     dt.Rows(i)(ColumnasDelGrdConceptosPanel.Id).ToString(),
+                    dt.Rows(i)(ColumnasDelGrdConceptosPanel.Codigo).ToString(),
                     dt.Rows(i)(ColumnasDelGrdConceptosPanel.Nombre).ToString(),
                     dt.Rows(i)(ColumnasDelGrdConceptosPanel.Descripcion).ToString(),
                     dt.Rows(i)(ColumnasDelGrdConceptosPanel.ConceptoPago).ToString(),
@@ -956,19 +958,20 @@ Public Class frmFarmacias_Conceptos
             Exit Sub
         End Try
 
-        'ds = SqlHelper.ExecuteDataset(conn_del_form, CommandType.Text, "select NombreEmpresaFactura, ModoPagoPredefinido, CUIT, HOMO, TA, PTOVTA, ISNULL(CorreoContador,''), ISNULL(TicketAcceso,''), ISNULL(Token,''), ISNULL(Sign,'')  from parametros")
-
-        'ds.Dispose()
-
         Try
-            For Each Row As DataGridViewRow In grdConceptosPanel.Rows
-                If Row IsNot Nothing Then
-                    ds_coincidendia = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT idConcepto, idFarmacia FROM Farmacias_Conceptos WHERE idConcepto = {Row.Cells(ColumnasDelGrdConceptosPanel.Id).Value} AND idFarmacia = {txtID.Text}")
-                    If ds_coincidendia.Tables(0).Rows.Count <> 1 Then
+            Dim result As DialogResult = MessageBox.Show($"Está a punto de eliminar el concepto {grdConceptosPanel.CurrentRow.Cells(ColumnasDelGrdConceptosPanel.Nombre).Value}
+¿Está seguro que desea continuar?",
+                                  "Eliminar",
+                                  MessageBoxButtons.YesNo)
+
+            If result = DialogResult.Yes Then
+                If grdConceptosPanel.CurrentRow IsNot Nothing Then
+                    ds_coincidendia = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT idConcepto, idFarmacia FROM Farmacias_Conceptos WHERE idConcepto = {grdConceptosPanel.CurrentRow.Cells(ColumnasDelGrdConceptosPanel.Id).Value} AND idFarmacia = {txtID.Text}")
+                    If ds_coincidendia.Tables(0).Rows.Count = 1 Then 'si encuentro esa relacion
                         Dim param_idConcepto As New SqlClient.SqlParameter
                         param_idConcepto.ParameterName = "@idConcepto"
                         param_idConcepto.SqlDbType = SqlDbType.BigInt
-                        param_idConcepto.Value = Row.Cells(ColumnasDelGrdConceptosPanel.Id).Value
+                        param_idConcepto.Value = grdConceptosPanel.CurrentRow.Cells(ColumnasDelGrdConceptosPanel.Id).Value
                         param_idConcepto.Direction = ParameterDirection.InputOutput
 
                         Dim param_idFarmacia As New SqlClient.SqlParameter
@@ -977,19 +980,36 @@ Public Class frmFarmacias_Conceptos
                         param_idFarmacia.Value = txtID.Text
                         param_idFarmacia.Direction = ParameterDirection.Input
 
+                        Dim param_res As New SqlClient.SqlParameter
+                        param_res.ParameterName = "@res"
+                        param_res.SqlDbType = SqlDbType.Int
+                        param_res.Value = DBNull.Value
+                        param_res.Direction = ParameterDirection.Output
 
                         Try
+                            'elimino la relacion en la base de datos
                             ds_coincidendia.Dispose()
-                            SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spFarmacias_Conceptos_Insert", param_idConcepto, param_idFarmacia)
+                            SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spFarmacias_Conceptos_Delete", param_idConcepto, param_idFarmacia, param_res)
+                            Dim res = param_res.Value
+                            'elimino el item del gridview si antes se eliminó la relacion
+                            If res = 1 Then
+                                grdConceptosPanel.Rows.Remove(grdConceptosPanel.CurrentRow)
+                            End If
                         Catch ex As Exception
                             Throw ex
                         End Try
                     Else
                         ds_coincidendia.Dispose()
-                        Continue For
+
                     End If
                 End If
-            Next
+            Else
+                Exit Sub
+            End If
+
+
+
+
 
 
 
@@ -1315,6 +1335,12 @@ Public Class frmFarmacias_Conceptos
             grdCodigos.Rows(Codigos.CSF).Cells(1).Value = grd.CurrentRow.Cells(GridItemsCols.CodCSF).Value
         End If
     End Sub
+
+    Private Sub btnEliminarPanel_Click(sender As Object, e As EventArgs) Handles btnEliminarPanel.Click
+        EliminarItemGrdConceptosPanel()
+    End Sub
+
+
 
 
 
