@@ -41,6 +41,16 @@ Partial Class frmFarmacias_Conceptos
         Me.SuperTabControl1 = New DevComponents.DotNetBar.SuperTabControl()
         Me.SuperTabControlPanel1 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.grdConceptosPanel = New System.Windows.Forms.DataGridView()
+        Me.Id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.cod = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Nombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Descripcion = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ConceptoPago = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Pertenecea = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TipoValor = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Valor = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Frecuencia = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.CampoAplicable = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.stiConceptos = New DevComponents.DotNetBar.SuperTabItem()
         Me.SuperTabControlPanel3 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.grdCodigos = New System.Windows.Forms.DataGridView()
@@ -65,16 +75,6 @@ Partial Class frmFarmacias_Conceptos
         Me.txtTelefono = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.txtEmail = New TextBoxConFormatoVB.FormattedTextBoxVB()
-        Me.Id = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.cod = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Nombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Descripcion = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ConceptoPago = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Pertenecea = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TipoValor = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Valor = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Frecuencia = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.CampoAplicable = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GroupBox1.SuspendLayout()
         CType(Me.SuperTabControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControl1.SuspendLayout()
@@ -498,6 +498,7 @@ Partial Class frmFarmacias_Conceptos
         '
         'grdConceptosPanel
         '
+        Me.grdConceptosPanel.AllowUserToAddRows = False
         Me.grdConceptosPanel.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.grdConceptosPanel.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Id, Me.cod, Me.Nombre, Me.Descripcion, Me.ConceptoPago, Me.Pertenecea, Me.TipoValor, Me.Valor, Me.Frecuencia, Me.CampoAplicable})
         Me.grdConceptosPanel.Dock = System.Windows.Forms.DockStyle.Fill
@@ -510,6 +511,76 @@ Partial Class frmFarmacias_Conceptos
         Me.grdConceptosPanel.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.grdConceptosPanel.Size = New System.Drawing.Size(709, 287)
         Me.grdConceptosPanel.TabIndex = 0
+        '
+        'Id
+        '
+        Me.Id.HeaderText = "Id"
+        Me.Id.MinimumWidth = 6
+        Me.Id.Name = "Id"
+        Me.Id.Width = 125
+        '
+        'cod
+        '
+        Me.cod.HeaderText = "Codigo"
+        Me.cod.MinimumWidth = 6
+        Me.cod.Name = "cod"
+        Me.cod.Width = 125
+        '
+        'Nombre
+        '
+        Me.Nombre.HeaderText = "Nombre"
+        Me.Nombre.MinimumWidth = 6
+        Me.Nombre.Name = "Nombre"
+        Me.Nombre.Width = 125
+        '
+        'Descripcion
+        '
+        Me.Descripcion.HeaderText = "Descripcion"
+        Me.Descripcion.MinimumWidth = 6
+        Me.Descripcion.Name = "Descripcion"
+        Me.Descripcion.Width = 125
+        '
+        'ConceptoPago
+        '
+        Me.ConceptoPago.HeaderText = "Concepto Pago"
+        Me.ConceptoPago.MinimumWidth = 6
+        Me.ConceptoPago.Name = "ConceptoPago"
+        Me.ConceptoPago.Width = 125
+        '
+        'Pertenecea
+        '
+        Me.Pertenecea.HeaderText = "Pertenece A"
+        Me.Pertenecea.MinimumWidth = 6
+        Me.Pertenecea.Name = "Pertenecea"
+        Me.Pertenecea.Width = 125
+        '
+        'TipoValor
+        '
+        Me.TipoValor.HeaderText = "Tipo de Valor"
+        Me.TipoValor.MinimumWidth = 6
+        Me.TipoValor.Name = "TipoValor"
+        Me.TipoValor.Width = 125
+        '
+        'Valor
+        '
+        Me.Valor.HeaderText = "Valor"
+        Me.Valor.MinimumWidth = 6
+        Me.Valor.Name = "Valor"
+        Me.Valor.Width = 125
+        '
+        'Frecuencia
+        '
+        Me.Frecuencia.HeaderText = "Frecuencia"
+        Me.Frecuencia.MinimumWidth = 6
+        Me.Frecuencia.Name = "Frecuencia"
+        Me.Frecuencia.Width = 125
+        '
+        'CampoAplicable
+        '
+        Me.CampoAplicable.HeaderText = "Campo Aplicable"
+        Me.CampoAplicable.MinimumWidth = 6
+        Me.CampoAplicable.Name = "CampoAplicable"
+        Me.CampoAplicable.Width = 125
         '
         'stiConceptos
         '
@@ -791,76 +862,6 @@ Partial Class frmFarmacias_Conceptos
         Me.txtEmail.Text_3 = Nothing
         Me.txtEmail.Text_4 = Nothing
         Me.txtEmail.UserValues = Nothing
-        '
-        'Id
-        '
-        Me.Id.HeaderText = "Id"
-        Me.Id.MinimumWidth = 6
-        Me.Id.Name = "Id"
-        Me.Id.Width = 125
-        '
-        'cod
-        '
-        Me.cod.HeaderText = "Codigo"
-        Me.cod.MinimumWidth = 6
-        Me.cod.Name = "cod"
-        Me.cod.Width = 125
-        '
-        'Nombre
-        '
-        Me.Nombre.HeaderText = "Nombre"
-        Me.Nombre.MinimumWidth = 6
-        Me.Nombre.Name = "Nombre"
-        Me.Nombre.Width = 125
-        '
-        'Descripcion
-        '
-        Me.Descripcion.HeaderText = "Descripcion"
-        Me.Descripcion.MinimumWidth = 6
-        Me.Descripcion.Name = "Descripcion"
-        Me.Descripcion.Width = 125
-        '
-        'ConceptoPago
-        '
-        Me.ConceptoPago.HeaderText = "Concepto Pago"
-        Me.ConceptoPago.MinimumWidth = 6
-        Me.ConceptoPago.Name = "ConceptoPago"
-        Me.ConceptoPago.Width = 125
-        '
-        'Pertenecea
-        '
-        Me.Pertenecea.HeaderText = "Pertenece A"
-        Me.Pertenecea.MinimumWidth = 6
-        Me.Pertenecea.Name = "Pertenecea"
-        Me.Pertenecea.Width = 125
-        '
-        'TipoValor
-        '
-        Me.TipoValor.HeaderText = "Tipo de Valor"
-        Me.TipoValor.MinimumWidth = 6
-        Me.TipoValor.Name = "TipoValor"
-        Me.TipoValor.Width = 125
-        '
-        'Valor
-        '
-        Me.Valor.HeaderText = "Valor"
-        Me.Valor.MinimumWidth = 6
-        Me.Valor.Name = "Valor"
-        Me.Valor.Width = 125
-        '
-        'Frecuencia
-        '
-        Me.Frecuencia.HeaderText = "Frecuencia"
-        Me.Frecuencia.MinimumWidth = 6
-        Me.Frecuencia.Name = "Frecuencia"
-        Me.Frecuencia.Width = 125
-        '
-        'CampoAplicable
-        '
-        Me.CampoAplicable.HeaderText = "Campo Aplicable"
-        Me.CampoAplicable.MinimumWidth = 6
-        Me.CampoAplicable.Name = "CampoAplicable"
-        Me.CampoAplicable.Width = 125
         '
         'frmFarmacias_Conceptos
         '
