@@ -636,8 +636,8 @@ Public Class frmLiquidaciones
         '    UpdateGrdPrincipal()
         'End If
 
-        lblTotal.Text = "$ " + String.Format("{0:N2}", Total)
-        lblTransferencia.Text = "$ " + String.Format("{0:N2}", Transferencia)
+        lblTotal.Text = String.Format("{0:N2}", Total)
+        lblTransferencia.Text = String.Format("{0:N2}", Transferencia)
         lblCantidadItems.Text = gl_dataset.Tables(0).Rows.Count
     End Sub
 
