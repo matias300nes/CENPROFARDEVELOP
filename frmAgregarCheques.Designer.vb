@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frmAgregarCheques
     Inherits System.Windows.Forms.Form
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,30 +20,28 @@ Partial Class frmAgregarCheques
     'NOTA: el Diseñador de Windows Forms necesita el siguiente procedimiento
     'Se puede modificar usando el Diseñador de Windows Forms.  
     'No lo modifique con el editor de código.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.grdPagos = New System.Windows.Forms.DataGridView()
-        Me.tipo = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.importe = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
+        Me.pControls = New System.Windows.Forms.Panel()
+        Me.btnAgregar = New DevComponents.DotNetBar.ButtonX()
         Me.Label7 = New System.Windows.Forms.Label()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.ComboBoxEx1 = New DevComponents.DotNetBar.Controls.ComboBoxEx()
+        Me.cmbTipoPago = New DevComponents.DotNetBar.Controls.ComboBoxEx()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.Label3 = New System.Windows.Forms.Label()
+        Me.lblRazonSocial = New System.Windows.Forms.Label()
+        Me.lblSaldoCubierto = New System.Windows.Forms.Label()
+        Me.lblSaldoActual = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.btnListo = New DevComponents.DotNetBar.ButtonX()
+        Me.txtImporte = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.TableLayoutPanel2.SuspendLayout()
         CType(Me.grdPagos, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel1.SuspendLayout()
+        Me.pControls.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -62,7 +60,7 @@ Partial Class frmAgregarCheques
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 48.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(533, 384)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(533, 327)
         Me.TableLayoutPanel1.TabIndex = 4
         '
         'TableLayoutPanel2
@@ -71,13 +69,13 @@ Partial Class frmAgregarCheques
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 180.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel2.Controls.Add(Me.grdPagos, 1, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.Panel1, 0, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.pControls, 0, 0)
         Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel2.Location = New System.Drawing.Point(3, 73)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 1
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(527, 260)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(527, 203)
         Me.TableLayoutPanel2.TabIndex = 10
         '
         'grdPagos
@@ -86,7 +84,6 @@ Partial Class frmAgregarCheques
         Me.grdPagos.AllowUserToDeleteRows = False
         Me.grdPagos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.grdPagos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.grdPagos.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.tipo, Me.importe})
         Me.grdPagos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.grdPagos.Location = New System.Drawing.Point(183, 3)
         Me.grdPagos.MultiSelect = False
@@ -95,46 +92,32 @@ Partial Class frmAgregarCheques
         Me.grdPagos.RowHeadersVisible = False
         Me.grdPagos.RowHeadersWidth = 51
         Me.grdPagos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.grdPagos.Size = New System.Drawing.Size(341, 254)
-        Me.grdPagos.TabIndex = 0
+        Me.grdPagos.Size = New System.Drawing.Size(341, 197)
+        Me.grdPagos.TabIndex = 5
         '
-        'tipo
+        'pControls
         '
-        Me.tipo.FillWeight = 100.3922!
-        Me.tipo.HeaderText = "Tipo de pago"
-        Me.tipo.Name = "tipo"
-        Me.tipo.ReadOnly = True
+        Me.pControls.Controls.Add(Me.txtImporte)
+        Me.pControls.Controls.Add(Me.btnAgregar)
+        Me.pControls.Controls.Add(Me.Label7)
+        Me.pControls.Controls.Add(Me.cmbTipoPago)
+        Me.pControls.Controls.Add(Me.Label6)
+        Me.pControls.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pControls.Location = New System.Drawing.Point(3, 3)
+        Me.pControls.Name = "pControls"
+        Me.pControls.Size = New System.Drawing.Size(174, 197)
+        Me.pControls.TabIndex = 1
         '
-        'importe
+        'btnAgregar
         '
-        Me.importe.FillWeight = 99.60784!
-        Me.importe.HeaderText = "Importe"
-        Me.importe.Name = "importe"
-        Me.importe.ReadOnly = True
-        '
-        'Panel1
-        '
-        Me.Panel1.Controls.Add(Me.ButtonX1)
-        Me.Panel1.Controls.Add(Me.Label7)
-        Me.Panel1.Controls.Add(Me.TextBox1)
-        Me.Panel1.Controls.Add(Me.ComboBoxEx1)
-        Me.Panel1.Controls.Add(Me.Label6)
-        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel1.Location = New System.Drawing.Point(3, 3)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(174, 254)
-        Me.Panel1.TabIndex = 1
-        '
-        'ButtonX1
-        '
-        Me.ButtonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.ButtonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.ButtonX1.Location = New System.Drawing.Point(52, 210)
-        Me.ButtonX1.Name = "ButtonX1"
-        Me.ButtonX1.Size = New System.Drawing.Size(68, 20)
-        Me.ButtonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.ButtonX1.TabIndex = 7
-        Me.ButtonX1.Text = "Añadir"
+        Me.btnAgregar.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnAgregar.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
+        Me.btnAgregar.Location = New System.Drawing.Point(48, 145)
+        Me.btnAgregar.Name = "btnAgregar"
+        Me.btnAgregar.Size = New System.Drawing.Size(68, 20)
+        Me.btnAgregar.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnAgregar.TabIndex = 3
+        Me.btnAgregar.Text = "Agregar"
         '
         'Label7
         '
@@ -145,24 +128,17 @@ Partial Class frmAgregarCheques
         Me.Label7.TabIndex = 9
         Me.Label7.Text = "Importe"
         '
-        'TextBox1
+        'cmbTipoPago
         '
-        Me.TextBox1.Location = New System.Drawing.Point(25, 98)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(121, 20)
-        Me.TextBox1.TabIndex = 8
-        '
-        'ComboBoxEx1
-        '
-        Me.ComboBoxEx1.DisplayMember = "Text"
-        Me.ComboBoxEx1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
-        Me.ComboBoxEx1.FormattingEnabled = True
-        Me.ComboBoxEx1.ItemHeight = 14
-        Me.ComboBoxEx1.Location = New System.Drawing.Point(25, 50)
-        Me.ComboBoxEx1.Name = "ComboBoxEx1"
-        Me.ComboBoxEx1.Size = New System.Drawing.Size(121, 20)
-        Me.ComboBoxEx1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.ComboBoxEx1.TabIndex = 0
+        Me.cmbTipoPago.DisplayMember = "Text"
+        Me.cmbTipoPago.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
+        Me.cmbTipoPago.FormattingEnabled = True
+        Me.cmbTipoPago.ItemHeight = 14
+        Me.cmbTipoPago.Location = New System.Drawing.Point(25, 50)
+        Me.cmbTipoPago.Name = "cmbTipoPago"
+        Me.cmbTipoPago.Size = New System.Drawing.Size(121, 20)
+        Me.cmbTipoPago.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.cmbTipoPago.TabIndex = 0
         '
         'Label6
         '
@@ -175,9 +151,9 @@ Partial Class frmAgregarCheques
         '
         'GroupBox1
         '
-        Me.GroupBox1.Controls.Add(Me.Label5)
-        Me.GroupBox1.Controls.Add(Me.Label4)
-        Me.GroupBox1.Controls.Add(Me.Label3)
+        Me.GroupBox1.Controls.Add(Me.lblRazonSocial)
+        Me.GroupBox1.Controls.Add(Me.lblSaldoCubierto)
+        Me.GroupBox1.Controls.Add(Me.lblSaldoActual)
         Me.GroupBox1.Controls.Add(Me.Label2)
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
@@ -189,33 +165,34 @@ Partial Class frmAgregarCheques
         Me.GroupBox1.TabIndex = 4
         Me.GroupBox1.TabStop = False
         '
-        'Label5
+        'lblRazonSocial
         '
-        Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(10, 16)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(86, 16)
-        Me.Label5.TabIndex = 5
-        Me.Label5.Text = "Razon social"
+        Me.lblRazonSocial.AutoSize = True
+        Me.lblRazonSocial.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblRazonSocial.Location = New System.Drawing.Point(10, 16)
+        Me.lblRazonSocial.Name = "lblRazonSocial"
+        Me.lblRazonSocial.Size = New System.Drawing.Size(86, 16)
+        Me.lblRazonSocial.TabIndex = 6
+        Me.lblRazonSocial.Text = "Razon social"
         '
-        'Label4
+        'lblSaldoCubierto
         '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(438, 40)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(22, 13)
-        Me.Label4.TabIndex = 4
-        Me.Label4.Text = "$ 0"
+        Me.lblSaldoCubierto.AutoSize = True
+        Me.lblSaldoCubierto.CausesValidation = False
+        Me.lblSaldoCubierto.Location = New System.Drawing.Point(438, 40)
+        Me.lblSaldoCubierto.Name = "lblSaldoCubierto"
+        Me.lblSaldoCubierto.Size = New System.Drawing.Size(22, 13)
+        Me.lblSaldoCubierto.TabIndex = 4
+        Me.lblSaldoCubierto.Text = "$ 0"
         '
-        'Label3
+        'lblSaldoActual
         '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(429, 19)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(22, 13)
-        Me.Label3.TabIndex = 3
-        Me.Label3.Text = "$ 0"
+        Me.lblSaldoActual.AutoSize = True
+        Me.lblSaldoActual.Location = New System.Drawing.Point(429, 19)
+        Me.lblSaldoActual.Name = "lblSaldoActual"
+        Me.lblSaldoActual.Size = New System.Drawing.Size(22, 13)
+        Me.lblSaldoActual.TabIndex = 3
+        Me.lblSaldoActual.Text = "$ 0"
         '
         'Label2
         '
@@ -240,26 +217,44 @@ Partial Class frmAgregarCheques
         Me.btnListo.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
         Me.btnListo.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.btnListo.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.btnListo.Location = New System.Drawing.Point(222, 348)
+        Me.btnListo.Location = New System.Drawing.Point(222, 291)
         Me.btnListo.Name = "btnListo"
         Me.btnListo.Size = New System.Drawing.Size(89, 23)
         Me.btnListo.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnListo.TabIndex = 2
+        Me.btnListo.TabIndex = 4
         Me.btnListo.Text = "Generar"
+        '
+        'txtImporte
+        '
+        Me.txtImporte.AccessibleName = ""
+        Me.txtImporte.Decimals = CType(2, Byte)
+        Me.txtImporte.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
+        Me.txtImporte.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtImporte.Format = TextBoxConFormatoVB.tbFormats.UnsignedFloatingPointNumber
+        Me.txtImporte.Location = New System.Drawing.Point(25, 98)
+        Me.txtImporte.MaxLength = 15
+        Me.txtImporte.Name = "txtImporte"
+        Me.txtImporte.Size = New System.Drawing.Size(121, 20)
+        Me.txtImporte.TabIndex = 10
+        Me.txtImporte.Text_1 = Nothing
+        Me.txtImporte.Text_2 = Nothing
+        Me.txtImporte.Text_3 = Nothing
+        Me.txtImporte.Text_4 = Nothing
+        Me.txtImporte.UserValues = Nothing
         '
         'frmAgregarCheques
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(533, 384)
+        Me.ClientSize = New System.Drawing.Size(533, 327)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Name = "frmAgregarCheques"
         Me.Text = "frmAgregarCheques"
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.TableLayoutPanel2.ResumeLayout(False)
         CType(Me.grdPagos, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel1.ResumeLayout(False)
-        Me.Panel1.PerformLayout()
+        Me.pControls.ResumeLayout(False)
+        Me.pControls.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)
@@ -271,17 +266,15 @@ Partial Class frmAgregarCheques
     Friend WithEvents grdPagos As DataGridView
     Friend WithEvents btnListo As DevComponents.DotNetBar.ButtonX
     Friend WithEvents Label7 As Label
-    Friend WithEvents TextBox1 As TextBox
-    Friend WithEvents ButtonX1 As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents btnAgregar As DevComponents.DotNetBar.ButtonX
     Friend WithEvents Label6 As Label
-    Friend WithEvents Label5 As Label
-    Friend WithEvents Label4 As Label
-    Friend WithEvents Label3 As Label
+    Friend WithEvents lblRazonSocial As Label
+    Friend WithEvents lblSaldoCubierto As Label
+    Friend WithEvents lblSaldoActual As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents Label1 As Label
-    Friend WithEvents ComboBoxEx1 As DevComponents.DotNetBar.Controls.ComboBoxEx
-    Friend WithEvents tipo As DataGridViewTextBoxColumn
-    Friend WithEvents importe As DataGridViewTextBoxColumn
+    Friend WithEvents cmbTipoPago As DevComponents.DotNetBar.Controls.ComboBoxEx
     Friend WithEvents TableLayoutPanel2 As TableLayoutPanel
-    Friend WithEvents Panel1 As Panel
+    Friend WithEvents pControls As Panel
+    Friend WithEvents txtImporte As TextBoxConFormatoVB.FormattedTextBoxVB
 End Class

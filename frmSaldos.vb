@@ -4,6 +4,8 @@ Imports Utiles.Util
 
 Public Class frmSaldos
 
+    Dim dtFarmacias As DataTable
+
 #Region "enums"
     Enum grdFarmaciaCols
         ID = 0
@@ -24,7 +26,7 @@ Public Class frmSaldos
         Debito = 3
         Credito = 4
         Total = 5
-        Saldo =6
+        Saldo = 6
     End Enum
 #End Region
 
@@ -65,10 +67,9 @@ Public Class frmSaldos
         Next
     End Sub
 
-    Dim dtFarmacias As DataTable
     Private Sub requestGrdData()
-        Dim connection As SqlClient.SqlConnection = Nothing
         dtFarmacias = New DataTable()
+        Dim connection As SqlClient.SqlConnection = Nothing
         Dim sql As String = "exec spSaldos_Select_All @Eliminado = 0"
         Try
             connection = SqlHelper.GetConnection(ConnStringSEI)
@@ -83,33 +84,9 @@ Public Class frmSaldos
         da.Fill(dtFarmacias)
 
         grdFarmacia.DataSource = dtFarmacias
-
-        'grdFarmacia.RowHeadersVisible = False
     End Sub
 
-    Private Sub requestGrdItemsData()
-
-    End Sub
-#End Region
-
-#Region "Eventos"
-    Private Sub frmSaldos_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-        requestGrdData()
-
-        setStyles()
-    End Sub
-
-    Private Sub grdFarmacia_SelectionChanged(sender As Object, e As EventArgs) Handles grdFarmacia.SelectionChanged
-
-        If grdFarmacia.CurrentRow IsNot Nothing Then
-            If grdFarmacia.CurrentRow.Cells(0).Value.ToString <> txtID.Text Then
-                txtID.Text = grdFarmacia.CurrentRow.Cells(0).Value
-            End If
-        End If
-    End Sub
-
-    Private Sub txtID_TextChanged(sender As Object, e As EventArgs) Handles txtID.TextChanged
+    Private Sub requestGrdItemData()
         Dim connection As SqlClient.SqlConnection = Nothing
         Dim dt As New DataTable()
         Dim sql As String = $"exec HistorialCta_SelectByIdFarmacia @IdFarmacia = {txtID.Text}"
@@ -126,7 +103,40 @@ Public Class frmSaldos
             MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End Try
+    End Sub
 
+    Friend Sub refreshData()
+        Dim codigo As String = grdFarmacia.CurrentRow.Cells(grdFarmaciaCols.Codigo).Value.ToString
+        requestGrdData()
+        For Each row As DataGridViewRow In grdFarmacia.Rows
+            If row.Cells(grdFarmaciaCols.Codigo).Value = codigo Then
+                grdFarmacia.ClearSelection()
+                row.Selected = True
+                grdFarmacia.CurrentCell = grdFarmacia.Rows(row.Index).Cells(grdFarmaciaCols.Codigo)
+                txtID.Text = row.Cells(grdFarmaciaCols.ID).Value
+            End If
+        Next
+    End Sub
+
+#End Region
+
+#Region "Eventos"
+    Private Sub frmSaldos_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        requestGrdData()
+        setStyles()
+    End Sub
+
+    Private Sub grdFarmacia_SelectionChanged(sender As Object, e As EventArgs) Handles grdFarmacia.SelectionChanged
+
+        If grdFarmacia.CurrentRow IsNot Nothing Then
+            If grdFarmacia.CurrentRow.Cells(0).Value.ToString <> txtID.Text Then
+                txtID.Text = grdFarmacia.CurrentRow.Cells(0).Value
+            End If
+        End If
+    End Sub
+
+    Private Sub txtID_TextChanged(sender As Object, e As EventArgs) Handles txtID.TextChanged
+        requestGrdItemData()
     End Sub
 
     Private Sub txtBuscar_TextChanged(sender As Object, e As EventArgs) Handles txtBuscar.TextChanged
@@ -138,8 +148,17 @@ Public Class frmSaldos
     End Sub
 
     Private Sub btnPersonalizado_Click(sender As Object, e As EventArgs) Handles btnPersonalizado.Click
-        Dim AgregarCheques As New frmAgregarCheques
-        AgregarCheques.ShowDialog()
+
+
+        Dim drv As DataRowView = grdFarmacia.CurrentRow.DataBoundItem
+        If drv IsNot Nothing Then
+            Dim dr = drv.Row
+
+            Dim AgregarCheques As New frmAgregarCheques(dr)
+            AgregarCheques.ShowDialog()
+        End If
+
+
     End Sub
 
 #End Region
