@@ -2429,7 +2429,7 @@ Public Class frmLiquidaciones
                 param_detalle.ParameterName = "@detalle"
                 param_detalle.SqlDbType = SqlDbType.VarChar
                 param_detalle.Size = 200
-                param_detalle.Value = $"LIQ. {lblObraSocial.Text} {lblPeriodo_presentacion}"
+                param_detalle.Value = $"LIQ. {lblObraSocial.Text} {lblPeriodo_presentacion.Text}"
                 param_detalle.Direction = ParameterDirection.Input
 
                 ''debito
