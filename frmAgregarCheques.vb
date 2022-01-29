@@ -48,6 +48,8 @@ Public Class frmAgregarCheques
         lblSaldoActual.Text = String.Format("{0:C}", Me.farmacia(FarmaciaCols.Saldo))
 
         cmbTipoPago.DataSource = {"Cheque", "Transferencia", "Echeq"}
+
+        CalcularTotal()
     End Sub
 
     Private Sub btnAgregar_Click(sender As Object, e As EventArgs) Handles btnAgregar.Click
@@ -56,7 +58,21 @@ Public Class frmAgregarCheques
         newRow(gridColumns.importe) = Decimal.Parse(txtImporte.Text)
         dt.Rows.Add(newRow)
 
+        CalcularTotal()
+    End Sub
 
+    Private Sub CalcularTotal()
+        Dim total As Decimal = 0
+        For Each pago As DataRow In dt.Rows
+            total += pago(gridColumns.importe)
+        Next
+
+        lblSaldoCubierto.Text = String.Format("{0:C}", total)
+        If total < Me.farmacia(FarmaciaCols.Saldo) Then
+            lblSaldoCubierto.ForeColor = Color.Red
+        Else
+            lblSaldoCubierto.ForeColor = Color.Green
+        End If
     End Sub
 
     Private Function GenerarPago() As Integer
