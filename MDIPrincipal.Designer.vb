@@ -28,6 +28,8 @@ Partial Class MDIPrincipal
         Me.ObrasSocialesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PresentacionesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.LiquidacionesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ConceptosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.FarmaciaConceptosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SaldosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MaterialesToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ActualizarPreciosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -154,8 +156,6 @@ Partial Class MDIPrincipal
         Me.ToolStripStatusLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolTip = New System.Windows.Forms.ToolTip(Me.components)
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.ConceptosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.FarmaciaConceptosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip.SuspendLayout()
         Me.ToolStrip.SuspendLayout()
         Me.StatusStrip.SuspendLayout()
@@ -174,7 +174,7 @@ Partial Class MDIPrincipal
         '
         'AuxiliaresToolStripMenuItem
         '
-        Me.AuxiliaresToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FarmaciasToolStripMenuItem, Me.ObrasSocialesToolStripMenuItem, Me.PresentacionesToolStripMenuItem, Me.LiquidacionesToolStripMenuItem, Me.ConceptosToolStripMenuItem, Me.FarmaciaConceptosToolStripMenuItem, Me.SaldosToolStripMenuItem, Me.MaterialesToolStripMenuItem1, Me.ActualizarPreciosToolStripMenuItem, Me.PromocionesToolStripMenuItem, Me.ListaDePreciosToolStripMenuItem, Me.MaquinasYHerramientasToolStripMenuItem, Me.ToolStripSeparator14, Me.ClientesToolStripMenuItem, Me.ProveedoresToolStripMenuItem, Me.ListaPreciosToolStripMenuItem, Me.ToolStripSeparator15, Me.MarcasToolStripMenuItem, Me.FamiliasToolStripMenuItem, Me.NotasToolStripMenuItem, Me.ImpuestosToolStripMenuItem, Me.CondicionesDePagoToolStripMenuItem, Me.UnidadesToolStripMenuItem1, Me.ToolStripSeparator19, Me.TablerosToolStripMenuItem, Me.ToolStripSeparator20, Me.EnsayosParaTransformadoresToolStripMenuItem, Me.ToolStripSeparator22, Me.ToolStripMenuItem1, Me.ToolStripSeparator21, Me.SalirToolStripMenuItem})
+        Me.AuxiliaresToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FarmaciasToolStripMenuItem, Me.ObrasSocialesToolStripMenuItem, Me.PresentacionesToolStripMenuItem, Me.LiquidacionesToolStripMenuItem, Me.ConceptosToolStripMenuItem, Me.SaldosToolStripMenuItem, Me.FarmaciaConceptosToolStripMenuItem, Me.MaterialesToolStripMenuItem1, Me.ActualizarPreciosToolStripMenuItem, Me.PromocionesToolStripMenuItem, Me.ListaDePreciosToolStripMenuItem, Me.MaquinasYHerramientasToolStripMenuItem, Me.ToolStripSeparator14, Me.ClientesToolStripMenuItem, Me.ProveedoresToolStripMenuItem, Me.ListaPreciosToolStripMenuItem, Me.ToolStripSeparator15, Me.MarcasToolStripMenuItem, Me.FamiliasToolStripMenuItem, Me.NotasToolStripMenuItem, Me.ImpuestosToolStripMenuItem, Me.CondicionesDePagoToolStripMenuItem, Me.UnidadesToolStripMenuItem1, Me.ToolStripSeparator19, Me.TablerosToolStripMenuItem, Me.ToolStripSeparator20, Me.EnsayosParaTransformadoresToolStripMenuItem, Me.ToolStripSeparator22, Me.ToolStripMenuItem1, Me.ToolStripSeparator21, Me.SalirToolStripMenuItem})
         Me.AuxiliaresToolStripMenuItem.Name = "AuxiliaresToolStripMenuItem"
         Me.AuxiliaresToolStripMenuItem.Size = New System.Drawing.Size(59, 24)
         Me.AuxiliaresToolStripMenuItem.Text = "Inicio"
@@ -207,8 +207,24 @@ Partial Class MDIPrincipal
         Me.LiquidacionesToolStripMenuItem.Size = New System.Drawing.Size(302, 26)
         Me.LiquidacionesToolStripMenuItem.Text = "Liquidaciones..."
         '
+        'ConceptosToolStripMenuItem
+        '
+        Me.ConceptosToolStripMenuItem.Image = CType(resources.GetObject("ConceptosToolStripMenuItem.Image"), System.Drawing.Image)
+        Me.ConceptosToolStripMenuItem.Name = "ConceptosToolStripMenuItem"
+        Me.ConceptosToolStripMenuItem.Size = New System.Drawing.Size(302, 26)
+        Me.ConceptosToolStripMenuItem.Text = "Conceptos"
+        '
+        'FarmaciaConceptosToolStripMenuItem
+        '
+        Me.FarmaciaConceptosToolStripMenuItem.Enabled = False
+        Me.FarmaciaConceptosToolStripMenuItem.Name = "FarmaciaConceptosToolStripMenuItem"
+        Me.FarmaciaConceptosToolStripMenuItem.Size = New System.Drawing.Size(302, 26)
+        Me.FarmaciaConceptosToolStripMenuItem.Text = "Farmacia_Conceptos"
+        Me.FarmaciaConceptosToolStripMenuItem.Visible = False
+        '
         'SaldosToolStripMenuItem
         '
+        Me.SaldosToolStripMenuItem.Image = CType(resources.GetObject("SaldosToolStripMenuItem.Image"), System.Drawing.Image)
         Me.SaldosToolStripMenuItem.Name = "SaldosToolStripMenuItem"
         Me.SaldosToolStripMenuItem.Size = New System.Drawing.Size(302, 26)
         Me.SaldosToolStripMenuItem.Text = "Saldos..."
@@ -401,9 +417,11 @@ Partial Class MDIPrincipal
         'MovimientosInventarioToolStripMenuItem
         '
         Me.MovimientosInventarioToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OrdenDeCompraToolStripMenuItem, Me.RecepcionesDeMaterialToolStripMenuItem, Me.DepósitoToolStripMenuItem, Me.ToolStripSeparator7, Me.RegistrarConsumosToolStripMenuItem, Me.ToolStripSeparator8, Me.AjustesDeInventarioToolStripMenuItem, Me.VentasToolStripMenuItem, Me.MovSalonToolStripMenuItem, Me.ToolStripSeparator9, Me.DevolucionesAIcysToolStripMenuItem, Me.DevoluciónAProveedoresToolStripMenuItem, Me.EnvíosDePedidosToolStripMenuItem, Me.ReportesDepositoToolStripMenuItem, Me.VentasDepósitoToolStripMenuItem, Me.VentasPorClientesToolStripMenuItem, Me.TransferenciasToolStripMenuItem, Me.PruebaMatiToolStripMenuItem})
+        Me.MovimientosInventarioToolStripMenuItem.Enabled = False
         Me.MovimientosInventarioToolStripMenuItem.Name = "MovimientosInventarioToolStripMenuItem"
         Me.MovimientosInventarioToolStripMenuItem.Size = New System.Drawing.Size(170, 24)
         Me.MovimientosInventarioToolStripMenuItem.Text = "Movimientos de Stock"
+        Me.MovimientosInventarioToolStripMenuItem.Visible = False
         '
         'OrdenDeCompraToolStripMenuItem
         '
@@ -1090,18 +1108,6 @@ Partial Class MDIPrincipal
         '
         Me.Timer1.Interval = 1200000
         '
-        'ConceptosToolStripMenuItem
-        '
-        Me.ConceptosToolStripMenuItem.Name = "ConceptosToolStripMenuItem"
-        Me.ConceptosToolStripMenuItem.Size = New System.Drawing.Size(302, 26)
-        Me.ConceptosToolStripMenuItem.Text = "Conceptos"
-        '
-        'FarmaciaConceptosToolStripMenuItem
-        '
-        Me.FarmaciaConceptosToolStripMenuItem.Name = "FarmaciaConceptosToolStripMenuItem"
-        Me.FarmaciaConceptosToolStripMenuItem.Size = New System.Drawing.Size(302, 26)
-        Me.FarmaciaConceptosToolStripMenuItem.Text = "Farmacia_Conceptos"
-        '
         'MDIPrincipal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -1115,7 +1121,7 @@ Partial Class MDIPrincipal
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.IsMdiContainer = True
         Me.MainMenuStrip = Me.MenuStrip
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "MDIPrincipal"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "CENPROFAR - Menú Principal"

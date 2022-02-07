@@ -4272,8 +4272,10 @@ Pedidos:
     End Sub
 
     Private Sub FarmaciasToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FarmaciasToolStripMenuItem.Click
-        frmFarmacias.MdiParent = Me
-        frmFarmacias.Show()
+        'frmFarmacias.MdiParent = Me
+        'frmFarmacias.Show()
+        frmFarmacias_Conceptos.MdiParent = Me
+        frmFarmacias_Conceptos.Show()
     End Sub
 
     Private Sub ObrasSocialesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ObrasSocialesToolStripMenuItem.Click
