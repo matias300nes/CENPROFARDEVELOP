@@ -24,13 +24,18 @@ Partial Class MDIPrincipal
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MDIPrincipal))
         Me.MenuStrip = New System.Windows.Forms.MenuStrip()
         Me.AuxiliaresToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator23 = New System.Windows.Forms.ToolStripSeparator()
         Me.FarmaciasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ConceptosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ObrasSocialesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MandatariasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PeriodoPresentacionesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator()
         Me.PresentacionesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.LiquidacionesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ConceptosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.FarmaciaConceptosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SaldosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator24 = New System.Windows.Forms.ToolStripSeparator()
+        Me.FarmaciaConceptosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MaterialesToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ActualizarPreciosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PromocionesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -174,10 +179,15 @@ Partial Class MDIPrincipal
         '
         'AuxiliaresToolStripMenuItem
         '
-        Me.AuxiliaresToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FarmaciasToolStripMenuItem, Me.ObrasSocialesToolStripMenuItem, Me.PresentacionesToolStripMenuItem, Me.LiquidacionesToolStripMenuItem, Me.ConceptosToolStripMenuItem, Me.SaldosToolStripMenuItem, Me.FarmaciaConceptosToolStripMenuItem, Me.MaterialesToolStripMenuItem1, Me.ActualizarPreciosToolStripMenuItem, Me.PromocionesToolStripMenuItem, Me.ListaDePreciosToolStripMenuItem, Me.MaquinasYHerramientasToolStripMenuItem, Me.ToolStripSeparator14, Me.ClientesToolStripMenuItem, Me.ProveedoresToolStripMenuItem, Me.ListaPreciosToolStripMenuItem, Me.ToolStripSeparator15, Me.MarcasToolStripMenuItem, Me.FamiliasToolStripMenuItem, Me.NotasToolStripMenuItem, Me.ImpuestosToolStripMenuItem, Me.CondicionesDePagoToolStripMenuItem, Me.UnidadesToolStripMenuItem1, Me.ToolStripSeparator19, Me.TablerosToolStripMenuItem, Me.ToolStripSeparator20, Me.EnsayosParaTransformadoresToolStripMenuItem, Me.ToolStripSeparator22, Me.ToolStripMenuItem1, Me.ToolStripSeparator21, Me.SalirToolStripMenuItem})
+        Me.AuxiliaresToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripSeparator23, Me.FarmaciasToolStripMenuItem, Me.ConceptosToolStripMenuItem, Me.ObrasSocialesToolStripMenuItem, Me.MandatariasToolStripMenuItem, Me.PeriodoPresentacionesToolStripMenuItem, Me.ToolStripSeparator5, Me.PresentacionesToolStripMenuItem, Me.LiquidacionesToolStripMenuItem, Me.SaldosToolStripMenuItem, Me.ToolStripSeparator24, Me.FarmaciaConceptosToolStripMenuItem, Me.MaterialesToolStripMenuItem1, Me.ActualizarPreciosToolStripMenuItem, Me.PromocionesToolStripMenuItem, Me.ListaDePreciosToolStripMenuItem, Me.MaquinasYHerramientasToolStripMenuItem, Me.ToolStripSeparator14, Me.ClientesToolStripMenuItem, Me.ProveedoresToolStripMenuItem, Me.ListaPreciosToolStripMenuItem, Me.ToolStripSeparator15, Me.MarcasToolStripMenuItem, Me.FamiliasToolStripMenuItem, Me.NotasToolStripMenuItem, Me.ImpuestosToolStripMenuItem, Me.CondicionesDePagoToolStripMenuItem, Me.UnidadesToolStripMenuItem1, Me.ToolStripSeparator19, Me.TablerosToolStripMenuItem, Me.ToolStripSeparator20, Me.EnsayosParaTransformadoresToolStripMenuItem, Me.ToolStripSeparator22, Me.ToolStripMenuItem1, Me.ToolStripSeparator21, Me.SalirToolStripMenuItem})
         Me.AuxiliaresToolStripMenuItem.Name = "AuxiliaresToolStripMenuItem"
         Me.AuxiliaresToolStripMenuItem.Size = New System.Drawing.Size(59, 24)
         Me.AuxiliaresToolStripMenuItem.Text = "Inicio"
+        '
+        'ToolStripSeparator23
+        '
+        Me.ToolStripSeparator23.Name = "ToolStripSeparator23"
+        Me.ToolStripSeparator23.Size = New System.Drawing.Size(299, 6)
         '
         'FarmaciasToolStripMenuItem
         '
@@ -186,12 +196,36 @@ Partial Class MDIPrincipal
         Me.FarmaciasToolStripMenuItem.Size = New System.Drawing.Size(302, 26)
         Me.FarmaciasToolStripMenuItem.Text = "Farmacias..."
         '
+        'ConceptosToolStripMenuItem
+        '
+        Me.ConceptosToolStripMenuItem.Image = CType(resources.GetObject("ConceptosToolStripMenuItem.Image"), System.Drawing.Image)
+        Me.ConceptosToolStripMenuItem.Name = "ConceptosToolStripMenuItem"
+        Me.ConceptosToolStripMenuItem.Size = New System.Drawing.Size(302, 26)
+        Me.ConceptosToolStripMenuItem.Text = "Conceptos"
+        '
         'ObrasSocialesToolStripMenuItem
         '
         Me.ObrasSocialesToolStripMenuItem.Image = Global.CENPROFAR.My.Resources.Resources.obraSocial
         Me.ObrasSocialesToolStripMenuItem.Name = "ObrasSocialesToolStripMenuItem"
         Me.ObrasSocialesToolStripMenuItem.Size = New System.Drawing.Size(302, 26)
         Me.ObrasSocialesToolStripMenuItem.Text = "Obras Sociales..."
+        '
+        'MandatariasToolStripMenuItem
+        '
+        Me.MandatariasToolStripMenuItem.Name = "MandatariasToolStripMenuItem"
+        Me.MandatariasToolStripMenuItem.Size = New System.Drawing.Size(302, 26)
+        Me.MandatariasToolStripMenuItem.Text = "Mandatarias"
+        '
+        'PeriodoPresentacionesToolStripMenuItem
+        '
+        Me.PeriodoPresentacionesToolStripMenuItem.Name = "PeriodoPresentacionesToolStripMenuItem"
+        Me.PeriodoPresentacionesToolStripMenuItem.Size = New System.Drawing.Size(302, 26)
+        Me.PeriodoPresentacionesToolStripMenuItem.Text = "Período Presentaciones"
+        '
+        'ToolStripSeparator5
+        '
+        Me.ToolStripSeparator5.Name = "ToolStripSeparator5"
+        Me.ToolStripSeparator5.Size = New System.Drawing.Size(299, 6)
         '
         'PresentacionesToolStripMenuItem
         '
@@ -207,12 +241,17 @@ Partial Class MDIPrincipal
         Me.LiquidacionesToolStripMenuItem.Size = New System.Drawing.Size(302, 26)
         Me.LiquidacionesToolStripMenuItem.Text = "Liquidaciones..."
         '
-        'ConceptosToolStripMenuItem
+        'SaldosToolStripMenuItem
         '
-        Me.ConceptosToolStripMenuItem.Image = CType(resources.GetObject("ConceptosToolStripMenuItem.Image"), System.Drawing.Image)
-        Me.ConceptosToolStripMenuItem.Name = "ConceptosToolStripMenuItem"
-        Me.ConceptosToolStripMenuItem.Size = New System.Drawing.Size(302, 26)
-        Me.ConceptosToolStripMenuItem.Text = "Conceptos"
+        Me.SaldosToolStripMenuItem.Image = CType(resources.GetObject("SaldosToolStripMenuItem.Image"), System.Drawing.Image)
+        Me.SaldosToolStripMenuItem.Name = "SaldosToolStripMenuItem"
+        Me.SaldosToolStripMenuItem.Size = New System.Drawing.Size(302, 26)
+        Me.SaldosToolStripMenuItem.Text = "Saldos..."
+        '
+        'ToolStripSeparator24
+        '
+        Me.ToolStripSeparator24.Name = "ToolStripSeparator24"
+        Me.ToolStripSeparator24.Size = New System.Drawing.Size(299, 6)
         '
         'FarmaciaConceptosToolStripMenuItem
         '
@@ -221,13 +260,6 @@ Partial Class MDIPrincipal
         Me.FarmaciaConceptosToolStripMenuItem.Size = New System.Drawing.Size(302, 26)
         Me.FarmaciaConceptosToolStripMenuItem.Text = "Farmacia_Conceptos"
         Me.FarmaciaConceptosToolStripMenuItem.Visible = False
-        '
-        'SaldosToolStripMenuItem
-        '
-        Me.SaldosToolStripMenuItem.Image = CType(resources.GetObject("SaldosToolStripMenuItem.Image"), System.Drawing.Image)
-        Me.SaldosToolStripMenuItem.Name = "SaldosToolStripMenuItem"
-        Me.SaldosToolStripMenuItem.Size = New System.Drawing.Size(302, 26)
-        Me.SaldosToolStripMenuItem.Text = "Saldos..."
         '
         'MaterialesToolStripMenuItem1
         '
@@ -1270,4 +1302,9 @@ Partial Class MDIPrincipal
     Friend WithEvents SaldosToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ConceptosToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents FarmaciaConceptosToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator23 As ToolStripSeparator
+    Friend WithEvents MandatariasToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents PeriodoPresentacionesToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator5 As ToolStripSeparator
+    Friend WithEvents ToolStripSeparator24 As ToolStripSeparator
 End Class

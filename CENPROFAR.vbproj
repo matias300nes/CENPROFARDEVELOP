@@ -138,6 +138,18 @@
     <Compile Include="frmAgregarCheques.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmPeriodoPresentaciones.Designer.vb">
+      <DependentUpon>frmPeriodoPresentaciones.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmPeriodoPresentaciones.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMandatarias.Designer.vb">
+      <DependentUpon>frmMandatarias.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmMandatarias.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmConceptos.Designer.vb">
       <DependentUpon>frmConceptos.vb</DependentUpon>
     </Compile>
@@ -840,6 +852,14 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmAgregarCheques.resx">
       <DependentUpon>frmAgregarCheques.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPeriodoPresentaciones.resx">
+      <DependentUpon>frmPeriodoPresentaciones.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMandatarias.resx">
+      <DependentUpon>frmMandatarias.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmConceptos.resx">
       <DependentUpon>frmConceptos.vb</DependentUpon>

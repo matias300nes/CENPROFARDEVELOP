@@ -1,7 +1,6 @@
 
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class frmConceptos
-
+Partial Class frmMandatarias
     Inherits frmBase
 
     <System.Diagnostics.DebuggerNonUserCode()>
@@ -21,22 +20,22 @@ Partial Class frmConceptos
         Me.txtID = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.GroupPanel1 = New DevComponents.DotNetBar.Controls.GroupPanel()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.txtTelefono = New System.Windows.Forms.TextBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.txtCelular = New System.Windows.Forms.TextBox()
+        Me.txtCodigoPostal = New System.Windows.Forms.TextBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.Label12 = New System.Windows.Forms.Label()
-        Me.Label10 = New System.Windows.Forms.Label()
-        Me.Label9 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.txtCODIGO = New TextBoxConFormatoVB.FormattedTextBoxVB()
-        Me.cmbConceptoPago = New System.Windows.Forms.ComboBox()
-        Me.cmbPerteneceA = New System.Windows.Forms.ComboBox()
+        Me.cmbProvincia = New System.Windows.Forms.ComboBox()
         Me.txtNombre = New System.Windows.Forms.TextBox()
-        Me.cmbTipoValor = New System.Windows.Forms.ComboBox()
-        Me.txtValor = New System.Windows.Forms.TextBox()
-        Me.cmbCamposAplicables = New System.Windows.Forms.ComboBox()
-        Me.txtDescripcion = New System.Windows.Forms.TextBox()
+        Me.cmbLocalidad = New System.Windows.Forms.ComboBox()
+        Me.txtDireccion = New System.Windows.Forms.TextBox()
         Me.GroupPanel1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -46,7 +45,7 @@ Partial Class frmConceptos
         Me.chkEliminados.BackColor = System.Drawing.Color.Transparent
         Me.chkEliminados.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.chkEliminados.ForeColor = System.Drawing.Color.Red
-        Me.chkEliminados.Location = New System.Drawing.Point(427, 89)
+        Me.chkEliminados.Location = New System.Drawing.Point(1173, 38)
         Me.chkEliminados.Margin = New System.Windows.Forms.Padding(4)
         Me.chkEliminados.Name = "chkEliminados"
         Me.chkEliminados.Size = New System.Drawing.Size(138, 21)
@@ -89,6 +88,11 @@ Partial Class frmConceptos
         '
         Me.GroupPanel1.CanvasColor = System.Drawing.SystemColors.Control
         Me.GroupPanel1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007
+        Me.GroupPanel1.Controls.Add(Me.Label3)
+        Me.GroupPanel1.Controls.Add(Me.txtTelefono)
+        Me.GroupPanel1.Controls.Add(Me.Label2)
+        Me.GroupPanel1.Controls.Add(Me.txtCelular)
+        Me.GroupPanel1.Controls.Add(Me.txtCodigoPostal)
         Me.GroupPanel1.Controls.Add(Me.Label4)
         Me.GroupPanel1.Controls.Add(Me.Label15)
         Me.GroupPanel1.Controls.Add(Me.Label14)
@@ -97,21 +101,16 @@ Partial Class frmConceptos
         Me.GroupPanel1.Controls.Add(Me.Label12)
         Me.GroupPanel1.Controls.Add(Me.txtID)
         Me.GroupPanel1.Controls.Add(Me.Label1)
-        Me.GroupPanel1.Controls.Add(Me.Label10)
-        Me.GroupPanel1.Controls.Add(Me.Label9)
         Me.GroupPanel1.Controls.Add(Me.Label11)
         Me.GroupPanel1.Controls.Add(Me.txtCODIGO)
-        Me.GroupPanel1.Controls.Add(Me.cmbConceptoPago)
-        Me.GroupPanel1.Controls.Add(Me.cmbPerteneceA)
+        Me.GroupPanel1.Controls.Add(Me.cmbProvincia)
         Me.GroupPanel1.Controls.Add(Me.txtNombre)
-        Me.GroupPanel1.Controls.Add(Me.cmbTipoValor)
-        Me.GroupPanel1.Controls.Add(Me.txtValor)
-        Me.GroupPanel1.Controls.Add(Me.cmbCamposAplicables)
-        Me.GroupPanel1.Controls.Add(Me.txtDescripcion)
+        Me.GroupPanel1.Controls.Add(Me.cmbLocalidad)
+        Me.GroupPanel1.Controls.Add(Me.txtDireccion)
         Me.GroupPanel1.DisabledBackColor = System.Drawing.Color.Empty
-        Me.GroupPanel1.Location = New System.Drawing.Point(12, 31)
+        Me.GroupPanel1.Location = New System.Drawing.Point(0, 31)
         Me.GroupPanel1.Name = "GroupPanel1"
-        Me.GroupPanel1.Size = New System.Drawing.Size(1411, 179)
+        Me.GroupPanel1.Size = New System.Drawing.Size(1423, 134)
         '
         '
         '
@@ -142,6 +141,51 @@ Partial Class frmConceptos
         Me.GroupPanel1.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.GroupPanel1.TabIndex = 258
         '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.BackColor = System.Drawing.Color.Transparent
+        Me.Label3.ForeColor = System.Drawing.Color.Blue
+        Me.Label3.Location = New System.Drawing.Point(4, 65)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(64, 17)
+        Me.Label3.TabIndex = 281
+        Me.Label3.Text = "Teléfono"
+        '
+        'txtTelefono
+        '
+        Me.txtTelefono.Location = New System.Drawing.Point(7, 86)
+        Me.txtTelefono.Name = "txtTelefono"
+        Me.txtTelefono.Size = New System.Drawing.Size(144, 22)
+        Me.txtTelefono.TabIndex = 280
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.BackColor = System.Drawing.Color.Transparent
+        Me.Label2.ForeColor = System.Drawing.Color.Blue
+        Me.Label2.Location = New System.Drawing.Point(163, 65)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(52, 17)
+        Me.Label2.TabIndex = 279
+        Me.Label2.Text = "Celular"
+        '
+        'txtCelular
+        '
+        Me.txtCelular.Location = New System.Drawing.Point(166, 86)
+        Me.txtCelular.Name = "txtCelular"
+        Me.txtCelular.Size = New System.Drawing.Size(144, 22)
+        Me.txtCelular.TabIndex = 278
+        '
+        'txtCodigoPostal
+        '
+        Me.txtCodigoPostal.Location = New System.Drawing.Point(665, 37)
+        Me.txtCodigoPostal.Name = "txtCodigoPostal"
+        Me.txtCodigoPostal.Size = New System.Drawing.Size(122, 22)
+        Me.txtCodigoPostal.TabIndex = 277
+        '
         'Label4
         '
         Me.Label4.AutoSize = True
@@ -162,21 +206,21 @@ Partial Class frmConceptos
         Me.Label15.Location = New System.Drawing.Point(346, 15)
         Me.Label15.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(82, 17)
+        Me.Label15.Size = New System.Drawing.Size(67, 17)
         Me.Label15.TabIndex = 275
-        Me.Label15.Text = "Descripción"
+        Me.Label15.Text = "Dirección"
         '
         'Label14
         '
         Me.Label14.AutoSize = True
         Me.Label14.BackColor = System.Drawing.Color.Transparent
         Me.Label14.ForeColor = System.Drawing.Color.Blue
-        Me.Label14.Location = New System.Drawing.Point(602, 15)
+        Me.Label14.Location = New System.Drawing.Point(662, 19)
         Me.Label14.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(124, 17)
+        Me.Label14.Size = New System.Drawing.Size(80, 17)
         Me.Label14.TabIndex = 274
-        Me.Label14.Text = "Concepto de pago"
+        Me.Label14.Text = "Cód. Postal"
         '
         'Label13
         '
@@ -186,45 +230,21 @@ Partial Class frmConceptos
         Me.Label13.Location = New System.Drawing.Point(790, 15)
         Me.Label13.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(89, 17)
+        Me.Label13.Size = New System.Drawing.Size(66, 17)
         Me.Label13.TabIndex = 273
-        Me.Label13.Text = "Pertenece a:"
+        Me.Label13.Text = "Provincia"
         '
         'Label12
         '
         Me.Label12.AutoSize = True
         Me.Label12.BackColor = System.Drawing.Color.Transparent
         Me.Label12.ForeColor = System.Drawing.Color.Blue
-        Me.Label12.Location = New System.Drawing.Point(1004, 15)
+        Me.Label12.Location = New System.Drawing.Point(1004, 17)
         Me.Label12.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(75, 17)
+        Me.Label12.Size = New System.Drawing.Size(69, 17)
         Me.Label12.TabIndex = 272
-        Me.Label12.Text = "Tipo valor:"
-        '
-        'Label10
-        '
-        Me.Label10.AutoSize = True
-        Me.Label10.BackColor = System.Drawing.Color.Transparent
-        Me.Label10.ForeColor = System.Drawing.Color.Blue
-        Me.Label10.Location = New System.Drawing.Point(4, 70)
-        Me.Label10.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(41, 17)
-        Me.Label10.TabIndex = 271
-        Me.Label10.Text = "Valor"
-        '
-        'Label9
-        '
-        Me.Label9.AutoSize = True
-        Me.Label9.BackColor = System.Drawing.Color.Transparent
-        Me.Label9.ForeColor = System.Drawing.Color.Blue
-        Me.Label9.Location = New System.Drawing.Point(152, 68)
-        Me.Label9.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(130, 17)
-        Me.Label9.TabIndex = 270
-        Me.Label9.Text = "Campos aplicables:"
+        Me.Label12.Text = "Localidad"
         '
         'Label11
         '
@@ -258,21 +278,13 @@ Partial Class frmConceptos
         Me.txtCODIGO.Text_4 = Nothing
         Me.txtCODIGO.UserValues = Nothing
         '
-        'cmbConceptoPago
+        'cmbProvincia
         '
-        Me.cmbConceptoPago.FormattingEnabled = True
-        Me.cmbConceptoPago.Location = New System.Drawing.Point(605, 36)
-        Me.cmbConceptoPago.Name = "cmbConceptoPago"
-        Me.cmbConceptoPago.Size = New System.Drawing.Size(179, 24)
-        Me.cmbConceptoPago.TabIndex = 3
-        '
-        'cmbPerteneceA
-        '
-        Me.cmbPerteneceA.FormattingEnabled = True
-        Me.cmbPerteneceA.Location = New System.Drawing.Point(793, 35)
-        Me.cmbPerteneceA.Name = "cmbPerteneceA"
-        Me.cmbPerteneceA.Size = New System.Drawing.Size(204, 24)
-        Me.cmbPerteneceA.TabIndex = 4
+        Me.cmbProvincia.FormattingEnabled = True
+        Me.cmbProvincia.Location = New System.Drawing.Point(793, 35)
+        Me.cmbProvincia.Name = "cmbProvincia"
+        Me.cmbProvincia.Size = New System.Drawing.Size(204, 24)
+        Me.cmbProvincia.TabIndex = 4
         '
         'txtNombre
         '
@@ -281,44 +293,29 @@ Partial Class frmConceptos
         Me.txtNombre.Size = New System.Drawing.Size(144, 22)
         Me.txtNombre.TabIndex = 1
         '
-        'cmbTipoValor
+        'cmbLocalidad
         '
-        Me.cmbTipoValor.FormattingEnabled = True
-        Me.cmbTipoValor.Location = New System.Drawing.Point(1007, 33)
-        Me.cmbTipoValor.Name = "cmbTipoValor"
-        Me.cmbTipoValor.Size = New System.Drawing.Size(144, 24)
-        Me.cmbTipoValor.TabIndex = 5
+        Me.cmbLocalidad.FormattingEnabled = True
+        Me.cmbLocalidad.Location = New System.Drawing.Point(1007, 35)
+        Me.cmbLocalidad.Name = "cmbLocalidad"
+        Me.cmbLocalidad.Size = New System.Drawing.Size(144, 24)
+        Me.cmbLocalidad.TabIndex = 5
         '
-        'txtValor
+        'txtDireccion
         '
-        Me.txtValor.Location = New System.Drawing.Point(7, 88)
-        Me.txtValor.Name = "txtValor"
-        Me.txtValor.Size = New System.Drawing.Size(142, 22)
-        Me.txtValor.TabIndex = 6
+        Me.txtDireccion.Location = New System.Drawing.Point(349, 36)
+        Me.txtDireccion.Name = "txtDireccion"
+        Me.txtDireccion.Size = New System.Drawing.Size(306, 22)
+        Me.txtDireccion.TabIndex = 2
         '
-        'cmbCamposAplicables
-        '
-        Me.cmbCamposAplicables.FormattingEnabled = True
-        Me.cmbCamposAplicables.Location = New System.Drawing.Point(155, 86)
-        Me.cmbCamposAplicables.Name = "cmbCamposAplicables"
-        Me.cmbCamposAplicables.Size = New System.Drawing.Size(229, 24)
-        Me.cmbCamposAplicables.TabIndex = 7
-        '
-        'txtDescripcion
-        '
-        Me.txtDescripcion.Location = New System.Drawing.Point(349, 36)
-        Me.txtDescripcion.Name = "txtDescripcion"
-        Me.txtDescripcion.Size = New System.Drawing.Size(250, 22)
-        Me.txtDescripcion.TabIndex = 2
-        '
-        'frmConceptos
+        'frmMandatarias
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1344, 620)
+        Me.ClientSize = New System.Drawing.Size(1344, 683)
         Me.Controls.Add(Me.GroupPanel1)
         Me.Margin = New System.Windows.Forms.Padding(5)
-        Me.Name = "frmConceptos"
+        Me.Name = "frmMandatarias"
         Me.Text = "Almacenes"
         Me.Controls.SetChildIndex(Me.GroupPanel1, 0)
         Me.GroupPanel1.ResumeLayout(False)
@@ -338,16 +335,16 @@ Partial Class frmConceptos
     Friend WithEvents Label14 As Label
     Friend WithEvents Label13 As Label
     Friend WithEvents Label12 As Label
-    Friend WithEvents Label10 As Label
-    Friend WithEvents Label9 As Label
     Friend WithEvents Label11 As Label
-    Friend WithEvents cmbConceptoPago As ComboBox
-    Friend WithEvents cmbPerteneceA As ComboBox
+    Friend WithEvents cmbProvincia As ComboBox
     Friend WithEvents txtNombre As TextBox
-    Friend WithEvents cmbTipoValor As ComboBox
-    Friend WithEvents txtValor As TextBox
-    Friend WithEvents cmbCamposAplicables As ComboBox
-    Friend WithEvents txtDescripcion As TextBox
+    Friend WithEvents cmbLocalidad As ComboBox
+    Friend WithEvents txtDireccion As TextBox
     Friend WithEvents Label4 As Label
     Friend WithEvents txtCODIGO As TextBoxConFormatoVB.FormattedTextBoxVB
+    Friend WithEvents txtCodigoPostal As TextBox
+    Friend WithEvents Label3 As Label
+    Friend WithEvents txtTelefono As TextBox
+    Friend WithEvents Label2 As Label
+    Friend WithEvents txtCelular As TextBox
 End Class

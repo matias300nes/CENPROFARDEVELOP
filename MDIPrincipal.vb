@@ -4307,4 +4307,14 @@ Pedidos:
         frmFarmacias_Conceptos.MdiParent = Me
         frmFarmacias_Conceptos.Show()
     End Sub
+
+    Private Sub MandatariasToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MandatariasToolStripMenuItem.Click
+        frmMandatarias.MdiParent = Me
+        frmMandatarias.Show()
+    End Sub
+
+    Private Sub PeriodoPresentacionesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PeriodoPresentacionesToolStripMenuItem.Click
+        frmPeriodoPresentaciones.MdiParent = Me
+        frmPeriodoPresentaciones.Show()
+    End Sub
 End Class

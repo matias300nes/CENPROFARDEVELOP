@@ -6,7 +6,7 @@ Imports System.Data.SqlClient
 Imports ReportesNet
 
 
-Public Class frmConceptos
+Public Class frmPeriodoPresentaciones
 
     Dim bolpoliticas As Boolean
 

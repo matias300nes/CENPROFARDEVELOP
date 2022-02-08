@@ -1,6 +1,6 @@
 
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class frmConceptos
+Partial Class frmPeriodoPresentaciones
 
     Inherits frmBase
 
