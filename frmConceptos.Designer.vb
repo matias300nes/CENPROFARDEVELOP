@@ -17,6 +17,7 @@ Partial Class frmConceptos
 
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmConceptos))
         Me.chkEliminados = New System.Windows.Forms.CheckBox()
         Me.txtID = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -317,9 +318,10 @@ Partial Class frmConceptos
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1344, 620)
         Me.Controls.Add(Me.GroupPanel1)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(5)
         Me.Name = "frmConceptos"
-        Me.Text = "Almacenes"
+        Me.Text = "Conceptos"
         Me.Controls.SetChildIndex(Me.GroupPanel1, 0)
         Me.GroupPanel1.ResumeLayout(False)
         Me.GroupPanel1.PerformLayout()

@@ -16,6 +16,7 @@ Partial Class frmFarmacias
 
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmFarmacias))
         Me.txtID = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.txtCODIGO = New TextBoxConFormatoVB.FormattedTextBoxVB()
@@ -23,6 +24,15 @@ Partial Class frmFarmacias
         Me.txtFarmacia = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.GroupBox1 = New DevComponents.DotNetBar.Controls.GroupPanel()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.txtCodigoPostal = New TextBoxConFormatoVB.FormattedTextBoxVB()
+        Me.cmbLocalidad = New DevComponents.DotNetBar.Controls.ComboBoxEx()
+        Me.cmbProvincia = New DevComponents.DotNetBar.Controls.ComboBoxEx()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.txtDomicilio = New System.Windows.Forms.TextBox()
         Me.chkEliminados = New System.Windows.Forms.CheckBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.txtTipoContribuyente = New TextBoxConFormatoVB.FormattedTextBoxVB()
@@ -41,18 +51,9 @@ Partial Class frmFarmacias
         Me.Label4 = New System.Windows.Forms.Label()
         Me.txtCodFACAF = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.txtCodPAMI = New TextBoxConFormatoVB.FormattedTextBoxVB()
-        Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.txtCodigoPostal = New TextBoxConFormatoVB.FormattedTextBoxVB()
-        Me.cmbLocalidad = New DevComponents.DotNetBar.Controls.ComboBoxEx()
-        Me.cmbProvincia = New DevComponents.DotNetBar.Controls.ComboBoxEx()
-        Me.Label9 = New System.Windows.Forms.Label()
-        Me.Label7 = New System.Windows.Forms.Label()
-        Me.Label8 = New System.Windows.Forms.Label()
-        Me.Label6 = New System.Windows.Forms.Label()
-        Me.txtDomicilio = New System.Windows.Forms.TextBox()
         Me.GroupBox1.SuspendLayout()
-        Me.Panel3.SuspendLayout()
         Me.Panel1.SuspendLayout()
+        Me.Panel3.SuspendLayout()
         Me.SuspendLayout()
         '
         'txtID
@@ -62,10 +63,11 @@ Partial Class frmFarmacias
         Me.txtID.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtID.Enabled = False
         Me.txtID.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
-        Me.txtID.Location = New System.Drawing.Point(414, -2)
+        Me.txtID.Location = New System.Drawing.Point(552, -2)
+        Me.txtID.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtID.MaxLength = 8
         Me.txtID.Name = "txtID"
-        Me.txtID.Size = New System.Drawing.Size(69, 20)
+        Me.txtID.Size = New System.Drawing.Size(91, 22)
         Me.txtID.TabIndex = 50
         Me.txtID.Text_1 = Nothing
         Me.txtID.Text_2 = Nothing
@@ -77,9 +79,10 @@ Partial Class frmFarmacias
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(418, 23)
+        Me.Label1.Location = New System.Drawing.Point(557, 28)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(16, 13)
+        Me.Label1.Size = New System.Drawing.Size(19, 17)
         Me.Label1.TabIndex = 50
         Me.Label1.Text = "Id"
         Me.Label1.Visible = False
@@ -91,11 +94,12 @@ Partial Class frmFarmacias
         Me.txtCODIGO.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtCODIGO.Enabled = False
         Me.txtCODIGO.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.txtCODIGO.Location = New System.Drawing.Point(5, 27)
+        Me.txtCODIGO.Location = New System.Drawing.Point(7, 33)
+        Me.txtCODIGO.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtCODIGO.MaxLength = 25
         Me.txtCODIGO.Name = "txtCODIGO"
         Me.txtCODIGO.ReadOnly = True
-        Me.txtCODIGO.Size = New System.Drawing.Size(78, 20)
+        Me.txtCODIGO.Size = New System.Drawing.Size(103, 22)
         Me.txtCODIGO.TabIndex = 0
         Me.txtCODIGO.Text_1 = Nothing
         Me.txtCODIGO.Text_2 = Nothing
@@ -108,9 +112,10 @@ Partial Class frmFarmacias
         Me.Label2.AutoSize = True
         Me.Label2.BackColor = System.Drawing.Color.Transparent
         Me.Label2.ForeColor = System.Drawing.Color.Blue
-        Me.Label2.Location = New System.Drawing.Point(3, 10)
+        Me.Label2.Location = New System.Drawing.Point(4, 12)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(40, 13)
+        Me.Label2.Size = New System.Drawing.Size(52, 17)
         Me.Label2.TabIndex = 51
         Me.Label2.Text = "Código"
         '
@@ -120,10 +125,11 @@ Partial Class frmFarmacias
         Me.txtFarmacia.Decimals = CType(2, Byte)
         Me.txtFarmacia.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtFarmacia.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.txtFarmacia.Location = New System.Drawing.Point(254, 27)
+        Me.txtFarmacia.Location = New System.Drawing.Point(339, 33)
+        Me.txtFarmacia.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtFarmacia.MaxLength = 50
         Me.txtFarmacia.Name = "txtFarmacia"
-        Me.txtFarmacia.Size = New System.Drawing.Size(218, 20)
+        Me.txtFarmacia.Size = New System.Drawing.Size(289, 22)
         Me.txtFarmacia.TabIndex = 3
         Me.txtFarmacia.Text_1 = Nothing
         Me.txtFarmacia.Text_2 = Nothing
@@ -136,9 +142,10 @@ Partial Class frmFarmacias
         Me.Label3.AutoSize = True
         Me.Label3.BackColor = System.Drawing.Color.Transparent
         Me.Label3.ForeColor = System.Drawing.Color.Blue
-        Me.Label3.Location = New System.Drawing.Point(251, 10)
+        Me.Label3.Location = New System.Drawing.Point(335, 12)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(48, 13)
+        Me.Label3.Size = New System.Drawing.Size(63, 17)
         Me.Label3.TabIndex = 52
         Me.Label3.Text = "Nombre*"
         '
@@ -169,9 +176,10 @@ Partial Class frmFarmacias
         Me.GroupBox1.Controls.Add(Me.txtFarmacia)
         Me.GroupBox1.Controls.Add(Me.Label2)
         Me.GroupBox1.DisabledBackColor = System.Drawing.Color.Empty
-        Me.GroupBox1.Location = New System.Drawing.Point(12, 28)
+        Me.GroupBox1.Location = New System.Drawing.Point(16, 34)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(1164, 134)
+        Me.GroupBox1.Size = New System.Drawing.Size(1552, 165)
         '
         '
         '
@@ -202,255 +210,6 @@ Partial Class frmFarmacias
         Me.GroupBox1.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.GroupBox1.TabIndex = 64
         '
-        'chkEliminados
-        '
-        Me.chkEliminados.AutoSize = True
-        Me.chkEliminados.BackColor = System.Drawing.Color.Transparent
-        Me.chkEliminados.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chkEliminados.ForeColor = System.Drawing.Color.Red
-        Me.chkEliminados.Location = New System.Drawing.Point(1000, 109)
-        Me.chkEliminados.Name = "chkEliminados"
-        Me.chkEliminados.Size = New System.Drawing.Size(109, 17)
-        Me.chkEliminados.TabIndex = 256
-        Me.chkEliminados.Text = "Ver Eliminados"
-        Me.chkEliminados.UseVisualStyleBackColor = False
-        '
-        'Label10
-        '
-        Me.Label10.AutoSize = True
-        Me.Label10.BackColor = System.Drawing.Color.Transparent
-        Me.Label10.ForeColor = System.Drawing.Color.Blue
-        Me.Label10.Location = New System.Drawing.Point(394, 60)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(96, 13)
-        Me.Label10.TabIndex = 285
-        Me.Label10.Text = "Tipo Contribuyente"
-        '
-        'txtTipoContribuyente
-        '
-        Me.txtTipoContribuyente.AccessibleName = ""
-        Me.txtTipoContribuyente.Decimals = CType(2, Byte)
-        Me.txtTipoContribuyente.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
-        Me.txtTipoContribuyente.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.txtTipoContribuyente.Location = New System.Drawing.Point(396, 76)
-        Me.txtTipoContribuyente.MaxLength = 50
-        Me.txtTipoContribuyente.Name = "txtTipoContribuyente"
-        Me.txtTipoContribuyente.Size = New System.Drawing.Size(203, 20)
-        Me.txtTipoContribuyente.TabIndex = 9
-        Me.txtTipoContribuyente.Text_1 = Nothing
-        Me.txtTipoContribuyente.Text_2 = Nothing
-        Me.txtTipoContribuyente.Text_3 = Nothing
-        Me.txtTipoContribuyente.Text_4 = Nothing
-        Me.txtTipoContribuyente.UserValues = Nothing
-        '
-        'Label15
-        '
-        Me.Label15.AccessibleName = ""
-        Me.Label15.AutoSize = True
-        Me.Label15.BackColor = System.Drawing.Color.Transparent
-        Me.Label15.ForeColor = System.Drawing.Color.Blue
-        Me.Label15.Location = New System.Drawing.Point(489, 10)
-        Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(29, 13)
-        Me.Label15.TabIndex = 283
-        Me.Label15.Text = "Cuit*"
-        '
-        'txtCuit
-        '
-        Me.txtCuit.AccessibleName = "*Cuit"
-        Me.txtCuit.Decimals = CType(2, Byte)
-        Me.txtCuit.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
-        Me.txtCuit.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
-        Me.txtCuit.Location = New System.Drawing.Point(491, 27)
-        Me.txtCuit.MaxLength = 11
-        Me.txtCuit.Name = "txtCuit"
-        Me.txtCuit.Size = New System.Drawing.Size(108, 20)
-        Me.txtCuit.TabIndex = 4
-        Me.txtCuit.Text_1 = Nothing
-        Me.txtCuit.Text_2 = Nothing
-        Me.txtCuit.Text_3 = Nothing
-        Me.txtCuit.Text_4 = Nothing
-        Me.txtCuit.UserValues = Nothing
-        '
-        'Panel3
-        '
-        Me.Panel3.BackColor = System.Drawing.Color.Transparent
-        Me.Panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel3.Controls.Add(Me.cmbEstado)
-        Me.Panel3.Controls.Add(Me.Label13)
-        Me.Panel3.Controls.Add(Me.txtMotivoBaja)
-        Me.Panel3.Controls.Add(Me.Label17)
-        Me.Panel3.Location = New System.Drawing.Point(921, 2)
-        Me.Panel3.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
-        Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(183, 98)
-        Me.Panel3.TabIndex = 281
-        '
-        'cmbEstado
-        '
-        Me.cmbEstado.DisplayMember = "Text"
-        Me.cmbEstado.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
-        Me.cmbEstado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbEstado.FormattingEnabled = True
-        Me.cmbEstado.ItemHeight = 16
-        Me.cmbEstado.Location = New System.Drawing.Point(13, 22)
-        Me.cmbEstado.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
-        Me.cmbEstado.Name = "cmbEstado"
-        Me.cmbEstado.Size = New System.Drawing.Size(160, 22)
-        Me.cmbEstado.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.cmbEstado.TabIndex = 0
-        '
-        'Label13
-        '
-        Me.Label13.AutoSize = True
-        Me.Label13.BackColor = System.Drawing.Color.Transparent
-        Me.Label13.ForeColor = System.Drawing.Color.Blue
-        Me.Label13.Location = New System.Drawing.Point(10, 47)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(63, 13)
-        Me.Label13.TabIndex = 278
-        Me.Label13.Text = "Motivo Baja"
-        '
-        'txtMotivoBaja
-        '
-        Me.txtMotivoBaja.AccessibleName = ""
-        Me.txtMotivoBaja.Decimals = CType(2, Byte)
-        Me.txtMotivoBaja.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
-        Me.txtMotivoBaja.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.txtMotivoBaja.Location = New System.Drawing.Point(13, 63)
-        Me.txtMotivoBaja.MaxLength = 100
-        Me.txtMotivoBaja.Name = "txtMotivoBaja"
-        Me.txtMotivoBaja.Size = New System.Drawing.Size(160, 20)
-        Me.txtMotivoBaja.TabIndex = 1
-        Me.txtMotivoBaja.Text_1 = Nothing
-        Me.txtMotivoBaja.Text_2 = Nothing
-        Me.txtMotivoBaja.Text_3 = Nothing
-        Me.txtMotivoBaja.Text_4 = Nothing
-        Me.txtMotivoBaja.UserValues = Nothing
-        '
-        'Label17
-        '
-        Me.Label17.AutoSize = True
-        Me.Label17.BackColor = System.Drawing.Color.Transparent
-        Me.Label17.ForeColor = System.Drawing.Color.Blue
-        Me.Label17.Location = New System.Drawing.Point(10, 6)
-        Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(43, 13)
-        Me.Label17.TabIndex = 272
-        Me.Label17.Text = "Estado:"
-        '
-        'Label12
-        '
-        Me.Label12.AutoSize = True
-        Me.Label12.BackColor = System.Drawing.Color.Transparent
-        Me.Label12.ForeColor = System.Drawing.Color.Blue
-        Me.Label12.Location = New System.Drawing.Point(3, 60)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(49, 13)
-        Me.Label12.TabIndex = 269
-        Me.Label12.Text = "Teléfono"
-        '
-        'txtTelefono
-        '
-        Me.txtTelefono.AccessibleName = ""
-        Me.txtTelefono.Decimals = CType(2, Byte)
-        Me.txtTelefono.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
-        Me.txtTelefono.Format = TextBoxConFormatoVB.tbFormats.SignedNumber
-        Me.txtTelefono.Location = New System.Drawing.Point(5, 77)
-        Me.txtTelefono.MaxLength = 50
-        Me.txtTelefono.Name = "txtTelefono"
-        Me.txtTelefono.Size = New System.Drawing.Size(162, 20)
-        Me.txtTelefono.TabIndex = 7
-        Me.txtTelefono.Text_1 = Nothing
-        Me.txtTelefono.Text_2 = Nothing
-        Me.txtTelefono.Text_3 = Nothing
-        Me.txtTelefono.Text_4 = Nothing
-        Me.txtTelefono.UserValues = Nothing
-        '
-        'Label11
-        '
-        Me.Label11.AutoSize = True
-        Me.Label11.BackColor = System.Drawing.Color.Transparent
-        Me.Label11.ForeColor = System.Drawing.Color.Blue
-        Me.Label11.Location = New System.Drawing.Point(169, 60)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(32, 13)
-        Me.Label11.TabIndex = 267
-        Me.Label11.Text = "Email"
-        '
-        'txtEmail
-        '
-        Me.txtEmail.AccessibleName = ""
-        Me.txtEmail.Decimals = CType(2, Byte)
-        Me.txtEmail.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
-        Me.txtEmail.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.txtEmail.Location = New System.Drawing.Point(170, 77)
-        Me.txtEmail.MaxLength = 50
-        Me.txtEmail.Name = "txtEmail"
-        Me.txtEmail.Size = New System.Drawing.Size(221, 20)
-        Me.txtEmail.TabIndex = 8
-        Me.txtEmail.Text_1 = Nothing
-        Me.txtEmail.Text_2 = Nothing
-        Me.txtEmail.Text_3 = Nothing
-        Me.txtEmail.Text_4 = Nothing
-        Me.txtEmail.UserValues = Nothing
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.BackColor = System.Drawing.Color.Transparent
-        Me.Label5.ForeColor = System.Drawing.Color.Blue
-        Me.Label5.Location = New System.Drawing.Point(88, 10)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(59, 13)
-        Me.Label5.TabIndex = 260
-        Me.Label5.Text = "Cod. Facaf"
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.BackColor = System.Drawing.Color.Transparent
-        Me.Label4.ForeColor = System.Drawing.Color.Blue
-        Me.Label4.Location = New System.Drawing.Point(169, 10)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(55, 13)
-        Me.Label4.TabIndex = 259
-        Me.Label4.Text = "Cod. Pami"
-        '
-        'txtCodFACAF
-        '
-        Me.txtCodFACAF.AccessibleName = ""
-        Me.txtCodFACAF.Decimals = CType(2, Byte)
-        Me.txtCodFACAF.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
-        Me.txtCodFACAF.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.txtCodFACAF.Location = New System.Drawing.Point(88, 27)
-        Me.txtCodFACAF.MaxLength = 50
-        Me.txtCodFACAF.Name = "txtCodFACAF"
-        Me.txtCodFACAF.Size = New System.Drawing.Size(78, 20)
-        Me.txtCodFACAF.TabIndex = 1
-        Me.txtCodFACAF.Text_1 = Nothing
-        Me.txtCodFACAF.Text_2 = Nothing
-        Me.txtCodFACAF.Text_3 = Nothing
-        Me.txtCodFACAF.Text_4 = Nothing
-        Me.txtCodFACAF.UserValues = Nothing
-        '
-        'txtCodPAMI
-        '
-        Me.txtCodPAMI.AccessibleName = ""
-        Me.txtCodPAMI.Decimals = CType(2, Byte)
-        Me.txtCodPAMI.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
-        Me.txtCodPAMI.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.txtCodPAMI.Location = New System.Drawing.Point(170, 27)
-        Me.txtCodPAMI.MaxLength = 50
-        Me.txtCodPAMI.Name = "txtCodPAMI"
-        Me.txtCodPAMI.Size = New System.Drawing.Size(78, 20)
-        Me.txtCodPAMI.TabIndex = 2
-        Me.txtCodPAMI.Text_1 = Nothing
-        Me.txtCodPAMI.Text_2 = Nothing
-        Me.txtCodPAMI.Text_3 = Nothing
-        Me.txtCodPAMI.Text_4 = Nothing
-        Me.txtCodPAMI.UserValues = Nothing
-        '
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.Transparent
@@ -463,9 +222,10 @@ Partial Class frmFarmacias
         Me.Panel1.Controls.Add(Me.Label8)
         Me.Panel1.Controls.Add(Me.Label6)
         Me.Panel1.Controls.Add(Me.txtDomicilio)
-        Me.Panel1.Location = New System.Drawing.Point(616, 3)
+        Me.Panel1.Location = New System.Drawing.Point(821, 4)
+        Me.Panel1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(300, 97)
+        Me.Panel1.Size = New System.Drawing.Size(399, 119)
         Me.Panel1.TabIndex = 286
         '
         'txtCodigoPostal
@@ -473,10 +233,11 @@ Partial Class frmFarmacias
         Me.txtCodigoPostal.Decimals = CType(2, Byte)
         Me.txtCodigoPostal.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtCodigoPostal.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
-        Me.txtCodigoPostal.Location = New System.Drawing.Point(210, 23)
+        Me.txtCodigoPostal.Location = New System.Drawing.Point(280, 28)
+        Me.txtCodigoPostal.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtCodigoPostal.MaxLength = 4
         Me.txtCodigoPostal.Name = "txtCodigoPostal"
-        Me.txtCodigoPostal.Size = New System.Drawing.Size(68, 20)
+        Me.txtCodigoPostal.Size = New System.Drawing.Size(89, 22)
         Me.txtCodigoPostal.TabIndex = 1
         Me.txtCodigoPostal.Text_1 = Nothing
         Me.txtCodigoPostal.Text_2 = Nothing
@@ -493,9 +254,10 @@ Partial Class frmFarmacias
         Me.cmbLocalidad.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
         Me.cmbLocalidad.FormattingEnabled = True
         Me.cmbLocalidad.ItemHeight = 14
-        Me.cmbLocalidad.Location = New System.Drawing.Point(157, 62)
+        Me.cmbLocalidad.Location = New System.Drawing.Point(209, 76)
+        Me.cmbLocalidad.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbLocalidad.Name = "cmbLocalidad"
-        Me.cmbLocalidad.Size = New System.Drawing.Size(121, 20)
+        Me.cmbLocalidad.Size = New System.Drawing.Size(160, 20)
         Me.cmbLocalidad.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.cmbLocalidad.TabIndex = 3
         '
@@ -508,9 +270,10 @@ Partial Class frmFarmacias
         Me.cmbProvincia.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbProvincia.FormattingEnabled = True
         Me.cmbProvincia.ItemHeight = 14
-        Me.cmbProvincia.Location = New System.Drawing.Point(17, 62)
+        Me.cmbProvincia.Location = New System.Drawing.Point(23, 76)
+        Me.cmbProvincia.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbProvincia.Name = "cmbProvincia"
-        Me.cmbProvincia.Size = New System.Drawing.Size(121, 20)
+        Me.cmbProvincia.Size = New System.Drawing.Size(160, 20)
         Me.cmbProvincia.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.cmbProvincia.TabIndex = 2
         '
@@ -519,9 +282,10 @@ Partial Class frmFarmacias
         Me.Label9.AutoSize = True
         Me.Label9.BackColor = System.Drawing.Color.Transparent
         Me.Label9.ForeColor = System.Drawing.Color.Blue
-        Me.Label9.Location = New System.Drawing.Point(14, 46)
+        Me.Label9.Location = New System.Drawing.Point(19, 57)
+        Me.Label9.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(55, 13)
+        Me.Label9.Size = New System.Drawing.Size(71, 17)
         Me.Label9.TabIndex = 268
         Me.Label9.Text = "Provincia*"
         '
@@ -530,9 +294,10 @@ Partial Class frmFarmacias
         Me.Label7.AutoSize = True
         Me.Label7.BackColor = System.Drawing.Color.Transparent
         Me.Label7.ForeColor = System.Drawing.Color.Blue
-        Me.Label7.Location = New System.Drawing.Point(207, 4)
+        Me.Label7.Location = New System.Drawing.Point(276, 5)
+        Me.Label7.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(71, 13)
+        Me.Label7.Size = New System.Drawing.Size(94, 17)
         Me.Label7.TabIndex = 264
         Me.Label7.Text = "Código postal"
         '
@@ -542,9 +307,10 @@ Partial Class frmFarmacias
         Me.Label8.AutoSize = True
         Me.Label8.BackColor = System.Drawing.Color.Transparent
         Me.Label8.ForeColor = System.Drawing.Color.Blue
-        Me.Label8.Location = New System.Drawing.Point(155, 46)
+        Me.Label8.Location = New System.Drawing.Point(207, 57)
+        Me.Label8.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(57, 13)
+        Me.Label8.Size = New System.Drawing.Size(74, 17)
         Me.Label8.TabIndex = 266
         Me.Label8.Text = "Localidad*"
         '
@@ -553,28 +319,296 @@ Partial Class frmFarmacias
         Me.Label6.AutoSize = True
         Me.Label6.BackColor = System.Drawing.Color.Transparent
         Me.Label6.ForeColor = System.Drawing.Color.Blue
-        Me.Label6.Location = New System.Drawing.Point(14, 6)
+        Me.Label6.Location = New System.Drawing.Point(19, 7)
+        Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(49, 13)
+        Me.Label6.Size = New System.Drawing.Size(64, 17)
         Me.Label6.TabIndex = 262
         Me.Label6.Text = "Domicilio"
         '
         'txtDomicilio
         '
-        Me.txtDomicilio.Location = New System.Drawing.Point(17, 23)
+        Me.txtDomicilio.Location = New System.Drawing.Point(23, 28)
+        Me.txtDomicilio.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtDomicilio.MaxLength = 200
         Me.txtDomicilio.Name = "txtDomicilio"
-        Me.txtDomicilio.Size = New System.Drawing.Size(171, 20)
+        Me.txtDomicilio.Size = New System.Drawing.Size(227, 22)
         Me.txtDomicilio.TabIndex = 0
+        '
+        'chkEliminados
+        '
+        Me.chkEliminados.AutoSize = True
+        Me.chkEliminados.BackColor = System.Drawing.Color.Transparent
+        Me.chkEliminados.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.chkEliminados.ForeColor = System.Drawing.Color.Red
+        Me.chkEliminados.Location = New System.Drawing.Point(1333, 134)
+        Me.chkEliminados.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.chkEliminados.Name = "chkEliminados"
+        Me.chkEliminados.Size = New System.Drawing.Size(138, 21)
+        Me.chkEliminados.TabIndex = 256
+        Me.chkEliminados.Text = "Ver Eliminados"
+        Me.chkEliminados.UseVisualStyleBackColor = False
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.BackColor = System.Drawing.Color.Transparent
+        Me.Label10.ForeColor = System.Drawing.Color.Blue
+        Me.Label10.Location = New System.Drawing.Point(525, 74)
+        Me.Label10.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(128, 17)
+        Me.Label10.TabIndex = 285
+        Me.Label10.Text = "Tipo Contribuyente"
+        '
+        'txtTipoContribuyente
+        '
+        Me.txtTipoContribuyente.AccessibleName = ""
+        Me.txtTipoContribuyente.Decimals = CType(2, Byte)
+        Me.txtTipoContribuyente.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
+        Me.txtTipoContribuyente.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
+        Me.txtTipoContribuyente.Location = New System.Drawing.Point(528, 94)
+        Me.txtTipoContribuyente.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtTipoContribuyente.MaxLength = 50
+        Me.txtTipoContribuyente.Name = "txtTipoContribuyente"
+        Me.txtTipoContribuyente.Size = New System.Drawing.Size(269, 22)
+        Me.txtTipoContribuyente.TabIndex = 9
+        Me.txtTipoContribuyente.Text_1 = Nothing
+        Me.txtTipoContribuyente.Text_2 = Nothing
+        Me.txtTipoContribuyente.Text_3 = Nothing
+        Me.txtTipoContribuyente.Text_4 = Nothing
+        Me.txtTipoContribuyente.UserValues = Nothing
+        '
+        'Label15
+        '
+        Me.Label15.AccessibleName = ""
+        Me.Label15.AutoSize = True
+        Me.Label15.BackColor = System.Drawing.Color.Transparent
+        Me.Label15.ForeColor = System.Drawing.Color.Blue
+        Me.Label15.Location = New System.Drawing.Point(652, 12)
+        Me.Label15.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(37, 17)
+        Me.Label15.TabIndex = 283
+        Me.Label15.Text = "Cuit*"
+        '
+        'txtCuit
+        '
+        Me.txtCuit.AccessibleName = "*Cuit"
+        Me.txtCuit.Decimals = CType(2, Byte)
+        Me.txtCuit.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
+        Me.txtCuit.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
+        Me.txtCuit.Location = New System.Drawing.Point(655, 33)
+        Me.txtCuit.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtCuit.MaxLength = 11
+        Me.txtCuit.Name = "txtCuit"
+        Me.txtCuit.Size = New System.Drawing.Size(143, 22)
+        Me.txtCuit.TabIndex = 4
+        Me.txtCuit.Text_1 = Nothing
+        Me.txtCuit.Text_2 = Nothing
+        Me.txtCuit.Text_3 = Nothing
+        Me.txtCuit.Text_4 = Nothing
+        Me.txtCuit.UserValues = Nothing
+        '
+        'Panel3
+        '
+        Me.Panel3.BackColor = System.Drawing.Color.Transparent
+        Me.Panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel3.Controls.Add(Me.cmbEstado)
+        Me.Panel3.Controls.Add(Me.Label13)
+        Me.Panel3.Controls.Add(Me.txtMotivoBaja)
+        Me.Panel3.Controls.Add(Me.Label17)
+        Me.Panel3.Location = New System.Drawing.Point(1228, 2)
+        Me.Panel3.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.Panel3.Name = "Panel3"
+        Me.Panel3.Size = New System.Drawing.Size(243, 120)
+        Me.Panel3.TabIndex = 281
+        '
+        'cmbEstado
+        '
+        Me.cmbEstado.DisplayMember = "Text"
+        Me.cmbEstado.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
+        Me.cmbEstado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbEstado.FormattingEnabled = True
+        Me.cmbEstado.ItemHeight = 16
+        Me.cmbEstado.Location = New System.Drawing.Point(17, 27)
+        Me.cmbEstado.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.cmbEstado.Name = "cmbEstado"
+        Me.cmbEstado.Size = New System.Drawing.Size(212, 22)
+        Me.cmbEstado.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.cmbEstado.TabIndex = 0
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.BackColor = System.Drawing.Color.Transparent
+        Me.Label13.ForeColor = System.Drawing.Color.Blue
+        Me.Label13.Location = New System.Drawing.Point(13, 58)
+        Me.Label13.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(81, 17)
+        Me.Label13.TabIndex = 278
+        Me.Label13.Text = "Motivo Baja"
+        '
+        'txtMotivoBaja
+        '
+        Me.txtMotivoBaja.AccessibleName = ""
+        Me.txtMotivoBaja.Decimals = CType(2, Byte)
+        Me.txtMotivoBaja.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
+        Me.txtMotivoBaja.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
+        Me.txtMotivoBaja.Location = New System.Drawing.Point(17, 78)
+        Me.txtMotivoBaja.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtMotivoBaja.MaxLength = 100
+        Me.txtMotivoBaja.Name = "txtMotivoBaja"
+        Me.txtMotivoBaja.Size = New System.Drawing.Size(212, 22)
+        Me.txtMotivoBaja.TabIndex = 1
+        Me.txtMotivoBaja.Text_1 = Nothing
+        Me.txtMotivoBaja.Text_2 = Nothing
+        Me.txtMotivoBaja.Text_3 = Nothing
+        Me.txtMotivoBaja.Text_4 = Nothing
+        Me.txtMotivoBaja.UserValues = Nothing
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.BackColor = System.Drawing.Color.Transparent
+        Me.Label17.ForeColor = System.Drawing.Color.Blue
+        Me.Label17.Location = New System.Drawing.Point(13, 7)
+        Me.Label17.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(56, 17)
+        Me.Label17.TabIndex = 272
+        Me.Label17.Text = "Estado:"
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.BackColor = System.Drawing.Color.Transparent
+        Me.Label12.ForeColor = System.Drawing.Color.Blue
+        Me.Label12.Location = New System.Drawing.Point(4, 74)
+        Me.Label12.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(64, 17)
+        Me.Label12.TabIndex = 269
+        Me.Label12.Text = "Teléfono"
+        '
+        'txtTelefono
+        '
+        Me.txtTelefono.AccessibleName = ""
+        Me.txtTelefono.Decimals = CType(2, Byte)
+        Me.txtTelefono.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
+        Me.txtTelefono.Format = TextBoxConFormatoVB.tbFormats.SignedNumber
+        Me.txtTelefono.Location = New System.Drawing.Point(7, 95)
+        Me.txtTelefono.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtTelefono.MaxLength = 50
+        Me.txtTelefono.Name = "txtTelefono"
+        Me.txtTelefono.Size = New System.Drawing.Size(215, 22)
+        Me.txtTelefono.TabIndex = 7
+        Me.txtTelefono.Text_1 = Nothing
+        Me.txtTelefono.Text_2 = Nothing
+        Me.txtTelefono.Text_3 = Nothing
+        Me.txtTelefono.Text_4 = Nothing
+        Me.txtTelefono.UserValues = Nothing
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.BackColor = System.Drawing.Color.Transparent
+        Me.Label11.ForeColor = System.Drawing.Color.Blue
+        Me.Label11.Location = New System.Drawing.Point(225, 74)
+        Me.Label11.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(42, 17)
+        Me.Label11.TabIndex = 267
+        Me.Label11.Text = "Email"
+        '
+        'txtEmail
+        '
+        Me.txtEmail.AccessibleName = ""
+        Me.txtEmail.Decimals = CType(2, Byte)
+        Me.txtEmail.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
+        Me.txtEmail.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
+        Me.txtEmail.Location = New System.Drawing.Point(227, 95)
+        Me.txtEmail.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtEmail.MaxLength = 50
+        Me.txtEmail.Name = "txtEmail"
+        Me.txtEmail.Size = New System.Drawing.Size(293, 22)
+        Me.txtEmail.TabIndex = 8
+        Me.txtEmail.Text_1 = Nothing
+        Me.txtEmail.Text_2 = Nothing
+        Me.txtEmail.Text_3 = Nothing
+        Me.txtEmail.Text_4 = Nothing
+        Me.txtEmail.UserValues = Nothing
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.BackColor = System.Drawing.Color.Transparent
+        Me.Label5.ForeColor = System.Drawing.Color.Blue
+        Me.Label5.Location = New System.Drawing.Point(117, 12)
+        Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(76, 17)
+        Me.Label5.TabIndex = 260
+        Me.Label5.Text = "Cod. Facaf"
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.BackColor = System.Drawing.Color.Transparent
+        Me.Label4.ForeColor = System.Drawing.Color.Blue
+        Me.Label4.Location = New System.Drawing.Point(225, 12)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(72, 17)
+        Me.Label4.TabIndex = 259
+        Me.Label4.Text = "Cod. Pami"
+        '
+        'txtCodFACAF
+        '
+        Me.txtCodFACAF.AccessibleName = ""
+        Me.txtCodFACAF.Decimals = CType(2, Byte)
+        Me.txtCodFACAF.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
+        Me.txtCodFACAF.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
+        Me.txtCodFACAF.Location = New System.Drawing.Point(117, 33)
+        Me.txtCodFACAF.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtCodFACAF.MaxLength = 50
+        Me.txtCodFACAF.Name = "txtCodFACAF"
+        Me.txtCodFACAF.Size = New System.Drawing.Size(103, 22)
+        Me.txtCodFACAF.TabIndex = 1
+        Me.txtCodFACAF.Text_1 = Nothing
+        Me.txtCodFACAF.Text_2 = Nothing
+        Me.txtCodFACAF.Text_3 = Nothing
+        Me.txtCodFACAF.Text_4 = Nothing
+        Me.txtCodFACAF.UserValues = Nothing
+        '
+        'txtCodPAMI
+        '
+        Me.txtCodPAMI.AccessibleName = ""
+        Me.txtCodPAMI.Decimals = CType(2, Byte)
+        Me.txtCodPAMI.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
+        Me.txtCodPAMI.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
+        Me.txtCodPAMI.Location = New System.Drawing.Point(227, 33)
+        Me.txtCodPAMI.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtCodPAMI.MaxLength = 50
+        Me.txtCodPAMI.Name = "txtCodPAMI"
+        Me.txtCodPAMI.Size = New System.Drawing.Size(103, 22)
+        Me.txtCodPAMI.TabIndex = 2
+        Me.txtCodPAMI.Text_1 = Nothing
+        Me.txtCodPAMI.Text_2 = Nothing
+        Me.txtCodPAMI.Text_3 = Nothing
+        Me.txtCodPAMI.Text_4 = Nothing
+        Me.txtCodPAMI.UserValues = Nothing
         '
         'frmFarmacias
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1028, 434)
+        Me.ClientSize = New System.Drawing.Size(1371, 534)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.Label1)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.MaximizeBox = False
         Me.Name = "frmFarmacias"
         Me.Text = "Farmacias"
@@ -582,10 +616,10 @@ Partial Class frmFarmacias
         Me.Controls.SetChildIndex(Me.GroupBox1, 0)
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
-        Me.Panel3.ResumeLayout(False)
-        Me.Panel3.PerformLayout()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
+        Me.Panel3.ResumeLayout(False)
+        Me.Panel3.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

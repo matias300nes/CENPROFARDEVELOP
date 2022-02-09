@@ -22,6 +22,7 @@ Partial Class frmSaldos
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmSaldos))
         Me.grdFarmacia = New System.Windows.Forms.DataGridView()
         Me.grdHistorial = New System.Windows.Forms.DataGridView()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -46,11 +47,13 @@ Partial Class frmSaldos
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.grdFarmacia.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.grdFarmacia.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.grdFarmacia.Location = New System.Drawing.Point(17, 45)
+        Me.grdFarmacia.Location = New System.Drawing.Point(23, 55)
+        Me.grdFarmacia.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.grdFarmacia.Name = "grdFarmacia"
         Me.grdFarmacia.ReadOnly = True
+        Me.grdFarmacia.RowHeadersWidth = 51
         Me.grdFarmacia.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.grdFarmacia.Size = New System.Drawing.Size(798, 210)
+        Me.grdFarmacia.Size = New System.Drawing.Size(1064, 258)
         Me.grdFarmacia.TabIndex = 0
         '
         'grdHistorial
@@ -61,30 +64,34 @@ Partial Class frmSaldos
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.grdHistorial.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.grdHistorial.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.grdHistorial.Location = New System.Drawing.Point(17, 311)
+        Me.grdHistorial.Location = New System.Drawing.Point(23, 383)
+        Me.grdHistorial.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.grdHistorial.MultiSelect = False
         Me.grdHistorial.Name = "grdHistorial"
         Me.grdHistorial.ReadOnly = True
         Me.grdHistorial.RowHeadersVisible = False
+        Me.grdHistorial.RowHeadersWidth = 51
         Me.grdHistorial.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.grdHistorial.Size = New System.Drawing.Size(798, 210)
+        Me.grdHistorial.Size = New System.Drawing.Size(1064, 258)
         Me.grdHistorial.TabIndex = 1
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(17, 15)
+        Me.Label1.Location = New System.Drawing.Point(23, 18)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(55, 13)
+        Me.Label1.Size = New System.Drawing.Size(73, 17)
         Me.Label1.TabIndex = 2
         Me.Label1.Text = "Farmacias"
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(17, 286)
+        Me.Label2.Location = New System.Drawing.Point(23, 352)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(111, 13)
+        Me.Label2.Size = New System.Drawing.Size(150, 17)
         Me.Label2.TabIndex = 3
         Me.Label2.Text = "Historial Cta. Corriente"
         '
@@ -94,9 +101,10 @@ Partial Class frmSaldos
         Me.ButtonX3.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonX3.BackColor = System.Drawing.SystemColors.Control
         Me.ButtonX3.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.ButtonX3.Location = New System.Drawing.Point(348, 276)
+        Me.ButtonX3.Location = New System.Drawing.Point(464, 340)
+        Me.ButtonX3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.ButtonX3.Name = "ButtonX3"
-        Me.ButtonX3.Size = New System.Drawing.Size(133, 23)
+        Me.ButtonX3.Size = New System.Drawing.Size(177, 28)
         Me.ButtonX3.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.ButtonX3.TabIndex = 6
         Me.ButtonX3.Text = "Cheques/Transferencia"
@@ -108,9 +116,10 @@ Partial Class frmSaldos
         Me.ButtonX4.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonX4.BackColor = System.Drawing.SystemColors.Control
         Me.ButtonX4.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.ButtonX4.Location = New System.Drawing.Point(490, 276)
+        Me.ButtonX4.Location = New System.Drawing.Point(653, 340)
+        Me.ButtonX4.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.ButtonX4.Name = "ButtonX4"
-        Me.ButtonX4.Size = New System.Drawing.Size(107, 23)
+        Me.ButtonX4.Size = New System.Drawing.Size(143, 28)
         Me.ButtonX4.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.ButtonX4.TabIndex = 7
         Me.ButtonX4.Text = "Aplicar conceptos"
@@ -118,17 +127,19 @@ Partial Class frmSaldos
         '
         'txtBuscar
         '
-        Me.txtBuscar.Location = New System.Drawing.Point(188, 12)
+        Me.txtBuscar.Location = New System.Drawing.Point(251, 15)
+        Me.txtBuscar.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtBuscar.Name = "txtBuscar"
-        Me.txtBuscar.Size = New System.Drawing.Size(219, 20)
+        Me.txtBuscar.Size = New System.Drawing.Size(291, 22)
         Me.txtBuscar.TabIndex = 8
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(139, 15)
+        Me.Label3.Location = New System.Drawing.Point(185, 18)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(43, 13)
+        Me.Label3.Size = New System.Drawing.Size(56, 17)
         Me.Label3.TabIndex = 9
         Me.Label3.Text = "Buscar:"
         '
@@ -137,9 +148,10 @@ Partial Class frmSaldos
         Me.lblTotal.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblTotal.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblTotal.ForeColor = System.Drawing.Color.DarkGreen
-        Me.lblTotal.Location = New System.Drawing.Point(684, 274)
+        Me.lblTotal.Location = New System.Drawing.Point(912, 337)
+        Me.lblTotal.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblTotal.Name = "lblTotal"
-        Me.lblTotal.Size = New System.Drawing.Size(130, 24)
+        Me.lblTotal.Size = New System.Drawing.Size(173, 30)
         Me.lblTotal.TabIndex = 391
         Me.lblTotal.Text = "$ [Total]"
         Me.lblTotal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -149,18 +161,20 @@ Partial Class frmSaldos
         Me.Label23.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label23.AutoSize = True
         Me.Label23.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label23.Location = New System.Drawing.Point(644, 279)
+        Me.Label23.Location = New System.Drawing.Point(859, 343)
+        Me.Label23.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label23.Name = "Label23"
-        Me.Label23.Size = New System.Drawing.Size(42, 16)
+        Me.Label23.Size = New System.Drawing.Size(51, 20)
         Me.Label23.TabIndex = 390
         Me.Label23.Text = "Total:"
         '
         'txtID
         '
-        Me.txtID.Location = New System.Drawing.Point(76, 12)
+        Me.txtID.Location = New System.Drawing.Point(101, 15)
+        Me.txtID.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtID.Name = "txtID"
         Me.txtID.ReadOnly = True
-        Me.txtID.Size = New System.Drawing.Size(57, 20)
+        Me.txtID.Size = New System.Drawing.Size(75, 22)
         Me.txtID.TabIndex = 392
         '
         'btnPersonalizado
@@ -169,9 +183,10 @@ Partial Class frmSaldos
         Me.btnPersonalizado.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnPersonalizado.BackColor = System.Drawing.SystemColors.Control
         Me.btnPersonalizado.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.btnPersonalizado.Location = New System.Drawing.Point(211, 276)
+        Me.btnPersonalizado.Location = New System.Drawing.Point(281, 340)
+        Me.btnPersonalizado.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnPersonalizado.Name = "btnPersonalizado"
-        Me.btnPersonalizado.Size = New System.Drawing.Size(120, 23)
+        Me.btnPersonalizado.Size = New System.Drawing.Size(160, 28)
         Me.btnPersonalizado.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnPersonalizado.TabIndex = 393
         Me.btnPersonalizado.Text = "Pago personalizado"
@@ -179,9 +194,9 @@ Partial Class frmSaldos
         '
         'frmSaldos
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(834, 544)
+        Me.ClientSize = New System.Drawing.Size(1112, 670)
         Me.Controls.Add(Me.btnPersonalizado)
         Me.Controls.Add(Me.txtID)
         Me.Controls.Add(Me.Label23)
@@ -194,7 +209,9 @@ Partial Class frmSaldos
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.grdHistorial)
         Me.Controls.Add(Me.grdFarmacia)
-        Me.MinimumSize = New System.Drawing.Size(750, 39)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.MinimumSize = New System.Drawing.Size(994, 47)
         Me.Name = "frmSaldos"
         Me.Text = "Saldos"
         CType(Me.grdFarmacia, System.ComponentModel.ISupportInitialize).EndInit()

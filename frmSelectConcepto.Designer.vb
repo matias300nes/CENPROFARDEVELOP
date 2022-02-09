@@ -22,14 +22,15 @@ Partial Class frmSelectConcepto
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmSelectConcepto))
         Me.btnListo = New DevComponents.DotNetBar.ButtonX()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.grdConceptos = New System.Windows.Forms.DataGridView()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.txtValor = New System.Windows.Forms.TextBox()
-        Me.txtFrecuencia = New System.Windows.Forms.TextBox()
-        Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
         Me.LabelX2 = New DevComponents.DotNetBar.LabelX()
+        Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
+        Me.txtFrecuencia = New System.Windows.Forms.TextBox()
+        Me.txtValor = New System.Windows.Forms.TextBox()
         Me.TableLayoutPanel1.SuspendLayout()
         CType(Me.grdConceptos, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
@@ -87,37 +88,11 @@ Partial Class frmSelectConcepto
         Me.GroupBox1.Controls.Add(Me.LabelX1)
         Me.GroupBox1.Controls.Add(Me.txtFrecuencia)
         Me.GroupBox1.Controls.Add(Me.txtValor)
-        Me.GroupBox1.Location = New System.Drawing.Point(4, 12)
+        Me.GroupBox1.Location = New System.Drawing.Point(3, 3)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(701, 80)
         Me.GroupBox1.TabIndex = 3
         Me.GroupBox1.TabStop = False
-        '
-        'txtValor
-        '
-        Me.txtValor.Location = New System.Drawing.Point(8, 52)
-        Me.txtValor.Name = "txtValor"
-        Me.txtValor.Size = New System.Drawing.Size(124, 22)
-        Me.txtValor.TabIndex = 0
-        '
-        'txtFrecuencia
-        '
-        Me.txtFrecuencia.Location = New System.Drawing.Point(149, 52)
-        Me.txtFrecuencia.Name = "txtFrecuencia"
-        Me.txtFrecuencia.Size = New System.Drawing.Size(130, 22)
-        Me.txtFrecuencia.TabIndex = 1
-        '
-        'LabelX1
-        '
-        '
-        '
-        '
-        Me.LabelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX1.Location = New System.Drawing.Point(8, 29)
-        Me.LabelX1.Name = "LabelX1"
-        Me.LabelX1.Size = New System.Drawing.Size(75, 17)
-        Me.LabelX1.TabIndex = 2
-        Me.LabelX1.Text = "Valor"
         '
         'LabelX2
         '
@@ -131,15 +106,42 @@ Partial Class frmSelectConcepto
         Me.LabelX2.TabIndex = 3
         Me.LabelX2.Text = "Frecuencia"
         '
+        'LabelX1
+        '
+        '
+        '
+        '
+        Me.LabelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX1.Location = New System.Drawing.Point(8, 29)
+        Me.LabelX1.Name = "LabelX1"
+        Me.LabelX1.Size = New System.Drawing.Size(75, 17)
+        Me.LabelX1.TabIndex = 2
+        Me.LabelX1.Text = "Valor"
+        '
+        'txtFrecuencia
+        '
+        Me.txtFrecuencia.Location = New System.Drawing.Point(149, 52)
+        Me.txtFrecuencia.Name = "txtFrecuencia"
+        Me.txtFrecuencia.Size = New System.Drawing.Size(130, 22)
+        Me.txtFrecuencia.TabIndex = 1
+        '
+        'txtValor
+        '
+        Me.txtValor.Location = New System.Drawing.Point(8, 52)
+        Me.txtValor.Name = "txtValor"
+        Me.txtValor.Size = New System.Drawing.Size(124, 22)
+        Me.txtValor.TabIndex = 0
+        '
         'frmSelectConcepto
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(709, 517)
         Me.Controls.Add(Me.TableLayoutPanel1)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "frmSelectConcepto"
-        Me.Text = "frmNuevoConcepto"
+        Me.Text = "Nuevo Concepto"
         Me.TableLayoutPanel1.ResumeLayout(False)
         CType(Me.grdConceptos, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)

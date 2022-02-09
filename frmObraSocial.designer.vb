@@ -15,6 +15,7 @@ Partial Class frmObraSocial
 
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmObraSocial))
         Me.txtID = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.txtCODIGO = New TextBoxConFormatoVB.FormattedTextBoxVB()
@@ -567,6 +568,7 @@ Partial Class frmObraSocial
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1073, 534)
         Me.Controls.Add(Me.GroupBox1)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(5)
         Me.MaximizeBox = False
         Me.Name = "frmObraSocial"
