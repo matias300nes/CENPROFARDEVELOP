@@ -17,27 +17,28 @@ Partial Class frmPeriodoPresentaciones
 
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmPeriodoPresentaciones))
         Me.chkEliminados = New System.Windows.Forms.CheckBox()
         Me.txtID = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.GroupPanel1 = New DevComponents.DotNetBar.Controls.GroupPanel()
+        Me.cmbGrupos = New System.Windows.Forms.ComboBox()
+        Me.dtpFechaLimite = New System.Windows.Forms.DateTimePicker()
+        Me.btnPeriodo = New DevComponents.DotNetBar.ButtonX()
+        Me.txtPeriodo = New System.Windows.Forms.TextBox()
+        Me.GbPeriodo = New System.Windows.Forms.GroupBox()
+        Me.Button2 = New System.Windows.Forms.Button()
+        Me.LbPeriodo_Mes = New System.Windows.Forms.ListBox()
+        Me.LbPeriodo_año = New System.Windows.Forms.ListBox()
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.Label15 = New System.Windows.Forms.Label()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.Label12 = New System.Windows.Forms.Label()
-        Me.Label10 = New System.Windows.Forms.Label()
-        Me.Label9 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.txtCODIGO = New TextBoxConFormatoVB.FormattedTextBoxVB()
-        Me.cmbConceptoPago = New System.Windows.Forms.ComboBox()
-        Me.cmbPerteneceA = New System.Windows.Forms.ComboBox()
-        Me.txtNombre = New System.Windows.Forms.TextBox()
-        Me.cmbTipoValor = New System.Windows.Forms.ComboBox()
-        Me.txtValor = New System.Windows.Forms.TextBox()
-        Me.cmbCamposAplicables = New System.Windows.Forms.ComboBox()
-        Me.txtDescripcion = New System.Windows.Forms.TextBox()
+        Me.cmbMandatarias = New System.Windows.Forms.ComboBox()
         Me.GroupPanel1.SuspendLayout()
+        Me.GbPeriodo.SuspendLayout()
         Me.SuspendLayout()
         '
         'chkEliminados
@@ -46,7 +47,7 @@ Partial Class frmPeriodoPresentaciones
         Me.chkEliminados.BackColor = System.Drawing.Color.Transparent
         Me.chkEliminados.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.chkEliminados.ForeColor = System.Drawing.Color.Red
-        Me.chkEliminados.Location = New System.Drawing.Point(427, 89)
+        Me.chkEliminados.Location = New System.Drawing.Point(1132, 38)
         Me.chkEliminados.Margin = New System.Windows.Forms.Padding(4)
         Me.chkEliminados.Name = "chkEliminados"
         Me.chkEliminados.Size = New System.Drawing.Size(138, 21)
@@ -89,29 +90,25 @@ Partial Class frmPeriodoPresentaciones
         '
         Me.GroupPanel1.CanvasColor = System.Drawing.SystemColors.Control
         Me.GroupPanel1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007
+        Me.GroupPanel1.Controls.Add(Me.cmbGrupos)
+        Me.GroupPanel1.Controls.Add(Me.dtpFechaLimite)
+        Me.GroupPanel1.Controls.Add(Me.btnPeriodo)
+        Me.GroupPanel1.Controls.Add(Me.txtPeriodo)
+        Me.GroupPanel1.Controls.Add(Me.GbPeriodo)
         Me.GroupPanel1.Controls.Add(Me.Label4)
-        Me.GroupPanel1.Controls.Add(Me.Label15)
         Me.GroupPanel1.Controls.Add(Me.Label14)
         Me.GroupPanel1.Controls.Add(Me.Label13)
         Me.GroupPanel1.Controls.Add(Me.chkEliminados)
         Me.GroupPanel1.Controls.Add(Me.Label12)
         Me.GroupPanel1.Controls.Add(Me.txtID)
         Me.GroupPanel1.Controls.Add(Me.Label1)
-        Me.GroupPanel1.Controls.Add(Me.Label10)
-        Me.GroupPanel1.Controls.Add(Me.Label9)
         Me.GroupPanel1.Controls.Add(Me.Label11)
         Me.GroupPanel1.Controls.Add(Me.txtCODIGO)
-        Me.GroupPanel1.Controls.Add(Me.cmbConceptoPago)
-        Me.GroupPanel1.Controls.Add(Me.cmbPerteneceA)
-        Me.GroupPanel1.Controls.Add(Me.txtNombre)
-        Me.GroupPanel1.Controls.Add(Me.cmbTipoValor)
-        Me.GroupPanel1.Controls.Add(Me.txtValor)
-        Me.GroupPanel1.Controls.Add(Me.cmbCamposAplicables)
-        Me.GroupPanel1.Controls.Add(Me.txtDescripcion)
+        Me.GroupPanel1.Controls.Add(Me.cmbMandatarias)
         Me.GroupPanel1.DisabledBackColor = System.Drawing.Color.Empty
         Me.GroupPanel1.Location = New System.Drawing.Point(12, 31)
         Me.GroupPanel1.Name = "GroupPanel1"
-        Me.GroupPanel1.Size = New System.Drawing.Size(1411, 179)
+        Me.GroupPanel1.Size = New System.Drawing.Size(1411, 228)
         '
         '
         '
@@ -142,6 +139,92 @@ Partial Class frmPeriodoPresentaciones
         Me.GroupPanel1.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.GroupPanel1.TabIndex = 258
         '
+        'cmbGrupos
+        '
+        Me.cmbGrupos.FormattingEnabled = True
+        Me.cmbGrupos.Location = New System.Drawing.Point(473, 36)
+        Me.cmbGrupos.Name = "cmbGrupos"
+        Me.cmbGrupos.Size = New System.Drawing.Size(106, 24)
+        Me.cmbGrupos.TabIndex = 359
+        '
+        'dtpFechaLimite
+        '
+        Me.dtpFechaLimite.Location = New System.Drawing.Point(902, 37)
+        Me.dtpFechaLimite.Name = "dtpFechaLimite"
+        Me.dtpFechaLimite.Size = New System.Drawing.Size(200, 22)
+        Me.dtpFechaLimite.TabIndex = 358
+        '
+        'btnPeriodo
+        '
+        Me.btnPeriodo.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnPeriodo.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
+        Me.btnPeriodo.Font = New System.Drawing.Font("Microsoft Sans Serif", 5.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnPeriodo.Image = CType(resources.GetObject("btnPeriodo.Image"), System.Drawing.Image)
+        Me.btnPeriodo.Location = New System.Drawing.Point(853, 38)
+        Me.btnPeriodo.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnPeriodo.Name = "btnPeriodo"
+        Me.btnPeriodo.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor()
+        Me.btnPeriodo.Size = New System.Drawing.Size(21, 20)
+        Me.btnPeriodo.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnPeriodo.TabIndex = 357
+        '
+        'txtPeriodo
+        '
+        Me.txtPeriodo.BackColor = System.Drawing.SystemColors.Window
+        Me.txtPeriodo.Location = New System.Drawing.Point(594, 35)
+        Me.txtPeriodo.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtPeriodo.Multiline = True
+        Me.txtPeriodo.Name = "txtPeriodo"
+        Me.txtPeriodo.ReadOnly = True
+        Me.txtPeriodo.Size = New System.Drawing.Size(285, 26)
+        Me.txtPeriodo.TabIndex = 355
+        '
+        'GbPeriodo
+        '
+        Me.GbPeriodo.Controls.Add(Me.Button2)
+        Me.GbPeriodo.Controls.Add(Me.LbPeriodo_Mes)
+        Me.GbPeriodo.Controls.Add(Me.LbPeriodo_año)
+        Me.GbPeriodo.Location = New System.Drawing.Point(594, 55)
+        Me.GbPeriodo.Margin = New System.Windows.Forms.Padding(4)
+        Me.GbPeriodo.Name = "GbPeriodo"
+        Me.GbPeriodo.Padding = New System.Windows.Forms.Padding(4)
+        Me.GbPeriodo.Size = New System.Drawing.Size(287, 158)
+        Me.GbPeriodo.TabIndex = 356
+        Me.GbPeriodo.TabStop = False
+        Me.GbPeriodo.Visible = False
+        '
+        'Button2
+        '
+        Me.Button2.Location = New System.Drawing.Point(232, 122)
+        Me.Button2.Margin = New System.Windows.Forms.Padding(4)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(47, 28)
+        Me.Button2.TabIndex = 358
+        Me.Button2.Text = "Ok"
+        Me.Button2.UseVisualStyleBackColor = True
+        '
+        'LbPeriodo_Mes
+        '
+        Me.LbPeriodo_Mes.FormattingEnabled = True
+        Me.LbPeriodo_Mes.ItemHeight = 16
+        Me.LbPeriodo_Mes.Items.AddRange(New Object() {"ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMPRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"})
+        Me.LbPeriodo_Mes.Location = New System.Drawing.Point(8, 14)
+        Me.LbPeriodo_Mes.Margin = New System.Windows.Forms.Padding(4)
+        Me.LbPeriodo_Mes.Name = "LbPeriodo_Mes"
+        Me.LbPeriodo_Mes.Size = New System.Drawing.Size(124, 100)
+        Me.LbPeriodo_Mes.TabIndex = 357
+        '
+        'LbPeriodo_año
+        '
+        Me.LbPeriodo_año.FormattingEnabled = True
+        Me.LbPeriodo_año.ItemHeight = 16
+        Me.LbPeriodo_año.Items.AddRange(New Object() {"2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027"})
+        Me.LbPeriodo_año.Location = New System.Drawing.Point(156, 16)
+        Me.LbPeriodo_año.Margin = New System.Windows.Forms.Padding(4)
+        Me.LbPeriodo_año.Name = "LbPeriodo_año"
+        Me.LbPeriodo_año.Size = New System.Drawing.Size(121, 100)
+        Me.LbPeriodo_año.TabIndex = 356
+        '
         'Label4
         '
         Me.Label4.AutoSize = True
@@ -154,77 +237,41 @@ Partial Class frmPeriodoPresentaciones
         Me.Label4.TabIndex = 276
         Me.Label4.Text = "Código"
         '
-        'Label15
-        '
-        Me.Label15.AutoSize = True
-        Me.Label15.BackColor = System.Drawing.Color.Transparent
-        Me.Label15.ForeColor = System.Drawing.Color.Blue
-        Me.Label15.Location = New System.Drawing.Point(346, 15)
-        Me.Label15.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(82, 17)
-        Me.Label15.TabIndex = 275
-        Me.Label15.Text = "Descripción"
-        '
         'Label14
         '
         Me.Label14.AutoSize = True
         Me.Label14.BackColor = System.Drawing.Color.Transparent
         Me.Label14.ForeColor = System.Drawing.Color.Blue
-        Me.Label14.Location = New System.Drawing.Point(602, 15)
+        Me.Label14.Location = New System.Drawing.Point(470, 17)
         Me.Label14.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(124, 17)
+        Me.Label14.Size = New System.Drawing.Size(48, 17)
         Me.Label14.TabIndex = 274
-        Me.Label14.Text = "Concepto de pago"
+        Me.Label14.Text = "Grupo"
         '
         'Label13
         '
         Me.Label13.AutoSize = True
         Me.Label13.BackColor = System.Drawing.Color.Transparent
         Me.Label13.ForeColor = System.Drawing.Color.Blue
-        Me.Label13.Location = New System.Drawing.Point(790, 15)
+        Me.Label13.Location = New System.Drawing.Point(591, 17)
         Me.Label13.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(89, 17)
+        Me.Label13.Size = New System.Drawing.Size(57, 17)
         Me.Label13.TabIndex = 273
-        Me.Label13.Text = "Pertenece a:"
+        Me.Label13.Text = "Periodo"
         '
         'Label12
         '
         Me.Label12.AutoSize = True
         Me.Label12.BackColor = System.Drawing.Color.Transparent
         Me.Label12.ForeColor = System.Drawing.Color.Blue
-        Me.Label12.Location = New System.Drawing.Point(1004, 15)
+        Me.Label12.Location = New System.Drawing.Point(899, 17)
         Me.Label12.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(75, 17)
+        Me.Label12.Size = New System.Drawing.Size(88, 17)
         Me.Label12.TabIndex = 272
-        Me.Label12.Text = "Tipo valor:"
-        '
-        'Label10
-        '
-        Me.Label10.AutoSize = True
-        Me.Label10.BackColor = System.Drawing.Color.Transparent
-        Me.Label10.ForeColor = System.Drawing.Color.Blue
-        Me.Label10.Location = New System.Drawing.Point(4, 70)
-        Me.Label10.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(41, 17)
-        Me.Label10.TabIndex = 271
-        Me.Label10.Text = "Valor"
-        '
-        'Label9
-        '
-        Me.Label9.AutoSize = True
-        Me.Label9.BackColor = System.Drawing.Color.Transparent
-        Me.Label9.ForeColor = System.Drawing.Color.Blue
-        Me.Label9.Location = New System.Drawing.Point(152, 68)
-        Me.Label9.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(130, 17)
-        Me.Label9.TabIndex = 270
-        Me.Label9.Text = "Campos aplicables:"
+        Me.Label12.Text = "Fecha Límite"
         '
         'Label11
         '
@@ -234,9 +281,9 @@ Partial Class frmPeriodoPresentaciones
         Me.Label11.Location = New System.Drawing.Point(196, 15)
         Me.Label11.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(58, 17)
+        Me.Label11.Size = New System.Drawing.Size(79, 17)
         Me.Label11.TabIndex = 268
-        Me.Label11.Text = "Nombre"
+        Me.Label11.Text = "Mandataria"
         '
         'txtCODIGO
         '
@@ -258,71 +305,28 @@ Partial Class frmPeriodoPresentaciones
         Me.txtCODIGO.Text_4 = Nothing
         Me.txtCODIGO.UserValues = Nothing
         '
-        'cmbConceptoPago
+        'cmbMandatarias
         '
-        Me.cmbConceptoPago.FormattingEnabled = True
-        Me.cmbConceptoPago.Location = New System.Drawing.Point(605, 36)
-        Me.cmbConceptoPago.Name = "cmbConceptoPago"
-        Me.cmbConceptoPago.Size = New System.Drawing.Size(179, 24)
-        Me.cmbConceptoPago.TabIndex = 3
+        Me.cmbMandatarias.FormattingEnabled = True
+        Me.cmbMandatarias.Location = New System.Drawing.Point(199, 35)
+        Me.cmbMandatarias.Name = "cmbMandatarias"
+        Me.cmbMandatarias.Size = New System.Drawing.Size(264, 24)
+        Me.cmbMandatarias.TabIndex = 7
         '
-        'cmbPerteneceA
-        '
-        Me.cmbPerteneceA.FormattingEnabled = True
-        Me.cmbPerteneceA.Location = New System.Drawing.Point(793, 35)
-        Me.cmbPerteneceA.Name = "cmbPerteneceA"
-        Me.cmbPerteneceA.Size = New System.Drawing.Size(204, 24)
-        Me.cmbPerteneceA.TabIndex = 4
-        '
-        'txtNombre
-        '
-        Me.txtNombre.Location = New System.Drawing.Point(199, 36)
-        Me.txtNombre.Name = "txtNombre"
-        Me.txtNombre.Size = New System.Drawing.Size(144, 22)
-        Me.txtNombre.TabIndex = 1
-        '
-        'cmbTipoValor
-        '
-        Me.cmbTipoValor.FormattingEnabled = True
-        Me.cmbTipoValor.Location = New System.Drawing.Point(1007, 33)
-        Me.cmbTipoValor.Name = "cmbTipoValor"
-        Me.cmbTipoValor.Size = New System.Drawing.Size(144, 24)
-        Me.cmbTipoValor.TabIndex = 5
-        '
-        'txtValor
-        '
-        Me.txtValor.Location = New System.Drawing.Point(7, 88)
-        Me.txtValor.Name = "txtValor"
-        Me.txtValor.Size = New System.Drawing.Size(142, 22)
-        Me.txtValor.TabIndex = 6
-        '
-        'cmbCamposAplicables
-        '
-        Me.cmbCamposAplicables.FormattingEnabled = True
-        Me.cmbCamposAplicables.Location = New System.Drawing.Point(155, 86)
-        Me.cmbCamposAplicables.Name = "cmbCamposAplicables"
-        Me.cmbCamposAplicables.Size = New System.Drawing.Size(229, 24)
-        Me.cmbCamposAplicables.TabIndex = 7
-        '
-        'txtDescripcion
-        '
-        Me.txtDescripcion.Location = New System.Drawing.Point(349, 36)
-        Me.txtDescripcion.Name = "txtDescripcion"
-        Me.txtDescripcion.Size = New System.Drawing.Size(250, 22)
-        Me.txtDescripcion.TabIndex = 2
-        '
-        'frmConceptos
+        'frmPeriodoPresentaciones
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1344, 620)
+        Me.ClientSize = New System.Drawing.Size(1344, 641)
         Me.Controls.Add(Me.GroupPanel1)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(5)
-        Me.Name = "frmConceptos"
-        Me.Text = "Almacenes"
+        Me.Name = "frmPeriodoPresentaciones"
+        Me.Text = "Periodo Presentaciones"
         Me.Controls.SetChildIndex(Me.GroupPanel1, 0)
         Me.GroupPanel1.ResumeLayout(False)
         Me.GroupPanel1.PerformLayout()
+        Me.GbPeriodo.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -334,20 +338,19 @@ Partial Class frmPeriodoPresentaciones
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents chkEliminados As System.Windows.Forms.CheckBox
     Friend WithEvents GroupPanel1 As DevComponents.DotNetBar.Controls.GroupPanel
-    Friend WithEvents Label15 As Label
     Friend WithEvents Label14 As Label
     Friend WithEvents Label13 As Label
     Friend WithEvents Label12 As Label
-    Friend WithEvents Label10 As Label
-    Friend WithEvents Label9 As Label
     Friend WithEvents Label11 As Label
-    Friend WithEvents cmbConceptoPago As ComboBox
-    Friend WithEvents cmbPerteneceA As ComboBox
-    Friend WithEvents txtNombre As TextBox
-    Friend WithEvents cmbTipoValor As ComboBox
-    Friend WithEvents txtValor As TextBox
-    Friend WithEvents cmbCamposAplicables As ComboBox
-    Friend WithEvents txtDescripcion As TextBox
+    Friend WithEvents cmbMandatarias As ComboBox
     Friend WithEvents Label4 As Label
     Friend WithEvents txtCODIGO As TextBoxConFormatoVB.FormattedTextBoxVB
+    Friend WithEvents txtPeriodo As TextBox
+    Friend WithEvents GbPeriodo As GroupBox
+    Friend WithEvents Button2 As Button
+    Friend WithEvents LbPeriodo_Mes As ListBox
+    Friend WithEvents LbPeriodo_año As ListBox
+    Friend WithEvents btnPeriodo As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents dtpFechaLimite As DateTimePicker
+    Friend WithEvents cmbGrupos As ComboBox
 End Class

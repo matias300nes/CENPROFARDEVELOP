@@ -45,7 +45,7 @@ Partial Class frmMandatarias
         Me.chkEliminados.BackColor = System.Drawing.Color.Transparent
         Me.chkEliminados.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.chkEliminados.ForeColor = System.Drawing.Color.Red
-        Me.chkEliminados.Location = New System.Drawing.Point(1173, 38)
+        Me.chkEliminados.Location = New System.Drawing.Point(1200, 103)
         Me.chkEliminados.Margin = New System.Windows.Forms.Padding(4)
         Me.chkEliminados.Name = "chkEliminados"
         Me.chkEliminados.Size = New System.Drawing.Size(138, 21)
@@ -146,7 +146,7 @@ Partial Class frmMandatarias
         Me.Label3.AutoSize = True
         Me.Label3.BackColor = System.Drawing.Color.Transparent
         Me.Label3.ForeColor = System.Drawing.Color.Blue
-        Me.Label3.Location = New System.Drawing.Point(4, 65)
+        Me.Label3.Location = New System.Drawing.Point(757, 17)
         Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(64, 17)
@@ -155,17 +155,17 @@ Partial Class frmMandatarias
         '
         'txtTelefono
         '
-        Me.txtTelefono.Location = New System.Drawing.Point(7, 86)
+        Me.txtTelefono.Location = New System.Drawing.Point(760, 36)
         Me.txtTelefono.Name = "txtTelefono"
-        Me.txtTelefono.Size = New System.Drawing.Size(144, 22)
-        Me.txtTelefono.TabIndex = 280
+        Me.txtTelefono.Size = New System.Drawing.Size(161, 22)
+        Me.txtTelefono.TabIndex = 3
         '
         'Label2
         '
         Me.Label2.AutoSize = True
         Me.Label2.BackColor = System.Drawing.Color.Transparent
         Me.Label2.ForeColor = System.Drawing.Color.Blue
-        Me.Label2.Location = New System.Drawing.Point(163, 65)
+        Me.Label2.Location = New System.Drawing.Point(10, 68)
         Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(52, 17)
@@ -174,17 +174,17 @@ Partial Class frmMandatarias
         '
         'txtCelular
         '
-        Me.txtCelular.Location = New System.Drawing.Point(166, 86)
+        Me.txtCelular.Location = New System.Drawing.Point(13, 88)
         Me.txtCelular.Name = "txtCelular"
         Me.txtCelular.Size = New System.Drawing.Size(144, 22)
-        Me.txtCelular.TabIndex = 278
+        Me.txtCelular.TabIndex = 5
         '
         'txtCodigoPostal
         '
-        Me.txtCodigoPostal.Location = New System.Drawing.Point(665, 37)
+        Me.txtCodigoPostal.Location = New System.Drawing.Point(163, 88)
         Me.txtCodigoPostal.Name = "txtCodigoPostal"
         Me.txtCodigoPostal.Size = New System.Drawing.Size(122, 22)
-        Me.txtCodigoPostal.TabIndex = 277
+        Me.txtCodigoPostal.TabIndex = 6
         '
         'Label4
         '
@@ -203,7 +203,7 @@ Partial Class frmMandatarias
         Me.Label15.AutoSize = True
         Me.Label15.BackColor = System.Drawing.Color.Transparent
         Me.Label15.ForeColor = System.Drawing.Color.Blue
-        Me.Label15.Location = New System.Drawing.Point(346, 15)
+        Me.Label15.Location = New System.Drawing.Point(444, 15)
         Me.Label15.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(67, 17)
@@ -215,7 +215,7 @@ Partial Class frmMandatarias
         Me.Label14.AutoSize = True
         Me.Label14.BackColor = System.Drawing.Color.Transparent
         Me.Label14.ForeColor = System.Drawing.Color.Blue
-        Me.Label14.Location = New System.Drawing.Point(662, 19)
+        Me.Label14.Location = New System.Drawing.Point(160, 68)
         Me.Label14.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(80, 17)
@@ -227,7 +227,7 @@ Partial Class frmMandatarias
         Me.Label13.AutoSize = True
         Me.Label13.BackColor = System.Drawing.Color.Transparent
         Me.Label13.ForeColor = System.Drawing.Color.Blue
-        Me.Label13.Location = New System.Drawing.Point(790, 15)
+        Me.Label13.Location = New System.Drawing.Point(938, 14)
         Me.Label13.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(66, 17)
@@ -239,7 +239,7 @@ Partial Class frmMandatarias
         Me.Label12.AutoSize = True
         Me.Label12.BackColor = System.Drawing.Color.Transparent
         Me.Label12.ForeColor = System.Drawing.Color.Blue
-        Me.Label12.Location = New System.Drawing.Point(1004, 17)
+        Me.Label12.Location = New System.Drawing.Point(938, 77)
         Me.Label12.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(69, 17)
@@ -281,29 +281,29 @@ Partial Class frmMandatarias
         'cmbProvincia
         '
         Me.cmbProvincia.FormattingEnabled = True
-        Me.cmbProvincia.Location = New System.Drawing.Point(793, 35)
+        Me.cmbProvincia.Location = New System.Drawing.Point(941, 36)
         Me.cmbProvincia.Name = "cmbProvincia"
-        Me.cmbProvincia.Size = New System.Drawing.Size(204, 24)
+        Me.cmbProvincia.Size = New System.Drawing.Size(234, 24)
         Me.cmbProvincia.TabIndex = 4
         '
         'txtNombre
         '
         Me.txtNombre.Location = New System.Drawing.Point(199, 36)
         Me.txtNombre.Name = "txtNombre"
-        Me.txtNombre.Size = New System.Drawing.Size(144, 22)
+        Me.txtNombre.Size = New System.Drawing.Size(242, 22)
         Me.txtNombre.TabIndex = 1
         '
         'cmbLocalidad
         '
         Me.cmbLocalidad.FormattingEnabled = True
-        Me.cmbLocalidad.Location = New System.Drawing.Point(1007, 35)
+        Me.cmbLocalidad.Location = New System.Drawing.Point(941, 97)
         Me.cmbLocalidad.Name = "cmbLocalidad"
-        Me.cmbLocalidad.Size = New System.Drawing.Size(144, 24)
-        Me.cmbLocalidad.TabIndex = 5
+        Me.cmbLocalidad.Size = New System.Drawing.Size(234, 24)
+        Me.cmbLocalidad.TabIndex = 7
         '
         'txtDireccion
         '
-        Me.txtDireccion.Location = New System.Drawing.Point(349, 36)
+        Me.txtDireccion.Location = New System.Drawing.Point(447, 37)
         Me.txtDireccion.Name = "txtDireccion"
         Me.txtDireccion.Size = New System.Drawing.Size(306, 22)
         Me.txtDireccion.TabIndex = 2
@@ -316,7 +316,7 @@ Partial Class frmMandatarias
         Me.Controls.Add(Me.GroupPanel1)
         Me.Margin = New System.Windows.Forms.Padding(5)
         Me.Name = "frmMandatarias"
-        Me.Text = "Almacenes"
+        Me.Text = "Mandatarias"
         Me.Controls.SetChildIndex(Me.GroupPanel1, 0)
         Me.GroupPanel1.ResumeLayout(False)
         Me.GroupPanel1.PerformLayout()

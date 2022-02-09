@@ -212,12 +212,14 @@ Partial Class MDIPrincipal
         '
         'MandatariasToolStripMenuItem
         '
+        Me.MandatariasToolStripMenuItem.Image = CType(resources.GetObject("MandatariasToolStripMenuItem.Image"), System.Drawing.Image)
         Me.MandatariasToolStripMenuItem.Name = "MandatariasToolStripMenuItem"
         Me.MandatariasToolStripMenuItem.Size = New System.Drawing.Size(302, 26)
         Me.MandatariasToolStripMenuItem.Text = "Mandatarias"
         '
         'PeriodoPresentacionesToolStripMenuItem
         '
+        Me.PeriodoPresentacionesToolStripMenuItem.Image = CType(resources.GetObject("PeriodoPresentacionesToolStripMenuItem.Image"), System.Drawing.Image)
         Me.PeriodoPresentacionesToolStripMenuItem.Name = "PeriodoPresentacionesToolStripMenuItem"
         Me.PeriodoPresentacionesToolStripMenuItem.Size = New System.Drawing.Size(302, 26)
         Me.PeriodoPresentacionesToolStripMenuItem.Text = "Período Presentaciones"

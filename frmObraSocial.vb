@@ -27,7 +27,7 @@ Public Class frmObraSocial
         'AsignarPermisos(UserID, Me.Name, ALTA, MODIFICA, BAJA, BAJA_FISICA)
         configurarform()
         asignarTags()
-
+        LlenarCmbMandatarias()
         SQL = "exec spObrasSociales_Select_All @Eliminado = 0"
 
         llenandoCombo = False
@@ -45,7 +45,7 @@ Public Class frmObraSocial
     End Sub
 
     Private Sub txtid_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) _
-     Handles txtID.KeyPress, txtCODIGO.KeyPress, txtObservaciones.KeyPress
+     Handles txtID.KeyPress, txtCODIGO.KeyPress, txtNombre.KeyPress
         If e.KeyChar = ChrW(Keys.Enter) Then
             e.Handled = True
             SendKeys.Send("{TAB}")
@@ -391,8 +391,21 @@ Public Class frmObraSocial
                 param_nombre.ParameterName = "@nombre"
                 param_nombre.SqlDbType = SqlDbType.VarChar
                 param_nombre.Size = 100
-                param_nombre.Value = txtObservaciones.Text.ToUpper
+                param_nombre.Value = txtNombre.Text.ToUpper
                 param_nombre.Direction = ParameterDirection.Input
+
+                Dim param_cmbmandataria As New SqlClient.SqlParameter
+                param_cmbmandataria.ParameterName = "@idmandataria"
+                param_cmbmandataria.SqlDbType = SqlDbType.BigInt
+                param_cmbmandataria.Value = cmbMandatarias.SelectedValue
+                param_cmbmandataria.Direction = ParameterDirection.Input
+
+                Dim param_grupo As New SqlClient.SqlParameter
+                param_grupo.ParameterName = "@grupo"
+                param_grupo.SqlDbType = SqlDbType.VarChar
+                param_grupo.Size = 10
+                param_grupo.Value = txtgrupo.Text
+                param_grupo.Direction = ParameterDirection.Input
 
                 Dim param_descripcion As New SqlClient.SqlParameter
                 param_descripcion.ParameterName = "@descripcion"
@@ -450,7 +463,8 @@ Public Class frmObraSocial
 
                 Try
                     SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spObrasSociales_Insert", param_id,
-                                              param_codigo, param_codFACAF, param_nombre, param_descripcion, param_domicilio,
+                                              param_codigo, param_codFACAF, param_nombre, param_cmbmandataria, param_grupo,
+                                              param_descripcion, param_domicilio,
                                               param_localidad, param_telefono, param_email, param_cuit, param_bonificacion,
                                               param_res)
 
@@ -516,8 +530,21 @@ Public Class frmObraSocial
                 param_nombre.ParameterName = "@nombre"
                 param_nombre.SqlDbType = SqlDbType.VarChar
                 param_nombre.Size = 300
-                param_nombre.Value = txtObservaciones.Text.ToUpper
+                param_nombre.Value = txtNombre.Text.ToUpper
                 param_nombre.Direction = ParameterDirection.Input
+
+                Dim param_cmbmandataria As New SqlClient.SqlParameter
+                param_cmbmandataria.ParameterName = "@idmandataria"
+                param_cmbmandataria.SqlDbType = SqlDbType.BigInt
+                param_cmbmandataria.Value = cmbMandatarias.SelectedValue
+                param_cmbmandataria.Direction = ParameterDirection.Input
+
+                Dim param_grupo As New SqlClient.SqlParameter
+                param_grupo.ParameterName = "@grupo"
+                param_grupo.SqlDbType = SqlDbType.VarChar
+                param_grupo.Size = 10
+                param_grupo.Value = txtgrupo.Text
+                param_grupo.Direction = ParameterDirection.Input
 
                 Dim param_cuit As New SqlClient.SqlParameter
                 param_cuit.ParameterName = "@cuit"
@@ -585,7 +612,7 @@ Public Class frmObraSocial
 
 
                 SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spObrasSociales_Update", param_id,
-                                              param_nombre, param_codFACAF, param_telefono, param_email, param_cuit,
+                                              param_nombre, param_cmbmandataria, param_grupo, param_codFACAF, param_telefono, param_email, param_cuit,
                                               param_descripcion, param_domicilio, param_localidad, param_bonificacion, param_res)
 
                 ActualizarRegistro = param_res.Value
@@ -722,16 +749,18 @@ Public Class frmObraSocial
     Private Sub asignarTags()
         txtID.Tag = "0"
         txtCODIGO.Tag = "1"
-        txtObservaciones.Tag = "2"
+        txtNombre.Tag = "2"
         txtCodigoFacaf.Tag = "3"
-        txtTelefono.Tag = "4"
-        txtEmail.Tag = "5"
-        txtCuit.Tag = "6"
-        txtDescripcion.Tag = "7"
-        nudBonificacion.Tag = "8"
-        txtDomicilio.Tag = "9"
-        cmbLocalidad.Tag = "10"
-        cmbProvincia.Tag = "11"
+        cmbMandatarias.Tag = "4"
+        txtgrupo.Tag = "6"
+        txtTelefono.Tag = "7"
+        txtEmail.Tag = "8"
+        txtCuit.Tag = "9"
+        txtDescripcion.Tag = "10"
+        nudBonificacion.Tag = "11"
+        txtDomicilio.Tag = "12"
+        cmbLocalidad.Tag = "13"
+        cmbProvincia.Tag = "14"
 
     End Sub
 
@@ -818,7 +847,51 @@ Public Class frmObraSocial
 
     End Sub
 
+    Private Sub LlenarCmbMandatarias()
+        Dim connection As SqlClient.SqlConnection = Nothing
+        Dim ds As Data.DataSet
 
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+        Catch ex As Exception
+            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End Try
+
+        Try
+
+            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $" SELECT ID, NOMBRE FROM Mandatarias WHERE ELIMINADO = 0")
+            ds.Dispose()
+
+            With cmbMandatarias
+                .DataSource = ds.Tables(0).DefaultView
+                .DisplayMember = "NOMBRE"
+                .ValueMember = "ID"
+                .AutoCompleteMode = AutoCompleteMode.SuggestAppend
+                .AutoCompleteSource = AutoCompleteSource.ListItems
+                '.SelectedIndex = "ID"
+            End With
+
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If Not connection Is Nothing Then
+                CType(connection, IDisposable).Dispose()
+            End If
+        End Try
+
+
+    End Sub
     Private Sub cmbLocalidad_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbLocalidad.SelectedValueChanged
 
         If TypeOf cmbLocalidad.SelectedValue Is Long Then

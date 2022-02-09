@@ -9,6 +9,7 @@ Imports ReportesNet
 Public Class frmPeriodoPresentaciones
 
     Dim bolpoliticas As Boolean
+    Dim cmbLlenado As Boolean = False
 
 #Region "Procedimientos Formularios"
 
@@ -30,12 +31,10 @@ Public Class frmPeriodoPresentaciones
     Private Sub frmConceptos_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         'AsignarPermisos(UserID, Me.Name, ALTA, MODIFICA, BAJA, BAJA_FISICA)
         configurarform()
-        LlenarCmbConceptoPago()
-        LlenarCmbPerteneceA()
-        LlenarCmbTipoValor()
-        LlenarCmbCamposAplicables()
+        LlenarCmbMandatarias()
+        LlenarCmbGrupos()
         asignarTags()
-        SQL = "exec spConceptos_Select_All 0"
+        SQL = "exec spPeriodoPresentaciones_Select_All 0"
         LlenarGrilla()
         Permitir = True
         CargarCajas()
@@ -50,9 +49,9 @@ Public Class frmPeriodoPresentaciones
         btnEliminar.Enabled = Not chkEliminados.Checked
 
         If chkEliminados.Checked = True Then
-            SQL = "exec spAlmacenes_Select_All @Eliminado = 1"
+            SQL = "exec spPeriodoPresentaciones_Select_All @Eliminado = 1"
         Else
-            SQL = "exec spAlmacenes_Select_All @Eliminado = 0"
+            SQL = "exec spPeriodoPresentaciones_Select_All @Eliminado = 0"
         End If
 
         LlenarGrilla()
@@ -134,6 +133,7 @@ Public Class frmPeriodoPresentaciones
 
     Private Sub btnNuevo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNuevo.Click
         'If ALTA Then
+        cmbLlenado = False
         bolModo = True
         Util.MsgStatus(Status1, "Haga click en [Guardar] despues de completar los datos.")
         PrepararBotones()
@@ -142,6 +142,7 @@ Public Class frmPeriodoPresentaciones
         ' Else
         'Util.MsgStatus(Status1, "No tiene permiso para generar registros nuevos.", My.Resources.stop_error.ToBitmap)
         'End If
+        cmbLlenado = False
     End Sub
 
     Private Sub btnEliminar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEliminar.Click
@@ -276,7 +277,6 @@ Public Class frmPeriodoPresentaciones
 #Region "Procedimientos"
 
     Private Sub configurarform()
-        Me.Text = "Conceptos"
         Me.grd.Location = New Size(GroupPanel1.Location.X, GroupPanel1.Location.Y + GroupPanel1.Size.Height + 7)
         'Me.Size = New Size(Me.Size.Width, 500)
         Me.Size = New Size(Me.Size.Width, (Screen.PrimaryScreen.WorkingArea.Height - 65))
@@ -294,10 +294,13 @@ Public Class frmPeriodoPresentaciones
     Private Sub asignarTags()
         txtID.Tag = "0"
         txtCODIGO.Tag = "1"
-        txtNombre.Tag = "2"
+        cmbMandatarias.Tag = "2"
+        cmbGrupos.Tag = "4"
+        txtPeriodo.Tag = "5"
+        dtpFechaLimite.Tag = "6"
     End Sub
 
-    Private Sub LlenarCmbConceptoPago()
+    Private Sub LlenarCmbMandatarias()
         Dim connection As SqlClient.SqlConnection = Nothing
         Dim ds As Data.DataSet
 
@@ -310,10 +313,10 @@ Public Class frmPeriodoPresentaciones
 
         Try
 
-            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $" SELECT ID, NOMBRE FROM Conceptos_ConceptoPago WHERE ELIMINADO = 0")
+            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $" SELECT ID, NOMBRE FROM Mandatarias WHERE ELIMINADO = 0")
             ds.Dispose()
 
-            With cmbConceptoPago
+            With cmbMandatarias
                 .DataSource = ds.Tables(0).DefaultView
                 .DisplayMember = "NOMBRE"
                 .ValueMember = "ID"
@@ -340,10 +343,10 @@ Public Class frmPeriodoPresentaciones
             End If
         End Try
 
-
+        cmbLlenado = True
     End Sub
 
-    Private Sub LlenarCmbPerteneceA()
+    Private Sub LlenarCmbGrupos()
         Dim connection As SqlClient.SqlConnection = Nothing
         Dim ds As Data.DataSet
 
@@ -356,13 +359,13 @@ Public Class frmPeriodoPresentaciones
 
         Try
 
-            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $" SELECT ID, NOMBRE FROM Conceptos_PerteneceA WHERE ELIMINADO = 0")
+            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT DISTINCT Grupo FROM ObrasSociales WHERE ELIMINADO = 0 AND IdMandataria = {cmbMandatarias.SelectedValue}")
             ds.Dispose()
 
-            With cmbPerteneceA
+            With cmbGrupos
                 .DataSource = ds.Tables(0).DefaultView
-                .DisplayMember = "NOMBRE"
-                .ValueMember = "ID"
+                .DisplayMember = "Grupo"
+                .ValueMember = "Grupo"
                 .AutoCompleteMode = AutoCompleteMode.SuggestAppend
                 .AutoCompleteSource = AutoCompleteSource.ListItems
                 '.SelectedIndex = "ID"
@@ -386,99 +389,7 @@ Public Class frmPeriodoPresentaciones
             End If
         End Try
 
-
-    End Sub
-
-    Private Sub LlenarCmbTipoValor()
-        Dim connection As SqlClient.SqlConnection = Nothing
-        Dim ds As Data.DataSet
-
-        Try
-            connection = SqlHelper.GetConnection(ConnStringSEI)
-        Catch ex As Exception
-            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
-        End Try
-
-        Try
-
-            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $" SELECT ID, NOMBRE FROM Conceptos_TipoValor WHERE ELIMINADO = 0")
-            ds.Dispose()
-
-            With cmbTipoValor
-                .DataSource = ds.Tables(0).DefaultView
-                .DisplayMember = "NOMBRE"
-                .ValueMember = "ID"
-                .AutoCompleteMode = AutoCompleteMode.SuggestAppend
-                .AutoCompleteSource = AutoCompleteSource.ListItems
-                '.SelectedIndex = "ID"
-            End With
-
-        Catch ex As Exception
-            Dim errMessage As String = ""
-            Dim tempException As Exception = ex
-
-            While (Not tempException Is Nothing)
-                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
-                tempException = tempException.InnerException
-            End While
-
-            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
-              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            If Not connection Is Nothing Then
-                CType(connection, IDisposable).Dispose()
-            End If
-        End Try
-
-
-    End Sub
-
-    Private Sub LlenarCmbCamposAplicables()
-        Dim connection As SqlClient.SqlConnection = Nothing
-        Dim ds As Data.DataSet
-
-        Try
-            connection = SqlHelper.GetConnection(ConnStringSEI)
-        Catch ex As Exception
-            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
-        End Try
-
-        Try
-
-            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $" SELECT ID, NOMBRE FROM Conceptos_CamposAplicables WHERE ELIMINADO = 0")
-            ds.Dispose()
-
-            With cmbCamposAplicables
-                .DataSource = ds.Tables(0).DefaultView
-                .DisplayMember = "NOMBRE"
-                .ValueMember = "ID"
-                .AutoCompleteMode = AutoCompleteMode.SuggestAppend
-                .AutoCompleteSource = AutoCompleteSource.ListItems
-                '.SelectedIndex = "ID"
-            End With
-
-        Catch ex As Exception
-            Dim errMessage As String = ""
-            Dim tempException As Exception = ex
-
-            While (Not tempException Is Nothing)
-                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
-                tempException = tempException.InnerException
-            End While
-
-            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
-              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            If Not connection Is Nothing Then
-                CType(connection, IDisposable).Dispose()
-            End If
-        End Try
-
-
+        cmbLlenado = True
     End Sub
 
     Private Sub Verificar_Datos()
@@ -486,6 +397,24 @@ Public Class frmPeriodoPresentaciones
         bolpoliticas = False
 
         bolpoliticas = True
+
+    End Sub
+
+    Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles btnPeriodo.Click
+        GbPeriodo.Visible = Not GbPeriodo.Visible
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        txtPeriodo.Text = $"{LbPeriodo_Mes.Text}-{LbPeriodo_año.Text}"
+        GbPeriodo.Visible = Not GbPeriodo.Visible
+    End Sub
+
+    Private Sub cmbMandatarias_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbMandatarias.SelectedValueChanged
+        If cmbLlenado = True Then
+            cmbGrupos.Text = ""
+            LlenarCmbGrupos()
+        End If
+
 
     End Sub
 
@@ -516,54 +445,35 @@ Public Class frmPeriodoPresentaciones
                 Dim param_codigo As New SqlClient.SqlParameter
                 param_codigo.ParameterName = "@codigo"
                 param_codigo.SqlDbType = SqlDbType.VarChar
-                param_codigo.Size = 25
+                param_codigo.Size = 10
                 param_codigo.Value = txtCODIGO.Text
                 param_codigo.Direction = ParameterDirection.Input
 
-                Dim param_nombre As New SqlClient.SqlParameter
-                param_nombre.ParameterName = "@nombre"
-                param_nombre.SqlDbType = SqlDbType.VarChar
-                param_nombre.Size = 50
-                param_nombre.Value = txtNombre.Text.ToUpper
-                param_nombre.Direction = ParameterDirection.Input
+                Dim param_cmbMandatarias As New SqlClient.SqlParameter
+                param_cmbMandatarias.ParameterName = "@idMandataria"
+                param_cmbMandatarias.SqlDbType = SqlDbType.BigInt
+                param_cmbMandatarias.Value = cmbMandatarias.SelectedValue
+                param_cmbMandatarias.Direction = ParameterDirection.Input
 
-                Dim param_descripcion As New SqlClient.SqlParameter
-                param_descripcion.ParameterName = "@descripcion"
-                param_descripcion.SqlDbType = SqlDbType.VarChar
-                param_descripcion.Size = 100
-                param_descripcion.Value = txtDescripcion.Text.ToUpper
-                param_descripcion.Direction = ParameterDirection.Input
+                Dim param_grupo As New SqlClient.SqlParameter
+                param_grupo.ParameterName = "@grupo"
+                param_grupo.SqlDbType = SqlDbType.VarChar
+                param_grupo.Size = 10
+                param_grupo.Value = cmbGrupos.Text
+                param_grupo.Direction = ParameterDirection.Input
 
-                Dim param_idConceptoPago As New SqlClient.SqlParameter
-                param_idConceptoPago.ParameterName = "@IdConceptoPago"
-                param_idConceptoPago.SqlDbType = SqlDbType.BigInt
-                param_idConceptoPago.Value = cmbConceptoPago.SelectedValue
-                param_idConceptoPago.Direction = ParameterDirection.Input
+                Dim param_periodo As New SqlClient.SqlParameter
+                param_periodo.ParameterName = "@periodo"
+                param_periodo.SqlDbType = SqlDbType.VarChar
+                param_periodo.Size = 50
+                param_periodo.Value = txtPeriodo.Text.ToUpper
+                param_periodo.Direction = ParameterDirection.Input
 
-                Dim param_idPerteneceA As New SqlClient.SqlParameter
-                param_idPerteneceA.ParameterName = "@IdPerteneceA"
-                param_idPerteneceA.SqlDbType = SqlDbType.BigInt
-                param_idPerteneceA.Value = cmbPerteneceA.SelectedValue
-                param_idPerteneceA.Direction = ParameterDirection.Input
-
-                Dim param_idTipoValor As New SqlClient.SqlParameter
-                param_idTipoValor.ParameterName = "@IdTipoValor"
-                param_idTipoValor.SqlDbType = SqlDbType.BigInt
-                param_idTipoValor.Value = cmbTipoValor.SelectedValue
-                param_idTipoValor.Direction = ParameterDirection.Input
-
-                Dim param_valor As New SqlClient.SqlParameter
-                param_valor.ParameterName = "@Valor"
-                param_valor.SqlDbType = SqlDbType.VarChar
-                param_valor.Size = 50
-                param_valor.Value = txtValor.Text.ToUpper
-                param_valor.Direction = ParameterDirection.Input
-
-                Dim param_IdCamposAplicables As New SqlClient.SqlParameter
-                param_IdCamposAplicables.ParameterName = "@IdCamposAplicables"
-                param_IdCamposAplicables.SqlDbType = SqlDbType.BigInt
-                param_IdCamposAplicables.Value = cmbCamposAplicables.SelectedValue
-                param_IdCamposAplicables.Direction = ParameterDirection.Input
+                Dim param_FechaLimite As New SqlClient.SqlParameter
+                param_FechaLimite.ParameterName = "@fechalimite"
+                param_FechaLimite.SqlDbType = SqlDbType.DateTime
+                param_FechaLimite.Value = dtpFechaLimite.Value
+                param_FechaLimite.Direction = ParameterDirection.Input
 
                 Dim param_useradd As New SqlClient.SqlParameter
                 param_useradd.ParameterName = "@useradd"
@@ -578,9 +488,8 @@ Public Class frmPeriodoPresentaciones
                 param_res.Direction = ParameterDirection.InputOutput
 
                 Try
-                    SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spConceptos_Insert", param_id, param_codigo, param_nombre, param_descripcion, param_idConceptoPago,
-                                              param_idPerteneceA, param_idTipoValor, param_valor,
-                                              param_IdCamposAplicables, param_useradd, param_res)
+                    SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spPeriodoPresentaciones_Insert", param_id, param_codigo, param_cmbMandatarias, param_grupo,
+                                              param_periodo, param_FechaLimite, param_useradd, param_res)
                     txtID.Text = param_id.Value
                     res = param_res.Value
 
@@ -636,50 +545,31 @@ Public Class frmPeriodoPresentaciones
                 param_id.Value = txtID.Text
                 param_id.Direction = ParameterDirection.InputOutput
 
-                Dim param_nombre As New SqlClient.SqlParameter
-                param_nombre.ParameterName = "@nombre"
-                param_nombre.SqlDbType = SqlDbType.VarChar
-                param_nombre.Size = 50
-                param_nombre.Value = txtNombre.Text.ToUpper
-                param_nombre.Direction = ParameterDirection.Input
+                Dim param_cmbMandatarias As New SqlClient.SqlParameter
+                param_cmbMandatarias.ParameterName = "@idMandataria"
+                param_cmbMandatarias.SqlDbType = SqlDbType.BigInt
+                param_cmbMandatarias.Value = cmbMandatarias.SelectedValue
+                param_cmbMandatarias.Direction = ParameterDirection.Input
 
-                Dim param_descripcion As New SqlClient.SqlParameter
-                param_descripcion.ParameterName = "@descripcion"
-                param_descripcion.SqlDbType = SqlDbType.VarChar
-                param_descripcion.Size = 100
-                param_descripcion.Value = txtDescripcion.Text.ToUpper
-                param_descripcion.Direction = ParameterDirection.Input
+                Dim param_grupo As New SqlClient.SqlParameter
+                param_grupo.ParameterName = "@grupo"
+                param_grupo.SqlDbType = SqlDbType.VarChar
+                param_grupo.Size = 10
+                param_grupo.Value = cmbGrupos.Text
+                param_grupo.Direction = ParameterDirection.Input
 
-                Dim param_idConceptoPago As New SqlClient.SqlParameter
-                param_idConceptoPago.ParameterName = "@IdConceptoPago"
-                param_idConceptoPago.SqlDbType = SqlDbType.BigInt
-                param_idConceptoPago.Value = cmbConceptoPago.SelectedValue
-                param_idConceptoPago.Direction = ParameterDirection.Input
+                Dim param_periodo As New SqlClient.SqlParameter
+                param_periodo.ParameterName = "@periodo"
+                param_periodo.SqlDbType = SqlDbType.VarChar
+                param_periodo.Size = 50
+                param_periodo.Value = txtPeriodo.Text.ToUpper
+                param_periodo.Direction = ParameterDirection.Input
 
-                Dim param_idPerteneceA As New SqlClient.SqlParameter
-                param_idPerteneceA.ParameterName = "@IdPerteneceA"
-                param_idPerteneceA.SqlDbType = SqlDbType.BigInt
-                param_idPerteneceA.Value = cmbPerteneceA.SelectedValue
-                param_idPerteneceA.Direction = ParameterDirection.Input
-
-                Dim param_idTipoValor As New SqlClient.SqlParameter
-                param_idTipoValor.ParameterName = "@IdTipoValor"
-                param_idTipoValor.SqlDbType = SqlDbType.BigInt
-                param_idTipoValor.Value = cmbTipoValor.SelectedValue
-                param_idTipoValor.Direction = ParameterDirection.Input
-
-                Dim param_valor As New SqlClient.SqlParameter
-                param_valor.ParameterName = "@Valor"
-                param_valor.SqlDbType = SqlDbType.VarChar
-                param_valor.Size = 50
-                param_valor.Value = txtValor.Text.ToUpper
-                param_valor.Direction = ParameterDirection.Input
-
-                Dim param_IdCamposAplicables As New SqlClient.SqlParameter
-                param_IdCamposAplicables.ParameterName = "@IdCamposAplicables"
-                param_IdCamposAplicables.SqlDbType = SqlDbType.BigInt
-                param_IdCamposAplicables.Value = cmbCamposAplicables.SelectedValue
-                param_IdCamposAplicables.Direction = ParameterDirection.Input
+                Dim param_FechaLimite As New SqlClient.SqlParameter
+                param_FechaLimite.ParameterName = "@fechalimite"
+                param_FechaLimite.SqlDbType = SqlDbType.DateTime
+                param_FechaLimite.Value = dtpFechaLimite.Value
+                param_FechaLimite.Direction = ParameterDirection.Input
 
                 Dim param_userupd As New SqlClient.SqlParameter
                 param_userupd.ParameterName = "@userupd"
@@ -694,9 +584,8 @@ Public Class frmPeriodoPresentaciones
                 param_res.Direction = ParameterDirection.InputOutput
 
                 Try
-                    SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spConceptos_Update", param_id, param_nombre, param_descripcion, param_idConceptoPago,
-                                              param_idPerteneceA, param_idTipoValor, param_valor,
-                                              param_IdCamposAplicables, param_userupd, param_res)
+                    SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spPeriodoPresentaciones_Update", param_id, param_cmbMandatarias, param_grupo,
+                                              param_periodo, param_FechaLimite, param_userupd, param_res)
                     res = param_res.Value
 
 
