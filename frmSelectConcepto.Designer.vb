@@ -102,9 +102,9 @@ Partial Class frmSelectConcepto
         Me.LabelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX2.Location = New System.Drawing.Point(149, 29)
         Me.LabelX2.Name = "LabelX2"
-        Me.LabelX2.Size = New System.Drawing.Size(75, 17)
+        Me.LabelX2.Size = New System.Drawing.Size(93, 17)
         Me.LabelX2.TabIndex = 3
-        Me.LabelX2.Text = "Frecuencia"
+        Me.LabelX2.Text = "*Frecuencia"
         '
         'LabelX1
         '
@@ -120,6 +120,7 @@ Partial Class frmSelectConcepto
         '
         'txtFrecuencia
         '
+        Me.txtFrecuencia.AccessibleName = "*Frecuencia"
         Me.txtFrecuencia.Location = New System.Drawing.Point(149, 52)
         Me.txtFrecuencia.Name = "txtFrecuencia"
         Me.txtFrecuencia.Size = New System.Drawing.Size(130, 22)
@@ -141,6 +142,7 @@ Partial Class frmSelectConcepto
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "frmSelectConcepto"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Nuevo Concepto"
         Me.TableLayoutPanel1.ResumeLayout(False)
         CType(Me.grdConceptos, System.ComponentModel.ISupportInitialize).EndInit()

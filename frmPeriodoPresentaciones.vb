@@ -34,7 +34,7 @@ Public Class frmPeriodoPresentaciones
         LlenarCmbMandatarias()
         LlenarCmbGrupos()
         asignarTags()
-        SQL = "exec spPeriodoPresentaciones_Select_All 0"
+        SQL = "exec spPeriodoPresentaciones_Select_All @Eliminado = 0"
         LlenarGrilla()
         Permitir = True
         CargarCajas()
@@ -142,7 +142,8 @@ Public Class frmPeriodoPresentaciones
         ' Else
         'Util.MsgStatus(Status1, "No tiene permiso para generar registros nuevos.", My.Resources.stop_error.ToBitmap)
         'End If
-        cmbLlenado = False
+        cmbLlenado = True 'permito que se llene el cmbGrupos
+        cmbMandatarias.SelectedIndex = 0 'fuerzo a seleccionar el primer item
     End Sub
 
     Private Sub btnEliminar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEliminar.Click
@@ -242,7 +243,7 @@ Public Class frmPeriodoPresentaciones
             ds_Update = SqlHelper.ExecuteDataset(connection, CommandType.Text, "UPDATE Almacenes SET Eliminado = 0 WHERE id = " & grd.CurrentRow.Cells(0).Value)
             ds_Update.Dispose()
 
-            SQL = "exec spAlmacenes_Select_All @Eliminado = 1"
+            SQL = "exec spPeriodoPresentaciones_Select_All @Eliminado = 1"
 
             LlenarGrilla()
 

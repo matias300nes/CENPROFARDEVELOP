@@ -39,6 +39,9 @@ Public Class frmMandatarias
         Permitir = True
         CargarCajas()
         PrepararBotones()
+        grd.Columns(5).Visible = False
+        grd.Columns(7).Visible = False
+
     End Sub
 
     Private Sub chkEliminados_CheckedChanged(sender As Object, e As EventArgs) Handles chkEliminados.CheckedChanged

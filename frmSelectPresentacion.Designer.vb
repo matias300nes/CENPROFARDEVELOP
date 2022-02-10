@@ -45,7 +45,7 @@ Partial Class frmSelectPresentacion
         Me.grdPresentaciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.grdPresentaciones.Dock = System.Windows.Forms.DockStyle.Fill
         Me.grdPresentaciones.Location = New System.Drawing.Point(4, 96)
-        Me.grdPresentaciones.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.grdPresentaciones.Margin = New System.Windows.Forms.Padding(4)
         Me.grdPresentaciones.MultiSelect = False
         Me.grdPresentaciones.Name = "grdPresentaciones"
         Me.grdPresentaciones.ReadOnly = True
@@ -61,7 +61,7 @@ Partial Class frmSelectPresentacion
         Me.btnListo.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.btnListo.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
         Me.btnListo.Location = New System.Drawing.Point(280, 473)
-        Me.btnListo.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnListo.Margin = New System.Windows.Forms.Padding(4)
         Me.btnListo.Name = "btnListo"
         Me.btnListo.Size = New System.Drawing.Size(119, 28)
         Me.btnListo.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
@@ -72,7 +72,7 @@ Partial Class frmSelectPresentacion
         '
         Me.chkAgrupar.AutoSize = True
         Me.chkAgrupar.Location = New System.Drawing.Point(227, 47)
-        Me.chkAgrupar.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.chkAgrupar.Margin = New System.Windows.Forms.Padding(4)
         Me.chkAgrupar.Name = "chkAgrupar"
         Me.chkAgrupar.Size = New System.Drawing.Size(168, 21)
         Me.chkAgrupar.TabIndex = 0
@@ -121,7 +121,7 @@ Partial Class frmSelectPresentacion
         Me.cmbPago.FormattingEnabled = True
         Me.cmbPago.ItemHeight = 14
         Me.cmbPago.Location = New System.Drawing.Point(235, 15)
-        Me.cmbPago.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.cmbPago.Margin = New System.Windows.Forms.Padding(4)
         Me.cmbPago.Name = "cmbPago"
         Me.cmbPago.Size = New System.Drawing.Size(188, 20)
         Me.cmbPago.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
@@ -178,8 +178,9 @@ Partial Class frmSelectPresentacion
         Me.ClientSize = New System.Drawing.Size(679, 517)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "frmSelectPresentacion"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Seleccionar presentación"
         CType(Me.grdPresentaciones, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TableLayoutPanel1.ResumeLayout(False)

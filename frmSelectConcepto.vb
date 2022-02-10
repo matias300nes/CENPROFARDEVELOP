@@ -25,6 +25,20 @@ Public Class frmSelectConcepto
         Valor = 7
         CampoAplicable = 8
     End Enum
+    Protected Function ReglasNegocio() As Boolean
+        Dim msg As String
+        ReglasNegocio = False
+
+        msg = CamposObligatorios(Me.TableLayoutPanel1.Controls)
+
+        If msg <> "" Then
+            Beep()
+            MsgBox("Falta completar el campo " & msg)
+            Exit Function
+        End If
+
+        ReglasNegocio = True
+    End Function
 
     Private Sub LlenarGrilla()
         Dim dtConceptos As New DataTable
@@ -56,31 +70,38 @@ Public Class frmSelectConcepto
 
     Private Sub btnListo_Click(sender As Object, e As EventArgs) Handles btnListo.Click
 
-        If grdConceptos.CurrentRow IsNot Nothing Then
-            ''Llenado de grdConceptosPanel
-            With grdConceptos.CurrentRow
+        If ReglasNegocio() Then
 
-                Dim id = .Cells(ColumnasDelGrdConceptos.Id).Value
-                Dim codigo = IIf(.Cells(ColumnasDelGrdConceptos.Codigo).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.Codigo).Value)
-                Dim nombre = IIf(.Cells(ColumnasDelGrdConceptos.Nombre).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.Nombre).Value)
-                Dim descripcion = IIf(.Cells(ColumnasDelGrdConceptos.Descripcion).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.Descripcion).Value)
-                Dim conceptopago = IIf(.Cells(ColumnasDelGrdConceptos.ConceptoPago).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.ConceptoPago).Value)
-                Dim pertenecea = IIf(.Cells(ColumnasDelGrdConceptos.PerteneceA).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.PerteneceA).Value)
-                Dim tipovalor = IIf(.Cells(ColumnasDelGrdConceptos.TipoDeValor).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.TipoDeValor).Value)
-                Dim valor = txtValor.Text
-                Dim frecuencia = txtFrecuencia.Text
-                Dim campoaplicable = IIf(.Cells(ColumnasDelGrdConceptos.CampoAplicable).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.CampoAplicable).Value)
+            If grdConceptos.CurrentRow IsNot Nothing Then
+                ''Llenado de grdConceptosPanel
+                With grdConceptos.CurrentRow
 
-                frmFarmacias_Conceptos.grdConceptosPanel.Rows.Add(id, codigo, nombre, descripcion, conceptopago, pertenecea, tipovalor, valor, frecuencia, campoaplicable)
-            End With
+                    Dim id = .Cells(ColumnasDelGrdConceptos.Id).Value
+                    Dim codigo = IIf(.Cells(ColumnasDelGrdConceptos.Codigo).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.Codigo).Value)
+                    Dim nombre = IIf(.Cells(ColumnasDelGrdConceptos.Nombre).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.Nombre).Value)
+                    Dim descripcion = IIf(.Cells(ColumnasDelGrdConceptos.Descripcion).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.Descripcion).Value)
+                    Dim conceptopago = IIf(.Cells(ColumnasDelGrdConceptos.ConceptoPago).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.ConceptoPago).Value)
+                    Dim pertenecea = IIf(.Cells(ColumnasDelGrdConceptos.PerteneceA).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.PerteneceA).Value)
+                    Dim tipovalor = IIf(.Cells(ColumnasDelGrdConceptos.TipoDeValor).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.TipoDeValor).Value)
+                    Dim valor = txtValor.Text
+                    Dim frecuencia = txtFrecuencia.Text
+                    Dim campoaplicable = IIf(.Cells(ColumnasDelGrdConceptos.CampoAplicable).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.CampoAplicable).Value)
+
+                    frmFarmacias_Conceptos.grdConceptosPanel.Rows.Add(id, codigo, nombre, descripcion, conceptopago, pertenecea, tipovalor, valor, frecuencia, campoaplicable)
+                End With
 
 
-            Me.Dispose()
-            Me.Close()
+                Me.Dispose()
+                Me.Close()
 
-        Else
-            MsgBox("Seleccione un concepto para poder continuar.")
+            Else
+                MsgBox("Seleccione un concepto para poder continuar.")
+            End If
+
         End If
+
+
+
     End Sub
 
     Private Sub chkAgrupar_CheckedChanged(sender As Object, e As EventArgs)
