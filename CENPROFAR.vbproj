@@ -1424,6 +1424,7 @@
     <None Include="Resources\btnsiguiente.png" />
     <None Include="Resources\btnultimo.png" />
     <None Include="Resources\btnimprimir.png" />
+    <Content Include="logo.ico" />
     <Content Include="SEI.ico" />
     <None Include="Resources\ArchivoExcel_2.JPG" />
     <None Include="Resources\ArchivoExcel_1.JPG" />

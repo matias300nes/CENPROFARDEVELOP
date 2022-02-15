@@ -48,7 +48,7 @@ Partial Class frmSaldos
         Me.grdFarmacia.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.grdFarmacia.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.grdFarmacia.Location = New System.Drawing.Point(23, 55)
-        Me.grdFarmacia.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.grdFarmacia.Margin = New System.Windows.Forms.Padding(4)
         Me.grdFarmacia.Name = "grdFarmacia"
         Me.grdFarmacia.ReadOnly = True
         Me.grdFarmacia.RowHeadersWidth = 51
@@ -65,7 +65,7 @@ Partial Class frmSaldos
         Me.grdHistorial.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.grdHistorial.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.grdHistorial.Location = New System.Drawing.Point(23, 383)
-        Me.grdHistorial.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.grdHistorial.Margin = New System.Windows.Forms.Padding(4)
         Me.grdHistorial.MultiSelect = False
         Me.grdHistorial.Name = "grdHistorial"
         Me.grdHistorial.ReadOnly = True
@@ -102,7 +102,7 @@ Partial Class frmSaldos
         Me.ButtonX3.BackColor = System.Drawing.SystemColors.Control
         Me.ButtonX3.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
         Me.ButtonX3.Location = New System.Drawing.Point(464, 340)
-        Me.ButtonX3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.ButtonX3.Margin = New System.Windows.Forms.Padding(4)
         Me.ButtonX3.Name = "ButtonX3"
         Me.ButtonX3.Size = New System.Drawing.Size(177, 28)
         Me.ButtonX3.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
@@ -117,7 +117,7 @@ Partial Class frmSaldos
         Me.ButtonX4.BackColor = System.Drawing.SystemColors.Control
         Me.ButtonX4.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
         Me.ButtonX4.Location = New System.Drawing.Point(653, 340)
-        Me.ButtonX4.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.ButtonX4.Margin = New System.Windows.Forms.Padding(4)
         Me.ButtonX4.Name = "ButtonX4"
         Me.ButtonX4.Size = New System.Drawing.Size(143, 28)
         Me.ButtonX4.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
@@ -128,7 +128,7 @@ Partial Class frmSaldos
         'txtBuscar
         '
         Me.txtBuscar.Location = New System.Drawing.Point(251, 15)
-        Me.txtBuscar.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtBuscar.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBuscar.Name = "txtBuscar"
         Me.txtBuscar.Size = New System.Drawing.Size(291, 22)
         Me.txtBuscar.TabIndex = 8
@@ -171,7 +171,7 @@ Partial Class frmSaldos
         'txtID
         '
         Me.txtID.Location = New System.Drawing.Point(101, 15)
-        Me.txtID.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtID.Margin = New System.Windows.Forms.Padding(4)
         Me.txtID.Name = "txtID"
         Me.txtID.ReadOnly = True
         Me.txtID.Size = New System.Drawing.Size(75, 22)
@@ -184,7 +184,7 @@ Partial Class frmSaldos
         Me.btnPersonalizado.BackColor = System.Drawing.SystemColors.Control
         Me.btnPersonalizado.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
         Me.btnPersonalizado.Location = New System.Drawing.Point(281, 340)
-        Me.btnPersonalizado.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnPersonalizado.Margin = New System.Windows.Forms.Padding(4)
         Me.btnPersonalizado.Name = "btnPersonalizado"
         Me.btnPersonalizado.Size = New System.Drawing.Size(160, 28)
         Me.btnPersonalizado.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
@@ -210,9 +210,10 @@ Partial Class frmSaldos
         Me.Controls.Add(Me.grdHistorial)
         Me.Controls.Add(Me.grdFarmacia)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MinimumSize = New System.Drawing.Size(994, 47)
         Me.Name = "frmSaldos"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Saldos"
         CType(Me.grdFarmacia, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grdHistorial, System.ComponentModel.ISupportInitialize).EndInit()

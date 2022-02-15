@@ -225,7 +225,7 @@ Partial Class frmObraSocial
         Me.cmbMandatarias.Name = "cmbMandatarias"
         Me.cmbMandatarias.Size = New System.Drawing.Size(238, 20)
         Me.cmbMandatarias.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.cmbMandatarias.TabIndex = 269
+        Me.cmbMandatarias.TabIndex = 6
         '
         'Label14
         '
@@ -250,7 +250,8 @@ Partial Class frmObraSocial
         Me.txtgrupo.MaxLength = 11
         Me.txtgrupo.Name = "txtgrupo"
         Me.txtgrupo.Size = New System.Drawing.Size(125, 22)
-        Me.txtgrupo.TabIndex = 273
+        Me.txtgrupo.TabIndex = 7
+        Me.txtgrupo.Text = "0"
         Me.txtgrupo.Text_1 = Nothing
         Me.txtgrupo.Text_2 = Nothing
         Me.txtgrupo.Text_3 = Nothing
@@ -342,7 +343,7 @@ Partial Class frmObraSocial
         Me.nudBonificacion.Maximum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.nudBonificacion.Name = "nudBonificacion"
         Me.nudBonificacion.Size = New System.Drawing.Size(97, 22)
-        Me.nudBonificacion.TabIndex = 6
+        Me.nudBonificacion.TabIndex = 8
         '
         'Label11
         '

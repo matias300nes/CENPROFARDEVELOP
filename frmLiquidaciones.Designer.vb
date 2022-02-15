@@ -130,9 +130,9 @@ Partial Class frmLiquidaciones
         Me.GroupBox1.Controls.Add(Me.lblcmbObrasSociales)
         Me.GroupBox1.ForeColor = System.Drawing.Color.Black
         Me.GroupBox1.Location = New System.Drawing.Point(0, 33)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4)
         Me.GroupBox1.Size = New System.Drawing.Size(2733, 592)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
@@ -172,7 +172,7 @@ Partial Class frmLiquidaciones
         Me.chkLiquidado.AutoSize = True
         Me.chkLiquidado.Enabled = False
         Me.chkLiquidado.Location = New System.Drawing.Point(119, -1)
-        Me.chkLiquidado.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.chkLiquidado.Margin = New System.Windows.Forms.Padding(4)
         Me.chkLiquidado.Name = "chkLiquidado"
         Me.chkLiquidado.Size = New System.Drawing.Size(92, 21)
         Me.chkLiquidado.TabIndex = 419
@@ -184,7 +184,7 @@ Partial Class frmLiquidaciones
         Me.chkAgrupado.AutoSize = True
         Me.chkAgrupado.Enabled = False
         Me.chkAgrupado.Location = New System.Drawing.Point(425, 85)
-        Me.chkAgrupado.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.chkAgrupado.Margin = New System.Windows.Forms.Padding(4)
         Me.chkAgrupado.Name = "chkAgrupado"
         Me.chkAgrupado.Size = New System.Drawing.Size(175, 21)
         Me.chkAgrupado.TabIndex = 418
@@ -246,7 +246,7 @@ Partial Class frmLiquidaciones
         '
         Me.chkGrillaInferior.AutoSize = True
         Me.chkGrillaInferior.Location = New System.Drawing.Point(239, 556)
-        Me.chkGrillaInferior.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.chkGrillaInferior.Margin = New System.Windows.Forms.Padding(4)
         Me.chkGrillaInferior.Name = "chkGrillaInferior"
         Me.chkGrillaInferior.Size = New System.Drawing.Size(176, 21)
         Me.chkGrillaInferior.TabIndex = 272
@@ -275,7 +275,7 @@ Partial Class frmLiquidaciones
         Me.TableLayoutPanel1.Controls.Add(Me.SuperGrdResultado, 0, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.GroupBox4, 1, 0)
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 127)
-        Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(4)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
@@ -336,7 +336,7 @@ Partial Class frmLiquidaciones
         Me.GroupBox4.Location = New System.Drawing.Point(1485, 5)
         Me.GroupBox4.Margin = New System.Windows.Forms.Padding(13, 5, 13, 12)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox4.Padding = New System.Windows.Forms.Padding(4)
         Me.GroupBox4.Size = New System.Drawing.Size(335, 409)
         Me.GroupBox4.TabIndex = 386
         Me.GroupBox4.TabStop = False
@@ -361,7 +361,7 @@ Partial Class frmLiquidaciones
         Me.btnLiquidar.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
         Me.btnLiquidar.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnLiquidar.Location = New System.Drawing.Point(75, 338)
-        Me.btnLiquidar.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnLiquidar.Margin = New System.Windows.Forms.Padding(4)
         Me.btnLiquidar.Name = "btnLiquidar"
         Me.btnLiquidar.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(3)
         Me.btnLiquidar.Size = New System.Drawing.Size(199, 34)
@@ -400,7 +400,7 @@ Partial Class frmLiquidaciones
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.chkComisionCentro.AutoSize = True
         Me.chkComisionCentro.Location = New System.Drawing.Point(43, 190)
-        Me.chkComisionCentro.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.chkComisionCentro.Margin = New System.Windows.Forms.Padding(4)
         Me.chkComisionCentro.Name = "chkComisionCentro"
         Me.chkComisionCentro.Size = New System.Drawing.Size(176, 21)
         Me.chkComisionCentro.TabIndex = 392
@@ -413,7 +413,7 @@ Partial Class frmLiquidaciones
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.chkImpCheque.AutoSize = True
         Me.chkImpCheque.Location = New System.Drawing.Point(43, 151)
-        Me.chkImpCheque.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.chkImpCheque.Margin = New System.Windows.Forms.Padding(4)
         Me.chkImpCheque.Name = "chkImpCheque"
         Me.chkImpCheque.Size = New System.Drawing.Size(140, 21)
         Me.chkImpCheque.TabIndex = 391
@@ -426,7 +426,7 @@ Partial Class frmLiquidaciones
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.chkIngresosBrutos.AutoSize = True
         Me.chkIngresosBrutos.Location = New System.Drawing.Point(43, 114)
-        Me.chkIngresosBrutos.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.chkIngresosBrutos.Margin = New System.Windows.Forms.Padding(4)
         Me.chkIngresosBrutos.Name = "chkIngresosBrutos"
         Me.chkIngresosBrutos.Size = New System.Drawing.Size(129, 21)
         Me.chkIngresosBrutos.TabIndex = 390
@@ -464,7 +464,7 @@ Partial Class frmLiquidaciones
         Me.btnExcelWindow.BackColor = System.Drawing.Color.Transparent
         Me.btnExcelWindow.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
         Me.btnExcelWindow.Location = New System.Drawing.Point(29, 59)
-        Me.btnExcelWindow.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnExcelWindow.Margin = New System.Windows.Forms.Padding(4)
         Me.btnExcelWindow.Name = "btnExcelWindow"
         Me.btnExcelWindow.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(3)
         Me.btnExcelWindow.Size = New System.Drawing.Size(124, 31)
@@ -477,7 +477,7 @@ Partial Class frmLiquidaciones
         '
         Me.txtID.AccessibleName = "ID"
         Me.txtID.Location = New System.Drawing.Point(36, -4)
-        Me.txtID.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtID.Margin = New System.Windows.Forms.Padding(4)
         Me.txtID.Name = "txtID"
         Me.txtID.ReadOnly = True
         Me.txtID.Size = New System.Drawing.Size(73, 22)
@@ -486,7 +486,7 @@ Partial Class frmLiquidaciones
         'txtCodigo
         '
         Me.txtCodigo.Location = New System.Drawing.Point(20, 58)
-        Me.txtCodigo.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtCodigo.Margin = New System.Windows.Forms.Padding(4)
         Me.txtCodigo.Name = "txtCodigo"
         Me.txtCodigo.ReadOnly = True
         Me.txtCodigo.Size = New System.Drawing.Size(89, 22)
@@ -617,7 +617,7 @@ Partial Class frmLiquidaciones
         Me.btnCargarPresentacion.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
         Me.btnCargarPresentacion.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
         Me.btnCargarPresentacion.Location = New System.Drawing.Point(545, 58)
-        Me.btnCargarPresentacion.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnCargarPresentacion.Margin = New System.Windows.Forms.Padding(4)
         Me.btnCargarPresentacion.Name = "btnCargarPresentacion"
         Me.btnCargarPresentacion.Size = New System.Drawing.Size(97, 25)
         Me.btnCargarPresentacion.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
@@ -629,7 +629,7 @@ Partial Class frmLiquidaciones
         Me.txtIdPresentacion.BackColor = System.Drawing.SystemColors.Window
         Me.txtIdPresentacion.Enabled = False
         Me.txtIdPresentacion.Location = New System.Drawing.Point(545, 36)
-        Me.txtIdPresentacion.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtIdPresentacion.Margin = New System.Windows.Forms.Padding(4)
         Me.txtIdPresentacion.Name = "txtIdPresentacion"
         Me.txtIdPresentacion.Size = New System.Drawing.Size(96, 22)
         Me.txtIdPresentacion.TabIndex = 393
@@ -749,8 +749,9 @@ Partial Class frmLiquidaciones
         Me.ClientSize = New System.Drawing.Size(1827, 750)
         Me.Controls.Add(Me.GroupBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.Margin = New System.Windows.Forms.Padding(5)
         Me.Name = "frmLiquidaciones"
+        Me.ShowIcon = False
         Me.Text = "Liquidaciones"
         Me.Controls.SetChildIndex(Me.GroupBox1, 0)
         Me.GroupBox1.ResumeLayout(False)

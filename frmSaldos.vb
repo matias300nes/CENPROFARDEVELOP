@@ -90,19 +90,22 @@ Public Class frmSaldos
         Dim connection As SqlClient.SqlConnection = Nothing
         Dim dt As New DataTable()
         Dim sql As String = $"exec HistorialCta_SelectByIdFarmacia @IdFarmacia = {txtID.Text}"
-        Try
-            connection = SqlHelper.GetConnection(ConnStringSEI)
+        If txtID.Text <> "" Then
+            Try
+                connection = SqlHelper.GetConnection(ConnStringSEI)
 
-            Dim cmd As New SqlCommand(sql, connection)
-            Dim da As New SqlDataAdapter(cmd)
+                Dim cmd As New SqlCommand(sql, connection)
+                Dim da As New SqlDataAdapter(cmd)
 
-            da.Fill(dt)
+                da.Fill(dt)
 
-            grdHistorial.DataSource = dt
-        Catch ex As Exception
-            MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
-        End Try
+                grdHistorial.DataSource = dt
+            Catch ex As Exception
+                MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Exit Sub
+            End Try
+        End If
+
     End Sub
 
     Friend Sub refreshData()
@@ -123,7 +126,10 @@ Public Class frmSaldos
 #Region "Eventos"
     Private Sub frmSaldos_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         requestGrdData()
-        setStyles()
+        If txtID.Text <> "" Then
+            setStyles()
+        End If
+
     End Sub
 
     Private Sub grdFarmacia_SelectionChanged(sender As Object, e As EventArgs) Handles grdFarmacia.SelectionChanged

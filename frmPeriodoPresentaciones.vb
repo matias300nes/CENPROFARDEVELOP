@@ -373,21 +373,21 @@ Public Class frmPeriodoPresentaciones
             End With
 
         Catch ex As Exception
-            Dim errMessage As String = ""
-            Dim tempException As Exception = ex
+            'Dim errMessage As String = ""
+            'Dim tempException As Exception = ex
 
-            While (Not tempException Is Nothing)
-                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
-                tempException = tempException.InnerException
-            End While
+            'While (Not tempException Is Nothing)
+            '    errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+            '    tempException = tempException.InnerException
+            'End While
 
-            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
-              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            If Not connection Is Nothing Then
-                CType(connection, IDisposable).Dispose()
-            End If
+            'MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+            '  + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+            '  "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            'Finally
+            '    If Not connection Is Nothing Then
+            '        CType(connection, IDisposable).Dispose()
+            '    End If
         End Try
 
         cmbLlenado = True

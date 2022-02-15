@@ -233,7 +233,7 @@ Public Class frmFarmacias_Conceptos
 
     End Sub
 
-    Private Sub btnEliminar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    Private Sub btnEliminar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEliminar.Click
         Dim res As Integer
 
         If MessageBox.Show("Está seguro que desea eliminar la Farmacia seleccionada?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
@@ -464,7 +464,8 @@ Public Class frmFarmacias_Conceptos
 
                 Dim param_CodPAMI As New SqlClient.SqlParameter
                 param_CodPAMI.ParameterName = "@CodPAMI"
-                param_CodPAMI.SqlDbType = SqlDbType.BigInt
+                param_CodPAMI.SqlDbType = SqlDbType.NVarChar
+                param_CodPAMI.Size = 300
                 param_CodPAMI.Value = grdCodigos.Rows(Codigos.PAMI).Cells(1).Value
                 param_CodPAMI.Direction = ParameterDirection.Input
 
@@ -573,7 +574,7 @@ Public Class frmFarmacias_Conceptos
 
                 Dim param_motivobaja As New SqlClient.SqlParameter
                 param_motivobaja.ParameterName = "@MotivoBaja"
-                param_motivobaja.SqlDbType = SqlDbType.NVarChar
+                param_motivobaja.SqlDbType = SqlDbType.VarChar
                 param_motivobaja.Size = 200
                 param_motivobaja.Value = txtMotivoBaja.Text.ToUpper
                 param_motivobaja.Direction = ParameterDirection.Input
@@ -658,7 +659,8 @@ Public Class frmFarmacias_Conceptos
 
                 Dim param_CodPAMI As New SqlClient.SqlParameter
                 param_CodPAMI.ParameterName = "@CodPAMI"
-                param_CodPAMI.SqlDbType = SqlDbType.BigInt
+                param_CodPAMI.SqlDbType = SqlDbType.NVarChar
+                param_CodPAMI.Size = 300
                 param_CodPAMI.Value = grdCodigos.Rows(Codigos.PAMI).Cells(1).Value
                 param_CodPAMI.Direction = ParameterDirection.Input
 
@@ -768,7 +770,7 @@ Public Class frmFarmacias_Conceptos
 
                 Dim param_motivobaja As New SqlClient.SqlParameter
                 param_motivobaja.ParameterName = "@MotivoBaja"
-                param_motivobaja.SqlDbType = SqlDbType.NVarChar
+                param_motivobaja.SqlDbType = SqlDbType.VarChar
                 param_motivobaja.Size = 200
                 param_motivobaja.Value = txtMotivoBaja.Text.ToUpper
                 param_motivobaja.Direction = ParameterDirection.Input
@@ -1034,6 +1036,7 @@ Public Class frmFarmacias_Conceptos
     End Sub
 
     Private Sub AgregarRelacionConcepto_Farmacia()
+
         Dim connection As SqlClient.SqlConnection = Nothing
         Dim ds_coincidendia As Data.DataSet
         Try
@@ -1240,7 +1243,7 @@ Public Class frmFarmacias_Conceptos
     End Sub
 
 
-    Private Sub cmbLocalidad_SelectedIndexChanged(sender As Object, e As EventArgs)
+    Private Sub cmbLocalidad_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbLocalidad.SelectedValueChanged
 
         If llenandoCombo = True Then
             ''LLENAR COMBOBOX LOCALIDADES
@@ -1278,7 +1281,7 @@ Public Class frmFarmacias_Conceptos
     End Sub
 
 
-    Private Sub cmbProvincia_SelectedValueChanged(sender As Object, e As EventArgs)
+    Private Sub cmbProvincia_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbProvincia.SelectedValueChanged
         If llenandoCombo = True Then
             ''LLENAR COMBOBOX LOCALIDADES
 
@@ -1292,7 +1295,7 @@ Public Class frmFarmacias_Conceptos
 
     End Sub
 
-    Private Sub txtCodigoPostal_TextChanged(sender As Object, e As EventArgs)
+    Private Sub txtCodigoPostal_TextChanged(sender As Object, e As EventArgs) Handles txtCodigoPostal.LostFocus
         If txtCodigoPostal.Text.Length = 4 Then
             Dim connection As SqlClient.SqlConnection = Nothing
             Try

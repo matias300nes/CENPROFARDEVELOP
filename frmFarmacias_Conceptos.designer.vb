@@ -159,7 +159,7 @@ Partial Class frmFarmacias_Conceptos
         Me.txtFarmacia.MaxLength = 50
         Me.txtFarmacia.Name = "txtFarmacia"
         Me.txtFarmacia.Size = New System.Drawing.Size(285, 22)
-        Me.txtFarmacia.TabIndex = 3
+        Me.txtFarmacia.TabIndex = 0
         Me.txtFarmacia.Text_1 = Nothing
         Me.txtFarmacia.Text_2 = Nothing
         Me.txtFarmacia.Text_3 = Nothing
@@ -276,7 +276,7 @@ Partial Class frmFarmacias_Conceptos
         Me.txtCBU.MaxLength = 22
         Me.txtCBU.Name = "txtCBU"
         Me.txtCBU.Size = New System.Drawing.Size(236, 22)
-        Me.txtCBU.TabIndex = 290
+        Me.txtCBU.TabIndex = 5
         Me.txtCBU.Text_1 = Nothing
         Me.txtCBU.Text_2 = Nothing
         Me.txtCBU.Text_3 = Nothing
@@ -298,7 +298,7 @@ Partial Class frmFarmacias_Conceptos
         Me.cmbPreferenciaPago.Name = "cmbPreferenciaPago"
         Me.cmbPreferenciaPago.Size = New System.Drawing.Size(155, 20)
         Me.cmbPreferenciaPago.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.cmbPreferenciaPago.TabIndex = 288
+        Me.cmbPreferenciaPago.TabIndex = 4
         '
         'ComboItem1
         '
@@ -344,7 +344,7 @@ Partial Class frmFarmacias_Conceptos
         Me.txtRazonSocial.MaxLength = 50
         Me.txtRazonSocial.Name = "txtRazonSocial"
         Me.txtRazonSocial.Size = New System.Drawing.Size(292, 22)
-        Me.txtRazonSocial.TabIndex = 286
+        Me.txtRazonSocial.TabIndex = 1
         Me.txtRazonSocial.Text_1 = Nothing
         Me.txtRazonSocial.Text_2 = Nothing
         Me.txtRazonSocial.Text_3 = Nothing
@@ -363,7 +363,7 @@ Partial Class frmFarmacias_Conceptos
         Me.cmbEstado.Name = "cmbEstado"
         Me.cmbEstado.Size = New System.Drawing.Size(179, 22)
         Me.cmbEstado.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.cmbEstado.TabIndex = 0
+        Me.cmbEstado.TabIndex = 12
         '
         'txtCodigoPostal
         '
@@ -375,7 +375,7 @@ Partial Class frmFarmacias_Conceptos
         Me.txtCodigoPostal.MaxLength = 4
         Me.txtCodigoPostal.Name = "txtCodigoPostal"
         Me.txtCodigoPostal.Size = New System.Drawing.Size(77, 22)
-        Me.txtCodigoPostal.TabIndex = 1
+        Me.txtCodigoPostal.TabIndex = 9
         Me.txtCodigoPostal.Text_1 = Nothing
         Me.txtCodigoPostal.Text_2 = Nothing
         Me.txtCodigoPostal.Text_3 = Nothing
@@ -405,7 +405,7 @@ Partial Class frmFarmacias_Conceptos
         Me.txtMotivoBaja.MaxLength = 100
         Me.txtMotivoBaja.Name = "txtMotivoBaja"
         Me.txtMotivoBaja.Size = New System.Drawing.Size(199, 22)
-        Me.txtMotivoBaja.TabIndex = 1
+        Me.txtMotivoBaja.TabIndex = 13
         Me.txtMotivoBaja.Text_1 = Nothing
         Me.txtMotivoBaja.Text_2 = Nothing
         Me.txtMotivoBaja.Text_3 = Nothing
@@ -426,7 +426,7 @@ Partial Class frmFarmacias_Conceptos
         Me.cmbLocalidad.Name = "cmbLocalidad"
         Me.cmbLocalidad.Size = New System.Drawing.Size(173, 20)
         Me.cmbLocalidad.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.cmbLocalidad.TabIndex = 3
+        Me.cmbLocalidad.TabIndex = 11
         '
         'Label17
         '
@@ -454,7 +454,7 @@ Partial Class frmFarmacias_Conceptos
         Me.cmbProvincia.Name = "cmbProvincia"
         Me.cmbProvincia.Size = New System.Drawing.Size(172, 20)
         Me.cmbProvincia.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.cmbProvincia.TabIndex = 2
+        Me.cmbProvincia.TabIndex = 10
         '
         'SuperTabControl1
         '
@@ -745,7 +745,7 @@ Partial Class frmFarmacias_Conceptos
         Me.txtTipoContribuyente.MaxLength = 50
         Me.txtTipoContribuyente.Name = "txtTipoContribuyente"
         Me.txtTipoContribuyente.Size = New System.Drawing.Size(141, 22)
-        Me.txtTipoContribuyente.TabIndex = 9
+        Me.txtTipoContribuyente.TabIndex = 3
         Me.txtTipoContribuyente.Text_1 = Nothing
         Me.txtTipoContribuyente.Text_2 = Nothing
         Me.txtTipoContribuyente.Text_3 = Nothing
@@ -771,7 +771,7 @@ Partial Class frmFarmacias_Conceptos
         Me.txtDomicilio.MaxLength = 200
         Me.txtDomicilio.Name = "txtDomicilio"
         Me.txtDomicilio.Size = New System.Drawing.Size(233, 22)
-        Me.txtDomicilio.TabIndex = 0
+        Me.txtDomicilio.TabIndex = 8
         '
         'Label15
         '
@@ -797,7 +797,7 @@ Partial Class frmFarmacias_Conceptos
         Me.txtCuit.MaxLength = 11
         Me.txtCuit.Name = "txtCuit"
         Me.txtCuit.Size = New System.Drawing.Size(121, 22)
-        Me.txtCuit.TabIndex = 4
+        Me.txtCuit.TabIndex = 2
         Me.txtCuit.Text_1 = Nothing
         Me.txtCuit.Text_2 = Nothing
         Me.txtCuit.Text_3 = Nothing
@@ -827,7 +827,7 @@ Partial Class frmFarmacias_Conceptos
         Me.txtTelefono.MaxLength = 50
         Me.txtTelefono.Name = "txtTelefono"
         Me.txtTelefono.Size = New System.Drawing.Size(155, 22)
-        Me.txtTelefono.TabIndex = 7
+        Me.txtTelefono.TabIndex = 6
         Me.txtTelefono.Text_1 = Nothing
         Me.txtTelefono.Text_2 = Nothing
         Me.txtTelefono.Text_3 = Nothing
@@ -857,7 +857,7 @@ Partial Class frmFarmacias_Conceptos
         Me.txtEmail.MaxLength = 50
         Me.txtEmail.Name = "txtEmail"
         Me.txtEmail.Size = New System.Drawing.Size(293, 22)
-        Me.txtEmail.TabIndex = 8
+        Me.txtEmail.TabIndex = 7
         Me.txtEmail.Text_1 = Nothing
         Me.txtEmail.Text_2 = Nothing
         Me.txtEmail.Text_3 = Nothing
