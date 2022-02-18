@@ -330,7 +330,7 @@ Public Class frmLiquidaciones
         editando_celda = True
     End Sub
 
-    Private Sub txtid_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)
+    Private Sub txtid_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtID.KeyPress
 
         If e.KeyChar = ChrW(Keys.Enter) Then
             e.Handled = True
@@ -745,8 +745,12 @@ Public Class frmLiquidaciones
 
         Me.Text = "Liquidación"
 
-        'Me.grd.Location = New Size(GroupBox1.Location.X, GroupBox1.Location.Y + GroupBox1.Size.Height + 7)
-        Me.grd.Location = New Size(GroupBox1.Location.X, GroupBox1.Location.Y + GroupBox1.Size.Height + 5)
+        'Me.grd.Location = New Size(TableLayoutPanel4.Location.X, TableLayoutPanel4.Location.Y + TableLayoutPanel4.Size.Height + 7)
+        Me.grd.Location = New Size(TableLayoutPanel4.Location.X, TableLayoutPanel4.Location.Y + TableLayoutPanel4.Size.Height + 5) 'funcionando
+        '9; 29
+        'Me.TableLayoutPanel4.SendToBack()
+        'Me.grd.Location = New Size(TableLayoutPanel4.Location.X, TableLayoutPanel4.Size.Height + 500)
+
 
         If LLAMADO_POR_FORMULARIO Then
             LLAMADO_POR_FORMULARIO = False
@@ -759,8 +763,8 @@ Public Class frmLiquidaciones
 
         Me.WindowState = FormWindowState.Maximized
 
-        'Me.grd.Size = New Size(Screen.PrimaryScreen.WorkingArea.Width - 27, Me.Size.Height - 7 - GroupBox1.Size.Height - GroupBox1.Location.Y - 50)
-        Me.grd.Size = New Size(Screen.PrimaryScreen.WorkingArea.Width - 27, Me.Size.Height - 3 - GroupBox1.Size.Height - GroupBox1.Location.Y - 62) '65)
+        'Me.grd.Size = New Size(Screen.PrimaryScreen.WorkingArea.Width - 27, Me.Size.Height - 7 - TableLayoutPanel4.Size.Height - TableLayoutPanel4.Location.Y - 50)
+        Me.grd.Size = New Size(Screen.PrimaryScreen.WorkingArea.Width - 27, Me.Size.Height - 3 - TableLayoutPanel4.Size.Height - TableLayoutPanel4.Location.Y - 62) '65)
 
     End Sub
 
@@ -2079,45 +2083,45 @@ Public Class frmLiquidaciones
 
 
             If MasterGrdDetail Then
-                    ''Envio el subtotal al final
-                    For i = panel.Columns("Subtotal").ColumnIndex + 1 To panel.Columns.Count - 1
-                        panel.Columns(i).DisplayIndex -= 1
-                    Next
-                    panel.Columns("Subtotal").DisplayIndex = panel.Columns.Count - 1
+                ''Envio el subtotal al final
+                For i = panel.Columns("Subtotal").ColumnIndex + 1 To panel.Columns.Count - 1
+                    panel.Columns(i).DisplayIndex -= 1
+                Next
+                panel.Columns("Subtotal").DisplayIndex = panel.Columns.Count - 1
 
-                    GroupHeader2.EndDisplayIndex = panel.Columns("A Cargo OS A").DisplayIndex
-                    GroupHeader2.StartDisplayIndex = panel.Columns("Recetas A").DisplayIndex
-                    GroupHeader2.HeaderText = "Aceptado"
-                    If Not Groupheaders.contains(GroupHeader2.Name) Then
-                        Groupheaders.Add(GroupHeader2)
-                    End If
+                GroupHeader2.EndDisplayIndex = panel.Columns("A Cargo OS A").DisplayIndex
+                GroupHeader2.StartDisplayIndex = panel.Columns("Recetas A").DisplayIndex
+                GroupHeader2.HeaderText = "Aceptado"
+                If Not Groupheaders.contains(GroupHeader2.Name) Then
+                    Groupheaders.Add(GroupHeader2)
+                End If
 
 
-                    'Pinto la fila con error
+                'Pinto la fila con error
 
-                    If cmbTipoPago.Text = "Unico" Then
-                        For Each fila As GridRow In panel.Rows
-                            With fila
-                                If .Cells("Recetas A").Value IsNot DBNull.Value Then
-                                    If .Cells("Recetas").Value <> .Cells("Recetas A").Value Then
-                                        .CellStyles.Default.Background.Color1 = Color.SandyBrown
-                                        .CellStyles.Default.TextColor = Color.White
-                                    End If
+                If cmbTipoPago.Text = "Unico" Then
+                    For Each fila As GridRow In panel.Rows
+                        With fila
+                            If .Cells("Recetas A").Value IsNot DBNull.Value Then
+                                If .Cells("Recetas").Value <> .Cells("Recetas A").Value Then
+                                    .CellStyles.Default.Background.Color1 = Color.SandyBrown
+                                    .CellStyles.Default.TextColor = Color.White
                                 End If
-                                If .Cells("A Cargo OS A").Value IsNot DBNull.Value Then
-                                    If .Cells("A Cargo Os").Value <> .Cells("A Cargo OS A").Value Then
-                                        .CellStyles.Default.Background.Color1 = Color.SandyBrown
-                                        .CellStyles.Default.TextColor = Color.White
-                                    End If
+                            End If
+                            If .Cells("A Cargo OS A").Value IsNot DBNull.Value Then
+                                If .Cells("A Cargo Os").Value <> .Cells("A Cargo OS A").Value Then
+                                    .CellStyles.Default.Background.Color1 = Color.SandyBrown
+                                    .CellStyles.Default.TextColor = Color.White
                                 End If
-                            End With
+                            End If
+                        End With
 
-                        Next fila
-                    End If
+                    Next fila
                 End If
             End If
+        End If
 
-            If panel.Name.Equals("") = True Then
+        If panel.Name.Equals("") = True Then
             panelSuperior = panel
         End If
 

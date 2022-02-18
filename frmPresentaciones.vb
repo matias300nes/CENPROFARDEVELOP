@@ -108,7 +108,7 @@ Public Class frmPresentaciones
         End If
     End Sub
 
-    Private Sub grd_SelectionChanged(sender As Object, e As EventArgs) 'Handles grd.SelectionChanged
+    Private Sub grd_SelectionChanged(sender As Object, e As EventArgs) Handles grd.SelectionChanged 'comentar cuando se necesite ver el diseñador
         ''DataGridView1.SelectedRows.Count().ToString()
         If grd.SelectedRows.Count() > 1 Then
             btnUnificar.Enabled = True
@@ -244,7 +244,7 @@ Public Class frmPresentaciones
 
     End Sub
 
-    Private Sub txtImpRecaudado_LostFocus(sender As Object, e As EventArgs) Handles txtImpRecaudado.LostFocus
+    Private Sub txtImpRecaudado_LostFocus(sender As Object, e As EventArgs)
         If txtImpRecaudado.Text <> "" Then
             txtImpRecaudado.Text = String.Format("{0:N2}", Decimal.Parse(txtImpRecaudado.Text))
         End If
@@ -299,249 +299,6 @@ Public Class frmPresentaciones
         lblCantidadFilas.Text = count
     End Sub
 
-    'Private Sub grdItems_CellBeginEdit(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellCancelEventArgs) Handles grdItems.CellBeginEdit
-    '    editando_celda = True
-    'End Sub
-
-    'Private Sub grdItems_CellEndEdit(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles grdItems.CellEndEdit
-
-    '    editando_celda = False
-
-    '    'Cuando terminamos la edicion hay que buscar la descripcion del material y las unidad,
-    '    'con esos datos completar la grilla. En este caso es la columna 2
-
-    '    If e.ColumnIndex = ColumnasDelGridItems.Cod_material Then
-    '        'completar la descripcion del   material
-    '        Dim cell As DataGridViewCell = grdItems.CurrentCell
-
-    '        Dim codigo As String, codigo_mat_prov As String = "", codunidad As String = "", codMoneda As String = ""
-
-    '        Dim IdMoneda As Long, id As Long, idunidad As Long, idproveedor As Long, IdMat_Prov As Long
-
-    '        Dim stock As Double = 0, preciovta As Double = 0, ganancia As Double = 0, preciolista As Double = 0, valorcambio As Double, iva As Double, montoiva As Double
-
-    '        Dim proveedor As String = "", unidad As String = "", nombre As String = "", Pasillo As String = "", Estante As String = "", Fila As String = ""
-
-    '        Dim fecha As Date = Nothing
-
-    '        If grdItems.Rows(cell.RowIndex).Cells(cell.ColumnIndex).Value Is DBNull.Value Then Exit Sub
-    '        codigo = grdItems.Rows(cell.RowIndex).Cells(cell.ColumnIndex).Value
-    '        cell = grdItems.Rows(cell.RowIndex).Cells(cell.ColumnIndex + 1)
-
-    '        If ObtenerMaterial_App(codigo, codigo_mat_prov, id, nombre, idunidad, unidad, codunidad, stock, 0, 0, preciolista, ganancia, preciovta, 0, 0, iva, fecha, idproveedor, proveedor, 0, "", "", IdMoneda, codMoneda, valorcambio, montoiva, IdMat_Prov, 0, ConnStringSEI, "", Pasillo, Estante, Fila) = 0 Then
-
-    '            grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.IdMaterial).Value = id
-    '            grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Nombre_Material).Value = nombre
-    '            grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.IdUnidad).Value = idunidad
-    '            grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Cod_Unidad).Value = codunidad
-    '            grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Unidad).Value = unidad
-
-    '            'grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.PrecioProvPesos).Value = preciolista * ValorCambioDO
-
-    '            grdItems.Rows(cell.RowIndex).Cells(frmPresentaciones.ColumnasDelGridItems.Bonif1).Value = 0.0
-    '            grdItems.Rows(cell.RowIndex).Cells(frmPresentaciones.ColumnasDelGridItems.Bonif2).Value = 0.0
-    '            grdItems.Rows(cell.RowIndex).Cells(frmPresentaciones.ColumnasDelGridItems.Bonif3).Value = 0.0
-    '            grdItems.Rows(cell.RowIndex).Cells(frmPresentaciones.ColumnasDelGridItems.Bonif4).Value = 0.0
-    '            grdItems.Rows(cell.RowIndex).Cells(frmPresentaciones.ColumnasDelGridItems.Bonif5).Value = 0.0
-
-    '            grdItems.Rows(cell.RowIndex).Cells(frmPresentaciones.ColumnasDelGridItems.Qty).Value = 0.0
-
-    '            grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Proveedor).Value = proveedor
-
-    '            grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.QtyStock).Value = stock
-
-    '            grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.IdMaterial_Prov).Value = IdMat_Prov
-    '            grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Cod_Material_Prov).Value = codigo_mat_prov
-
-    '            grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Iva).Value = iva
-
-    '            grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Subtotal).Value = 0
-
-    '            grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Ubicacion).Value = Pasillo + " - " + Estante + " - " + Fila
-
-    '            If Pasillo.Length > 0 Then
-    '                grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Cod_material).Style.BackColor = Color.LightGreen
-    '                grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Cod_Material_Prov).Style.BackColor = Color.LightGreen
-    '                grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Nombre_Material).Style.BackColor = Color.LightGreen
-    '            End If
-
-    '            Contar_Filas()
-
-    '        Else
-    '            cell.Value = "NO EXISTE"
-    '        End If
-    '    End If
-
-    '    If grdItems.CurrentRow.Cells(ColumnasDelGridItems.Cod_material).Value Is DBNull.Value Then
-    '        If grdItems.CurrentRow.Cells(ColumnasDelGridItems.PrecioLista).Value Is DBNull.Value Then
-    '            grdItems.Rows(grdItems.CurrentRow.Index).Cells(ColumnasDelGridItems.PrecioLista).Value = FormatNumber(0, 2)
-    '            grdItems.Rows(grdItems.CurrentRow.Index).Cells(ColumnasDelGridItems.Qty).Value = FormatNumber(0, 2)
-    '            grdItems.Rows(grdItems.CurrentRow.Index).Cells(ColumnasDelGridItems.Subtotal).Value = FormatNumber(CDbl(0.0), 2)
-    '        End If
-    '    End If
-
-    '    If e.ColumnIndex = ColumnasDelGridItems.Nombre_Material And _
-    '        grdItems.CurrentRow.Cells(ColumnasDelGridItems.Cod_material).Value Is DBNull.Value Then
-
-    '        Dim cell As DataGridViewCell = grdItems.CurrentCell
-    '        Dim cod_unidad As String, nombreUNIDAD As String = "", codunidad As String = ""
-    '        Dim idunidad As Long
-
-    '        cod_unidad = "U"
-
-    '        If ObtenerUnidad_App(cod_unidad, idunidad, nombreUNIDAD, codunidad, ConnStringSEI) = 0 Then
-    '            grdItems.Rows(grdItems.CurrentRow.Index).Cells(ColumnasDelGridItems.IdUnidad).Value = idunidad
-    '            grdItems.Rows(grdItems.CurrentRow.Index).Cells(ColumnasDelGridItems.Cod_Unidad).Value = cod_unidad
-    '            grdItems.Rows(grdItems.CurrentRow.Index).Cells(ColumnasDelGridItems.Unidad).Value = nombreUNIDAD
-
-    '            SendKeys.Send("{TAB}")
-
-    '        Else
-    '            cell.Value = "NO EXISTE"
-    '            Exit Sub
-    '        End If
-
-    '        If grdItems.Rows(cell.RowIndex).Cells(frmPresentaciones.ColumnasDelGridItems.Bonif1).Value Is Nothing Or
-    '            grdItems.Rows(cell.RowIndex).Cells(frmPresentaciones.ColumnasDelGridItems.Bonif1).Value Is DBNull.Value Then
-    '            grdItems.Rows(cell.RowIndex).Cells(frmPresentaciones.ColumnasDelGridItems.Bonif1).Value = 0.0
-    '        End If
-
-    '        If grdItems.Rows(cell.RowIndex).Cells(frmPresentaciones.ColumnasDelGridItems.Bonif2).Value Is Nothing Or
-    '            grdItems.Rows(cell.RowIndex).Cells(frmPresentaciones.ColumnasDelGridItems.Bonif2).Value Is DBNull.Value Then
-    '            grdItems.Rows(cell.RowIndex).Cells(frmPresentaciones.ColumnasDelGridItems.Bonif2).Value = 0.0
-    '        End If
-
-    '        If grdItems.Rows(cell.RowIndex).Cells(frmPresentaciones.ColumnasDelGridItems.Bonif3).Value Is Nothing Or
-    '            grdItems.Rows(cell.RowIndex).Cells(frmPresentaciones.ColumnasDelGridItems.Bonif3).Value Is DBNull.Value Then
-    '            grdItems.Rows(cell.RowIndex).Cells(frmPresentaciones.ColumnasDelGridItems.Bonif3).Value = 0.0
-    '        End If
-
-    '        If grdItems.Rows(cell.RowIndex).Cells(frmPresentaciones.ColumnasDelGridItems.Bonif4).Value Is Nothing Or
-    '            grdItems.Rows(cell.RowIndex).Cells(frmPresentaciones.ColumnasDelGridItems.Bonif4).Value Is DBNull.Value Then
-    '            grdItems.Rows(cell.RowIndex).Cells(frmPresentaciones.ColumnasDelGridItems.Bonif4).Value = 0.0
-    '        End If
-
-    '        If grdItems.Rows(cell.RowIndex).Cells(frmPresentaciones.ColumnasDelGridItems.Bonif5).Value Is Nothing Or
-    '            grdItems.Rows(cell.RowIndex).Cells(frmPresentaciones.ColumnasDelGridItems.Bonif5).Value Is DBNull.Value Then
-    '            grdItems.Rows(cell.RowIndex).Cells(frmPresentaciones.ColumnasDelGridItems.Bonif5).Value = 0.0
-    '        End If
-
-    '        If grdItems.Rows(cell.RowIndex).Cells(frmPresentaciones.ColumnasDelGridItems.Qty).Value Is Nothing Or
-    '            grdItems.Rows(cell.RowIndex).Cells(frmPresentaciones.ColumnasDelGridItems.Qty).Value Is DBNull.Value Then
-    '            grdItems.Rows(cell.RowIndex).Cells(frmPresentaciones.ColumnasDelGridItems.Qty).Value = 0.0
-    '        End If
-
-    '        If grdItems.Rows(cell.RowIndex).Cells(frmPresentaciones.ColumnasDelGridItems.Iva).Value Is Nothing Or
-    '            grdItems.Rows(cell.RowIndex).Cells(frmPresentaciones.ColumnasDelGridItems.Iva).Value Is DBNull.Value Then
-    '            grdItems.Rows(cell.RowIndex).Cells(frmPresentaciones.ColumnasDelGridItems.Iva).Value = 0.0
-    '        End If
-
-    '        If grdItems.Rows(cell.RowIndex).Cells(frmPresentaciones.ColumnasDelGridItems.MontoIVA).Value Is Nothing Or
-    '            grdItems.Rows(cell.RowIndex).Cells(frmPresentaciones.ColumnasDelGridItems.MontoIVA).Value Is DBNull.Value Then
-    '            grdItems.Rows(cell.RowIndex).Cells(frmPresentaciones.ColumnasDelGridItems.MontoIVA).Value = 0.0
-    '        End If
-
-
-    '    End If
-
-    '    If e.ColumnIndex = ColumnasDelGridItems.Cod_Unidad Then ' And _
-    '        'grdItems.CurrentRow.Cells(ColumnasDelGridItems.Cod_material).Value Is DBNull.Value Then
-
-    '        Dim cell As DataGridViewCell = grdItems.CurrentCell
-    '        Dim cod_unidad As String, nombre As String = "", codunidad As String = ""
-    '        Dim idunidad As Long
-
-    '        cod_unidad = grdItems.Rows(cell.RowIndex).Cells(cell.ColumnIndex).Value
-
-    '        cell = grdItems.Rows(cell.RowIndex).Cells(cell.ColumnIndex + 1)
-    '        If ObtenerUnidad_App(cod_unidad, idunidad, nombre, codunidad, ConnStringSEI) = 0 Then
-    '            cell.Value = nombre
-    '            grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.IdUnidad).Value = idunidad
-    '            grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Cod_Unidad).Value = cod_unidad
-    '            grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Unidad).Value = nombre
-
-    '            SendKeys.Send("{TAB}")
-
-    '        Else
-
-    '            cell.Value = "NO EXISTE"
-    '            Exit Sub
-    '        End If
-    '    End If
-
-    '    If e.ColumnIndex = ColumnasDelGridItems.PrecioLista Or e.ColumnIndex = ColumnasDelGridItems.Iva Then
-
-    '        Dim cell As DataGridViewCell = grdItems.CurrentCell
-
-    '        If Not (grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.PrecioLista).Value Is DBNull.Value) And _
-    '             Not (grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Qty).Value Is DBNull.Value) And _
-    '             Not (grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Iva).Value Is DBNull.Value) Then
-
-    '            CalcularPrecio(cell)
-
-    '        End If
-
-    '        grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.PrecioVta).Value = grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.PrecioLista).Value
-
-    '    End If
-
-    '    If e.ColumnIndex = ColumnasDelGridItems.Bonif1 Or e.ColumnIndex = ColumnasDelGridItems.Bonif2 Or _
-    '           e.ColumnIndex = ColumnasDelGridItems.Bonif3 Or e.ColumnIndex = ColumnasDelGridItems.Bonif4 Or _
-    '           e.ColumnIndex = ColumnasDelGridItems.Bonif5 Then
-
-    '        Dim cell As DataGridViewCell = grdItems.CurrentCell
-
-    '        CalcularPrecio(cell)
-
-    '    End If
-
-    '    If e.ColumnIndex = ColumnasDelGridItems.Qty Then
-
-    '        Dim cell As DataGridViewCell = grdItems.CurrentCell
-
-    '        CalcularPrecio(cell)
-
-    '        'Contar_Filas()
-
-    '    End If
-
-    'End Sub
-
-    Private Sub grdItems_EditingControlShowing(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewEditingControlShowingEventArgs)
-
-        'controlar lo que se ingresa en la grilla
-        'en este caso, que no se ingresen letras en el lote
-        'If Me.grdItems.CurrentCell.ColumnIndex = ColumnasDelGridItems.PrecioVenta Then
-        '    AddHandler e.Control.KeyPress, AddressOf validarNumerosReales
-        'Else
-        'If Me.grdItems.CurrentCell.ColumnIndex = ColumnasDelGridItems.PrecioUni Then
-        '    AddHandler e.Control.KeyPress, AddressOf validarNumerosReales
-        'Else
-        '    If Me.grdItems.CurrentCell.ColumnIndex = ColumnasDelGridItems.Cantidad Then
-        '        AddHandler e.Control.KeyPress, AddressOf validarNumerosReales
-        '    Else
-        '        If Me.grdItems.CurrentCell.ColumnIndex = ColumnasDelGridItems.Bonif1 Then
-        '            AddHandler e.Control.KeyPress, AddressOf validarNumerosReales
-        '        Else
-        '            If Me.grdItems.CurrentCell.ColumnIndex = ColumnasDelGridItems.Bonif2 Then
-        '                AddHandler e.Control.KeyPress, AddressOf validarNumerosReales
-        '            Else
-        '                If Me.grdItems.CurrentCell.ColumnIndex = ColumnasDelGridItems.Bonif3 Then
-        '                    AddHandler e.Control.KeyPress, AddressOf validarNumerosReales
-        '                    'Else
-        '                    '    If Me.grdItems.CurrentCell.ColumnIndex = ColumnasDelGridItems.Iva Then
-        '                    '        AddHandler e.Control.KeyPress, AddressOf validarNumerosReales
-        '                    '    Else
-        '                    '        AddHandler e.Control.KeyPress, AddressOf NoValidar
-        '                    '    End If
-        '                End If
-        '            End If
-        '        End If
-        '    End If
-        'End If
-        'End If
-
-    End Sub
 
     Private Sub chkEliminado_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkEliminado.CheckedChanged
         If Not bolModo Then
@@ -563,38 +320,24 @@ Public Class frmPresentaciones
         cmbObraSocial.Text = texto_del_combo
     End Sub
 
-    Private Sub txtid_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) _
-        Handles txtID.KeyPress, txtObservacion.KeyPress
+    Private Sub txtid_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtID.KeyPress
+
         If e.KeyChar = ChrW(Keys.Enter) Then
             e.Handled = True
             SendKeys.Send("{TAB}")
         End If
     End Sub
 
-    Private Sub dtpfecha_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) _
-     Handles dtpFECHA.KeyPress
+    Private Sub dtpfecha_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles dtpFECHA.KeyPress
+
         If e.KeyChar = ChrW(Keys.Enter) Then
             e.Handled = True
             SendKeys.Send("{TAB}")
         End If
     End Sub
 
-    'Private Sub grditems_CellMouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellMouseEventArgs) Handles grdItems.CellMouseUp
-    '    Cell_X = e.ColumnIndex
-    '    Cell_Y = e.RowIndex
-    'End Sub
 
-    'Private Sub grdItems_CurrentCellChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles grdItems.CurrentCellChanged
-    '    If band = 0 Then Exit Sub
-    '    Try
-    '        Cell_Y = grdItems.CurrentRow.Index
-    '    Catch ex As Exception
-
-    '    End Try
-
-    'End Sub
-
-    Private Sub grdItems_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs)
+    Private Sub grdItems_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles grdItems.MouseUp
 
         Dim columna As Integer = 0
         Dim Valor As String
@@ -751,20 +494,6 @@ Public Class frmPresentaciones
         bolIDOS = True
     End Sub
 
-    'Private Sub grdItems_CellMouseDoubleClick(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellMouseEventArgs) Handles grdItems.CellMouseDoubleClick
-
-    '    If e.Button = Windows.Forms.MouseButtons.Right Then
-    '        Exit Sub
-    '    End If
-
-    '    If Cell_Y < 0 Then
-    '        Exit Sub
-    '    End If
-
-    '    BuscarProducto()
-    '    grdItems.Columns(ColumnasDelGridItems.Marca).ReadOnly = True
-
-    'End Sub
 
     Private Sub BorrarElItemToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BorrarElItemToolStripMenuItem.Click
         MsgBox($"Hello world: {sender.ToString}")
@@ -893,8 +622,7 @@ Public Class frmPresentaciones
         End If
     End Sub
 
-    '(currentcellchanged)
-    Protected Overloads Sub grd_CurrentCellChanged(ByVal sender As Object, ByVal e As System.EventArgs)
+    Protected Overloads Sub grd_CurrentCellChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles grd.CurrentCellChanged 'comentar cuando se necesite ver el diseñador
         If Permitir Then
             'band = 0
             Try
@@ -1075,11 +803,8 @@ Public Class frmPresentaciones
 #Region "   Procedimientos"
 
     Private Sub configurarform()
-
-        Me.Text = "Emisión de Ordenes de Compra a Proveedores"
-
-        'Me.grd.Location = New Size(GroupBox1.Location.X, GroupBox1.Location.Y + GroupBox1.Size.Height + 7)
-        Me.grd.Location = New Size(GroupBox1.Location.X, GroupBox1.Location.Y + GroupBox1.Size.Height + 5)
+        'Me.grd.Location = New Size(TableLayoutPanel1.Location.X, TableLayoutPanel1.Location.Y + TableLayoutPanel1.Size.Height + 7)
+        Me.grd.Location = New Size(TableLayoutPanel1.Location.X, TableLayoutPanel1.Location.Y + TableLayoutPanel1.Size.Height + 5)
 
         If LLAMADO_POR_FORMULARIO Then
             LLAMADO_POR_FORMULARIO = False
@@ -1092,8 +817,8 @@ Public Class frmPresentaciones
 
         Me.WindowState = FormWindowState.Maximized
 
-        'Me.grd.Size = New Size(Screen.PrimaryScreen.WorkingArea.Width - 27, Me.Size.Height - 7 - GroupBox1.Size.Height - GroupBox1.Location.Y - 50)
-        Me.grd.Size = New Size(Screen.PrimaryScreen.WorkingArea.Width - 27, Me.Size.Height - 3 - GroupBox1.Size.Height - GroupBox1.Location.Y - 62) '65)
+        'Me.grd.Size = New Size(Screen.PrimaryScreen.WorkingArea.Width - 27, Me.Size.Height - 7 - TableLayoutPanel1.Size.Height - TableLayoutPanel1.Location.Y - 50)
+        Me.grd.Size = New Size(Screen.PrimaryScreen.WorkingArea.Width - 27, Me.Size.Height - 3 - TableLayoutPanel1.Size.Height - TableLayoutPanel1.Location.Y - 62) '65)
 
     End Sub
 
@@ -2419,14 +2144,9 @@ Public Class frmPresentaciones
     End Sub
 
     Private Sub lblStatus_TextChanged(sender As Object, e As EventArgs) Handles lblStatus.TextChanged
-
         bloquearPresentacion(cmbEstado.Text)
-
     End Sub
 
-    Private Sub txtID_TextChanged(sender As Object, e As EventArgs) Handles txtID.TextChanged
-
-    End Sub
 
     Private Class GroupedDataTable
         Public notGrouped As DataTable
@@ -2746,11 +2466,11 @@ Public Class frmPresentaciones
 
     End Sub
 
-    Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles btnPeriodo.Click
+    Private Sub ButtonX1_Click(sender As Object, e As EventArgs)
         GbPeriodo.Visible = Not GbPeriodo.Visible
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles ToolStripDropDownButton1.Click
         txtPeriodo.Text = $"{LbPeriodo_parte.Text} {LbPeriodo_Mes.Text}-{LbPeriodo_año.Text}"
         GbPeriodo.Visible = Not GbPeriodo.Visible
     End Sub

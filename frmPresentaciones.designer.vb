@@ -27,6 +27,23 @@ Partial Class frmPresentaciones
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.BorrarElItemToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BuscarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BuscarDescripcionToolStripMenuItem = New System.Windows.Forms.ToolStripComboBox()
+        Me.BuscarDescripcionToolStripMenuItem2 = New System.Windows.Forms.ToolStripComboBox()
+        Me.BuscarDescripcionToolStripMenuItem3 = New System.Windows.Forms.ToolStripComboBox()
+        Me.ContextMenuStrip2 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.cmbUnidadVenta = New System.Windows.Forms.ToolStripComboBox()
+        Me.ContextMenuStrip3 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.cmbMonedasCompra = New System.Windows.Forms.ToolStripComboBox()
+        Me.ContextMenuMarcas = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.ActivarNuevaMarcaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmbMarcaCompra = New System.Windows.Forms.ToolStripComboBox()
+        Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
+        Me.ToolTipbtnSeparar = New System.Windows.Forms.ToolTip(Me.components)
+        Me.ToolTipbtnUnificar = New System.Windows.Forms.ToolTip(Me.components)
+        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.btnPeriodo = New DevComponents.DotNetBar.ButtonX()
         Me.txtPeriodo = New System.Windows.Forms.TextBox()
@@ -42,12 +59,6 @@ Partial Class frmPresentaciones
         Me.cmbEstado = New System.Windows.Forms.ComboBox()
         Me.grdItems = New System.Windows.Forms.DataGridView()
         Me.Id = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.BorrarElItemToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.BuscarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.BuscarDescripcionToolStripMenuItem = New System.Windows.Forms.ToolStripComboBox()
-        Me.BuscarDescripcionToolStripMenuItem2 = New System.Windows.Forms.ToolStripComboBox()
-        Me.BuscarDescripcionToolStripMenuItem3 = New System.Windows.Forms.ToolStripComboBox()
         Me.IdFarmacia = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.CodigoFarmacia = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Nombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -98,32 +109,145 @@ Partial Class frmPresentaciones
         Me.Label10 = New System.Windows.Forms.Label()
         Me.txtImpTotalAPagar = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.txtRecetas = New TextBoxConFormatoVB.FormattedTextBoxVB()
-        Me.ContextMenuStrip2 = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.cmbUnidadVenta = New System.Windows.Forms.ToolStripComboBox()
-        Me.ContextMenuStrip3 = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.cmbMonedasCompra = New System.Windows.Forms.ToolStripComboBox()
-        Me.ContextMenuMarcas = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.ActivarNuevaMarcaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.cmbMarcaCompra = New System.Windows.Forms.ToolStripComboBox()
-        Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
-        Me.ToolTipbtnSeparar = New System.Windows.Forms.ToolTip(Me.components)
-        Me.ToolTipbtnUnificar = New System.Windows.Forms.ToolTip(Me.components)
+        Me.ContextMenuStrip1.SuspendLayout()
+        Me.ContextMenuStrip2.SuspendLayout()
+        Me.ContextMenuStrip3.SuspendLayout()
+        Me.ContextMenuMarcas.SuspendLayout()
+        Me.TableLayoutPanel1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GbPeriodo.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         CType(Me.grdItems, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.ContextMenuStrip1.SuspendLayout()
         Me.GbFarmaciaForm.SuspendLayout()
         CType(Me.nudBonificacion, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.ContextMenuStrip2.SuspendLayout()
-        Me.ContextMenuStrip3.SuspendLayout()
-        Me.ContextMenuMarcas.SuspendLayout()
         Me.SuspendLayout()
+        '
+        'ContextMenuStrip1
+        '
+        Me.ContextMenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BorrarElItemToolStripMenuItem, Me.BuscarToolStripMenuItem, Me.BuscarDescripcionToolStripMenuItem, Me.BuscarDescripcionToolStripMenuItem2, Me.BuscarDescripcionToolStripMenuItem3})
+        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(361, 129)
+        '
+        'BorrarElItemToolStripMenuItem
+        '
+        Me.BorrarElItemToolStripMenuItem.Name = "BorrarElItemToolStripMenuItem"
+        Me.BorrarElItemToolStripMenuItem.Size = New System.Drawing.Size(360, 22)
+        Me.BorrarElItemToolStripMenuItem.Text = "Borrar el Item"
+        '
+        'BuscarToolStripMenuItem
+        '
+        Me.BuscarToolStripMenuItem.Name = "BuscarToolStripMenuItem"
+        Me.BuscarToolStripMenuItem.Size = New System.Drawing.Size(360, 22)
+        Me.BuscarToolStripMenuItem.Text = "Buscar..."
+        Me.BuscarToolStripMenuItem.Visible = False
+        '
+        'BuscarDescripcionToolStripMenuItem
+        '
+        Me.BuscarDescripcionToolStripMenuItem.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.BuscarDescripcionToolStripMenuItem.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.BuscarDescripcionToolStripMenuItem.DropDownWidth = 500
+        Me.BuscarDescripcionToolStripMenuItem.Name = "BuscarDescripcionToolStripMenuItem"
+        Me.BuscarDescripcionToolStripMenuItem.Size = New System.Drawing.Size(300, 23)
+        Me.BuscarDescripcionToolStripMenuItem.Sorted = True
+        Me.BuscarDescripcionToolStripMenuItem.Text = "Buscar Descripcion"
+        Me.BuscarDescripcionToolStripMenuItem.Visible = False
+        '
+        'BuscarDescripcionToolStripMenuItem2
+        '
+        Me.BuscarDescripcionToolStripMenuItem2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.BuscarDescripcionToolStripMenuItem2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.BuscarDescripcionToolStripMenuItem2.DropDownWidth = 500
+        Me.BuscarDescripcionToolStripMenuItem2.Name = "BuscarDescripcionToolStripMenuItem2"
+        Me.BuscarDescripcionToolStripMenuItem2.Size = New System.Drawing.Size(300, 23)
+        Me.BuscarDescripcionToolStripMenuItem2.Sorted = True
+        Me.BuscarDescripcionToolStripMenuItem2.Text = "Buscar Descripcion"
+        Me.BuscarDescripcionToolStripMenuItem2.Visible = False
+        '
+        'BuscarDescripcionToolStripMenuItem3
+        '
+        Me.BuscarDescripcionToolStripMenuItem3.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.BuscarDescripcionToolStripMenuItem3.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.BuscarDescripcionToolStripMenuItem3.DropDownWidth = 500
+        Me.BuscarDescripcionToolStripMenuItem3.Name = "BuscarDescripcionToolStripMenuItem3"
+        Me.BuscarDescripcionToolStripMenuItem3.Size = New System.Drawing.Size(300, 23)
+        Me.BuscarDescripcionToolStripMenuItem3.Sorted = True
+        Me.BuscarDescripcionToolStripMenuItem3.Text = "Buscar Descripcion"
+        Me.BuscarDescripcionToolStripMenuItem3.Visible = False
+        '
+        'ContextMenuStrip2
+        '
+        Me.ContextMenuStrip2.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.ContextMenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmbUnidadVenta})
+        Me.ContextMenuStrip2.Name = "ContextMenuStrip1"
+        Me.ContextMenuStrip2.Size = New System.Drawing.Size(361, 158)
+        '
+        'cmbUnidadVenta
+        '
+        Me.cmbUnidadVenta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple
+        Me.cmbUnidadVenta.DropDownWidth = 500
+        Me.cmbUnidadVenta.Name = "cmbUnidadVenta"
+        Me.cmbUnidadVenta.Size = New System.Drawing.Size(300, 150)
+        Me.cmbUnidadVenta.Text = "Unidad de Venta"
+        '
+        'ContextMenuStrip3
+        '
+        Me.ContextMenuStrip3.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.ContextMenuStrip3.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmbMonedasCompra})
+        Me.ContextMenuStrip3.Name = "ContextMenuStrip1"
+        Me.ContextMenuStrip3.Size = New System.Drawing.Size(361, 158)
+        '
+        'cmbMonedasCompra
+        '
+        Me.cmbMonedasCompra.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple
+        Me.cmbMonedasCompra.DropDownWidth = 500
+        Me.cmbMonedasCompra.Name = "cmbMonedasCompra"
+        Me.cmbMonedasCompra.Size = New System.Drawing.Size(300, 150)
+        Me.cmbMonedasCompra.Text = "Buscar Moneda"
+        '
+        'ContextMenuMarcas
+        '
+        Me.ContextMenuMarcas.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.ContextMenuMarcas.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ActivarNuevaMarcaToolStripMenuItem, Me.cmbMarcaCompra})
+        Me.ContextMenuMarcas.Name = "ContextMenuStrip1"
+        Me.ContextMenuMarcas.Size = New System.Drawing.Size(361, 180)
+        '
+        'ActivarNuevaMarcaToolStripMenuItem
+        '
+        Me.ActivarNuevaMarcaToolStripMenuItem.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ActivarNuevaMarcaToolStripMenuItem.Name = "ActivarNuevaMarcaToolStripMenuItem"
+        Me.ActivarNuevaMarcaToolStripMenuItem.Size = New System.Drawing.Size(360, 22)
+        Me.ActivarNuevaMarcaToolStripMenuItem.Text = "Activar Nueva Marca"
+        '
+        'cmbMarcaCompra
+        '
+        Me.cmbMarcaCompra.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple
+        Me.cmbMarcaCompra.DropDownWidth = 500
+        Me.cmbMarcaCompra.Name = "cmbMarcaCompra"
+        Me.cmbMarcaCompra.Size = New System.Drawing.Size(300, 150)
+        Me.cmbMarcaCompra.Text = "Buscar Marca"
+        '
+        'TableLayoutPanel1
+        '
+        Me.TableLayoutPanel1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TableLayoutPanel1.AutoSize = True
+        Me.TableLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.TableLayoutPanel1.ColumnCount = 1
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel1.Controls.Add(Me.GroupBox1, 0, 0)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(9, 25)
+        Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(2)
+        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
+        Me.TableLayoutPanel1.RowCount = 1
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 535.0!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1367, 535)
+        Me.TableLayoutPanel1.TabIndex = 67
         '
         'GroupBox1
         '
-        Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox1.AutoSize = True
         Me.GroupBox1.BackColor = System.Drawing.Color.Transparent
         Me.GroupBox1.Controls.Add(Me.btnPeriodo)
         Me.GroupBox1.Controls.Add(Me.txtPeriodo)
@@ -158,13 +282,12 @@ Partial Class frmPresentaciones
         Me.GroupBox1.Controls.Add(Me.dtpFECHA)
         Me.GroupBox1.Controls.Add(Me.Label3)
         Me.GroupBox1.Controls.Add(Me.GbFarmaciaForm)
+        Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox1.ForeColor = System.Drawing.Color.Blue
-        Me.GroupBox1.Location = New System.Drawing.Point(9, 30)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4)
+        Me.GroupBox1.Location = New System.Drawing.Point(3, 3)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4)
-        Me.GroupBox1.Size = New System.Drawing.Size(4006, 629)
-        Me.GroupBox1.TabIndex = 0
+        Me.GroupBox1.Size = New System.Drawing.Size(1361, 529)
+        Me.GroupBox1.TabIndex = 1
         Me.GroupBox1.TabStop = False
         '
         'btnPeriodo
@@ -173,23 +296,21 @@ Partial Class frmPresentaciones
         Me.btnPeriodo.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
         Me.btnPeriodo.Font = New System.Drawing.Font("Microsoft Sans Serif", 5.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnPeriodo.Image = CType(resources.GetObject("btnPeriodo.Image"), System.Drawing.Image)
-        Me.btnPeriodo.Location = New System.Drawing.Point(1457, 49)
-        Me.btnPeriodo.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnPeriodo.Location = New System.Drawing.Point(1093, 40)
         Me.btnPeriodo.Name = "btnPeriodo"
         Me.btnPeriodo.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor()
-        Me.btnPeriodo.Size = New System.Drawing.Size(21, 20)
+        Me.btnPeriodo.Size = New System.Drawing.Size(16, 16)
         Me.btnPeriodo.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnPeriodo.TabIndex = 352
         '
         'txtPeriodo
         '
         Me.txtPeriodo.BackColor = System.Drawing.SystemColors.Window
-        Me.txtPeriodo.Location = New System.Drawing.Point(1196, 46)
-        Me.txtPeriodo.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtPeriodo.Location = New System.Drawing.Point(897, 37)
         Me.txtPeriodo.Multiline = True
         Me.txtPeriodo.Name = "txtPeriodo"
         Me.txtPeriodo.ReadOnly = True
-        Me.txtPeriodo.Size = New System.Drawing.Size(285, 26)
+        Me.txtPeriodo.Size = New System.Drawing.Size(215, 22)
         Me.txtPeriodo.TabIndex = 3
         '
         'GbPeriodo
@@ -198,21 +319,18 @@ Partial Class frmPresentaciones
         Me.GbPeriodo.Controls.Add(Me.LbPeriodo_Mes)
         Me.GbPeriodo.Controls.Add(Me.LbPeriodo_año)
         Me.GbPeriodo.Controls.Add(Me.LbPeriodo_parte)
-        Me.GbPeriodo.Location = New System.Drawing.Point(1196, 66)
-        Me.GbPeriodo.Margin = New System.Windows.Forms.Padding(4)
+        Me.GbPeriodo.Location = New System.Drawing.Point(897, 54)
         Me.GbPeriodo.Name = "GbPeriodo"
-        Me.GbPeriodo.Padding = New System.Windows.Forms.Padding(4)
-        Me.GbPeriodo.Size = New System.Drawing.Size(287, 158)
+        Me.GbPeriodo.Size = New System.Drawing.Size(215, 128)
         Me.GbPeriodo.TabIndex = 354
         Me.GbPeriodo.TabStop = False
         Me.GbPeriodo.Visible = False
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(232, 122)
-        Me.Button2.Margin = New System.Windows.Forms.Padding(4)
+        Me.Button2.Location = New System.Drawing.Point(174, 99)
         Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(47, 28)
+        Me.Button2.Size = New System.Drawing.Size(35, 23)
         Me.Button2.TabIndex = 358
         Me.Button2.Text = "Ok"
         Me.Button2.UseVisualStyleBackColor = True
@@ -220,66 +338,58 @@ Partial Class frmPresentaciones
         'LbPeriodo_Mes
         '
         Me.LbPeriodo_Mes.FormattingEnabled = True
-        Me.LbPeriodo_Mes.ItemHeight = 16
         Me.LbPeriodo_Mes.Items.AddRange(New Object() {"ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMPRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"})
-        Me.LbPeriodo_Mes.Location = New System.Drawing.Point(100, 16)
-        Me.LbPeriodo_Mes.Margin = New System.Windows.Forms.Padding(4)
+        Me.LbPeriodo_Mes.Location = New System.Drawing.Point(75, 13)
         Me.LbPeriodo_Mes.Name = "LbPeriodo_Mes"
-        Me.LbPeriodo_Mes.Size = New System.Drawing.Size(84, 100)
+        Me.LbPeriodo_Mes.Size = New System.Drawing.Size(64, 82)
         Me.LbPeriodo_Mes.TabIndex = 357
         '
         'LbPeriodo_año
         '
         Me.LbPeriodo_año.FormattingEnabled = True
-        Me.LbPeriodo_año.ItemHeight = 16
         Me.LbPeriodo_año.Items.AddRange(New Object() {"2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027"})
-        Me.LbPeriodo_año.Location = New System.Drawing.Point(193, 16)
-        Me.LbPeriodo_año.Margin = New System.Windows.Forms.Padding(4)
+        Me.LbPeriodo_año.Location = New System.Drawing.Point(145, 13)
         Me.LbPeriodo_año.Name = "LbPeriodo_año"
-        Me.LbPeriodo_año.Size = New System.Drawing.Size(84, 100)
+        Me.LbPeriodo_año.Size = New System.Drawing.Size(64, 82)
         Me.LbPeriodo_año.TabIndex = 356
         '
         'LbPeriodo_parte
         '
         Me.LbPeriodo_parte.FormattingEnabled = True
-        Me.LbPeriodo_parte.ItemHeight = 16
         Me.LbPeriodo_parte.Items.AddRange(New Object() {"1°Q", "2°Q", "MENSUAL"})
-        Me.LbPeriodo_parte.Location = New System.Drawing.Point(7, 16)
-        Me.LbPeriodo_parte.Margin = New System.Windows.Forms.Padding(4)
+        Me.LbPeriodo_parte.Location = New System.Drawing.Point(5, 13)
         Me.LbPeriodo_parte.Name = "LbPeriodo_parte"
         Me.LbPeriodo_parte.ScrollAlwaysVisible = True
-        Me.LbPeriodo_parte.Size = New System.Drawing.Size(84, 100)
+        Me.LbPeriodo_parte.Size = New System.Drawing.Size(64, 82)
         Me.LbPeriodo_parte.TabIndex = 355
         '
         'GroupBox2
         '
         Me.GroupBox2.Controls.Add(Me.btnUnificar)
         Me.GroupBox2.Controls.Add(Me.btnSeparar)
-        Me.GroupBox2.Location = New System.Drawing.Point(851, 558)
-        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.GroupBox2.Location = New System.Drawing.Point(638, 453)
+        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.GroupBox2.Size = New System.Drawing.Size(292, 71)
+        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(2)
+        Me.GroupBox2.Size = New System.Drawing.Size(219, 58)
         Me.GroupBox2.TabIndex = 347
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Herramientas"
         '
         'btnUnificar
         '
-        Me.btnUnificar.Location = New System.Drawing.Point(27, 22)
-        Me.btnUnificar.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnUnificar.Location = New System.Drawing.Point(20, 18)
         Me.btnUnificar.Name = "btnUnificar"
-        Me.btnUnificar.Size = New System.Drawing.Size(101, 38)
+        Me.btnUnificar.Size = New System.Drawing.Size(76, 31)
         Me.btnUnificar.TabIndex = 340
         Me.btnUnificar.Text = "Unificar"
         Me.btnUnificar.UseVisualStyleBackColor = True
         '
         'btnSeparar
         '
-        Me.btnSeparar.Location = New System.Drawing.Point(164, 22)
-        Me.btnSeparar.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnSeparar.Location = New System.Drawing.Point(123, 18)
         Me.btnSeparar.Name = "btnSeparar"
-        Me.btnSeparar.Size = New System.Drawing.Size(101, 38)
+        Me.btnSeparar.Size = New System.Drawing.Size(76, 31)
         Me.btnSeparar.TabIndex = 346
         Me.btnSeparar.Text = "Separar"
         Me.btnSeparar.UseVisualStyleBackColor = True
@@ -287,9 +397,10 @@ Partial Class frmPresentaciones
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(428, 571)
+        Me.Label9.Location = New System.Drawing.Point(321, 464)
+        Me.Label9.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(52, 17)
+        Me.Label9.Size = New System.Drawing.Size(40, 13)
         Me.Label9.TabIndex = 345
         Me.Label9.Text = "Estado"
         '
@@ -303,10 +414,9 @@ Partial Class frmPresentaciones
         Me.cmbEstado.FormattingEnabled = True
         Me.cmbEstado.IntegralHeight = False
         Me.cmbEstado.Items.AddRange(New Object() {"TODAS", "PENDIENTES", "PARA LIQUIDAR", "LIQUIDADAS", "PAGAS"})
-        Me.cmbEstado.Location = New System.Drawing.Point(431, 591)
-        Me.cmbEstado.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbEstado.Location = New System.Drawing.Point(323, 480)
         Me.cmbEstado.Name = "cmbEstado"
-        Me.cmbEstado.Size = New System.Drawing.Size(279, 28)
+        Me.cmbEstado.Size = New System.Drawing.Size(210, 24)
         Me.cmbEstado.TabIndex = 343
         '
         'grdItems
@@ -334,11 +444,10 @@ Partial Class frmPresentaciones
         DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.grdItems.DefaultCellStyle = DataGridViewCellStyle6
-        Me.grdItems.Location = New System.Drawing.Point(461, 137)
-        Me.grdItems.Margin = New System.Windows.Forms.Padding(4)
+        Me.grdItems.Location = New System.Drawing.Point(346, 111)
         Me.grdItems.Name = "grdItems"
         Me.grdItems.RowHeadersWidth = 51
-        Me.grdItems.Size = New System.Drawing.Size(1319, 395)
+        Me.grdItems.Size = New System.Drawing.Size(969, 321)
         Me.grdItems.TabIndex = 13
         '
         'Id
@@ -349,59 +458,6 @@ Partial Class frmPresentaciones
         Me.Id.Name = "Id"
         Me.Id.Visible = False
         Me.Id.Width = 125
-        '
-        'ContextMenuStrip1
-        '
-        Me.ContextMenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BorrarElItemToolStripMenuItem, Me.BuscarToolStripMenuItem, Me.BuscarDescripcionToolStripMenuItem, Me.BuscarDescripcionToolStripMenuItem2, Me.BuscarDescripcionToolStripMenuItem3})
-        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(361, 148)
-        '
-        'BorrarElItemToolStripMenuItem
-        '
-        Me.BorrarElItemToolStripMenuItem.Name = "BorrarElItemToolStripMenuItem"
-        Me.BorrarElItemToolStripMenuItem.Size = New System.Drawing.Size(360, 24)
-        Me.BorrarElItemToolStripMenuItem.Text = "Borrar el Item"
-        '
-        'BuscarToolStripMenuItem
-        '
-        Me.BuscarToolStripMenuItem.Name = "BuscarToolStripMenuItem"
-        Me.BuscarToolStripMenuItem.Size = New System.Drawing.Size(360, 24)
-        Me.BuscarToolStripMenuItem.Text = "Buscar..."
-        Me.BuscarToolStripMenuItem.Visible = False
-        '
-        'BuscarDescripcionToolStripMenuItem
-        '
-        Me.BuscarDescripcionToolStripMenuItem.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.BuscarDescripcionToolStripMenuItem.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.BuscarDescripcionToolStripMenuItem.DropDownWidth = 500
-        Me.BuscarDescripcionToolStripMenuItem.Name = "BuscarDescripcionToolStripMenuItem"
-        Me.BuscarDescripcionToolStripMenuItem.Size = New System.Drawing.Size(300, 28)
-        Me.BuscarDescripcionToolStripMenuItem.Sorted = True
-        Me.BuscarDescripcionToolStripMenuItem.Text = "Buscar Descripcion"
-        Me.BuscarDescripcionToolStripMenuItem.Visible = False
-        '
-        'BuscarDescripcionToolStripMenuItem2
-        '
-        Me.BuscarDescripcionToolStripMenuItem2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.BuscarDescripcionToolStripMenuItem2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.BuscarDescripcionToolStripMenuItem2.DropDownWidth = 500
-        Me.BuscarDescripcionToolStripMenuItem2.Name = "BuscarDescripcionToolStripMenuItem2"
-        Me.BuscarDescripcionToolStripMenuItem2.Size = New System.Drawing.Size(300, 28)
-        Me.BuscarDescripcionToolStripMenuItem2.Sorted = True
-        Me.BuscarDescripcionToolStripMenuItem2.Text = "Buscar Descripcion"
-        Me.BuscarDescripcionToolStripMenuItem2.Visible = False
-        '
-        'BuscarDescripcionToolStripMenuItem3
-        '
-        Me.BuscarDescripcionToolStripMenuItem3.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.BuscarDescripcionToolStripMenuItem3.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.BuscarDescripcionToolStripMenuItem3.DropDownWidth = 500
-        Me.BuscarDescripcionToolStripMenuItem3.Name = "BuscarDescripcionToolStripMenuItem3"
-        Me.BuscarDescripcionToolStripMenuItem3.Size = New System.Drawing.Size(300, 28)
-        Me.BuscarDescripcionToolStripMenuItem3.Sorted = True
-        Me.BuscarDescripcionToolStripMenuItem3.Text = "Buscar Descripcion"
-        Me.BuscarDescripcionToolStripMenuItem3.Visible = False
         '
         'IdFarmacia
         '
@@ -427,7 +483,7 @@ Partial Class frmPresentaciones
         Me.Nombre.MinimumWidth = 6
         Me.Nombre.Name = "Nombre"
         Me.Nombre.ReadOnly = True
-        Me.Nombre.Width = 300
+        Me.Nombre.Width = 265
         '
         'IdPresentacion
         '
@@ -496,31 +552,29 @@ Partial Class frmPresentaciones
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(15, 17)
-        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label2.Location = New System.Drawing.Point(11, 14)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(61, 20)
+        Me.Label2.Size = New System.Drawing.Size(52, 16)
         Me.Label2.TabIndex = 341
         Me.Label2.Text = "Código"
         '
         'txtCodigo
         '
         Me.txtCodigo.Enabled = False
-        Me.txtCodigo.Location = New System.Drawing.Point(16, 44)
-        Me.txtCodigo.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtCodigo.Location = New System.Drawing.Point(12, 36)
         Me.txtCodigo.Name = "txtCodigo"
         Me.txtCodigo.ReadOnly = True
-        Me.txtCodigo.Size = New System.Drawing.Size(129, 22)
+        Me.txtCodigo.Size = New System.Drawing.Size(98, 20)
         Me.txtCodigo.TabIndex = 340
         '
         'chkMaterialesProveedor
         '
         Me.chkMaterialesProveedor.AutoSize = True
         Me.chkMaterialesProveedor.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chkMaterialesProveedor.Location = New System.Drawing.Point(120, 80)
-        Me.chkMaterialesProveedor.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.chkMaterialesProveedor.Location = New System.Drawing.Point(90, 65)
+        Me.chkMaterialesProveedor.Margin = New System.Windows.Forms.Padding(2)
         Me.chkMaterialesProveedor.Name = "chkMaterialesProveedor"
-        Me.chkMaterialesProveedor.Size = New System.Drawing.Size(127, 22)
+        Me.chkMaterialesProveedor.Size = New System.Drawing.Size(104, 19)
         Me.chkMaterialesProveedor.TabIndex = 331
         Me.chkMaterialesProveedor.Text = "Por Proveedor"
         Me.chkMaterialesProveedor.UseVisualStyleBackColor = True
@@ -529,10 +583,9 @@ Partial Class frmPresentaciones
         '
         Me.Label15.AutoSize = True
         Me.Label15.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label15.Location = New System.Drawing.Point(1192, 17)
-        Me.Label15.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label15.Location = New System.Drawing.Point(894, 14)
         Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(66, 20)
+        Me.Label15.Size = New System.Drawing.Size(56, 16)
         Me.Label15.TabIndex = 296
         Me.Label15.Text = "Período"
         '
@@ -540,10 +593,9 @@ Partial Class frmPresentaciones
         '
         Me.Label20.AutoSize = True
         Me.Label20.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label20.Location = New System.Drawing.Point(1493, 570)
-        Me.Label20.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label20.Location = New System.Drawing.Point(1120, 463)
         Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(98, 18)
+        Me.Label20.Size = New System.Drawing.Size(80, 15)
         Me.Label20.TabIndex = 214
         Me.Label20.Text = "A Cargo OS"
         '
@@ -555,11 +607,10 @@ Partial Class frmPresentaciones
         Me.txtACargoOS.DecSeparator = Global.Microsoft.VisualBasic.ChrW(46)
         Me.txtACargoOS.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtACargoOS.Format = TextBoxConFormatoVB.tbFormats.SignedFloatingPointNumber
-        Me.txtACargoOS.Location = New System.Drawing.Point(1497, 592)
-        Me.txtACargoOS.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtACargoOS.Location = New System.Drawing.Point(1123, 481)
         Me.txtACargoOS.Name = "txtACargoOS"
         Me.txtACargoOS.ReadOnly = True
-        Me.txtACargoOS.Size = New System.Drawing.Size(132, 24)
+        Me.txtACargoOS.Size = New System.Drawing.Size(100, 21)
         Me.txtACargoOS.TabIndex = 213
         Me.txtACargoOS.Text_1 = Nothing
         Me.txtACargoOS.Text_2 = Nothing
@@ -572,10 +623,9 @@ Partial Class frmPresentaciones
         '
         Me.Label18.AutoSize = True
         Me.Label18.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label18.Location = New System.Drawing.Point(1644, 569)
-        Me.Label18.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label18.Location = New System.Drawing.Point(1233, 462)
         Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(46, 18)
+        Me.Label18.Size = New System.Drawing.Size(39, 15)
         Me.Label18.TabIndex = 212
         Me.Label18.Text = "Total"
         '
@@ -587,11 +637,10 @@ Partial Class frmPresentaciones
         Me.txtTotal.DecSeparator = Global.Microsoft.VisualBasic.ChrW(46)
         Me.txtTotal.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtTotal.Format = TextBoxConFormatoVB.tbFormats.SignedFloatingPointNumber
-        Me.txtTotal.Location = New System.Drawing.Point(1647, 592)
-        Me.txtTotal.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtTotal.Location = New System.Drawing.Point(1235, 481)
         Me.txtTotal.Name = "txtTotal"
         Me.txtTotal.ReadOnly = True
-        Me.txtTotal.Size = New System.Drawing.Size(132, 24)
+        Me.txtTotal.Size = New System.Drawing.Size(100, 21)
         Me.txtTotal.TabIndex = 211
         Me.txtTotal.Text_1 = Nothing
         Me.txtTotal.Text_2 = Nothing
@@ -604,10 +653,9 @@ Partial Class frmPresentaciones
         '
         Me.Label14.AutoSize = True
         Me.Label14.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(697, 17)
-        Me.Label14.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label14.Location = New System.Drawing.Point(523, 14)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(103, 20)
+        Me.Label14.Size = New System.Drawing.Size(85, 16)
         Me.Label14.TabIndex = 197
         Me.Label14.Text = "Observación"
         '
@@ -615,10 +663,9 @@ Partial Class frmPresentaciones
         '
         Me.chkGrillaInferior.AutoSize = True
         Me.chkGrillaInferior.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chkGrillaInferior.Location = New System.Drawing.Point(212, 594)
-        Me.chkGrillaInferior.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkGrillaInferior.Location = New System.Drawing.Point(159, 483)
         Me.chkGrillaInferior.Name = "chkGrillaInferior"
-        Me.chkGrillaInferior.Size = New System.Drawing.Size(200, 21)
+        Me.chkGrillaInferior.Size = New System.Drawing.Size(156, 17)
         Me.chkGrillaInferior.TabIndex = 187
         Me.chkGrillaInferior.Text = "Aumentar Grilla Inferior"
         Me.chkGrillaInferior.UseVisualStyleBackColor = True
@@ -626,20 +673,18 @@ Partial Class frmPresentaciones
         'Label19
         '
         Me.Label19.AutoSize = True
-        Me.Label19.Location = New System.Drawing.Point(16, 596)
-        Me.Label19.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label19.Location = New System.Drawing.Point(12, 484)
         Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(129, 17)
+        Me.Label19.Size = New System.Drawing.Size(98, 13)
         Me.Label19.TabIndex = 186
         Me.Label19.Text = "Cantidad de Ítems: "
         '
         'lblCantidadFilas
         '
         Me.lblCantidadFilas.AutoSize = True
-        Me.lblCantidadFilas.Location = New System.Drawing.Point(144, 596)
-        Me.lblCantidadFilas.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblCantidadFilas.Location = New System.Drawing.Point(108, 484)
         Me.lblCantidadFilas.Name = "lblCantidadFilas"
-        Me.lblCantidadFilas.Size = New System.Drawing.Size(60, 17)
+        Me.lblCantidadFilas.Size = New System.Drawing.Size(46, 13)
         Me.lblCantidadFilas.TabIndex = 185
         Me.lblCantidadFilas.Text = "Subtotal"
         '
@@ -650,11 +695,10 @@ Partial Class frmPresentaciones
         Me.txtIdObrasocial.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtIdObrasocial.Enabled = False
         Me.txtIdObrasocial.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.txtIdObrasocial.Location = New System.Drawing.Point(647, 17)
-        Me.txtIdObrasocial.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtIdObrasocial.Location = New System.Drawing.Point(485, 14)
         Me.txtIdObrasocial.MaxLength = 8
         Me.txtIdObrasocial.Name = "txtIdObrasocial"
-        Me.txtIdObrasocial.Size = New System.Drawing.Size(29, 22)
+        Me.txtIdObrasocial.Size = New System.Drawing.Size(23, 20)
         Me.txtIdObrasocial.TabIndex = 179
         Me.txtIdObrasocial.Text_1 = Nothing
         Me.txtIdObrasocial.Text_2 = Nothing
@@ -667,10 +711,9 @@ Partial Class frmPresentaciones
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(1343, 570)
-        Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label4.Location = New System.Drawing.Point(1007, 463)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(111, 18)
+        Me.Label4.Size = New System.Drawing.Size(96, 15)
         Me.Label4.TabIndex = 131
         Me.Label4.Text = "Importe 100%"
         '
@@ -682,11 +725,10 @@ Partial Class frmPresentaciones
         Me.txtRecaudado.DecSeparator = Global.Microsoft.VisualBasic.ChrW(46)
         Me.txtRecaudado.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtRecaudado.Format = TextBoxConFormatoVB.tbFormats.SignedFloatingPointNumber
-        Me.txtRecaudado.Location = New System.Drawing.Point(1347, 592)
-        Me.txtRecaudado.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtRecaudado.Location = New System.Drawing.Point(1010, 481)
         Me.txtRecaudado.Name = "txtRecaudado"
         Me.txtRecaudado.ReadOnly = True
-        Me.txtRecaudado.Size = New System.Drawing.Size(132, 24)
+        Me.txtRecaudado.Size = New System.Drawing.Size(100, 21)
         Me.txtRecaudado.TabIndex = 130
         Me.txtRecaudado.Text_1 = Nothing
         Me.txtRecaudado.Text_2 = Nothing
@@ -699,10 +741,9 @@ Partial Class frmPresentaciones
         '
         Me.lblStatus.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblStatus.ForeColor = System.Drawing.Color.Green
-        Me.lblStatus.Location = New System.Drawing.Point(1511, 46)
-        Me.lblStatus.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblStatus.Location = New System.Drawing.Point(1133, 37)
         Me.lblStatus.Name = "lblStatus"
-        Me.lblStatus.Size = New System.Drawing.Size(171, 28)
+        Me.lblStatus.Size = New System.Drawing.Size(128, 23)
         Me.lblStatus.TabIndex = 127
         Me.lblStatus.Text = "-------------"
         Me.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -716,20 +757,18 @@ Partial Class frmPresentaciones
         Me.cmbObraSocial.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbObraSocial.FormattingEnabled = True
         Me.cmbObraSocial.IntegralHeight = False
-        Me.cmbObraSocial.Location = New System.Drawing.Point(327, 42)
-        Me.cmbObraSocial.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbObraSocial.Location = New System.Drawing.Point(245, 34)
         Me.cmbObraSocial.Name = "cmbObraSocial"
-        Me.cmbObraSocial.Size = New System.Drawing.Size(349, 28)
+        Me.cmbObraSocial.Size = New System.Drawing.Size(263, 24)
         Me.cmbObraSocial.TabIndex = 1
         '
         'lblEstadoPresentacion
         '
         Me.lblEstadoPresentacion.AutoSize = True
         Me.lblEstadoPresentacion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblEstadoPresentacion.Location = New System.Drawing.Point(1511, 17)
-        Me.lblEstadoPresentacion.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblEstadoPresentacion.Location = New System.Drawing.Point(1133, 14)
         Me.lblEstadoPresentacion.Name = "lblEstadoPresentacion"
-        Me.lblEstadoPresentacion.Size = New System.Drawing.Size(61, 20)
+        Me.lblEstadoPresentacion.Size = New System.Drawing.Size(51, 16)
         Me.lblEstadoPresentacion.TabIndex = 123
         Me.lblEstadoPresentacion.Text = "Estado"
         '
@@ -741,10 +780,9 @@ Partial Class frmPresentaciones
         Me.txtObservacion.DecSeparator = Global.Microsoft.VisualBasic.ChrW(46)
         Me.txtObservacion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtObservacion.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.txtObservacion.Location = New System.Drawing.Point(701, 44)
-        Me.txtObservacion.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtObservacion.Location = New System.Drawing.Point(526, 36)
         Me.txtObservacion.Name = "txtObservacion"
-        Me.txtObservacion.Size = New System.Drawing.Size(487, 26)
+        Me.txtObservacion.Size = New System.Drawing.Size(366, 22)
         Me.txtObservacion.TabIndex = 2
         Me.txtObservacion.Text_1 = Nothing
         Me.txtObservacion.Text_2 = Nothing
@@ -755,10 +793,9 @@ Partial Class frmPresentaciones
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(-96, 69)
-        Me.Label8.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label8.Location = New System.Drawing.Point(-72, 56)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(38, 17)
+        Me.Label8.Size = New System.Drawing.Size(30, 13)
         Me.Label8.TabIndex = 118
         Me.Label8.Text = "Nota"
         '
@@ -767,10 +804,9 @@ Partial Class frmPresentaciones
         Me.chkEliminado.AccessibleName = "Eliminado"
         Me.chkEliminado.AutoSize = True
         Me.chkEliminado.Enabled = False
-        Me.chkEliminado.Location = New System.Drawing.Point(19, 81)
-        Me.chkEliminado.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkEliminado.Location = New System.Drawing.Point(14, 66)
         Me.chkEliminado.Name = "chkEliminado"
-        Me.chkEliminado.Size = New System.Drawing.Size(91, 21)
+        Me.chkEliminado.Size = New System.Drawing.Size(71, 17)
         Me.chkEliminado.TabIndex = 6
         Me.chkEliminado.Text = "Eliminado"
         Me.chkEliminado.UseVisualStyleBackColor = True
@@ -780,10 +816,9 @@ Partial Class frmPresentaciones
         '
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(323, 17)
-        Me.Label7.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label7.Location = New System.Drawing.Point(242, 14)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(103, 20)
+        Me.Label7.Size = New System.Drawing.Size(84, 16)
         Me.Label7.TabIndex = 108
         Me.Label7.Text = "Obra Social*"
         '
@@ -794,11 +829,10 @@ Partial Class frmPresentaciones
         Me.txtID.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtID.Enabled = False
         Me.txtID.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
-        Me.txtID.Location = New System.Drawing.Point(120, 21)
-        Me.txtID.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtID.Location = New System.Drawing.Point(90, 17)
         Me.txtID.MaxLength = 8
         Me.txtID.Name = "txtID"
-        Me.txtID.Size = New System.Drawing.Size(25, 22)
+        Me.txtID.Size = New System.Drawing.Size(20, 20)
         Me.txtID.TabIndex = 50
         Me.txtID.Text_1 = Nothing
         Me.txtID.Text_2 = Nothing
@@ -810,12 +844,11 @@ Partial Class frmPresentaciones
         '
         Me.dtpFECHA.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtpFECHA.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpFECHA.Location = New System.Drawing.Point(169, 44)
-        Me.dtpFECHA.Margin = New System.Windows.Forms.Padding(4)
+        Me.dtpFECHA.Location = New System.Drawing.Point(127, 36)
         Me.dtpFECHA.MaxDate = New Date(2099, 12, 31, 0, 0, 0, 0)
         Me.dtpFECHA.MinDate = New Date(2000, 1, 1, 0, 0, 0, 0)
         Me.dtpFECHA.Name = "dtpFECHA"
-        Me.dtpFECHA.Size = New System.Drawing.Size(135, 26)
+        Me.dtpFECHA.Size = New System.Drawing.Size(102, 22)
         Me.dtpFECHA.TabIndex = 0
         Me.dtpFECHA.Tag = "202"
         '
@@ -823,10 +856,9 @@ Partial Class frmPresentaciones
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(165, 17)
-        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label3.Location = New System.Drawing.Point(124, 14)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(55, 20)
+        Me.Label3.Size = New System.Drawing.Size(46, 16)
         Me.Label3.TabIndex = 52
         Me.Label3.Text = "Fecha"
         '
@@ -847,11 +879,9 @@ Partial Class frmPresentaciones
         Me.GbFarmaciaForm.Controls.Add(Me.txtImpTotalAPagar)
         Me.GbFarmaciaForm.Controls.Add(Me.txtRecetas)
         Me.GbFarmaciaForm.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GbFarmaciaForm.Location = New System.Drawing.Point(20, 129)
-        Me.GbFarmaciaForm.Margin = New System.Windows.Forms.Padding(4)
+        Me.GbFarmaciaForm.Location = New System.Drawing.Point(15, 105)
         Me.GbFarmaciaForm.Name = "GbFarmaciaForm"
-        Me.GbFarmaciaForm.Padding = New System.Windows.Forms.Padding(4)
-        Me.GbFarmaciaForm.Size = New System.Drawing.Size(447, 402)
+        Me.GbFarmaciaForm.Size = New System.Drawing.Size(335, 327)
         Me.GbFarmaciaForm.TabIndex = 4
         Me.GbFarmaciaForm.TabStop = False
         Me.GbFarmaciaForm.Text = "Añadir farmacia"
@@ -864,11 +894,10 @@ Partial Class frmPresentaciones
         Me.txtBonificacion.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtBonificacion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtBonificacion.Format = TextBoxConFormatoVB.tbFormats.UnsignedFloatingPointNumber
-        Me.txtBonificacion.Location = New System.Drawing.Point(176, 203)
-        Me.txtBonificacion.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtBonificacion.Location = New System.Drawing.Point(132, 165)
         Me.txtBonificacion.MaxLength = 100
         Me.txtBonificacion.Name = "txtBonificacion"
-        Me.txtBonificacion.Size = New System.Drawing.Size(232, 26)
+        Me.txtBonificacion.Size = New System.Drawing.Size(175, 22)
         Me.txtBonificacion.TabIndex = 5
         Me.txtBonificacion.Text_1 = Nothing
         Me.txtBonificacion.Text_2 = Nothing
@@ -882,10 +911,9 @@ Partial Class frmPresentaciones
         Me.Label13.BackColor = System.Drawing.Color.Transparent
         Me.Label13.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label13.ForeColor = System.Drawing.Color.Blue
-        Me.Label13.Location = New System.Drawing.Point(51, 43)
-        Me.Label13.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label13.Location = New System.Drawing.Point(38, 35)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(88, 20)
+        Me.Label13.Size = New System.Drawing.Size(72, 16)
         Me.Label13.TabIndex = 304
         Me.Label13.Text = "Farmacias"
         '
@@ -893,11 +921,10 @@ Partial Class frmPresentaciones
         '
         Me.nudBonificacion.DecimalPlaces = 2
         Me.nudBonificacion.Increment = New Decimal(New Integer() {1, 0, 0, 131072})
-        Me.nudBonificacion.Location = New System.Drawing.Point(51, 204)
-        Me.nudBonificacion.Margin = New System.Windows.Forms.Padding(4)
+        Me.nudBonificacion.Location = New System.Drawing.Point(38, 166)
         Me.nudBonificacion.Maximum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.nudBonificacion.Name = "nudBonificacion"
-        Me.nudBonificacion.Size = New System.Drawing.Size(117, 26)
+        Me.nudBonificacion.Size = New System.Drawing.Size(88, 22)
         Me.nudBonificacion.TabIndex = 4
         '
         'cmbFarmacias
@@ -907,18 +934,16 @@ Partial Class frmPresentaciones
         Me.cmbFarmacias.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbFarmacias.FormattingEnabled = True
         Me.cmbFarmacias.IntegralHeight = False
-        Me.cmbFarmacias.Location = New System.Drawing.Point(51, 66)
-        Me.cmbFarmacias.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbFarmacias.Location = New System.Drawing.Point(38, 54)
         Me.cmbFarmacias.Name = "cmbFarmacias"
-        Me.cmbFarmacias.Size = New System.Drawing.Size(259, 28)
+        Me.cmbFarmacias.Size = New System.Drawing.Size(195, 24)
         Me.cmbFarmacias.TabIndex = 0
         '
         'btnAgregarItem
         '
-        Me.btnAgregarItem.Location = New System.Drawing.Point(168, 331)
-        Me.btnAgregarItem.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnAgregarItem.Location = New System.Drawing.Point(126, 269)
         Me.btnAgregarItem.Name = "btnAgregarItem"
-        Me.btnAgregarItem.Size = New System.Drawing.Size(104, 39)
+        Me.btnAgregarItem.Size = New System.Drawing.Size(78, 32)
         Me.btnAgregarItem.TabIndex = 7
         Me.btnAgregarItem.Text = "Agregar"
         Me.btnAgregarItem.UseVisualStyleBackColor = True
@@ -929,10 +954,9 @@ Partial Class frmPresentaciones
         Me.Label12.BackColor = System.Drawing.Color.Transparent
         Me.Label12.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label12.ForeColor = System.Drawing.Color.Blue
-        Me.Label12.Location = New System.Drawing.Point(47, 111)
-        Me.Label12.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label12.Location = New System.Drawing.Point(35, 90)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(87, 20)
+        Me.Label12.Size = New System.Drawing.Size(69, 16)
         Me.Label12.TabIndex = 305
         Me.Label12.Text = "Imp. 100%"
         '
@@ -944,11 +968,10 @@ Partial Class frmPresentaciones
         Me.txtImpRecaudado.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtImpRecaudado.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtImpRecaudado.Format = TextBoxConFormatoVB.tbFormats.UnsignedFloatingPointNumber
-        Me.txtImpRecaudado.Location = New System.Drawing.Point(51, 135)
-        Me.txtImpRecaudado.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtImpRecaudado.Location = New System.Drawing.Point(38, 110)
         Me.txtImpRecaudado.MaxLength = 100
         Me.txtImpRecaudado.Name = "txtImpRecaudado"
-        Me.txtImpRecaudado.Size = New System.Drawing.Size(185, 26)
+        Me.txtImpRecaudado.Size = New System.Drawing.Size(140, 22)
         Me.txtImpRecaudado.TabIndex = 2
         Me.txtImpRecaudado.Text_1 = Nothing
         Me.txtImpRecaudado.Text_2 = Nothing
@@ -963,11 +986,10 @@ Partial Class frmPresentaciones
         Me.txtImpACargoOs.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtImpACargoOs.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtImpACargoOs.Format = TextBoxConFormatoVB.tbFormats.UnsignedFloatingPointNumber
-        Me.txtImpACargoOs.Location = New System.Drawing.Point(245, 135)
-        Me.txtImpACargoOs.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtImpACargoOs.Location = New System.Drawing.Point(184, 110)
         Me.txtImpACargoOs.MaxLength = 100
         Me.txtImpACargoOs.Name = "txtImpACargoOs"
-        Me.txtImpACargoOs.Size = New System.Drawing.Size(163, 26)
+        Me.txtImpACargoOs.Size = New System.Drawing.Size(123, 22)
         Me.txtImpACargoOs.TabIndex = 3
         Me.txtImpACargoOs.Text_1 = Nothing
         Me.txtImpACargoOs.Text_2 = Nothing
@@ -981,10 +1003,9 @@ Partial Class frmPresentaciones
         Me.Label6.BackColor = System.Drawing.Color.Transparent
         Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label6.ForeColor = System.Drawing.Color.Blue
-        Me.Label6.Location = New System.Drawing.Point(45, 178)
-        Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label6.Location = New System.Drawing.Point(34, 145)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(101, 20)
+        Me.Label6.Size = New System.Drawing.Size(81, 16)
         Me.Label6.TabIndex = 339
         Me.Label6.Text = "Bonificación"
         '
@@ -994,10 +1015,9 @@ Partial Class frmPresentaciones
         Me.Label16.BackColor = System.Drawing.Color.Transparent
         Me.Label16.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label16.ForeColor = System.Drawing.Color.Blue
-        Me.Label16.Location = New System.Drawing.Point(241, 111)
-        Me.Label16.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label16.Location = New System.Drawing.Point(181, 90)
         Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(103, 20)
+        Me.Label16.Size = New System.Drawing.Size(81, 16)
         Me.Label16.TabIndex = 330
         Me.Label16.Text = "Imp. A/c O.S"
         '
@@ -1007,10 +1027,9 @@ Partial Class frmPresentaciones
         Me.Label5.BackColor = System.Drawing.Color.Transparent
         Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label5.ForeColor = System.Drawing.Color.Blue
-        Me.Label5.Location = New System.Drawing.Point(47, 267)
-        Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label5.Location = New System.Drawing.Point(35, 217)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(110, 20)
+        Me.Label5.Size = New System.Drawing.Size(88, 16)
         Me.Label5.TabIndex = 337
         Me.Label5.Text = "Imp. A Pagar:"
         '
@@ -1020,10 +1039,9 @@ Partial Class frmPresentaciones
         Me.Label10.BackColor = System.Drawing.Color.Transparent
         Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label10.ForeColor = System.Drawing.Color.Blue
-        Me.Label10.Location = New System.Drawing.Point(328, 43)
-        Me.Label10.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label10.Location = New System.Drawing.Point(246, 35)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(71, 20)
+        Me.Label10.Size = New System.Drawing.Size(59, 16)
         Me.Label10.TabIndex = 335
         Me.Label10.Text = "Recetas"
         '
@@ -1034,12 +1052,11 @@ Partial Class frmPresentaciones
         Me.txtImpTotalAPagar.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtImpTotalAPagar.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtImpTotalAPagar.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.txtImpTotalAPagar.Location = New System.Drawing.Point(168, 263)
-        Me.txtImpTotalAPagar.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtImpTotalAPagar.Location = New System.Drawing.Point(126, 214)
         Me.txtImpTotalAPagar.MaxLength = 100
         Me.txtImpTotalAPagar.Name = "txtImpTotalAPagar"
         Me.txtImpTotalAPagar.ReadOnly = True
-        Me.txtImpTotalAPagar.Size = New System.Drawing.Size(237, 26)
+        Me.txtImpTotalAPagar.Size = New System.Drawing.Size(179, 22)
         Me.txtImpTotalAPagar.TabIndex = 6
         Me.txtImpTotalAPagar.Text_1 = Nothing
         Me.txtImpTotalAPagar.Text_2 = Nothing
@@ -1054,11 +1071,10 @@ Partial Class frmPresentaciones
         Me.txtRecetas.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtRecetas.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtRecetas.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
-        Me.txtRecetas.Location = New System.Drawing.Point(328, 66)
-        Me.txtRecetas.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtRecetas.Location = New System.Drawing.Point(246, 54)
         Me.txtRecetas.MaxLength = 4
         Me.txtRecetas.Name = "txtRecetas"
-        Me.txtRecetas.Size = New System.Drawing.Size(79, 26)
+        Me.txtRecetas.Size = New System.Drawing.Size(60, 22)
         Me.txtRecetas.TabIndex = 1
         Me.txtRecetas.Text_1 = Nothing
         Me.txtRecetas.Text_2 = Nothing
@@ -1066,140 +1082,108 @@ Partial Class frmPresentaciones
         Me.txtRecetas.Text_4 = Nothing
         Me.txtRecetas.UserValues = Nothing
         '
-        'ContextMenuStrip2
-        '
-        Me.ContextMenuStrip2.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.ContextMenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmbUnidadVenta})
-        Me.ContextMenuStrip2.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip2.Size = New System.Drawing.Size(361, 158)
-        '
-        'cmbUnidadVenta
-        '
-        Me.cmbUnidadVenta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple
-        Me.cmbUnidadVenta.DropDownWidth = 500
-        Me.cmbUnidadVenta.Name = "cmbUnidadVenta"
-        Me.cmbUnidadVenta.Size = New System.Drawing.Size(300, 150)
-        Me.cmbUnidadVenta.Text = "Unidad de Venta"
-        '
-        'ContextMenuStrip3
-        '
-        Me.ContextMenuStrip3.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.ContextMenuStrip3.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmbMonedasCompra})
-        Me.ContextMenuStrip3.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip3.Size = New System.Drawing.Size(361, 158)
-        '
-        'cmbMonedasCompra
-        '
-        Me.cmbMonedasCompra.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple
-        Me.cmbMonedasCompra.DropDownWidth = 500
-        Me.cmbMonedasCompra.Name = "cmbMonedasCompra"
-        Me.cmbMonedasCompra.Size = New System.Drawing.Size(300, 150)
-        Me.cmbMonedasCompra.Text = "Buscar Moneda"
-        '
-        'ContextMenuMarcas
-        '
-        Me.ContextMenuMarcas.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.ContextMenuMarcas.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ActivarNuevaMarcaToolStripMenuItem, Me.cmbMarcaCompra})
-        Me.ContextMenuMarcas.Name = "ContextMenuStrip1"
-        Me.ContextMenuMarcas.Size = New System.Drawing.Size(361, 182)
-        '
-        'ActivarNuevaMarcaToolStripMenuItem
-        '
-        Me.ActivarNuevaMarcaToolStripMenuItem.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ActivarNuevaMarcaToolStripMenuItem.Name = "ActivarNuevaMarcaToolStripMenuItem"
-        Me.ActivarNuevaMarcaToolStripMenuItem.Size = New System.Drawing.Size(360, 24)
-        Me.ActivarNuevaMarcaToolStripMenuItem.Text = "Activar Nueva Marca"
-        '
-        'cmbMarcaCompra
-        '
-        Me.cmbMarcaCompra.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple
-        Me.cmbMarcaCompra.DropDownWidth = 500
-        Me.cmbMarcaCompra.Name = "cmbMarcaCompra"
-        Me.cmbMarcaCompra.Size = New System.Drawing.Size(300, 150)
-        Me.cmbMarcaCompra.Text = "Buscar Marca"
-        '
         'frmPresentaciones
         '
         Me.AccessibleName = "OrdenDeCompra"
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1865, 750)
-        Me.Controls.Add(Me.GroupBox1)
+        Me.ClientSize = New System.Drawing.Size(1370, 609)
+        Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(5)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "frmPresentaciones"
         Me.ShowIcon = False
         Me.Text = "Presentaciones"
-        Me.Controls.SetChildIndex(Me.GroupBox1, 0)
+        Me.Controls.SetChildIndex(Me.TableLayoutPanel1, 0)
+        Me.ContextMenuStrip1.ResumeLayout(False)
+        Me.ContextMenuStrip2.ResumeLayout(False)
+        Me.ContextMenuStrip3.ResumeLayout(False)
+        Me.ContextMenuMarcas.ResumeLayout(False)
+        Me.TableLayoutPanel1.ResumeLayout(False)
+        Me.TableLayoutPanel1.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.GbPeriodo.ResumeLayout(False)
         Me.GroupBox2.ResumeLayout(False)
         CType(Me.grdItems, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.ContextMenuStrip1.ResumeLayout(False)
         Me.GbFarmaciaForm.ResumeLayout(False)
         Me.GbFarmaciaForm.PerformLayout()
         CType(Me.nudBonificacion, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.ContextMenuStrip2.ResumeLayout(False)
-        Me.ContextMenuStrip3.ResumeLayout(False)
-        Me.ContextMenuMarcas.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
-    Friend WithEvents txtObservacion As TextBoxConFormatoVB.FormattedTextBoxVB
-    Friend WithEvents Label8 As System.Windows.Forms.Label
-    Friend WithEvents chkEliminado As System.Windows.Forms.CheckBox
-    Friend WithEvents Label7 As System.Windows.Forms.Label
-    Friend WithEvents txtID As TextBoxConFormatoVB.FormattedTextBoxVB
-    Friend WithEvents dtpFECHA As System.Windows.Forms.DateTimePicker
-    Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend Shadows WithEvents ContextMenuStrip1 As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents BorrarElItemToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents BuscarToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents BuscarDescripcionToolStripMenuItem As System.Windows.Forms.ToolStripComboBox
-    Friend WithEvents lblEstadoPresentacion As System.Windows.Forms.Label
-    Friend WithEvents cmbObraSocial As System.Windows.Forms.ComboBox
-    Friend WithEvents lblStatus As System.Windows.Forms.Label
     Friend WithEvents BuscarDescripcionToolStripMenuItem2 As System.Windows.Forms.ToolStripComboBox
     Friend WithEvents BuscarDescripcionToolStripMenuItem3 As System.Windows.Forms.ToolStripComboBox
-    Friend WithEvents Label4 As System.Windows.Forms.Label
-    Friend WithEvents txtRecaudado As TextBoxConFormatoVB.FormattedTextBoxVB
     Friend WithEvents ContextMenuStrip2 As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents cmbUnidadVenta As System.Windows.Forms.ToolStripComboBox
     Friend WithEvents ContextMenuStrip3 As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents cmbMonedasCompra As System.Windows.Forms.ToolStripComboBox
-    Friend WithEvents txtIdObrasocial As TextBoxConFormatoVB.FormattedTextBoxVB
-    Friend WithEvents Label19 As System.Windows.Forms.Label
-    Friend WithEvents lblCantidadFilas As System.Windows.Forms.Label
-    Friend WithEvents chkGrillaInferior As System.Windows.Forms.CheckBox
-    Friend WithEvents Label14 As System.Windows.Forms.Label
-    Friend WithEvents Label20 As System.Windows.Forms.Label
-    Friend WithEvents txtACargoOS As TextBoxConFormatoVB.FormattedTextBoxVB
-    Friend WithEvents Label18 As System.Windows.Forms.Label
-    Friend WithEvents txtTotal As TextBoxConFormatoVB.FormattedTextBoxVB
-    Friend WithEvents Label15 As System.Windows.Forms.Label
     Friend WithEvents ContextMenuMarcas As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents ActivarNuevaMarcaToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents cmbMarcaCompra As System.Windows.Forms.ToolStripComboBox
-    Friend WithEvents txtImpRecaudado As TextBoxConFormatoVB.FormattedTextBoxVB
-    Friend WithEvents Label12 As System.Windows.Forms.Label
-    Friend WithEvents cmbFarmacias As System.Windows.Forms.ComboBox
-    Friend WithEvents Label13 As System.Windows.Forms.Label
-    Friend WithEvents grdItems As System.Windows.Forms.DataGridView
-    Friend WithEvents Label16 As System.Windows.Forms.Label
-    Friend WithEvents txtImpACargoOs As TextBoxConFormatoVB.FormattedTextBoxVB
-    Friend WithEvents chkMaterialesProveedor As System.Windows.Forms.CheckBox
-    Friend WithEvents txtRecetas As TextBoxConFormatoVB.FormattedTextBoxVB
-    Friend WithEvents Label10 As Label
-    Friend WithEvents Label6 As Label
-    Friend WithEvents Label5 As Label
-    Friend WithEvents txtImpTotalAPagar As TextBoxConFormatoVB.FormattedTextBoxVB
+    Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
+    Friend WithEvents ToolTipbtnSeparar As ToolTip
+    Friend WithEvents ToolTipbtnUnificar As ToolTip
+    Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents btnPeriodo As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents txtPeriodo As TextBox
+    Friend WithEvents GbPeriodo As GroupBox
+    Friend WithEvents Button2 As Button
+    Friend WithEvents LbPeriodo_Mes As ListBox
+    Friend WithEvents LbPeriodo_año As ListBox
+    Friend WithEvents LbPeriodo_parte As ListBox
+    Friend WithEvents GroupBox2 As GroupBox
+    Friend WithEvents btnUnificar As Button
+    Friend WithEvents btnSeparar As Button
+    Friend WithEvents Label9 As Label
+    Friend WithEvents cmbEstado As ComboBox
+    Friend WithEvents grdItems As DataGridView
     Friend WithEvents Label2 As Label
     Friend WithEvents txtCodigo As TextBox
-    Friend WithEvents btnAgregarItem As Button
+    Friend WithEvents chkMaterialesProveedor As CheckBox
+    Friend WithEvents Label15 As Label
+    Friend WithEvents Label20 As Label
+    Friend WithEvents txtACargoOS As TextBoxConFormatoVB.FormattedTextBoxVB
+    Friend WithEvents Label18 As Label
+    Friend WithEvents txtTotal As TextBoxConFormatoVB.FormattedTextBoxVB
+    Friend WithEvents Label14 As Label
+    Friend WithEvents chkGrillaInferior As CheckBox
+    Friend WithEvents Label19 As Label
+    Friend WithEvents lblCantidadFilas As Label
+    Friend WithEvents txtIdObrasocial As TextBoxConFormatoVB.FormattedTextBoxVB
+    Friend WithEvents Label4 As Label
+    Friend WithEvents txtRecaudado As TextBoxConFormatoVB.FormattedTextBoxVB
+    Friend WithEvents lblStatus As Label
+    Friend WithEvents cmbObraSocial As ComboBox
+    Friend WithEvents lblEstadoPresentacion As Label
+    Friend WithEvents txtObservacion As TextBoxConFormatoVB.FormattedTextBoxVB
+    Friend WithEvents Label8 As Label
+    Friend WithEvents chkEliminado As CheckBox
+    Friend WithEvents Label7 As Label
+    Friend WithEvents txtID As TextBoxConFormatoVB.FormattedTextBoxVB
+    Friend WithEvents dtpFECHA As DateTimePicker
+    Friend WithEvents Label3 As Label
+    Friend WithEvents GbFarmaciaForm As GroupBox
+    Friend WithEvents txtBonificacion As TextBoxConFormatoVB.FormattedTextBoxVB
+    Friend WithEvents Label13 As Label
     Friend WithEvents nudBonificacion As NumericUpDown
+    Friend WithEvents cmbFarmacias As ComboBox
+    Friend WithEvents btnAgregarItem As Button
+    Friend WithEvents Label12 As Label
+    Friend WithEvents txtImpRecaudado As TextBoxConFormatoVB.FormattedTextBoxVB
+    Friend WithEvents txtImpACargoOs As TextBoxConFormatoVB.FormattedTextBoxVB
+    Friend WithEvents Label6 As Label
+    Friend WithEvents Label16 As Label
+    Friend WithEvents Label5 As Label
+    Friend WithEvents Label10 As Label
+    Friend WithEvents txtImpTotalAPagar As TextBoxConFormatoVB.FormattedTextBoxVB
+    Friend WithEvents txtRecetas As TextBoxConFormatoVB.FormattedTextBoxVB
     Friend WithEvents Id As DataGridViewTextBoxColumn
     Friend WithEvents IdFarmacia As DataGridViewTextBoxColumn
     Friend WithEvents CodigoFarmacia As DataGridViewTextBoxColumn
@@ -1211,21 +1195,4 @@ Partial Class frmPresentaciones
     Friend WithEvents Bonificacion As DataGridViewTextBoxColumn
     Friend WithEvents Total As DataGridViewTextBoxColumn
     Friend WithEvents Eliminar As DataGridViewButtonColumn
-    Friend WithEvents GbFarmaciaForm As GroupBox
-    Friend WithEvents txtBonificacion As TextBoxConFormatoVB.FormattedTextBoxVB
-    Friend WithEvents Label9 As Label
-    Friend WithEvents cmbEstado As ComboBox
-    Friend WithEvents btnUnificar As Button
-    Friend WithEvents btnSeparar As Button
-    Friend WithEvents GroupBox2 As GroupBox
-    Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
-    Friend WithEvents ToolTipbtnSeparar As ToolTip
-    Friend WithEvents ToolTipbtnUnificar As ToolTip
-    Friend WithEvents btnPeriodo As DevComponents.DotNetBar.ButtonX
-    Friend WithEvents txtPeriodo As TextBox
-    Friend WithEvents GbPeriodo As GroupBox
-    Friend WithEvents LbPeriodo_parte As ListBox
-    Friend WithEvents LbPeriodo_Mes As ListBox
-    Friend WithEvents LbPeriodo_año As ListBox
-    Friend WithEvents Button2 As Button
 End Class
