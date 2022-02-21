@@ -26,6 +26,7 @@ Partial Class frmAgregarCheques
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.grdPagos = New System.Windows.Forms.DataGridView()
         Me.pControls = New System.Windows.Forms.Panel()
+        Me.txtImporte = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.btnAgregar = New DevComponents.DotNetBar.ButtonX()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.cmbTipoPago = New DevComponents.DotNetBar.Controls.ComboBoxEx()
@@ -37,7 +38,6 @@ Partial Class frmAgregarCheques
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.btnListo = New DevComponents.DotNetBar.ButtonX()
-        Me.txtImporte = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.TableLayoutPanel2.SuspendLayout()
         CType(Me.grdPagos, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -66,7 +66,7 @@ Partial Class frmAgregarCheques
         'TableLayoutPanel2
         '
         Me.TableLayoutPanel2.ColumnCount = 2
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 180.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 169.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel2.Controls.Add(Me.grdPagos, 1, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.pControls, 0, 0)
@@ -85,14 +85,15 @@ Partial Class frmAgregarCheques
         Me.grdPagos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.grdPagos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.grdPagos.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.grdPagos.Location = New System.Drawing.Point(183, 3)
+        Me.grdPagos.Location = New System.Drawing.Point(172, 3)
+        Me.grdPagos.Margin = New System.Windows.Forms.Padding(3, 3, 10, 3)
         Me.grdPagos.MultiSelect = False
         Me.grdPagos.Name = "grdPagos"
         Me.grdPagos.ReadOnly = True
         Me.grdPagos.RowHeadersVisible = False
         Me.grdPagos.RowHeadersWidth = 51
         Me.grdPagos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.grdPagos.Size = New System.Drawing.Size(341, 197)
+        Me.grdPagos.Size = New System.Drawing.Size(345, 197)
         Me.grdPagos.TabIndex = 5
         '
         'pControls
@@ -105,8 +106,26 @@ Partial Class frmAgregarCheques
         Me.pControls.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pControls.Location = New System.Drawing.Point(3, 3)
         Me.pControls.Name = "pControls"
-        Me.pControls.Size = New System.Drawing.Size(174, 197)
+        Me.pControls.Size = New System.Drawing.Size(163, 197)
         Me.pControls.TabIndex = 1
+        '
+        'txtImporte
+        '
+        Me.txtImporte.AccessibleName = ""
+        Me.txtImporte.Decimals = CType(2, Byte)
+        Me.txtImporte.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
+        Me.txtImporte.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtImporte.Format = TextBoxConFormatoVB.tbFormats.UnsignedFloatingPointNumber
+        Me.txtImporte.Location = New System.Drawing.Point(25, 98)
+        Me.txtImporte.MaxLength = 15
+        Me.txtImporte.Name = "txtImporte"
+        Me.txtImporte.Size = New System.Drawing.Size(121, 20)
+        Me.txtImporte.TabIndex = 10
+        Me.txtImporte.Text_1 = Nothing
+        Me.txtImporte.Text_2 = Nothing
+        Me.txtImporte.Text_3 = Nothing
+        Me.txtImporte.Text_4 = Nothing
+        Me.txtImporte.UserValues = Nothing
         '
         'btnAgregar
         '
@@ -223,24 +242,6 @@ Partial Class frmAgregarCheques
         Me.btnListo.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnListo.TabIndex = 4
         Me.btnListo.Text = "Generar"
-        '
-        'txtImporte
-        '
-        Me.txtImporte.AccessibleName = ""
-        Me.txtImporte.Decimals = CType(2, Byte)
-        Me.txtImporte.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
-        Me.txtImporte.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtImporte.Format = TextBoxConFormatoVB.tbFormats.UnsignedFloatingPointNumber
-        Me.txtImporte.Location = New System.Drawing.Point(25, 98)
-        Me.txtImporte.MaxLength = 15
-        Me.txtImporte.Name = "txtImporte"
-        Me.txtImporte.Size = New System.Drawing.Size(121, 20)
-        Me.txtImporte.TabIndex = 10
-        Me.txtImporte.Text_1 = Nothing
-        Me.txtImporte.Text_2 = Nothing
-        Me.txtImporte.Text_3 = Nothing
-        Me.txtImporte.Text_4 = Nothing
-        Me.txtImporte.UserValues = Nothing
         '
         'frmAgregarCheques
         '

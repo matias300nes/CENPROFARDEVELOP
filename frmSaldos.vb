@@ -165,14 +165,18 @@ Public Class frmSaldos
     Private Sub btnPersonalizado_Click(sender As Object, e As EventArgs) Handles btnPersonalizado.Click
 
 
-        Dim drv As DataRowView = grdFarmacia.CurrentRow.DataBoundItem
-        If drv IsNot Nothing Then
-            Dim dr = drv.Row
+        'Dim drv As DataRowView = grdFarmacia.CurrentRow.DataBoundItem
+        'If drv IsNot Nothing Then
+        '    Dim dr = drv.Row
 
-            Dim AgregarCheques As New frmAgregarCheques(dr)
-            AgregarCheques.ShowDialog()
-        End If
+        '    Dim AgregarCheques As New frmAgregarCheques(dr)
+        '    AgregarCheques.ShowDialog()
+        'End If
 
+        Dim dv As New DataView(dtFarmacias)
+        dv.RowFilter = "[Selección] = 1"
+        Dim AgregarCheques As New frmAgregarCheques(dv.ToTable())
+        AgregarCheques.ShowDialog()
 
     End Sub
 
