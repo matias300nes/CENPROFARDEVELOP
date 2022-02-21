@@ -9,14 +9,15 @@ Public Class frmAgregarCheques
 
     Enum FarmaciaCols
         ID = 0
-        Codigo = 1
-        RazonSocial = 2
-        Nombre = 3
-        PreferenciaPago = 4
-        Saldo = 5
-        Cuit = 6
-        Telefono = 7
-        Email = 8
+        Seleccion = 1
+        Codigo = 2
+        RazonSocial = 3
+        Nombre = 4
+        PreferenciaPago = 5
+        Saldo = 6
+        Cuit = 7
+        Telefono = 8
+        Email = 9
     End Enum
 
     Dim farmacia As DataRow
