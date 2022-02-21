@@ -9,14 +9,15 @@ Public Class frmSaldos
 #Region "enums"
     Enum grdFarmaciaCols
         ID = 0
-        Codigo = 1
-        RazonSocial = 2
-        Nombre = 3
-        PreferenciaPago = 4
-        Saldo = 5
-        Cuit = 6
-        Telefono = 7
-        Email = 8
+        Seleccion = 1
+        Codigo = 2
+        RazonSocial = 3
+        Nombre = 4
+        PreferenciaPago = 5
+        Saldo = 6
+        Cuit = 7
+        Telefono = 8
+        Email = 9
     End Enum
 
     Enum grdHistorialCols
@@ -40,12 +41,20 @@ Public Class frmSaldos
             .Columns(grdFarmaciaCols.Email).Visible = False
 
             ''cambiar width
+            .Columns(grdFarmaciaCols.Seleccion).Width = 50
             .Columns(grdFarmaciaCols.Codigo).Width = 70
             '.Columns(grdFarmaciaCols.Nombre).Width = 200
             .Columns(grdFarmaciaCols.PreferenciaPago).Width = 70
             .Columns(grdFarmaciaCols.Saldo).Width = 100
 
             .Columns(grdFarmaciaCols.Saldo).DefaultCellStyle.Format = "c"
+
+            ''Bloqueo la edicion para todas las columnas
+            For Each col As DataGridViewColumn In .Columns
+                If col.Index <> .Columns(grdFarmaciaCols.Seleccion).Index Then
+                    col.ReadOnly = True
+                End If
+            Next
         End With
 
         With grdHistorial
@@ -165,6 +174,12 @@ Public Class frmSaldos
         End If
 
 
+    End Sub
+
+    Private Sub chkSelectAll_CheckedChanged(sender As Object, e As EventArgs) Handles chkSelectAll.CheckedChanged
+        For Each row As DataRow In dtFarmacias.Rows
+            row(grdFarmaciaCols.Seleccion) = chkSelectAll.Checked
+        Next
     End Sub
 
 #End Region
