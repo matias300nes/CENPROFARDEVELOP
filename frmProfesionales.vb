@@ -6,7 +6,7 @@ Imports System.Data.SqlClient
 Imports ReportesNet
 
 
-Public Class frmMandatarias
+Public Class frmProfesionales
     Dim llenandoCombo As Boolean
     Dim bolpoliticas As Boolean
 
@@ -34,13 +34,13 @@ Public Class frmMandatarias
         LlenarCmbProvincias()
         llenandoCombo = True
         asignarTags()
-        SQL = "exec spMandatarias_Select_All 0"
+        SQL = "exec spProfesionales_Select_All 0"
         LlenarGrilla()
         Permitir = True
         CargarCajas()
         PrepararBotones()
-        grd.Columns(5).Visible = False
-        grd.Columns(7).Visible = False
+        'grd.Columns(5).Visible = False
+        'grd.Columns(7).Visible = False
 
     End Sub
 
@@ -52,9 +52,9 @@ Public Class frmMandatarias
         btnEliminar.Enabled = Not chkEliminados.Checked
 
         If chkEliminados.Checked = True Then
-            SQL = "exec spMandatarias_Select_All @Eliminado = 1"
+            SQL = "exec spProfesionales_Select_All @Eliminado = 1"
         Else
-            SQL = "exec spMandatarias_Select_All @Eliminado = 0"
+            SQL = "exec spProfesionales_Select_All @Eliminado = 0"
         End If
 
         LlenarGrilla()
@@ -278,7 +278,7 @@ Public Class frmMandatarias
 #Region "Procedimientos"
 
     Private Sub configurarform()
-        Me.Text = "Mandatarias"
+        Me.Text = "Profesionales"
         Me.grd.Location = New Size(GroupPanel1.Location.X, GroupPanel1.Location.Y + GroupPanel1.Size.Height + 7)
         'Me.Size = New Size(Me.Size.Width, 500)
         Me.Size = New Size(Me.Size.Width, (Screen.PrimaryScreen.WorkingArea.Height - 65))
@@ -297,12 +297,13 @@ Public Class frmMandatarias
         txtID.Tag = "0"
         txtCODIGO.Tag = "1"
         txtNombre.Tag = "2"
-        txtDireccion.Tag = "3"
-        txtCodigoPostal.Tag = "4"
-        cmbLocalidad.Tag = "5"
-        cmbProvincia.Tag = "7"
-        txtTelefono.Tag = "9"
-        txtCelular.Tag = "10"
+        txtApellido.Tag = "3"
+        txtDireccion.Tag = "4"
+        txtCelular.Tag = "5"
+        txtemail.Tag = "6"
+        cmbLocalidad.Tag = "7"
+        cmbProvincia.Tag = "8"
+        txtCodigoPostal.Tag = "9"
     End Sub
 
     Private Sub Verificar_Datos()
@@ -478,6 +479,13 @@ Public Class frmMandatarias
                 param_nombre.Value = txtNombre.Text.ToUpper
                 param_nombre.Direction = ParameterDirection.Input
 
+                Dim param_apellido As New SqlClient.SqlParameter
+                param_apellido.ParameterName = "@Apellido"
+                param_apellido.SqlDbType = SqlDbType.VarChar
+                param_apellido.Size = 50
+                param_apellido.Value = txtApellido.Text.ToUpper
+                param_apellido.Direction = ParameterDirection.Input
+
                 Dim param_direccion As New SqlClient.SqlParameter
                 param_direccion.ParameterName = "@direccion"
                 param_direccion.SqlDbType = SqlDbType.VarChar
@@ -485,26 +493,25 @@ Public Class frmMandatarias
                 param_direccion.Value = txtDireccion.Text.ToUpper
                 param_direccion.Direction = ParameterDirection.Input
 
-                Dim param_idlocalidad As New SqlClient.SqlParameter
-                param_idlocalidad.ParameterName = "@idlocalidad"
-                param_idlocalidad.SqlDbType = SqlDbType.BigInt
-                param_idlocalidad.Value = cmbLocalidad.SelectedValue
-                param_idlocalidad.Direction = ParameterDirection.Input
-
-                Dim param_telefono As New SqlClient.SqlParameter
-                param_telefono.ParameterName = "@telefono"
-                param_telefono.SqlDbType = SqlDbType.VarChar
-                param_telefono.Size = 50
-                param_telefono.Value = txtTelefono.Text
-                param_telefono.Direction = ParameterDirection.Input
-
-
                 Dim param_celular As New SqlClient.SqlParameter
                 param_celular.ParameterName = "@celular"
                 param_celular.SqlDbType = SqlDbType.VarChar
                 param_celular.Size = 50
                 param_celular.Value = txtCelular.Text
                 param_celular.Direction = ParameterDirection.Input
+
+                Dim param_email As New SqlClient.SqlParameter
+                param_email.ParameterName = "@email"
+                param_email.SqlDbType = SqlDbType.VarChar
+                param_email.Size = 100
+                param_email.Value = txtemail.Text.ToUpper
+                param_email.Direction = ParameterDirection.Input
+
+                Dim param_idlocalidad As New SqlClient.SqlParameter
+                param_idlocalidad.ParameterName = "@idlocalidad"
+                param_idlocalidad.SqlDbType = SqlDbType.BigInt
+                param_idlocalidad.Value = cmbLocalidad.SelectedValue
+                param_idlocalidad.Direction = ParameterDirection.Input
 
                 Dim param_useradd As New SqlClient.SqlParameter
                 param_useradd.ParameterName = "@useradd"
@@ -519,8 +526,8 @@ Public Class frmMandatarias
                 param_res.Direction = ParameterDirection.InputOutput
 
                 Try
-                    SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spMandatarias_Insert", param_id, param_codigo, param_nombre,
-                                              param_direccion, param_idlocalidad, param_telefono, param_celular, param_useradd, param_res)
+                    SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spProfesionales_Insert", param_id, param_codigo, param_nombre, param_apellido,
+                                              param_direccion, param_celular, param_email, param_idlocalidad, param_useradd, param_res)
                     txtID.Text = param_id.Value
                     res = param_res.Value
 
@@ -583,6 +590,13 @@ Public Class frmMandatarias
                 param_nombre.Value = txtNombre.Text.ToUpper
                 param_nombre.Direction = ParameterDirection.Input
 
+                Dim param_apellido As New SqlClient.SqlParameter
+                param_apellido.ParameterName = "@apellido"
+                param_apellido.SqlDbType = SqlDbType.VarChar
+                param_apellido.Size = 50
+                param_apellido.Value = txtApellido.Text
+                param_apellido.Direction = ParameterDirection.Input
+
                 Dim param_direccion As New SqlClient.SqlParameter
                 param_direccion.ParameterName = "@direccion"
                 param_direccion.SqlDbType = SqlDbType.VarChar
@@ -596,19 +610,19 @@ Public Class frmMandatarias
                 param_idlocalidad.Value = cmbLocalidad.SelectedValue
                 param_idlocalidad.Direction = ParameterDirection.Input
 
-                Dim param_telefono As New SqlClient.SqlParameter
-                param_telefono.ParameterName = "@telefono"
-                param_telefono.SqlDbType = SqlDbType.VarChar
-                param_telefono.Size = 50
-                param_telefono.Value = txtTelefono.Text
-                param_telefono.Direction = ParameterDirection.Input
-
                 Dim param_celular As New SqlClient.SqlParameter
                 param_celular.ParameterName = "@celular"
                 param_celular.SqlDbType = SqlDbType.VarChar
                 param_celular.Size = 50
                 param_celular.Value = txtCelular.Text
                 param_celular.Direction = ParameterDirection.Input
+
+                Dim param_email As New SqlClient.SqlParameter
+                param_email.ParameterName = "@email"
+                param_email.SqlDbType = SqlDbType.VarChar
+                param_email.Size = 100
+                param_email.Value = txtemail.Text.ToUpper
+                param_email.Direction = ParameterDirection.Input
 
                 Dim param_userupd As New SqlClient.SqlParameter
                 param_userupd.ParameterName = "@userupd"
@@ -623,8 +637,8 @@ Public Class frmMandatarias
                 param_res.Direction = ParameterDirection.InputOutput
 
                 Try
-                    SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spMandatarias_Update", param_id, param_nombre,
-                                              param_direccion, param_idlocalidad, param_telefono, param_celular, param_userupd, param_res)
+                    SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spProfesionales_Update", param_id, param_nombre, param_apellido,
+                                              param_direccion, param_celular, param_email, param_idlocalidad, param_userupd, param_res)
                     res = param_res.Value
 
 
@@ -694,7 +708,7 @@ Public Class frmMandatarias
 
                 Try
 
-                    SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spMandatarias_Delete", param_id, param_userdel, param_res)
+                    SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spProfesionales_Delete", param_id, param_userdel, param_res)
                     res = param_res.Value
 
                     If res > 0 Then Util.BorrarGrilla(grd)
@@ -729,6 +743,14 @@ Public Class frmMandatarias
             End If
         End Try
     End Function
+
+    Private Sub txtCelular_TextChanged(sender As Object, e As EventArgs) Handles txtCelular.TextChanged
+
+    End Sub
+
+    Private Sub Label2_Click(sender As Object, e As EventArgs) Handles Label2.Click
+
+    End Sub
 
 #End Region
 

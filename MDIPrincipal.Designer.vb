@@ -35,28 +35,6 @@ Partial Class MDIPrincipal
         Me.LiquidacionesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SaldosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator24 = New System.Windows.Forms.ToolStripSeparator()
-        Me.FarmaciaConceptosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MaterialesToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ActualizarPreciosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.PromocionesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ListaDePreciosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MaquinasYHerramientasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator14 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ClientesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ProveedoresToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ListaPreciosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator15 = New System.Windows.Forms.ToolStripSeparator()
-        Me.MarcasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.FamiliasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.NotasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ImpuestosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.CondicionesDePagoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.UnidadesToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator19 = New System.Windows.Forms.ToolStripSeparator()
-        Me.TablerosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator20 = New System.Windows.Forms.ToolStripSeparator()
-        Me.EnsayosParaTransformadoresToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator22 = New System.Windows.Forms.ToolStripSeparator()
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator21 = New System.Windows.Forms.ToolStripSeparator()
         Me.SalirToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -161,6 +139,7 @@ Partial Class MDIPrincipal
         Me.ToolStripStatusLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolTip = New System.Windows.Forms.ToolTip(Me.components)
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.ProfesionalesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip.SuspendLayout()
         Me.ToolStrip.SuspendLayout()
         Me.StatusStrip.SuspendLayout()
@@ -179,7 +158,7 @@ Partial Class MDIPrincipal
         '
         'AuxiliaresToolStripMenuItem
         '
-        Me.AuxiliaresToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripSeparator23, Me.FarmaciasToolStripMenuItem, Me.ConceptosToolStripMenuItem, Me.ObrasSocialesToolStripMenuItem, Me.MandatariasToolStripMenuItem, Me.PeriodoPresentacionesToolStripMenuItem, Me.ToolStripSeparator5, Me.PresentacionesToolStripMenuItem, Me.LiquidacionesToolStripMenuItem, Me.SaldosToolStripMenuItem, Me.ToolStripSeparator24, Me.FarmaciaConceptosToolStripMenuItem, Me.MaterialesToolStripMenuItem1, Me.ActualizarPreciosToolStripMenuItem, Me.PromocionesToolStripMenuItem, Me.ListaDePreciosToolStripMenuItem, Me.MaquinasYHerramientasToolStripMenuItem, Me.ToolStripSeparator14, Me.ClientesToolStripMenuItem, Me.ProveedoresToolStripMenuItem, Me.ListaPreciosToolStripMenuItem, Me.ToolStripSeparator15, Me.MarcasToolStripMenuItem, Me.FamiliasToolStripMenuItem, Me.NotasToolStripMenuItem, Me.ImpuestosToolStripMenuItem, Me.CondicionesDePagoToolStripMenuItem, Me.UnidadesToolStripMenuItem1, Me.ToolStripSeparator19, Me.TablerosToolStripMenuItem, Me.ToolStripSeparator20, Me.EnsayosParaTransformadoresToolStripMenuItem, Me.ToolStripSeparator22, Me.ToolStripMenuItem1, Me.ToolStripSeparator21, Me.SalirToolStripMenuItem})
+        Me.AuxiliaresToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripSeparator23, Me.FarmaciasToolStripMenuItem, Me.ConceptosToolStripMenuItem, Me.ProfesionalesToolStripMenuItem, Me.ObrasSocialesToolStripMenuItem, Me.MandatariasToolStripMenuItem, Me.PeriodoPresentacionesToolStripMenuItem, Me.ToolStripSeparator5, Me.PresentacionesToolStripMenuItem, Me.LiquidacionesToolStripMenuItem, Me.SaldosToolStripMenuItem, Me.ToolStripSeparator24, Me.ToolStripMenuItem1, Me.ToolStripSeparator21, Me.SalirToolStripMenuItem})
         Me.AuxiliaresToolStripMenuItem.Name = "AuxiliaresToolStripMenuItem"
         Me.AuxiliaresToolStripMenuItem.Size = New System.Drawing.Size(59, 24)
         Me.AuxiliaresToolStripMenuItem.Text = "Inicio"
@@ -187,265 +166,92 @@ Partial Class MDIPrincipal
         'ToolStripSeparator23
         '
         Me.ToolStripSeparator23.Name = "ToolStripSeparator23"
-        Me.ToolStripSeparator23.Size = New System.Drawing.Size(299, 6)
+        Me.ToolStripSeparator23.Size = New System.Drawing.Size(242, 6)
         '
         'FarmaciasToolStripMenuItem
         '
         Me.FarmaciasToolStripMenuItem.Image = Global.CENPROFAR.My.Resources.Resources.farmacia
         Me.FarmaciasToolStripMenuItem.Name = "FarmaciasToolStripMenuItem"
-        Me.FarmaciasToolStripMenuItem.Size = New System.Drawing.Size(302, 26)
+        Me.FarmaciasToolStripMenuItem.Size = New System.Drawing.Size(245, 26)
         Me.FarmaciasToolStripMenuItem.Text = "Farmacias..."
         '
         'ConceptosToolStripMenuItem
         '
         Me.ConceptosToolStripMenuItem.Image = CType(resources.GetObject("ConceptosToolStripMenuItem.Image"), System.Drawing.Image)
         Me.ConceptosToolStripMenuItem.Name = "ConceptosToolStripMenuItem"
-        Me.ConceptosToolStripMenuItem.Size = New System.Drawing.Size(302, 26)
+        Me.ConceptosToolStripMenuItem.Size = New System.Drawing.Size(245, 26)
         Me.ConceptosToolStripMenuItem.Text = "Conceptos"
         '
         'ObrasSocialesToolStripMenuItem
         '
         Me.ObrasSocialesToolStripMenuItem.Image = Global.CENPROFAR.My.Resources.Resources.obraSocial
         Me.ObrasSocialesToolStripMenuItem.Name = "ObrasSocialesToolStripMenuItem"
-        Me.ObrasSocialesToolStripMenuItem.Size = New System.Drawing.Size(302, 26)
+        Me.ObrasSocialesToolStripMenuItem.Size = New System.Drawing.Size(245, 26)
         Me.ObrasSocialesToolStripMenuItem.Text = "Obras Sociales..."
         '
         'MandatariasToolStripMenuItem
         '
         Me.MandatariasToolStripMenuItem.Image = CType(resources.GetObject("MandatariasToolStripMenuItem.Image"), System.Drawing.Image)
         Me.MandatariasToolStripMenuItem.Name = "MandatariasToolStripMenuItem"
-        Me.MandatariasToolStripMenuItem.Size = New System.Drawing.Size(302, 26)
+        Me.MandatariasToolStripMenuItem.Size = New System.Drawing.Size(245, 26)
         Me.MandatariasToolStripMenuItem.Text = "Mandatarias"
         '
         'PeriodoPresentacionesToolStripMenuItem
         '
         Me.PeriodoPresentacionesToolStripMenuItem.Image = CType(resources.GetObject("PeriodoPresentacionesToolStripMenuItem.Image"), System.Drawing.Image)
         Me.PeriodoPresentacionesToolStripMenuItem.Name = "PeriodoPresentacionesToolStripMenuItem"
-        Me.PeriodoPresentacionesToolStripMenuItem.Size = New System.Drawing.Size(302, 26)
+        Me.PeriodoPresentacionesToolStripMenuItem.Size = New System.Drawing.Size(245, 26)
         Me.PeriodoPresentacionesToolStripMenuItem.Text = "Período Presentaciones"
         '
         'ToolStripSeparator5
         '
         Me.ToolStripSeparator5.Name = "ToolStripSeparator5"
-        Me.ToolStripSeparator5.Size = New System.Drawing.Size(299, 6)
+        Me.ToolStripSeparator5.Size = New System.Drawing.Size(242, 6)
         '
         'PresentacionesToolStripMenuItem
         '
         Me.PresentacionesToolStripMenuItem.Image = Global.CENPROFAR.My.Resources.Resources.presentacion
         Me.PresentacionesToolStripMenuItem.Name = "PresentacionesToolStripMenuItem"
-        Me.PresentacionesToolStripMenuItem.Size = New System.Drawing.Size(302, 26)
+        Me.PresentacionesToolStripMenuItem.Size = New System.Drawing.Size(245, 26)
         Me.PresentacionesToolStripMenuItem.Text = "Presentaciones..."
         '
         'LiquidacionesToolStripMenuItem
         '
         Me.LiquidacionesToolStripMenuItem.Image = Global.CENPROFAR.My.Resources.Resources.liquidacion
         Me.LiquidacionesToolStripMenuItem.Name = "LiquidacionesToolStripMenuItem"
-        Me.LiquidacionesToolStripMenuItem.Size = New System.Drawing.Size(302, 26)
+        Me.LiquidacionesToolStripMenuItem.Size = New System.Drawing.Size(245, 26)
         Me.LiquidacionesToolStripMenuItem.Text = "Liquidaciones..."
         '
         'SaldosToolStripMenuItem
         '
         Me.SaldosToolStripMenuItem.Image = CType(resources.GetObject("SaldosToolStripMenuItem.Image"), System.Drawing.Image)
         Me.SaldosToolStripMenuItem.Name = "SaldosToolStripMenuItem"
-        Me.SaldosToolStripMenuItem.Size = New System.Drawing.Size(302, 26)
+        Me.SaldosToolStripMenuItem.Size = New System.Drawing.Size(245, 26)
         Me.SaldosToolStripMenuItem.Text = "Saldos..."
         '
         'ToolStripSeparator24
         '
         Me.ToolStripSeparator24.Name = "ToolStripSeparator24"
-        Me.ToolStripSeparator24.Size = New System.Drawing.Size(299, 6)
-        '
-        'FarmaciaConceptosToolStripMenuItem
-        '
-        Me.FarmaciaConceptosToolStripMenuItem.Enabled = False
-        Me.FarmaciaConceptosToolStripMenuItem.Name = "FarmaciaConceptosToolStripMenuItem"
-        Me.FarmaciaConceptosToolStripMenuItem.Size = New System.Drawing.Size(302, 26)
-        Me.FarmaciaConceptosToolStripMenuItem.Text = "Farmacia_Conceptos"
-        Me.FarmaciaConceptosToolStripMenuItem.Visible = False
-        '
-        'MaterialesToolStripMenuItem1
-        '
-        Me.MaterialesToolStripMenuItem1.Enabled = False
-        Me.MaterialesToolStripMenuItem1.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.MaterialesToolStripMenuItem1.Image = Global.CENPROFAR.My.Resources.Resources.Productos1
-        Me.MaterialesToolStripMenuItem1.Name = "MaterialesToolStripMenuItem1"
-        Me.MaterialesToolStripMenuItem1.Size = New System.Drawing.Size(302, 26)
-        Me.MaterialesToolStripMenuItem1.Text = "Productos..."
-        Me.MaterialesToolStripMenuItem1.Visible = False
-        '
-        'ActualizarPreciosToolStripMenuItem
-        '
-        Me.ActualizarPreciosToolStripMenuItem.Enabled = False
-        Me.ActualizarPreciosToolStripMenuItem.Name = "ActualizarPreciosToolStripMenuItem"
-        Me.ActualizarPreciosToolStripMenuItem.Size = New System.Drawing.Size(302, 26)
-        Me.ActualizarPreciosToolStripMenuItem.Text = "Actualizar Precios..."
-        Me.ActualizarPreciosToolStripMenuItem.Visible = False
-        '
-        'PromocionesToolStripMenuItem
-        '
-        Me.PromocionesToolStripMenuItem.Enabled = False
-        Me.PromocionesToolStripMenuItem.Name = "PromocionesToolStripMenuItem"
-        Me.PromocionesToolStripMenuItem.Size = New System.Drawing.Size(302, 26)
-        Me.PromocionesToolStripMenuItem.Text = "Promociones"
-        Me.PromocionesToolStripMenuItem.Visible = False
-        '
-        'ListaDePreciosToolStripMenuItem
-        '
-        Me.ListaDePreciosToolStripMenuItem.Enabled = False
-        Me.ListaDePreciosToolStripMenuItem.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ListaDePreciosToolStripMenuItem.Image = Global.CENPROFAR.My.Resources.Resources.ListaPrecios
-        Me.ListaDePreciosToolStripMenuItem.Name = "ListaDePreciosToolStripMenuItem"
-        Me.ListaDePreciosToolStripMenuItem.Size = New System.Drawing.Size(302, 26)
-        Me.ListaDePreciosToolStripMenuItem.Text = "Lista de Precios..."
-        Me.ListaDePreciosToolStripMenuItem.Visible = False
-        '
-        'MaquinasYHerramientasToolStripMenuItem
-        '
-        Me.MaquinasYHerramientasToolStripMenuItem.Enabled = False
-        Me.MaquinasYHerramientasToolStripMenuItem.Name = "MaquinasYHerramientasToolStripMenuItem"
-        Me.MaquinasYHerramientasToolStripMenuItem.Size = New System.Drawing.Size(302, 26)
-        Me.MaquinasYHerramientasToolStripMenuItem.Text = "Maquinas y Herramientas..."
-        Me.MaquinasYHerramientasToolStripMenuItem.Visible = False
-        '
-        'ToolStripSeparator14
-        '
-        Me.ToolStripSeparator14.Name = "ToolStripSeparator14"
-        Me.ToolStripSeparator14.Size = New System.Drawing.Size(299, 6)
-        Me.ToolStripSeparator14.Visible = False
-        '
-        'ClientesToolStripMenuItem
-        '
-        Me.ClientesToolStripMenuItem.Enabled = False
-        Me.ClientesToolStripMenuItem.Image = Global.CENPROFAR.My.Resources.Resources.users
-        Me.ClientesToolStripMenuItem.Name = "ClientesToolStripMenuItem"
-        Me.ClientesToolStripMenuItem.Size = New System.Drawing.Size(302, 26)
-        Me.ClientesToolStripMenuItem.Text = "Clientes..."
-        Me.ClientesToolStripMenuItem.Visible = False
-        '
-        'ProveedoresToolStripMenuItem
-        '
-        Me.ProveedoresToolStripMenuItem.Enabled = False
-        Me.ProveedoresToolStripMenuItem.Image = Global.CENPROFAR.My.Resources.Resources.empleados
-        Me.ProveedoresToolStripMenuItem.Name = "ProveedoresToolStripMenuItem"
-        Me.ProveedoresToolStripMenuItem.Size = New System.Drawing.Size(302, 26)
-        Me.ProveedoresToolStripMenuItem.Text = "Proveedores..."
-        Me.ProveedoresToolStripMenuItem.Visible = False
-        '
-        'ListaPreciosToolStripMenuItem
-        '
-        Me.ListaPreciosToolStripMenuItem.Enabled = False
-        Me.ListaPreciosToolStripMenuItem.Image = Global.CENPROFAR.My.Resources.Resources.ListaPrecios
-        Me.ListaPreciosToolStripMenuItem.Name = "ListaPreciosToolStripMenuItem"
-        Me.ListaPreciosToolStripMenuItem.Size = New System.Drawing.Size(302, 26)
-        Me.ListaPreciosToolStripMenuItem.Text = "Lista de Precios..."
-        Me.ListaPreciosToolStripMenuItem.Visible = False
-        '
-        'ToolStripSeparator15
-        '
-        Me.ToolStripSeparator15.Name = "ToolStripSeparator15"
-        Me.ToolStripSeparator15.Size = New System.Drawing.Size(299, 6)
-        Me.ToolStripSeparator15.Visible = False
-        '
-        'MarcasToolStripMenuItem
-        '
-        Me.MarcasToolStripMenuItem.Enabled = False
-        Me.MarcasToolStripMenuItem.Name = "MarcasToolStripMenuItem"
-        Me.MarcasToolStripMenuItem.Size = New System.Drawing.Size(302, 26)
-        Me.MarcasToolStripMenuItem.Text = "Marcas..."
-        Me.MarcasToolStripMenuItem.Visible = False
-        '
-        'FamiliasToolStripMenuItem
-        '
-        Me.FamiliasToolStripMenuItem.Enabled = False
-        Me.FamiliasToolStripMenuItem.Name = "FamiliasToolStripMenuItem"
-        Me.FamiliasToolStripMenuItem.Size = New System.Drawing.Size(302, 26)
-        Me.FamiliasToolStripMenuItem.Text = "Rubros..."
-        Me.FamiliasToolStripMenuItem.Visible = False
-        '
-        'NotasToolStripMenuItem
-        '
-        Me.NotasToolStripMenuItem.Enabled = False
-        Me.NotasToolStripMenuItem.Name = "NotasToolStripMenuItem"
-        Me.NotasToolStripMenuItem.Size = New System.Drawing.Size(302, 26)
-        Me.NotasToolStripMenuItem.Text = "Notas..."
-        Me.NotasToolStripMenuItem.Visible = False
-        '
-        'ImpuestosToolStripMenuItem
-        '
-        Me.ImpuestosToolStripMenuItem.Enabled = False
-        Me.ImpuestosToolStripMenuItem.Name = "ImpuestosToolStripMenuItem"
-        Me.ImpuestosToolStripMenuItem.Size = New System.Drawing.Size(302, 26)
-        Me.ImpuestosToolStripMenuItem.Text = "Impuestos..."
-        Me.ImpuestosToolStripMenuItem.Visible = False
-        '
-        'CondicionesDePagoToolStripMenuItem
-        '
-        Me.CondicionesDePagoToolStripMenuItem.Enabled = False
-        Me.CondicionesDePagoToolStripMenuItem.Name = "CondicionesDePagoToolStripMenuItem"
-        Me.CondicionesDePagoToolStripMenuItem.Size = New System.Drawing.Size(302, 26)
-        Me.CondicionesDePagoToolStripMenuItem.Text = "Condiciones de Pago..."
-        Me.CondicionesDePagoToolStripMenuItem.Visible = False
-        '
-        'UnidadesToolStripMenuItem1
-        '
-        Me.UnidadesToolStripMenuItem1.Enabled = False
-        Me.UnidadesToolStripMenuItem1.Name = "UnidadesToolStripMenuItem1"
-        Me.UnidadesToolStripMenuItem1.Size = New System.Drawing.Size(302, 26)
-        Me.UnidadesToolStripMenuItem1.Text = "Unidades..."
-        Me.UnidadesToolStripMenuItem1.Visible = False
-        '
-        'ToolStripSeparator19
-        '
-        Me.ToolStripSeparator19.Name = "ToolStripSeparator19"
-        Me.ToolStripSeparator19.Size = New System.Drawing.Size(299, 6)
-        Me.ToolStripSeparator19.Visible = False
-        '
-        'TablerosToolStripMenuItem
-        '
-        Me.TablerosToolStripMenuItem.Enabled = False
-        Me.TablerosToolStripMenuItem.Name = "TablerosToolStripMenuItem"
-        Me.TablerosToolStripMenuItem.Size = New System.Drawing.Size(302, 26)
-        Me.TablerosToolStripMenuItem.Text = "Tableros..."
-        Me.TablerosToolStripMenuItem.Visible = False
-        '
-        'ToolStripSeparator20
-        '
-        Me.ToolStripSeparator20.Name = "ToolStripSeparator20"
-        Me.ToolStripSeparator20.Size = New System.Drawing.Size(299, 6)
-        Me.ToolStripSeparator20.Visible = False
-        '
-        'EnsayosParaTransformadoresToolStripMenuItem
-        '
-        Me.EnsayosParaTransformadoresToolStripMenuItem.Enabled = False
-        Me.EnsayosParaTransformadoresToolStripMenuItem.Name = "EnsayosParaTransformadoresToolStripMenuItem"
-        Me.EnsayosParaTransformadoresToolStripMenuItem.Size = New System.Drawing.Size(302, 26)
-        Me.EnsayosParaTransformadoresToolStripMenuItem.Text = "Ensayos para Transformadores..."
-        Me.EnsayosParaTransformadoresToolStripMenuItem.Visible = False
-        '
-        'ToolStripSeparator22
-        '
-        Me.ToolStripSeparator22.Name = "ToolStripSeparator22"
-        Me.ToolStripSeparator22.Size = New System.Drawing.Size(299, 6)
-        Me.ToolStripSeparator22.Visible = False
+        Me.ToolStripSeparator24.Size = New System.Drawing.Size(242, 6)
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.ToolStripMenuItem1.Enabled = False
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(302, 26)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(245, 26)
         Me.ToolStripMenuItem1.Text = "Parámetros"
         Me.ToolStripMenuItem1.Visible = False
         '
         'ToolStripSeparator21
         '
         Me.ToolStripSeparator21.Name = "ToolStripSeparator21"
-        Me.ToolStripSeparator21.Size = New System.Drawing.Size(299, 6)
+        Me.ToolStripSeparator21.Size = New System.Drawing.Size(242, 6)
         '
         'SalirToolStripMenuItem
         '
         Me.SalirToolStripMenuItem.Name = "SalirToolStripMenuItem"
-        Me.SalirToolStripMenuItem.Size = New System.Drawing.Size(302, 26)
+        Me.SalirToolStripMenuItem.Size = New System.Drawing.Size(245, 26)
         Me.SalirToolStripMenuItem.Text = "Salir"
         '
         'MovimientosInventarioToolStripMenuItem
@@ -1125,7 +931,7 @@ Partial Class MDIPrincipal
         '
         Me.StatusStrip.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.StatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel})
-        Me.StatusStrip.Location = New System.Drawing.Point(0, 775)
+        Me.StatusStrip.Location = New System.Drawing.Point(0, 870)
         Me.StatusStrip.Name = "StatusStrip"
         Me.StatusStrip.Padding = New System.Windows.Forms.Padding(1, 0, 19, 0)
         Me.StatusStrip.Size = New System.Drawing.Size(1272, 26)
@@ -1142,13 +948,20 @@ Partial Class MDIPrincipal
         '
         Me.Timer1.Interval = 1200000
         '
+        'ProfesionalesToolStripMenuItem
+        '
+        Me.ProfesionalesToolStripMenuItem.Image = CType(resources.GetObject("ProfesionalesToolStripMenuItem.Image"), System.Drawing.Image)
+        Me.ProfesionalesToolStripMenuItem.Name = "ProfesionalesToolStripMenuItem"
+        Me.ProfesionalesToolStripMenuItem.Size = New System.Drawing.Size(245, 26)
+        Me.ProfesionalesToolStripMenuItem.Text = "Profesionales"
+        '
         'MDIPrincipal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Lime
         Me.BackgroundImage = Global.CENPROFAR.My.Resources.Resources.KAIZEN2
-        Me.ClientSize = New System.Drawing.Size(1272, 801)
+        Me.ClientSize = New System.Drawing.Size(1272, 896)
         Me.Controls.Add(Me.ToolStrip)
         Me.Controls.Add(Me.MenuStrip)
         Me.Controls.Add(Me.StatusStrip)
@@ -1186,9 +999,6 @@ Partial Class MDIPrincipal
     Friend WithEvents AuxiliaresToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents PresupuestoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents PresupuestoDetToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents FamiliasToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents MaterialesToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents UnidadesToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents MovimientosInventarioToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents RegistrarConsumosToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents AjustesDeInventarioToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
@@ -1199,8 +1009,6 @@ Partial Class MDIPrincipal
     Friend WithEvents DevoluciónAProveedoresToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents OrdenDeCompraToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents InformesToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ProveedoresToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ClientesToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ContabilidadToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents GastosPorObraToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ChequesEnCarteraToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
@@ -1209,14 +1017,11 @@ Partial Class MDIPrincipal
     Friend WithEvents ToolStripSeparator3 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents ActualizarPresupuestoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripSeparator4 As System.Windows.Forms.ToolStripSeparator
-    Friend WithEvents NotasToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ListaDePreciosToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents MonedasToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents PagosDeClientesToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents RankingDeProductosPresupuestadosToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ProductosMásVendidosToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ProductosMásPresupuestadosToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ImpuestosToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents DeudaDeClientesToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents RemitosDuplicadosToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents HistorialDeFacturasToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
@@ -1227,7 +1032,6 @@ Partial Class MDIPrincipal
     Friend WithEvents StocksToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents StockporRubroYSubrubroToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents StockFiltrosPersonalizadosToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents CondicionesDePagoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents PagosAProveedoresToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents HistoriaPresupuestosToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents InformeDeRetencionesToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
@@ -1235,8 +1039,6 @@ Partial Class MDIPrincipal
     Friend WithEvents ToolStripSeparator7 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents ToolStripSeparator8 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents ToolStripSeparator9 As System.Windows.Forms.ToolStripSeparator
-    Friend WithEvents ToolStripSeparator14 As System.Windows.Forms.ToolStripSeparator
-    Friend WithEvents ToolStripSeparator15 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents ToolStripSeparator10 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents ToolStripSeparator11 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents ToolStripSeparator12 As System.Windows.Forms.ToolStripSeparator
@@ -1246,19 +1048,12 @@ Partial Class MDIPrincipal
     Friend WithEvents ToolStripSeparator18 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents HistoriaDePresupuestosReporteToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents Stock_Actual_ValorizadoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents MarcasToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents EmpleadosToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ToolStripSeparator19 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents SalirToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents EtiquetasDeProductosCodBarrasToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents MaquinasYHerramientasToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents VentasToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents TablerosToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ToolStripSeparator20 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents ToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripSeparator21 As System.Windows.Forms.ToolStripSeparator
-    Friend WithEvents EnsayosParaTransformadoresToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ToolStripSeparator22 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents ContabilidadToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ExportarArchivosSIAPComprasToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ExportarExcelImpuestossimilSIAPToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
@@ -1278,14 +1073,12 @@ Partial Class MDIPrincipal
     Friend WithEvents RequerimientosToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents GastosPorVencidosPorVencerToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents RemitosSinPresupuestoMatToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ListaPreciosToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents VentasDepositoPerónToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents NotifWEBToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents EnvíosDePedidosToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ReportesDepositoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents VentasDepósitoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents VentasPorClientesToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents PromocionesToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents TransferenciasToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents MovimientosDelDíaToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents AnticiposYIngresosDepósitoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
@@ -1293,7 +1086,6 @@ Partial Class MDIPrincipal
     Friend WithEvents MovimientosDelDíaToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ProductosMásSolicitadosToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
     Public WithEvents Timer1 As System.Windows.Forms.Timer
-    Friend WithEvents ActualizarPreciosToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents MovSalonToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents InformeGeneralToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents PruebaMatiToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
@@ -1303,10 +1095,10 @@ Partial Class MDIPrincipal
     Friend WithEvents PresentacionesToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents SaldosToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ConceptosToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents FarmaciaConceptosToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator23 As ToolStripSeparator
     Friend WithEvents MandatariasToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents PeriodoPresentacionesToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator5 As ToolStripSeparator
     Friend WithEvents ToolStripSeparator24 As ToolStripSeparator
+    Friend WithEvents ProfesionalesToolStripMenuItem As ToolStripMenuItem
 End Class
