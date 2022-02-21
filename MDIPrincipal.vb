@@ -193,11 +193,11 @@ logindenuevo:
         'Controlo que sucursal es para ver que parte del menu muestro y que parte no 
         If sucursal.Contains("PERON") Then
 
-            ProveedoresToolStripMenuItem.Visible = False
-            ListaPreciosToolStripMenuItem.Visible = False
-            MarcasToolStripMenuItem.Visible = False
-            FamiliasToolStripMenuItem.Visible = False
-            UnidadesToolStripMenuItem1.Visible = False
+            'ProveedoresToolStripMenuItem.Visible = False
+            'ListaPreciosToolStripMenuItem.Visible = False
+            'MarcasToolStripMenuItem.Visible = False
+            'FamiliasToolStripMenuItem.Visible = False
+            'UnidadesToolStripMenuItem1.Visible = False
             OrdenDeCompraToolStripMenuItem.Visible = False
             RecepcionesDeMaterialToolStripMenuItem.Visible = False
             DepósitoToolStripMenuItem.Visible = False
@@ -207,7 +207,7 @@ logindenuevo:
             InformesToolStripMenuItem1.Visible = False
             SeguridadToolStripMenuItem.Visible = False
             ContabilidadToolStripMenuItem.Visible = False
-            ToolStripSeparator15.Visible = False
+            'ToolStripSeparator15.Visible = False
             VentasToolStripMenuItem.Text = "Ventas Depósito Perón"
             EnvíosDePedidosToolStripMenuItem.Visible = False
             VentasDepósitoToolStripMenuItem.Visible = False
@@ -239,12 +239,12 @@ logindenuevo:
                     DeudaDeClientesToolStripMenuItem.Enabled = False
                     JornadasDeTrabajoToolStripMenuItem.Enabled = True
                     OrdenDeCompraToolStripMenuItem.Enabled = True
-                    ProveedoresToolStripMenuItem.Visible = True
-                    ListaPreciosToolStripMenuItem.Visible = True
-                    MarcasToolStripMenuItem.Visible = True
-                    FamiliasToolStripMenuItem.Visible = True
-                    UnidadesToolStripMenuItem1.Visible = True
-                    PromocionesToolStripMenuItem.Visible = True
+                    'ProveedoresToolStripMenuItem.Visible = True
+                    'ListaPreciosToolStripMenuItem.Visible = True
+                    'MarcasToolStripMenuItem.Visible = True
+                    'FamiliasToolStripMenuItem.Visible = True
+                    'UnidadesToolStripMenuItem1.Visible = True
+                    'PromocionesToolStripMenuItem.Visible = True
 
                 End If
                 AjustesDeInventarioToolStripMenuItem.Enabled = True
@@ -366,7 +366,7 @@ logindenuevo:
 
     Private m_ChildFormNumber As Integer = 0
 
-    Private Sub FamiliasToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FamiliasToolStripMenuItem.Click
+    Private Sub FamiliasToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         frmRubros.MdiParent = Me
         frmRubros.Show()
     End Sub
@@ -381,7 +381,7 @@ logindenuevo:
         frmObras.Show()
     End Sub
 
-    Private Sub MaterialesToolStripMenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MaterialesToolStripMenuItem1.Click
+    Private Sub MaterialesToolStripMenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         'me fijo si es la sucursal de peron 
         '        If Not sucursal.Contains("PERON") Then
         '            GoTo CONTINUAR
@@ -398,7 +398,7 @@ logindenuevo:
         '        End If
         'me fijo si es la sucursal de peron 
         If sucursal.Contains("PERON") Then
-         
+
             If Not UserActual = "administrador" Then
                 frmMateriales.btnNuevo.Visible = False
                 frmMateriales.btnGuardar.Visible = False
@@ -420,7 +420,7 @@ logindenuevo:
         End If
     End Sub
 
-    Private Sub UnidadesToolStripMenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles UnidadesToolStripMenuItem1.Click
+    Private Sub UnidadesToolStripMenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         frmUnidades.MdiParent = Me
         frmUnidades.Show()
     End Sub
@@ -840,7 +840,7 @@ logindenuevo:
         End If
     End Sub
 
-    Private Sub ProveedoresToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ProveedoresToolStripMenuItem.Click
+    Private Sub ProveedoresToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         frmProveedores.MdiParent = Me
         frmProveedores.Show()
     End Sub
@@ -855,7 +855,7 @@ logindenuevo:
         frmUsuarios.Show()
     End Sub
 
-    Private Sub ClientesToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ClientesToolStripMenuItem.Click
+    Private Sub ClientesToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         frmClientes.MdiParent = Me
         frmClientes.Show()
     End Sub
@@ -886,7 +886,7 @@ logindenuevo:
 
     End Sub
 
-    Private Sub NotasToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NotasToolStripMenuItem.Click
+    Private Sub NotasToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         frmNotas.MdiParent = Me
         frmNotas.Show()
     End Sub
@@ -896,7 +896,7 @@ logindenuevo:
         frmRemitos.Show()
     End Sub
 
-    Private Sub ListaDePreciosToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ListaDePreciosToolStripMenuItem.Click
+    Private Sub ListaDePreciosToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         frmMaterialesPrecios.MdiParent = Me
         frmMaterialesPrecios.WindowState = FormWindowState.Maximized
         frmMaterialesPrecios.Show()
@@ -1012,7 +1012,7 @@ logindenuevo:
         'CType(Cnn, IDisposable).Dispose()
     End Sub
 
-    Private Sub ImpuestosToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ImpuestosToolStripMenuItem.Click
+    Private Sub ImpuestosToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         frmImpuestos.MdiParent = Me
         frmImpuestos.Show()
     End Sub
@@ -1496,7 +1496,7 @@ logindenuevo:
         frmNotaCredito.Show()
     End Sub
 
-    Private Sub CondicionesDePagoToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CondicionesDePagoToolStripMenuItem.Click
+    Private Sub CondicionesDePagoToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         frmCondiciondePago.MdiParent = Me
         frmCondiciondePago.Show()
     End Sub
@@ -1511,7 +1511,7 @@ logindenuevo:
         frmPresupuestos_Historia.Show()
     End Sub
 
-    Private Sub MarcasToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MarcasToolStripMenuItem.Click
+    Private Sub MarcasToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         frmMarcas.MdiParent = Me
         frmMarcas.Show()
     End Sub
@@ -1722,7 +1722,7 @@ logindenuevo:
 
     End Sub
 
-    Private Sub MaquinasYHerramientasToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MaquinasYHerramientasToolStripMenuItem.Click
+    Private Sub MaquinasYHerramientasToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         frmMaqHerramientas.MdiParent = Me
         frmMaqHerramientas.Show()
     End Sub
@@ -1744,12 +1744,12 @@ logindenuevo:
         frmMateriales2.Show()
     End Sub
 
-    Private Sub TablerosToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TablerosToolStripMenuItem.Click
+    Private Sub TablerosToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         frmTableros.MdiParent = Me
         frmTableros.Show()
     End Sub
 
-    Private Sub EnsayosParaTransformadoresToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EnsayosParaTransformadoresToolStripMenuItem.Click
+    Private Sub EnsayosParaTransformadoresToolStripMenuItem_Click(sender As Object, e As EventArgs)
         frmEnsayos.MdiParent = Me
         frmEnsayos.Show()
     End Sub
@@ -1777,7 +1777,7 @@ logindenuevo:
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
             Exit Sub
@@ -1823,7 +1823,7 @@ logindenuevo:
                 param_Res.Value = DBNull.Value
                 param_Res.Direction = ParameterDirection.InputOutput
 
-                SqlHelper.ExecuteNonQuery(Cnn, CommandType.StoredProcedure, "spImportarArchivoTXT_AFIPCompras", _
+                SqlHelper.ExecuteNonQuery(Cnn, CommandType.StoredProcedure, "spImportarArchivoTXT_AFIPCompras",
                                               param_periodo, param_Tipo, param_Res)
 
                 Res = param_Res.Value
@@ -1844,7 +1844,7 @@ logindenuevo:
                 End While
 
                 MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-                  + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+                  + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
                   "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
                 Exit Sub
@@ -1892,7 +1892,7 @@ logindenuevo:
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
             Exit Sub
@@ -1938,7 +1938,7 @@ logindenuevo:
                 param_Res.Value = DBNull.Value
                 param_Res.Direction = ParameterDirection.InputOutput
 
-                SqlHelper.ExecuteNonQuery(Connection, CommandType.StoredProcedure, "spRPT_IVACompras_Excel", _
+                SqlHelper.ExecuteNonQuery(Connection, CommandType.StoredProcedure, "spRPT_IVACompras_Excel",
                                               param_periodo, param_Tipo, param_Res)
 
                 Res = param_Res.Value
@@ -1958,7 +1958,7 @@ logindenuevo:
                 End While
 
                 MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-                  + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+                  + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
                   "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
                 CType(Connection, IDisposable).Dispose()
@@ -2007,8 +2007,8 @@ logindenuevo:
 
                 Dim sqlstring As String
 
-                sqlstring = " SELECT CONVERT(VARCHAR(10), [fechagasto], 103) AS Fecha, [nombre] ,[CUIT]  ,[DESCRIPCION],[nrofactura] " & _
-                        " ,[CantIVA], subtotalExento, [subtotal] ,[iva10] ,[iva21] ,[iva27] ,[CONCEPTOSNOGRAVADOS],[IIBB] ,[IMPUESTOSINTERNOS] ,[OTROS] ,[PERCEPCIONIVA]" & _
+                sqlstring = " SELECT CONVERT(VARCHAR(10), [fechagasto], 103) AS Fecha, [nombre] ,[CUIT]  ,[DESCRIPCION],[nrofactura] " &
+                        " ,[CantIVA], subtotalExento, [subtotal] ,[iva10] ,[iva21] ,[iva27] ,[CONCEPTOSNOGRAVADOS],[IIBB] ,[IMPUESTOSINTERNOS] ,[OTROS] ,[PERCEPCIONIVA]" &
                         " ,[PERCEPCIONIIBB] ,[Total], tipogasto FROM tmpLibroIVACompras ORDER BY FechaGasto ASC, NroFactura ASC"
 
                 ds_Empresa = SqlHelper.ExecuteDataset(Connection, CommandType.Text, sqlstring)
@@ -2067,7 +2067,7 @@ logindenuevo:
                 End While
 
                 MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-                  + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+                  + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
                   "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Finally
                 If Not Connection Is Nothing Then
@@ -2208,7 +2208,7 @@ logindenuevo:
         frmRemitosSinPresupuesto.Show()
     End Sub
 
-    Private Sub ListaPreciosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ListaPreciosToolStripMenuItem.Click
+    Private Sub ListaPreciosToolStripMenuItem_Click(sender As Object, e As EventArgs)
         frmListaPrecios.MdiParent = Me
         frmListaPrecios.Show()
     End Sub
@@ -2262,12 +2262,12 @@ logindenuevo:
 
     Private Sub VentasPorClientesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles VentasPorClientesToolStripMenuItem.Click
 
-        frmventasclientes.MdiParent = Me
-        frmventasclientes.Show()
+        frmVentasClientes.MdiParent = Me
+        frmVentasClientes.Show()
 
     End Sub
 
-    Private Sub PromocionesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PromocionesToolStripMenuItem.Click
+    Private Sub PromocionesToolStripMenuItem_Click(sender As Object, e As EventArgs)
 
         frmPromocionesPorkys.MdiParent = Me
         frmPromocionesPorkys.Show()
@@ -2306,7 +2306,7 @@ logindenuevo:
         frmMateriales_MasSolicitados.Show()
     End Sub
 
-    Private Sub ActualizarPreciosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ActualizarPreciosToolStripMenuItem.Click
+    Private Sub ActualizarPreciosToolStripMenuItem_Click(sender As Object, e As EventArgs)
         frmMateriales_ActualizacionPrecios.MdiParent = Me
         frmMateriales_ActualizacionPrecios.Show()
     End Sub
@@ -2369,7 +2369,7 @@ logindenuevo:
         bulk_Stock.WriteToServer(ds_Stock.Tables(0))
         Conexion.Close()
 
-        sqlstring = " UPDATE Stock SET qty = TMP.qty FROM Stock s Join tmpStock_Web tmp ON tmp.idmaterial = s.Idmaterial " & _
+        sqlstring = " UPDATE Stock SET qty = TMP.qty FROM Stock s Join tmpStock_Web tmp ON tmp.idmaterial = s.Idmaterial " &
             " and tmp.idalmacen = s.idalmacen and tmp.idunidad = s.idunidad "
 
         ds_Empresa = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
@@ -2401,12 +2401,12 @@ logindenuevo:
 
                     'Dim sqlstring As String
                     'Clientes que están en la WEB y no están en la sucursal/central
-                    sqlstring = " SELECT [IdMarca],[IdFamilia],[IDUnidad],[Codigo],[Nombre], " & _
-                            " [Ganancia], [PrecioCosto], [PrecioCompra], [PrecioPeron], [Minimo], [Maximo], " & _
-                            " [CodigoBarra], [Eliminado], [Pasillo], [Estante], [Fila], [ControlStock], [CantidadPACK], [DateAdd], " & _
-                            " [PrecioMayorista] , [PrecioMayoristaPeron], [IDListaMayorista] , [IDListaMayoristaPeron]," & _
-                            " [IDListaMinorista] , [IDListaMinoristaPeron],[PrecioLista3],[IDLista3],[PrecioLista4],[IDLista4],[UnidadRef]," & _
-                            " [Cambiar1] ,[Cambiar2],[Cambiar3],[Cambiar4],[VentaMayorista]" & _
+                    sqlstring = " SELECT [IdMarca],[IdFamilia],[IDUnidad],[Codigo],[Nombre], " &
+                            " [Ganancia], [PrecioCosto], [PrecioCompra], [PrecioPeron], [Minimo], [Maximo], " &
+                            " [CodigoBarra], [Eliminado], [Pasillo], [Estante], [Fila], [ControlStock], [CantidadPACK], [DateAdd], " &
+                            " [PrecioMayorista] , [PrecioMayoristaPeron], [IDListaMayorista] , [IDListaMayoristaPeron]," &
+                            " [IDListaMinorista] , [IDListaMinoristaPeron],[PrecioLista3],[IDLista3],[PrecioLista4],[IDLista4],[UnidadRef]," &
+                            " [Cambiar1] ,[Cambiar2],[Cambiar3],[Cambiar4],[VentaMayorista]" &
                             " FROM tmpMateriales_Web WHERE Codigo NOT IN (SELECT Codigo FROM Materiales ) "
 
                     ds_Empresa = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
@@ -2417,33 +2417,33 @@ logindenuevo:
 
                     If ds_Empresa.Tables(0).Rows.Count > 0 Then
                         For i = 0 To ds_Empresa.Tables(0).Rows.Count - 1
-                            sqlstring = " BEGIN TRAN; " & _
-                                " INSERT INTO [dbo].[Materiales] ([IdMarca],[IdFamilia],[IDUnidad],[Codigo],[Nombre], " & _
-                                " [Ganancia], [PrecioCosto], [PrecioCompra], [PrecioPeron], [Minimo], [Maximo], " & _
-                                " [CodigoBarra], [Eliminado], [Pasillo], [Estante], [Fila], [ControlStock], [CantidadPACK], [DateAdd], " & _
-                                " [PrecioMayorista] , [PrecioMayoristaPeron], [IDListaMayorista] , [IDListaMayoristaPeron], " & _
-                                " [IDListaMinorista] , [IDListaMinoristaPeron],[PrecioLista3],[IDLista3],[PrecioLista4],[IDLista4], " & _
-                                " [UnidadRef],[Cambiar1] ,[Cambiar2],[Cambiar3],[Cambiar4],[VentaMayorista]) " & _
-                                "  values ( '" & ds_Empresa.Tables(0).Rows(i)(0) & "', '" & ds_Empresa.Tables(0).Rows(i)(1) & "', '" & _
-                                ds_Empresa.Tables(0).Rows(i)(2) & "', '" & ds_Empresa.Tables(0).Rows(i)(3) & "', '" & ds_Empresa.Tables(0).Rows(i)(4) & "', " & _
-                                ds_Empresa.Tables(0).Rows(i)(5) & ", " & ds_Empresa.Tables(0).Rows(i)(6) & ", " & ds_Empresa.Tables(0).Rows(i)(7) & ", " & _
-                                ds_Empresa.Tables(0).Rows(i)(8) & ", " & ds_Empresa.Tables(0).Rows(i)(9) & ", " & ds_Empresa.Tables(0).Rows(i)(10) & ", '" & _
-                                ds_Empresa.Tables(0).Rows(i)(11) & "', " & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(12)) = True, 1, 0) & ", '" & ds_Empresa.Tables(0).Rows(i)(13) & "', '" & _
-                                ds_Empresa.Tables(0).Rows(i)(14) & "', '" & ds_Empresa.Tables(0).Rows(i)(15) & "', " & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(16)) = True, 1, 0) & ", " & _
-                                ds_Empresa.Tables(0).Rows(i)(17) & ", '" & Format(ds_Empresa.Tables(0).Rows(i)(18), "dd/MM/yyyy hh:ss") & "', " & _
-                                IIf(ds_Empresa.Tables(0).Rows(i)(19).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(19)) & ", " & _
-                                IIf(ds_Empresa.Tables(0).Rows(i)(20).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(20)) & ", " & _
-                                IIf(ds_Empresa.Tables(0).Rows(i)(21).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(21)) & ", " & _
-                                IIf(ds_Empresa.Tables(0).Rows(i)(22).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(22)) & ", " & _
-                                IIf(ds_Empresa.Tables(0).Rows(i)(23).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(23)) & ", " & _
-                                IIf(ds_Empresa.Tables(0).Rows(i)(24).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(24)) & ", " & _
-                                ds_Empresa.Tables(0).Rows(i)(25) & "," & _
-                                IIf(ds_Empresa.Tables(0).Rows(i)(26).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(26)) & "," & _
-                                ds_Empresa.Tables(0).Rows(i)(27) & "," & _
-                                IIf(ds_Empresa.Tables(0).Rows(i)(28).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(28)) & ",'" & _
-                                ds_Empresa.Tables(0).Rows(i)(29) & "'," & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(30)) = True, 1, 0) & "," & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(31)) = True, 1, 0) & "," & _
-                                IIf(CBool(ds_Empresa.Tables(0).Rows(i)(32)) = True, 1, 0) & "," & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(33)) = True, 1, 0) & "," & _
-                                IIf(CBool(ds_Empresa.Tables(0).Rows(i)(34)) = True, 1, 0) & "); " & _
+                            sqlstring = " BEGIN TRAN; " &
+                                " INSERT INTO [dbo].[Materiales] ([IdMarca],[IdFamilia],[IDUnidad],[Codigo],[Nombre], " &
+                                " [Ganancia], [PrecioCosto], [PrecioCompra], [PrecioPeron], [Minimo], [Maximo], " &
+                                " [CodigoBarra], [Eliminado], [Pasillo], [Estante], [Fila], [ControlStock], [CantidadPACK], [DateAdd], " &
+                                " [PrecioMayorista] , [PrecioMayoristaPeron], [IDListaMayorista] , [IDListaMayoristaPeron], " &
+                                " [IDListaMinorista] , [IDListaMinoristaPeron],[PrecioLista3],[IDLista3],[PrecioLista4],[IDLista4], " &
+                                " [UnidadRef],[Cambiar1] ,[Cambiar2],[Cambiar3],[Cambiar4],[VentaMayorista]) " &
+                                "  values ( '" & ds_Empresa.Tables(0).Rows(i)(0) & "', '" & ds_Empresa.Tables(0).Rows(i)(1) & "', '" &
+                                ds_Empresa.Tables(0).Rows(i)(2) & "', '" & ds_Empresa.Tables(0).Rows(i)(3) & "', '" & ds_Empresa.Tables(0).Rows(i)(4) & "', " &
+                                ds_Empresa.Tables(0).Rows(i)(5) & ", " & ds_Empresa.Tables(0).Rows(i)(6) & ", " & ds_Empresa.Tables(0).Rows(i)(7) & ", " &
+                                ds_Empresa.Tables(0).Rows(i)(8) & ", " & ds_Empresa.Tables(0).Rows(i)(9) & ", " & ds_Empresa.Tables(0).Rows(i)(10) & ", '" &
+                                ds_Empresa.Tables(0).Rows(i)(11) & "', " & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(12)) = True, 1, 0) & ", '" & ds_Empresa.Tables(0).Rows(i)(13) & "', '" &
+                                ds_Empresa.Tables(0).Rows(i)(14) & "', '" & ds_Empresa.Tables(0).Rows(i)(15) & "', " & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(16)) = True, 1, 0) & ", " &
+                                ds_Empresa.Tables(0).Rows(i)(17) & ", '" & Format(ds_Empresa.Tables(0).Rows(i)(18), "dd/MM/yyyy hh:ss") & "', " &
+                                IIf(ds_Empresa.Tables(0).Rows(i)(19).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(19)) & ", " &
+                                IIf(ds_Empresa.Tables(0).Rows(i)(20).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(20)) & ", " &
+                                IIf(ds_Empresa.Tables(0).Rows(i)(21).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(21)) & ", " &
+                                IIf(ds_Empresa.Tables(0).Rows(i)(22).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(22)) & ", " &
+                                IIf(ds_Empresa.Tables(0).Rows(i)(23).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(23)) & ", " &
+                                IIf(ds_Empresa.Tables(0).Rows(i)(24).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(24)) & ", " &
+                                ds_Empresa.Tables(0).Rows(i)(25) & "," &
+                                IIf(ds_Empresa.Tables(0).Rows(i)(26).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(26)) & "," &
+                                ds_Empresa.Tables(0).Rows(i)(27) & "," &
+                                IIf(ds_Empresa.Tables(0).Rows(i)(28).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(28)) & ",'" &
+                                ds_Empresa.Tables(0).Rows(i)(29) & "'," & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(30)) = True, 1, 0) & "," & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(31)) = True, 1, 0) & "," &
+                                IIf(CBool(ds_Empresa.Tables(0).Rows(i)(32)) = True, 1, 0) & "," & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(33)) = True, 1, 0) & "," &
+                                IIf(CBool(ds_Empresa.Tables(0).Rows(i)(34)) = True, 1, 0) & "); " &
                                 " COMMIT TRAN;"
 
                             prueba = ds_Empresa.Tables(0).Rows(i)(3).ToString
@@ -2455,52 +2455,52 @@ logindenuevo:
 
                     End If
 
-                    sqlstring = " SELECT [IdMarca],[IdFamilia],[IDUnidad],[Codigo],[Nombre], " & _
-                            " [Ganancia], [PrecioCosto], [PrecioCompra], [PrecioPeron], [Minimo], [Maximo], " & _
-                            " [CodigoBarra], [Eliminado], [Pasillo], [Estante], [Fila], [ControlStock], [CantidadPACK], isnull([DateUPD], '01/01/1900 00:00:00') ," & _
-                            " [PrecioMayorista] , [PrecioMayoristaPeron], [IDListaMayorista] , [IDListaMayoristaPeron], [IDListaMinorista] , [IDListaMinoristaPeron], " & _
+                    sqlstring = " SELECT [IdMarca],[IdFamilia],[IDUnidad],[Codigo],[Nombre], " &
+                            " [Ganancia], [PrecioCosto], [PrecioCompra], [PrecioPeron], [Minimo], [Maximo], " &
+                            " [CodigoBarra], [Eliminado], [Pasillo], [Estante], [Fila], [ControlStock], [CantidadPACK], isnull([DateUPD], '01/01/1900 00:00:00') ," &
+                            " [PrecioMayorista] , [PrecioMayoristaPeron], [IDListaMayorista] , [IDListaMayoristaPeron], [IDListaMinorista] , [IDListaMinoristaPeron], " &
                             " [PrecioLista3],[IDLista3],[PrecioLista4],[IDLista4],[UnidadRef],[Cambiar1] ,[Cambiar2],[Cambiar3],[Cambiar4],[VentaMayorista] FROM tmpMateriales_Web "
 
                     ds_Empresa = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
                     ds_Empresa.Dispose()
 
                     For i = 0 To ds_Empresa.Tables(0).Rows.Count - 1
-                        sqlstring = "UPDATE [dbo].[Materiales] SET " & _
-                            " [IdMarca] = '" & ds_Empresa.Tables(0).Rows(i)(0) & "', " & _
-                            " [IdFamilia] = '" & ds_Empresa.Tables(0).Rows(i)(1) & "', " & _
-                            " [IDUnidad] = '" & ds_Empresa.Tables(0).Rows(i)(2) & "', " & _
-                            " [Codigo] = '" & ds_Empresa.Tables(0).Rows(i)(3) & "', " & _
-                            " [Nombre] = '" & ds_Empresa.Tables(0).Rows(i)(4) & "', " & _
-                            " [Ganancia] = " & ds_Empresa.Tables(0).Rows(i)(5) & ", " & _
-                            " [PrecioCosto] = " & ds_Empresa.Tables(0).Rows(i)(6) & ", " & _
-                            " [PrecioCompra] = " & ds_Empresa.Tables(0).Rows(i)(7) & ", " & _
-                            " [PrecioPeron] = " & ds_Empresa.Tables(0).Rows(i)(8) & ", " & _
-                            " [Minimo] = " & ds_Empresa.Tables(0).Rows(i)(9) & ", " & _
-                            " [Maximo] = " & ds_Empresa.Tables(0).Rows(i)(10) & ", " & _
-                            " [CodigoBarra] = '" & ds_Empresa.Tables(0).Rows(i)(11) & "', " & _
-                            " [Eliminado] = " & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(12)) = True, 1, 0) & ", " & _
-                            " [Pasillo] = '" & ds_Empresa.Tables(0).Rows(i)(13) & "', " & _
-                            " [Estante] = '" & ds_Empresa.Tables(0).Rows(i)(14) & "', " & _
-                            " [Fila] = '" & ds_Empresa.Tables(0).Rows(i)(15) & "', " & _
-                            " [ControlStock] = " & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(16)) = True, 1, 0) & ", " & _
-                            " [CantidadPACK] = " & ds_Empresa.Tables(0).Rows(i)(17) & ", " & _
-                            " DATEUPD = '" & Format(ds_Empresa.Tables(0).Rows(i)(18), "dd/MM/yyyy") & "' , " & _
-                            " [PrecioMayorista] = " & IIf(ds_Empresa.Tables(0).Rows(i)(19).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(19)) & ", " & _
-                            " [PrecioMayoristaPeron] = " & IIf(ds_Empresa.Tables(0).Rows(i)(20).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(20)) & ", " & _
-                            " [IDListaMayorista] = " & IIf(ds_Empresa.Tables(0).Rows(i)(21).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(21)) & ", " & _
-                            " [IDListaMayoristaPeron] = " & IIf(ds_Empresa.Tables(0).Rows(i)(22).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(22)) & ", " & _
-                            " [IDListaMinorista] = " & IIf(ds_Empresa.Tables(0).Rows(i)(23).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(23)) & ", " & _
-                            " [IDListaMinoristaPeron] = " & IIf(ds_Empresa.Tables(0).Rows(i)(24).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(24)) & ", " & _
-                            " [PrecioLista3] = " & ds_Empresa.Tables(0).Rows(i)(25) & "," & _
-                            " [IDLista3] = " & IIf(ds_Empresa.Tables(0).Rows(i)(26).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(26)) & "," & _
-                            " [PrecioLista4] = " & ds_Empresa.Tables(0).Rows(i)(27) & "," & _
-                            " [IDLista4] = " & IIf(ds_Empresa.Tables(0).Rows(i)(28).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(28)) & "," & _
-                            " [UnidadRef] = '" & ds_Empresa.Tables(0).Rows(i)(29) & "'," & _
-                            " [Cambiar1] = " & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(30)) = True, 1, 0) & "," & _
-                            " [Cambiar2] = " & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(31)) = True, 1, 0) & "," & _
-                            " [Cambiar3] = " & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(32)) = True, 1, 0) & "," & _
-                            " [Cambiar4] = " & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(33)) = True, 1, 0) & "," & _
-                            " [VentaMayorista] = " & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(34)) = True, 1, 0) & " " & _
+                        sqlstring = "UPDATE [dbo].[Materiales] SET " &
+                            " [IdMarca] = '" & ds_Empresa.Tables(0).Rows(i)(0) & "', " &
+                            " [IdFamilia] = '" & ds_Empresa.Tables(0).Rows(i)(1) & "', " &
+                            " [IDUnidad] = '" & ds_Empresa.Tables(0).Rows(i)(2) & "', " &
+                            " [Codigo] = '" & ds_Empresa.Tables(0).Rows(i)(3) & "', " &
+                            " [Nombre] = '" & ds_Empresa.Tables(0).Rows(i)(4) & "', " &
+                            " [Ganancia] = " & ds_Empresa.Tables(0).Rows(i)(5) & ", " &
+                            " [PrecioCosto] = " & ds_Empresa.Tables(0).Rows(i)(6) & ", " &
+                            " [PrecioCompra] = " & ds_Empresa.Tables(0).Rows(i)(7) & ", " &
+                            " [PrecioPeron] = " & ds_Empresa.Tables(0).Rows(i)(8) & ", " &
+                            " [Minimo] = " & ds_Empresa.Tables(0).Rows(i)(9) & ", " &
+                            " [Maximo] = " & ds_Empresa.Tables(0).Rows(i)(10) & ", " &
+                            " [CodigoBarra] = '" & ds_Empresa.Tables(0).Rows(i)(11) & "', " &
+                            " [Eliminado] = " & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(12)) = True, 1, 0) & ", " &
+                            " [Pasillo] = '" & ds_Empresa.Tables(0).Rows(i)(13) & "', " &
+                            " [Estante] = '" & ds_Empresa.Tables(0).Rows(i)(14) & "', " &
+                            " [Fila] = '" & ds_Empresa.Tables(0).Rows(i)(15) & "', " &
+                            " [ControlStock] = " & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(16)) = True, 1, 0) & ", " &
+                            " [CantidadPACK] = " & ds_Empresa.Tables(0).Rows(i)(17) & ", " &
+                            " DATEUPD = '" & Format(ds_Empresa.Tables(0).Rows(i)(18), "dd/MM/yyyy") & "' , " &
+                            " [PrecioMayorista] = " & IIf(ds_Empresa.Tables(0).Rows(i)(19).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(19)) & ", " &
+                            " [PrecioMayoristaPeron] = " & IIf(ds_Empresa.Tables(0).Rows(i)(20).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(20)) & ", " &
+                            " [IDListaMayorista] = " & IIf(ds_Empresa.Tables(0).Rows(i)(21).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(21)) & ", " &
+                            " [IDListaMayoristaPeron] = " & IIf(ds_Empresa.Tables(0).Rows(i)(22).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(22)) & ", " &
+                            " [IDListaMinorista] = " & IIf(ds_Empresa.Tables(0).Rows(i)(23).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(23)) & ", " &
+                            " [IDListaMinoristaPeron] = " & IIf(ds_Empresa.Tables(0).Rows(i)(24).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(24)) & ", " &
+                            " [PrecioLista3] = " & ds_Empresa.Tables(0).Rows(i)(25) & "," &
+                            " [IDLista3] = " & IIf(ds_Empresa.Tables(0).Rows(i)(26).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(26)) & "," &
+                            " [PrecioLista4] = " & ds_Empresa.Tables(0).Rows(i)(27) & "," &
+                            " [IDLista4] = " & IIf(ds_Empresa.Tables(0).Rows(i)(28).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(28)) & "," &
+                            " [UnidadRef] = '" & ds_Empresa.Tables(0).Rows(i)(29) & "'," &
+                            " [Cambiar1] = " & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(30)) = True, 1, 0) & "," &
+                            " [Cambiar2] = " & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(31)) = True, 1, 0) & "," &
+                            " [Cambiar3] = " & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(32)) = True, 1, 0) & "," &
+                            " [Cambiar4] = " & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(33)) = True, 1, 0) & "," &
+                            " [VentaMayorista] = " & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(34)) = True, 1, 0) & " " &
                             " WHERE Codigo = '" & ds_Empresa.Tables(0).Rows(i)(3) & "'"
 
                         prueba = ds_Empresa.Tables(0).Rows(i)(3).ToString
@@ -2541,7 +2541,7 @@ logindenuevo:
                     'ds_Lista.Dispose()
 
                     'Clientes que están en la WEB y no están en la sucursal/central
-                    sqlstring = " SELECT [Codigo], [Descripcion],[Porcentaje],[Valor_Cambio],[Eliminado], [DateUpd] " & _
+                    sqlstring = " SELECT [Codigo], [Descripcion],[Porcentaje],[Valor_Cambio],[Eliminado], [DateUpd] " &
                                 " FROM tmpLista_Precios_WEB WHERE Codigo NOT IN (SELECT Codigo FROM Lista_Precios ) "
 
                     ds_Lista = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
@@ -2552,10 +2552,10 @@ logindenuevo:
 
                     If ds_Lista.Tables(0).Rows.Count > 0 Then
                         For i = 0 To ds_Lista.Tables(0).Rows.Count - 1
-                            sqlstring = " BEGIN TRAN; " & _
-                                " INSERT INTO [dbo].[Lista_Precios] ([Codigo], [Descripcion],[Porcentaje],[Eliminado] ,[DateUpd] ) " & _
-                                " VALUES ( " & ds_Lista.Tables(0).Rows(i)(0) & " , '" & ds_Lista.Tables(0).Rows(i)(1) & "', " & ds_Lista.Tables(0).Rows(i)(2) & ", " & _
-                                IIf(CBool(ds_Lista.Tables(0).Rows(i)(4)) = True, 1, 0) & " , '" & Format(ds_Lista.Tables(0).Rows(i)(5), "dd/MM/yyyy hh:ss") & "' ); " & _
+                            sqlstring = " BEGIN TRAN; " &
+                                " INSERT INTO [dbo].[Lista_Precios] ([Codigo], [Descripcion],[Porcentaje],[Eliminado] ,[DateUpd] ) " &
+                                " VALUES ( " & ds_Lista.Tables(0).Rows(i)(0) & " , '" & ds_Lista.Tables(0).Rows(i)(1) & "', " & ds_Lista.Tables(0).Rows(i)(2) & ", " &
+                                IIf(CBool(ds_Lista.Tables(0).Rows(i)(4)) = True, 1, 0) & " , '" & Format(ds_Lista.Tables(0).Rows(i)(5), "dd/MM/yyyy hh:ss") & "' ); " &
                                 " COMMIT TRAN;"
 
                             ds_tmpLista = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
@@ -2564,19 +2564,19 @@ logindenuevo:
                         Next
                     End If
 
-                    sqlstring = " SELECT [Codigo] , [Descripcion],[Porcentaje],[Valor_Cambio], [Eliminado], isnull([DateUPD], '01/01/1900 00:00:00')" & _
+                    sqlstring = " SELECT [Codigo] , [Descripcion],[Porcentaje],[Valor_Cambio], [Eliminado], isnull([DateUPD], '01/01/1900 00:00:00')" &
                                 " FROM tmpLista_Precios_Web "
 
                     ds_Lista = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
                     ds_Lista.Dispose()
 
                     For i = 0 To ds_Lista.Tables(0).Rows.Count - 1
-                        sqlstring = " UPDATE [dbo].[Lista_Precios] SET " & _
-                                    " [Codigo] = " & ds_Lista.Tables(0).Rows(i)(0) & ", " & _
-                                    " [Descripcion] = '" & ds_Lista.Tables(0).Rows(i)(1) & "', " & _
-                                    " [Porcentaje] = " & ds_Lista.Tables(0).Rows(i)(2) & ", " & _
-                                    " [Eliminado] = " & IIf(CBool(ds_Lista.Tables(0).Rows(i)(4)) = True, 1, 0) & ", " & _
-                                    " [DATEUPD] = '" & Format(ds_Lista.Tables(0).Rows(i)(5), "dd/MM/yyyy") & "'  " & _
+                        sqlstring = " UPDATE [dbo].[Lista_Precios] SET " &
+                                    " [Codigo] = " & ds_Lista.Tables(0).Rows(i)(0) & ", " &
+                                    " [Descripcion] = '" & ds_Lista.Tables(0).Rows(i)(1) & "', " &
+                                    " [Porcentaje] = " & ds_Lista.Tables(0).Rows(i)(2) & ", " &
+                                    " [Eliminado] = " & IIf(CBool(ds_Lista.Tables(0).Rows(i)(4)) = True, 1, 0) & ", " &
+                                    " [DATEUPD] = '" & Format(ds_Lista.Tables(0).Rows(i)(5), "dd/MM/yyyy") & "'  " &
                                     " WHERE Codigo = " & ds_Lista.Tables(0).Rows(i)(0)
 
                         ds_tmpLista = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
@@ -2607,7 +2607,7 @@ logindenuevo:
 
 
                     'Clientes que están en la WEB y no están en la sucursal/central
-                    sqlstring = " SELECT [Codigo],[Nombre],[Eliminado] " & _
+                    sqlstring = " SELECT [Codigo],[Nombre],[Eliminado] " &
                                 " FROM tmpUnidades_WEB WHERE codigo NOT IN (SELECT codigo FROM Unidades ) "
 
                     ds_Unidades = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
@@ -2618,10 +2618,10 @@ logindenuevo:
 
                     If ds_Unidades.Tables(0).Rows.Count > 0 Then
                         For i = 0 To ds_Unidades.Tables(0).Rows.Count - 1
-                            sqlstring = " BEGIN TRAN; " & _
-                                " INSERT INTO [dbo].[Unidades] ([Codigo],[Nombre],[Eliminado] ) " & _
-                                " VALUES ( '" & ds_Unidades.Tables(0).Rows(i)(0) & "', '" & ds_Unidades.Tables(0).Rows(i)(1) & "', " & _
-                                IIf(CBool(ds_Unidades.Tables(0).Rows(i)(2)) = True, 1, 0) & " ); " & _
+                            sqlstring = " BEGIN TRAN; " &
+                                " INSERT INTO [dbo].[Unidades] ([Codigo],[Nombre],[Eliminado] ) " &
+                                " VALUES ( '" & ds_Unidades.Tables(0).Rows(i)(0) & "', '" & ds_Unidades.Tables(0).Rows(i)(1) & "', " &
+                                IIf(CBool(ds_Unidades.Tables(0).Rows(i)(2)) = True, 1, 0) & " ); " &
                                 " COMMIT TRAN;"
 
                             ds_tmpUnidades = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
@@ -2630,17 +2630,17 @@ logindenuevo:
                         Next
                     End If
 
-                    sqlstring = " SELECT [codigo],[Nombre],[Eliminado]" & _
+                    sqlstring = " SELECT [codigo],[Nombre],[Eliminado]" &
                                 " FROM tmpUnidades_Web "
 
                     ds_Unidades = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
                     ds_Unidades.Dispose()
 
                     For i = 0 To ds_Unidades.Tables(0).Rows.Count - 1
-                        sqlstring = " UPDATE [dbo].[Unidades] SET " & _
-                                    " [Codigo] = '" & ds_Unidades.Tables(0).Rows(i)(0) & "', " & _
-                                    " [Nombre] = '" & ds_Unidades.Tables(0).Rows(i)(1) & "', " & _
-                                    " [Eliminado] = " & IIf(CBool(ds_Unidades.Tables(0).Rows(i)(2)) = True, 1, 0) & " " & _
+                        sqlstring = " UPDATE [dbo].[Unidades] SET " &
+                                    " [Codigo] = '" & ds_Unidades.Tables(0).Rows(i)(0) & "', " &
+                                    " [Nombre] = '" & ds_Unidades.Tables(0).Rows(i)(1) & "', " &
+                                    " [Eliminado] = " & IIf(CBool(ds_Unidades.Tables(0).Rows(i)(2)) = True, 1, 0) & " " &
                                     " WHERE codigo = '" & ds_Unidades.Tables(0).Rows(i)(0) & "'"
 
                         ds_tmpUnidades = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
@@ -2670,7 +2670,7 @@ logindenuevo:
 
 
                     'Clientes que están en la WEB y no están en la sucursal/central
-                    sqlstring = " SELECT [Codigo],[Nombre],[Eliminado] " & _
+                    sqlstring = " SELECT [Codigo],[Nombre],[Eliminado] " &
                                 " FROM tmpFamilias_WEB WHERE codigo NOT IN (SELECT codigo FROM Familias) "
 
                     ds_Rubros = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
@@ -2681,10 +2681,10 @@ logindenuevo:
 
                     If ds_Rubros.Tables(0).Rows.Count > 0 Then
                         For i = 0 To ds_Rubros.Tables(0).Rows.Count - 1
-                            sqlstring = " BEGIN TRAN; " & _
-                                " INSERT INTO [dbo].[Familias] ([Codigo],[Nombre],[Eliminado] ) " & _
-                                " VALUES ('" & ds_Rubros.Tables(0).Rows(i)(0) & "', '" & ds_Rubros.Tables(0).Rows(i)(1) & "', " & _
-                                IIf(CBool(ds_Rubros.Tables(0).Rows(i)(2)) = True, 1, 0) & " ); " & _
+                            sqlstring = " BEGIN TRAN; " &
+                                " INSERT INTO [dbo].[Familias] ([Codigo],[Nombre],[Eliminado] ) " &
+                                " VALUES ('" & ds_Rubros.Tables(0).Rows(i)(0) & "', '" & ds_Rubros.Tables(0).Rows(i)(1) & "', " &
+                                IIf(CBool(ds_Rubros.Tables(0).Rows(i)(2)) = True, 1, 0) & " ); " &
                                 " COMMIT TRAN;"
 
                             ds_tmpFamilias = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
@@ -2693,17 +2693,17 @@ logindenuevo:
                         Next
                     End If
 
-                    sqlstring = " SELECT [codigo],[Nombre],[Eliminado]" & _
+                    sqlstring = " SELECT [codigo],[Nombre],[Eliminado]" &
                                 " FROM tmpFamilias_Web "
 
                     ds_Rubros = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
                     ds_Rubros.Dispose()
 
                     For i = 0 To ds_Rubros.Tables(0).Rows.Count - 1
-                        sqlstring = " UPDATE [dbo].[Familias] SET " & _
-                                    " [Codigo] = '" & ds_Rubros.Tables(0).Rows(i)(0) & "', " & _
-                                    " [Nombre] = '" & ds_Rubros.Tables(0).Rows(i)(1) & "', " & _
-                                    " [Eliminado] = " & IIf(CBool(ds_Rubros.Tables(0).Rows(i)(2)) = True, 1, 0) & " " & _
+                        sqlstring = " UPDATE [dbo].[Familias] SET " &
+                                    " [Codigo] = '" & ds_Rubros.Tables(0).Rows(i)(0) & "', " &
+                                    " [Nombre] = '" & ds_Rubros.Tables(0).Rows(i)(1) & "', " &
+                                    " [Eliminado] = " & IIf(CBool(ds_Rubros.Tables(0).Rows(i)(2)) = True, 1, 0) & " " &
                                     " WHERE codigo = '" & ds_Rubros.Tables(0).Rows(i)(0) & "'"
 
                         ds_tmpFamilias = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
@@ -2732,7 +2732,7 @@ logindenuevo:
 
 
                     'Clientes que están en la WEB y no están en la sucursal/central
-                    sqlstring = " SELECT [Codigo],[Nombre],[Eliminado] " & _
+                    sqlstring = " SELECT [Codigo],[Nombre],[Eliminado] " &
                                 " FROM tmpMarcas_WEB WHERE codigo NOT IN (SELECT codigo FROM Marcas ) "
 
                     ds_Marcas = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
@@ -2743,10 +2743,10 @@ logindenuevo:
 
                     If ds_Marcas.Tables(0).Rows.Count > 0 Then
                         For i = 0 To ds_Marcas.Tables(0).Rows.Count - 1
-                            sqlstring = " BEGIN TRAN; " & _
-                                " INSERT INTO [dbo].[Marcas] ([Codigo],[Nombre],[Eliminado] ) " & _
-                                " VALUES ( '" & ds_Marcas.Tables(0).Rows(i)(0) & "', '" & ds_Marcas.Tables(0).Rows(i)(1) & "', " & _
-                                IIf(CBool(ds_Marcas.Tables(0).Rows(i)(2)) = True, 1, 0) & " ); " & _
+                            sqlstring = " BEGIN TRAN; " &
+                                " INSERT INTO [dbo].[Marcas] ([Codigo],[Nombre],[Eliminado] ) " &
+                                " VALUES ( '" & ds_Marcas.Tables(0).Rows(i)(0) & "', '" & ds_Marcas.Tables(0).Rows(i)(1) & "', " &
+                                IIf(CBool(ds_Marcas.Tables(0).Rows(i)(2)) = True, 1, 0) & " ); " &
                                 " COMMIT TRAN;"
 
                             ds_tmpMarcas = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
@@ -2755,17 +2755,17 @@ logindenuevo:
                         Next
                     End If
 
-                    sqlstring = " SELECT [codigo],[Nombre],[Eliminado]" & _
+                    sqlstring = " SELECT [codigo],[Nombre],[Eliminado]" &
                                 " FROM tmpMarcas_Web "
 
                     ds_Marcas = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
                     ds_Marcas.Dispose()
 
                     For i = 0 To ds_Marcas.Tables(0).Rows.Count - 1
-                        sqlstring = " UPDATE [dbo].[Marcas] SET " & _
-                                    " [Codigo] = '" & ds_Marcas.Tables(0).Rows(i)(0) & "', " & _
-                                    " [Nombre] = '" & ds_Marcas.Tables(0).Rows(i)(1) & "', " & _
-                                    " [Eliminado] = " & IIf(CBool(ds_Marcas.Tables(0).Rows(i)(2)) = True, 1, 0) & " " & _
+                        sqlstring = " UPDATE [dbo].[Marcas] SET " &
+                                    " [Codigo] = '" & ds_Marcas.Tables(0).Rows(i)(0) & "', " &
+                                    " [Nombre] = '" & ds_Marcas.Tables(0).Rows(i)(1) & "', " &
+                                    " [Eliminado] = " & IIf(CBool(ds_Marcas.Tables(0).Rows(i)(2)) = True, 1, 0) & " " &
                                     " WHERE Codigo = '" & ds_Marcas.Tables(0).Rows(i)(0) & "'"
 
                         ds_tmpMarcas = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
@@ -2796,9 +2796,9 @@ logindenuevo:
 
 
                     'Clientes que están en la WEB y no están en la sucursal/central
-                    sqlstring = " SELECT [IDPrecioLista],[Codigo],[Nombre],[TipoDocumento],[CUIT],[Direccion],[CodPostal]," & _
-                                "[Localidad],[Provincia],[Telefono],[Fax],[Email],[Contacto],[Observaciones],[Contrasena]," & _
-                                "[Usuario],[UsuarioWEB],[Repartidor],[Eliminado],[DateAdd],[Promo],[CondicionIVA],[MontoMaxCred],[DiasMaxCred],[CtaCte]" & _
+                    sqlstring = " SELECT [IDPrecioLista],[Codigo],[Nombre],[TipoDocumento],[CUIT],[Direccion],[CodPostal]," &
+                                "[Localidad],[Provincia],[Telefono],[Fax],[Email],[Contacto],[Observaciones],[Contrasena]," &
+                                "[Usuario],[UsuarioWEB],[Repartidor],[Eliminado],[DateAdd],[Promo],[CondicionIVA],[MontoMaxCred],[DiasMaxCred],[CtaCte]" &
                                 " FROM tmpClientes_WEB WHERE codigo NOT IN (SELECT codigo FROM Clientes ) "
 
                     ds_Client = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
@@ -2810,19 +2810,19 @@ logindenuevo:
 
                     If ds_Client.Tables(0).Rows.Count > 0 Then
                         For i = 0 To ds_Client.Tables(0).Rows.Count - 1
-                            sqlstring = " BEGIN TRAN; " & _
-                             " INSERT INTO [dbo].[Clientes] ([IDPrecioLista],[Codigo],[Nombre],[TipoDocumento],[CUIT],[Direccion],[CodPostal]," & _
-                                "[Localidad],[Provincia],[Telefono],[Fax],[Email],[Contacto],[Observaciones],[Contrasena]," & _
-                                "[Usuario],[UsuarioWEB],[Repartidor],[Eliminado],[DateAdd],[Promo],[CondicionIVA],[MontoMaxCred],[DiasMaxCred],[CtaCte])" & _
-                                " values ( " & ds_Client.Tables(0).Rows(i)(0) & ", '" & ds_Client.Tables(0).Rows(i)(1) & "','" & _
-                                ds_Client.Tables(0).Rows(i)(2) & "'," & ds_Client.Tables(0).Rows(i)(3) & ", " & ds_Client.Tables(0).Rows(i)(4) & ",'" & _
-                                ds_Client.Tables(0).Rows(i)(5) & "','" & ds_Client.Tables(0).Rows(i)(6) & "','" & ds_Client.Tables(0).Rows(i)(7) & "','" & _
-                                ds_Client.Tables(0).Rows(i)(8) & "','" & ds_Client.Tables(0).Rows(i)(9) & "','" & ds_Client.Tables(0).Rows(i)(10) & "','" & _
-                                ds_Client.Tables(0).Rows(i)(11) & "','" & ds_Client.Tables(0).Rows(i)(12) & "','" & ds_Client.Tables(0).Rows(i)(13) & "','" & _
-                                ds_Client.Tables(0).Rows(i)(14) & "','" & ds_Client.Tables(0).Rows(i)(15) & "'," & IIf(CBool(ds_Client.Tables(0).Rows(i)(16)) = True, 1, 0) & ",'" & _
-                                ds_Client.Tables(0).Rows(i)(17) & "'," & IIf(CBool(ds_Client.Tables(0).Rows(i)(18)) = True, 1, 0) & ",'" & _
-                                Format(ds_Client.Tables(0).Rows(i)(19), "dd/MM/yyyy hh:ss") & "'," & IIf(CBool(ds_Client.Tables(0).Rows(i)(20)) = True, 1, 0) & ",'" & ds_Client.Tables(0).Rows(i)(21) & "'," & _
-                                ds_Client.Tables(0).Rows(i)(22) & "," & ds_Client.Tables(0).Rows(i)(23) & "," & ds_Client.Tables(0).Rows(i)(24) & "); " & _
+                            sqlstring = " BEGIN TRAN; " &
+                             " INSERT INTO [dbo].[Clientes] ([IDPrecioLista],[Codigo],[Nombre],[TipoDocumento],[CUIT],[Direccion],[CodPostal]," &
+                                "[Localidad],[Provincia],[Telefono],[Fax],[Email],[Contacto],[Observaciones],[Contrasena]," &
+                                "[Usuario],[UsuarioWEB],[Repartidor],[Eliminado],[DateAdd],[Promo],[CondicionIVA],[MontoMaxCred],[DiasMaxCred],[CtaCte])" &
+                                " values ( " & ds_Client.Tables(0).Rows(i)(0) & ", '" & ds_Client.Tables(0).Rows(i)(1) & "','" &
+                                ds_Client.Tables(0).Rows(i)(2) & "'," & ds_Client.Tables(0).Rows(i)(3) & ", " & ds_Client.Tables(0).Rows(i)(4) & ",'" &
+                                ds_Client.Tables(0).Rows(i)(5) & "','" & ds_Client.Tables(0).Rows(i)(6) & "','" & ds_Client.Tables(0).Rows(i)(7) & "','" &
+                                ds_Client.Tables(0).Rows(i)(8) & "','" & ds_Client.Tables(0).Rows(i)(9) & "','" & ds_Client.Tables(0).Rows(i)(10) & "','" &
+                                ds_Client.Tables(0).Rows(i)(11) & "','" & ds_Client.Tables(0).Rows(i)(12) & "','" & ds_Client.Tables(0).Rows(i)(13) & "','" &
+                                ds_Client.Tables(0).Rows(i)(14) & "','" & ds_Client.Tables(0).Rows(i)(15) & "'," & IIf(CBool(ds_Client.Tables(0).Rows(i)(16)) = True, 1, 0) & ",'" &
+                                ds_Client.Tables(0).Rows(i)(17) & "'," & IIf(CBool(ds_Client.Tables(0).Rows(i)(18)) = True, 1, 0) & ",'" &
+                                Format(ds_Client.Tables(0).Rows(i)(19), "dd/MM/yyyy hh:ss") & "'," & IIf(CBool(ds_Client.Tables(0).Rows(i)(20)) = True, 1, 0) & ",'" & ds_Client.Tables(0).Rows(i)(21) & "'," &
+                                ds_Client.Tables(0).Rows(i)(22) & "," & ds_Client.Tables(0).Rows(i)(23) & "," & ds_Client.Tables(0).Rows(i)(24) & "); " &
                                 " COMMIT TRAN;"
 
                             ds_tmpClientes = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
@@ -2830,41 +2830,41 @@ logindenuevo:
                         Next
                     End If
 
-                    sqlstring = " SELECT [IDPrecioLista],[Codigo],[Nombre],[TipoDocumento],[CUIT],[Direccion],[CodPostal]," & _
-                                " [Localidad],[Provincia],[Telefono],[Fax],[Email],[Contacto],[Observaciones],[Contrasena]," & _
-                                " [Usuario],[UsuarioWEB],[Repartidor],[Eliminado],isnull([DateUPD], '01/01/1900 00:00:00')," & _
-                                " [Promo],[CondicionIVA],[MontoMaxCred],[DiasMaxCred],[CtaCte]" & _
+                    sqlstring = " SELECT [IDPrecioLista],[Codigo],[Nombre],[TipoDocumento],[CUIT],[Direccion],[CodPostal]," &
+                                " [Localidad],[Provincia],[Telefono],[Fax],[Email],[Contacto],[Observaciones],[Contrasena]," &
+                                " [Usuario],[UsuarioWEB],[Repartidor],[Eliminado],isnull([DateUPD], '01/01/1900 00:00:00')," &
+                                " [Promo],[CondicionIVA],[MontoMaxCred],[DiasMaxCred],[CtaCte]" &
                                 " FROM tmpClientes_WEB "
 
                     ds_Client = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
                     ds_Client.Dispose()
 
                     For i = 0 To ds_Client.Tables(0).Rows.Count - 1
-                        sqlstring = "UPDATE [dbo].[Clientes] SET " & _
-                                  "[IDPrecioLista] = " & ds_Client.Tables(0).Rows(i)(0) & "," & _
-                                  "[Nombre] = '" & ds_Client.Tables(0).Rows(i)(2) & "'," & _
-                                  "[TipoDocumento] = " & ds_Client.Tables(0).Rows(i)(3) & "," & _
-                                  "[CUIT] = " & ds_Client.Tables(0).Rows(i)(4) & "," & _
-                                  "[Direccion] = '" & ds_Client.Tables(0).Rows(i)(5) & "'," & _
-                                  "[CodPostal] = '" & ds_Client.Tables(0).Rows(i)(6) & "'," & _
-                                  "[Localidad] = '" & ds_Client.Tables(0).Rows(i)(7) & "'," & _
-                                  "[Provincia] = '" & ds_Client.Tables(0).Rows(i)(8) & "'," & _
-                                  "[Telefono] = '" & ds_Client.Tables(0).Rows(i)(9) & "'," & _
-                                  "[Fax] = '" & ds_Client.Tables(0).Rows(i)(10) & "'," & _
-                                  "[Email] ='" & ds_Client.Tables(0).Rows(i)(11) & "'," & _
-                                  "[Contacto] = '" & ds_Client.Tables(0).Rows(i)(12) & "'," & _
-                                  "[Observaciones] = '" & ds_Client.Tables(0).Rows(i)(13) & "'," & _
-                                  "[Contrasena] = '" & ds_Client.Tables(0).Rows(i)(14) & "'," & _
-                                  "[Usuario] = '" & ds_Client.Tables(0).Rows(i)(15) & "'," & _
-                                  "[UsuarioWEB] = " & IIf(CBool(ds_Client.Tables(0).Rows(i)(16)) = True, 1, 0) & "," & _
-                                  "[Repartidor] = '" & ds_Client.Tables(0).Rows(i)(17) & "'," & _
-                                  "[Eliminado] = " & IIf(CBool(ds_Client.Tables(0).Rows(i)(18)) = True, 1, 0) & "," & _
-                                  "[DateUpd] = '" & Format(ds_Client.Tables(0).Rows(i)(19), "dd/MM/yyyy hh:ss") & "'," & _
-                                  "[Promo] = " & IIf(CBool(ds_Client.Tables(0).Rows(i)(20)) = True, 1, 0) & "," & _
-                                  "[CondicionIVA] = '" & ds_Client.Tables(0).Rows(i)(21) & "'," & _
-                                  "[MontoMaxCred] = " & ds_Client.Tables(0).Rows(i)(22) & "," & _
-                                  "[DiasMaxCred]  = " & ds_Client.Tables(0).Rows(i)(23) & "," & _
-                                  "[CtaCte] = " & ds_Client.Tables(0).Rows(i)(24) & " " & _
+                        sqlstring = "UPDATE [dbo].[Clientes] SET " &
+                                  "[IDPrecioLista] = " & ds_Client.Tables(0).Rows(i)(0) & "," &
+                                  "[Nombre] = '" & ds_Client.Tables(0).Rows(i)(2) & "'," &
+                                  "[TipoDocumento] = " & ds_Client.Tables(0).Rows(i)(3) & "," &
+                                  "[CUIT] = " & ds_Client.Tables(0).Rows(i)(4) & "," &
+                                  "[Direccion] = '" & ds_Client.Tables(0).Rows(i)(5) & "'," &
+                                  "[CodPostal] = '" & ds_Client.Tables(0).Rows(i)(6) & "'," &
+                                  "[Localidad] = '" & ds_Client.Tables(0).Rows(i)(7) & "'," &
+                                  "[Provincia] = '" & ds_Client.Tables(0).Rows(i)(8) & "'," &
+                                  "[Telefono] = '" & ds_Client.Tables(0).Rows(i)(9) & "'," &
+                                  "[Fax] = '" & ds_Client.Tables(0).Rows(i)(10) & "'," &
+                                  "[Email] ='" & ds_Client.Tables(0).Rows(i)(11) & "'," &
+                                  "[Contacto] = '" & ds_Client.Tables(0).Rows(i)(12) & "'," &
+                                  "[Observaciones] = '" & ds_Client.Tables(0).Rows(i)(13) & "'," &
+                                  "[Contrasena] = '" & ds_Client.Tables(0).Rows(i)(14) & "'," &
+                                  "[Usuario] = '" & ds_Client.Tables(0).Rows(i)(15) & "'," &
+                                  "[UsuarioWEB] = " & IIf(CBool(ds_Client.Tables(0).Rows(i)(16)) = True, 1, 0) & "," &
+                                  "[Repartidor] = '" & ds_Client.Tables(0).Rows(i)(17) & "'," &
+                                  "[Eliminado] = " & IIf(CBool(ds_Client.Tables(0).Rows(i)(18)) = True, 1, 0) & "," &
+                                  "[DateUpd] = '" & Format(ds_Client.Tables(0).Rows(i)(19), "dd/MM/yyyy hh:ss") & "'," &
+                                  "[Promo] = " & IIf(CBool(ds_Client.Tables(0).Rows(i)(20)) = True, 1, 0) & "," &
+                                  "[CondicionIVA] = '" & ds_Client.Tables(0).Rows(i)(21) & "'," &
+                                  "[MontoMaxCred] = " & ds_Client.Tables(0).Rows(i)(22) & "," &
+                                  "[DiasMaxCred]  = " & ds_Client.Tables(0).Rows(i)(23) & "," &
+                                  "[CtaCte] = " & ds_Client.Tables(0).Rows(i)(24) & " " &
                                   " WHERE Codigo = '" & ds_Client.Tables(0).Rows(i)(1) & "'"
 
                         ds_tmpClientes = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
@@ -2899,8 +2899,8 @@ logindenuevo:
                     bulk_client.WriteToServer(ds_ClientWEB.Tables(0))
                     Conexion.Close()
 
-                    sqlstring = "SELECT [Codigo],[Apellido],[Nombre],[Domicilio],[Telefono],[Celular],[Cuit] ," & _
-                                "[Email],[UsuarioSistema],[Usuario],[Pass],[Revendedor],[Repartidor],[Eliminado],[DateAdd],[Autoriza],[Vendedor]" & _
+                    sqlstring = "SELECT [Codigo],[Apellido],[Nombre],[Domicilio],[Telefono],[Celular],[Cuit] ," &
+                                "[Email],[UsuarioSistema],[Usuario],[Pass],[Revendedor],[Repartidor],[Eliminado],[DateAdd],[Autoriza],[Vendedor]" &
                                 " FROM tmpEmpleados_WEB WHERE codigo NOT IN (SELECT codigo FROM Empleados ) "
 
                     Dim i As Integer = 0
@@ -2911,16 +2911,16 @@ logindenuevo:
 
                     If ds_Empleado.Tables(0).Rows.Count > 0 Then
                         For i = 0 To ds_Empleado.Tables(0).Rows.Count - 1
-                            sqlstring = " BEGIN TRAN; " & _
-                           " INSERT INTO [dbo].[Empleados] ([Codigo],[Apellido],[Nombre],[Domicilio],[Telefono],[Celular],[Cuit]," & _
-                           " [Email],[UsuarioSistema],[Usuario],[Pass],[Revendedor],[Repartidor],[Eliminado],[DateAdd],[Autoriza],[Vendedor]) " & _
-                           " VALUES ( '" & ds_Empleado.Tables(0).Rows(i)(0) & "','" & ds_Empleado.Tables(0).Rows(i)(1) & "','" & _
-                            ds_Empleado.Tables(0).Rows(i)(2) & "','" & ds_Empleado.Tables(0).Rows(i)(3) & "','" & ds_Empleado.Tables(0).Rows(i)(4) & "','" & _
-                            ds_Empleado.Tables(0).Rows(i)(5) & "'," & ds_Empleado.Tables(0).Rows(i)(6) & ",'" & ds_Empleado.Tables(0).Rows(i)(7) & "'," & _
-                            IIf(CBool(ds_Empleado.Tables(0).Rows(i)(8)) = True, 1, 0) & ",'" & ds_Empleado.Tables(0).Rows(i)(9) & "','" & ds_Empleado.Tables(0).Rows(i)(10) & "'," & _
-                            IIf(CBool(ds_Empleado.Tables(0).Rows(i)(11)) = True, 1, 0) & "," & IIf(CBool(ds_Empleado.Tables(0).Rows(i)(12)) = True, 1, 0) & "," & _
-                            IIf(CBool(ds_Empleado.Tables(0).Rows(i)(13)) = True, 1, 0) & ",'" & Format(ds_Empleado.Tables(0).Rows(i)(14), "dd/MM/yyyy hh:ss") & "'," & IIf(CBool(ds_Empleado.Tables(0).Rows(i)(15)) = True, 1, 0) & "," & _
-                            IIf(CBool(ds_Empleado.Tables(0).Rows(i)(16)) = True, 1, 0) & "); " & _
+                            sqlstring = " BEGIN TRAN; " &
+                           " INSERT INTO [dbo].[Empleados] ([Codigo],[Apellido],[Nombre],[Domicilio],[Telefono],[Celular],[Cuit]," &
+                           " [Email],[UsuarioSistema],[Usuario],[Pass],[Revendedor],[Repartidor],[Eliminado],[DateAdd],[Autoriza],[Vendedor]) " &
+                           " VALUES ( '" & ds_Empleado.Tables(0).Rows(i)(0) & "','" & ds_Empleado.Tables(0).Rows(i)(1) & "','" &
+                            ds_Empleado.Tables(0).Rows(i)(2) & "','" & ds_Empleado.Tables(0).Rows(i)(3) & "','" & ds_Empleado.Tables(0).Rows(i)(4) & "','" &
+                            ds_Empleado.Tables(0).Rows(i)(5) & "'," & ds_Empleado.Tables(0).Rows(i)(6) & ",'" & ds_Empleado.Tables(0).Rows(i)(7) & "'," &
+                            IIf(CBool(ds_Empleado.Tables(0).Rows(i)(8)) = True, 1, 0) & ",'" & ds_Empleado.Tables(0).Rows(i)(9) & "','" & ds_Empleado.Tables(0).Rows(i)(10) & "'," &
+                            IIf(CBool(ds_Empleado.Tables(0).Rows(i)(11)) = True, 1, 0) & "," & IIf(CBool(ds_Empleado.Tables(0).Rows(i)(12)) = True, 1, 0) & "," &
+                            IIf(CBool(ds_Empleado.Tables(0).Rows(i)(13)) = True, 1, 0) & ",'" & Format(ds_Empleado.Tables(0).Rows(i)(14), "dd/MM/yyyy hh:ss") & "'," & IIf(CBool(ds_Empleado.Tables(0).Rows(i)(15)) = True, 1, 0) & "," &
+                            IIf(CBool(ds_Empleado.Tables(0).Rows(i)(16)) = True, 1, 0) & "); " &
                           " COMMIT TRAN;"
 
                             ds_tmpEmpleados = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
@@ -2929,8 +2929,8 @@ logindenuevo:
                         Next
                     End If
 
-                    sqlstring = "SELECT [Codigo],[Apellido],[Nombre],[Domicilio],[Telefono],[Celular],[Cuit] ," & _
-                              "[Email],[UsuarioSistema],[Usuario],[Pass],[Revendedor],[Repartidor],[Eliminado],isnull([DateUPD], '01/01/1900 00:00:00'),[Autoriza],[Vendedor]" & _
+                    sqlstring = "SELECT [Codigo],[Apellido],[Nombre],[Domicilio],[Telefono],[Celular],[Cuit] ," &
+                              "[Email],[UsuarioSistema],[Usuario],[Pass],[Revendedor],[Repartidor],[Eliminado],isnull([DateUPD], '01/01/1900 00:00:00'),[Autoriza],[Vendedor]" &
                               " FROM tmpEmpleados_WEB "
 
                     ds_Empleado = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
@@ -2939,22 +2939,22 @@ logindenuevo:
                     '"[Pass] = '" & ds_Empleado.Tables(0).Rows(i)(10) & "'," & _
 
                     For i = 0 To ds_Empleado.Tables(0).Rows.Count - 1
-                        sqlstring = "UPDATE [dbo].[Empleados] SET " & _
-                        "[Apellido] = '" & ds_Empleado.Tables(0).Rows(i)(1) & "'," & _
-                        "[Nombre] = '" & ds_Empleado.Tables(0).Rows(i)(2) & "'," & _
-                        "[Domicilio] = '" & ds_Empleado.Tables(0).Rows(i)(3) & "'," & _
-                        "[Telefono] = '" & ds_Empleado.Tables(0).Rows(i)(4) & "'," & _
-                        "[Celular] = '" & ds_Empleado.Tables(0).Rows(i)(5) & "'," & _
-                        "[Cuit] = " & ds_Empleado.Tables(0).Rows(i)(6) & "," & _
-                        "[Email] = '" & ds_Empleado.Tables(0).Rows(i)(7) & "'," & _
-                        "[UsuarioSistema] = " & IIf(CBool(ds_Empleado.Tables(0).Rows(i)(8)) = True, 1, 0) & "," & _
-                        "[Usuario] = '" & ds_Empleado.Tables(0).Rows(i)(9) & "'," & _
-                        "[Revendedor] = " & IIf(CBool(ds_Empleado.Tables(0).Rows(i)(11)) = True, 1, 0) & "," & _
-                        "[Repartidor] = " & IIf(CBool(ds_Empleado.Tables(0).Rows(i)(12)) = True, 1, 0) & "," & _
-                        "[Eliminado] = " & IIf(CBool(ds_Empleado.Tables(0).Rows(i)(13)) = True, 1, 0) & "," & _
-                        "[DateUPD] = '" & Format(ds_Empleado.Tables(0).Rows(i)(14), "dd/MM/yyyy hh:ss") & "'," & _
-                        "[Autoriza] = " & IIf(CBool(ds_Empleado.Tables(0).Rows(i)(15)) = True, 1, 0) & "," & _
-                        "[Vendedor] = " & IIf(CBool(ds_Empleado.Tables(0).Rows(i)(16)) = True, 1, 0) & " " & _
+                        sqlstring = "UPDATE [dbo].[Empleados] SET " &
+                        "[Apellido] = '" & ds_Empleado.Tables(0).Rows(i)(1) & "'," &
+                        "[Nombre] = '" & ds_Empleado.Tables(0).Rows(i)(2) & "'," &
+                        "[Domicilio] = '" & ds_Empleado.Tables(0).Rows(i)(3) & "'," &
+                        "[Telefono] = '" & ds_Empleado.Tables(0).Rows(i)(4) & "'," &
+                        "[Celular] = '" & ds_Empleado.Tables(0).Rows(i)(5) & "'," &
+                        "[Cuit] = " & ds_Empleado.Tables(0).Rows(i)(6) & "," &
+                        "[Email] = '" & ds_Empleado.Tables(0).Rows(i)(7) & "'," &
+                        "[UsuarioSistema] = " & IIf(CBool(ds_Empleado.Tables(0).Rows(i)(8)) = True, 1, 0) & "," &
+                        "[Usuario] = '" & ds_Empleado.Tables(0).Rows(i)(9) & "'," &
+                        "[Revendedor] = " & IIf(CBool(ds_Empleado.Tables(0).Rows(i)(11)) = True, 1, 0) & "," &
+                        "[Repartidor] = " & IIf(CBool(ds_Empleado.Tables(0).Rows(i)(12)) = True, 1, 0) & "," &
+                        "[Eliminado] = " & IIf(CBool(ds_Empleado.Tables(0).Rows(i)(13)) = True, 1, 0) & "," &
+                        "[DateUPD] = '" & Format(ds_Empleado.Tables(0).Rows(i)(14), "dd/MM/yyyy hh:ss") & "'," &
+                        "[Autoriza] = " & IIf(CBool(ds_Empleado.Tables(0).Rows(i)(15)) = True, 1, 0) & "," &
+                        "[Vendedor] = " & IIf(CBool(ds_Empleado.Tables(0).Rows(i)(16)) = True, 1, 0) & " " &
                         " WHERE Codigo = '" & ds_Empleado.Tables(0).Rows(i)(0) & "'"
 
                         ds_tmpEmpleados = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
@@ -3370,7 +3370,7 @@ Pedidos:
             bulk_Stock.WriteToServer(ds_Stock.Tables(0))
             ConexionWEB.Close()
 
-            sqlstring = " UPDATE Stock SET qty = TMP.qty FROM Stock s Join tmpStock_Web tmp ON tmp.idmaterial = s.Idmaterial " & _
+            sqlstring = " UPDATE Stock SET qty = TMP.qty FROM Stock s Join tmpStock_Web tmp ON tmp.idmaterial = s.Idmaterial " &
                 " and tmp.idalmacen = s.idalmacen and tmp.idunidad = s.idunidad "
 
             ds_Empresa = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
@@ -3402,7 +3402,7 @@ Pedidos:
                 ' me fijo si traigo los datos del almacen principal(1)
                 If otroAlmacen <> 1 Then
                     'en esta consulta tengo en cuenta el movimiento de ajuste que se hizo inicialmente ( de esa forma solo traigo los productos que se venden en ese almacen)
-                    sqlstrinStock = " SELECT DISTINCT s.idalmacen, s.idmaterial, s.qty,s.idunidad FROM [" & NameTable_Stock & "] S join [" & NameTable_StockMov & "] SM on s.IDMaterial = sm.IDMaterial " & _
+                    sqlstrinStock = " SELECT DISTINCT s.idalmacen, s.idmaterial, s.qty,s.idunidad FROM [" & NameTable_Stock & "] S join [" & NameTable_StockMov & "] SM on s.IDMaterial = sm.IDMaterial " &
                                     " where convert(varchar(10),sm.dateadd,103)>='" & FechaAjuste & "' and s.Qty <> 0 and S.IDAlmacen = " & otroAlmacen
                 Else
                     sqlstrinStock = " SELECT idalmacen, idmaterial, qty,idunidad FROM [" & NameTable_Stock & "] where idalmacen = " & otroAlmacen
@@ -3416,7 +3416,7 @@ Pedidos:
                 bulk_Stock.WriteToServer(ds_Stock.Tables(0))
                 ConexionWEB.Close()
 
-                sqlstring = " UPDATE Stock SET qty = TMP.qty, DateUpd = GetDate() FROM Stock s Join tmpStock_Web tmp ON tmp.idmaterial = s.Idmaterial " & _
+                sqlstring = " UPDATE Stock SET qty = TMP.qty, DateUpd = GetDate() FROM Stock s Join tmpStock_Web tmp ON tmp.idmaterial = s.Idmaterial " &
                     " and tmp.idalmacen = s.idalmacen and tmp.idunidad = s.idunidad "
 
                 ds_Empresa = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
@@ -3445,7 +3445,7 @@ Pedidos:
                 bulk_Clientes.WriteToServer(ds_Clientes.Tables(0))
                 ConexionWEB.Close()
 
-                sqlstring = " Select [Codigo],[Fecha],[IDOrigen],[IDDestino],[IDMaterial], " & _
+                sqlstring = " Select [Codigo],[Fecha],[IDOrigen],[IDDestino],[IDMaterial], " &
                             "[Qty],[Procesado],[Tipo] from tmpTransferencias_Recepciones_WEB"
 
                 ds_Empresa = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
@@ -3456,9 +3456,9 @@ Pedidos:
 
                 If ds_Empresa.Tables(0).Rows.Count > 0 Then
                     For i = 0 To ds_Empresa.Tables(0).Rows.Count - 1
-                        sqlstring = "UPDATE [dbo].[Stock] SET " & _
-                            " [Qty] = qty + " & ds_Empresa.Tables(0).Rows(i)(5) & ", " & _
-                            " [DATEUPD] = '" & Format(ds_Empresa.Tables(0).Rows(i)(1), "dd/MM/yyyy") & " " & Format(Date.Now, "hh:mm:ss").ToString & "' " & _
+                        sqlstring = "UPDATE [dbo].[Stock] SET " &
+                            " [Qty] = qty + " & ds_Empresa.Tables(0).Rows(i)(5) & ", " &
+                            " [DATEUPD] = '" & Format(ds_Empresa.Tables(0).Rows(i)(1), "dd/MM/yyyy") & " " & Format(Date.Now, "hh:mm:ss").ToString & "' " &
                             " WHERE IDMaterial = '" & ds_Empresa.Tables(0).Rows(i)(4) & "' And [IDAlmacen] = " & numero_almacen
                         '" [ActualizadoWeb] = 1 " & _
 
@@ -3481,10 +3481,10 @@ Pedidos:
                     ds_tmpClientes = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
                     ds_tmpClientes.Dispose()
                     For i = 0 To ds_tmpClientes.Tables(0).Rows.Count - 1
-                        sqlstring = "UPDATE [dbo].[Stock] SET " & _
-                     " [Qty] = " & ds_tmpClientes.Tables(0).Rows(i)(0) & ", " & _
-                     " [DATEUPD] = getdate()," & _
-                     " [ActualizadoLocal] = 1 " & _
+                        sqlstring = "UPDATE [dbo].[Stock] SET " &
+                     " [Qty] = " & ds_tmpClientes.Tables(0).Rows(i)(0) & ", " &
+                     " [DATEUPD] = getdate()," &
+                     " [ActualizadoLocal] = 1 " &
                      " WHERE IDMaterial = '" & ds_tmpClientes.Tables(0).Rows(i)(1) & "' And [IDAlmacen] = " & ds_tmpClientes.Tables(0).Rows(i)(2)
                         tranWEB.Sql_Get(sqlstring)
                     Next
@@ -3517,7 +3517,7 @@ Pedidos:
                 bulk_Clientes.WriteToServer(ds_Clientes.Tables(0))
                 ConexionWEB.Close()
 
-                sqlstring = " Select [Codigo],[Fecha],[IDOrigen],[IDDestino],[IDMaterial], " & _
+                sqlstring = " Select [Codigo],[Fecha],[IDOrigen],[IDDestino],[IDMaterial], " &
                             "[Qty],[Procesado],[Tipo] from tmpTransferencias_Recepciones_WEB"
 
                 ds_Empresa = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
@@ -3528,9 +3528,9 @@ Pedidos:
 
                 If ds_Empresa.Tables(0).Rows.Count > 0 Then
                     For i = 0 To ds_Empresa.Tables(0).Rows.Count - 1
-                        sqlstring = "UPDATE [dbo].[Stock] SET " & _
-                            " [Qty] = qty + " & ds_Empresa.Tables(0).Rows(i)(5) & ", " & _
-                            " [DATEUPD] = '" & Format(ds_Empresa.Tables(0).Rows(i)(1), "dd/MM/yyyy") & " " & Format(Date.Now, "hh:mm:ss").ToString & "' " & _
+                        sqlstring = "UPDATE [dbo].[Stock] SET " &
+                            " [Qty] = qty + " & ds_Empresa.Tables(0).Rows(i)(5) & ", " &
+                            " [DATEUPD] = '" & Format(ds_Empresa.Tables(0).Rows(i)(1), "dd/MM/yyyy") & " " & Format(Date.Now, "hh:mm:ss").ToString & "' " &
                             " WHERE IDMaterial = '" & ds_Empresa.Tables(0).Rows(i)(4) & "' And [IDAlmacen] = " & numero_almacen
                         '" [ActualizadoWeb] = 1 " & _
 
@@ -3554,10 +3554,10 @@ Pedidos:
                     ds_tmpClientes = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
                     ds_tmpClientes.Dispose()
                     For i = 0 To ds_tmpClientes.Tables(0).Rows.Count - 1
-                        sqlstring = "UPDATE [dbo].[Stock] SET " & _
-                     " [Qty] = " & ds_tmpClientes.Tables(0).Rows(i)(0) & ", " & _
-                     " [DATEUPD] = getdate()," & _
-                     " [ActualizadoLocal] = 1 " & _
+                        sqlstring = "UPDATE [dbo].[Stock] SET " &
+                     " [Qty] = " & ds_tmpClientes.Tables(0).Rows(i)(0) & ", " &
+                     " [DATEUPD] = getdate()," &
+                     " [ActualizadoLocal] = 1 " &
                      " WHERE IDMaterial = '" & ds_tmpClientes.Tables(0).Rows(i)(1) & "' And [IDAlmacen] = " & ds_tmpClientes.Tables(0).Rows(i)(2)
                         tranWEB.Sql_Get(sqlstring)
                     Next
@@ -3596,12 +3596,12 @@ Pedidos:
 
                 'Dim sqlstring As String
                 'Clientes que están en la WEB y no están en la sucursal/central
-                sqlstring = " SELECT [IdMarca],[IdFamilia],[IDUnidad],[Codigo],[Nombre], " & _
-                        " [Ganancia], [PrecioCosto], [PrecioCompra], [PrecioPeron], [Minimo], [Maximo], " & _
-                        " [CodigoBarra], [Eliminado], [Pasillo], [Estante], [Fila], [ControlStock], [CantidadPACK], [DateAdd], " & _
-                        " [PrecioMayorista] , [PrecioMayoristaPeron], [IDListaMayorista] , [IDListaMayoristaPeron]," & _
-                        " [IDListaMinorista] , [IDListaMinoristaPeron],[PrecioLista3],[IDLista3],[PrecioLista4],[IDLista4],[UnidadRef]," & _
-                        " [Cambiar1] ,[Cambiar2],[Cambiar3],[Cambiar4],[VentaMayorista],[ActualizadoLocal]" & _
+                sqlstring = " SELECT [IdMarca],[IdFamilia],[IDUnidad],[Codigo],[Nombre], " &
+                        " [Ganancia], [PrecioCosto], [PrecioCompra], [PrecioPeron], [Minimo], [Maximo], " &
+                        " [CodigoBarra], [Eliminado], [Pasillo], [Estante], [Fila], [ControlStock], [CantidadPACK], [DateAdd], " &
+                        " [PrecioMayorista] , [PrecioMayoristaPeron], [IDListaMayorista] , [IDListaMayoristaPeron]," &
+                        " [IDListaMinorista] , [IDListaMinoristaPeron],[PrecioLista3],[IDLista3],[PrecioLista4],[IDLista4],[UnidadRef]," &
+                        " [Cambiar1] ,[Cambiar2],[Cambiar3],[Cambiar4],[VentaMayorista],[ActualizadoLocal]" &
                         " FROM tmpMateriales_Web WHERE Codigo NOT IN (SELECT Codigo FROM Materiales ) "
 
                 ds_Empresa = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
@@ -3612,33 +3612,33 @@ Pedidos:
 
                 If ds_Empresa.Tables(0).Rows.Count > 0 Then
                     For i = 0 To ds_Empresa.Tables(0).Rows.Count - 1
-                        sqlstring = " BEGIN TRAN; " & _
-                            " INSERT INTO [dbo].[Materiales] ([IdMarca],[IdFamilia],[IDUnidad],[Codigo],[Nombre], " & _
-                            " [Ganancia], [PrecioCosto], [PrecioCompra], [PrecioPeron], [Minimo], [Maximo], " & _
-                            " [CodigoBarra], [Eliminado], [Pasillo], [Estante], [Fila], [ControlStock], [CantidadPACK], [DateAdd], " & _
-                            " [PrecioMayorista] , [PrecioMayoristaPeron], [IDListaMayorista] , [IDListaMayoristaPeron], " & _
-                            " [IDListaMinorista] , [IDListaMinoristaPeron],[PrecioLista3],[IDLista3],[PrecioLista4],[IDLista4], " & _
-                            " [UnidadRef],[Cambiar1] ,[Cambiar2],[Cambiar3],[Cambiar4],[VentaMayorista],[ActualizadoWeb]) " & _
-                            "  values ( '" & ds_Empresa.Tables(0).Rows(i)(0) & "', '" & ds_Empresa.Tables(0).Rows(i)(1) & "', '" & _
-                            ds_Empresa.Tables(0).Rows(i)(2) & "', '" & ds_Empresa.Tables(0).Rows(i)(3) & "', '" & ds_Empresa.Tables(0).Rows(i)(4) & "', " & _
-                            ds_Empresa.Tables(0).Rows(i)(5) & ", " & ds_Empresa.Tables(0).Rows(i)(6) & ", " & ds_Empresa.Tables(0).Rows(i)(7) & ", " & _
-                            ds_Empresa.Tables(0).Rows(i)(8) & ", " & ds_Empresa.Tables(0).Rows(i)(9) & ", " & ds_Empresa.Tables(0).Rows(i)(10) & ", '" & _
-                            ds_Empresa.Tables(0).Rows(i)(11) & "', " & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(12)) = True, 1, 0) & ", '" & ds_Empresa.Tables(0).Rows(i)(13) & "', '" & _
-                            ds_Empresa.Tables(0).Rows(i)(14) & "', '" & ds_Empresa.Tables(0).Rows(i)(15) & "', " & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(16)) = True, 1, 0) & ", " & _
-                            ds_Empresa.Tables(0).Rows(i)(17) & ", '" & Format(ds_Empresa.Tables(0).Rows(i)(18), "dd/MM/yyyy hh:ss") & "', " & _
-                            IIf(ds_Empresa.Tables(0).Rows(i)(19).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(19)) & ", " & _
-                            IIf(ds_Empresa.Tables(0).Rows(i)(20).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(20)) & ", " & _
-                            IIf(ds_Empresa.Tables(0).Rows(i)(21).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(21)) & ", " & _
-                            IIf(ds_Empresa.Tables(0).Rows(i)(22).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(22)) & ", " & _
-                            IIf(ds_Empresa.Tables(0).Rows(i)(23).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(23)) & ", " & _
-                            IIf(ds_Empresa.Tables(0).Rows(i)(24).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(24)) & ", " & _
-                            ds_Empresa.Tables(0).Rows(i)(25) & "," & _
-                            IIf(ds_Empresa.Tables(0).Rows(i)(26).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(26)) & "," & _
-                            ds_Empresa.Tables(0).Rows(i)(27) & "," & _
-                            IIf(ds_Empresa.Tables(0).Rows(i)(28).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(28)) & ",'" & _
-                            ds_Empresa.Tables(0).Rows(i)(29) & "'," & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(30)) = True, 1, 0) & "," & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(31)) = True, 1, 0) & "," & _
-                            IIf(CBool(ds_Empresa.Tables(0).Rows(i)(32)) = True, 1, 0) & "," & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(33)) = True, 1, 0) & "," & _
-                            IIf(CBool(ds_Empresa.Tables(0).Rows(i)(34)) = True, 1, 0) & ",1); " & _
+                        sqlstring = " BEGIN TRAN; " &
+                            " INSERT INTO [dbo].[Materiales] ([IdMarca],[IdFamilia],[IDUnidad],[Codigo],[Nombre], " &
+                            " [Ganancia], [PrecioCosto], [PrecioCompra], [PrecioPeron], [Minimo], [Maximo], " &
+                            " [CodigoBarra], [Eliminado], [Pasillo], [Estante], [Fila], [ControlStock], [CantidadPACK], [DateAdd], " &
+                            " [PrecioMayorista] , [PrecioMayoristaPeron], [IDListaMayorista] , [IDListaMayoristaPeron], " &
+                            " [IDListaMinorista] , [IDListaMinoristaPeron],[PrecioLista3],[IDLista3],[PrecioLista4],[IDLista4], " &
+                            " [UnidadRef],[Cambiar1] ,[Cambiar2],[Cambiar3],[Cambiar4],[VentaMayorista],[ActualizadoWeb]) " &
+                            "  values ( '" & ds_Empresa.Tables(0).Rows(i)(0) & "', '" & ds_Empresa.Tables(0).Rows(i)(1) & "', '" &
+                            ds_Empresa.Tables(0).Rows(i)(2) & "', '" & ds_Empresa.Tables(0).Rows(i)(3) & "', '" & ds_Empresa.Tables(0).Rows(i)(4) & "', " &
+                            ds_Empresa.Tables(0).Rows(i)(5) & ", " & ds_Empresa.Tables(0).Rows(i)(6) & ", " & ds_Empresa.Tables(0).Rows(i)(7) & ", " &
+                            ds_Empresa.Tables(0).Rows(i)(8) & ", " & ds_Empresa.Tables(0).Rows(i)(9) & ", " & ds_Empresa.Tables(0).Rows(i)(10) & ", '" &
+                            ds_Empresa.Tables(0).Rows(i)(11) & "', " & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(12)) = True, 1, 0) & ", '" & ds_Empresa.Tables(0).Rows(i)(13) & "', '" &
+                            ds_Empresa.Tables(0).Rows(i)(14) & "', '" & ds_Empresa.Tables(0).Rows(i)(15) & "', " & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(16)) = True, 1, 0) & ", " &
+                            ds_Empresa.Tables(0).Rows(i)(17) & ", '" & Format(ds_Empresa.Tables(0).Rows(i)(18), "dd/MM/yyyy hh:ss") & "', " &
+                            IIf(ds_Empresa.Tables(0).Rows(i)(19).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(19)) & ", " &
+                            IIf(ds_Empresa.Tables(0).Rows(i)(20).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(20)) & ", " &
+                            IIf(ds_Empresa.Tables(0).Rows(i)(21).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(21)) & ", " &
+                            IIf(ds_Empresa.Tables(0).Rows(i)(22).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(22)) & ", " &
+                            IIf(ds_Empresa.Tables(0).Rows(i)(23).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(23)) & ", " &
+                            IIf(ds_Empresa.Tables(0).Rows(i)(24).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(24)) & ", " &
+                            ds_Empresa.Tables(0).Rows(i)(25) & "," &
+                            IIf(ds_Empresa.Tables(0).Rows(i)(26).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(26)) & "," &
+                            ds_Empresa.Tables(0).Rows(i)(27) & "," &
+                            IIf(ds_Empresa.Tables(0).Rows(i)(28).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(28)) & ",'" &
+                            ds_Empresa.Tables(0).Rows(i)(29) & "'," & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(30)) = True, 1, 0) & "," & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(31)) = True, 1, 0) & "," &
+                            IIf(CBool(ds_Empresa.Tables(0).Rows(i)(32)) = True, 1, 0) & "," & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(33)) = True, 1, 0) & "," &
+                            IIf(CBool(ds_Empresa.Tables(0).Rows(i)(34)) = True, 1, 0) & ",1); " &
                             " COMMIT TRAN;"
 
                         prueba = ds_Empresa.Tables(0).Rows(i)(3).ToString
@@ -3665,8 +3665,8 @@ Pedidos:
                         ds_Marcas.Dispose()
                         If ds_Marcas.Tables(0).Rows.Count > 0 Then
                             For j As Integer = 0 To ds_Marcas.Tables(0).Rows.Count - 1
-                                sqlstring = " insert into [Stock] ( IDAlmacen,IDMaterial, Qty, IDUnidad) values ( " & _
-                                             ds_Marcas.Tables(0).Rows(j)(0) & ",'" & ds_Marcas.Tables(0).Rows(j)(1) & "'," & _
+                                sqlstring = " insert into [Stock] ( IDAlmacen,IDMaterial, Qty, IDUnidad) values ( " &
+                                             ds_Marcas.Tables(0).Rows(j)(0) & ",'" & ds_Marcas.Tables(0).Rows(j)(1) & "'," &
                                              ds_Marcas.Tables(0).Rows(j)(2) & ",'" & ds_Empresa.Tables(0).Rows(i)(2) & "') "
                                 ds_tmpClientes = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
                                 ds_tmpClientes.Dispose()
@@ -3676,53 +3676,53 @@ Pedidos:
 
                 End If
 
-                sqlstring = " SELECT [IdMarca],[IdFamilia],[IDUnidad],[Codigo],[Nombre], " & _
-                        " [Ganancia], [PrecioCosto], [PrecioCompra], [PrecioPeron], [Minimo], [Maximo], " & _
-                        " [CodigoBarra], [Eliminado], [Pasillo], [Estante], [Fila], [ControlStock], [CantidadPACK], isnull([DateUPD], '01/01/1900 00:00:00') ," & _
-                        " [PrecioMayorista] , [PrecioMayoristaPeron], [IDListaMayorista] , [IDListaMayoristaPeron], [IDListaMinorista] , [IDListaMinoristaPeron], " & _
+                sqlstring = " SELECT [IdMarca],[IdFamilia],[IDUnidad],[Codigo],[Nombre], " &
+                        " [Ganancia], [PrecioCosto], [PrecioCompra], [PrecioPeron], [Minimo], [Maximo], " &
+                        " [CodigoBarra], [Eliminado], [Pasillo], [Estante], [Fila], [ControlStock], [CantidadPACK], isnull([DateUPD], '01/01/1900 00:00:00') ," &
+                        " [PrecioMayorista] , [PrecioMayoristaPeron], [IDListaMayorista] , [IDListaMayoristaPeron], [IDListaMinorista] , [IDListaMinoristaPeron], " &
                         " [PrecioLista3],[IDLista3],[PrecioLista4],[IDLista4],[UnidadRef],[Cambiar1] ,[Cambiar2],[Cambiar3],[Cambiar4],[VentaMayorista],[ActualizadoLocal] FROM tmpMateriales_Web "
 
                 ds_Empresa = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
                 ds_Empresa.Dispose()
 
                 For i = 0 To ds_Empresa.Tables(0).Rows.Count - 1
-                    sqlstring = "UPDATE [dbo].[Materiales] SET " & _
-                        " [IdMarca] = '" & ds_Empresa.Tables(0).Rows(i)(0) & "', " & _
-                        " [IdFamilia] = '" & ds_Empresa.Tables(0).Rows(i)(1) & "', " & _
-                        " [IDUnidad] = '" & ds_Empresa.Tables(0).Rows(i)(2) & "', " & _
-                        " [Codigo] = '" & ds_Empresa.Tables(0).Rows(i)(3) & "', " & _
-                        " [Nombre] = '" & ds_Empresa.Tables(0).Rows(i)(4) & "', " & _
-                        " [Ganancia] = " & ds_Empresa.Tables(0).Rows(i)(5) & ", " & _
-                        " [PrecioCosto] = " & ds_Empresa.Tables(0).Rows(i)(6) & ", " & _
-                        " [PrecioCompra] = " & ds_Empresa.Tables(0).Rows(i)(7) & ", " & _
-                        " [PrecioPeron] = " & ds_Empresa.Tables(0).Rows(i)(8) & ", " & _
-                        " [Minimo] = " & ds_Empresa.Tables(0).Rows(i)(9) & ", " & _
-                        " [Maximo] = " & ds_Empresa.Tables(0).Rows(i)(10) & ", " & _
-                        " [CodigoBarra] = '" & ds_Empresa.Tables(0).Rows(i)(11) & "', " & _
-                        " [Eliminado] = " & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(12)) = True, 1, 0) & ", " & _
-                        " [Pasillo] = '" & ds_Empresa.Tables(0).Rows(i)(13) & "', " & _
-                        " [Estante] = '" & ds_Empresa.Tables(0).Rows(i)(14) & "', " & _
-                        " [Fila] = '" & ds_Empresa.Tables(0).Rows(i)(15) & "', " & _
-                        " [ControlStock] = " & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(16)) = True, 1, 0) & ", " & _
-                        " [CantidadPACK] = " & ds_Empresa.Tables(0).Rows(i)(17) & ", " & _
-                        " DATEUPD = '" & Format(ds_Empresa.Tables(0).Rows(i)(18), "dd/MM/yyyy") & "' , " & _
-                        " [PrecioMayorista] = " & IIf(ds_Empresa.Tables(0).Rows(i)(19).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(19)) & ", " & _
-                        " [PrecioMayoristaPeron] = " & IIf(ds_Empresa.Tables(0).Rows(i)(20).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(20)) & ", " & _
-                        " [IDListaMayorista] = " & IIf(ds_Empresa.Tables(0).Rows(i)(21).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(21)) & ", " & _
-                        " [IDListaMayoristaPeron] = " & IIf(ds_Empresa.Tables(0).Rows(i)(22).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(22)) & ", " & _
-                        " [IDListaMinorista] = " & IIf(ds_Empresa.Tables(0).Rows(i)(23).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(23)) & ", " & _
-                        " [IDListaMinoristaPeron] = " & IIf(ds_Empresa.Tables(0).Rows(i)(24).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(24)) & ", " & _
-                        " [PrecioLista3] = " & ds_Empresa.Tables(0).Rows(i)(25) & "," & _
-                        " [IDLista3] = " & IIf(ds_Empresa.Tables(0).Rows(i)(26).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(26)) & "," & _
-                        " [PrecioLista4] = " & ds_Empresa.Tables(0).Rows(i)(27) & "," & _
-                        " [IDLista4] = " & IIf(ds_Empresa.Tables(0).Rows(i)(28).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(28)) & "," & _
-                        " [UnidadRef] = '" & ds_Empresa.Tables(0).Rows(i)(29) & "'," & _
-                        " [Cambiar1] = " & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(30)) = True, 1, 0) & "," & _
-                        " [Cambiar2] = " & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(31)) = True, 1, 0) & "," & _
-                        " [Cambiar3] = " & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(32)) = True, 1, 0) & "," & _
-                        " [Cambiar4] = " & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(33)) = True, 1, 0) & "," & _
-                        " [VentaMayorista] = " & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(34)) = True, 1, 0) & "," & _
-                        " [ActualizadoWeb] = 1 " & _
+                    sqlstring = "UPDATE [dbo].[Materiales] SET " &
+                        " [IdMarca] = '" & ds_Empresa.Tables(0).Rows(i)(0) & "', " &
+                        " [IdFamilia] = '" & ds_Empresa.Tables(0).Rows(i)(1) & "', " &
+                        " [IDUnidad] = '" & ds_Empresa.Tables(0).Rows(i)(2) & "', " &
+                        " [Codigo] = '" & ds_Empresa.Tables(0).Rows(i)(3) & "', " &
+                        " [Nombre] = '" & ds_Empresa.Tables(0).Rows(i)(4) & "', " &
+                        " [Ganancia] = " & ds_Empresa.Tables(0).Rows(i)(5) & ", " &
+                        " [PrecioCosto] = " & ds_Empresa.Tables(0).Rows(i)(6) & ", " &
+                        " [PrecioCompra] = " & ds_Empresa.Tables(0).Rows(i)(7) & ", " &
+                        " [PrecioPeron] = " & ds_Empresa.Tables(0).Rows(i)(8) & ", " &
+                        " [Minimo] = " & ds_Empresa.Tables(0).Rows(i)(9) & ", " &
+                        " [Maximo] = " & ds_Empresa.Tables(0).Rows(i)(10) & ", " &
+                        " [CodigoBarra] = '" & ds_Empresa.Tables(0).Rows(i)(11) & "', " &
+                        " [Eliminado] = " & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(12)) = True, 1, 0) & ", " &
+                        " [Pasillo] = '" & ds_Empresa.Tables(0).Rows(i)(13) & "', " &
+                        " [Estante] = '" & ds_Empresa.Tables(0).Rows(i)(14) & "', " &
+                        " [Fila] = '" & ds_Empresa.Tables(0).Rows(i)(15) & "', " &
+                        " [ControlStock] = " & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(16)) = True, 1, 0) & ", " &
+                        " [CantidadPACK] = " & ds_Empresa.Tables(0).Rows(i)(17) & ", " &
+                        " DATEUPD = '" & Format(ds_Empresa.Tables(0).Rows(i)(18), "dd/MM/yyyy") & "' , " &
+                        " [PrecioMayorista] = " & IIf(ds_Empresa.Tables(0).Rows(i)(19).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(19)) & ", " &
+                        " [PrecioMayoristaPeron] = " & IIf(ds_Empresa.Tables(0).Rows(i)(20).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(20)) & ", " &
+                        " [IDListaMayorista] = " & IIf(ds_Empresa.Tables(0).Rows(i)(21).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(21)) & ", " &
+                        " [IDListaMayoristaPeron] = " & IIf(ds_Empresa.Tables(0).Rows(i)(22).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(22)) & ", " &
+                        " [IDListaMinorista] = " & IIf(ds_Empresa.Tables(0).Rows(i)(23).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(23)) & ", " &
+                        " [IDListaMinoristaPeron] = " & IIf(ds_Empresa.Tables(0).Rows(i)(24).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(24)) & ", " &
+                        " [PrecioLista3] = " & ds_Empresa.Tables(0).Rows(i)(25) & "," &
+                        " [IDLista3] = " & IIf(ds_Empresa.Tables(0).Rows(i)(26).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(26)) & "," &
+                        " [PrecioLista4] = " & ds_Empresa.Tables(0).Rows(i)(27) & "," &
+                        " [IDLista4] = " & IIf(ds_Empresa.Tables(0).Rows(i)(28).ToString = "", 0, ds_Empresa.Tables(0).Rows(i)(28)) & "," &
+                        " [UnidadRef] = '" & ds_Empresa.Tables(0).Rows(i)(29) & "'," &
+                        " [Cambiar1] = " & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(30)) = True, 1, 0) & "," &
+                        " [Cambiar2] = " & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(31)) = True, 1, 0) & "," &
+                        " [Cambiar3] = " & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(32)) = True, 1, 0) & "," &
+                        " [Cambiar4] = " & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(33)) = True, 1, 0) & "," &
+                        " [VentaMayorista] = " & IIf(CBool(ds_Empresa.Tables(0).Rows(i)(34)) = True, 1, 0) & "," &
+                        " [ActualizadoWeb] = 1 " &
                         " WHERE Codigo = '" & ds_Empresa.Tables(0).Rows(i)(3) & "'"
 
                     prueba = ds_Empresa.Tables(0).Rows(i)(3).ToString
@@ -3735,7 +3735,7 @@ Pedidos:
                 Next
 
                 'ajusto la unidad entre las materiales y el stock descargado
-                sqlstring = " update Stock set IDUnidad = m.IDUnidad from Stock s  join Materiales m " & _
+                sqlstring = " update Stock set IDUnidad = m.IDUnidad from Stock s  join Materiales m " &
                             " on m.Codigo = s.IDMaterial where m.IDUnidad <> s.IDUnidad"
 
                 ds_tmpClientes = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
@@ -3769,7 +3769,7 @@ Pedidos:
 
 
                 'Clientes que están en la WEB y no están en la sucursal/central
-                sqlstring = " SELECT [Codigo],[Nombre],[Eliminado] " & _
+                sqlstring = " SELECT [Codigo],[Nombre],[Eliminado] " &
                             " FROM tmpUnidades_WEB WHERE codigo NOT IN (SELECT codigo FROM Unidades ) "
 
                 ds_Unidades = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
@@ -3780,10 +3780,10 @@ Pedidos:
 
                 If ds_Unidades.Tables(0).Rows.Count > 0 Then
                     For i = 0 To ds_Unidades.Tables(0).Rows.Count - 1
-                        sqlstring = " BEGIN TRAN; " & _
-                            " INSERT INTO [dbo].[Unidades] ([Codigo],[Nombre],[Eliminado] ) " & _
-                            " VALUES ( '" & ds_Unidades.Tables(0).Rows(i)(0) & "', '" & ds_Unidades.Tables(0).Rows(i)(1) & "', " & _
-                            IIf(CBool(ds_Unidades.Tables(0).Rows(i)(2)) = True, 1, 0) & " ); " & _
+                        sqlstring = " BEGIN TRAN; " &
+                            " INSERT INTO [dbo].[Unidades] ([Codigo],[Nombre],[Eliminado] ) " &
+                            " VALUES ( '" & ds_Unidades.Tables(0).Rows(i)(0) & "', '" & ds_Unidades.Tables(0).Rows(i)(1) & "', " &
+                            IIf(CBool(ds_Unidades.Tables(0).Rows(i)(2)) = True, 1, 0) & " ); " &
                             " COMMIT TRAN;"
 
                         ds_tmpUnidades = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
@@ -3792,17 +3792,17 @@ Pedidos:
                     Next
                 End If
 
-                sqlstring = " SELECT [codigo],[Nombre],[Eliminado]" & _
+                sqlstring = " SELECT [codigo],[Nombre],[Eliminado]" &
                             " FROM tmpUnidades_Web "
 
                 ds_Unidades = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
                 ds_Unidades.Dispose()
 
                 For i = 0 To ds_Unidades.Tables(0).Rows.Count - 1
-                    sqlstring = " UPDATE [dbo].[Unidades] SET " & _
-                                " [Codigo] = '" & ds_Unidades.Tables(0).Rows(i)(0) & "', " & _
-                                " [Nombre] = '" & ds_Unidades.Tables(0).Rows(i)(1) & "', " & _
-                                " [Eliminado] = " & IIf(CBool(ds_Unidades.Tables(0).Rows(i)(2)) = True, 1, 0) & " " & _
+                    sqlstring = " UPDATE [dbo].[Unidades] SET " &
+                                " [Codigo] = '" & ds_Unidades.Tables(0).Rows(i)(0) & "', " &
+                                " [Nombre] = '" & ds_Unidades.Tables(0).Rows(i)(1) & "', " &
+                                " [Eliminado] = " & IIf(CBool(ds_Unidades.Tables(0).Rows(i)(2)) = True, 1, 0) & " " &
                                 " WHERE codigo = '" & ds_Unidades.Tables(0).Rows(i)(0) & "'"
 
                     ds_tmpUnidades = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
@@ -3831,7 +3831,7 @@ Pedidos:
 
 
                 'Clientes que están en la WEB y no están en la sucursal/central
-                sqlstring = " SELECT [Codigo],[Nombre],[Eliminado] " & _
+                sqlstring = " SELECT [Codigo],[Nombre],[Eliminado] " &
                             " FROM tmpFamilias_WEB WHERE codigo NOT IN (SELECT codigo FROM Familias) "
 
                 ds_Rubros = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
@@ -3842,10 +3842,10 @@ Pedidos:
 
                 If ds_Rubros.Tables(0).Rows.Count > 0 Then
                     For i = 0 To ds_Rubros.Tables(0).Rows.Count - 1
-                        sqlstring = " BEGIN TRAN; " & _
-                            " INSERT INTO [dbo].[Familias] ([Codigo],[Nombre],[Eliminado] ) " & _
-                            " VALUES ('" & ds_Rubros.Tables(0).Rows(i)(0) & "', '" & ds_Rubros.Tables(0).Rows(i)(1) & "', " & _
-                            IIf(CBool(ds_Rubros.Tables(0).Rows(i)(2)) = True, 1, 0) & " ); " & _
+                        sqlstring = " BEGIN TRAN; " &
+                            " INSERT INTO [dbo].[Familias] ([Codigo],[Nombre],[Eliminado] ) " &
+                            " VALUES ('" & ds_Rubros.Tables(0).Rows(i)(0) & "', '" & ds_Rubros.Tables(0).Rows(i)(1) & "', " &
+                            IIf(CBool(ds_Rubros.Tables(0).Rows(i)(2)) = True, 1, 0) & " ); " &
                             " COMMIT TRAN;"
 
                         ds_tmpFamilias = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
@@ -3854,17 +3854,17 @@ Pedidos:
                     Next
                 End If
 
-                sqlstring = " SELECT [codigo],[Nombre],[Eliminado]" & _
+                sqlstring = " SELECT [codigo],[Nombre],[Eliminado]" &
                             " FROM tmpFamilias_Web "
 
                 ds_Rubros = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
                 ds_Rubros.Dispose()
 
                 For i = 0 To ds_Rubros.Tables(0).Rows.Count - 1
-                    sqlstring = " UPDATE [dbo].[Familias] SET " & _
-                                " [Codigo] = '" & ds_Rubros.Tables(0).Rows(i)(0) & "', " & _
-                                " [Nombre] = '" & ds_Rubros.Tables(0).Rows(i)(1) & "', " & _
-                                " [Eliminado] = " & IIf(CBool(ds_Rubros.Tables(0).Rows(i)(2)) = True, 1, 0) & " " & _
+                    sqlstring = " UPDATE [dbo].[Familias] SET " &
+                                " [Codigo] = '" & ds_Rubros.Tables(0).Rows(i)(0) & "', " &
+                                " [Nombre] = '" & ds_Rubros.Tables(0).Rows(i)(1) & "', " &
+                                " [Eliminado] = " & IIf(CBool(ds_Rubros.Tables(0).Rows(i)(2)) = True, 1, 0) & " " &
                                 " WHERE codigo = '" & ds_Rubros.Tables(0).Rows(i)(0) & "'"
 
                     ds_tmpFamilias = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
@@ -3892,7 +3892,7 @@ Pedidos:
 
 
                 'Clientes que están en la WEB y no están en la sucursal/central
-                sqlstring = " SELECT [Codigo],[Nombre],[Eliminado] " & _
+                sqlstring = " SELECT [Codigo],[Nombre],[Eliminado] " &
                             " FROM tmpMarcas_WEB WHERE codigo NOT IN (SELECT codigo FROM Marcas ) "
 
                 ds_Marcas = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
@@ -3903,10 +3903,10 @@ Pedidos:
 
                 If ds_Marcas.Tables(0).Rows.Count > 0 Then
                     For i = 0 To ds_Marcas.Tables(0).Rows.Count - 1
-                        sqlstring = " BEGIN TRAN; " & _
-                            " INSERT INTO [dbo].[Marcas] ([Codigo],[Nombre],[Eliminado] ) " & _
-                            " VALUES ( '" & ds_Marcas.Tables(0).Rows(i)(0) & "', '" & ds_Marcas.Tables(0).Rows(i)(1) & "', " & _
-                            IIf(CBool(ds_Marcas.Tables(0).Rows(i)(2)) = True, 1, 0) & " ); " & _
+                        sqlstring = " BEGIN TRAN; " &
+                            " INSERT INTO [dbo].[Marcas] ([Codigo],[Nombre],[Eliminado] ) " &
+                            " VALUES ( '" & ds_Marcas.Tables(0).Rows(i)(0) & "', '" & ds_Marcas.Tables(0).Rows(i)(1) & "', " &
+                            IIf(CBool(ds_Marcas.Tables(0).Rows(i)(2)) = True, 1, 0) & " ); " &
                             " COMMIT TRAN;"
 
                         ds_tmpMarcas = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
@@ -3915,17 +3915,17 @@ Pedidos:
                     Next
                 End If
 
-                sqlstring = " SELECT [codigo],[Nombre],[Eliminado]" & _
+                sqlstring = " SELECT [codigo],[Nombre],[Eliminado]" &
                             " FROM tmpMarcas_Web "
 
                 ds_Marcas = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
                 ds_Marcas.Dispose()
 
                 For i = 0 To ds_Marcas.Tables(0).Rows.Count - 1
-                    sqlstring = " UPDATE [dbo].[Marcas] SET " & _
-                                " [Codigo] = '" & ds_Marcas.Tables(0).Rows(i)(0) & "', " & _
-                                " [Nombre] = '" & ds_Marcas.Tables(0).Rows(i)(1) & "', " & _
-                                " [Eliminado] = " & IIf(CBool(ds_Marcas.Tables(0).Rows(i)(2)) = True, 1, 0) & " " & _
+                    sqlstring = " UPDATE [dbo].[Marcas] SET " &
+                                " [Codigo] = '" & ds_Marcas.Tables(0).Rows(i)(0) & "', " &
+                                " [Nombre] = '" & ds_Marcas.Tables(0).Rows(i)(1) & "', " &
+                                " [Eliminado] = " & IIf(CBool(ds_Marcas.Tables(0).Rows(i)(2)) = True, 1, 0) & " " &
                                 " WHERE Codigo = '" & ds_Marcas.Tables(0).Rows(i)(0) & "'"
 
                     ds_tmpMarcas = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
@@ -3960,7 +3960,7 @@ Pedidos:
                 'ds_Lista.Dispose()
 
                 'Clientes que están en la WEB y no están en la sucursal/central
-                sqlstring = " SELECT [Codigo], [Descripcion],[Porcentaje],[Valor_Cambio],[Eliminado], [DateUpd] " & _
+                sqlstring = " SELECT [Codigo], [Descripcion],[Porcentaje],[Valor_Cambio],[Eliminado], [DateUpd] " &
                             " FROM tmpLista_Precios_WEB WHERE Codigo NOT IN (SELECT Codigo FROM Lista_Precios ) "
 
                 ds_Lista = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
@@ -3971,10 +3971,10 @@ Pedidos:
 
                 If ds_Lista.Tables(0).Rows.Count > 0 Then
                     For i = 0 To ds_Lista.Tables(0).Rows.Count - 1
-                        sqlstring = " BEGIN TRAN; " & _
-                            " INSERT INTO [dbo].[Lista_Precios] ([Codigo], [Descripcion],[Porcentaje],[Eliminado] ,[DateUpd] ) " & _
-                            " VALUES ( " & ds_Lista.Tables(0).Rows(i)(0) & " , '" & ds_Lista.Tables(0).Rows(i)(1) & "', " & ds_Lista.Tables(0).Rows(i)(2) & ", " & _
-                            IIf(CBool(ds_Lista.Tables(0).Rows(i)(4)) = True, 1, 0) & " , '" & Format(ds_Lista.Tables(0).Rows(i)(5), "dd/MM/yyyy hh:ss") & "' ); " & _
+                        sqlstring = " BEGIN TRAN; " &
+                            " INSERT INTO [dbo].[Lista_Precios] ([Codigo], [Descripcion],[Porcentaje],[Eliminado] ,[DateUpd] ) " &
+                            " VALUES ( " & ds_Lista.Tables(0).Rows(i)(0) & " , '" & ds_Lista.Tables(0).Rows(i)(1) & "', " & ds_Lista.Tables(0).Rows(i)(2) & ", " &
+                            IIf(CBool(ds_Lista.Tables(0).Rows(i)(4)) = True, 1, 0) & " , '" & Format(ds_Lista.Tables(0).Rows(i)(5), "dd/MM/yyyy hh:ss") & "' ); " &
                             " COMMIT TRAN;"
 
                         ds_tmpLista = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
@@ -3983,19 +3983,19 @@ Pedidos:
                     Next
                 End If
 
-                sqlstring = " SELECT [Codigo] , [Descripcion],[Porcentaje],[Valor_Cambio], [Eliminado], isnull([DateUPD], '01/01/1900 00:00:00')" & _
+                sqlstring = " SELECT [Codigo] , [Descripcion],[Porcentaje],[Valor_Cambio], [Eliminado], isnull([DateUPD], '01/01/1900 00:00:00')" &
                             " FROM tmpLista_Precios_Web "
 
                 ds_Lista = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
                 ds_Lista.Dispose()
 
                 For i = 0 To ds_Lista.Tables(0).Rows.Count - 1
-                    sqlstring = " UPDATE [dbo].[Lista_Precios] SET " & _
-                                " [Codigo] = " & ds_Lista.Tables(0).Rows(i)(0) & ", " & _
-                                " [Descripcion] = '" & ds_Lista.Tables(0).Rows(i)(1) & "', " & _
-                                " [Porcentaje] = " & ds_Lista.Tables(0).Rows(i)(2) & ", " & _
-                                " [Eliminado] = " & IIf(CBool(ds_Lista.Tables(0).Rows(i)(4)) = True, 1, 0) & ", " & _
-                                " [DATEUPD] = '" & Format(ds_Lista.Tables(0).Rows(i)(5), "dd/MM/yyyy") & "'  " & _
+                    sqlstring = " UPDATE [dbo].[Lista_Precios] SET " &
+                                " [Codigo] = " & ds_Lista.Tables(0).Rows(i)(0) & ", " &
+                                " [Descripcion] = '" & ds_Lista.Tables(0).Rows(i)(1) & "', " &
+                                " [Porcentaje] = " & ds_Lista.Tables(0).Rows(i)(2) & ", " &
+                                " [Eliminado] = " & IIf(CBool(ds_Lista.Tables(0).Rows(i)(4)) = True, 1, 0) & ", " &
+                                " [DATEUPD] = '" & Format(ds_Lista.Tables(0).Rows(i)(5), "dd/MM/yyyy") & "'  " &
                                 " WHERE Codigo = " & ds_Lista.Tables(0).Rows(i)(0)
 
                     ds_tmpLista = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
@@ -4026,9 +4026,9 @@ Pedidos:
 
 
                 'Clientes que están en la WEB y no están en la sucursal/central
-                sqlstring = " SELECT [IDPrecioLista],[Codigo],[Nombre],[TipoDocumento],[CUIT],[Direccion],[CodPostal]," & _
-                            "[Localidad],[Provincia],[Telefono],[Fax],[Email],[Contacto],[Observaciones],[Contrasena]," & _
-                            "[Usuario],[UsuarioWEB],[Repartidor],[Eliminado],[DateAdd],[Promo],[CondicionIVA],[MontoMaxCred],[DiasMaxCred],[CtaCte]" & _
+                sqlstring = " SELECT [IDPrecioLista],[Codigo],[Nombre],[TipoDocumento],[CUIT],[Direccion],[CodPostal]," &
+                            "[Localidad],[Provincia],[Telefono],[Fax],[Email],[Contacto],[Observaciones],[Contrasena]," &
+                            "[Usuario],[UsuarioWEB],[Repartidor],[Eliminado],[DateAdd],[Promo],[CondicionIVA],[MontoMaxCred],[DiasMaxCred],[CtaCte]" &
                             " FROM tmpClientes_WEB WHERE codigo NOT IN (SELECT codigo FROM Clientes ) "
 
                 ds_Client = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
@@ -4040,19 +4040,19 @@ Pedidos:
 
                 If ds_Client.Tables(0).Rows.Count > 0 Then
                     For i = 0 To ds_Client.Tables(0).Rows.Count - 1
-                        sqlstring = " BEGIN TRAN; " & _
-                         " INSERT INTO [dbo].[Clientes] ([IDPrecioLista],[Codigo],[Nombre],[TipoDocumento],[CUIT],[Direccion],[CodPostal]," & _
-                            "[Localidad],[Provincia],[Telefono],[Fax],[Email],[Contacto],[Observaciones],[Contrasena]," & _
-                            "[Usuario],[UsuarioWEB],[Repartidor],[Eliminado],[DateAdd],[Promo],[CondicionIVA],[MontoMaxCred],[DiasMaxCred],[CtaCte])" & _
-                            " values ( " & ds_Client.Tables(0).Rows(i)(0) & ", '" & ds_Client.Tables(0).Rows(i)(1) & "','" & _
-                            ds_Client.Tables(0).Rows(i)(2) & "'," & ds_Client.Tables(0).Rows(i)(3) & ", " & ds_Client.Tables(0).Rows(i)(4) & ",'" & _
-                            ds_Client.Tables(0).Rows(i)(5) & "','" & ds_Client.Tables(0).Rows(i)(6) & "','" & ds_Client.Tables(0).Rows(i)(7) & "','" & _
-                            ds_Client.Tables(0).Rows(i)(8) & "','" & ds_Client.Tables(0).Rows(i)(9) & "','" & ds_Client.Tables(0).Rows(i)(10) & "','" & _
-                            ds_Client.Tables(0).Rows(i)(11) & "','" & ds_Client.Tables(0).Rows(i)(12) & "','" & ds_Client.Tables(0).Rows(i)(13) & "','" & _
-                            ds_Client.Tables(0).Rows(i)(14) & "','" & ds_Client.Tables(0).Rows(i)(15) & "'," & IIf(CBool(ds_Client.Tables(0).Rows(i)(16)) = True, 1, 0) & ",'" & _
-                            ds_Client.Tables(0).Rows(i)(17) & "'," & IIf(CBool(ds_Client.Tables(0).Rows(i)(18)) = True, 1, 0) & ",'" & _
-                            Format(ds_Client.Tables(0).Rows(i)(19), "dd/MM/yyyy hh:ss") & "'," & IIf(CBool(ds_Client.Tables(0).Rows(i)(20)) = True, 1, 0) & ",'" & ds_Client.Tables(0).Rows(i)(21) & "'," & _
-                            ds_Client.Tables(0).Rows(i)(22) & "," & ds_Client.Tables(0).Rows(i)(23) & "," & ds_Client.Tables(0).Rows(i)(24) & "); " & _
+                        sqlstring = " BEGIN TRAN; " &
+                         " INSERT INTO [dbo].[Clientes] ([IDPrecioLista],[Codigo],[Nombre],[TipoDocumento],[CUIT],[Direccion],[CodPostal]," &
+                            "[Localidad],[Provincia],[Telefono],[Fax],[Email],[Contacto],[Observaciones],[Contrasena]," &
+                            "[Usuario],[UsuarioWEB],[Repartidor],[Eliminado],[DateAdd],[Promo],[CondicionIVA],[MontoMaxCred],[DiasMaxCred],[CtaCte])" &
+                            " values ( " & ds_Client.Tables(0).Rows(i)(0) & ", '" & ds_Client.Tables(0).Rows(i)(1) & "','" &
+                            ds_Client.Tables(0).Rows(i)(2) & "'," & ds_Client.Tables(0).Rows(i)(3) & ", " & ds_Client.Tables(0).Rows(i)(4) & ",'" &
+                            ds_Client.Tables(0).Rows(i)(5) & "','" & ds_Client.Tables(0).Rows(i)(6) & "','" & ds_Client.Tables(0).Rows(i)(7) & "','" &
+                            ds_Client.Tables(0).Rows(i)(8) & "','" & ds_Client.Tables(0).Rows(i)(9) & "','" & ds_Client.Tables(0).Rows(i)(10) & "','" &
+                            ds_Client.Tables(0).Rows(i)(11) & "','" & ds_Client.Tables(0).Rows(i)(12) & "','" & ds_Client.Tables(0).Rows(i)(13) & "','" &
+                            ds_Client.Tables(0).Rows(i)(14) & "','" & ds_Client.Tables(0).Rows(i)(15) & "'," & IIf(CBool(ds_Client.Tables(0).Rows(i)(16)) = True, 1, 0) & ",'" &
+                            ds_Client.Tables(0).Rows(i)(17) & "'," & IIf(CBool(ds_Client.Tables(0).Rows(i)(18)) = True, 1, 0) & ",'" &
+                            Format(ds_Client.Tables(0).Rows(i)(19), "dd/MM/yyyy hh:ss") & "'," & IIf(CBool(ds_Client.Tables(0).Rows(i)(20)) = True, 1, 0) & ",'" & ds_Client.Tables(0).Rows(i)(21) & "'," &
+                            ds_Client.Tables(0).Rows(i)(22) & "," & ds_Client.Tables(0).Rows(i)(23) & "," & ds_Client.Tables(0).Rows(i)(24) & "); " &
                             " COMMIT TRAN;"
 
                         ds_tmpClientes = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
@@ -4060,41 +4060,41 @@ Pedidos:
                     Next
                 End If
 
-                sqlstring = " SELECT [IDPrecioLista],[Codigo],[Nombre],[TipoDocumento],[CUIT],[Direccion],[CodPostal]," & _
-                            " [Localidad],[Provincia],[Telefono],[Fax],[Email],[Contacto],[Observaciones],[Contrasena]," & _
-                            " [Usuario],[UsuarioWEB],[Repartidor],[Eliminado],isnull([DateUPD], '01/01/1900 00:00:00')," & _
-                            " [Promo],[CondicionIVA],[MontoMaxCred],[DiasMaxCred],[CtaCte]" & _
+                sqlstring = " SELECT [IDPrecioLista],[Codigo],[Nombre],[TipoDocumento],[CUIT],[Direccion],[CodPostal]," &
+                            " [Localidad],[Provincia],[Telefono],[Fax],[Email],[Contacto],[Observaciones],[Contrasena]," &
+                            " [Usuario],[UsuarioWEB],[Repartidor],[Eliminado],isnull([DateUPD], '01/01/1900 00:00:00')," &
+                            " [Promo],[CondicionIVA],[MontoMaxCred],[DiasMaxCred],[CtaCte]" &
                             " FROM tmpClientes_WEB "
 
                 ds_Client = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
                 ds_Client.Dispose()
 
                 For i = 0 To ds_Client.Tables(0).Rows.Count - 1
-                    sqlstring = "UPDATE [dbo].[Clientes] SET " & _
-                              "[IDPrecioLista] = " & ds_Client.Tables(0).Rows(i)(0) & "," & _
-                              "[Nombre] = '" & ds_Client.Tables(0).Rows(i)(2) & "'," & _
-                              "[TipoDocumento] = " & ds_Client.Tables(0).Rows(i)(3) & "," & _
-                              "[CUIT] = " & ds_Client.Tables(0).Rows(i)(4) & "," & _
-                              "[Direccion] = '" & ds_Client.Tables(0).Rows(i)(5) & "'," & _
-                              "[CodPostal] = '" & ds_Client.Tables(0).Rows(i)(6) & "'," & _
-                              "[Localidad] = '" & ds_Client.Tables(0).Rows(i)(7) & "'," & _
-                              "[Provincia] = '" & ds_Client.Tables(0).Rows(i)(8) & "'," & _
-                              "[Telefono] = '" & ds_Client.Tables(0).Rows(i)(9) & "'," & _
-                              "[Fax] = '" & ds_Client.Tables(0).Rows(i)(10) & "'," & _
-                              "[Email] ='" & ds_Client.Tables(0).Rows(i)(11) & "'," & _
-                              "[Contacto] = '" & ds_Client.Tables(0).Rows(i)(12) & "'," & _
-                              "[Observaciones] = '" & ds_Client.Tables(0).Rows(i)(13) & "'," & _
-                              "[Contrasena] = '" & ds_Client.Tables(0).Rows(i)(14) & "'," & _
-                              "[Usuario] = '" & ds_Client.Tables(0).Rows(i)(15) & "'," & _
-                              "[UsuarioWEB] = " & IIf(CBool(ds_Client.Tables(0).Rows(i)(16)) = True, 1, 0) & "," & _
-                              "[Repartidor] = '" & ds_Client.Tables(0).Rows(i)(17) & "'," & _
-                              "[Eliminado] = " & IIf(CBool(ds_Client.Tables(0).Rows(i)(18)) = True, 1, 0) & "," & _
-                              "[DateUpd] = '" & Format(ds_Client.Tables(0).Rows(i)(19), "dd/MM/yyyy hh:ss") & "'," & _
-                              "[Promo] = " & IIf(CBool(ds_Client.Tables(0).Rows(i)(20)) = True, 1, 0) & "," & _
-                              "[CondicionIVA] = '" & ds_Client.Tables(0).Rows(i)(21) & "'," & _
-                              "[MontoMaxCred] = " & ds_Client.Tables(0).Rows(i)(22) & "," & _
-                              "[DiasMaxCred]  = " & ds_Client.Tables(0).Rows(i)(23) & "," & _
-                              "[CtaCte] = " & ds_Client.Tables(0).Rows(i)(24) & " " & _
+                    sqlstring = "UPDATE [dbo].[Clientes] SET " &
+                              "[IDPrecioLista] = " & ds_Client.Tables(0).Rows(i)(0) & "," &
+                              "[Nombre] = '" & ds_Client.Tables(0).Rows(i)(2) & "'," &
+                              "[TipoDocumento] = " & ds_Client.Tables(0).Rows(i)(3) & "," &
+                              "[CUIT] = " & ds_Client.Tables(0).Rows(i)(4) & "," &
+                              "[Direccion] = '" & ds_Client.Tables(0).Rows(i)(5) & "'," &
+                              "[CodPostal] = '" & ds_Client.Tables(0).Rows(i)(6) & "'," &
+                              "[Localidad] = '" & ds_Client.Tables(0).Rows(i)(7) & "'," &
+                              "[Provincia] = '" & ds_Client.Tables(0).Rows(i)(8) & "'," &
+                              "[Telefono] = '" & ds_Client.Tables(0).Rows(i)(9) & "'," &
+                              "[Fax] = '" & ds_Client.Tables(0).Rows(i)(10) & "'," &
+                              "[Email] ='" & ds_Client.Tables(0).Rows(i)(11) & "'," &
+                              "[Contacto] = '" & ds_Client.Tables(0).Rows(i)(12) & "'," &
+                              "[Observaciones] = '" & ds_Client.Tables(0).Rows(i)(13) & "'," &
+                              "[Contrasena] = '" & ds_Client.Tables(0).Rows(i)(14) & "'," &
+                              "[Usuario] = '" & ds_Client.Tables(0).Rows(i)(15) & "'," &
+                              "[UsuarioWEB] = " & IIf(CBool(ds_Client.Tables(0).Rows(i)(16)) = True, 1, 0) & "," &
+                              "[Repartidor] = '" & ds_Client.Tables(0).Rows(i)(17) & "'," &
+                              "[Eliminado] = " & IIf(CBool(ds_Client.Tables(0).Rows(i)(18)) = True, 1, 0) & "," &
+                              "[DateUpd] = '" & Format(ds_Client.Tables(0).Rows(i)(19), "dd/MM/yyyy hh:ss") & "'," &
+                              "[Promo] = " & IIf(CBool(ds_Client.Tables(0).Rows(i)(20)) = True, 1, 0) & "," &
+                              "[CondicionIVA] = '" & ds_Client.Tables(0).Rows(i)(21) & "'," &
+                              "[MontoMaxCred] = " & ds_Client.Tables(0).Rows(i)(22) & "," &
+                              "[DiasMaxCred]  = " & ds_Client.Tables(0).Rows(i)(23) & "," &
+                              "[CtaCte] = " & ds_Client.Tables(0).Rows(i)(24) & " " &
                               " WHERE Codigo = '" & ds_Client.Tables(0).Rows(i)(1) & "'"
 
                     ds_tmpClientes = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
@@ -4129,8 +4129,8 @@ Pedidos:
                 bulk_client.WriteToServer(ds_ClientWEB.Tables(0))
                 ConexionWEB.Close()
 
-                sqlstring = "SELECT [Codigo],[Apellido],[Nombre],[Domicilio],[Telefono],[Celular],[Cuit] ," & _
-                            "[Email],[UsuarioSistema],[Usuario],[Pass],[Revendedor],[Repartidor],[Eliminado],[DateAdd],[Autoriza],[Vendedor]" & _
+                sqlstring = "SELECT [Codigo],[Apellido],[Nombre],[Domicilio],[Telefono],[Celular],[Cuit] ," &
+                            "[Email],[UsuarioSistema],[Usuario],[Pass],[Revendedor],[Repartidor],[Eliminado],[DateAdd],[Autoriza],[Vendedor]" &
                             " FROM tmpEmpleados_WEB WHERE codigo NOT IN (SELECT codigo FROM Empleados ) "
 
                 Dim i As Integer = 0
@@ -4141,16 +4141,16 @@ Pedidos:
 
                 If ds_Empleado.Tables(0).Rows.Count > 0 Then
                     For i = 0 To ds_Empleado.Tables(0).Rows.Count - 1
-                        sqlstring = " BEGIN TRAN; " & _
-                       " INSERT INTO [dbo].[Empleados] ([Codigo],[Apellido],[Nombre],[Domicilio],[Telefono],[Celular],[Cuit]," & _
-                       " [Email],[UsuarioSistema],[Usuario],[Pass],[Revendedor],[Repartidor],[Eliminado],[DateAdd],[Autoriza],[Vendedor]) " & _
-                       " VALUES ( '" & ds_Empleado.Tables(0).Rows(i)(0) & "','" & ds_Empleado.Tables(0).Rows(i)(1) & "','" & _
-                        ds_Empleado.Tables(0).Rows(i)(2) & "','" & ds_Empleado.Tables(0).Rows(i)(3) & "','" & ds_Empleado.Tables(0).Rows(i)(4) & "','" & _
-                        ds_Empleado.Tables(0).Rows(i)(5) & "'," & ds_Empleado.Tables(0).Rows(i)(6) & ",'" & ds_Empleado.Tables(0).Rows(i)(7) & "'," & _
-                        IIf(CBool(ds_Empleado.Tables(0).Rows(i)(8)) = True, 1, 0) & ",'" & ds_Empleado.Tables(0).Rows(i)(9) & "','" & ds_Empleado.Tables(0).Rows(i)(10) & "'," & _
-                        IIf(CBool(ds_Empleado.Tables(0).Rows(i)(11)) = True, 1, 0) & "," & IIf(CBool(ds_Empleado.Tables(0).Rows(i)(12)) = True, 1, 0) & "," & _
-                        IIf(CBool(ds_Empleado.Tables(0).Rows(i)(13)) = True, 1, 0) & ",'" & Format(ds_Empleado.Tables(0).Rows(i)(14), "dd/MM/yyyy hh:ss") & "'," & IIf(CBool(ds_Empleado.Tables(0).Rows(i)(15)) = True, 1, 0) & "," & _
-                        IIf(CBool(ds_Empleado.Tables(0).Rows(i)(16)) = True, 1, 0) & "); " & _
+                        sqlstring = " BEGIN TRAN; " &
+                       " INSERT INTO [dbo].[Empleados] ([Codigo],[Apellido],[Nombre],[Domicilio],[Telefono],[Celular],[Cuit]," &
+                       " [Email],[UsuarioSistema],[Usuario],[Pass],[Revendedor],[Repartidor],[Eliminado],[DateAdd],[Autoriza],[Vendedor]) " &
+                       " VALUES ( '" & ds_Empleado.Tables(0).Rows(i)(0) & "','" & ds_Empleado.Tables(0).Rows(i)(1) & "','" &
+                        ds_Empleado.Tables(0).Rows(i)(2) & "','" & ds_Empleado.Tables(0).Rows(i)(3) & "','" & ds_Empleado.Tables(0).Rows(i)(4) & "','" &
+                        ds_Empleado.Tables(0).Rows(i)(5) & "'," & ds_Empleado.Tables(0).Rows(i)(6) & ",'" & ds_Empleado.Tables(0).Rows(i)(7) & "'," &
+                        IIf(CBool(ds_Empleado.Tables(0).Rows(i)(8)) = True, 1, 0) & ",'" & ds_Empleado.Tables(0).Rows(i)(9) & "','" & ds_Empleado.Tables(0).Rows(i)(10) & "'," &
+                        IIf(CBool(ds_Empleado.Tables(0).Rows(i)(11)) = True, 1, 0) & "," & IIf(CBool(ds_Empleado.Tables(0).Rows(i)(12)) = True, 1, 0) & "," &
+                        IIf(CBool(ds_Empleado.Tables(0).Rows(i)(13)) = True, 1, 0) & ",'" & Format(ds_Empleado.Tables(0).Rows(i)(14), "dd/MM/yyyy hh:ss") & "'," & IIf(CBool(ds_Empleado.Tables(0).Rows(i)(15)) = True, 1, 0) & "," &
+                        IIf(CBool(ds_Empleado.Tables(0).Rows(i)(16)) = True, 1, 0) & "); " &
                       " COMMIT TRAN;"
 
                         ds_tmpEmpleados = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
@@ -4159,8 +4159,8 @@ Pedidos:
                     Next
                 End If
 
-                sqlstring = "SELECT [Codigo],[Apellido],[Nombre],[Domicilio],[Telefono],[Celular],[Cuit] ," & _
-                          "[Email],[UsuarioSistema],[Usuario],[Pass],[Revendedor],[Repartidor],[Eliminado],isnull([DateUPD], '01/01/1900 00:00:00'),[Autoriza],[Vendedor]" & _
+                sqlstring = "SELECT [Codigo],[Apellido],[Nombre],[Domicilio],[Telefono],[Celular],[Cuit] ," &
+                          "[Email],[UsuarioSistema],[Usuario],[Pass],[Revendedor],[Repartidor],[Eliminado],isnull([DateUPD], '01/01/1900 00:00:00'),[Autoriza],[Vendedor]" &
                           " FROM tmpEmpleados_WEB "
 
                 ds_Empleado = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
@@ -4169,22 +4169,22 @@ Pedidos:
                 '"[Pass] = '" & ds_Empleado.Tables(0).Rows(i)(10) & "'," & _
 
                 For i = 0 To ds_Empleado.Tables(0).Rows.Count - 1
-                    sqlstring = "UPDATE [dbo].[Empleados] SET " & _
-                    "[Apellido] = '" & ds_Empleado.Tables(0).Rows(i)(1) & "'," & _
-                    "[Nombre] = '" & ds_Empleado.Tables(0).Rows(i)(2) & "'," & _
-                    "[Domicilio] = '" & ds_Empleado.Tables(0).Rows(i)(3) & "'," & _
-                    "[Telefono] = '" & ds_Empleado.Tables(0).Rows(i)(4) & "'," & _
-                    "[Celular] = '" & ds_Empleado.Tables(0).Rows(i)(5) & "'," & _
-                    "[Cuit] = " & ds_Empleado.Tables(0).Rows(i)(6) & "," & _
-                    "[Email] = '" & ds_Empleado.Tables(0).Rows(i)(7) & "'," & _
-                    "[UsuarioSistema] = " & IIf(CBool(ds_Empleado.Tables(0).Rows(i)(8)) = True, 1, 0) & "," & _
-                    "[Usuario] = '" & ds_Empleado.Tables(0).Rows(i)(9) & "'," & _
-                    "[Revendedor] = " & IIf(CBool(ds_Empleado.Tables(0).Rows(i)(11)) = True, 1, 0) & "," & _
-                    "[Repartidor] = " & IIf(CBool(ds_Empleado.Tables(0).Rows(i)(12)) = True, 1, 0) & "," & _
-                    "[Eliminado] = " & IIf(CBool(ds_Empleado.Tables(0).Rows(i)(13)) = True, 1, 0) & "," & _
-                    "[DateUPD] = '" & Format(ds_Empleado.Tables(0).Rows(i)(14), "dd/MM/yyyy hh:ss") & "'," & _
-                    "[Autoriza] = " & IIf(CBool(ds_Empleado.Tables(0).Rows(i)(15)) = True, 1, 0) & "," & _
-                    "[Vendedor] = " & IIf(CBool(ds_Empleado.Tables(0).Rows(i)(16)) = True, 1, 0) & " " & _
+                    sqlstring = "UPDATE [dbo].[Empleados] SET " &
+                    "[Apellido] = '" & ds_Empleado.Tables(0).Rows(i)(1) & "'," &
+                    "[Nombre] = '" & ds_Empleado.Tables(0).Rows(i)(2) & "'," &
+                    "[Domicilio] = '" & ds_Empleado.Tables(0).Rows(i)(3) & "'," &
+                    "[Telefono] = '" & ds_Empleado.Tables(0).Rows(i)(4) & "'," &
+                    "[Celular] = '" & ds_Empleado.Tables(0).Rows(i)(5) & "'," &
+                    "[Cuit] = " & ds_Empleado.Tables(0).Rows(i)(6) & "," &
+                    "[Email] = '" & ds_Empleado.Tables(0).Rows(i)(7) & "'," &
+                    "[UsuarioSistema] = " & IIf(CBool(ds_Empleado.Tables(0).Rows(i)(8)) = True, 1, 0) & "," &
+                    "[Usuario] = '" & ds_Empleado.Tables(0).Rows(i)(9) & "'," &
+                    "[Revendedor] = " & IIf(CBool(ds_Empleado.Tables(0).Rows(i)(11)) = True, 1, 0) & "," &
+                    "[Repartidor] = " & IIf(CBool(ds_Empleado.Tables(0).Rows(i)(12)) = True, 1, 0) & "," &
+                    "[Eliminado] = " & IIf(CBool(ds_Empleado.Tables(0).Rows(i)(13)) = True, 1, 0) & "," &
+                    "[DateUPD] = '" & Format(ds_Empleado.Tables(0).Rows(i)(14), "dd/MM/yyyy hh:ss") & "'," &
+                    "[Autoriza] = " & IIf(CBool(ds_Empleado.Tables(0).Rows(i)(15)) = True, 1, 0) & "," &
+                    "[Vendedor] = " & IIf(CBool(ds_Empleado.Tables(0).Rows(i)(16)) = True, 1, 0) & " " &
                     " WHERE Codigo = '" & ds_Empleado.Tables(0).Rows(i)(0) & "'"
 
                     ds_tmpEmpleados = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, sqlstring)
@@ -4229,7 +4229,7 @@ Pedidos:
 
     '---WEB
 #End Region
-   
+
     Private Sub InformeGeneralToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles InformeGeneralToolStripMenuItem.Click
         Dim paramreporte As New frmParametros
         Dim rpt As New frmReportes
@@ -4303,7 +4303,7 @@ Pedidos:
         frmConceptos.Show()
     End Sub
 
-    Private Sub FarmaciaConceptosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FarmaciaConceptosToolStripMenuItem.Click
+    Private Sub FarmaciaConceptosToolStripMenuItem_Click(sender As Object, e As EventArgs)
         frmFarmacias_Conceptos.MdiParent = Me
         frmFarmacias_Conceptos.Show()
     End Sub
@@ -4316,5 +4316,10 @@ Pedidos:
     Private Sub PeriodoPresentacionesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PeriodoPresentacionesToolStripMenuItem.Click
         frmPeriodoPresentaciones.MdiParent = Me
         frmPeriodoPresentaciones.Show()
+    End Sub
+
+    Private Sub ProfesionalesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ProfesionalesToolStripMenuItem.Click
+        frmProfesionales.MdiParent = Me
+        frmProfesionales.Show()
     End Sub
 End Class
