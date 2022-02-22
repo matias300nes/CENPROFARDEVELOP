@@ -118,17 +118,32 @@ Public Class frmSaldos
     End Sub
 
     Friend Sub refreshData()
-        Dim codigo As String = grdFarmacia.CurrentRow.Cells(grdFarmaciaCols.Codigo).Value.ToString
-        requestGrdData()
+        If grdFarmacia.CurrentRow IsNot Nothing Then
+            Dim codigo As String = grdFarmacia.CurrentRow.Cells(grdFarmaciaCols.Codigo).Value.ToString
+            requestGrdData()
+            For Each row As DataGridViewRow In grdFarmacia.Rows
+                If row.Cells(grdFarmaciaCols.Codigo).Value = codigo Then
+                    grdFarmacia.ClearSelection()
+                    row.Selected = True
+                    grdFarmacia.CurrentCell = grdFarmacia.Rows(row.Index).Cells(grdFarmaciaCols.Codigo)
+                    txtID.Text = row.Cells(grdFarmaciaCols.ID).Value
+                End If
+            Next
+        Else
+            requestGrdData()
+        End If
+
+    End Sub
+
+    ''Revisa si almenos un registro tiene un checkbox activado
+    Private Function checkSelected() As Boolean
         For Each row As DataGridViewRow In grdFarmacia.Rows
-            If row.Cells(grdFarmaciaCols.Codigo).Value = codigo Then
-                grdFarmacia.ClearSelection()
-                row.Selected = True
-                grdFarmacia.CurrentCell = grdFarmacia.Rows(row.Index).Cells(grdFarmaciaCols.Codigo)
-                txtID.Text = row.Cells(grdFarmaciaCols.ID).Value
+            If row.Cells(grdFarmaciaCols.Seleccion).Value = True Then
+                Return True
             End If
         Next
-    End Sub
+        Return False
+    End Function
 
 #End Region
 
@@ -148,6 +163,16 @@ Public Class frmSaldos
                 txtID.Text = grdFarmacia.CurrentRow.Cells(0).Value
             End If
         End If
+
+        If grdFarmacia.SelectedRows.Count > 1 Then
+            btnSelection.Text = "Seleccionar marcados"
+        Else
+            If dtFarmacias.Select("[Selección] = 1").Length > 0 Then
+                btnSelection.Text = "Deseleccionar todo"
+            Else
+                btnSelection.Text = "Seleccionar todo"
+            End If
+        End If
     End Sub
 
     Private Sub txtID_TextChanged(sender As Object, e As EventArgs) Handles txtID.TextChanged
@@ -162,24 +187,37 @@ Public Class frmSaldos
 
     End Sub
 
-    Private Sub btnPersonalizado_Click(sender As Object, e As EventArgs) Handles btnPersonalizado.Click
+    Private Sub btnPago_Click(sender As Object, e As EventArgs) Handles btnPago.Click
+        grdFarmacia.CurrentCell = Nothing
+        If checkSelected() Then
+            Dim dv As New DataView(dtFarmacias)
+            dv.RowFilter = $"[Selección] = 1"
 
-
-        Dim drv As DataRowView = grdFarmacia.CurrentRow.DataBoundItem
-        If drv IsNot Nothing Then
-            Dim dr = drv.Row
-
-            Dim AgregarCheques As New frmAgregarCheques(dr)
+            Dim AgregarCheques As New frmAgregarCheques(dv.ToTable())
             AgregarCheques.ShowDialog()
+        Else
+            MsgBox("Debe seleccionar al menos una razón social para poder realizar el pago.")
         End If
-
 
     End Sub
 
-    Private Sub chkSelectAll_CheckedChanged(sender As Object, e As EventArgs) Handles chkSelectAll.CheckedChanged
-        For Each row As DataRow In dtFarmacias.Rows
-            row(grdFarmaciaCols.Seleccion) = chkSelectAll.Checked
-        Next
+    Private Sub btnSelection_Click(sender As Object, e As EventArgs) Handles btnSelection.Click
+        If btnSelection.Text = "Seleccionar todo" Then
+            For Each row As DataGridViewRow In grdFarmacia.Rows
+                row.Cells(grdFarmaciaCols.Seleccion).Value = True
+            Next
+            btnSelection.Text = "Deseleccionar todo"
+        ElseIf btnSelection.Text = "Deseleccionar todo" Then
+            For Each row As DataGridViewRow In grdFarmacia.Rows
+                row.Cells(grdFarmaciaCols.Seleccion).Value = False
+            Next
+            btnSelection.Text = IIf(grdFarmacia.SelectedRows.Count > 1, "Seleccionar marcados", "Seleccionar todo")
+        ElseIf btnSelection.Text = "Seleccionar marcados" Then
+            For Each row As DataGridViewRow In grdFarmacia.SelectedRows
+                row.Cells(grdFarmaciaCols.Seleccion).Value = True
+            Next
+            btnSelection.Text = "Deseleccionar todo"
+        End If
     End Sub
 
 #End Region

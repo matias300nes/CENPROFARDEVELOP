@@ -3,8 +3,9 @@ Imports Utiles.Util
 
 Public Class frmAgregarCheques
     Enum gridColumns
-        tipoPago = 0
-        importe = 1
+        razonSocial = 0
+        tipoPago = 1
+        importe = 2
     End Enum
 
     Enum FarmaciaCols
@@ -20,21 +21,22 @@ Public Class frmAgregarCheques
         Email = 9
     End Enum
 
-    Dim farmacia As DataRow
+    Dim farmacias As DataTable
     Dim dt As DataTable
 
-    Public Sub New(dr As DataRow)
+    Public Sub New(farmacias As DataTable)
 
         ' Esta llamada es exigida por el diseñador.
         InitializeComponent()
 
         ' Agregue cualquier inicialización después de la llamada a InitializeComponent().
-        Me.farmacia = dr
+        Me.farmacias = farmacias
 
     End Sub
 
     Private Sub frmAgregarCheques_Load(sender As Object, e As EventArgs) Handles Me.Load
         dt = New DataTable()
+        dt.Columns.Add("Razón Social", GetType(String))
         dt.Columns.Add("Tipo de pago", GetType(String))
         dt.Columns.Add("Importe", GetType(Decimal))
 
@@ -44,18 +46,36 @@ Public Class frmAgregarCheques
             .Columns(gridColumns.importe).DefaultCellStyle.Format = "N2"
         End With
 
-        lblRazonSocial.Text = $"{Me.farmacia(FarmaciaCols.RazonSocial)} - {Me.farmacia(FarmaciaCols.Nombre)}"
-
-        lblSaldoActual.Text = String.Format("{0:C}", Me.farmacia(FarmaciaCols.Saldo))
 
         cmbTipoPago.DataSource = {"Cheque", "Transferencia", "Echeq"}
+
+        If farmacias.Rows.Count > 1 Then
+            Dim saldototal As Decimal = 0
+            For Each farmacia As DataRow In farmacias.Rows
+                Dim newRow As DataRow = dt.NewRow
+                newRow(gridColumns.razonSocial) = farmacia(FarmaciaCols.RazonSocial)
+                newRow(gridColumns.tipoPago) = farmacia(FarmaciaCols.PreferenciaPago)
+                newRow(gridColumns.importe) = Decimal.Parse(farmacia(FarmaciaCols.Saldo))
+                dt.Rows.Add(newRow)
+
+                saldototal += Decimal.Parse(farmacia(FarmaciaCols.Saldo))
+            Next
+            lblRazonSocial.Text = $"{farmacias.Rows.Count} Seleccionadas"
+
+            lblSaldoActual.Text = String.Format("{0:C}", saldototal)
+        Else
+            lblRazonSocial.Text = $"{Me.farmacias.Rows(0)(FarmaciaCols.RazonSocial)} - {Me.farmacias.Rows(0)(FarmaciaCols.Nombre)}"
+
+            lblSaldoActual.Text = String.Format("{0:C}", Me.farmacias.Rows(0)(FarmaciaCols.Saldo))
+
+        End If
 
         CalcularTotal()
     End Sub
 
     Private Sub btnAgregar_Click(sender As Object, e As EventArgs) Handles btnAgregar.Click
         Dim newRow As DataRow = dt.NewRow
-        newRow(gridColumns.tipoPago) = cmbTipoPago.SelectedValue.ToString
+        newRow(gridColumns.tipoPago) = cmbTipoPago.SelectedValue.ToString.ToUpper
         newRow(gridColumns.importe) = Decimal.Parse(txtImporte.Text)
         dt.Rows.Add(newRow)
 
@@ -64,12 +84,17 @@ Public Class frmAgregarCheques
 
     Private Sub CalcularTotal()
         Dim total As Decimal = 0
+        Dim totalActual As Decimal = 0
         For Each pago As DataRow In dt.Rows
             total += pago(gridColumns.importe)
         Next
 
+        For Each farmacia As DataRow In farmacias.Rows
+            totalActual += farmacia(FarmaciaCols.Saldo)
+        Next
+
         lblSaldoCubierto.Text = String.Format("{0:C}", total)
-        If total < Me.farmacia(FarmaciaCols.Saldo) Then
+        If total < totalActual Then
             lblSaldoCubierto.ForeColor = Color.Red
         Else
             lblSaldoCubierto.ForeColor = Color.Green
@@ -96,7 +121,7 @@ Public Class frmAgregarCheques
                 Dim param_idFarmacia As New SqlClient.SqlParameter
                 param_idFarmacia.ParameterName = "@idFarmacia"
                 param_idFarmacia.SqlDbType = SqlDbType.BigInt
-                param_idFarmacia.Value = Me.farmacia(FarmaciaCols.ID)
+                param_idFarmacia.Value = Me.farmacias.Rows(0)(FarmaciaCols.ID)
                 param_idFarmacia.Direction = ParameterDirection.Input
 
                 ''detalle
