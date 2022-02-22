@@ -27,15 +27,14 @@ Partial Class frmSaldos
         Me.grdHistorial = New System.Windows.Forms.DataGridView()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.ButtonX3 = New DevComponents.DotNetBar.ButtonX()
+        Me.btnPago = New DevComponents.DotNetBar.ButtonX()
         Me.ButtonX4 = New DevComponents.DotNetBar.ButtonX()
         Me.txtBuscar = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.lblTotal = New System.Windows.Forms.Label()
         Me.Label23 = New System.Windows.Forms.Label()
         Me.txtID = New System.Windows.Forms.TextBox()
-        Me.btnPersonalizado = New DevComponents.DotNetBar.ButtonX()
-        Me.chkSelectAll = New DevComponents.DotNetBar.Controls.CheckBoxX()
+        Me.btnSelection = New System.Windows.Forms.Button()
         CType(Me.grdFarmacia, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdHistorial, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -45,8 +44,6 @@ Partial Class frmSaldos
         Me.grdFarmacia.AllowUserToAddRows = False
         Me.grdFarmacia.AllowUserToDeleteRows = False
         Me.grdFarmacia.AllowUserToResizeRows = False
-        Me.grdFarmacia.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.grdFarmacia.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.grdFarmacia.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.grdFarmacia.Location = New System.Drawing.Point(17, 45)
@@ -94,19 +91,19 @@ Partial Class frmSaldos
         Me.Label2.TabIndex = 3
         Me.Label2.Text = "Historial Cta. Corriente"
         '
-        'ButtonX3
+        'btnPago
         '
-        Me.ButtonX3.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.ButtonX3.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ButtonX3.BackColor = System.Drawing.SystemColors.Control
-        Me.ButtonX3.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.ButtonX3.Location = New System.Drawing.Point(348, 276)
-        Me.ButtonX3.Name = "ButtonX3"
-        Me.ButtonX3.Size = New System.Drawing.Size(133, 23)
-        Me.ButtonX3.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.ButtonX3.TabIndex = 6
-        Me.ButtonX3.Text = "Cheques/Transferencia"
-        Me.ButtonX3.TextColor = System.Drawing.SystemColors.InfoText
+        Me.btnPago.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnPago.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnPago.BackColor = System.Drawing.SystemColors.Control
+        Me.btnPago.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
+        Me.btnPago.Location = New System.Drawing.Point(348, 273)
+        Me.btnPago.Name = "btnPago"
+        Me.btnPago.Size = New System.Drawing.Size(133, 23)
+        Me.btnPago.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnPago.TabIndex = 6
+        Me.btnPago.Text = "Cheques/Transferencia"
+        Me.btnPago.TextColor = System.Drawing.SystemColors.InfoText
         '
         'ButtonX4
         '
@@ -114,7 +111,7 @@ Partial Class frmSaldos
         Me.ButtonX4.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonX4.BackColor = System.Drawing.SystemColors.Control
         Me.ButtonX4.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.ButtonX4.Location = New System.Drawing.Point(490, 276)
+        Me.ButtonX4.Location = New System.Drawing.Point(490, 273)
         Me.ButtonX4.Name = "ButtonX4"
         Me.ButtonX4.Size = New System.Drawing.Size(107, 23)
         Me.ButtonX4.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
@@ -143,7 +140,7 @@ Partial Class frmSaldos
         Me.lblTotal.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblTotal.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblTotal.ForeColor = System.Drawing.Color.DarkGreen
-        Me.lblTotal.Location = New System.Drawing.Point(684, 274)
+        Me.lblTotal.Location = New System.Drawing.Point(684, 271)
         Me.lblTotal.Name = "lblTotal"
         Me.lblTotal.Size = New System.Drawing.Size(130, 24)
         Me.lblTotal.TabIndex = 391
@@ -155,7 +152,7 @@ Partial Class frmSaldos
         Me.Label23.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label23.AutoSize = True
         Me.Label23.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label23.Location = New System.Drawing.Point(644, 279)
+        Me.Label23.Location = New System.Drawing.Point(644, 276)
         Me.Label23.Name = "Label23"
         Me.Label23.Size = New System.Drawing.Size(42, 16)
         Me.Label23.TabIndex = 390
@@ -169,48 +166,28 @@ Partial Class frmSaldos
         Me.txtID.Size = New System.Drawing.Size(57, 20)
         Me.txtID.TabIndex = 392
         '
-        'btnPersonalizado
+        'btnSelection
         '
-        Me.btnPersonalizado.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnPersonalizado.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnPersonalizado.BackColor = System.Drawing.SystemColors.Control
-        Me.btnPersonalizado.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.btnPersonalizado.Location = New System.Drawing.Point(211, 276)
-        Me.btnPersonalizado.Name = "btnPersonalizado"
-        Me.btnPersonalizado.Size = New System.Drawing.Size(120, 23)
-        Me.btnPersonalizado.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnPersonalizado.TabIndex = 393
-        Me.btnPersonalizado.Text = "Pago personalizado"
-        Me.btnPersonalizado.TextColor = System.Drawing.SystemColors.InfoText
-        '
-        'chkSelectAll
-        '
-        '
-        '
-        '
-        Me.chkSelectAll.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.chkSelectAll.Location = New System.Drawing.Point(17, 257)
-        Me.chkSelectAll.Name = "chkSelectAll"
-        Me.chkSelectAll.Size = New System.Drawing.Size(111, 23)
-        Me.chkSelectAll.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.chkSelectAll.TabIndex = 395
-        Me.chkSelectAll.Text = "Seleccionar todo"
-        Me.chkSelectAll.TextColor = System.Drawing.SystemColors.InfoText
+        Me.btnSelection.Location = New System.Drawing.Point(16, 255)
+        Me.btnSelection.Name = "btnSelection"
+        Me.btnSelection.Size = New System.Drawing.Size(128, 23)
+        Me.btnSelection.TabIndex = 396
+        Me.btnSelection.Text = "Seleccionar todo"
+        Me.btnSelection.UseVisualStyleBackColor = True
         '
         'frmSaldos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(834, 544)
-        Me.Controls.Add(Me.chkSelectAll)
-        Me.Controls.Add(Me.btnPersonalizado)
+        Me.Controls.Add(Me.btnSelection)
         Me.Controls.Add(Me.txtID)
         Me.Controls.Add(Me.Label23)
         Me.Controls.Add(Me.lblTotal)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.txtBuscar)
         Me.Controls.Add(Me.ButtonX4)
-        Me.Controls.Add(Me.ButtonX3)
+        Me.Controls.Add(Me.btnPago)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.grdHistorial)
@@ -231,13 +208,12 @@ Partial Class frmSaldos
     Friend WithEvents grdHistorial As DataGridView
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
-    Friend WithEvents ButtonX3 As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents btnPago As DevComponents.DotNetBar.ButtonX
     Friend WithEvents ButtonX4 As DevComponents.DotNetBar.ButtonX
     Friend WithEvents txtBuscar As TextBox
     Friend WithEvents Label3 As Label
     Friend WithEvents lblTotal As Label
     Friend WithEvents Label23 As Label
     Friend WithEvents txtID As TextBox
-    Friend WithEvents btnPersonalizado As DevComponents.DotNetBar.ButtonX
-    Friend WithEvents chkSelectAll As DevComponents.DotNetBar.Controls.CheckBoxX
+    Friend WithEvents btnSelection As Button
 End Class

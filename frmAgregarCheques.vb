@@ -66,7 +66,7 @@ Public Class frmAgregarCheques
         Else
             lblRazonSocial.Text = $"{Me.farmacias.Rows(0)(FarmaciaCols.RazonSocial)} - {Me.farmacias.Rows(0)(FarmaciaCols.Nombre)}"
 
-            lblSaldoActual.Text = String.Format("{0:C}", Me.farmacias.Rows()(FarmaciaCols.Saldo))
+            lblSaldoActual.Text = String.Format("{0:C}", Me.farmacias.Rows(0)(FarmaciaCols.Saldo))
 
         End If
 
