@@ -33,6 +33,16 @@ Public Class frmFarmacias_Conceptos
         Frecuencia = 8
         CampoAplicable = 9
     End Enum
+
+    Enum ColumnasDelGrdProfesionalesPanel
+        Id = 0
+        Codigo = 1
+        Nombre = 2
+        Apellido = 3
+        Direccion = 4
+        Celular = 5
+        Email = 6
+    End Enum
     Enum GridItemsCols
         ID = 0
         Codigo = 1
@@ -69,6 +79,27 @@ Public Class frmFarmacias_Conceptos
 
     Private Sub frmFarmacias_Conceptos_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
+        Dim dtPreferenciaPago As New DataTable
+        With dtPreferenciaPago
+            .Columns.Add("DisplayMember")
+            .Columns.Add("ValueMember")
+
+            Dim row1 As DataRow = .NewRow()
+            row1("DisplayMember") = "Cheque"
+            row1("ValueMember") = "CHEQUE"
+            .Rows.Add(row1)
+
+            Dim row2 As DataRow = .NewRow()
+            row2("DisplayMember") = "Transferencia"
+            row2("ValueMember") = "TRANSFERENCIA"
+            .Rows.Add(row2)
+        End With
+
+        With cmbPreferenciaPago
+            .DataSource = dtPreferenciaPago
+            .DisplayMember = "DisplayMember"
+            .ValueMember = "ValueMember"
+        End With
 
         'AsignarPermisos(UserID, Me.Name, ALTA, MODIFICA, BAJA, BAJA_FISICA)
         configurarform()
@@ -88,8 +119,13 @@ Public Class frmFarmacias_Conceptos
         grdCodigos.Rows.Add("Compañia Servicios Farmaceuticos", DBNull.Value)
 
         LlenarGrilla()
-        LlenarGrdConceptosPanel()
-
+        ''lleno la grilla dependiendo en que panel me encuentre
+        Select Case SuperTabControl1.SelectedPanel.Name
+            Case "SuperTabControlPanel1" 'Panel Conceptos
+                LlenarGrdConceptosPanel()
+            Case "SuperTabControlPanel2" 'Panel Profesionales
+                LlenarGrdProfesionalesPanel()
+        End Select
         ''Ocultar columnas no necesarias
         With grd
             .Columns(GridItemsCols.CodPAMI).Visible = False
@@ -597,6 +633,7 @@ Public Class frmFarmacias_Conceptos
 
                     If param_res.Value = 1 Then
                         AgregarRelacionConcepto_Farmacia()
+                        AgregarRelacionProfesional_Farmacia()
                     End If
 
                     AgregarRegistro = param_res.Value
@@ -789,6 +826,7 @@ Public Class frmFarmacias_Conceptos
 
                     If param_res.Value = 1 Then
                         AgregarRelacionConcepto_Farmacia()
+                        AgregarRelacionProfesional_Farmacia()
                     End If
                     ActualizarRegistro = param_res.Value
 
@@ -949,8 +987,141 @@ Public Class frmFarmacias_Conceptos
 
     End Sub
 
+    Private Sub LlenarGrdProfesionalesPanel()
+        grdProfesionalesPanel.Rows.Clear()
 
-    Private Sub EliminarItemGrdConceptosPanel()
+        Dim connection As SqlClient.SqlConnection = Nothing
+        Dim query_FarmProf As String
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+        Catch ex As Exception
+            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End Try
+
+        Try
+            Dim dt As New DataTable
+
+            If txtID.Text = "" Then
+                query_FarmProf = "exec spFarmacias_Profesionales_Select_By_IDFarmacia @IDFarmacia = '1'"
+            Else
+                query_FarmProf = "exec spFarmacias_Profesionales_Select_By_IDFarmacia @IDFarmacia = " & txtID.Text & ""
+            End If
+
+            Dim cmd As New SqlCommand(query_FarmProf, connection)
+            Dim da As New SqlDataAdapter(cmd)
+            Dim i As Integer
+
+            da.Fill(dt)
+
+            For i = 0 To dt.Rows.Count - 1
+                grdProfesionalesPanel.Rows.Add(
+                    dt.Rows(i)(ColumnasDelGrdProfesionalesPanel.Id).ToString(),
+                    dt.Rows(i)(ColumnasDelGrdProfesionalesPanel.Codigo).ToString(),
+                    dt.Rows(i)(ColumnasDelGrdProfesionalesPanel.Nombre).ToString(),
+                    dt.Rows(i)(ColumnasDelGrdProfesionalesPanel.Apellido).ToString(),
+                    dt.Rows(i)(ColumnasDelGrdProfesionalesPanel.Direccion).ToString(),
+                    dt.Rows(i)(ColumnasDelGrdProfesionalesPanel.Celular).ToString(),
+                    dt.Rows(i)(ColumnasDelGrdProfesionalesPanel.Email).ToString())
+            Next
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        Finally
+            If Not connection Is Nothing Then
+                CType(connection, IDisposable).Dispose()
+            End If
+        End Try
+
+    End Sub
+
+
+    Private Sub EliminarRelacionProfesional_Farmacia()
+        Dim connection As SqlClient.SqlConnection = Nothing
+        Dim ds_coincidencia As Data.DataSet
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+        Catch ex As Exception
+            MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End Try
+
+        Try
+            Dim result As DialogResult = MessageBox.Show($"Está a punto de eliminar el profesional {grdProfesionalesPanel.CurrentRow.Cells(ColumnasDelGrdProfesionalesPanel.Nombre).Value} {grdProfesionalesPanel.CurrentRow.Cells(ColumnasDelGrdProfesionalesPanel.Apellido).Value}
+¿Está seguro que desea continuar?",
+                                  "Eliminar",
+                                  MessageBoxButtons.YesNo)
+
+            If result = DialogResult.Yes Then
+                If grdProfesionalesPanel.CurrentRow IsNot Nothing Then
+                    ds_coincidencia = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT idprofesional, idFarmacia FROM Farmacias_Conceptos WHERE idprofesional = {grdProfesionalesPanel.CurrentRow.Cells(ColumnasDelGrdProfesionalesPanel.Id).Value} AND idFarmacia = {txtID.Text}")
+                    If ds_coincidencia.Tables(0).Rows.Count = 1 Then 'si encuentro esa relacion
+                        Dim param_idProfesional As New SqlClient.SqlParameter
+                        param_idProfesional.ParameterName = "@idprofesional"
+                        param_idProfesional.SqlDbType = SqlDbType.BigInt
+                        param_idProfesional.Value = grdConceptosPanel.CurrentRow.Cells(ColumnasDelGrdProfesionalesPanel.Id).Value
+                        param_idProfesional.Direction = ParameterDirection.InputOutput
+
+                        Dim param_idFarmacia As New SqlClient.SqlParameter
+                        param_idFarmacia.ParameterName = "@idFarmacia"
+                        param_idFarmacia.SqlDbType = SqlDbType.BigInt
+                        param_idFarmacia.Value = txtID.Text
+                        param_idFarmacia.Direction = ParameterDirection.Input
+
+                        Dim param_res As New SqlClient.SqlParameter
+                        param_res.ParameterName = "@res"
+                        param_res.SqlDbType = SqlDbType.Int
+                        param_res.Value = DBNull.Value
+                        param_res.Direction = ParameterDirection.Output
+
+                        Try
+                            'elimino la relacion en la base de datos
+                            ds_coincidencia.Dispose()
+                            SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spFarmacias_Profesionales_Delete", param_idProfesional, param_idFarmacia, param_res)
+                            Dim res = param_res.Value
+                            'elimino el item del gridview si antes se eliminó la relacion
+                            If res = 1 Then
+                                grdProfesionalesPanel.Rows.Remove(grdProfesionalesPanel.CurrentRow)
+                            End If
+                        Catch ex As Exception
+                            Throw ex
+                        End Try
+                    Else
+                        ds_coincidencia.Dispose()
+
+                    End If
+                End If
+            Else
+                Exit Sub
+            End If
+
+
+
+
+
+
+
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+          + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+          "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        Finally
+            If Not connection Is Nothing Then
+                CType(connection, IDisposable).Dispose()
+            End If
+        End Try
+    End Sub
+
+    Private Sub EliminarRelacionConcepto_Farmacia()
         Dim connection As SqlClient.SqlConnection = Nothing
         Dim ds_coincidendia As Data.DataSet
         Try
@@ -1038,7 +1209,7 @@ Public Class frmFarmacias_Conceptos
     Private Sub AgregarRelacionConcepto_Farmacia()
 
         Dim connection As SqlClient.SqlConnection = Nothing
-        Dim ds_coincidendia As Data.DataSet
+        Dim ds_coincidencia As Data.DataSet
         Try
             connection = SqlHelper.GetConnection(ConnStringSEI)
         Catch ex As Exception
@@ -1053,8 +1224,8 @@ Public Class frmFarmacias_Conceptos
         Try
             For Each Row As DataGridViewRow In grdConceptosPanel.Rows
                 If Row IsNot Nothing Then
-                    ds_coincidendia = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT idConcepto, idFarmacia FROM Farmacias_Conceptos WHERE idConcepto = {Row.Cells(ColumnasDelGrdConceptosPanel.Id).Value} AND idFarmacia = {txtID.Text}")
-                    If ds_coincidendia.Tables(0).Rows.Count <> 1 Then
+                    ds_coincidencia = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT idConcepto, idFarmacia FROM Farmacias_Conceptos WHERE idConcepto = {Row.Cells(ColumnasDelGrdConceptosPanel.Id).Value} AND idFarmacia = {txtID.Text}")
+                    If ds_coincidencia.Tables(0).Rows.Count <> 1 Then
                         Dim param_idConcepto As New SqlClient.SqlParameter
                         param_idConcepto.ParameterName = "@idConcepto"
                         param_idConcepto.SqlDbType = SqlDbType.BigInt
@@ -1082,13 +1253,82 @@ Public Class frmFarmacias_Conceptos
                         param_valor.Direction = ParameterDirection.Input
 
                         Try
-                            ds_coincidendia.Dispose()
+                            ds_coincidencia.Dispose()
                             SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spFarmacias_Conceptos_Insert", param_idConcepto, param_idFarmacia, param_frecuencia, param_valor)
                         Catch ex As Exception
                             Throw ex
                         End Try
                     Else
-                        ds_coincidendia.Dispose()
+                        ds_coincidencia.Dispose()
+                        Continue For
+                    End If
+                End If
+            Next
+
+
+
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+          + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+          "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        Finally
+            If Not connection Is Nothing Then
+                CType(connection, IDisposable).Dispose()
+            End If
+        End Try
+
+
+    End Sub
+
+    Private Sub AgregarRelacionProfesional_Farmacia()
+
+        Dim connection As SqlClient.SqlConnection = Nothing
+        Dim ds_coincidencia As Data.DataSet
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+        Catch ex As Exception
+            MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End Try
+
+        'ds = SqlHelper.ExecuteDataset(conn_del_form, CommandType.Text, "select NombreEmpresaFactura, ModoPagoPredefinido, CUIT, HOMO, TA, PTOVTA, ISNULL(CorreoContador,''), ISNULL(TicketAcceso,''), ISNULL(Token,''), ISNULL(Sign,'')  from parametros")
+
+        'ds.Dispose()
+
+        Try
+            For Each Row As DataGridViewRow In grdProfesionalesPanel.Rows
+                If Row IsNot Nothing Then
+                    ds_coincidencia = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT idProfesional, idFarmacia FROM Farmacias_Profesionales WHERE idProfesional = {Row.Cells(ColumnasDelGrdProfesionalesPanel.Id).Value} AND idFarmacia = {txtID.Text}")
+                    If ds_coincidencia.Tables(0).Rows.Count <> 1 Then
+                        Dim param_idProfesional As New SqlClient.SqlParameter
+                        param_idProfesional.ParameterName = "@idprofesional"
+                        param_idProfesional.SqlDbType = SqlDbType.BigInt
+                        param_idProfesional.Value = Row.Cells(ColumnasDelGrdProfesionalesPanel.Id).Value
+                        param_idProfesional.Direction = ParameterDirection.InputOutput
+
+                        Dim param_idFarmacia As New SqlClient.SqlParameter
+                        param_idFarmacia.ParameterName = "@idFarmacia"
+                        param_idFarmacia.SqlDbType = SqlDbType.BigInt
+                        param_idFarmacia.Value = txtID.Text
+                        param_idFarmacia.Direction = ParameterDirection.Input
+
+                        Try
+                            ds_coincidencia.Dispose()
+                            SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spFarmacias_Profesionales_Insert", param_idProfesional, param_idFarmacia)
+                        Catch ex As Exception
+                            Throw ex
+                        End Try
+                    Else
+                        ds_coincidencia.Dispose()
                         Continue For
                     End If
                 End If
@@ -1323,12 +1563,28 @@ Public Class frmFarmacias_Conceptos
     End Sub
 
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
-        Dim cargarConcepto As New frmSelectConcepto
-        cargarConcepto.ShowDialog()
+
+        Select Case SuperTabControl1.SelectedPanel.Name
+            Case "SuperTabControlPanel1" 'Panel Conceptos
+                Dim cargarConcepto As New frmSelectConcepto
+                cargarConcepto.ShowDialog()
+            Case "SuperTabControlPanel2" 'Panel Profesionales
+                Dim cargarProfesional As New frmSelectProfesional
+                cargarProfesional.ShowDialog()
+        End Select
+
     End Sub
 
     Private Sub txtID_TextChanged(sender As Object, e As EventArgs) Handles txtID.TextChanged
+        ''lleno la grilla dependiendo en que panel me encuentre
+        'Select Case SuperTabControl1.SelectedPanel.Name
+        '    Case "SuperTabControlPanel1" 'Panel Conceptos
+        '        LlenarGrdConceptosPanel()
+        '    Case "SuperTabControlPanel2" 'Panel Profesionales
+        '        LlenarGrdProfesionalesPanel()
+        'End Select
         LlenarGrdConceptosPanel()
+        LlenarGrdProfesionalesPanel()
         ''Actualizo la grila de codigos
         If grd.CurrentRow IsNot Nothing Then
             grdCodigos.Rows(Codigos.FACAF).Cells(1).Value = grd.CurrentRow.Cells(GridItemsCols.CodFACAF).Value
@@ -1340,7 +1596,17 @@ Public Class frmFarmacias_Conceptos
     End Sub
 
     Private Sub btnEliminarPanel_Click(sender As Object, e As EventArgs) Handles btnEliminarPanel.Click
-        EliminarItemGrdConceptosPanel()
+        ''hacer un select case
+        Select Case SuperTabControl1.SelectedPanel.Name
+            Case "SuperTabControlPanel1" 'Panel Conceptos
+                If grdConceptosPanel.CurrentRow IsNot Nothing Then
+                    EliminarRelacionConcepto_Farmacia()
+                End If
+            Case "SuperTabControlPanel2" 'Panel Profesionales
+                If grdProfesionalesPanel.CurrentRow IsNot Nothing Then
+                    EliminarRelacionProfesional_Farmacia()
+                End If
+        End Select
     End Sub
 
     Private Sub btnImportExcel_Click(sender As Object, e As EventArgs) Handles btnImportExcel.Click
@@ -1359,6 +1625,7 @@ Public Class frmFarmacias_Conceptos
         ImportarExcel.ShowDialog()
 
     End Sub
+
 
 
 

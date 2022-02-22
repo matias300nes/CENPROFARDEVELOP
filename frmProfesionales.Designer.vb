@@ -341,7 +341,7 @@ Partial Class frmProfesionales
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(5)
         Me.Name = "frmProfesionales"
-        Me.Text = "Mandatarias"
+        Me.Text = "Profesionales"
         Me.Controls.SetChildIndex(Me.GroupPanel1, 0)
         Me.GroupPanel1.ResumeLayout(False)
         Me.GroupPanel1.PerformLayout()

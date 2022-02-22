@@ -198,6 +198,12 @@
     <Compile Include="frmImportarExcel.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmSelectProfesional.Designer.vb">
+      <DependentUpon>frmSelectProfesional.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmSelectProfesional.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmSelectConcepto.Designer.vb">
       <DependentUpon>frmSelectConcepto.vb</DependentUpon>
     </Compile>
@@ -900,6 +906,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmImportarExcel.resx">
       <DependentUpon>frmImportarExcel.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSelectProfesional.resx">
+      <DependentUpon>frmSelectProfesional.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSelectConcepto.resx">
       <DependentUpon>frmSelectConcepto.vb</DependentUpon>

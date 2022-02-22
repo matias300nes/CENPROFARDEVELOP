@@ -83,7 +83,7 @@ Public Class frmSelectConcepto
                     Dim conceptopago = IIf(.Cells(ColumnasDelGrdConceptos.ConceptoPago).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.ConceptoPago).Value)
                     Dim pertenecea = IIf(.Cells(ColumnasDelGrdConceptos.PerteneceA).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.PerteneceA).Value)
                     Dim tipovalor = IIf(.Cells(ColumnasDelGrdConceptos.TipoDeValor).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.TipoDeValor).Value)
-                    Dim valor = txtValor.Text
+                    Dim valor = IIf(txtValor.Text = "", .Cells(ColumnasDelGrdConceptos.Valor).Value, txtValor.Text)
                     Dim frecuencia = txtFrecuencia.Text
                     Dim campoaplicable = IIf(.Cells(ColumnasDelGrdConceptos.CampoAplicable).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.CampoAplicable).Value)
 
