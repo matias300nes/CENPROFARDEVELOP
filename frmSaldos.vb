@@ -188,7 +188,14 @@ Public Class frmSaldos
     End Sub
 
     Private Sub btnPago_Click(sender As Object, e As EventArgs) Handles btnPago.Click
-        grdFarmacia.CurrentCell = Nothing
+        ''me aseguro de que quede la fila seleccionada
+        Dim temprow As DataGridViewCell = Nothing
+        If grdFarmacia.CurrentCell IsNot Nothing Then
+            temprow = grdFarmacia.CurrentCell
+            grdFarmacia.CurrentCell = Nothing
+        End If
+        grdFarmacia.CurrentCell = temprow
+
         If checkSelected() Then
             Dim dv As New DataView(dtFarmacias)
             dv.RowFilter = $"[Selección] = 1"
