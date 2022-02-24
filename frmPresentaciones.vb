@@ -867,20 +867,41 @@ Public Class frmPresentaciones
         End If
 
         If cmbstatus = "" Then
+            'GbFarmaciaForm.Enabled = True
+            'grdItems.Enabled = True
             btnAgregarItem.Enabled = True
             btnGuardar.Enabled = True
-            btnNuevo.Enabled = True
-
-
+            btnNuevo.Enabled = False
         End If
 
-        If cmbstatus <> "PRESENTADO" And cmbstatus <> "" Then
+        ''edited
+        If cmbstatus = "PAGO PARCIAL" Or cmbstatus = "PAGADA" Then
             btnAgregarItem.Enabled = False
-            'grdItems.ReadOnly = True
-
             btnGuardar.Enabled = False
             btnNuevo.Enabled = True
         End If
+        ''edited
+
+
+        'If cmbstatus = "PRESENTADO" Then
+        '    'GbFarmaciaForm.Enabled = True
+        '    'grdItems.Enabled = True
+        '    btnAgregarItem.Enabled = True
+        '    btnGuardar.Enabled = True
+        '    btnNuevo.Enabled = True
+        'End If
+        'If cmbstatus = "" Then
+        '    btnAgregarItem.Enabled = True
+        '    btnGuardar.Enabled = True
+        '    btnNuevo.Enabled = True
+        'End If
+
+        'If cmbstatus <> "PRESENTADO" And cmbstatus <> "" Then
+        '    btnAgregarItem.Enabled = False
+        '    'grdItems.ReadOnly = True
+        '    btnGuardar.Enabled = False
+        '    btnNuevo.Enabled = True
+        'End If
 
     End Sub
 
@@ -940,6 +961,7 @@ Public Class frmPresentaciones
 
     Private Sub PrepararGridItems()
         Util.LimpiarGridItems(grdItems)
+        Util.LimpiarGridItems(grd)
     End Sub
 
     Private Sub AñadirGridItem()
