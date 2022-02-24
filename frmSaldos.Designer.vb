@@ -44,6 +44,8 @@ Partial Class frmSaldos
         Me.grdFarmacia.AllowUserToAddRows = False
         Me.grdFarmacia.AllowUserToDeleteRows = False
         Me.grdFarmacia.AllowUserToResizeRows = False
+        Me.grdFarmacia.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.grdFarmacia.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.grdFarmacia.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.grdFarmacia.Location = New System.Drawing.Point(17, 45)
