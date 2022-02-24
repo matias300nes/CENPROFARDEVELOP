@@ -149,6 +149,7 @@ Public Class frmFarmacias_Conceptos
 
         PrepararBotones()
 
+        grd_CurrentCellChanged(sender, e)
 
     End Sub
 
@@ -1535,6 +1536,12 @@ Public Class frmFarmacias_Conceptos
 
     End Sub
 
+    Private Overloads Sub grd_CurrentCellChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles grd.CurrentCellChanged
+        LlenarGrdConceptosPanel()
+        LlenarGrdProfesionalesPanel()
+    End Sub
+
+
     Private Sub txtCodigoPostal_TextChanged(sender As Object, e As EventArgs) Handles txtCodigoPostal.LostFocus
         If txtCodigoPostal.Text.Length = 4 Then
             Dim connection As SqlClient.SqlConnection = Nothing
@@ -1576,16 +1583,6 @@ Public Class frmFarmacias_Conceptos
     End Sub
 
     Private Sub txtID_TextChanged(sender As Object, e As EventArgs) Handles txtID.TextChanged
-        ''lleno la grilla dependiendo en que panel me encuentre
-        'Select Case SuperTabControl1.SelectedPanel.Name
-        '    Case "SuperTabControlPanel1" 'Panel Conceptos
-        '        LlenarGrdConceptosPanel()
-        '    Case "SuperTabControlPanel2" 'Panel Profesionales
-        '        LlenarGrdProfesionalesPanel()
-        'End Select
-        LlenarGrdConceptosPanel()
-        LlenarGrdProfesionalesPanel()
-        ''Actualizo la grila de codigos
         If grd.CurrentRow IsNot Nothing Then
             grdCodigos.Rows(Codigos.FACAF).Cells(1).Value = grd.CurrentRow.Cells(GridItemsCols.CodFACAF).Value
             grdCodigos.Rows(Codigos.PAMI).Cells(1).Value = grd.CurrentRow.Cells(GridItemsCols.CodPAMI).Value
