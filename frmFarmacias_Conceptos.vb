@@ -258,6 +258,7 @@ Public Class frmFarmacias_Conceptos
 
                 bolModo = False
                 PrepararBotones()
+                LlenarCmbProvincias()
                 MDIPrincipal.NoActualizarBase = False
                 btnActualizar_Click(sender, e)
 
@@ -1409,8 +1410,11 @@ Public Class frmFarmacias_Conceptos
 
     End Sub
 
-
+    Dim dsGeo
     Private Sub LlenarCmbProvincias()
+        Dim da As New SqlDataAdapter
+        Dim command As SqlCommand
+        dsGeo = New DataSet()
         ''LLENAR COMBOBOX PROVINCIAS
         Dim connection As SqlClient.SqlConnection = Nothing
         Try
@@ -1421,14 +1425,25 @@ Public Class frmFarmacias_Conceptos
         End Try
 
         Dim sql_provincias As String = "select ID, Nombre from provincias where eliminado = 0"
+        Dim sql_localidades As String = "select ID, Nombre, idProvincia, CodArea from Localidades where eliminado = 0"
 
         Try
-            Dim ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, sql_provincias)
 
-            ds.Dispose()
+            command = New SqlCommand(sql_provincias, connection)
+            da.SelectCommand = command
+            da.Fill(dsGeo, "Provincias")
+
+
+            da.SelectCommand.CommandText = sql_localidades
+            da.Fill(dsGeo, "Localidades")
+
+
+            da.Dispose()
+            command.Dispose()
+            connection.Close()
 
             With Me.cmbProvincia
-                .DataSource = ds.Tables(0).DefaultView
+                .DataSource = dsGeo.Tables("Provincias").DefaultView
                 .DisplayMember = "Nombre"
                 .ValueMember = "ID"
             End With
@@ -1445,77 +1460,46 @@ Public Class frmFarmacias_Conceptos
 
     Private Sub LlenarCmbLocalidades(ByVal idprovincia As Integer)
         ''LLENAR COMBOBOX PROVINCIAS
-        Dim connection As SqlClient.SqlConnection = Nothing
-        Try
-            connection = SqlHelper.GetConnection(ConnStringSEI)
-        Catch ex As Exception
-            MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
-        End Try
-        Dim sql_localidades As String
-        If idprovincia = 0 Then
-            sql_localidades = "select ID, Nombre from Localidades where eliminado = 0"
-        Else
-            sql_localidades = $"select ID, Nombre from Localidades where eliminado = 0 and idprovincia = {cmbProvincia.SelectedValue}"
+        Dim dv As New DataView(dsGeo.Tables("Localidades"))
+
+        If idprovincia <> 0 Then
+            dv.RowFilter = $"idProvincia = {cmbProvincia.SelectedValue}"
+            ''dsGeo.Tables("Localidades").Select($"idprovincia = {cmbProvincia.SelectedValue}")
         End If
 
+        With Me.cmbLocalidad
+            .DataSource = dv
+            .DisplayMember = "Nombre"
+            .ValueMember = "ID"
+            .AutoCompleteMode = AutoCompleteMode.SuggestAppend
+            .AutoCompleteSource = AutoCompleteSource.ListItems
+        End With
+        'End If
 
-        Try
-            Dim ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, sql_localidades)
-
-            ds.Dispose()
-
-            If ds.Tables(0).Rows.Count > 0 Then
-                With Me.cmbLocalidad
-                    .DataSource = ds.Tables(0).DefaultView
-                    .DisplayMember = "Nombre"
-                    .ValueMember = "ID"
-                    .AutoCompleteMode = AutoCompleteMode.SuggestAppend
-                    .AutoCompleteSource = AutoCompleteSource.ListItems
-                End With
-            End If
-
-        Catch ex As Exception
-            MessageBox.Show("Hubo un error al comunicarse con la base de datos.", "Error de Base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
-        End Try
+        If dv.Count = 0 Then
+            cmbLocalidad.Text = ""
+        End If
 
 
     End Sub
 
 
-    Private Sub cmbLocalidad_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbLocalidad.SelectedValueChanged
+    Private Sub cmbLocalidad_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbLocalidad.SelectedValueChanged
 
-        If llenandoCombo = True Then
-            ''LLENAR COMBOBOX LOCALIDADES
-            Dim connection As SqlClient.SqlConnection = Nothing
-            Try
-                connection = SqlHelper.GetConnection(ConnStringSEI)
-            Catch ex As Exception
-                MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Exit Sub
-            End Try
+        If TypeOf cmbLocalidad.SelectedValue Is Long Then
 
-            Try
+            Dim dv As New DataView(dsGeo.Tables("Localidades"))
 
-                Dim sql_postal As String = $"select ID, CodArea, IdProvincia from Localidades
-                                        where ID = '{cmbLocalidad.SelectedValue}'"
+            dv.RowFilter = $"ID = {cmbLocalidad.SelectedValue}"
 
+            Dim dt = dv.ToTable()
 
-                Dim ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, sql_postal)
-                ds.dispose()
-                If ds.Tables(0).Rows.Count > 0 Then
-                    If cmbProvincia.Text.Equals("") Then
-                        cmbProvincia.SelectedValue = ds.Tables(0).Rows(0)("IdProvincia")
-                    End If
-                    txtCodigoPostal.Text = IIf(ds.Tables(0).Rows(0)("CodArea") IsNot DBNull.Value, ds.Tables(0).Rows(0)("CodArea"), "")
+            If dt.rows.Count > 0 Then
+                If cmbProvincia.Text.Equals("") Then
+                    cmbProvincia.SelectedValue = dt.Rows(0)("ID")
                 End If
-
-
-            Catch ex As Exception
-                MessageBox.Show($"Hubo un error al comunicarse con la base de datos. {ex}", "Error de Base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Exit Sub
-            End Try
+                txtCodigoPostal.Text = IIf(dt.Rows(0)("CodArea") IsNot DBNull.Value, dt.Rows(0)("CodArea"), "")
+            End If
         End If
 
 
@@ -1536,36 +1520,25 @@ Public Class frmFarmacias_Conceptos
 
     End Sub
 
-    Private Overloads Sub grd_CurrentCellChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles grd.CurrentCellChanged
+    Private Overloads Sub grd_CurrentCellChanged(ByVal sender As Object, ByVal e As System.EventArgs)
         LlenarGrdConceptosPanel()
         LlenarGrdProfesionalesPanel()
     End Sub
 
-
-    Private Sub txtCodigoPostal_TextChanged(sender As Object, e As EventArgs) Handles txtCodigoPostal.LostFocus
+    Private Sub txtCodigoPostal_LostFocus(sender As Object, e As EventArgs) Handles txtCodigoPostal.LostFocus
         If txtCodigoPostal.Text.Length = 4 Then
-            Dim connection As SqlClient.SqlConnection = Nothing
-            Try
-                connection = SqlHelper.GetConnection(ConnStringSEI)
-            Catch ex As Exception
-                MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Exit Sub
-            End Try
 
-            Dim sql_postal As String = $"select ID, IdProvincia, CodArea from Localidades
-                                        where CodArea = {txtCodigoPostal.Text}"
+            Dim dv As New DataView(dsGeo.Tables("Localidades"))
 
-            Try
-                Dim ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, sql_postal)
-                ds.Dispose()
-                If ds.Tables(0).Rows.Count > 0 Then
-                    cmbProvincia.SelectedValue = ds.Tables(0).Rows(0)("IdProvincia")
-                    cmbLocalidad.SelectedValue = ds.Tables(0).Rows(0)("ID")
-                End If
-            Catch ex As Exception
-                MessageBox.Show($"Hubo un error al comunicarse con la base de datos.{ex}", "Error de Base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Exit Sub
-            End Try
+            dv.RowFilter = $"CodArea = {txtCodigoPostal.Text}"
+
+            Dim dt = dv.ToTable()
+
+            If dt.rows.Count > 0 Then
+                cmbProvincia.SelectedValue = dt.Rows(0)("IdProvincia")
+                cmbLocalidad.SelectedValue = dt.Rows(0)("ID")
+            End If
+
         End If
     End Sub
 
