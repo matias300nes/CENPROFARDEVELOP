@@ -138,6 +138,12 @@
     <Compile Include="frmAgregarCheques.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmAplicarConceptos.Designer.vb">
+      <DependentUpon>frmAplicarConceptos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmAplicarConceptos.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmExcelFilter.Designer.vb">
       <DependentUpon>frmExcelFilter.vb</DependentUpon>
     </Compile>
@@ -870,6 +876,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmAgregarCheques.resx">
       <DependentUpon>frmAgregarCheques.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAplicarConceptos.resx">
+      <DependentUpon>frmAplicarConceptos.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmExcelFilter.resx">
       <DependentUpon>frmExcelFilter.vb</DependentUpon>

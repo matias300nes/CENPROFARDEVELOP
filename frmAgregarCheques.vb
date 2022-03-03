@@ -210,6 +210,7 @@ Public Class frmAgregarCheques
                 res = param_res.Value
 
                 If (res <= 0) Then
+                    tran.Rollback()
                     GenerarPago = res
                 End If
             Next
