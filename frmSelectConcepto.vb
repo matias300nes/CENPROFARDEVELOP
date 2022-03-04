@@ -14,6 +14,7 @@ Public Class frmSelectConcepto
 
     Dim dtConceptos_Created As Boolean
     Dim count As Integer = 0
+    Dim Permitir As Boolean
     Enum ColumnasDelGrdConceptos
         Id = 0
         Codigo = 1
@@ -25,6 +26,10 @@ Public Class frmSelectConcepto
         Valor = 7
         CampoAplicable = 8
     End Enum
+
+    Private Sub asignarTags()
+        txtValor.Tag = "7"
+    End Sub
     Protected Function ReglasNegocio() As Boolean
         Dim msg As String
         ReglasNegocio = False
@@ -65,7 +70,10 @@ Public Class frmSelectConcepto
     End Sub
 
     Private Sub frmNuevaLiquidacion_Load(sender As Object, e As EventArgs) Handles Me.Load
+        asignarTags()
         LlenarGrilla()
+        Permitir = True
+        CargarCajas()
     End Sub
 
     Private Sub btnListo_Click(sender As Object, e As EventArgs) Handles btnListo.Click
@@ -108,8 +116,22 @@ Public Class frmSelectConcepto
 
     End Sub
 
+    Protected Sub CargarCajas()
+        If Not (grdConceptos.CurrentRow Is Nothing) Then
+            Util.GrillaATextBox(Me.Controls, grdConceptos)
+        End If
+    End Sub
+
     Private Sub cmbEstado_SelectedIndexChanged(sender As Object, e As EventArgs)
         LlenarGrilla()
+    End Sub
+
+    Private Sub grdConceptos_CurrentCellChanged(sender As Object, e As EventArgs) Handles grdConceptos.CurrentCellChanged
+        If Permitir Then
+            CargarCajas()
+        End If
+        'InformarCantidadRegistros()
+        'RaiseEvent ev_CellChanged(sender, e) 'por ahora lo usa el formulario entryline
     End Sub
 
     'Private Sub grdPresentaciones_SelectionChanged(sender As Object, e As DataGridViewCellEventArgs) Handles grdPresentaciones.SelectionChanged

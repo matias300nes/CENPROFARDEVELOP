@@ -6,7 +6,7 @@ Imports System.Data.SqlClient
 Imports ReportesNet
 
 
-Public Class frmConceptos
+Public Class frmGrupos
 
     Dim bolpoliticas As Boolean
 
@@ -32,8 +32,8 @@ Public Class frmConceptos
         configurarform()
         LlenarCmbConceptoPago()
         LlenarCmbPerteneceA()
-        LlenarCmbTipoValor()
-        LlenarCmbCamposAplicables()
+        'LlenarCmbTipoValor()
+        'LlenarCmbCamposAplicables()
         asignarTags()
         SQL = "exec spConceptos_Select_All 0"
         LlenarGrilla()
@@ -72,7 +72,7 @@ Public Class frmConceptos
 
 
     Private Sub txtid_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) _
-     Handles txtID.KeyPress, txtCODIGO.KeyPress
+     Handles txtID.KeyPress
         If e.KeyChar = ChrW(Keys.Enter) Then
             e.Handled = True
             SendKeys.Send("{TAB}")
@@ -138,7 +138,7 @@ Public Class frmConceptos
         Util.MsgStatus(Status1, "Haga click en [Guardar] despues de completar los datos.")
         PrepararBotones()
         Util.LimpiarTextBox(Me.Controls)
-        txtCODIGO.Focus()
+        'txtCODIGO.Focus()
         ' Else
         'Util.MsgStatus(Status1, "No tiene permiso para generar registros nuevos.", My.Resources.stop_error.ToBitmap)
         'End If
@@ -205,7 +205,7 @@ Public Class frmConceptos
 
         'nbreformreportes = "Listado de Almacenes por Código"
 
-        paramalmacenes.AgregarParametros("Código :", "STRING", "", False, txtCODIGO.Text.ToString, "", cnn)
+        'paramalmacenes.AgregarParametros("Código :", "STRING", "", False, txtCODIGO.Text.ToString, "", cnn)
         paramalmacenes.ShowDialog()
         ''cerroparametrosconaceptar VARIABLE GLOBAL PARA SABER SI EL FORMULARIO PARAMETROS
         ''SE CERRO DESDE EL BOTON Cerrar o DESDE EL BOTON ACEPTAR SIEMPRE QUE SE UTILICEN PARAMETROS USAR EL IF DE MAS ABAJO
@@ -293,8 +293,8 @@ Public Class frmConceptos
 
     Private Sub asignarTags()
         txtID.Tag = "0"
-        txtCODIGO.Tag = "1"
-        txtNombre.Tag = "2"
+        'txtCODIGO.Tag = "1"
+        'txtNombre.Tag = "2"
     End Sub
 
     Private Sub LlenarCmbConceptoPago()
@@ -389,98 +389,6 @@ Public Class frmConceptos
 
     End Sub
 
-    Private Sub LlenarCmbTipoValor()
-        Dim connection As SqlClient.SqlConnection = Nothing
-        Dim ds As Data.DataSet
-
-        Try
-            connection = SqlHelper.GetConnection(ConnStringSEI)
-        Catch ex As Exception
-            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
-        End Try
-
-        Try
-
-            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $" SELECT ID, NOMBRE FROM Conceptos_TipoValor WHERE ELIMINADO = 0")
-            ds.Dispose()
-
-            With cmbTipoValor
-                .DataSource = ds.Tables(0).DefaultView
-                .DisplayMember = "NOMBRE"
-                .ValueMember = "ID"
-                .AutoCompleteMode = AutoCompleteMode.SuggestAppend
-                .AutoCompleteSource = AutoCompleteSource.ListItems
-                '.SelectedIndex = "ID"
-            End With
-
-        Catch ex As Exception
-            Dim errMessage As String = ""
-            Dim tempException As Exception = ex
-
-            While (Not tempException Is Nothing)
-                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
-                tempException = tempException.InnerException
-            End While
-
-            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
-              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            If Not connection Is Nothing Then
-                CType(connection, IDisposable).Dispose()
-            End If
-        End Try
-
-
-    End Sub
-
-    Private Sub LlenarCmbCamposAplicables()
-        Dim connection As SqlClient.SqlConnection = Nothing
-        Dim ds As Data.DataSet
-
-        Try
-            connection = SqlHelper.GetConnection(ConnStringSEI)
-        Catch ex As Exception
-            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
-        End Try
-
-        Try
-
-            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $" SELECT ID, NOMBRE FROM Conceptos_CamposAplicables WHERE ELIMINADO = 0")
-            ds.Dispose()
-
-            With cmbCamposAplicables
-                .DataSource = ds.Tables(0).DefaultView
-                .DisplayMember = "NOMBRE"
-                .ValueMember = "ID"
-                .AutoCompleteMode = AutoCompleteMode.SuggestAppend
-                .AutoCompleteSource = AutoCompleteSource.ListItems
-                '.SelectedIndex = "ID"
-            End With
-
-        Catch ex As Exception
-            Dim errMessage As String = ""
-            Dim tempException As Exception = ex
-
-            While (Not tempException Is Nothing)
-                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
-                tempException = tempException.InnerException
-            End While
-
-            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
-              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            If Not connection Is Nothing Then
-                CType(connection, IDisposable).Dispose()
-            End If
-        End Try
-
-
-    End Sub
-
     Private Sub Verificar_Datos()
 
         bolpoliticas = False
@@ -517,21 +425,21 @@ Public Class frmConceptos
                 param_codigo.ParameterName = "@codigo"
                 param_codigo.SqlDbType = SqlDbType.VarChar
                 param_codigo.Size = 25
-                param_codigo.Value = txtCODIGO.Text
+                'param_codigo.Value = txtCODIGO.Text
                 param_codigo.Direction = ParameterDirection.Input
 
                 Dim param_nombre As New SqlClient.SqlParameter
                 param_nombre.ParameterName = "@nombre"
                 param_nombre.SqlDbType = SqlDbType.VarChar
                 param_nombre.Size = 50
-                param_nombre.Value = txtNombre.Text.ToUpper
+                'param_nombre.Value = txtNombre.Text.ToUpper
                 param_nombre.Direction = ParameterDirection.Input
 
                 Dim param_descripcion As New SqlClient.SqlParameter
                 param_descripcion.ParameterName = "@descripcion"
                 param_descripcion.SqlDbType = SqlDbType.VarChar
                 param_descripcion.Size = 100
-                param_descripcion.Value = txtDescripcion.Text.ToUpper
+                'param_descripcion.Value = txtDescripcion.Text.ToUpper
                 param_descripcion.Direction = ParameterDirection.Input
 
                 Dim param_idConceptoPago As New SqlClient.SqlParameter
@@ -549,19 +457,19 @@ Public Class frmConceptos
                 Dim param_idTipoValor As New SqlClient.SqlParameter
                 param_idTipoValor.ParameterName = "@IdTipoValor"
                 param_idTipoValor.SqlDbType = SqlDbType.BigInt
-                param_idTipoValor.Value = cmbTipoValor.SelectedValue
+                'param_idTipoValor.Value = cmbTipoValor.SelectedValue
                 param_idTipoValor.Direction = ParameterDirection.Input
 
                 Dim param_valor As New SqlClient.SqlParameter
                 param_valor.ParameterName = "@Valor"
                 param_valor.SqlDbType = SqlDbType.Decimal
-                param_valor.Value = txtValor.Text.ToUpper
+                'param_valor.Value = txtValor.Text.ToUpper
                 param_valor.Direction = ParameterDirection.Input
 
                 Dim param_IdCamposAplicables As New SqlClient.SqlParameter
                 param_IdCamposAplicables.ParameterName = "@IdCamposAplicables"
                 param_IdCamposAplicables.SqlDbType = SqlDbType.BigInt
-                param_IdCamposAplicables.Value = cmbCamposAplicables.SelectedValue
+                'param_IdCamposAplicables.Value = cmbCamposAplicables.SelectedValue
                 param_IdCamposAplicables.Direction = ParameterDirection.Input
 
                 Dim param_useradd As New SqlClient.SqlParameter
@@ -639,14 +547,14 @@ Public Class frmConceptos
                 param_nombre.ParameterName = "@nombre"
                 param_nombre.SqlDbType = SqlDbType.VarChar
                 param_nombre.Size = 50
-                param_nombre.Value = txtNombre.Text.ToUpper
+                'param_nombre.Value = txtNombre.Text.ToUpper
                 param_nombre.Direction = ParameterDirection.Input
 
                 Dim param_descripcion As New SqlClient.SqlParameter
                 param_descripcion.ParameterName = "@descripcion"
                 param_descripcion.SqlDbType = SqlDbType.VarChar
                 param_descripcion.Size = 100
-                param_descripcion.Value = txtDescripcion.Text.ToUpper
+                'param_descripcion.Value = txtDescripcion.Text.ToUpper
                 param_descripcion.Direction = ParameterDirection.Input
 
                 Dim param_idConceptoPago As New SqlClient.SqlParameter
@@ -664,19 +572,19 @@ Public Class frmConceptos
                 Dim param_idTipoValor As New SqlClient.SqlParameter
                 param_idTipoValor.ParameterName = "@IdTipoValor"
                 param_idTipoValor.SqlDbType = SqlDbType.BigInt
-                param_idTipoValor.Value = cmbTipoValor.SelectedValue
+                'param_idTipoValor.Value = cmbTipoValor.SelectedValue
                 param_idTipoValor.Direction = ParameterDirection.Input
 
                 Dim param_valor As New SqlClient.SqlParameter
                 param_valor.ParameterName = "@Valor"
                 param_valor.SqlDbType = SqlDbType.Decimal
-                param_valor.Value = txtValor.Text.ToUpper
+                'param_valor.Value = txtValor.Text.ToUpper
                 param_valor.Direction = ParameterDirection.Input
 
                 Dim param_IdCamposAplicables As New SqlClient.SqlParameter
                 param_IdCamposAplicables.ParameterName = "@IdCamposAplicables"
                 param_IdCamposAplicables.SqlDbType = SqlDbType.BigInt
-                param_IdCamposAplicables.Value = cmbCamposAplicables.SelectedValue
+                'param_IdCamposAplicables.Value = cmbCamposAplicables.SelectedValue
                 param_IdCamposAplicables.Direction = ParameterDirection.Input
 
                 Dim param_userupd As New SqlClient.SqlParameter

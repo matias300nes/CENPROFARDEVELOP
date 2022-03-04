@@ -144,6 +144,12 @@
     <Compile Include="frmAplicarConceptos.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmGrupos.Designer.vb">
+      <DependentUpon>frmGrupos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmGrupos.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmExcelFilter.Designer.vb">
       <DependentUpon>frmExcelFilter.vb</DependentUpon>
     </Compile>
@@ -879,6 +885,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmAplicarConceptos.resx">
       <DependentUpon>frmAplicarConceptos.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmGrupos.resx">
+      <DependentUpon>frmGrupos.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmExcelFilter.resx">
       <DependentUpon>frmExcelFilter.vb</DependentUpon>
