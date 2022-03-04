@@ -65,6 +65,7 @@ Public Class frmAplicarConceptos
 
         requestGrdData()
         setStyles()
+        setCantidadItems()
     End Sub
 
     Private Sub requestGrdData()
@@ -133,6 +134,12 @@ Public Class frmAplicarConceptos
         '    column.SortMode = DataGridViewColumnSortMode.NotSortable
         'Next
     End Sub
+
+    Private Function setCantidadItems()
+        Dim cant As Integer = dtConceptos.Rows.Count
+        lblCantidad.Text = IIf(cant > 0, $"Conceptos aplicables: {cant}", "No hay conceptos aplicables")
+        btnAplicar.Enabled = IIf(cant > 0, True, False)
+    End Function
 
     Private Function GenerarPago() As Integer
         Dim res1 As Integer = 0

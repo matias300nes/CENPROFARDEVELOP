@@ -68,16 +68,20 @@ Public Class frmAgregarCheques
 
         cmbTipoPago.DataSource = {"Cheque", "Transferencia", "Echeq"}
 
-        If farmacias.Rows.Count > 1 Then
-            Dim saldototal As Decimal = 0
-            For Each farmacia As DataRow In farmacias.Rows
+
+        Dim saldototal As Decimal = 0
+        For Each farmacia As DataRow In farmacias.Rows
+            If farmacia(FarmaciaCols.Saldo) > 0 Then
                 Dim newRow As DataRow = dt.NewRow
                 newRow(gridColumns.razonSocial) = farmacia(FarmaciaCols.RazonSocial)
                 newRow(gridColumns.tipoPago) = farmacia(FarmaciaCols.PreferenciaPago)
                 newRow(gridColumns.importe) = Decimal.Parse(farmacia(FarmaciaCols.Saldo))
                 dt.Rows.Add(newRow)
                 saldototal += Decimal.Parse(farmacia(FarmaciaCols.Saldo))
-            Next
+            End If
+        Next
+
+        If farmacias.Rows.Count > 1 Then
             lblRazonSocial.Text = $"{farmacias.Rows.Count} Seleccionadas"
             lblSaldoActual.Text = String.Format("{0:C}", saldototal)
         Else

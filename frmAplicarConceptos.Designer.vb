@@ -29,6 +29,7 @@ Partial Class frmAplicarConceptos
         Me.grdConceptos = New System.Windows.Forms.DataGridView()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.lblRazonSocial = New System.Windows.Forms.Label()
+        Me.lblCantidad = New System.Windows.Forms.Label()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.Panel1.SuspendLayout()
         CType(Me.grdConceptos, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -108,6 +109,7 @@ Partial Class frmAplicarConceptos
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.lblCantidad)
         Me.GroupBox1.Controls.Add(Me.lblRazonSocial)
         Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox1.Location = New System.Drawing.Point(2, 2)
@@ -127,6 +129,16 @@ Partial Class frmAplicarConceptos
         Me.lblRazonSocial.Size = New System.Drawing.Size(116, 16)
         Me.lblRazonSocial.TabIndex = 6
         Me.lblRazonSocial.Text = "Aplicar conceptos"
+        '
+        'lblCantidad
+        '
+        Me.lblCantidad.AutoSize = True
+        Me.lblCantidad.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.lblCantidad.Location = New System.Drawing.Point(410, 19)
+        Me.lblCantidad.Name = "lblCantidad"
+        Me.lblCantidad.Size = New System.Drawing.Size(144, 13)
+        Me.lblCantidad.TabIndex = 7
+        Me.lblCantidad.Text = "No hay conceptos aplicables"
         '
         'frmAplicarConceptos
         '
@@ -154,4 +166,5 @@ Partial Class frmAplicarConceptos
     Friend WithEvents Panel1 As Panel
     Friend WithEvents btnCancelar As DevComponents.DotNetBar.ButtonX
     Friend WithEvents btnAplicar As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents lblCantidad As Label
 End Class
