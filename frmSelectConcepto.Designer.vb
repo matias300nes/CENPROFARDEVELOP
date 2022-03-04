@@ -116,7 +116,7 @@ Partial Class frmSelectConcepto
         Me.LabelX1.Name = "LabelX1"
         Me.LabelX1.Size = New System.Drawing.Size(75, 17)
         Me.LabelX1.TabIndex = 2
-        Me.LabelX1.Text = "Valor"
+        Me.LabelX1.Text = "*Valor"
         '
         'txtFrecuencia
         '
@@ -128,6 +128,7 @@ Partial Class frmSelectConcepto
         '
         'txtValor
         '
+        Me.txtValor.AccessibleName = "*Valor"
         Me.txtValor.Location = New System.Drawing.Point(8, 52)
         Me.txtValor.Name = "txtValor"
         Me.txtValor.Size = New System.Drawing.Size(124, 22)

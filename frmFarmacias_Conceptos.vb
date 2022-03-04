@@ -1056,7 +1056,7 @@ Public Class frmFarmacias_Conceptos
 
             If result = DialogResult.Yes Then
                 If grdProfesionalesPanel.CurrentRow IsNot Nothing Then
-                    ds_coincidencia = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT idprofesional, idFarmacia FROM Farmacias_Conceptos WHERE idprofesional = {grdProfesionalesPanel.CurrentRow.Cells(ColumnasDelGrdProfesionalesPanel.Id).Value} AND idFarmacia = {txtID.Text}")
+                    ds_coincidencia = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT idprofesional, idFarmacia FROM Farmacias_Conceptos WHERE idprofesional = {grdProfesionalesPanel.CurrentRow.Cells(ColumnasDelGrdProfesionalesPanel.Id).Value} AND idFarmacia = {txtID.Text}") 'revisar
                     If ds_coincidencia.Tables(0).Rows.Count = 1 Then 'si encuentro esa relacion
                         Dim param_idProfesional As New SqlClient.SqlParameter
                         param_idProfesional.ParameterName = "@idprofesional"
@@ -1249,8 +1249,7 @@ Public Class frmFarmacias_Conceptos
 
                         Dim param_valor As New SqlClient.SqlParameter
                         param_valor.ParameterName = "@Valor"
-                        param_valor.SqlDbType = SqlDbType.VarChar
-                        param_valor.Size = 50
+                        param_valor.SqlDbType = SqlDbType.Decimal
                         param_valor.Value = Row.Cells(ColumnasDelGrdConceptosPanel.Valor).Value
                         param_valor.Direction = ParameterDirection.Input
 
