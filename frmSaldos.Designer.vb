@@ -28,7 +28,7 @@ Partial Class frmSaldos
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.btnPago = New DevComponents.DotNetBar.ButtonX()
-        Me.ButtonX4 = New DevComponents.DotNetBar.ButtonX()
+        Me.btnAplicarConceptos = New DevComponents.DotNetBar.ButtonX()
         Me.txtBuscar = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.lblTotal = New System.Windows.Forms.Label()
@@ -107,19 +107,19 @@ Partial Class frmSaldos
         Me.btnPago.Text = "Cheques/Transferencia"
         Me.btnPago.TextColor = System.Drawing.SystemColors.InfoText
         '
-        'ButtonX4
+        'btnAplicarConceptos
         '
-        Me.ButtonX4.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.ButtonX4.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ButtonX4.BackColor = System.Drawing.SystemColors.Control
-        Me.ButtonX4.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.ButtonX4.Location = New System.Drawing.Point(490, 273)
-        Me.ButtonX4.Name = "ButtonX4"
-        Me.ButtonX4.Size = New System.Drawing.Size(107, 23)
-        Me.ButtonX4.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.ButtonX4.TabIndex = 7
-        Me.ButtonX4.Text = "Aplicar conceptos"
-        Me.ButtonX4.TextColor = System.Drawing.SystemColors.InfoText
+        Me.btnAplicarConceptos.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnAplicarConceptos.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnAplicarConceptos.BackColor = System.Drawing.SystemColors.Control
+        Me.btnAplicarConceptos.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
+        Me.btnAplicarConceptos.Location = New System.Drawing.Point(490, 273)
+        Me.btnAplicarConceptos.Name = "btnAplicarConceptos"
+        Me.btnAplicarConceptos.Size = New System.Drawing.Size(107, 23)
+        Me.btnAplicarConceptos.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnAplicarConceptos.TabIndex = 7
+        Me.btnAplicarConceptos.Text = "Aplicar conceptos"
+        Me.btnAplicarConceptos.TextColor = System.Drawing.SystemColors.InfoText
         '
         'txtBuscar
         '
@@ -188,7 +188,7 @@ Partial Class frmSaldos
         Me.Controls.Add(Me.lblTotal)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.txtBuscar)
-        Me.Controls.Add(Me.ButtonX4)
+        Me.Controls.Add(Me.btnAplicarConceptos)
         Me.Controls.Add(Me.btnPago)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
@@ -211,7 +211,7 @@ Partial Class frmSaldos
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents btnPago As DevComponents.DotNetBar.ButtonX
-    Friend WithEvents ButtonX4 As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents btnAplicarConceptos As DevComponents.DotNetBar.ButtonX
     Friend WithEvents txtBuscar As TextBox
     Friend WithEvents Label3 As Label
     Friend WithEvents lblTotal As Label
