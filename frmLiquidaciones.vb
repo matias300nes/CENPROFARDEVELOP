@@ -1596,8 +1596,8 @@ Public Class frmLiquidaciones
         btnLiquidar.Enabled = False
 
         ''Limpieza de labels
-        lblPresentacionCodigo.Text = "No seleccionada"
         cmbTipoPago.SelectedValue = "FINAL"
+        lblPresentacionCodigo.Text = "No seleccionada"
         lblObraSocial.Text = "-"
         lblObservacion.Text = "-"
         lblPeriodo_presentacion.Text = "-"
@@ -2131,10 +2131,10 @@ Public Class frmLiquidaciones
 
         If panel.Name.Equals("Table2") = True Then
             panel.ColumnDragBehavior = False
-            'panel.Columns(0).Visible = False 'ID
-            'panel.Columns(1).Visible = False 'IdDetalle
-            'panel.Columns(2).Visible = False 'IdFarmacia
-            'panel.Columns(5).Visible = False 'estado
+            panel.Columns(0).Visible = False 'ID
+            panel.Columns(1).Visible = False 'IdDetalle
+            panel.Columns(2).Visible = False 'IdFarmacia
+            panel.Columns(5).Visible = False 'estado
             panel.Columns(6).Width = 30 'hago el boton de eliminar mas pequeño
 
             panel.Columns(3).AllowEdit = False
