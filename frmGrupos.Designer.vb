@@ -22,11 +22,12 @@ Partial Class frmGrupos
         Me.txtID = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.GroupPanel1 = New DevComponents.DotNetBar.Controls.GroupPanel()
+        Me.btnAgregarOS = New DevComponents.DotNetBar.ButtonX()
+        Me.btnAgregarGrupo = New DevComponents.DotNetBar.ButtonX()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
-        Me.cmbConceptoPago = New System.Windows.Forms.ComboBox()
-        Me.cmbPerteneceA = New System.Windows.Forms.ComboBox()
-        Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
+        Me.cmbMandataria = New System.Windows.Forms.ComboBox()
+        Me.cmbGrupo = New System.Windows.Forms.ComboBox()
         Me.GroupPanel1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -36,7 +37,7 @@ Partial Class frmGrupos
         Me.chkEliminados.BackColor = System.Drawing.Color.Transparent
         Me.chkEliminados.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.chkEliminados.ForeColor = System.Drawing.Color.Red
-        Me.chkEliminados.Location = New System.Drawing.Point(519, 41)
+        Me.chkEliminados.Location = New System.Drawing.Point(487, 40)
         Me.chkEliminados.Margin = New System.Windows.Forms.Padding(4)
         Me.chkEliminados.Name = "chkEliminados"
         Me.chkEliminados.Size = New System.Drawing.Size(138, 21)
@@ -79,18 +80,19 @@ Partial Class frmGrupos
         '
         Me.GroupPanel1.CanvasColor = System.Drawing.SystemColors.Control
         Me.GroupPanel1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007
-        Me.GroupPanel1.Controls.Add(Me.ButtonX1)
+        Me.GroupPanel1.Controls.Add(Me.btnAgregarOS)
+        Me.GroupPanel1.Controls.Add(Me.btnAgregarGrupo)
         Me.GroupPanel1.Controls.Add(Me.Label14)
         Me.GroupPanel1.Controls.Add(Me.Label13)
         Me.GroupPanel1.Controls.Add(Me.chkEliminados)
         Me.GroupPanel1.Controls.Add(Me.txtID)
         Me.GroupPanel1.Controls.Add(Me.Label1)
-        Me.GroupPanel1.Controls.Add(Me.cmbConceptoPago)
-        Me.GroupPanel1.Controls.Add(Me.cmbPerteneceA)
+        Me.GroupPanel1.Controls.Add(Me.cmbMandataria)
+        Me.GroupPanel1.Controls.Add(Me.cmbGrupo)
         Me.GroupPanel1.DisabledBackColor = System.Drawing.Color.Empty
         Me.GroupPanel1.Location = New System.Drawing.Point(12, 31)
         Me.GroupPanel1.Name = "GroupPanel1"
-        Me.GroupPanel1.Size = New System.Drawing.Size(685, 104)
+        Me.GroupPanel1.Size = New System.Drawing.Size(645, 125)
         '
         '
         '
@@ -121,6 +123,28 @@ Partial Class frmGrupos
         Me.GroupPanel1.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.GroupPanel1.TabIndex = 258
         '
+        'btnAgregarOS
+        '
+        Me.btnAgregarOS.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnAgregarOS.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
+        Me.btnAgregarOS.Location = New System.Drawing.Point(539, 88)
+        Me.btnAgregarOS.Name = "btnAgregarOS"
+        Me.btnAgregarOS.Size = New System.Drawing.Size(97, 28)
+        Me.btnAgregarOS.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnAgregarOS.TabIndex = 276
+        Me.btnAgregarOS.Text = "Agregar OS"
+        '
+        'btnAgregarGrupo
+        '
+        Me.btnAgregarGrupo.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnAgregarGrupo.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
+        Me.btnAgregarGrupo.Location = New System.Drawing.Point(405, 36)
+        Me.btnAgregarGrupo.Name = "btnAgregarGrupo"
+        Me.btnAgregarGrupo.Size = New System.Drawing.Size(75, 27)
+        Me.btnAgregarGrupo.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnAgregarGrupo.TabIndex = 275
+        Me.btnAgregarGrupo.Text = "+ Grupo"
+        '
         'Label14
         '
         Me.Label14.AutoSize = True
@@ -129,9 +153,9 @@ Partial Class frmGrupos
         Me.Label14.Location = New System.Drawing.Point(4, 19)
         Me.Label14.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(124, 17)
+        Me.Label14.Size = New System.Drawing.Size(79, 17)
         Me.Label14.TabIndex = 274
-        Me.Label14.Text = "Concepto de pago"
+        Me.Label14.Text = "Mandataria"
         '
         'Label13
         '
@@ -141,42 +165,31 @@ Partial Class frmGrupos
         Me.Label13.Location = New System.Drawing.Point(192, 19)
         Me.Label13.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(89, 17)
+        Me.Label13.Size = New System.Drawing.Size(48, 17)
         Me.Label13.TabIndex = 273
-        Me.Label13.Text = "Pertenece a:"
+        Me.Label13.Text = "Grupo"
         '
-        'cmbConceptoPago
+        'cmbMandataria
         '
-        Me.cmbConceptoPago.FormattingEnabled = True
-        Me.cmbConceptoPago.Location = New System.Drawing.Point(7, 40)
-        Me.cmbConceptoPago.Name = "cmbConceptoPago"
-        Me.cmbConceptoPago.Size = New System.Drawing.Size(179, 24)
-        Me.cmbConceptoPago.TabIndex = 3
+        Me.cmbMandataria.FormattingEnabled = True
+        Me.cmbMandataria.Location = New System.Drawing.Point(7, 40)
+        Me.cmbMandataria.Name = "cmbMandataria"
+        Me.cmbMandataria.Size = New System.Drawing.Size(179, 24)
+        Me.cmbMandataria.TabIndex = 3
         '
-        'cmbPerteneceA
+        'cmbGrupo
         '
-        Me.cmbPerteneceA.FormattingEnabled = True
-        Me.cmbPerteneceA.Location = New System.Drawing.Point(192, 40)
-        Me.cmbPerteneceA.Name = "cmbPerteneceA"
-        Me.cmbPerteneceA.Size = New System.Drawing.Size(204, 24)
-        Me.cmbPerteneceA.TabIndex = 4
-        '
-        'ButtonX1
-        '
-        Me.ButtonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.ButtonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.ButtonX1.Location = New System.Drawing.Point(405, 36)
-        Me.ButtonX1.Name = "ButtonX1"
-        Me.ButtonX1.Size = New System.Drawing.Size(75, 27)
-        Me.ButtonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.ButtonX1.TabIndex = 275
-        Me.ButtonX1.Text = "+ Grupo"
+        Me.cmbGrupo.FormattingEnabled = True
+        Me.cmbGrupo.Location = New System.Drawing.Point(192, 40)
+        Me.cmbGrupo.Name = "cmbGrupo"
+        Me.cmbGrupo.Size = New System.Drawing.Size(204, 24)
+        Me.cmbGrupo.TabIndex = 4
         '
         'frmGrupos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(710, 620)
+        Me.ClientSize = New System.Drawing.Size(667, 620)
         Me.Controls.Add(Me.GroupPanel1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(5)
@@ -198,7 +211,8 @@ Partial Class frmGrupos
     Friend WithEvents GroupPanel1 As DevComponents.DotNetBar.Controls.GroupPanel
     Friend WithEvents Label14 As Label
     Friend WithEvents Label13 As Label
-    Friend WithEvents cmbConceptoPago As ComboBox
-    Friend WithEvents cmbPerteneceA As ComboBox
-    Friend WithEvents ButtonX1 As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents cmbMandataria As ComboBox
+    Friend WithEvents cmbGrupo As ComboBox
+    Friend WithEvents btnAgregarGrupo As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents btnAgregarOS As DevComponents.DotNetBar.ButtonX
 End Class

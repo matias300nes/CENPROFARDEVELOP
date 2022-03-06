@@ -7,7 +7,7 @@ Imports ReportesNet
 
 
 Public Class frmGrupos
-
+    Dim cmbLlenado As Boolean = False
     Dim bolpoliticas As Boolean
 
 #Region "Procedimientos Formularios"
@@ -30,12 +30,11 @@ Public Class frmGrupos
     Private Sub frmConceptos_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         'AsignarPermisos(UserID, Me.Name, ALTA, MODIFICA, BAJA, BAJA_FISICA)
         configurarform()
-        LlenarCmbConceptoPago()
-        LlenarCmbPerteneceA()
-        'LlenarCmbTipoValor()
-        'LlenarCmbCamposAplicables()
+        LlenarCmbMandatarias()
+        'LlenarCmbGrupos()
+
         asignarTags()
-        SQL = "exec spConceptos_Select_All 0"
+        SQL = $"exec spGrupos_GruposOS_Select_All_By_IDMandataria @idmandataria = {cmbMandataria.SelectedValue}"
         LlenarGrilla()
         Permitir = True
         CargarCajas()
@@ -135,6 +134,7 @@ Public Class frmGrupos
     Private Sub btnNuevo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNuevo.Click
         'If ALTA Then
         bolModo = True
+        cmbLlenado = False
         Util.MsgStatus(Status1, "Haga click en [Guardar] despues de completar los datos.")
         PrepararBotones()
         Util.LimpiarTextBox(Me.Controls)
@@ -142,6 +142,8 @@ Public Class frmGrupos
         ' Else
         'Util.MsgStatus(Status1, "No tiene permiso para generar registros nuevos.", My.Resources.stop_error.ToBitmap)
         'End If
+        cmbLlenado = True 'permito que se llene el cmbGrupos
+        cmbMandataria.SelectedIndex = 0 'fuerzo a seleccionar el primer item
     End Sub
 
     Private Sub btnEliminar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEliminar.Click
@@ -297,7 +299,8 @@ Public Class frmGrupos
         'txtNombre.Tag = "2"
     End Sub
 
-    Private Sub LlenarCmbConceptoPago()
+
+    Private Sub LlenarCmbGrupos()
         Dim connection As SqlClient.SqlConnection = Nothing
         Dim ds As Data.DataSet
 
@@ -310,83 +313,22 @@ Public Class frmGrupos
 
         Try
 
-            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $" SELECT ID, NOMBRE FROM Conceptos_ConceptoPago WHERE ELIMINADO = 0")
+            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT Id, Nombre FROM Grupos WHERE IdMandataria = {cmbMandataria.SelectedValue}")
             ds.Dispose()
 
-            With cmbConceptoPago
+            With cmbGrupo
                 .DataSource = ds.Tables(0).DefaultView
-                .DisplayMember = "NOMBRE"
-                .ValueMember = "ID"
+                .DisplayMember = "Nombre"
+                .ValueMember = "Id"
                 .AutoCompleteMode = AutoCompleteMode.SuggestAppend
                 .AutoCompleteSource = AutoCompleteSource.ListItems
                 '.SelectedIndex = "ID"
             End With
 
         Catch ex As Exception
-            Dim errMessage As String = ""
-            Dim tempException As Exception = ex
 
-            While (Not tempException Is Nothing)
-                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
-                tempException = tempException.InnerException
-            End While
-
-            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
-              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            If Not connection Is Nothing Then
-                CType(connection, IDisposable).Dispose()
-            End If
         End Try
-
-
-    End Sub
-
-    Private Sub LlenarCmbPerteneceA()
-        Dim connection As SqlClient.SqlConnection = Nothing
-        Dim ds As Data.DataSet
-
-        Try
-            connection = SqlHelper.GetConnection(ConnStringSEI)
-        Catch ex As Exception
-            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
-        End Try
-
-        Try
-
-            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $" SELECT ID, NOMBRE FROM Conceptos_PerteneceA WHERE ELIMINADO = 0")
-            ds.Dispose()
-
-            With cmbPerteneceA
-                .DataSource = ds.Tables(0).DefaultView
-                .DisplayMember = "NOMBRE"
-                .ValueMember = "ID"
-                .AutoCompleteMode = AutoCompleteMode.SuggestAppend
-                .AutoCompleteSource = AutoCompleteSource.ListItems
-                '.SelectedIndex = "ID"
-            End With
-
-        Catch ex As Exception
-            Dim errMessage As String = ""
-            Dim tempException As Exception = ex
-
-            While (Not tempException Is Nothing)
-                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
-                tempException = tempException.InnerException
-            End While
-
-            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
-              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            If Not connection Is Nothing Then
-                CType(connection, IDisposable).Dispose()
-            End If
-        End Try
-
-
+        cmbLlenado = True
     End Sub
 
     Private Sub Verificar_Datos()
@@ -445,13 +387,13 @@ Public Class frmGrupos
                 Dim param_idConceptoPago As New SqlClient.SqlParameter
                 param_idConceptoPago.ParameterName = "@IdConceptoPago"
                 param_idConceptoPago.SqlDbType = SqlDbType.BigInt
-                param_idConceptoPago.Value = cmbConceptoPago.SelectedValue
+                param_idConceptoPago.Value = cmbMandataria.SelectedValue
                 param_idConceptoPago.Direction = ParameterDirection.Input
 
                 Dim param_idPerteneceA As New SqlClient.SqlParameter
                 param_idPerteneceA.ParameterName = "@IdPerteneceA"
                 param_idPerteneceA.SqlDbType = SqlDbType.BigInt
-                param_idPerteneceA.Value = cmbPerteneceA.SelectedValue
+                param_idPerteneceA.Value = cmbGrupo.SelectedValue
                 param_idPerteneceA.Direction = ParameterDirection.Input
 
                 Dim param_idTipoValor As New SqlClient.SqlParameter
@@ -560,13 +502,13 @@ Public Class frmGrupos
                 Dim param_idConceptoPago As New SqlClient.SqlParameter
                 param_idConceptoPago.ParameterName = "@IdConceptoPago"
                 param_idConceptoPago.SqlDbType = SqlDbType.BigInt
-                param_idConceptoPago.Value = cmbConceptoPago.SelectedValue
+                param_idConceptoPago.Value = cmbMandataria.SelectedValue
                 param_idConceptoPago.Direction = ParameterDirection.Input
 
                 Dim param_idPerteneceA As New SqlClient.SqlParameter
                 param_idPerteneceA.ParameterName = "@IdPerteneceA"
                 param_idPerteneceA.SqlDbType = SqlDbType.BigInt
-                param_idPerteneceA.Value = cmbPerteneceA.SelectedValue
+                param_idPerteneceA.Value = cmbGrupo.SelectedValue
                 param_idPerteneceA.Direction = ParameterDirection.Input
 
                 Dim param_idTipoValor As New SqlClient.SqlParameter
@@ -707,6 +649,71 @@ Public Class frmGrupos
             End If
         End Try
     End Function
+
+    Private Sub btnAgregarOS_Click(sender As Object, e As EventArgs) Handles btnAgregarOS.Click
+        Dim cargarObraSocial As New frmSelectObraSocial
+        cargarObraSocial.ShowDialog()
+        LlenarGrilla()
+    End Sub
+
+    Private Sub LlenarCmbMandatarias()
+        Dim connection As SqlClient.SqlConnection = Nothing
+        Dim ds As Data.DataSet
+
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+        Catch ex As Exception
+            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End Try
+
+        Try
+
+            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $" SELECT ID, NOMBRE FROM Mandatarias WHERE ELIMINADO = 0")
+            ds.Dispose()
+
+            With cmbMandataria
+                .DataSource = ds.Tables(0).DefaultView
+                .DisplayMember = "NOMBRE"
+                .ValueMember = "ID"
+                .AutoCompleteMode = AutoCompleteMode.SuggestAppend
+                .AutoCompleteSource = AutoCompleteSource.ListItems
+                '.SelectedIndex = "ID"
+            End With
+
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If Not connection Is Nothing Then
+                CType(connection, IDisposable).Dispose()
+            End If
+        End Try
+        cmbLlenado = True
+
+    End Sub
+
+    Private Sub btnAgregarGrupo_Click(sender As Object, e As EventArgs) Handles btnAgregarGrupo.Click
+        Dim cargarNuevoGrupo As New frmNuevoGrupo
+        cargarNuevoGrupo.ShowDialog()
+        LlenarCmbGrupos()
+    End Sub
+
+    Private Sub cmbMandataria_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbMandataria.SelectedValueChanged
+        If cmbLlenado = True Then
+            cmbGrupo.Text = ""
+            LlenarCmbGrupos()
+        End If
+    End Sub
 
 #End Region
 

@@ -360,13 +360,13 @@ Public Class frmPeriodoPresentaciones
 
         Try
 
-            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT DISTINCT Grupo FROM ObrasSociales WHERE ELIMINADO = 0 AND IdMandataria = {cmbMandatarias.SelectedValue}")
+            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT Id, Nombre FROM Grupos WHERE IdMandataria = {cmbMandatarias.SelectedValue}")
             ds.Dispose()
 
             With cmbGrupos
                 .DataSource = ds.Tables(0).DefaultView
-                .DisplayMember = "Grupo"
-                .ValueMember = "Grupo"
+                .DisplayMember = "Nombre"
+                .ValueMember = "Id"
                 .AutoCompleteMode = AutoCompleteMode.SuggestAppend
                 .AutoCompleteSource = AutoCompleteSource.ListItems
                 '.SelectedIndex = "ID"

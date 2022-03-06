@@ -27,6 +27,7 @@ Partial Class MDIPrincipal
         Me.ToolStripSeparator23 = New System.Windows.Forms.ToolStripSeparator()
         Me.FarmaciasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ConceptosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ProfesionalesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ObrasSocialesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MandatariasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PeriodoPresentacionesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -139,7 +140,7 @@ Partial Class MDIPrincipal
         Me.ToolStripStatusLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolTip = New System.Windows.Forms.ToolTip(Me.components)
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.ProfesionalesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.GruposToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip.SuspendLayout()
         Me.ToolStrip.SuspendLayout()
         Me.StatusStrip.SuspendLayout()
@@ -158,7 +159,7 @@ Partial Class MDIPrincipal
         '
         'AuxiliaresToolStripMenuItem
         '
-        Me.AuxiliaresToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripSeparator23, Me.FarmaciasToolStripMenuItem, Me.ConceptosToolStripMenuItem, Me.ProfesionalesToolStripMenuItem, Me.ObrasSocialesToolStripMenuItem, Me.MandatariasToolStripMenuItem, Me.PeriodoPresentacionesToolStripMenuItem, Me.ToolStripSeparator5, Me.PresentacionesToolStripMenuItem, Me.LiquidacionesToolStripMenuItem, Me.SaldosToolStripMenuItem, Me.ToolStripSeparator24, Me.ToolStripMenuItem1, Me.ToolStripSeparator21, Me.SalirToolStripMenuItem})
+        Me.AuxiliaresToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripSeparator23, Me.FarmaciasToolStripMenuItem, Me.ConceptosToolStripMenuItem, Me.ProfesionalesToolStripMenuItem, Me.ObrasSocialesToolStripMenuItem, Me.MandatariasToolStripMenuItem, Me.GruposToolStripMenuItem, Me.PeriodoPresentacionesToolStripMenuItem, Me.ToolStripSeparator5, Me.PresentacionesToolStripMenuItem, Me.LiquidacionesToolStripMenuItem, Me.SaldosToolStripMenuItem, Me.ToolStripSeparator24, Me.ToolStripMenuItem1, Me.ToolStripSeparator21, Me.SalirToolStripMenuItem})
         Me.AuxiliaresToolStripMenuItem.Name = "AuxiliaresToolStripMenuItem"
         Me.AuxiliaresToolStripMenuItem.Size = New System.Drawing.Size(59, 24)
         Me.AuxiliaresToolStripMenuItem.Text = "Inicio"
@@ -181,6 +182,13 @@ Partial Class MDIPrincipal
         Me.ConceptosToolStripMenuItem.Name = "ConceptosToolStripMenuItem"
         Me.ConceptosToolStripMenuItem.Size = New System.Drawing.Size(245, 26)
         Me.ConceptosToolStripMenuItem.Text = "Conceptos"
+        '
+        'ProfesionalesToolStripMenuItem
+        '
+        Me.ProfesionalesToolStripMenuItem.Image = CType(resources.GetObject("ProfesionalesToolStripMenuItem.Image"), System.Drawing.Image)
+        Me.ProfesionalesToolStripMenuItem.Name = "ProfesionalesToolStripMenuItem"
+        Me.ProfesionalesToolStripMenuItem.Size = New System.Drawing.Size(245, 26)
+        Me.ProfesionalesToolStripMenuItem.Text = "Profesionales"
         '
         'ObrasSocialesToolStripMenuItem
         '
@@ -948,12 +956,11 @@ Partial Class MDIPrincipal
         '
         Me.Timer1.Interval = 1200000
         '
-        'ProfesionalesToolStripMenuItem
+        'GruposToolStripMenuItem
         '
-        Me.ProfesionalesToolStripMenuItem.Image = CType(resources.GetObject("ProfesionalesToolStripMenuItem.Image"), System.Drawing.Image)
-        Me.ProfesionalesToolStripMenuItem.Name = "ProfesionalesToolStripMenuItem"
-        Me.ProfesionalesToolStripMenuItem.Size = New System.Drawing.Size(245, 26)
-        Me.ProfesionalesToolStripMenuItem.Text = "Profesionales"
+        Me.GruposToolStripMenuItem.Name = "GruposToolStripMenuItem"
+        Me.GruposToolStripMenuItem.Size = New System.Drawing.Size(245, 26)
+        Me.GruposToolStripMenuItem.Text = "Grupos"
         '
         'MDIPrincipal
         '
@@ -1101,4 +1108,5 @@ Partial Class MDIPrincipal
     Friend WithEvents ToolStripSeparator5 As ToolStripSeparator
     Friend WithEvents ToolStripSeparator24 As ToolStripSeparator
     Friend WithEvents ProfesionalesToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents GruposToolStripMenuItem As ToolStripMenuItem
 End Class
