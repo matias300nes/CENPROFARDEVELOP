@@ -7,6 +7,7 @@ Imports Microsoft.ApplicationBlocks.Data
 Imports System.Data
 Imports System.Data.SqlClient
 Imports System.Windows.Forms
+Imports DevComponents.DotNetBar.Controls
 'Imports System
 'Imports System.ServiceProcess
 'Imports System.IO
@@ -254,16 +255,16 @@ Public Module Util
 
     Dim impersonationContext As WindowsImpersonationContext
 
-    Declare Function LogonUserA Lib "advapi32.dll" (ByVal lpszUsername As String, _
-                            ByVal lpszDomain As String, _
-                            ByVal lpszPassword As String, _
-                            ByVal dwLogonType As Integer, _
-                            ByVal dwLogonProvider As Integer, _
+    Declare Function LogonUserA Lib "advapi32.dll" (ByVal lpszUsername As String,
+                            ByVal lpszDomain As String,
+                            ByVal lpszPassword As String,
+                            ByVal dwLogonType As Integer,
+                            ByVal dwLogonProvider As Integer,
                             ByRef phToken As IntPtr) As Integer
 
-    Declare Auto Function DuplicateToken Lib "advapi32.dll" ( _
-                            ByVal ExistingTokenHandle As IntPtr, _
-                            ByVal ImpersonationLevel As Integer, _
+    Declare Auto Function DuplicateToken Lib "advapi32.dll" (
+                            ByVal ExistingTokenHandle As IntPtr,
+                            ByVal ImpersonationLevel As Integer,
                             ByRef DuplicateTokenHandle As IntPtr) As Integer
 
     Declare Auto Function RevertToSelf Lib "advapi32.dll" () As Long
@@ -308,7 +309,7 @@ Public Module Util
 
     ' Leer una sección completa
     Private Declare Function GetPrivateProfileSection Lib "kernel32" Alias "GetPrivateProfileSectionA" _
-        (ByVal lpAppName As String, ByVal lpReturnedString As String, _
+        (ByVal lpAppName As String, ByVal lpReturnedString As String,
         ByVal nSize As Long, ByVal lpFileName As String) As Long
     '
     Private Declare Function GetPrivateProfileStringKey Lib "kernel32" Alias _
@@ -436,7 +437,7 @@ Public Module Util
             End While
 
             MessageBox.Show(String.Format("Se provocó un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
               "AsignarPermisos", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         Finally
@@ -446,7 +447,7 @@ Public Module Util
         End Try
     End Sub
 
-    Private Function impersonateValidUser(ByVal userName As String, _
+    Private Function impersonateValidUser(ByVal userName As String,
             ByVal domain As String, ByVal password As String) As Boolean
 
         Dim tempWindowsIdentity As WindowsIdentity
@@ -574,8 +575,8 @@ Public Module Util
         Next
     End Sub
 
-    Function SearchInComboBox(ByVal cmb As ComboBox, _
-                              ByVal txtToFind As String, _
+    Function SearchInComboBox(ByVal cmb As ComboBox,
+                              ByVal txtToFind As String,
                               Optional ByVal colPos As Integer = 0) _
                               As Integer
         Dim I As Integer
@@ -788,8 +789,8 @@ Public Module Util
     End Function
 
     ' Función para comprobar si el acceso es correcto
-    Public Function comprobarUsuario( _
-                ByVal nombre As String, _
+    Public Function comprobarUsuario(
+                ByVal nombre As String,
                 ByVal clave As String) As Boolean
 
         ' Conectar a la base de datos
@@ -856,7 +857,7 @@ Public Module Util
     End Function
 
     ' Función para comprobar si el acceso es correcto
-    Public Function ObtenerUsuario( _
+    Public Function ObtenerUsuario(
                 ByVal nombre As String) As Long
 
         ' Conectar a la base de datos
@@ -1087,10 +1088,13 @@ Public Module Util
     ' Limpiar las cajas de texto de un form
     Public Function CamposObligatorios(ByRef oVControls As Object, Optional ByRef msg As String = "") As String
         CamposObligatorios = msg
+
         For Each oControl As Object In oVControls
             Try
-                If TypeOf (oControl) Is TextBox Or TypeOf (oControl) Is ComboBox Then
+                If TypeOf (oControl) Is TextBox Or TypeOf (oControl) Is ComboBox Or TypeOf (oControl) Is ComboBoxEx Then
+
                     If InStr(oControl.AccessibleName, "*") <> 0 Then
+
                         If Trim(oControl.Text) = "" Then
                             CamposObligatorios = oControl.AccessibleName
                             msg = oControl.AccessibleName
@@ -1150,13 +1154,13 @@ Public Module Util
     End Function
 
     ' Permite obtener datos generales de la tabla MateriaPrima
-    Public Function comprobarUsuario2(ByRef ID As Long, ByVal codigo As String, _
-                                            ByVal pass As String, _
-                                            ByVal SHA1 As String, _
-                                            ByRef OK As Integer, _
-                                            ByRef nombre As String, _
-                                            ByRef vencida As Boolean, _
-                                            ByRef repetida As Boolean, _
+    Public Function comprobarUsuario2(ByRef ID As Long, ByVal codigo As String,
+                                            ByVal pass As String,
+                                            ByVal SHA1 As String,
+                                            ByRef OK As Integer,
+                                            ByRef nombre As String,
+                                            ByRef vencida As Boolean,
+                                            ByRef repetida As Boolean,
                                             Optional ByVal pConn As String = "") As Integer
 
         Dim connection As SqlClient.SqlConnection = Nothing
@@ -1234,8 +1238,8 @@ Public Module Util
                 param_repetida.Direction = ParameterDirection.InputOutput
 
                 Try
-                    SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spUsuariosComprobar2", param_id, _
-                                              param_codigo, param_nombre, param_celular, param_mail, _
+                    SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spUsuariosComprobar2", param_id,
+                                              param_codigo, param_nombre, param_celular, param_mail,
                                               param_pass, param_ok, param_vencida, param_repetida)
 
                     If Not param_id.Value Is DBNull.Value Then
@@ -1283,7 +1287,7 @@ Public Module Util
             End While
 
             MessageBox.Show(String.Format("Se provocó un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         Finally
@@ -1294,7 +1298,7 @@ Public Module Util
     End Function
 
     ' Permite obtener datos generales de la tabla MateriaPrima
-    Public Function cambiarContrasena(ByRef ID As Long, _
+    Public Function cambiarContrasena(ByRef ID As Long,
                                             ByVal pass As String, Conexion As String) As Boolean
 
         Dim connection As SqlClient.SqlConnection = Nothing
@@ -1353,7 +1357,7 @@ Public Module Util
             End While
 
             MessageBox.Show(String.Format("Se provocó un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         Finally
@@ -1503,7 +1507,7 @@ Public Module Util
         aux = IniGetSection(Archivo, "Conexion_Acer")
         If aux(0) <> "" Then
             temp = LeeIni("Conexion_Acer", "Server")
-            ConnStringAcer = "Persist Security Info=False;User ID=sa;Password=" & Clave_Segun_Server(temp) & ";Initial Catalog="
+            ConnStringACER = "Persist Security Info=False;User ID=sa;Password=" & Clave_Segun_Server(temp) & ";Initial Catalog="
             ConnStringACER = ConnStringACER & LeeIni("Conexion_Acer", "Origen")
             ConnStringACER = ConnStringACER & ";Data Source="
             ConnStringACER = ConnStringACER & temp

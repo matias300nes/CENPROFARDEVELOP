@@ -249,6 +249,7 @@ Partial Class frmAgregarCheques
         '
         'lblSaldoCubierto
         '
+        Me.lblSaldoCubierto.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblSaldoCubierto.AutoSize = True
         Me.lblSaldoCubierto.CausesValidation = False
         Me.lblSaldoCubierto.Location = New System.Drawing.Point(438, 40)
@@ -256,33 +257,40 @@ Partial Class frmAgregarCheques
         Me.lblSaldoCubierto.Size = New System.Drawing.Size(22, 13)
         Me.lblSaldoCubierto.TabIndex = 4
         Me.lblSaldoCubierto.Text = "$ 0"
+        Me.lblSaldoCubierto.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'lblSaldoActual
         '
+        Me.lblSaldoActual.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblSaldoActual.AutoSize = True
         Me.lblSaldoActual.Location = New System.Drawing.Point(423, 19)
         Me.lblSaldoActual.Name = "lblSaldoActual"
         Me.lblSaldoActual.Size = New System.Drawing.Size(22, 13)
         Me.lblSaldoActual.TabIndex = 3
         Me.lblSaldoActual.Text = "$ 0"
+        Me.lblSaldoActual.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'Label2
         '
+        Me.Label2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label2.AutoSize = True
         Me.Label2.Location = New System.Drawing.Point(359, 40)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(78, 13)
         Me.Label2.TabIndex = 2
         Me.Label2.Text = "Saldo cubierto:"
+        Me.Label2.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'Label1
         '
+        Me.Label1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label1.AutoSize = True
         Me.Label1.Location = New System.Drawing.Point(359, 18)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(60, 13)
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "Saldo total:"
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'btnListo
         '

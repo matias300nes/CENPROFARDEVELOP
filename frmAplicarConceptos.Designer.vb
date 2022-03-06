@@ -28,8 +28,8 @@ Partial Class frmAplicarConceptos
         Me.btnAplicar = New DevComponents.DotNetBar.ButtonX()
         Me.grdConceptos = New System.Windows.Forms.DataGridView()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.lblRazonSocial = New System.Windows.Forms.Label()
         Me.lblCantidad = New System.Windows.Forms.Label()
+        Me.lblRazonSocial = New System.Windows.Forms.Label()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.Panel1.SuspendLayout()
         CType(Me.grdConceptos, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -120,6 +120,18 @@ Partial Class frmAplicarConceptos
         Me.GroupBox1.TabIndex = 4
         Me.GroupBox1.TabStop = False
         '
+        'lblCantidad
+        '
+        Me.lblCantidad.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblCantidad.AutoSize = True
+        Me.lblCantidad.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.lblCantidad.Location = New System.Drawing.Point(410, 19)
+        Me.lblCantidad.Name = "lblCantidad"
+        Me.lblCantidad.Size = New System.Drawing.Size(144, 13)
+        Me.lblCantidad.TabIndex = 7
+        Me.lblCantidad.Text = "No hay conceptos aplicables"
+        Me.lblCantidad.TextAlign = System.Drawing.ContentAlignment.TopRight
+        '
         'lblRazonSocial
         '
         Me.lblRazonSocial.AutoSize = True
@@ -129,16 +141,6 @@ Partial Class frmAplicarConceptos
         Me.lblRazonSocial.Size = New System.Drawing.Size(116, 16)
         Me.lblRazonSocial.TabIndex = 6
         Me.lblRazonSocial.Text = "Aplicar conceptos"
-        '
-        'lblCantidad
-        '
-        Me.lblCantidad.AutoSize = True
-        Me.lblCantidad.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.lblCantidad.Location = New System.Drawing.Point(410, 19)
-        Me.lblCantidad.Name = "lblCantidad"
-        Me.lblCantidad.Size = New System.Drawing.Size(144, 13)
-        Me.lblCantidad.TabIndex = 7
-        Me.lblCantidad.Text = "No hay conceptos aplicables"
         '
         'frmAplicarConceptos
         '
