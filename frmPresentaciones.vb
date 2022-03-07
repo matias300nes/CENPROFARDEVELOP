@@ -219,7 +219,14 @@ Public Class frmPresentaciones
             If cmbEstado.Text = "PRESENTADO" Or bolModo = True Then
                 AñadirGridItem()
             End If
+        End If
+    End Sub
 
+    Private Sub txtBonificacion_KeyDown(sender As Object, e As KeyEventArgs) Handles txtBonificacion.KeyDown
+        If e.KeyData = Keys.Enter Then
+            If cmbEstado.Text = "PRESENTADO" Or bolModo = True Then
+                AñadirGridItem()
+            End If
         End If
     End Sub
 
@@ -235,13 +242,14 @@ Public Class frmPresentaciones
         If txtImpACargoOs.Text <> "" Then
             Dim subtotal As Decimal = 0
             Dim aCargoOS As Decimal = Decimal.Parse(txtImpACargoOs.Text)
-            Dim Bonificacion As Decimal = Decimal.Parse(nudBonificacion.Value)
-            subtotal = aCargoOS - (aCargoOS * Bonificacion)
-
-            txtImpACargoOs.Text = String.Format("{0:N2}", aCargoOS)
+            Dim Bonificacion As Decimal = 0
+            If txtBonificacion.Text <> "" Then
+                Bonificacion = Decimal.Parse(txtBonificacion.Text)
+            End If
+            subtotal = aCargoOS - Bonificacion
             txtImpTotalAPagar.Text = String.Format("{0:N2}", Math.Round(subtotal, 2))
+            txtImpACargoOs.Text = String.Format("{0:N2}", aCargoOS)
         End If
-
     End Sub
 
     Private Sub txtImpRecaudado_LostFocus(sender As Object, e As EventArgs) Handles txtImpRecaudado.LostFocus
@@ -258,19 +266,22 @@ Public Class frmPresentaciones
             subtotal = Decimal.Parse(txtImpACargoOs.Text) - (Decimal.Parse(txtImpACargoOs.Text) * (Decimal.Parse(nudBonificacion.Value)))
         End If
         txtBonificacion.Text = String.Format("{0:N2}", impBonificacion)
-        txtImpTotalAPagar.Text = String.Format("{0:N2}", subtotal)
+
     End Sub
 
     Private Sub txtBonificacion_LostFocus(sender As Object, e As EventArgs) Handles txtBonificacion.LostFocus
         If txtBonificacion.Text <> "" And txtImpACargoOs.Text <> "" And txtImpACargoOs.Text <> "0" Then
-            Dim bonificacion As Decimal = 0
+            Dim bonificacion As Decimal
+            Dim subtotal As Decimal
             Dim AcargoOS = Decimal.Parse(txtImpACargoOs.Text)
             Dim impBonificacion = Decimal.Parse(txtBonificacion.Text)
-
             bonificacion = impBonificacion / AcargoOS
             If bonificacion >= 0 And bonificacion <= 1 Then
                 nudBonificacion.Value = bonificacion
             End If
+            subtotal = Decimal.Parse(txtImpACargoOs.Text) - impBonificacion
+            txtBonificacion.Text = String.Format("{0:N2}", Decimal.Parse(txtBonificacion.Text))
+            txtImpTotalAPagar.Text = String.Format("{0:N2}", subtotal)
         End If
     End Sub
 
