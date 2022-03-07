@@ -2493,7 +2493,10 @@ Public Class frmPresentaciones
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        txtPeriodo.Text = $"{LbPeriodo_parte.Text} {LbPeriodo_Mes.Text}-{LbPeriodo_año.Text}"
+        txtPeriodo.Text = IIf(LbPeriodo_parte.Text <> "MENSUAL",
+                                $"{LbPeriodo_parte.Text} {LbPeriodo_Mes.Text}-{LbPeriodo_año.Text}",
+                                $"{LbPeriodo_Mes.Text}-{LbPeriodo_año.Text}"
+                                )
         GbPeriodo.Visible = Not GbPeriodo.Visible
     End Sub
 
