@@ -244,7 +244,7 @@ Public Class frmPresentaciones
 
     End Sub
 
-    Private Sub txtImpRecaudado_LostFocus(sender As Object, e As EventArgs)
+    Private Sub txtImpRecaudado_LostFocus(sender As Object, e As EventArgs) Handles txtImpRecaudado.LostFocus
         If txtImpRecaudado.Text <> "" Then
             txtImpRecaudado.Text = String.Format("{0:N2}", Decimal.Parse(txtImpRecaudado.Text))
         End If
@@ -622,30 +622,30 @@ Public Class frmPresentaciones
         End If
     End Sub
 
-    Protected Overloads Sub grd_CurrentCellChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles grd.CurrentCellChanged 'comentar cuando se necesite ver el diseñador
-        If Permitir Then
-            'band = 0
-            Try
+    'Protected Overloads Sub grd_CurrentCellChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles grd.CurrentCellChanged 'comentar cuando se necesite ver el diseñador
+    '    If Permitir Then
+    '        'band = 0
+    '        Try
 
-                'lblCantidadFilas.Text = grdItems.Rows.Count
-                'txtID.Text = grd.CurrentRow.Cells(0).Value
-                'txtRecaudado.Text = grd.CurrentRow.Cells(4).Value
-                'txtObservacion.Text = grd.CurrentRow.Cells(6).Value
-                'Dim filasGrd = grd.Rows.Count - 1
-                'If filasGrd = 0 Then
-                '    lblStatus.Text = "-"
-                'End If
+    '            'lblCantidadFilas.Text = grdItems.Rows.Count
+    '            'txtID.Text = grd.CurrentRow.Cells(0).Value
+    '            'txtRecaudado.Text = grd.CurrentRow.Cells(4).Value
+    '            'txtObservacion.Text = grd.CurrentRow.Cells(6).Value
+    '            'Dim filasGrd = grd.Rows.Count - 1
+    '            'If filasGrd = 0 Then
+    '            '    lblStatus.Text = "-"
+    '            'End If
 
-                'cmbObraSocial.SelectedValue = grd.CurrentRow.Cells(13).Value
-                'txtPeriodo.Text = grd.CurrentRow.Cells(14).Value
+    '            'cmbObraSocial.SelectedValue = grd.CurrentRow.Cells(13).Value
+    '            'txtPeriodo.Text = grd.CurrentRow.Cells(14).Value
 
-                'LlenarGrid_Items()
+    '            'LlenarGrid_Items()
 
-            Catch ex As Exception
-                'band = 1
-            End Try
-        End If
-    End Sub
+    '        Catch ex As Exception
+    '            'band = 1
+    '        End Try
+    '    End If
+    'End Sub
 
     'Private Sub rdAnuladas_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdAnuladas.CheckedChanged
     '    btnGuardar.Enabled = Not rdAnuladas.Checked
@@ -969,28 +969,37 @@ Public Class frmPresentaciones
         If cmbFarmacias.SelectedValue Is DBNull.Value Or cmbFarmacias.SelectedValue = 0 Or cmbFarmacias.Text = "" Then
             Util.MsgStatus(Status1, "Debe ingresar una farmacia VÁLIDA.", My.Resources.Resources.stop_error.ToBitmap)
             Util.MsgStatus(Status1, "Debe ingresar una farmacia VÁLIDA.", My.Resources.Resources.stop_error.ToBitmap, True)
-            '               GoTo Continuar
+            cmbFarmacias.Focus()
             Exit Sub
         End If
 
         If txtRecetas.Text = "" Or txtRecetas.Text = "0" Then
             Util.MsgStatus(Status1, "Debe ingresar la cantidad de recetas.", My.Resources.Resources.stop_error.ToBitmap)
             Util.MsgStatus(Status1, "Debe ingresar la cantidad de recetas.", My.Resources.Resources.stop_error.ToBitmap, True)
+            txtRecetas.Focus()
             Exit Sub
         End If
 
         If txtImpRecaudado.Text = "" Or txtImpRecaudado.Text = "0" Then
             Util.MsgStatus(Status1, "Debe ingresar el importe 100%.", My.Resources.Resources.stop_error.ToBitmap)
             Util.MsgStatus(Status1, "Debe ingresar el importe 100%.", My.Resources.Resources.stop_error.ToBitmap, True)
+            txtImpRecaudado.Focus()
             Exit Sub
         End If
 
         If txtImpACargoOs.Text = "" Or txtImpACargoOs.Text = "0" Then
             Util.MsgStatus(Status1, "Debe ingresar el importe a cargo de la Obra Social.", My.Resources.Resources.stop_error.ToBitmap)
             Util.MsgStatus(Status1, "Debe ingresar el importe a cargo de la Obra Social.", My.Resources.Resources.stop_error.ToBitmap, True)
+            txtImpACargoOs.Focus()
             Exit Sub
         End If
 
+        If txtBonificacion.Text = "" Then
+            Util.MsgStatus(Status1, "Debe ingresar una Bonificación.", My.Resources.Resources.stop_error.ToBitmap)
+            Util.MsgStatus(Status1, "Debe ingresar una Bonificación.", My.Resources.Resources.stop_error.ToBitmap, True)
+            txtBonificacion.Focus()
+            Exit Sub
+        End If
         'EVITAR REPETIDOS
         'Dim i As Integer
         'For i = 0 To grdItems.RowCount - 1
@@ -1011,7 +1020,7 @@ Public Class frmPresentaciones
             .Cells(ColumnasDelGridItems.Recetas).Value = txtRecetas.Text
             .Cells(ColumnasDelGridItems.Recaudado).Value = txtImpRecaudado.Text
             .Cells(ColumnasDelGridItems.ACargoOS).Value = txtImpACargoOs.Text
-            .Cells(ColumnasDelGridItems.Bonificacion).Value = nudBonificacion.Text
+            .Cells(ColumnasDelGridItems.Bonificacion).Value = txtBonificacion.Text
             .Cells(ColumnasDelGridItems.Total).Value = txtImpTotalAPagar.Text
 
         End With
@@ -1026,6 +1035,7 @@ Public Class frmPresentaciones
         txtImpRecaudado.Text = ""
         txtImpACargoOs.Text = ""
         nudBonificacion.Value = 0
+        txtBonificacion.Text = ""
         txtImpTotalAPagar.Text = ""
         cmbFarmacias.Focus()
     End Sub
