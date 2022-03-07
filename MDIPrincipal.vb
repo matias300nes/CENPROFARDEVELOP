@@ -4322,4 +4322,9 @@ Pedidos:
         frmProfesionales.MdiParent = Me
         frmProfesionales.Show()
     End Sub
+
+    Private Sub GruposToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles GruposToolStripMenuItem.Click
+        frmGrupos.MdiParent = Me
+        frmGrupos.Show()
+    End Sub
 End Class
