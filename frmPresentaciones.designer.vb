@@ -95,6 +95,7 @@ Partial Class frmPresentaciones
         Me.dtpFECHA = New System.Windows.Forms.DateTimePicker()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.GbFarmaciaForm = New System.Windows.Forms.GroupBox()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.txtBonificacion = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.nudBonificacion = New System.Windows.Forms.NumericUpDown()
@@ -242,7 +243,7 @@ Partial Class frmPresentaciones
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 535.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1367, 535)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1401, 535)
         Me.TableLayoutPanel1.TabIndex = 67
         '
         'GroupBox1
@@ -286,7 +287,7 @@ Partial Class frmPresentaciones
         Me.GroupBox1.ForeColor = System.Drawing.Color.Blue
         Me.GroupBox1.Location = New System.Drawing.Point(3, 3)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(1361, 529)
+        Me.GroupBox1.Size = New System.Drawing.Size(1395, 529)
         Me.GroupBox1.TabIndex = 1
         Me.GroupBox1.TabStop = False
         '
@@ -864,6 +865,7 @@ Partial Class frmPresentaciones
         '
         'GbFarmaciaForm
         '
+        Me.GbFarmaciaForm.Controls.Add(Me.Label1)
         Me.GbFarmaciaForm.Controls.Add(Me.txtBonificacion)
         Me.GbFarmaciaForm.Controls.Add(Me.Label13)
         Me.GbFarmaciaForm.Controls.Add(Me.nudBonificacion)
@@ -886,6 +888,18 @@ Partial Class frmPresentaciones
         Me.GbFarmaciaForm.TabStop = False
         Me.GbFarmaciaForm.Text = "Añadir farmacia"
         '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.BackColor = System.Drawing.Color.Transparent
+        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.ForeColor = System.Drawing.Color.Blue
+        Me.Label1.Location = New System.Drawing.Point(215, 145)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(20, 16)
+        Me.Label1.TabIndex = 340
+        Me.Label1.Text = "%"
+        '
         'txtBonificacion
         '
         Me.txtBonificacion.AccessibleName = ""
@@ -894,11 +908,11 @@ Partial Class frmPresentaciones
         Me.txtBonificacion.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtBonificacion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtBonificacion.Format = TextBoxConFormatoVB.tbFormats.UnsignedFloatingPointNumber
-        Me.txtBonificacion.Location = New System.Drawing.Point(132, 165)
+        Me.txtBonificacion.Location = New System.Drawing.Point(37, 165)
         Me.txtBonificacion.MaxLength = 100
         Me.txtBonificacion.Name = "txtBonificacion"
         Me.txtBonificacion.Size = New System.Drawing.Size(175, 22)
-        Me.txtBonificacion.TabIndex = 5
+        Me.txtBonificacion.TabIndex = 4
         Me.txtBonificacion.Text_1 = Nothing
         Me.txtBonificacion.Text_2 = Nothing
         Me.txtBonificacion.Text_3 = Nothing
@@ -921,11 +935,11 @@ Partial Class frmPresentaciones
         '
         Me.nudBonificacion.DecimalPlaces = 2
         Me.nudBonificacion.Increment = New Decimal(New Integer() {1, 0, 0, 131072})
-        Me.nudBonificacion.Location = New System.Drawing.Point(38, 166)
+        Me.nudBonificacion.Location = New System.Drawing.Point(218, 165)
         Me.nudBonificacion.Maximum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.nudBonificacion.Name = "nudBonificacion"
         Me.nudBonificacion.Size = New System.Drawing.Size(88, 22)
-        Me.nudBonificacion.TabIndex = 4
+        Me.nudBonificacion.TabIndex = 5
         '
         'cmbFarmacias
         '
@@ -1195,4 +1209,5 @@ Partial Class frmPresentaciones
     Friend WithEvents Bonificacion As DataGridViewTextBoxColumn
     Friend WithEvents Total As DataGridViewTextBoxColumn
     Friend WithEvents Eliminar As DataGridViewButtonColumn
+    Friend WithEvents Label1 As Label
 End Class
