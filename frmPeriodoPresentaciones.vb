@@ -457,10 +457,9 @@ Public Class frmPeriodoPresentaciones
                 param_cmbMandatarias.Direction = ParameterDirection.Input
 
                 Dim param_grupo As New SqlClient.SqlParameter
-                param_grupo.ParameterName = "@grupo"
-                param_grupo.SqlDbType = SqlDbType.VarChar
-                param_grupo.Size = 10
-                param_grupo.Value = cmbGrupos.Text
+                param_grupo.ParameterName = "@idGrupo"
+                param_grupo.SqlDbType = SqlDbType.BigInt
+                param_grupo.Value = cmbGrupos.SelectedValue
                 param_grupo.Direction = ParameterDirection.Input
 
                 Dim param_periodo As New SqlClient.SqlParameter
@@ -553,10 +552,9 @@ Public Class frmPeriodoPresentaciones
                 param_cmbMandatarias.Direction = ParameterDirection.Input
 
                 Dim param_grupo As New SqlClient.SqlParameter
-                param_grupo.ParameterName = "@grupo"
-                param_grupo.SqlDbType = SqlDbType.VarChar
-                param_grupo.Size = 10
-                param_grupo.Value = cmbGrupos.Text
+                param_grupo.ParameterName = "@idGrupo"
+                param_grupo.SqlDbType = SqlDbType.BigInt
+                param_grupo.Value = cmbGrupos.SelectedValue
                 param_grupo.Direction = ParameterDirection.Input
 
                 Dim param_periodo As New SqlClient.SqlParameter
