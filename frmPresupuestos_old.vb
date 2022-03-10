@@ -2100,14 +2100,14 @@ Public Class frmPresupuestos_old
             chkAmpliarGrillaInferior.Checked = False
         End If
 
-        If btnBand_Copiar = True Then
-            If Origen = 2 Then
-                frmPresupuestos_Tipos.rdBaja.Enabled = False
-                frmPresupuestos_Tipos.rdMedia.Enabled = False
-                frmPresupuestos_Tipos.rdTableros.Enabled = False
-            End If
-            frmPresupuestos_Tipos.ShowDialog()
-        End If
+        'If btnBand_Copiar = True Then
+        '    If Origen = 2 Then
+        '        frmPresupuestos_Tipos.rdBaja.Enabled = False
+        '        frmPresupuestos_Tipos.rdMedia.Enabled = False
+        '        frmPresupuestos_Tipos.rdTableros.Enabled = False
+        '    End If
+        '    frmPresupuestos_Tipos.ShowDialog()
+        'End If
 
         If rdMateriales.Checked = True Then
             If MessageBox.Show("Desea agregar al presupuesto como una Oferta Comercial?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
@@ -2767,8 +2767,8 @@ Public Class frmPresupuestos_old
             grdItems.Rows(grdItems.RowCount - 1).Cells(ColumnasDelGridItems.Cod_Material).Selected = True
         End If
         grdItems.EditMode = DataGridViewEditMode.EditOnEnter
-        frmTableros.bandera_boton = True
-        frmTableros.ShowDialog()
+        'frmTableros.bandera_boton = True
+        'frmTableros.ShowDialog()
         Agregar_Materiales_Tablero()
         grdItems.EditMode = DataGridViewEditMode.EditOnKeystrokeOrF2
     End Sub
@@ -4242,40 +4242,40 @@ Public Class frmPresupuestos_old
 
     Private Sub BuscarProducto()
         'If e.ColumnIndex = ColumnasDelGridItems.Cod_Material Then
-        LLAMADO_POR_FORMULARIO = True
+        'LLAMADO_POR_FORMULARIO = True
 
-        Dim f As New frmMaterialesPrecios
+        'Dim f As New frmMaterialesPrecios
 
-        f.Width = 1200
-        f.Height = 650
-        f.StartPosition = FormStartPosition.CenterScreen
-        f.grd.Width = 1150
-        f.grd.Height = 350
-        f.DesdePre = 1
-        f.FilaCodigo = Cell_Y 'e.RowIndex
-        f.rdPrecioDist.Checked = chkPrecioDistribuidor.Checked
-        f.CodMonedaPres = txtCodMonedaPres.Text
-        f.ValorCambioDolar = ValorcambioDolar
+        'f.Width = 1200
+        'f.Height = 650
+        'f.StartPosition = FormStartPosition.CenterScreen
+        'f.grd.Width = 1150
+        'f.grd.Height = 350
+        'f.DesdePre = 1
+        'f.FilaCodigo = Cell_Y 'e.RowIndex
+        'f.rdPrecioDist.Checked = chkPrecioDistribuidor.Checked
+        'f.CodMonedaPres = txtCodMonedaPres.Text
+        'f.ValorCambioDolar = ValorcambioDolar
 
-        f.ShowDialog(Me)
+        'f.ShowDialog(Me)
 
-        chkOcultarGanancia.Checked = True
+        'chkOcultarGanancia.Checked = True
 
-        grdItems.CurrentCell = grdItems(ColumnasDelGridItems.Ganancia, grdItems.CurrentRow.Index)
+        'grdItems.CurrentCell = grdItems(ColumnasDelGridItems.Ganancia, grdItems.CurrentRow.Index)
 
-        Try
-            If grdItems.CurrentRow.Cells(ColumnasDelGridItems.Stock).Value = 0 Then
-                grdItems.CurrentRow.Cells(ColumnasDelGridItems.Stock).Style.BackColor = Color.Red
-            Else
-                If grdItems.CurrentRow.Cells(ColumnasDelGridItems.Stock).Value <= grdItems.CurrentRow.Cells(ColumnasDelGridItems.Minimo).Value Then
-                    grdItems.CurrentRow.Cells(ColumnasDelGridItems.Stock).Style.BackColor = Color.Yellow
-                Else
-                    grdItems.CurrentRow.Cells(ColumnasDelGridItems.Stock).Style.BackColor = Color.White
-                End If
-            End If
-        Catch ex As Exception
+        'Try
+        '    If grdItems.CurrentRow.Cells(ColumnasDelGridItems.Stock).Value = 0 Then
+        '        grdItems.CurrentRow.Cells(ColumnasDelGridItems.Stock).Style.BackColor = Color.Red
+        '    Else
+        '        If grdItems.CurrentRow.Cells(ColumnasDelGridItems.Stock).Value <= grdItems.CurrentRow.Cells(ColumnasDelGridItems.Minimo).Value Then
+        '            grdItems.CurrentRow.Cells(ColumnasDelGridItems.Stock).Style.BackColor = Color.Yellow
+        '        Else
+        '            grdItems.CurrentRow.Cells(ColumnasDelGridItems.Stock).Style.BackColor = Color.White
+        '        End If
+        '    End If
+        'Catch ex As Exception
 
-        End Try
+        'End Try
 
     End Sub
 

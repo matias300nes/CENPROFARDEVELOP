@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -19,7 +19,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <ApplicationIcon>icons8-configuración-del-administrador-48.ico</ApplicationIcon>
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -67,6 +67,12 @@
       <HintPath>Utiles\bin\Debug\DevComponents.DotNetBar2_2015.dll</HintPath>
     </Reference>
     <Reference Include="DevComponents.Instrumentation, Version=12.5.0.6, Culture=neutral, PublicKeyToken=f90dc37c26666a67" />
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="ExcelDataReader, Version=3.6.0.0, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
       <HintPath>packages\ExcelDataReader.3.6.0\lib\net20\ExcelDataReader.dll</HintPath>
       <Private>True</Private>
@@ -83,6 +89,24 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Microsoft.ApplicationBlocks.Data\bin\Microsoft.ApplicationBlocks.Data.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1484.0\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1484.0\lib\net40\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Design, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1484.0\lib\net40\Microsoft.ReportViewer.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1484.0\lib\net40\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1484.0\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0">
       <Private>True</Private>
     </Reference>
@@ -96,11 +120,15 @@
       <HintPath>..\ReportesNET\bin\Debug\ReportesNet.exe</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Messaging" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="TextBoxConFormatoVB, Version=1.0.4645.34388, Culture=neutral, processorArchitecture=MSIL">
@@ -132,6 +160,36 @@
     </Compile>
     <Compile Include="ApplicationEvents.vb" />
     <Compile Include="CommManager.vb" />
+    <Compile Include="conexionDb.Context.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>conexionDb.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="conexionDb.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>conexionDb.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="conexionDb.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="fnGastos_IVA_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="fnMateriales_Proveedor_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="fn_Stock_Material_Almacen_Lote_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="fn_Stock_Material_Almacen_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="fn_Stock_Material_Unidad_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="frmAgregarCheques.Designer.vb">
       <DependentUpon>frmAgregarCheques.vb</DependentUpon>
     </Compile>
@@ -498,12 +556,6 @@
     <Compile Include="frmAsistencias.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmConsolidaciones.designer.vb">
-      <DependentUpon>frmConsolidaciones.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmConsolidaciones.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="frmDeposito.Designer.vb">
       <DependentUpon>frmDeposito.vb</DependentUpon>
     </Compile>
@@ -514,12 +566,6 @@
       <DependentUpon>frmJornadas.vb</DependentUpon>
     </Compile>
     <Compile Include="frmJornadas.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmPresupuestos.Designer.vb">
-      <DependentUpon>frmPresupuestos.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmPresupuestos.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmGastosSueldos.designer.vb">
@@ -544,12 +590,6 @@
       <DependentUpon>frmEnsayos.vb</DependentUpon>
     </Compile>
     <Compile Include="frmEnsayos.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmPresupuestos_Tipos.Designer.vb">
-      <DependentUpon>frmPresupuestos_Tipos.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmPresupuestos_Tipos.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmMaqHerramientas_Mov.Designer.vb">
@@ -586,12 +626,6 @@
       <DependentUpon>frmMateriales_ImagenExcel.vb</DependentUpon>
     </Compile>
     <Compile Include="frmMateriales_ImagenExcel.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmOrdenCompra_Abierta.Designer.vb">
-      <DependentUpon>frmOrdenCompra_Abierta.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmOrdenCompra_Abierta.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmPresentacion.designer.vb">
@@ -682,12 +716,6 @@
       <DependentUpon>frmIngresos.vb</DependentUpon>
     </Compile>
     <Compile Include="frmIngresos.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmMaterialesPrecios.Designer.vb">
-      <DependentUpon>frmMaterialesPrecios.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmMaterialesPrecios.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmCheques.designer.vb">
@@ -810,12 +838,6 @@
     <Compile Include="frmProveedores.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmTableros.Designer.vb">
-      <DependentUpon>frmTableros.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmTableros.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="frmTipoMoneda.Designer.vb">
       <DependentUpon>frmTipoMoneda.vb</DependentUpon>
     </Compile>
@@ -846,6 +868,9 @@
     <Compile Include="frmVentas.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="HistorialCta_SelectByIdFarmacia_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="MDIPrincipal.Designer.vb">
       <DependentUpon>MDIPrincipal.vb</DependentUpon>
     </Compile>
@@ -875,6 +900,20 @@
     <Compile Include="frmSaldos.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Reportes\dsPresentaciones.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsPresentaciones.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\dsPresentaciones.vb">
+      <DependentUpon>dsPresentaciones.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\frmExportPresentacion.Designer.vb">
+      <DependentUpon>frmExportPresentacion.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\frmExportPresentacion.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Service References\WS_Porkys\Reference.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -885,6 +924,618 @@
     </Compile>
     <Compile Include="frmMovDia_Caja_Operacion.vb">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="spAjustes_Det_Select_All_Porkys_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spAjustes_Det_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spAjustes_Det_Select_By_IDAjuste_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spAjustes_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spAlmacenes_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spAnticiposIngresosDeposito_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spAsistencias_CalculoHorasTrabajas_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spAsistencias_Select_by_IdEmpleado_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spBalanzas_Exportar_Precios_CF_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spBalanzas_Exportar_Precios_Mayo_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spBalanzas_Exportar_Precios_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spBalanzas_Exportar_Secciones_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spCheques_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spCierreObras_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spCierreObras_Ventas_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spClientes_Contacto_Select_ALL_By_ID_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spClientes_Contacto_Select_ALL_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spClientes_Contacto_Select_By_ID_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spClientes_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spConceptos_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spConceptos_Select_Valor_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spCondiciondePago_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spConsolidaciones_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spDevolucionesProveedor_Det_Select_By_IDDevolucion_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spDevolucionesProveedor_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spDevoluciones_Det_Select_By_IDDevolucion_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spDevoluciones_Det_Select_By_IdRemito_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spDevoluciones_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spEmpleados_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spFacturacion_ItemsporRemito_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spFamilias_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spFarmacias_Conceptos_ACobrar_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spFarmacias_Conceptos_Select_By_IDFarmacia_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spFarmacias_Profesionales_Select_By_IDFarmacia_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spFarmacias_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spFiltrar_Ventas_Clientes_Select_All2_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spFiltrar_Ventas_Clientes_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spGastos_Det_Select_by_IdGasto_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spGastos_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spGrupos_GruposOS_Select_All_By_IDMandataria_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spGrupos_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spImpuestos_Gastos_Select_by_IdGasto_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spImpuestos_Ingresos_Select_by_IdIngreso_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spImpuestos_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spIngresos_ConsumosyFacturas_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spIngresos_Select_All_ByID_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spIngresos_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spJornadas_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spLiquidaciones_det_Conceptos_Select_By_IDLiquidacion_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spLiquidaciones_Det_Select_By_IDLiquidacion_Respaldo_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spLiquidaciones_Det_Select_By_IDLiquidacion_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spLiquidaciones_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spLista_Precios_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spMandatarias_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spMaquinasHerramientas_Det_Select_By_IdMaquinaHerramienta_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spMaquinasHerramientas_Mov_Det_Select_By_IdMaqMov_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spMaquinasHerramientas_Mov_Select_ALL_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spMaquinasHerramientas_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spMarcas_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spMateriales_ActualizarPrecios_Det_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spMateriales_ActualizarPrecios_Det_Select_By_IDActPre_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spMateriales_ActualizarPrecios_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spMateriales_ControlarNombre_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spMateriales_Mas_Solicitados_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spMateriales_Select_All_Excel_2_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spMateriales_Select_All_Excel_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spMateriales_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spMateriales_Select_Combo_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spMovimientosdelDia_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spMovimientos_Caja_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spMovimientos_Caja_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spMovimientos_de_caja_selecting_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spNotas_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spNuevaLiquidacionConceptos_Select_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spNuevaLiquidacionDetalle_Select_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spObrasSociales_Select_All_By_IDMandataria_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spObrasSociales_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spOrdenDeCompra_Det_Select_By_IDOrdenDeCompra_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spOrdenDeCompra_Excel_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spOrdenDeCompra_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spOrdenDeTrabajo_Empleados_Select_ALL_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spOrdenDeTrabajo_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spPagos_Cheques_Propios_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spPagos_Cheques_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spPagos_Gastos_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spPagos_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spPedidosWEB_Det_GetDetalle_Devolucion_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spPedidosWEB_Det_Select_By_IDPedidosWEB_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spPedidosWEB_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spPeriodoPresentaciones_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spPresentaciones_Det_Select_By_IDPresentacion_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spPresentaciones_Select_All_old_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spPresentaciones_Select_All_original_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spPresentaciones_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spPresentacion_Report_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spPresupuestos_ControlarItemDentrodeRemito_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spPresupuestos_Gestion_Det_Select_By_IDPresupuesto_Gestion_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spPresupuestos_Gestion_Det_Select_By_IDPresupuesto_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spPresupuestos_Gestion_Especiales_Det_Select_By_IdPresGes_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spPresupuestos_OfertasComerciales_Det_Insert_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spPresupuestos_OfertasComerciales_Select_by_Idpresupuesto_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spPresupuestos_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spPresupuestos_Trafos_Det_Insert_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spPresupuestos_Trafos_Det_Select_By_IdPresupuesto_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spPresupuestos_Trafos_Ensayos_Select_By_IdPresupuesto_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spPresupuestos_Trafos_Ensayos_Update_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spProfesionales_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spPromociones_Det_Select_By_IDPromociones_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spPromociones_Porkys_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spProveedores_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRecepciones_Det_Select_By_IDOrdenDeCompra_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRecepciones_Det_Select_By_IDRecepcion_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRecepciones_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRemitos_por_Presupuesto_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRequerimientos_Select_ALL_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRotacionMateriales_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRptMaestroRecepciones_Det_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRptMaestroRecepciones_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRptPerfiles_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_Consolidaciones_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_DeudaClientes_121020_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_DeudaClientes_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_DevolucionesDeposito_Clientes_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_DevolucionesPedidosWEB_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_DevolucionesProveedor_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_Devolucion_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_EtiquetaMaterial_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_Factura_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_Gastos_Proveedores_Graficos_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_Gastos_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_Gastos_TipoGasto_Graficos_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_HistorialdeFacturas_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_HistorialdeFacturas_Vencidas_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_HistoriaPresupuestos2_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_HistoriaPresupuestos_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_Impuestos_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_InformeGral_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_Ingresos_ComprobantePago_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_Ingresos_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_MaestroAjustes_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_MaestroClientes_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_MaestroEmpleados_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_MaestroProveedores_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_MaestroRubros_Subrubros_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_MaquinasHerramientasSGI_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_OrdenesdeCompra_Status_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_Pagos_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_PedidosWEB_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_PlanillaCarga_Repartidor_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_PorkysOrdenDeCompra_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_Presentacion_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_Presupuestos_OfertaComercial_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_Presupuestos_OfertasComerciales_DetMateriales_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_Presupuestos_Status_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_Presupuestos_Trafos_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_ProductosPresupuestados_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_ProductosVendidos_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_Recaudacion_Repartidor_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_RemitosDuplicados_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_Remito_EquiposHerramientas_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_Remito_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_ResumenCuenta_121020_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_ResumenCuenta_OLD_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_ResumenCuenta_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_Retenciones_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_Trafos_Ensayos_byPresupuesto_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_Transferencias_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_VentaConsumo_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_VentasDeposito_Clientes_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_VentasDeposito_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spRPT_Ventas_Clientes_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spSaldos_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spSubrubros_Select_By_IDFamilia_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spTableros_Det_Select_By_IdTablero_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spTableros_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spTarjetas_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spTransferencias_Porkys_Det_Select_By_IDTrans_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spTransferencias_Porkys_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spTransRecepWEB_Det_Select_By_IDPedidosWEB_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spTransRecepWEB_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spUnidades_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spUsuariosPerfiles_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spUsuarios_Select_By_ID_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spVentas_Clientes_Select_All2_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spVentas_Clientes_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spVentas_Det_Select_By_IdVenta_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spVentas_Salon_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spVentas_Select_ALL_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_Consumos_Det_Select_By_IDConsumo_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_Consumos_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_helpdiagramdefinition_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_helpdiagrams_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_Motivos_Mov_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rpt_MaestroAjustes_Det_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rpt_MaestroAlmacenes_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rpt_MaestroCentrosCostos_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rpt_MaestroFamilias_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rpt_MaestroMotivos_Mov_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rpt_MaestroProyectos_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rpt_MaestroRecepcion2_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rpt_MaestroUnidades_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rpt_StockMov_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_Stock_Select_All_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_Stock_Select_By_ID_Result.vb">
+      <DependentUpon>conexionDb.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -1104,19 +1755,12 @@
     <EmbeddedResource Include="frmAsistencias.resx">
       <DependentUpon>frmAsistencias.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmConsolidaciones.resx">
-      <DependentUpon>frmConsolidaciones.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="frmDeposito.resx">
       <DependentUpon>frmDeposito.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmJornadas.resx">
       <DependentUpon>frmJornadas.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmPresupuestos.resx">
-      <DependentUpon>frmPresupuestos.vb</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmGastosSueldos.resx">
       <DependentUpon>frmGastosSueldos.vb</DependentUpon>
@@ -1128,10 +1772,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmEnsayos.resx">
       <DependentUpon>frmEnsayos.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmPresupuestos_Tipos.resx">
-      <DependentUpon>frmPresupuestos_Tipos.vb</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMaqHerramientas_Mov.resx">
       <DependentUpon>frmMaqHerramientas_Mov.vb</DependentUpon>
@@ -1155,10 +1795,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMateriales_ImagenExcel.resx">
       <DependentUpon>frmMateriales_ImagenExcel.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmOrdenCompra_Abierta.resx">
-      <DependentUpon>frmOrdenCompra_Abierta.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmPresentacion.resx">
@@ -1219,10 +1855,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmIngresos.resx">
       <DependentUpon>frmIngresos.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmMaterialesPrecios.resx">
-      <DependentUpon>frmMaterialesPrecios.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmCheques.resx">
@@ -1305,10 +1937,6 @@
       <DependentUpon>frmProveedores.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmTableros.resx">
-      <DependentUpon>frmTableros.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="frmTipoMoneda.resx">
       <DependentUpon>frmTipoMoneda.vb</DependentUpon>
       <SubType>Designer</SubType>
@@ -1343,6 +1971,10 @@
     <EmbeddedResource Include="frmSaldos.resx">
       <DependentUpon>frmSaldos.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\frmExportPresentacion.resx">
+      <DependentUpon>frmExportPresentacion.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\rptPresentaciones.rdlc" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">
@@ -1355,6 +1987,13 @@
     <None Include="ClassDiagram5.cd" />
     <None Include="ClassDiagram6.cd" />
     <None Include="ClassDiagram7.cd" />
+    <EntityDeploy Include="conexionDb.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>conexionDb.Designer.vb</LastGenOutput>
+    </EntityDeploy>
+    <None Include="conexionDb.edmx.diagram">
+      <DependentUpon>conexionDb.edmx</DependentUpon>
+    </None>
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -1366,6 +2005,17 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="packages.config" />
+    <None Include="Reportes\dsPresentaciones.xsc">
+      <DependentUpon>dsPresentaciones.xsd</DependentUpon>
+    </None>
+    <None Include="Reportes\dsPresentaciones.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsPresentaciones.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Reportes\dsPresentaciones.xss">
+      <DependentUpon>dsPresentaciones.xsd</DependentUpon>
+    </None>
     <None Include="Service References\WS_Porkys\ws_porkys.wsdl" />
   </ItemGroup>
   <ItemGroup>
@@ -1381,6 +2031,7 @@
     <None Include="Resources\Info.png" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
     <Service Include="{967B4E0D-AD0C-4609-AB67-0FA40C0206D8}" />
   </ItemGroup>
   <ItemGroup>
@@ -1435,6 +2086,30 @@
     <None Include="Resources\icono-nuevo-documento.gif" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="conexionDb.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>conexionDb.Context.vb</LastGenOutput>
+      <DependentUpon>conexionDb.edmx</DependentUpon>
+    </Content>
+    <Content Include="conexionDb.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>conexionDb.edmx</DependentUpon>
+      <LastGenOutput>conexionDb.vb</LastGenOutput>
+    </Content>
+    <Content Include="SqlServerTypes\Loader.cs" />
+    <Content Include="SqlServerTypes\readme.htm" />
+    <Content Include="SqlServerTypes\x64\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x64\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Service References\WS_Porkys\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.vb</LastGenOutput>
@@ -1550,6 +2225,7 @@
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\WS_Porkys\" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

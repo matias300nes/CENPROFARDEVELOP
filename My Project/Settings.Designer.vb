@@ -53,6 +53,17 @@ Namespace My
                 Return defaultInstance
             End Get
         End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Data Source=KAIZEN-SERVIDOR;Initial Catalog=CENPROFAR;User ID=sa;Password=industr"& _ 
+            "ial")>  _
+        Public ReadOnly Property CENPROFARConnectionString() As String
+            Get
+                Return CType(Me("CENPROFARConnectionString"),String)
+            End Get
+        End Property
     End Class
 End Namespace
 

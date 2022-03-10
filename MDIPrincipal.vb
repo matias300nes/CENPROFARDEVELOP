@@ -425,20 +425,6 @@ logindenuevo:
         frmUnidades.Show()
     End Sub
 
-    Private Sub PresupuestoDetToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PresupuestoDetToolStripMenuItem.Click
-        Try
-            frmPresupuestos.Origen = 0
-            frmPresupuestos.MdiParent = Me
-            frmPresupuestos.Show()
-        Catch ex As Exception
-
-        End Try
-    End Sub
-
-    Private Sub RegistrarConsumosToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RegistrarConsumosToolStripMenuItem.Click
-        frmOrdenCompra_Abierta.MdiParent = Me
-        frmOrdenCompra_Abierta.Show()
-    End Sub
 
     Private Sub AjustesDeInventarioToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AjustesDeInventarioToolStripMenuItem.Click
 
@@ -896,11 +882,6 @@ logindenuevo:
         frmRemitos.Show()
     End Sub
 
-    Private Sub ListaDePreciosToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        frmMaterialesPrecios.MdiParent = Me
-        frmMaterialesPrecios.WindowState = FormWindowState.Maximized
-        frmMaterialesPrecios.Show()
-    End Sub
 
     Private Sub MonedasToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MonedasToolStripMenuItem.Click
         frmTipoMoneda.MdiParent = Me
@@ -1744,11 +1725,6 @@ logindenuevo:
         frmMateriales2.Show()
     End Sub
 
-    Private Sub TablerosToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        frmTableros.MdiParent = Me
-        frmTableros.Show()
-    End Sub
-
     Private Sub EnsayosParaTransformadoresToolStripMenuItem_Click(sender As Object, e As EventArgs)
         frmEnsayos.MdiParent = Me
         frmEnsayos.Show()
@@ -1864,9 +1840,6 @@ logindenuevo:
     Private Sub ExportarExcelImpuestossimilSIAPToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExportarExcelImpuestossimilSIAPToolStripMenuItem.Click
 
         Dim excel As Microsoft.Office.Interop.Excel.Application
-
-        'Dim workbook As Microsoft.Office.Interop.Excel.Workbook
-        Dim oBook As Excel.WorkbookClass
         Dim oBooks As Excel.Workbooks
 
         Dim oSheet As Excel.Worksheet
@@ -1982,17 +1955,18 @@ logindenuevo:
             If File.Exists(Application.StartupPath.ToString + "\Gastos\" & Util.Empresa & " Gastos - Periodo " & Periodo & ".xlsx") Then File.Delete(Application.StartupPath.ToString + "\Gastos\" & Util.Empresa & " Gastos - Periodo " & Periodo & ".xlsx")
 
 
-            oBook = excel.Workbooks.Open(Application.StartupPath.ToString + "\Gastos\SEI - Gastos.xlsx")
+            'Dim workbook As Microsoft.Office.Interop.Excel.Workbook
+            'Dim oBook As Excel.WorkbookClass = excel.Workbooks.Open(Application.StartupPath.ToString + "\Gastos\SEI - Gastos.xlsx")
 
 
-            oBook.SaveAs(Application.StartupPath.ToString + "\Gastos\" & Util.Empresa & " Gastos - Periodo " & Periodo & ".xlsx")
+            'oBook.SaveAs(Application.StartupPath.ToString + "\Gastos\" & Util.Empresa & " Gastos - Periodo " & Periodo & ".xlsx")
 
 
             Dim celda As String
 
             oBooks = excel.Workbooks
 
-            oSheet = oBook.Sheets(1)
+            'oSheet = oBook.Sheets(1)
 
             celda = "c" + CStr(8)
 
@@ -2077,7 +2051,7 @@ logindenuevo:
 
             excel.Visible = True
 
-            oBook.Activate()
+            'oBook.Activate()
 
         Catch ex As COMException
             MessageBox.Show("Error accessing Excel: " + ex.ToString())
@@ -2172,11 +2146,6 @@ logindenuevo:
     Private Sub JornadasDeTrabajoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles JornadasDeTrabajoToolStripMenuItem.Click
         frmJornadas.MdiParent = Me
         frmJornadas.Show()
-    End Sub
-
-    Private Sub ConsolidacionesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ConsolidacionesToolStripMenuItem.Click
-        frmConsolidaciones.MdiParent = Me
-        frmConsolidaciones.Show()
     End Sub
 
     Private Sub GeneraciónDeOTToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles GeneraciónDeOTToolStripMenuItem.Click

@@ -744,22 +744,22 @@ Public Class frmConsumos
 
     Private Sub grdItems_CellMouseDoubleClick(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellMouseEventArgs) Handles grdItems.CellMouseDoubleClick
 
-        If e.ColumnIndex = ColumnasDelGridItems.Cod_Material Then
-            LLAMADO_POR_FORMULARIO = True
+        'If e.ColumnIndex = ColumnasDelGridItems.Cod_Material Then
+        '    LLAMADO_POR_FORMULARIO = True
 
-            Dim f As New frmMaterialesPrecios
+        '    Dim f As New frmMaterialesPrecios
 
-            f.Width = 1200
-            f.Height = 650
-            f.StartPosition = FormStartPosition.CenterScreen
-            f.grd.Width = 1150
-            f.grd.Height = 350
-            f.DesdePre = 2
-            f.FilaCodigo = e.RowIndex
+        '    f.Width = 1200
+        '    f.Height = 650
+        '    f.StartPosition = FormStartPosition.CenterScreen
+        '    f.grd.Width = 1150
+        '    f.grd.Height = 350
+        '    f.DesdePre = 2
+        '    f.FilaCodigo = e.RowIndex
 
-            f.ShowDialog(Me)
+        '    f.ShowDialog(Me)
 
-        End If
+        'End If
 
     End Sub
 
