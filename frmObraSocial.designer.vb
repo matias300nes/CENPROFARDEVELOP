@@ -23,10 +23,6 @@ Partial Class frmObraSocial
         Me.txtNombre = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.GroupBox1 = New DevComponents.DotNetBar.Controls.GroupPanel()
-        Me.cmbMandatarias = New DevComponents.DotNetBar.Controls.ComboBoxEx()
-        Me.Label14 = New System.Windows.Forms.Label()
-        Me.txtgrupo = New TextBoxConFormatoVB.FormattedTextBoxVB()
-        Me.Label4 = New System.Windows.Forms.Label()
         Me.txtCuit = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.txtTelefono = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.txtCodigoFacaf = New TextBoxConFormatoVB.FormattedTextBoxVB()
@@ -151,10 +147,6 @@ Partial Class frmObraSocial
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox1.CanvasColor = System.Drawing.SystemColors.Control
         Me.GroupBox1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007
-        Me.GroupBox1.Controls.Add(Me.cmbMandatarias)
-        Me.GroupBox1.Controls.Add(Me.Label14)
-        Me.GroupBox1.Controls.Add(Me.txtgrupo)
-        Me.GroupBox1.Controls.Add(Me.Label4)
         Me.GroupBox1.Controls.Add(Me.txtCuit)
         Me.GroupBox1.Controls.Add(Me.txtTelefono)
         Me.GroupBox1.Controls.Add(Me.txtCodigoFacaf)
@@ -209,66 +201,6 @@ Partial Class frmObraSocial
         '
         Me.GroupBox1.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.GroupBox1.TabIndex = 64
-        '
-        'cmbMandatarias
-        '
-        Me.cmbMandatarias.AccessibleName = "*Mandatarias"
-        Me.cmbMandatarias.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cmbMandatarias.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbMandatarias.DisplayMember = "Text"
-        Me.cmbMandatarias.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
-        Me.cmbMandatarias.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbMandatarias.FormattingEnabled = True
-        Me.cmbMandatarias.ItemHeight = 14
-        Me.cmbMandatarias.Location = New System.Drawing.Point(609, 167)
-        Me.cmbMandatarias.Margin = New System.Windows.Forms.Padding(4)
-        Me.cmbMandatarias.Name = "cmbMandatarias"
-        Me.cmbMandatarias.Size = New System.Drawing.Size(238, 20)
-        Me.cmbMandatarias.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.cmbMandatarias.TabIndex = 6
-        '
-        'Label14
-        '
-        Me.Label14.AutoSize = True
-        Me.Label14.BackColor = System.Drawing.Color.Transparent
-        Me.Label14.ForeColor = System.Drawing.Color.Blue
-        Me.Label14.Location = New System.Drawing.Point(609, 146)
-        Me.Label14.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(91, 17)
-        Me.Label14.TabIndex = 276
-        Me.Label14.Text = "Mandatarias*"
-        '
-        'txtgrupo
-        '
-        Me.txtgrupo.AccessibleName = "*Grupo"
-        Me.txtgrupo.Decimals = CType(2, Byte)
-        Me.txtgrupo.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
-        Me.txtgrupo.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
-        Me.txtgrupo.Location = New System.Drawing.Point(864, 165)
-        Me.txtgrupo.Margin = New System.Windows.Forms.Padding(4)
-        Me.txtgrupo.MaxLength = 11
-        Me.txtgrupo.Name = "txtgrupo"
-        Me.txtgrupo.Size = New System.Drawing.Size(125, 22)
-        Me.txtgrupo.TabIndex = 7
-        Me.txtgrupo.Text = "0"
-        Me.txtgrupo.Text_1 = Nothing
-        Me.txtgrupo.Text_2 = Nothing
-        Me.txtgrupo.Text_3 = Nothing
-        Me.txtgrupo.Text_4 = Nothing
-        Me.txtgrupo.UserValues = Nothing
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.BackColor = System.Drawing.Color.Transparent
-        Me.Label4.ForeColor = System.Drawing.Color.Blue
-        Me.Label4.Location = New System.Drawing.Point(861, 144)
-        Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(53, 17)
-        Me.Label4.TabIndex = 274
-        Me.Label4.Text = "Grupo*"
         '
         'txtCuit
         '
@@ -619,8 +551,4 @@ Partial Class frmObraSocial
     Friend WithEvents txtCuit As TextBoxConFormatoVB.FormattedTextBoxVB
     Friend WithEvents labelCuit As Label
     Friend WithEvents txtCodigoPostal As TextBoxConFormatoVB.FormattedTextBoxVB
-    Friend WithEvents cmbMandatarias As DevComponents.DotNetBar.Controls.ComboBoxEx
-    Friend WithEvents Label14 As Label
-    Friend WithEvents txtgrupo As TextBoxConFormatoVB.FormattedTextBoxVB
-    Friend WithEvents Label4 As Label
 End Class
