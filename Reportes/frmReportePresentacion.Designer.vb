@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class frmExportPresentacion
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+Partial Class frmReportePresentacion
     Inherits System.Windows.Forms.Form
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
-    <System.Diagnostics.DebuggerNonUserCode()>
+    <System.Diagnostics.DebuggerNonUserCode()> _
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,20 +20,34 @@ Partial Class frmExportPresentacion
     'NOTA: el Diseñador de Windows Forms necesita el siguiente procedimiento
     'Se puede modificar usando el Diseñador de Windows Forms.  
     'No lo modifique con el editor de código.
-    <System.Diagnostics.DebuggerStepThrough()>
+    <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Me.ReportViewer1 = New Microsoft.Reporting.WinForms.ReportViewer()
+        Dim ReportDataSource1 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
         Me.spRPT_PresentacionBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.dsPresentaciones = New CENPROFAR.dsPresentaciones()
-        Me.spRPT_PresentacionTableAdapter = New CENPROFAR.dsPresentacionesTableAdapters.spRPT_PresentacionTableAdapter()
+        Me.dsPresentacion = New CENPROFAR.dsPresentacion()
+        Me.ReportViewer1 = New Microsoft.Reporting.WinForms.ReportViewer()
+        Me.spRPT_PresentacionTableAdapter = New CENPROFAR.dsPresentacionTableAdapters.spRPT_PresentacionTableAdapter()
         CType(Me.spRPT_PresentacionBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.dsPresentaciones, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dsPresentacion, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
+        '
+        'spRPT_PresentacionBindingSource
+        '
+        Me.spRPT_PresentacionBindingSource.DataMember = "spRPT_Presentacion"
+        Me.spRPT_PresentacionBindingSource.DataSource = Me.dsPresentacion
+        '
+        'dsPresentacion
+        '
+        Me.dsPresentacion.DataSetName = "dsPresentacion"
+        Me.dsPresentacion.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
         'ReportViewer1
         '
         Me.ReportViewer1.Dock = System.Windows.Forms.DockStyle.Fill
+        ReportDataSource1.Name = "dsPresentacion"
+        ReportDataSource1.Value = Me.spRPT_PresentacionBindingSource
+        Me.ReportViewer1.LocalReport.DataSources.Add(ReportDataSource1)
         Me.ReportViewer1.LocalReport.ReportEmbeddedResource = "CENPROFAR.rptPresentaciones.rdlc"
         Me.ReportViewer1.Location = New System.Drawing.Point(0, 0)
         Me.ReportViewer1.Name = "ReportViewer1"
@@ -41,36 +55,26 @@ Partial Class frmExportPresentacion
         Me.ReportViewer1.Size = New System.Drawing.Size(800, 450)
         Me.ReportViewer1.TabIndex = 0
         '
-        'spRPT_PresentacionBindingSource
-        '
-        Me.spRPT_PresentacionBindingSource.DataMember = "spRPT_Presentacion"
-        Me.spRPT_PresentacionBindingSource.DataSource = Me.dsPresentaciones
-        '
-        'dsPresentaciones
-        '
-        Me.dsPresentaciones.DataSetName = "dsPresentaciones"
-        Me.dsPresentaciones.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
-        '
         'spRPT_PresentacionTableAdapter
         '
         Me.spRPT_PresentacionTableAdapter.ClearBeforeFill = True
         '
-        'frmExportPresentacion
+        'frmReportePresentacion
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 450)
         Me.Controls.Add(Me.ReportViewer1)
-        Me.Name = "frmExportPresentacion"
-        Me.Text = "frmExportPresentacion"
+        Me.Name = "frmReportePresentacion"
+        Me.Text = "frmReportePresentacion"
         CType(Me.spRPT_PresentacionBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.dsPresentaciones, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dsPresentacion, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
 
     Friend WithEvents ReportViewer1 As Microsoft.Reporting.WinForms.ReportViewer
     Friend WithEvents spRPT_PresentacionBindingSource As BindingSource
-    Friend WithEvents dsPresentaciones As dsPresentaciones
-    Friend WithEvents spRPT_PresentacionTableAdapter As dsPresentacionesTableAdapters.spRPT_PresentacionTableAdapter
+    Friend WithEvents dsPresentacion As dsPresentacion
+    Friend WithEvents spRPT_PresentacionTableAdapter As dsPresentacionTableAdapters.spRPT_PresentacionTableAdapter
 End Class

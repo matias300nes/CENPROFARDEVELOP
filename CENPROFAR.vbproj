@@ -900,18 +900,18 @@
     <Compile Include="frmSaldos.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Reportes\dsPresentaciones.Designer.vb">
+    <Compile Include="Reportes\dsPresentacion.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>dsPresentaciones.xsd</DependentUpon>
+      <DependentUpon>dsPresentacion.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Reportes\dsPresentaciones.vb">
-      <DependentUpon>dsPresentaciones.xsd</DependentUpon>
+    <Compile Include="Reportes\dsPresentacion.vb">
+      <DependentUpon>dsPresentacion.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Reportes\frmExportPresentacion.Designer.vb">
-      <DependentUpon>frmExportPresentacion.vb</DependentUpon>
+    <Compile Include="Reportes\frmReportePresentacion.Designer.vb">
+      <DependentUpon>frmReportePresentacion.vb</DependentUpon>
     </Compile>
-    <Compile Include="Reportes\frmExportPresentacion.vb">
+    <Compile Include="Reportes\frmReportePresentacion.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Service References\WS_Porkys\Reference.vb">
@@ -1971,8 +1971,8 @@
     <EmbeddedResource Include="frmSaldos.resx">
       <DependentUpon>frmSaldos.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reportes\frmExportPresentacion.resx">
-      <DependentUpon>frmExportPresentacion.vb</DependentUpon>
+    <EmbeddedResource Include="Reportes\frmReportePresentacion.resx">
+      <DependentUpon>frmReportePresentacion.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reportes\rptPresentaciones.rdlc" />
   </ItemGroup>
@@ -2005,16 +2005,16 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="packages.config" />
-    <None Include="Reportes\dsPresentaciones.xsc">
-      <DependentUpon>dsPresentaciones.xsd</DependentUpon>
+    <None Include="Reportes\dsPresentacion.xsc">
+      <DependentUpon>dsPresentacion.xsd</DependentUpon>
     </None>
-    <None Include="Reportes\dsPresentaciones.xsd">
+    <None Include="Reportes\dsPresentacion.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>dsPresentaciones.Designer.vb</LastGenOutput>
+      <LastGenOutput>dsPresentacion.Designer.vb</LastGenOutput>
     </None>
-    <None Include="Reportes\dsPresentaciones.xss">
-      <DependentUpon>dsPresentaciones.xsd</DependentUpon>
+    <None Include="Reportes\dsPresentacion.xss">
+      <DependentUpon>dsPresentacion.xsd</DependentUpon>
     </None>
     <None Include="Service References\WS_Porkys\ws_porkys.wsdl" />
   </ItemGroup>

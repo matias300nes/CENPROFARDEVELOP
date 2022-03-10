@@ -20,9 +20,9 @@ Option Explicit On
  Global.System.ComponentModel.DesignerCategoryAttribute("code"),  _
  Global.System.ComponentModel.ToolboxItem(true),  _
  Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema"),  _
- Global.System.Xml.Serialization.XmlRootAttribute("dsPresentaciones"),  _
+ Global.System.Xml.Serialization.XmlRootAttribute("dsPresentacion"),  _
  Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")>  _
-Partial Public Class dsPresentaciones
+Partial Public Class dsPresentacion
     Inherits Global.System.Data.DataSet
     
     Private tablespRPT_Presentacion As spRPT_PresentacionDataTable
@@ -128,7 +128,7 @@ Partial Public Class dsPresentaciones
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
     Public Overrides Function Clone() As Global.System.Data.DataSet
-        Dim cln As dsPresentaciones = CType(MyBase.Clone,dsPresentaciones)
+        Dim cln As dsPresentacion = CType(MyBase.Clone,dsPresentacion)
         cln.InitVars
         cln.SchemaSerializationMode = Me.SchemaSerializationMode
         Return cln
@@ -199,9 +199,9 @@ Partial Public Class dsPresentaciones
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
     Private Sub InitClass()
-        Me.DataSetName = "dsPresentaciones"
+        Me.DataSetName = "dsPresentacion"
         Me.Prefix = ""
-        Me.Namespace = "http://tempuri.org/dsPresentaciones.xsd"
+        Me.Namespace = "http://tempuri.org/dsPresentacion.xsd"
         Me.EnforceConstraints = true
         Me.SchemaSerializationMode = Global.System.Data.SchemaSerializationMode.IncludeSchema
         Me.tablespRPT_Presentacion = New spRPT_PresentacionDataTable()
@@ -225,7 +225,7 @@ Partial Public Class dsPresentaciones
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
     Public Shared Function GetTypedDataSetSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
-        Dim ds As dsPresentaciones = New dsPresentaciones()
+        Dim ds As dsPresentacion = New dsPresentacion()
         Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
         Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
         Dim any As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
@@ -605,7 +605,7 @@ Partial Public Class dsPresentaciones
         Public Shared Function GetTypedTableSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
             Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
             Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
-            Dim ds As dsPresentaciones = New dsPresentaciones()
+            Dim ds As dsPresentacion = New dsPresentacion()
             Dim any1 As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
             any1.Namespace = "http://www.w3.org/2001/XMLSchema"
             any1.MinOccurs = New Decimal(0)
@@ -1018,7 +1018,7 @@ Partial Public Class dsPresentaciones
     End Class
 End Class
 
-Namespace dsPresentacionesTableAdapters
+Namespace dsPresentacionTableAdapters
     
     '''<summary>
     '''Represents the connection and commands used to retrieve and save data.
@@ -1184,7 +1184,7 @@ Namespace dsPresentacionesTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, true)>  _
-        Public Overloads Overridable Function Fill(ByVal dataTable As dsPresentaciones.spRPT_PresentacionDataTable, ByVal idpresentacion As Global.System.Nullable(Of Long)) As Integer
+        Public Overloads Overridable Function Fill(ByVal dataTable As dsPresentacion.spRPT_PresentacionDataTable, ByVal idpresentacion As Global.System.Nullable(Of Long)) As Integer
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
             If (idpresentacion.HasValue = true) Then
                 Me.Adapter.SelectCommand.Parameters(1).Value = CType(idpresentacion.Value,Long)
@@ -1202,14 +1202,14 @@ Namespace dsPresentacionesTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], true)>  _
-        Public Overloads Overridable Function GetData(ByVal idpresentacion As Global.System.Nullable(Of Long)) As dsPresentaciones.spRPT_PresentacionDataTable
+        Public Overloads Overridable Function GetData(ByVal idpresentacion As Global.System.Nullable(Of Long)) As dsPresentacion.spRPT_PresentacionDataTable
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
             If (idpresentacion.HasValue = true) Then
                 Me.Adapter.SelectCommand.Parameters(1).Value = CType(idpresentacion.Value,Long)
             Else
                 Me.Adapter.SelectCommand.Parameters(1).Value = Global.System.DBNull.Value
             End If
-            Dim dataTable As dsPresentaciones.spRPT_PresentacionDataTable = New dsPresentaciones.spRPT_PresentacionDataTable()
+            Dim dataTable As dsPresentacion.spRPT_PresentacionDataTable = New dsPresentacion.spRPT_PresentacionDataTable()
             Me.Adapter.Fill(dataTable)
             Return dataTable
         End Function
@@ -1284,7 +1284,7 @@ Namespace dsPresentacionesTableAdapters
         '''</summary>
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
-        Private Function UpdateUpdatedRows(ByVal dataSet As dsPresentaciones, ByVal allChangedRows As Global.System.Collections.Generic.List(Of Global.System.Data.DataRow), ByVal allAddedRows As Global.System.Collections.Generic.List(Of Global.System.Data.DataRow)) As Integer
+        Private Function UpdateUpdatedRows(ByVal dataSet As dsPresentacion, ByVal allChangedRows As Global.System.Collections.Generic.List(Of Global.System.Data.DataRow), ByVal allAddedRows As Global.System.Collections.Generic.List(Of Global.System.Data.DataRow)) As Integer
             Dim result As Integer = 0
             Return result
         End Function
@@ -1294,7 +1294,7 @@ Namespace dsPresentacionesTableAdapters
         '''</summary>
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
-        Private Function UpdateInsertedRows(ByVal dataSet As dsPresentaciones, ByVal allAddedRows As Global.System.Collections.Generic.List(Of Global.System.Data.DataRow)) As Integer
+        Private Function UpdateInsertedRows(ByVal dataSet As dsPresentacion, ByVal allAddedRows As Global.System.Collections.Generic.List(Of Global.System.Data.DataRow)) As Integer
             Dim result As Integer = 0
             Return result
         End Function
@@ -1304,7 +1304,7 @@ Namespace dsPresentacionesTableAdapters
         '''</summary>
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
-        Private Function UpdateDeletedRows(ByVal dataSet As dsPresentaciones, ByVal allChangedRows As Global.System.Collections.Generic.List(Of Global.System.Data.DataRow)) As Integer
+        Private Function UpdateDeletedRows(ByVal dataSet As dsPresentacion, ByVal allChangedRows As Global.System.Collections.Generic.List(Of Global.System.Data.DataRow)) As Integer
             Dim result As Integer = 0
             Return result
         End Function
@@ -1340,7 +1340,7 @@ Namespace dsPresentacionesTableAdapters
         '''</summary>
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
-        Public Overridable Function UpdateAll(ByVal dataSet As dsPresentaciones) As Integer
+        Public Overridable Function UpdateAll(ByVal dataSet As dsPresentacion) As Integer
             If (dataSet Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("dataSet")
             End If
