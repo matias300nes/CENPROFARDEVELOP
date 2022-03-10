@@ -23,16 +23,8 @@ Public Class frmExcelFilter
     End Sub
 
     Private Sub frmExcelFilter_Load(sender As Object, e As EventArgs) Handles Me.Load
-        ''agrego los controles para cada 
-        For Each arg As Object In args
-            Dim label As New Label()
-            label.Text = arg
 
-            Dim numeric As New NumericUpDown()
 
-            pnlForm.Controls.Add(label)
-            pnlForm.Controls.Add(numeric)
-        Next
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
@@ -61,6 +53,34 @@ Public Class frmExcelFilter
 
                 Dim dt As DataTable = tables(cboSheet.SelectedItem.ToString())
                 grdExcel.DataSource = dt
+
+                Dim ComboBoxHeader As ComboBox
+                For i As Integer = 0 To dt.Columns.Count - 1
+                    ComboBoxHeader = New ComboBox()
+                    ComboBoxHeader.DropDownStyle = ComboBoxStyle.DropDownList
+                    ComboBoxHeader.Visible = True
+                    ComboBoxHeader.Items.Add("Column1")
+                    ComboBoxHeader.Items.Add("Column2")
+
+                    grdExcel.Controls.Add(ComboBoxHeader)
+                    ComboBoxHeader.Location = grdExcel.GetCellDisplayRectangle(i, -1, True).Location
+                    ComboBoxHeader.Size = grdExcel.Columns(0).HeaderCell.Size
+                    ComboBoxHeader.Text = "Column1"
+                Next
+
+                ''agrego los controles para cada 
+                ''// Create a ComboBox which will be host in column1's cell
+                'Dim comboBoxHeaderCell1 As ComboBox = New ComboBox()
+                'comboBoxHeaderCell1.DropDownStyle = ComboBoxStyle.DropDownList
+                'comboBoxHeaderCell1.Visible = True
+                'comboBoxHeaderCell1.Items.Add("Column1")
+                'comboBoxHeaderCell1.Items.Add("Column2")
+
+                ''// Add the ComboBox to the header cell of column1
+                'grdExcel.Controls.Add(comboBoxHeaderCell1)
+                'comboBoxHeaderCell1.Location = grdExcel.GetCellDisplayRectangle(0, -1, True).Location
+                'comboBoxHeaderCell1.Size = grdExcel.Columns(0).HeaderCell.Size
+                'comboBoxHeaderCell1.Text = "Column1"
 
             End If
         End Using

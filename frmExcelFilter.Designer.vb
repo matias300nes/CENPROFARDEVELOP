@@ -22,6 +22,7 @@ Partial Class frmExcelFilter
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.grdExcel = New System.Windows.Forms.DataGridView()
         Me.btnListo = New System.Windows.Forms.Button()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
@@ -29,7 +30,6 @@ Partial Class frmExcelFilter
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.Button2 = New System.Windows.Forms.Button()
-        Me.pnlForm = New System.Windows.Forms.FlowLayoutPanel()
         Me.cboSheet = New System.Windows.Forms.ComboBox()
         CType(Me.grdExcel, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -38,11 +38,19 @@ Partial Class frmExcelFilter
         '
         'grdExcel
         '
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.InfoText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.grdExcel.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.grdExcel.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.grdExcel.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.grdExcel.Location = New System.Drawing.Point(3, 3)
+        Me.grdExcel.Location = New System.Drawing.Point(3, 103)
         Me.grdExcel.Name = "grdExcel"
-        Me.grdExcel.Size = New System.Drawing.Size(494, 444)
+        Me.grdExcel.Size = New System.Drawing.Size(794, 344)
         Me.grdExcel.TabIndex = 0
         '
         'btnListo
@@ -56,15 +64,15 @@ Partial Class frmExcelFilter
         '
         'TableLayoutPanel1
         '
-        Me.TableLayoutPanel1.ColumnCount = 2
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 300.0!))
-        Me.TableLayoutPanel1.Controls.Add(Me.GroupBox1, 1, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.grdExcel, 0, 0)
+        Me.TableLayoutPanel1.ColumnCount = 1
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel1.Controls.Add(Me.grdExcel, 0, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.GroupBox1, 0, 0)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
-        Me.TableLayoutPanel1.RowCount = 1
+        Me.TableLayoutPanel1.RowCount = 2
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(800, 450)
         Me.TableLayoutPanel1.TabIndex = 3
@@ -76,11 +84,10 @@ Partial Class frmExcelFilter
         Me.GroupBox1.Controls.Add(Me.TextBox1)
         Me.GroupBox1.Controls.Add(Me.btnListo)
         Me.GroupBox1.Controls.Add(Me.Button2)
-        Me.GroupBox1.Controls.Add(Me.pnlForm)
         Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GroupBox1.Location = New System.Drawing.Point(503, 3)
+        Me.GroupBox1.Location = New System.Drawing.Point(3, 3)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(294, 444)
+        Me.GroupBox1.Size = New System.Drawing.Size(794, 94)
         Me.GroupBox1.TabIndex = 1
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "GroupBox1"
@@ -88,7 +95,7 @@ Partial Class frmExcelFilter
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(41, 25)
+        Me.Label1.Location = New System.Drawing.Point(12, 28)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(23, 13)
         Me.Label1.TabIndex = 5
@@ -96,37 +103,27 @@ Partial Class frmExcelFilter
         '
         'TextBox1
         '
-        Me.TextBox1.Location = New System.Drawing.Point(38, 41)
+        Me.TextBox1.Location = New System.Drawing.Point(9, 44)
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.Size = New System.Drawing.Size(137, 20)
         Me.TextBox1.TabIndex = 4
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(178, 40)
+        Me.Button2.Location = New System.Drawing.Point(149, 44)
         Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(61, 21)
+        Me.Button2.Size = New System.Drawing.Size(69, 21)
         Me.Button2.TabIndex = 3
         Me.Button2.Text = "Importar"
         Me.Button2.UseVisualStyleBackColor = True
         '
-        'pnlForm
-        '
-        Me.pnlForm.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
-        Me.pnlForm.Location = New System.Drawing.Point(6, 76)
-        Me.pnlForm.Name = "pnlForm"
-        Me.pnlForm.Padding = New System.Windows.Forms.Padding(40, 40, 0, 0)
-        Me.pnlForm.Size = New System.Drawing.Size(279, 305)
-        Me.pnlForm.TabIndex = 2
-        '
         'cboSheet
         '
-        Me.cboSheet.AccessibleName = "*OrdenCompra"
         Me.cboSheet.FormattingEnabled = True
-        Me.cboSheet.Location = New System.Drawing.Point(109, 13)
+        Me.cboSheet.Location = New System.Drawing.Point(507, 43)
         Me.cboSheet.Name = "cboSheet"
-        Me.cboSheet.Size = New System.Drawing.Size(130, 21)
-        Me.cboSheet.TabIndex = 355
+        Me.cboSheet.Size = New System.Drawing.Size(121, 21)
+        Me.cboSheet.TabIndex = 6
         '
         'frmExcelFilter
         '
@@ -151,6 +148,5 @@ Partial Class frmExcelFilter
     Friend WithEvents Label1 As Label
     Friend WithEvents TextBox1 As TextBox
     Friend WithEvents Button2 As Button
-    Friend WithEvents pnlForm As FlowLayoutPanel
     Friend WithEvents cboSheet As ComboBox
 End Class

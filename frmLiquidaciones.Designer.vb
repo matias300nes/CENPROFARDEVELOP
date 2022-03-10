@@ -83,7 +83,6 @@ Partial Class frmLiquidaciones
         Me.Label14 = New System.Windows.Forms.Label()
         Me.lblcuit = New System.Windows.Forms.Label()
         Me.lblcmbObrasSociales = New System.Windows.Forms.Label()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.ContextMenuStripIVA.SuspendLayout()
         Me.TableLayoutPanel4.SuspendLayout()
@@ -154,7 +153,6 @@ Partial Class frmLiquidaciones
         Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox1.BackColor = System.Drawing.SystemColors.Control
-        Me.GroupBox1.Controls.Add(Me.TextBox1)
         Me.GroupBox1.Controls.Add(Me.TableLayoutPanel1)
         Me.GroupBox1.Controls.Add(Me.lblFecha_liquidado)
         Me.GroupBox1.Controls.Add(Me.Label2)
@@ -712,14 +710,6 @@ Partial Class frmLiquidaciones
         Me.lblcmbObrasSociales.TabIndex = 346
         Me.lblcmbObrasSociales.Text = "Obra Social"
         '
-        'TextBox1
-        '
-        Me.TextBox1.AccessibleName = "*debugtxt"
-        Me.TextBox1.Location = New System.Drawing.Point(503, 69)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(100, 20)
-        Me.TextBox1.TabIndex = 423
-        '
         'frmLiquidaciones
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -799,5 +789,4 @@ Partial Class frmLiquidaciones
     Friend WithEvents Label14 As Label
     Friend WithEvents lblcuit As Label
     Friend WithEvents lblcmbObrasSociales As Label
-    Friend WithEvents TextBox1 As TextBox
 End Class

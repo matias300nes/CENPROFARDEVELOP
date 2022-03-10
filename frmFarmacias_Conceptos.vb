@@ -1578,29 +1578,6 @@ Public Class frmFarmacias_Conceptos
         End Select
     End Sub
 
-    Private Sub btnImportExcel_Click(sender As Object, e As EventArgs) Handles btnImportExcel.Click
-        Dim args As New List(Of String)
-
-        ''creo todos los controles
-        args.Add("Nombre")
-
-        args.Add("Apellido")
-
-        args.Add("fecha")
-
-        args.Add("ID concepto")
-
-        Dim ImportarExcel As New frmExcelFilter("", args)
-        ImportarExcel.ShowDialog()
-
-    End Sub
-
-
-
-
-
-
-
 
 #End Region
 

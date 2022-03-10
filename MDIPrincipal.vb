@@ -4327,4 +4327,20 @@ Pedidos:
         frmGrupos.MdiParent = Me
         frmGrupos.Show()
     End Sub
+
+    Private Sub AsistenteDeImportacionToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AsistenteDeImportacionToolStripMenuItem.Click
+        Dim args As New List(Of String)
+
+        ''creo todos los controles
+        args.Add("Nombre")
+
+        args.Add("Apellido")
+
+        args.Add("fecha")
+
+        args.Add("ID concepto")
+
+        Dim ImportarExcel As New frmExcelFilter("", args)
+        ImportarExcel.ShowDialog()
+    End Sub
 End Class
