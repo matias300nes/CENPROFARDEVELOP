@@ -20,9 +20,9 @@ Option Explicit On
  Global.System.ComponentModel.DesignerCategoryAttribute("code"),  _
  Global.System.ComponentModel.ToolboxItem(true),  _
  Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema"),  _
- Global.System.Xml.Serialization.XmlRootAttribute("dsPresentacion"),  _
+ Global.System.Xml.Serialization.XmlRootAttribute("dsSistema"),  _
  Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")>  _
-Partial Public Class dsPresentacion
+Partial Public Class dsSistema
     Inherits Global.System.Data.DataSet
     
     Private tablespRPT_Presentacion As spRPT_PresentacionDataTable
@@ -128,7 +128,7 @@ Partial Public Class dsPresentacion
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
     Public Overrides Function Clone() As Global.System.Data.DataSet
-        Dim cln As dsPresentacion = CType(MyBase.Clone,dsPresentacion)
+        Dim cln As dsSistema = CType(MyBase.Clone,dsSistema)
         cln.InitVars
         cln.SchemaSerializationMode = Me.SchemaSerializationMode
         Return cln
@@ -199,9 +199,9 @@ Partial Public Class dsPresentacion
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
     Private Sub InitClass()
-        Me.DataSetName = "dsPresentacion"
+        Me.DataSetName = "dsSistema"
         Me.Prefix = ""
-        Me.Namespace = "http://tempuri.org/dsPresentacion.xsd"
+        Me.Namespace = "http://tempuri.org/dsSistema.xsd"
         Me.EnforceConstraints = true
         Me.SchemaSerializationMode = Global.System.Data.SchemaSerializationMode.IncludeSchema
         Me.tablespRPT_Presentacion = New spRPT_PresentacionDataTable()
@@ -225,7 +225,7 @@ Partial Public Class dsPresentacion
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
     Public Shared Function GetTypedDataSetSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
-        Dim ds As dsPresentacion = New dsPresentacion()
+        Dim ds As dsSistema = New dsSistema()
         Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
         Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
         Dim any As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
@@ -297,9 +297,9 @@ Partial Public Class dsPresentacion
         
         Private columnRecetas As Global.System.Data.DataColumn
         
-        Private columnImp_Total As Global.System.Data.DataColumn
+        Private columnImpTotal As Global.System.Data.DataColumn
         
-        Private columnImp_Entidad As Global.System.Data.DataColumn
+        Private columnImpEntidad As Global.System.Data.DataColumn
         
         Private columnBonificación As Global.System.Data.DataColumn
         
@@ -398,17 +398,17 @@ Partial Public Class dsPresentacion
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
-        Public ReadOnly Property Imp_TotalColumn() As Global.System.Data.DataColumn
+        Public ReadOnly Property ImpTotalColumn() As Global.System.Data.DataColumn
             Get
-                Return Me.columnImp_Total
+                Return Me.columnImpTotal
             End Get
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
-        Public ReadOnly Property Imp_EntidadColumn() As Global.System.Data.DataColumn
+        Public ReadOnly Property ImpEntidadColumn() As Global.System.Data.DataColumn
             Get
-                Return Me.columnImp_Entidad
+                Return Me.columnImpEntidad
             End Get
         End Property
         
@@ -465,9 +465,9 @@ Partial Public Class dsPresentacion
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
-        Public Overloads Function AddspRPT_PresentacionRow(ByVal ObraSocial As String, ByVal Cuit As Long, ByVal Fecha As Date, ByVal Período As String, ByVal Item As Long, ByVal Farmacia As String, ByVal Recetas As Integer, ByVal Imp_Total As Decimal, ByVal Imp_Entidad As Decimal, ByVal Bonificación As Decimal, ByVal Apagar As Decimal) As spRPT_PresentacionRow
+        Public Overloads Function AddspRPT_PresentacionRow(ByVal ObraSocial As String, ByVal Cuit As Long, ByVal Fecha As Date, ByVal Período As String, ByVal Item As Long, ByVal Farmacia As String, ByVal Recetas As Integer, ByVal ImpTotal As Decimal, ByVal ImpEntidad As Decimal, ByVal Bonificación As Decimal, ByVal Apagar As Decimal) As spRPT_PresentacionRow
             Dim rowspRPT_PresentacionRow As spRPT_PresentacionRow = CType(Me.NewRow,spRPT_PresentacionRow)
-            Dim columnValuesArray() As Object = New Object() {ObraSocial, Cuit, Fecha, Período, Item, Farmacia, Recetas, Imp_Total, Imp_Entidad, Bonificación, Apagar}
+            Dim columnValuesArray() As Object = New Object() {ObraSocial, Cuit, Fecha, Período, Item, Farmacia, Recetas, ImpTotal, ImpEntidad, Bonificación, Apagar}
             rowspRPT_PresentacionRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowspRPT_PresentacionRow)
             Return rowspRPT_PresentacionRow
@@ -497,8 +497,8 @@ Partial Public Class dsPresentacion
             Me.columnItem = MyBase.Columns("Item")
             Me.columnFarmacia = MyBase.Columns("Farmacia")
             Me.columnRecetas = MyBase.Columns("Recetas")
-            Me.columnImp_Total = MyBase.Columns("Imp_Total")
-            Me.columnImp_Entidad = MyBase.Columns("Imp_Entidad")
+            Me.columnImpTotal = MyBase.Columns("ImpTotal")
+            Me.columnImpEntidad = MyBase.Columns("ImpEntidad")
             Me.columnBonificación = MyBase.Columns("Bonificación")
             Me.columnApagar = MyBase.Columns("Apagar")
         End Sub
@@ -524,10 +524,10 @@ Partial Public Class dsPresentacion
             MyBase.Columns.Add(Me.columnFarmacia)
             Me.columnRecetas = New Global.System.Data.DataColumn("Recetas", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnRecetas)
-            Me.columnImp_Total = New Global.System.Data.DataColumn("Imp_Total", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnImp_Total)
-            Me.columnImp_Entidad = New Global.System.Data.DataColumn("Imp_Entidad", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnImp_Entidad)
+            Me.columnImpTotal = New Global.System.Data.DataColumn("ImpTotal", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnImpTotal)
+            Me.columnImpEntidad = New Global.System.Data.DataColumn("ImpEntidad", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnImpEntidad)
             Me.columnBonificación = New Global.System.Data.DataColumn("Bonificación", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnBonificación)
             Me.columnApagar = New Global.System.Data.DataColumn("Apagar", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
@@ -536,8 +536,6 @@ Partial Public Class dsPresentacion
             Me.columnPeríodo.MaxLength = 100
             Me.columnItem.ReadOnly = true
             Me.columnFarmacia.MaxLength = 300
-            Me.columnImp_Total.Caption = "Imp.Total"
-            Me.columnImp_Entidad.Caption = "Imp.Entidad"
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -605,7 +603,7 @@ Partial Public Class dsPresentacion
         Public Shared Function GetTypedTableSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
             Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
             Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
-            Dim ds As dsPresentacion = New dsPresentacion()
+            Dim ds As dsSistema = New dsSistema()
             Dim any1 As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
             any1.Namespace = "http://www.w3.org/2001/XMLSchema"
             any1.MinOccurs = New Decimal(0)
@@ -789,31 +787,31 @@ Partial Public Class dsPresentacion
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
-        Public Property Imp_Total() As Decimal
+        Public Property ImpTotal() As Decimal
             Get
                 Try 
-                    Return CType(Me(Me.tablespRPT_Presentacion.Imp_TotalColumn),Decimal)
+                    Return CType(Me(Me.tablespRPT_Presentacion.ImpTotalColumn),Decimal)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("El valor de la columna 'Imp_Total' de la tabla 'spRPT_Presentacion' es DBNull.", e)
+                    Throw New Global.System.Data.StrongTypingException("El valor de la columna 'ImpTotal' de la tabla 'spRPT_Presentacion' es DBNull.", e)
                 End Try
             End Get
             Set
-                Me(Me.tablespRPT_Presentacion.Imp_TotalColumn) = value
+                Me(Me.tablespRPT_Presentacion.ImpTotalColumn) = value
             End Set
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
-        Public Property Imp_Entidad() As Decimal
+        Public Property ImpEntidad() As Decimal
             Get
                 Try 
-                    Return CType(Me(Me.tablespRPT_Presentacion.Imp_EntidadColumn),Decimal)
+                    Return CType(Me(Me.tablespRPT_Presentacion.ImpEntidadColumn),Decimal)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("El valor de la columna 'Imp_Entidad' de la tabla 'spRPT_Presentacion' es DBNull.", e)
+                    Throw New Global.System.Data.StrongTypingException("El valor de la columna 'ImpEntidad' de la tabla 'spRPT_Presentacion' es DBNull.", e)
                 End Try
             End Get
             Set
-                Me(Me.tablespRPT_Presentacion.Imp_EntidadColumn) = value
+                Me(Me.tablespRPT_Presentacion.ImpEntidadColumn) = value
             End Set
         End Property
         
@@ -934,26 +932,26 @@ Partial Public Class dsPresentacion
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
-        Public Function IsImp_TotalNull() As Boolean
-            Return Me.IsNull(Me.tablespRPT_Presentacion.Imp_TotalColumn)
+        Public Function IsImpTotalNull() As Boolean
+            Return Me.IsNull(Me.tablespRPT_Presentacion.ImpTotalColumn)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
-        Public Sub SetImp_TotalNull()
-            Me(Me.tablespRPT_Presentacion.Imp_TotalColumn) = Global.System.Convert.DBNull
+        Public Sub SetImpTotalNull()
+            Me(Me.tablespRPT_Presentacion.ImpTotalColumn) = Global.System.Convert.DBNull
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
-        Public Function IsImp_EntidadNull() As Boolean
-            Return Me.IsNull(Me.tablespRPT_Presentacion.Imp_EntidadColumn)
+        Public Function IsImpEntidadNull() As Boolean
+            Return Me.IsNull(Me.tablespRPT_Presentacion.ImpEntidadColumn)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
-        Public Sub SetImp_EntidadNull()
-            Me(Me.tablespRPT_Presentacion.Imp_EntidadColumn) = Global.System.Convert.DBNull
+        Public Sub SetImpEntidadNull()
+            Me(Me.tablespRPT_Presentacion.ImpEntidadColumn) = Global.System.Convert.DBNull
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -1018,7 +1016,7 @@ Partial Public Class dsPresentacion
     End Class
 End Class
 
-Namespace dsPresentacionTableAdapters
+Namespace dsSistemaTableAdapters
     
     '''<summary>
     '''Represents the connection and commands used to retrieve and save data.
@@ -1154,8 +1152,8 @@ Namespace dsPresentacionTableAdapters
             tableMapping.ColumnMappings.Add("Item", "Item")
             tableMapping.ColumnMappings.Add("Farmacia", "Farmacia")
             tableMapping.ColumnMappings.Add("Recetas", "Recetas")
-            tableMapping.ColumnMappings.Add("Imp.Total", "Imp_Total")
-            tableMapping.ColumnMappings.Add("Imp.Entidad", "Imp_Entidad")
+            tableMapping.ColumnMappings.Add("ImpTotal", "ImpTotal")
+            tableMapping.ColumnMappings.Add("ImpEntidad", "ImpEntidad")
             tableMapping.ColumnMappings.Add("Bonificación", "Bonificación")
             tableMapping.ColumnMappings.Add("Apagar", "Apagar")
             Me._adapter.TableMappings.Add(tableMapping)
@@ -1177,19 +1175,19 @@ Namespace dsPresentacionTableAdapters
             Me._commandCollection(0).CommandText = "dbo.spRPT_Presentacion"
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.StoredProcedure
             Me._commandCollection(0).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@RETURN_VALUE", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.ReturnValue, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
-            Me._commandCollection(0).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@idpresentacion", Global.System.Data.SqlDbType.BigInt, 8, Global.System.Data.ParameterDirection.Input, 19, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._commandCollection(0).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@idpresentacion", Global.System.Data.SqlDbType.VarChar, 20, Global.System.Data.ParameterDirection.Input, 0, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, true)>  _
-        Public Overloads Overridable Function Fill(ByVal dataTable As dsPresentacion.spRPT_PresentacionDataTable, ByVal idpresentacion As Global.System.Nullable(Of Long)) As Integer
+        Public Overloads Overridable Function Fill(ByVal dataTable As dsSistema.spRPT_PresentacionDataTable, ByVal idpresentacion As String) As Integer
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
-            If (idpresentacion.HasValue = true) Then
-                Me.Adapter.SelectCommand.Parameters(1).Value = CType(idpresentacion.Value,Long)
-            Else
+            If (idpresentacion Is Nothing) Then
                 Me.Adapter.SelectCommand.Parameters(1).Value = Global.System.DBNull.Value
+            Else
+                Me.Adapter.SelectCommand.Parameters(1).Value = CType(idpresentacion,String)
             End If
             If (Me.ClearBeforeFill = true) Then
                 dataTable.Clear
@@ -1202,14 +1200,14 @@ Namespace dsPresentacionTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], true)>  _
-        Public Overloads Overridable Function GetData(ByVal idpresentacion As Global.System.Nullable(Of Long)) As dsPresentacion.spRPT_PresentacionDataTable
+        Public Overloads Overridable Function GetData(ByVal idpresentacion As String) As dsSistema.spRPT_PresentacionDataTable
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
-            If (idpresentacion.HasValue = true) Then
-                Me.Adapter.SelectCommand.Parameters(1).Value = CType(idpresentacion.Value,Long)
-            Else
+            If (idpresentacion Is Nothing) Then
                 Me.Adapter.SelectCommand.Parameters(1).Value = Global.System.DBNull.Value
+            Else
+                Me.Adapter.SelectCommand.Parameters(1).Value = CType(idpresentacion,String)
             End If
-            Dim dataTable As dsPresentacion.spRPT_PresentacionDataTable = New dsPresentacion.spRPT_PresentacionDataTable()
+            Dim dataTable As dsSistema.spRPT_PresentacionDataTable = New dsSistema.spRPT_PresentacionDataTable()
             Me.Adapter.Fill(dataTable)
             Return dataTable
         End Function
@@ -1284,7 +1282,7 @@ Namespace dsPresentacionTableAdapters
         '''</summary>
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
-        Private Function UpdateUpdatedRows(ByVal dataSet As dsPresentacion, ByVal allChangedRows As Global.System.Collections.Generic.List(Of Global.System.Data.DataRow), ByVal allAddedRows As Global.System.Collections.Generic.List(Of Global.System.Data.DataRow)) As Integer
+        Private Function UpdateUpdatedRows(ByVal dataSet As dsSistema, ByVal allChangedRows As Global.System.Collections.Generic.List(Of Global.System.Data.DataRow), ByVal allAddedRows As Global.System.Collections.Generic.List(Of Global.System.Data.DataRow)) As Integer
             Dim result As Integer = 0
             Return result
         End Function
@@ -1294,7 +1292,7 @@ Namespace dsPresentacionTableAdapters
         '''</summary>
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
-        Private Function UpdateInsertedRows(ByVal dataSet As dsPresentacion, ByVal allAddedRows As Global.System.Collections.Generic.List(Of Global.System.Data.DataRow)) As Integer
+        Private Function UpdateInsertedRows(ByVal dataSet As dsSistema, ByVal allAddedRows As Global.System.Collections.Generic.List(Of Global.System.Data.DataRow)) As Integer
             Dim result As Integer = 0
             Return result
         End Function
@@ -1304,7 +1302,7 @@ Namespace dsPresentacionTableAdapters
         '''</summary>
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
-        Private Function UpdateDeletedRows(ByVal dataSet As dsPresentacion, ByVal allChangedRows As Global.System.Collections.Generic.List(Of Global.System.Data.DataRow)) As Integer
+        Private Function UpdateDeletedRows(ByVal dataSet As dsSistema, ByVal allChangedRows As Global.System.Collections.Generic.List(Of Global.System.Data.DataRow)) As Integer
             Dim result As Integer = 0
             Return result
         End Function
@@ -1340,7 +1338,7 @@ Namespace dsPresentacionTableAdapters
         '''</summary>
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
-        Public Overridable Function UpdateAll(ByVal dataSet As dsPresentacion) As Integer
+        Public Overridable Function UpdateAll(ByVal dataSet As dsSistema) As Integer
             If (dataSet Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("dataSet")
             End If

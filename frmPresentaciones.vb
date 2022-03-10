@@ -2121,9 +2121,8 @@ Public Class frmPresentaciones
     End Sub
 
     Private Sub btnImprimir_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnImprimir.Click
-
-        frmReportePresentacion.ShowDialog()
-
+        Dim frmPresentacionRpt As New frmPresentacionRpt(Long.Parse(txtID.Text))
+        frmPresentacionRpt.ShowDialog()
 
         'Dim rpt As New frmReportes()
         'Dim param As New frmParametros

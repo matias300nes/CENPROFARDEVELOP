@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class frmReportePresentacion
+Partial Class frmPresentacionRpt
     Inherits System.Windows.Forms.Form
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
@@ -25,22 +25,22 @@ Partial Class frmReportePresentacion
         Me.components = New System.ComponentModel.Container()
         Dim ReportDataSource1 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
         Me.spRPT_PresentacionBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.dsPresentacion = New CENPROFAR.dsPresentacion()
+        Me.dsSistema = New CENPROFAR.dsSistema()
         Me.ReportViewer1 = New Microsoft.Reporting.WinForms.ReportViewer()
-        Me.spRPT_PresentacionTableAdapter = New CENPROFAR.dsPresentacionTableAdapters.spRPT_PresentacionTableAdapter()
+        Me.spRPT_PresentacionTableAdapter = New CENPROFAR.dsSistemaTableAdapters.spRPT_PresentacionTableAdapter()
         CType(Me.spRPT_PresentacionBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.dsPresentacion, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dsSistema, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'spRPT_PresentacionBindingSource
         '
         Me.spRPT_PresentacionBindingSource.DataMember = "spRPT_Presentacion"
-        Me.spRPT_PresentacionBindingSource.DataSource = Me.dsPresentacion
+        Me.spRPT_PresentacionBindingSource.DataSource = Me.dsSistema
         '
-        'dsPresentacion
+        'dsSistema
         '
-        Me.dsPresentacion.DataSetName = "dsPresentacion"
-        Me.dsPresentacion.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        Me.dsSistema.DataSetName = "dsSistema"
+        Me.dsSistema.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
         'ReportViewer1
         '
@@ -48,7 +48,7 @@ Partial Class frmReportePresentacion
         ReportDataSource1.Name = "dsPresentacion"
         ReportDataSource1.Value = Me.spRPT_PresentacionBindingSource
         Me.ReportViewer1.LocalReport.DataSources.Add(ReportDataSource1)
-        Me.ReportViewer1.LocalReport.ReportEmbeddedResource = "CENPROFAR.rptPresentaciones.rdlc"
+        Me.ReportViewer1.LocalReport.ReportEmbeddedResource = "CENPROFAR.rptPresentacion.rdlc"
         Me.ReportViewer1.Location = New System.Drawing.Point(0, 0)
         Me.ReportViewer1.Name = "ReportViewer1"
         Me.ReportViewer1.ServerReport.BearerToken = Nothing
@@ -59,22 +59,22 @@ Partial Class frmReportePresentacion
         '
         Me.spRPT_PresentacionTableAdapter.ClearBeforeFill = True
         '
-        'frmReportePresentacion
+        'frmPresentacionRpt
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 450)
         Me.Controls.Add(Me.ReportViewer1)
-        Me.Name = "frmReportePresentacion"
-        Me.Text = "frmReportePresentacion"
+        Me.Name = "frmPresentacionRpt"
+        Me.Text = "frmPresentacionRpt"
         CType(Me.spRPT_PresentacionBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.dsPresentacion, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dsSistema, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
 
     Friend WithEvents ReportViewer1 As Microsoft.Reporting.WinForms.ReportViewer
     Friend WithEvents spRPT_PresentacionBindingSource As BindingSource
-    Friend WithEvents dsPresentacion As dsPresentacion
-    Friend WithEvents spRPT_PresentacionTableAdapter As dsPresentacionTableAdapters.spRPT_PresentacionTableAdapter
+    Friend WithEvents dsSistema As dsSistema
+    Friend WithEvents spRPT_PresentacionTableAdapter As dsSistemaTableAdapters.spRPT_PresentacionTableAdapter
 End Class
