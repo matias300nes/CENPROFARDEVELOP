@@ -175,9 +175,9 @@ Partial Class frmConceptos
         Me.Label14.Location = New System.Drawing.Point(602, 15)
         Me.Label14.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(124, 17)
+        Me.Label14.Size = New System.Drawing.Size(129, 17)
         Me.Label14.TabIndex = 274
-        Me.Label14.Text = "Concepto de pago"
+        Me.Label14.Text = "Concepto de pago*"
         '
         'Label13
         '
@@ -187,9 +187,9 @@ Partial Class frmConceptos
         Me.Label13.Location = New System.Drawing.Point(790, 15)
         Me.Label13.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(89, 17)
+        Me.Label13.Size = New System.Drawing.Size(94, 17)
         Me.Label13.TabIndex = 273
-        Me.Label13.Text = "Pertenece a:"
+        Me.Label13.Text = "Pertenece a:*"
         '
         'Label12
         '
@@ -199,9 +199,9 @@ Partial Class frmConceptos
         Me.Label12.Location = New System.Drawing.Point(1004, 15)
         Me.Label12.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(75, 17)
+        Me.Label12.Size = New System.Drawing.Size(80, 17)
         Me.Label12.TabIndex = 272
-        Me.Label12.Text = "Tipo valor:"
+        Me.Label12.Text = "Tipo valor:*"
         '
         'Label10
         '
@@ -211,9 +211,9 @@ Partial Class frmConceptos
         Me.Label10.Location = New System.Drawing.Point(4, 70)
         Me.Label10.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(41, 17)
+        Me.Label10.Size = New System.Drawing.Size(46, 17)
         Me.Label10.TabIndex = 271
-        Me.Label10.Text = "Valor"
+        Me.Label10.Text = "Valor*"
         '
         'Label9
         '
@@ -223,9 +223,9 @@ Partial Class frmConceptos
         Me.Label9.Location = New System.Drawing.Point(152, 68)
         Me.Label9.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(130, 17)
+        Me.Label9.Size = New System.Drawing.Size(135, 17)
         Me.Label9.TabIndex = 270
-        Me.Label9.Text = "Campos aplicables:"
+        Me.Label9.Text = "Campos aplicables:*"
         '
         'Label11
         '
@@ -235,9 +235,9 @@ Partial Class frmConceptos
         Me.Label11.Location = New System.Drawing.Point(196, 15)
         Me.Label11.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(58, 17)
+        Me.Label11.Size = New System.Drawing.Size(63, 17)
         Me.Label11.TabIndex = 268
-        Me.Label11.Text = "Nombre"
+        Me.Label11.Text = "Nombre*"
         '
         'txtCODIGO
         '
@@ -261,6 +261,7 @@ Partial Class frmConceptos
         '
         'cmbConceptoPago
         '
+        Me.cmbConceptoPago.AccessibleName = "*Concepto Pago"
         Me.cmbConceptoPago.FormattingEnabled = True
         Me.cmbConceptoPago.Location = New System.Drawing.Point(605, 36)
         Me.cmbConceptoPago.Name = "cmbConceptoPago"
@@ -269,6 +270,7 @@ Partial Class frmConceptos
         '
         'cmbPerteneceA
         '
+        Me.cmbPerteneceA.AccessibleName = "*Pertenece a"
         Me.cmbPerteneceA.FormattingEnabled = True
         Me.cmbPerteneceA.Location = New System.Drawing.Point(793, 35)
         Me.cmbPerteneceA.Name = "cmbPerteneceA"
@@ -277,6 +279,7 @@ Partial Class frmConceptos
         '
         'txtNombre
         '
+        Me.txtNombre.AccessibleName = "*Nombre"
         Me.txtNombre.Location = New System.Drawing.Point(199, 36)
         Me.txtNombre.Name = "txtNombre"
         Me.txtNombre.Size = New System.Drawing.Size(144, 22)
@@ -284,6 +287,7 @@ Partial Class frmConceptos
         '
         'cmbTipoValor
         '
+        Me.cmbTipoValor.AccessibleName = "*Tipo Valor"
         Me.cmbTipoValor.FormattingEnabled = True
         Me.cmbTipoValor.Location = New System.Drawing.Point(1007, 33)
         Me.cmbTipoValor.Name = "cmbTipoValor"
@@ -292,6 +296,7 @@ Partial Class frmConceptos
         '
         'txtValor
         '
+        Me.txtValor.AccessibleName = "*Valor"
         Me.txtValor.Location = New System.Drawing.Point(7, 88)
         Me.txtValor.Name = "txtValor"
         Me.txtValor.Size = New System.Drawing.Size(142, 22)
@@ -299,6 +304,7 @@ Partial Class frmConceptos
         '
         'cmbCamposAplicables
         '
+        Me.cmbCamposAplicables.AccessibleName = "*Campos Aplicables"
         Me.cmbCamposAplicables.FormattingEnabled = True
         Me.cmbCamposAplicables.Location = New System.Drawing.Point(155, 86)
         Me.cmbCamposAplicables.Name = "cmbCamposAplicables"
@@ -307,6 +313,7 @@ Partial Class frmConceptos
         '
         'txtDescripcion
         '
+        Me.txtDescripcion.AccessibleName = ""
         Me.txtDescripcion.Location = New System.Drawing.Point(349, 36)
         Me.txtDescripcion.Name = "txtDescripcion"
         Me.txtDescripcion.Size = New System.Drawing.Size(250, 22)

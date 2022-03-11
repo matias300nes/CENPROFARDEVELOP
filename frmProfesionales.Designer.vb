@@ -21,6 +21,8 @@ Partial Class frmProfesionales
         Me.txtID = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.GroupPanel1 = New DevComponents.DotNetBar.Controls.GroupPanel()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.txtemail = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.txtApellido = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -37,8 +39,6 @@ Partial Class frmProfesionales
         Me.txtNombre = New System.Windows.Forms.TextBox()
         Me.cmbLocalidad = New System.Windows.Forms.ComboBox()
         Me.txtDireccion = New System.Windows.Forms.TextBox()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.txtemail = New System.Windows.Forms.TextBox()
         Me.GroupPanel1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -146,6 +146,25 @@ Partial Class frmProfesionales
         Me.GroupPanel1.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.GroupPanel1.TabIndex = 258
         '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.BackColor = System.Drawing.Color.Transparent
+        Me.Label3.ForeColor = System.Drawing.Color.Blue
+        Me.Label3.Location = New System.Drawing.Point(280, 65)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(42, 17)
+        Me.Label3.TabIndex = 285
+        Me.Label3.Text = "Email"
+        '
+        'txtemail
+        '
+        Me.txtemail.Location = New System.Drawing.Point(283, 87)
+        Me.txtemail.Name = "txtemail"
+        Me.txtemail.Size = New System.Drawing.Size(306, 22)
+        Me.txtemail.TabIndex = 284
+        '
         'Label5
         '
         Me.Label5.AutoSize = True
@@ -154,12 +173,13 @@ Partial Class frmProfesionales
         Me.Label5.Location = New System.Drawing.Point(386, 14)
         Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(58, 17)
+        Me.Label5.Size = New System.Drawing.Size(63, 17)
         Me.Label5.TabIndex = 283
-        Me.Label5.Text = "Apellido"
+        Me.Label5.Text = "Apellido*"
         '
         'txtApellido
         '
+        Me.txtApellido.AccessibleName = "*Apellido"
         Me.txtApellido.Location = New System.Drawing.Point(389, 35)
         Me.txtApellido.Name = "txtApellido"
         Me.txtApellido.Size = New System.Drawing.Size(242, 22)
@@ -211,9 +231,9 @@ Partial Class frmProfesionales
         Me.Label15.Location = New System.Drawing.Point(634, 13)
         Me.Label15.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(67, 17)
+        Me.Label15.Size = New System.Drawing.Size(72, 17)
         Me.Label15.TabIndex = 275
-        Me.Label15.Text = "Dirección"
+        Me.Label15.Text = "Dirección*"
         '
         'Label14
         '
@@ -259,9 +279,9 @@ Partial Class frmProfesionales
         Me.Label11.Location = New System.Drawing.Point(139, 14)
         Me.Label11.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(58, 17)
+        Me.Label11.Size = New System.Drawing.Size(63, 17)
         Me.Label11.TabIndex = 268
-        Me.Label11.Text = "Nombre"
+        Me.Label11.Text = "Nombre*"
         '
         'txtCODIGO
         '
@@ -293,6 +313,7 @@ Partial Class frmProfesionales
         '
         'txtNombre
         '
+        Me.txtNombre.AccessibleName = "*Nombre"
         Me.txtNombre.Location = New System.Drawing.Point(142, 35)
         Me.txtNombre.Name = "txtNombre"
         Me.txtNombre.Size = New System.Drawing.Size(242, 22)
@@ -308,29 +329,11 @@ Partial Class frmProfesionales
         '
         'txtDireccion
         '
+        Me.txtDireccion.AccessibleName = "*Direccion"
         Me.txtDireccion.Location = New System.Drawing.Point(637, 35)
         Me.txtDireccion.Name = "txtDireccion"
         Me.txtDireccion.Size = New System.Drawing.Size(306, 22)
         Me.txtDireccion.TabIndex = 2
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.BackColor = System.Drawing.Color.Transparent
-        Me.Label3.ForeColor = System.Drawing.Color.Blue
-        Me.Label3.Location = New System.Drawing.Point(280, 65)
-        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(42, 17)
-        Me.Label3.TabIndex = 285
-        Me.Label3.Text = "Email"
-        '
-        'txtemail
-        '
-        Me.txtemail.Location = New System.Drawing.Point(283, 87)
-        Me.txtemail.Name = "txtemail"
-        Me.txtemail.Size = New System.Drawing.Size(306, 22)
-        Me.txtemail.TabIndex = 284
         '
         'frmProfesionales
         '
