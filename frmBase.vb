@@ -246,7 +246,7 @@ Public Class frmBase
             .AllowUserToOrderColumns = False
             '.SelectionMode = DataGridViewSelectionMode.CellSelect
             .SelectionMode = DataGridViewSelectionMode.FullRowSelect
-            .AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells
+            .AutoResizeColumns()
         End With
 
         With grd.ColumnHeadersDefaultCellStyle
@@ -1238,7 +1238,8 @@ Public Class frmBase
             .RowsDefaultCellStyle.BackColor = Color.White
             .AllowUserToOrderColumns = False
             .SelectionMode = DataGridViewSelectionMode.FullRowSelect
-            .AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells
+            '.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells
+            .AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         End With
 
         With grd.ColumnHeadersDefaultCellStyle

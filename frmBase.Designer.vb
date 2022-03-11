@@ -414,6 +414,7 @@ Partial Class frmBase
         Me.grd.AllowUserToDeleteRows = False
         Me.grd.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.grd.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.grd.BackgroundColor = System.Drawing.SystemColors.GradientInactiveCaption
         Me.grd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
@@ -430,7 +431,7 @@ Partial Class frmBase
         Me.grd.ReadOnly = True
         Me.grd.RowHeadersWidth = 51
         Me.grd.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.grd.Size = New System.Drawing.Size(1265, 237)
+        Me.grd.Size = New System.Drawing.Size(1248, 237)
         Me.grd.TabIndex = 62
         '
         'OpenFileDialog1
