@@ -129,22 +129,8 @@ Public Class frmFarmacias_Conceptos
             Case "SuperTabControlPanel2" 'Panel Profesionales
                 LlenarGrdProfesionalesPanel()
         End Select
-        ''Ocultar columnas no necesarias
-        With grd
-            .Columns(GridItemsCols.CodPAMI).Visible = False
-            .Columns(GridItemsCols.CodFarmaLink).Visible = False
-            .Columns(GridItemsCols.CodFarmaPlus).Visible = False
-            .Columns(GridItemsCols.CodCSF).Visible = False
-            .Columns(GridItemsCols.Contribuyente).Visible = False
-            .Columns(GridItemsCols.PreferenciaPago).Visible = False
-            .Columns(GridItemsCols.Cbu).Visible = False
-            .Columns(GridItemsCols.Telefono).Visible = False
-            .Columns(GridItemsCols.Domicilio).Visible = False
-            .Columns(GridItemsCols.EstadoFarmacia).Visible = False
-            .Columns(GridItemsCols.IdLocalidad).Visible = False
-            .Columns(GridItemsCols.IdProvincia).Visible = False
-            .Columns(GridItemsCols.MotivoBaja).Visible = False
-        End With
+
+        setStyles()
 
         Permitir = True
 
@@ -153,7 +139,7 @@ Public Class frmFarmacias_Conceptos
         PrepararBotones()
 
         grd_CurrentCellChanged(sender, e)
-
+        grd.AutoResizeColumns()
     End Sub
 
     Private Sub txtid_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) _
@@ -264,7 +250,6 @@ Public Class frmFarmacias_Conceptos
                 LlenarCmbProvincias()
                 MDIPrincipal.NoActualizarBase = False
                 btnActualizar_Click(sender, e)
-
             End If
         End If
 
@@ -940,6 +925,48 @@ Public Class frmFarmacias_Conceptos
 #End Region
 
 #Region "Procedimientos"
+
+    Private Sub setStyles()
+        ''Ocultar columnas no necesarias
+        With grd
+            .Columns(GridItemsCols.CodPAMI).Visible = False
+            .Columns(GridItemsCols.CodFarmaLink).Visible = False
+            .Columns(GridItemsCols.CodFarmaPlus).Visible = False
+            .Columns(GridItemsCols.CodCSF).Visible = False
+            .Columns(GridItemsCols.Contribuyente).Visible = False
+            .Columns(GridItemsCols.PreferenciaPago).Visible = False
+            .Columns(GridItemsCols.Cbu).Visible = False
+            .Columns(GridItemsCols.Telefono).Visible = False
+            .Columns(GridItemsCols.Domicilio).Visible = False
+            .Columns(GridItemsCols.EstadoFarmacia).Visible = False
+            .Columns(GridItemsCols.IdLocalidad).Visible = False
+            .Columns(GridItemsCols.IdProvincia).Visible = False
+            .Columns(GridItemsCols.MotivoBaja).Visible = False
+            .AutoResizeColumns()
+
+        End With
+        With grdConceptosPanel
+            .AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+            .Columns(ColumnasDelGrdConceptosPanel.Id).Visible = False
+            .Columns(ColumnasDelGrdConceptosPanel.Codigo).Visible = False
+            .Columns(ColumnasDelGrdConceptosPanel.ConceptoPago).Visible = False
+            .Columns(ColumnasDelGrdConceptosPanel.Frecuencia).Visible = False
+            .Columns(ColumnasDelGrdConceptosPanel.PerteneceA).Visible = False
+            .Columns(ColumnasDelGrdConceptosPanel.TipoValor).Visible = False
+            .AutoResizeColumns()
+        End With
+
+        With grdProfesionalesPanel
+            .AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+            .Columns(ColumnasDelGrdProfesionalesPanel.Id).Visible = False
+            .Columns(ColumnasDelGrdProfesionalesPanel.Codigo).Visible = False
+            .Columns(ColumnasDelGrdProfesionalesPanel.Direccion).Visible = False
+            .Columns(ColumnasDelGrdProfesionalesPanel.Celular).Visible = False
+            .AutoResizeColumns()
+        End With
+
+
+    End Sub
 
     Private Sub LlenarGrdConceptosPanel()
         grdConceptosPanel.Rows.Clear()
