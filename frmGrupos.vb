@@ -278,7 +278,7 @@ Public Class frmGrupos
 #Region "Procedimientos"
 
     Private Sub configurarform()
-        Me.Text = "Conceptos"
+
         Me.grd.Location = New Size(GroupPanel1.Location.X, GroupPanel1.Location.Y + GroupPanel1.Size.Height + 7)
         'Me.Size = New Size(Me.Size.Width, 500)
         Me.Size = New Size(Me.Size.Width, (Screen.PrimaryScreen.WorkingArea.Height - 65))
