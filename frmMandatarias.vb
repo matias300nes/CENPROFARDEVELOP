@@ -388,7 +388,7 @@ Public Class frmMandatarias
     End Sub
 
 
-    Private Sub cmbLocalidad_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbLocalidad.SelectedValueChanged
+    Private Sub cmbLocalidad_SelectedValueChanged(sender As Object, e As EventArgs)
 
         If TypeOf cmbLocalidad.SelectedValue Is Long Then
 
@@ -410,7 +410,7 @@ Public Class frmMandatarias
     End Sub
 
 
-    Private Sub cmbProvincia_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbProvincia.SelectedValueChanged
+    Private Sub cmbProvincia_SelectedValueChanged(sender As Object, e As EventArgs)
         If llenandoCombo = True Then
             ''LLENAR COMBOBOX LOCALIDADES
 
@@ -422,7 +422,7 @@ Public Class frmMandatarias
 
     End Sub
 
-    Private Sub txtCodigoPostal_LostFocus(sender As Object, e As EventArgs) Handles txtCodigoPostal.LostFocus
+    Private Sub txtCodigoPostal_LostFocus(sender As Object, e As EventArgs)
         If txtCodigoPostal.Text.Length = 4 Then
 
             Dim dv As New DataView(dsGeo.Tables("Localidades"))

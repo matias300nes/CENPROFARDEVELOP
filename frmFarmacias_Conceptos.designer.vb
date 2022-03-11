@@ -222,7 +222,7 @@ Partial Class frmFarmacias_Conceptos
         Me.GroupBox1.DisabledBackColor = System.Drawing.Color.Empty
         Me.GroupBox1.Location = New System.Drawing.Point(12, 28)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(1120, 291)
+        Me.GroupBox1.Size = New System.Drawing.Size(1112, 291)
         '
         '
         '
@@ -439,6 +439,8 @@ Partial Class frmFarmacias_Conceptos
         '
         'SuperTabControl1
         '
+        Me.SuperTabControl1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         '
         '
         '
@@ -461,7 +463,7 @@ Partial Class frmFarmacias_Conceptos
         Me.SuperTabControl1.ReorderTabsEnabled = True
         Me.SuperTabControl1.SelectedTabFont = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold)
         Me.SuperTabControl1.SelectedTabIndex = 0
-        Me.SuperTabControl1.Size = New System.Drawing.Size(532, 255)
+        Me.SuperTabControl1.Size = New System.Drawing.Size(518, 255)
         Me.SuperTabControl1.TabFont = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SuperTabControl1.TabIndex = 65
         Me.SuperTabControl1.Tabs.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.stiConceptos, Me.stiCodigos, Me.stiProfesionales, Me.btnAdd, Me.btnEliminarPanel})
@@ -474,7 +476,7 @@ Partial Class frmFarmacias_Conceptos
         Me.SuperTabControlPanel1.Location = New System.Drawing.Point(0, 26)
         Me.SuperTabControlPanel1.Margin = New System.Windows.Forms.Padding(2)
         Me.SuperTabControlPanel1.Name = "SuperTabControlPanel1"
-        Me.SuperTabControlPanel1.Size = New System.Drawing.Size(532, 229)
+        Me.SuperTabControlPanel1.Size = New System.Drawing.Size(518, 229)
         Me.SuperTabControlPanel1.TabIndex = 1
         Me.SuperTabControlPanel1.TabItem = Me.stiConceptos
         '
@@ -492,7 +494,7 @@ Partial Class frmFarmacias_Conceptos
         Me.grdConceptosPanel.RowHeadersWidth = 51
         Me.grdConceptosPanel.RowTemplate.Height = 24
         Me.grdConceptosPanel.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.grdConceptosPanel.Size = New System.Drawing.Size(532, 229)
+        Me.grdConceptosPanel.Size = New System.Drawing.Size(518, 229)
         Me.grdConceptosPanel.TabIndex = 0
         '
         'Id
@@ -909,6 +911,7 @@ Partial Class frmFarmacias_Conceptos
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MaximizeBox = False
+        Me.MinimumSize = New System.Drawing.Size(1000, 350)
         Me.Name = "frmFarmacias_Conceptos"
         Me.Text = "Farmacias"
         Me.Controls.SetChildIndex(Me.Label1, 0)

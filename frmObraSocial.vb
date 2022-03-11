@@ -12,6 +12,25 @@ Public Class frmObraSocial
     Dim tranWEB As New WS_Porkys.WS_PorkysSoapClient
     Dim llenandoCombo As Boolean
 
+#Region "Enum"
+    Enum ObrasSocialesCols
+        ID = 0
+        Codigo = 1
+        Nombre = 2
+        CodFACAF = 3
+        Telefono = 4
+        Email = 5
+        Cuit = 6
+        Descripcion = 7
+        Bonificacion = 8
+        Domicilio = 9
+        IdLocalidad = 10
+        IdProvincia = 11
+        Localidad = 12
+    End Enum
+
+#End Region
+
 #Region "Componentes Formulario"
 
     Private Sub frmProveedores_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles Me.KeyDown
@@ -41,6 +60,8 @@ Public Class frmObraSocial
         CargarCajas()
 
         PrepararBotones()
+
+        setStyles()
 
     End Sub
 
@@ -700,6 +721,21 @@ Public Class frmObraSocial
 #End Region
 
 #Region "Procedimientos"
+    Private Sub setStyles()
+        ''Ocultar columnas no necesarias
+        With grd
+            .Columns(ObrasSocialesCols.ID).Visible = False
+            .Columns(ObrasSocialesCols.Cuit).Visible = False
+            .Columns(ObrasSocialesCols.CodFACAF).Visible = False
+            .Columns(ObrasSocialesCols.Telefono).Visible = False
+            .Columns(ObrasSocialesCols.IdLocalidad).Visible = False
+            .Columns(ObrasSocialesCols.IdProvincia).Visible = False
+            .Columns(ObrasSocialesCols.Bonificacion).Visible = False
+
+            .AutoResizeColumns()
+        End With
+
+    End Sub
 
     Private Sub configurarform()
         Me.Text = "Obras Sociales"
