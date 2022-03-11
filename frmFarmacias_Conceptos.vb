@@ -53,15 +53,18 @@ Public Class frmFarmacias_Conceptos
         CodCSF = 6
         Farmacia = 7
         Cuit = 8
-        Domicilio = 9
-        Telefono = 10
-        Email = 11
-        Contribuyente = 12
-        EstadoFarmacia = 13
-        MotivoBaja = 14
-        IdProvincia = 15
-        IdLocalidad = 16
-        Localidad = 17
+        RazonSocial = 9
+        PreferenciaPago = 10
+        Cbu = 11
+        Domicilio = 12
+        Telefono = 13
+        Email = 14
+        Contribuyente = 15
+        EstadoFarmacia = 16
+        MotivoBaja = 17
+        IdProvincia = 18
+        IdLocalidad = 19
+        Localidad = 20
     End Enum
 #End Region
 
@@ -133,14 +136,14 @@ Public Class frmFarmacias_Conceptos
             .Columns(GridItemsCols.CodFarmaPlus).Visible = False
             .Columns(GridItemsCols.CodCSF).Visible = False
             .Columns(GridItemsCols.Contribuyente).Visible = False
-            '.Columns(GridItemsCols.Cuit).Visible = False
+            .Columns(GridItemsCols.PreferenciaPago).Visible = False
+            .Columns(GridItemsCols.Cbu).Visible = False
+            .Columns(GridItemsCols.Telefono).Visible = False
             .Columns(GridItemsCols.Domicilio).Visible = False
             .Columns(GridItemsCols.EstadoFarmacia).Visible = False
             .Columns(GridItemsCols.IdLocalidad).Visible = False
             .Columns(GridItemsCols.IdProvincia).Visible = False
             .Columns(GridItemsCols.MotivoBaja).Visible = False
-            '.Columns(GridItemsCols.Telefono).Visible = False
-            '.Columns(GridItemsCols.Localidad).Visible = False
         End With
 
         Permitir = True

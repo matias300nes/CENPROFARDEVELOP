@@ -119,7 +119,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ReportesNET\bin\Debug\ReportesNet.exe</HintPath>
     </Reference>
-    <Reference Include="System" />
+    <Reference Include="System">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6\System.dll</HintPath>
+    </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -903,6 +905,9 @@
     <Compile Include="Reportes\dsSistema.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>dsSistema.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\dsSistema.vb">
       <DependentUpon>dsSistema.xsd</DependentUpon>
     </Compile>
     <Compile Include="Reportes\frmPresentacionRpt.Designer.vb">
