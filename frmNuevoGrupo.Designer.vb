@@ -29,9 +29,9 @@ Partial Class frmNuevoGrupo
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.btnEliminar = New DevComponents.DotNetBar.ButtonX()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.txtGrupo = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.cmbMandataria = New DevComponents.DotNetBar.Controls.ComboBoxEx()
+        Me.txtGrupo = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.TableLayoutPanel1.SuspendLayout()
         CType(Me.grdGruposMandataria, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
@@ -84,10 +84,10 @@ Partial Class frmNuevoGrupo
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.txtGrupo)
         Me.GroupBox1.Controls.Add(Me.btnListo)
         Me.GroupBox1.Controls.Add(Me.btnEliminar)
         Me.GroupBox1.Controls.Add(Me.Label1)
-        Me.GroupBox1.Controls.Add(Me.txtGrupo)
         Me.GroupBox1.Controls.Add(Me.Label13)
         Me.GroupBox1.Controls.Add(Me.cmbMandataria)
         Me.GroupBox1.Location = New System.Drawing.Point(3, 3)
@@ -117,22 +117,9 @@ Partial Class frmNuevoGrupo
         Me.Label1.Location = New System.Drawing.Point(209, 13)
         Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(48, 17)
+        Me.Label1.Size = New System.Drawing.Size(53, 17)
         Me.Label1.TabIndex = 276
-        Me.Label1.Text = "Grupo"
-        '
-        'txtGrupo
-        '
-        '
-        '
-        '
-        Me.txtGrupo.Border.Class = "TextBoxBorder"
-        Me.txtGrupo.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.txtGrupo.Location = New System.Drawing.Point(212, 33)
-        Me.txtGrupo.Name = "txtGrupo"
-        Me.txtGrupo.PreventEnterBeep = True
-        Me.txtGrupo.Size = New System.Drawing.Size(100, 22)
-        Me.txtGrupo.TabIndex = 275
+        Me.Label1.Text = "Grupo*"
         '
         'Label13
         '
@@ -157,6 +144,26 @@ Partial Class frmNuevoGrupo
         Me.cmbMandataria.Size = New System.Drawing.Size(153, 22)
         Me.cmbMandataria.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.cmbMandataria.TabIndex = 0
+        '
+        'txtGrupo
+        '
+        Me.txtGrupo.AccessibleName = "*Grupo"
+        Me.txtGrupo.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtGrupo.Decimals = CType(2, Byte)
+        Me.txtGrupo.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
+        Me.txtGrupo.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
+        Me.txtGrupo.Location = New System.Drawing.Point(212, 34)
+        Me.txtGrupo.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtGrupo.MaxLength = 11
+        Me.txtGrupo.Name = "txtGrupo"
+        Me.txtGrupo.Size = New System.Drawing.Size(64, 22)
+        Me.txtGrupo.TabIndex = 278
+        Me.txtGrupo.Text_1 = Nothing
+        Me.txtGrupo.Text_2 = Nothing
+        Me.txtGrupo.Text_3 = Nothing
+        Me.txtGrupo.Text_4 = Nothing
+        Me.txtGrupo.UserValues = Nothing
         '
         'frmNuevoGrupo
         '
@@ -184,6 +191,6 @@ Partial Class frmNuevoGrupo
     Friend WithEvents cmbMandataria As DevComponents.DotNetBar.Controls.ComboBoxEx
     Friend WithEvents btnEliminar As DevComponents.DotNetBar.ButtonX
     Friend WithEvents Label1 As Label
-    Friend WithEvents txtGrupo As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents Label13 As Label
+    Friend WithEvents txtGrupo As TextBoxConFormatoVB.FormattedTextBoxVB
 End Class

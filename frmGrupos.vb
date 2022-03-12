@@ -712,6 +712,10 @@ Public Class frmGrupos
         If cmbLlenado = True Then
             cmbGrupo.Text = ""
             LlenarCmbGrupos()
+            If cmbMandataria.SelectedValue IsNot Nothing Then
+                SQL = $"exec spGrupos_GruposOS_Select_All_By_IDMandataria @idmandataria = {cmbMandataria.SelectedValue}"
+                LlenarGrilla()
+            End If
         End If
     End Sub
 

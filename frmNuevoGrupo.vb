@@ -85,20 +85,62 @@ Public Class frmNuevoGrupo
             Dim idMandataria = frmGrupos.cmbMandataria.SelectedValue
             Dim grupo = CInt(txtGrupo.Text)
             'deberia insertar en tabla grupos_os el idOS y el idGrupo
-            InsertarGrupo(idMandataria, grupo)
-
-            'frmFarmacias_Conceptos.grdConceptosPanel.Rows.Add(id)
-
-
-
-            Me.Dispose()
-            Me.Close()
+            If controlarMandatariaGrupo(idMandataria, grupo) Then
+                MsgBox("No puede cargar una relación ya existente, verifique.", MsgBoxStyle.Information, "Control de Errores")
+                Exit Sub
+            Else
+                InsertarGrupo(idMandataria, grupo)
+                MsgBox("¡Relación cargada con éxito!", MsgBoxStyle.MsgBoxRight, "Control de Errores")
+                Me.Dispose()
+                Me.Close()
+            End If
 
         End If
 
 
 
     End Sub
+
+    Private Function controlarMandatariaGrupo(ByVal idmandataia As Long, ByVal grupo As Long) As Boolean
+        Dim connection As SqlClient.SqlConnection = Nothing
+        Dim ds As Data.DataSet
+
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+        Catch ex As Exception
+            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Function
+        End Try
+
+        Try
+
+            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT IdMandataria, Nombre FROM Grupos WHERE IDMandataria = {idmandataia} AND Nombre = {grupo}")
+            ds.Dispose()
+
+            If ds.Tables(0).Rows.Count = 1 Then
+                Return 1
+            Else
+                Return 0
+            End If
+
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If Not connection Is Nothing Then
+                CType(connection, IDisposable).Dispose()
+            End If
+        End Try
+    End Function
 
     Private Sub InsertarGrupo(ByVal idMandataria As Long, ByVal Grupo As Long)
 
