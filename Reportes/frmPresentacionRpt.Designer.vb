@@ -50,9 +50,10 @@ Partial Class frmPresentacionRpt
         Me.ReportViewer1.LocalReport.DataSources.Add(ReportDataSource1)
         Me.ReportViewer1.LocalReport.ReportEmbeddedResource = "CENPROFAR.rptPresentacion.rdlc"
         Me.ReportViewer1.Location = New System.Drawing.Point(0, 0)
+        Me.ReportViewer1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.ReportViewer1.Name = "ReportViewer1"
         Me.ReportViewer1.ServerReport.BearerToken = Nothing
-        Me.ReportViewer1.Size = New System.Drawing.Size(800, 450)
+        Me.ReportViewer1.Size = New System.Drawing.Size(1067, 554)
         Me.ReportViewer1.TabIndex = 0
         '
         'spRPT_PresentacionTableAdapter
@@ -61,11 +62,13 @@ Partial Class frmPresentacionRpt
         '
         'frmPresentacionRpt
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.ClientSize = New System.Drawing.Size(1067, 554)
         Me.Controls.Add(Me.ReportViewer1)
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Name = "frmPresentacionRpt"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "frmPresentacionRpt"
         CType(Me.spRPT_PresentacionBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dsSistema, System.ComponentModel.ISupportInitialize).EndInit()

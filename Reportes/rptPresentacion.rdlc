@@ -41,7 +41,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>Item</Value>
-                              <Style />
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -53,6 +55,7 @@
                           <Color>LightGrey</Color>
                           <Style>Solid</Style>
                         </Border>
+                        <BackgroundColor>Khaki</BackgroundColor>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -71,7 +74,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>Farmacia</Value>
-                              <Style />
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -83,6 +88,7 @@
                           <Color>LightGrey</Color>
                           <Style>Solid</Style>
                         </Border>
+                        <BackgroundColor>Khaki</BackgroundColor>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -101,7 +107,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>Recetas</Value>
-                              <Style />
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -113,6 +121,7 @@
                           <Color>LightGrey</Color>
                           <Style>Solid</Style>
                         </Border>
+                        <BackgroundColor>Khaki</BackgroundColor>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -131,7 +140,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>Imp Total</Value>
-                              <Style />
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -143,6 +154,7 @@
                           <Color>LightGrey</Color>
                           <Style>Solid</Style>
                         </Border>
+                        <BackgroundColor>Khaki</BackgroundColor>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -161,7 +173,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>Imp Entidad</Value>
-                              <Style />
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -173,6 +187,7 @@
                           <Color>LightGrey</Color>
                           <Style>Solid</Style>
                         </Border>
+                        <BackgroundColor>Khaki</BackgroundColor>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -191,7 +206,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>Bonificación</Value>
-                              <Style />
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -203,6 +220,7 @@
                           <Color>LightGrey</Color>
                           <Style>Solid</Style>
                         </Border>
+                        <BackgroundColor>Khaki</BackgroundColor>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -220,8 +238,10 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Apagar</Value>
-                              <Style />
+                              <Value>A Pagar</Value>
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -233,6 +253,7 @@
                           <Color>LightGrey</Color>
                           <Style>Solid</Style>
                         </Border>
+                        <BackgroundColor>Khaki</BackgroundColor>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -489,6 +510,7 @@
         <Style>
           <Border>
             <Style>None</Style>
+            <Width>5pt</Width>
           </Border>
         </Style>
       </Tablix>
@@ -508,9 +530,9 @@
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
         <Top>3.21cm</Top>
-        <Left>13.64455cm</Left>
+        <Left>15.7538cm</Left>
         <Height>0.6cm</Height>
-        <Width>3.41848cm</Width>
+        <Width>2.49487cm</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
@@ -539,8 +561,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
-        <Top>3.21cm</Top>
-        <Left>10.76406cm</Left>
+        <Top>3.19371cm</Top>
+        <Left>3.85671cm</Left>
         <Height>0.6cm</Height>
         <Width>2.70411cm</Width>
         <ZIndex>2</ZIndex>
@@ -554,16 +576,28 @@
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
+      <Line Name="Line1">
+        <Top>3.08788cm</Top>
+        <Left>6.56082cm</Left>
+        <Height>0cm</Height>
+        <Width>11.68785cm</Width>
+        <ZIndex>3</ZIndex>
+        <Style>
+          <Border>
+            <Style>Solid</Style>
+          </Border>
+        </Style>
+      </Line>
     </ReportItems>
     <Height>43.79374mm</Height>
     <Style>
-      <BackgroundColor>LightGrey</BackgroundColor>
+      <BackgroundColor>White</BackgroundColor>
     </Style>
   </Body>
   <Width>190mm</Width>
   <Page>
     <PageHeader>
-      <Height>5.20099cm</Height>
+      <Height>5.26449cm</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
@@ -578,14 +612,16 @@
                   <Style />
                 </TextRun>
               </TextRuns>
-              <Style />
+              <Style>
+                <TextAlign>Left</TextAlign>
+              </Style>
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox15</rd:DefaultName>
-          <Top>2.11404cm</Top>
+          <Top>2.16661cm</Top>
           <Left>13.32206cm</Left>
           <Height>0.6cm</Height>
-          <Width>4.92661cm</Width>
+          <Width>5.35274cm</Width>
           <Style>
             <Border>
               <Style>None</Style>
@@ -607,14 +643,16 @@
                   <Style />
                 </TextRun>
               </TextRuns>
-              <Style />
+              <Style>
+                <TextAlign>Left</TextAlign>
+              </Style>
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox16</rd:DefaultName>
-          <Top>1.33765cm</Top>
-          <Left>13.32206cm</Left>
+          <Top>4.4246cm</Top>
+          <Left>2.93001cm</Left>
           <Height>0.6cm</Height>
-          <Width>4.92661cm</Width>
+          <Width>2.55837cm</Width>
           <ZIndex>1</ZIndex>
           <Style>
             <Border>
@@ -637,14 +675,16 @@
                   <Style />
                 </TextRun>
               </TextRuns>
-              <Style />
+              <Style>
+                <TextAlign>Left</TextAlign>
+              </Style>
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox17</rd:DefaultName>
-          <Top>0.63182cm</Top>
+          <Top>0.81243cm</Top>
           <Left>13.32206cm</Left>
           <Height>0.6cm</Height>
-          <Width>4.92661cm</Width>
+          <Width>5.35274cm</Width>
           <ZIndex>2</ZIndex>
           <Style>
             <Border>
@@ -667,14 +707,16 @@
                   <Style />
                 </TextRun>
               </TextRuns>
-              <Style />
+              <Style>
+                <TextAlign>Left</TextAlign>
+              </Style>
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox18</rd:DefaultName>
-          <Top>3.06944cm</Top>
-          <Left>13.32206cm</Left>
+          <Top>4.4246cm</Top>
+          <Left>7.05877cm</Left>
           <Height>0.6cm</Height>
-          <Width>4.21979cm</Width>
+          <Width>2.55837cm</Width>
           <ZIndex>3</ZIndex>
           <Style>
             <Border>
@@ -694,7 +736,9 @@
               <TextRuns>
                 <TextRun>
                   <Value>Centro de Prop. de Farmacias V. MERC.</Value>
-                  <Style />
+                  <Style>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
                 </TextRun>
               </TextRuns>
               <Style />
@@ -723,7 +767,13 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>Pedernera 162
+                  <Value>Dirección:</Value>
+                  <Style>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
+                </TextRun>
+                <TextRun>
+                  <Value> Pedernera 162
 </Value>
                   <Style />
                 </TextRun>
@@ -733,7 +783,13 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>CUIT: 30-59375542-4</Value>
+                  <Value>CUIT:</Value>
+                  <Style>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
+                </TextRun>
+                <TextRun>
+                  <Value> 30-59375542-4</Value>
                   <Style />
                 </TextRun>
               </TextRuns>
@@ -742,8 +798,18 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>
-Ing. Brutos: 01-30-59375542-4</Value>
+                  <Value xml:space="preserve">
+</Value>
+                  <Style />
+                </TextRun>
+                <TextRun>
+                  <Value>Ing. Brutos:</Value>
+                  <Style>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
+                </TextRun>
+                <TextRun>
+                  <Value> 01-30-59375542-4</Value>
                   <Style />
                 </TextRun>
               </TextRuns>
@@ -752,8 +818,18 @@ Ing. Brutos: 01-30-59375542-4</Value>
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>
-IVA EXENTO</Value>
+                  <Value xml:space="preserve">
+</Value>
+                  <Style />
+                </TextRun>
+                <TextRun>
+                  <Value>Iva:</Value>
+                  <Style>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
+                </TextRun>
+                <TextRun>
+                  <Value> EXENTO</Value>
                   <Style />
                 </TextRun>
               </TextRuns>
@@ -763,7 +839,7 @@ IVA EXENTO</Value>
           <rd:DefaultName>Textbox4</rd:DefaultName>
           <Top>1.69043cm</Top>
           <Left>6.05578cm</Left>
-          <Height>2.06375cm</Height>
+          <Height>2.38125cm</Height>
           <Width>6.81271cm</Width>
           <ZIndex>5</ZIndex>
           <Style>
@@ -791,12 +867,140 @@ IVA EXENTO</Value>
             </Border>
           </Style>
         </Image>
+        <Textbox Name="Textbox6">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>Fecha:</Value>
+                  <Style>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox6</rd:DefaultName>
+          <Top>0.31827cm</Top>
+          <Left>13.35593cm</Left>
+          <Height>0.49417cm</Height>
+          <Width>2.43174cm</Width>
+          <ZIndex>7</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="Textbox12">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>Obra Social:</Value>
+                  <Style>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox6</rd:DefaultName>
+          <Top>4.4246cm</Top>
+          <Left>0.63938cm</Left>
+          <Height>0.6cm</Height>
+          <Width>2.29063cm</Width>
+          <ZIndex>8</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="Textbox14">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>Período:</Value>
+                  <Style>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox6</rd:DefaultName>
+          <Top>1.67244cm</Top>
+          <Left>13.35593cm</Left>
+          <Height>0.49417cm</Height>
+          <Width>2.43174cm</Width>
+          <ZIndex>9</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="Textbox21">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>Cuit:</Value>
+                  <Style>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox6</rd:DefaultName>
+          <Top>4.4246cm</Top>
+          <Left>6.1087cm</Left>
+          <Height>0.6cm</Height>
+          <Width>0.95007cm</Width>
+          <ZIndex>10</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
       </ReportItems>
       <Style>
         <Border>
           <Style>None</Style>
         </Border>
-        <BackgroundColor>LightGrey</BackgroundColor>
+        <BackgroundColor>White</BackgroundColor>
       </Style>
     </PageHeader>
     <PageFooter>
@@ -868,7 +1072,7 @@ IVA EXENTO</Value>
         <Border>
           <Style>None</Style>
         </Border>
-        <BackgroundColor>LightGrey</BackgroundColor>
+        <BackgroundColor>White</BackgroundColor>
       </Style>
     </PageFooter>
     <PageHeight>29.7cm</PageHeight>
