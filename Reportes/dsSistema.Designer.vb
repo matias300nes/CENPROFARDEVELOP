@@ -1175,19 +1175,19 @@ Namespace dsSistemaTableAdapters
             Me._commandCollection(0).CommandText = "dbo.spRPT_Presentacion"
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.StoredProcedure
             Me._commandCollection(0).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@RETURN_VALUE", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.ReturnValue, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
-            Me._commandCollection(0).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@idpresentacion", Global.System.Data.SqlDbType.VarChar, 20, Global.System.Data.ParameterDirection.Input, 0, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._commandCollection(0).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@idpresentacion", Global.System.Data.SqlDbType.BigInt, 8, Global.System.Data.ParameterDirection.Input, 19, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, true)>  _
-        Public Overloads Overridable Function Fill(ByVal dataTable As dsSistema.spRPT_PresentacionDataTable, ByVal idpresentacion As String) As Integer
+        Public Overloads Overridable Function Fill(ByVal dataTable As dsSistema.spRPT_PresentacionDataTable, ByVal idpresentacion As Global.System.Nullable(Of Long)) As Integer
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
-            If (idpresentacion Is Nothing) Then
-                Me.Adapter.SelectCommand.Parameters(1).Value = Global.System.DBNull.Value
+            If (idpresentacion.HasValue = true) Then
+                Me.Adapter.SelectCommand.Parameters(1).Value = CType(idpresentacion.Value,Long)
             Else
-                Me.Adapter.SelectCommand.Parameters(1).Value = CType(idpresentacion,String)
+                Me.Adapter.SelectCommand.Parameters(1).Value = Global.System.DBNull.Value
             End If
             If (Me.ClearBeforeFill = true) Then
                 dataTable.Clear
@@ -1200,12 +1200,12 @@ Namespace dsSistemaTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], true)>  _
-        Public Overloads Overridable Function GetData(ByVal idpresentacion As String) As dsSistema.spRPT_PresentacionDataTable
+        Public Overloads Overridable Function GetData(ByVal idpresentacion As Global.System.Nullable(Of Long)) As dsSistema.spRPT_PresentacionDataTable
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
-            If (idpresentacion Is Nothing) Then
-                Me.Adapter.SelectCommand.Parameters(1).Value = Global.System.DBNull.Value
+            If (idpresentacion.HasValue = true) Then
+                Me.Adapter.SelectCommand.Parameters(1).Value = CType(idpresentacion.Value,Long)
             Else
-                Me.Adapter.SelectCommand.Parameters(1).Value = CType(idpresentacion,String)
+                Me.Adapter.SelectCommand.Parameters(1).Value = Global.System.DBNull.Value
             End If
             Dim dataTable As dsSistema.spRPT_PresentacionDataTable = New dsSistema.spRPT_PresentacionDataTable()
             Me.Adapter.Fill(dataTable)
