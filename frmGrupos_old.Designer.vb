@@ -1,41 +1,80 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class frmGrupos
-    Inherits System.Windows.Forms.Form
 
-    'Form reemplaza a Dispose para limpiar la lista de componentes.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+Partial Class frmGrupos_old
+
+    Inherits frmBase
+
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
-        Try
-            If disposing AndAlso components IsNot Nothing Then
-                components.Dispose()
-            End If
-        Finally
-            MyBase.Dispose(disposing)
-        End Try
+        If disposing AndAlso components IsNot Nothing Then
+            components.Dispose()
+        End If
+        MyBase.Dispose(disposing)
     End Sub
 
-    'Requerido por el Diseñador de Windows Forms
+
     Private components As System.ComponentModel.IContainer
 
-    'NOTA: el Diseñador de Windows Forms necesita el siguiente procedimiento
-    'Se puede modificar usando el Diseñador de Windows Forms.  
-    'No lo modifique con el editor de código.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmGrupos_old))
+        Me.chkEliminados = New System.Windows.Forms.CheckBox()
+        Me.txtID = New TextBoxConFormatoVB.FormattedTextBoxVB()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.GroupPanel1 = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.btnAgregarOS = New DevComponents.DotNetBar.ButtonX()
         Me.btnAgregarGrupo = New DevComponents.DotNetBar.ButtonX()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
-        Me.chkEliminados = New System.Windows.Forms.CheckBox()
-        Me.txtID = New TextBoxConFormatoVB.FormattedTextBoxVB()
-        Me.Label1 = New System.Windows.Forms.Label()
         Me.cmbMandataria = New System.Windows.Forms.ComboBox()
         Me.cmbGrupo = New System.Windows.Forms.ComboBox()
-        Me.grdGrupos_Os = New System.Windows.Forms.DataGridView()
         Me.GroupPanel1.SuspendLayout()
-        CType(Me.grdGrupos_Os, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
+        '
+        'chkEliminados
+        '
+        Me.chkEliminados.AutoSize = True
+        Me.chkEliminados.BackColor = System.Drawing.Color.Transparent
+        Me.chkEliminados.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.chkEliminados.ForeColor = System.Drawing.Color.Red
+        Me.chkEliminados.Location = New System.Drawing.Point(487, 40)
+        Me.chkEliminados.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkEliminados.Name = "chkEliminados"
+        Me.chkEliminados.Size = New System.Drawing.Size(138, 21)
+        Me.chkEliminados.TabIndex = 257
+        Me.chkEliminados.Text = "Ver Eliminados"
+        Me.chkEliminados.UseVisualStyleBackColor = False
+        '
+        'txtID
+        '
+        Me.txtID.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.txtID.Decimals = CType(2, Byte)
+        Me.txtID.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
+        Me.txtID.Enabled = False
+        Me.txtID.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
+        Me.txtID.Location = New System.Drawing.Point(148, 14)
+        Me.txtID.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtID.MaxLength = 8
+        Me.txtID.Name = "txtID"
+        Me.txtID.Size = New System.Drawing.Size(20, 22)
+        Me.txtID.TabIndex = 50
+        Me.txtID.Text_1 = Nothing
+        Me.txtID.Text_2 = Nothing
+        Me.txtID.Text_3 = Nothing
+        Me.txtID.Text_4 = Nothing
+        Me.txtID.UserValues = Nothing
+        Me.txtID.Visible = False
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(149, -3)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(19, 17)
+        Me.Label1.TabIndex = 50
+        Me.Label1.Text = "Id"
+        Me.Label1.Visible = False
         '
         'GroupPanel1
         '
@@ -51,7 +90,7 @@ Partial Class frmGrupos
         Me.GroupPanel1.Controls.Add(Me.cmbMandataria)
         Me.GroupPanel1.Controls.Add(Me.cmbGrupo)
         Me.GroupPanel1.DisabledBackColor = System.Drawing.Color.Empty
-        Me.GroupPanel1.Location = New System.Drawing.Point(12, 22)
+        Me.GroupPanel1.Location = New System.Drawing.Point(12, 31)
         Me.GroupPanel1.Name = "GroupPanel1"
         Me.GroupPanel1.Size = New System.Drawing.Size(645, 125)
         '
@@ -82,7 +121,7 @@ Partial Class frmGrupos
         '
         '
         Me.GroupPanel1.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.GroupPanel1.TabIndex = 259
+        Me.GroupPanel1.TabIndex = 258
         '
         'btnAgregarOS
         '
@@ -130,54 +169,8 @@ Partial Class frmGrupos
         Me.Label13.TabIndex = 273
         Me.Label13.Text = "Grupo"
         '
-        'chkEliminados
-        '
-        Me.chkEliminados.AutoSize = True
-        Me.chkEliminados.BackColor = System.Drawing.Color.Transparent
-        Me.chkEliminados.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chkEliminados.ForeColor = System.Drawing.Color.Red
-        Me.chkEliminados.Location = New System.Drawing.Point(487, 40)
-        Me.chkEliminados.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkEliminados.Name = "chkEliminados"
-        Me.chkEliminados.Size = New System.Drawing.Size(138, 21)
-        Me.chkEliminados.TabIndex = 257
-        Me.chkEliminados.Text = "Ver Eliminados"
-        Me.chkEliminados.UseVisualStyleBackColor = False
-        '
-        'txtID
-        '
-        Me.txtID.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtID.Decimals = CType(2, Byte)
-        Me.txtID.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
-        Me.txtID.Enabled = False
-        Me.txtID.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
-        Me.txtID.Location = New System.Drawing.Point(148, 14)
-        Me.txtID.Margin = New System.Windows.Forms.Padding(4)
-        Me.txtID.MaxLength = 8
-        Me.txtID.Name = "txtID"
-        Me.txtID.Size = New System.Drawing.Size(20, 22)
-        Me.txtID.TabIndex = 50
-        Me.txtID.Text_1 = Nothing
-        Me.txtID.Text_2 = Nothing
-        Me.txtID.Text_3 = Nothing
-        Me.txtID.Text_4 = Nothing
-        Me.txtID.UserValues = Nothing
-        Me.txtID.Visible = False
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(149, -3)
-        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(19, 17)
-        Me.Label1.TabIndex = 50
-        Me.Label1.Text = "Id"
-        Me.Label1.Visible = False
-        '
         'cmbMandataria
         '
-        Me.cmbMandataria.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbMandataria.FormattingEnabled = True
         Me.cmbMandataria.Location = New System.Drawing.Point(7, 40)
         Me.cmbMandataria.Name = "cmbMandataria"
@@ -186,49 +179,40 @@ Partial Class frmGrupos
         '
         'cmbGrupo
         '
-        Me.cmbGrupo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbGrupo.FormattingEnabled = True
         Me.cmbGrupo.Location = New System.Drawing.Point(192, 40)
         Me.cmbGrupo.Name = "cmbGrupo"
         Me.cmbGrupo.Size = New System.Drawing.Size(204, 24)
         Me.cmbGrupo.TabIndex = 4
         '
-        'grdGrupos_Os
-        '
-        Me.grdGrupos_Os.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.grdGrupos_Os.Location = New System.Drawing.Point(12, 164)
-        Me.grdGrupos_Os.Name = "grdGrupos_Os"
-        Me.grdGrupos_Os.RowHeadersWidth = 51
-        Me.grdGrupos_Os.RowTemplate.Height = 24
-        Me.grdGrupos_Os.Size = New System.Drawing.Size(645, 346)
-        Me.grdGrupos_Os.TabIndex = 260
-        '
         'frmGrupos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(675, 522)
-        Me.Controls.Add(Me.grdGrupos_Os)
+        Me.ClientSize = New System.Drawing.Size(667, 620)
         Me.Controls.Add(Me.GroupPanel1)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Margin = New System.Windows.Forms.Padding(5)
         Me.Name = "frmGrupos"
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "frmGrupos2"
+        Me.Text = "Grupos"
+        Me.Controls.SetChildIndex(Me.GroupPanel1, 0)
         Me.GroupPanel1.ResumeLayout(False)
         Me.GroupPanel1.PerformLayout()
-        CType(Me.grdGrupos_Os, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
+
+
+    Friend WithEvents txtID As TextBoxConFormatoVB.FormattedTextBoxVB
+    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents chkEliminados As System.Windows.Forms.CheckBox
     Friend WithEvents GroupPanel1 As DevComponents.DotNetBar.Controls.GroupPanel
-    Friend WithEvents btnAgregarOS As DevComponents.DotNetBar.ButtonX
-    Friend WithEvents btnAgregarGrupo As DevComponents.DotNetBar.ButtonX
     Friend WithEvents Label14 As Label
     Friend WithEvents Label13 As Label
-    Friend WithEvents chkEliminados As CheckBox
-    Friend WithEvents txtID As TextBoxConFormatoVB.FormattedTextBoxVB
-    Friend WithEvents Label1 As Label
     Friend WithEvents cmbMandataria As ComboBox
     Friend WithEvents cmbGrupo As ComboBox
-    Friend WithEvents grdGrupos_Os As DataGridView
+    Friend WithEvents btnAgregarGrupo As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents btnAgregarOS As DevComponents.DotNetBar.ButtonX
 End Class

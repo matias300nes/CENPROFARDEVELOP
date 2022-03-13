@@ -204,16 +204,22 @@
     <Compile Include="frmAplicarConceptos.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmGrupos.Designer.vb">
-      <DependentUpon>frmGrupos.vb</DependentUpon>
+    <Compile Include="frmGrupos_old.Designer.vb">
+      <DependentUpon>frmGrupos_old.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmGrupos.vb">
+    <Compile Include="frmGrupos_old.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmExcelFilter.Designer.vb">
       <DependentUpon>frmExcelFilter.vb</DependentUpon>
     </Compile>
     <Compile Include="frmExcelFilter.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmGrupos.Designer.vb">
+      <DependentUpon>frmGrupos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmGrupos.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmProfesionales.Designer.vb">
@@ -1551,12 +1557,15 @@
     <EmbeddedResource Include="frmAplicarConceptos.resx">
       <DependentUpon>frmAplicarConceptos.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmGrupos.resx">
-      <DependentUpon>frmGrupos.vb</DependentUpon>
+    <EmbeddedResource Include="frmGrupos_old.resx">
+      <DependentUpon>frmGrupos_old.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmExcelFilter.resx">
       <DependentUpon>frmExcelFilter.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmGrupos.resx">
+      <DependentUpon>frmGrupos.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmProfesionales.resx">
       <DependentUpon>frmProfesionales.vb</DependentUpon>
