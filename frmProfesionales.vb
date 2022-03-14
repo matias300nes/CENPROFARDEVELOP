@@ -10,6 +10,21 @@ Public Class frmProfesionales
     Dim llenandoCombo As Boolean
     Dim bolpoliticas As Boolean
 
+    Enum ColumnasDelGrdProfesionales
+        Id = 0
+        Codigo = 1
+        Nombre = 2
+        Apellido = 3
+        Direccion = 4
+        Celular = 5
+        email = 6
+        IdLocalidad = 7
+        IdProvincia = 8
+        CodigoPostal = 9
+        Provincia = 10
+        Localidad = 11
+    End Enum
+
 #Region "Procedimientos Formularios"
 
     Private Sub frmAlmacenes_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles Me.KeyDown
@@ -41,6 +56,16 @@ Public Class frmProfesionales
         PrepararBotones()
         'grd.Columns(5).Visible = False
         'grd.Columns(7).Visible = False
+
+        With grd
+            .Columns(ColumnasDelGrdProfesionales.Id).Visible = False
+            .Columns(ColumnasDelGrdProfesionales.IdLocalidad).Visible = False
+            .Columns(ColumnasDelGrdProfesionales.IdProvincia).Visible = False
+            .Columns(ColumnasDelGrdProfesionales.CodigoPostal).Visible = False
+            .Columns(ColumnasDelGrdProfesionales.Provincia).Visible = False
+            .Columns(ColumnasDelGrdProfesionales.Celular).Visible = False
+            .AutoResizeColumns()
+        End With
 
     End Sub
 
@@ -389,7 +414,7 @@ Public Class frmProfesionales
     End Sub
 
 
-    Private Sub cmbLocalidad_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbLocalidad.SelectedValueChanged
+    Private Sub cmbLocalidad_SelectedValueChanged(sender As Object, e As EventArgs)
 
         If TypeOf cmbLocalidad.SelectedValue Is Long Then
 
@@ -411,7 +436,7 @@ Public Class frmProfesionales
     End Sub
 
 
-    Private Sub cmbProvincia_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbProvincia.SelectedValueChanged
+    Private Sub cmbProvincia_SelectedValueChanged(sender As Object, e As EventArgs)
         If llenandoCombo = True Then
             ''LLENAR COMBOBOX LOCALIDADES
 
@@ -423,7 +448,7 @@ Public Class frmProfesionales
 
     End Sub
 
-    Private Sub txtCodigoPostal_LostFocus(sender As Object, e As EventArgs) Handles txtCodigoPostal.LostFocus
+    Private Sub txtCodigoPostal_LostFocus(sender As Object, e As EventArgs)
         If txtCodigoPostal.Text.Length = 4 Then
 
             Dim dv As New DataView(dsGeo.Tables("Localidades"))
