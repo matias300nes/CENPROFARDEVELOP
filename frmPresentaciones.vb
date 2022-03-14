@@ -1891,6 +1891,7 @@ Public Class frmPresentaciones
         '    'bolModo = False
         '    Exit Sub
         'End If
+        cmbEstado.Enabled = False
         bloquearPresentacion(cmbEstado.Text)
         band = 0
         bolModo = True
@@ -2154,8 +2155,10 @@ Public Class frmPresentaciones
     End Sub
 
     Private Overloads Sub btnCancelar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCancelar.Click
+        cmbEstado.Enabled = True
         Util.LimpiarTextBox(Me.Controls)
         LimpiarGridItems(grdItems)
+        LimpiarGridItems(grd)
         grd.ClearSelection()
         bolModo = False
     End Sub

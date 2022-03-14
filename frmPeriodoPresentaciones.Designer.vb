@@ -108,7 +108,7 @@ Partial Class frmPeriodoPresentaciones
         Me.GroupPanel1.DisabledBackColor = System.Drawing.Color.Empty
         Me.GroupPanel1.Location = New System.Drawing.Point(12, 31)
         Me.GroupPanel1.Name = "GroupPanel1"
-        Me.GroupPanel1.Size = New System.Drawing.Size(1411, 228)
+        Me.GroupPanel1.Size = New System.Drawing.Size(1411, 229)
         '
         '
         '
@@ -141,6 +141,8 @@ Partial Class frmPeriodoPresentaciones
         '
         'cmbGrupos
         '
+        Me.cmbGrupos.AccessibleName = "*Grupo"
+        Me.cmbGrupos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbGrupos.FormattingEnabled = True
         Me.cmbGrupos.Location = New System.Drawing.Point(473, 36)
         Me.cmbGrupos.Name = "cmbGrupos"
@@ -149,6 +151,7 @@ Partial Class frmPeriodoPresentaciones
         '
         'dtpFechaLimite
         '
+        Me.dtpFechaLimite.AccessibleName = "*Fecha"
         Me.dtpFechaLimite.Location = New System.Drawing.Point(902, 37)
         Me.dtpFechaLimite.Name = "dtpFechaLimite"
         Me.dtpFechaLimite.Size = New System.Drawing.Size(200, 22)
@@ -170,6 +173,7 @@ Partial Class frmPeriodoPresentaciones
         '
         'txtPeriodo
         '
+        Me.txtPeriodo.AccessibleName = "*Periodo"
         Me.txtPeriodo.BackColor = System.Drawing.SystemColors.Window
         Me.txtPeriodo.Location = New System.Drawing.Point(594, 35)
         Me.txtPeriodo.Margin = New System.Windows.Forms.Padding(4)
@@ -245,9 +249,9 @@ Partial Class frmPeriodoPresentaciones
         Me.Label14.Location = New System.Drawing.Point(470, 17)
         Me.Label14.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(48, 17)
+        Me.Label14.Size = New System.Drawing.Size(53, 17)
         Me.Label14.TabIndex = 274
-        Me.Label14.Text = "Grupo"
+        Me.Label14.Text = "Grupo*"
         '
         'Label13
         '
@@ -257,9 +261,9 @@ Partial Class frmPeriodoPresentaciones
         Me.Label13.Location = New System.Drawing.Point(591, 17)
         Me.Label13.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(57, 17)
+        Me.Label13.Size = New System.Drawing.Size(62, 17)
         Me.Label13.TabIndex = 273
-        Me.Label13.Text = "Periodo"
+        Me.Label13.Text = "Periodo*"
         '
         'Label12
         '
@@ -269,9 +273,9 @@ Partial Class frmPeriodoPresentaciones
         Me.Label12.Location = New System.Drawing.Point(899, 17)
         Me.Label12.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(88, 17)
+        Me.Label12.Size = New System.Drawing.Size(93, 17)
         Me.Label12.TabIndex = 272
-        Me.Label12.Text = "Fecha Límite"
+        Me.Label12.Text = "Fecha Límite*"
         '
         'Label11
         '
@@ -281,9 +285,9 @@ Partial Class frmPeriodoPresentaciones
         Me.Label11.Location = New System.Drawing.Point(196, 15)
         Me.Label11.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(79, 17)
+        Me.Label11.Size = New System.Drawing.Size(84, 17)
         Me.Label11.TabIndex = 268
-        Me.Label11.Text = "Mandataria"
+        Me.Label11.Text = "Mandataria*"
         '
         'txtCODIGO
         '
@@ -307,6 +311,8 @@ Partial Class frmPeriodoPresentaciones
         '
         'cmbMandatarias
         '
+        Me.cmbMandatarias.AccessibleName = "*Mandataria"
+        Me.cmbMandatarias.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbMandatarias.FormattingEnabled = True
         Me.cmbMandatarias.Location = New System.Drawing.Point(199, 35)
         Me.cmbMandatarias.Name = "cmbMandatarias"

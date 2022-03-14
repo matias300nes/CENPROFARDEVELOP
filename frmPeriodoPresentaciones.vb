@@ -321,8 +321,8 @@ Public Class frmPeriodoPresentaciones
                 .DataSource = ds.Tables(0).DefaultView
                 .DisplayMember = "NOMBRE"
                 .ValueMember = "ID"
-                .AutoCompleteMode = AutoCompleteMode.SuggestAppend
-                .AutoCompleteSource = AutoCompleteSource.ListItems
+                '.AutoCompleteMode = AutoCompleteMode.SuggestAppend
+                '.AutoCompleteSource = AutoCompleteSource.ListItems
                 '.SelectedIndex = "ID"
             End With
 
@@ -367,8 +367,8 @@ Public Class frmPeriodoPresentaciones
                 .DataSource = ds.Tables(0).DefaultView
                 .DisplayMember = "Nombre"
                 .ValueMember = "Id"
-                .AutoCompleteMode = AutoCompleteMode.SuggestAppend
-                .AutoCompleteSource = AutoCompleteSource.ListItems
+                '.AutoCompleteMode = AutoCompleteMode.SuggestAppend
+                '.AutoCompleteSource = AutoCompleteSource.ListItems
                 '.SelectedIndex = "ID"
             End With
 

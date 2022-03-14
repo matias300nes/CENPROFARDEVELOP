@@ -29,8 +29,8 @@ Partial Class frmSelectConcepto
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.LabelX2 = New DevComponents.DotNetBar.LabelX()
         Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
-        Me.txtFrecuencia = New System.Windows.Forms.TextBox()
         Me.txtValor = New System.Windows.Forms.TextBox()
+        Me.cmbFrecuencia = New System.Windows.Forms.ComboBox()
         Me.TableLayoutPanel1.SuspendLayout()
         CType(Me.grdConceptos, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
@@ -41,9 +41,10 @@ Partial Class frmSelectConcepto
         Me.btnListo.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
         Me.btnListo.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.btnListo.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.btnListo.Location = New System.Drawing.Point(221, 384)
+        Me.btnListo.Location = New System.Drawing.Point(295, 473)
+        Me.btnListo.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnListo.Name = "btnListo"
-        Me.btnListo.Size = New System.Drawing.Size(89, 23)
+        Me.btnListo.Size = New System.Drawing.Size(119, 28)
         Me.btnListo.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnListo.TabIndex = 2
         Me.btnListo.Text = "Listo"
@@ -58,13 +59,13 @@ Partial Class frmSelectConcepto
         Me.TableLayoutPanel1.Controls.Add(Me.grdConceptos, 0, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.GroupBox1, 0, 0)
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
-        Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 3
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 77.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 95.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 48.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(532, 420)
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 59.0!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(709, 517)
         Me.TableLayoutPanel1.TabIndex = 3
         '
         'grdConceptos
@@ -74,28 +75,29 @@ Partial Class frmSelectConcepto
         Me.grdConceptos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.grdConceptos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.grdConceptos.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.grdConceptos.Location = New System.Drawing.Point(3, 80)
+        Me.grdConceptos.Location = New System.Drawing.Point(4, 99)
+        Me.grdConceptos.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.grdConceptos.MultiSelect = False
         Me.grdConceptos.Name = "grdConceptos"
         Me.grdConceptos.ReadOnly = True
         Me.grdConceptos.RowHeadersVisible = False
         Me.grdConceptos.RowHeadersWidth = 51
         Me.grdConceptos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.grdConceptos.Size = New System.Drawing.Size(526, 289)
+        Me.grdConceptos.Size = New System.Drawing.Size(701, 355)
         Me.grdConceptos.TabIndex = 0
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.cmbFrecuencia)
         Me.GroupBox1.Controls.Add(Me.LabelX2)
         Me.GroupBox1.Controls.Add(Me.LabelX1)
-        Me.GroupBox1.Controls.Add(Me.txtFrecuencia)
         Me.GroupBox1.Controls.Add(Me.txtValor)
         Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GroupBox1.Location = New System.Drawing.Point(2, 2)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.GroupBox1.Location = New System.Drawing.Point(3, 2)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(2, 2, 2, 2)
-        Me.GroupBox1.Size = New System.Drawing.Size(528, 73)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.GroupBox1.Size = New System.Drawing.Size(703, 91)
         Me.GroupBox1.TabIndex = 3
         Me.GroupBox1.TabStop = False
         '
@@ -105,10 +107,10 @@ Partial Class frmSelectConcepto
         '
         '
         Me.LabelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX2.Location = New System.Drawing.Point(127, 21)
-        Me.LabelX2.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.LabelX2.Location = New System.Drawing.Point(169, 26)
+        Me.LabelX2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.LabelX2.Name = "LabelX2"
-        Me.LabelX2.Size = New System.Drawing.Size(70, 14)
+        Me.LabelX2.Size = New System.Drawing.Size(93, 17)
         Me.LabelX2.TabIndex = 3
         Me.LabelX2.Text = "*Frecuencia"
         '
@@ -118,39 +120,42 @@ Partial Class frmSelectConcepto
         '
         '
         Me.LabelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX1.Location = New System.Drawing.Point(21, 21)
-        Me.LabelX1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.LabelX1.Location = New System.Drawing.Point(28, 26)
+        Me.LabelX1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.LabelX1.Name = "LabelX1"
-        Me.LabelX1.Size = New System.Drawing.Size(56, 14)
+        Me.LabelX1.Size = New System.Drawing.Size(75, 17)
         Me.LabelX1.TabIndex = 2
         Me.LabelX1.Text = "*Valor"
-        '
-        'txtFrecuencia
-        '
-        Me.txtFrecuencia.AccessibleName = "*Frecuencia"
-        Me.txtFrecuencia.Location = New System.Drawing.Point(127, 39)
-        Me.txtFrecuencia.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
-        Me.txtFrecuencia.Name = "txtFrecuencia"
-        Me.txtFrecuencia.Size = New System.Drawing.Size(98, 20)
-        Me.txtFrecuencia.TabIndex = 1
         '
         'txtValor
         '
         Me.txtValor.AccessibleName = "*Valor"
-        Me.txtValor.Location = New System.Drawing.Point(21, 39)
-        Me.txtValor.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.txtValor.Location = New System.Drawing.Point(28, 48)
+        Me.txtValor.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txtValor.Name = "txtValor"
-        Me.txtValor.Size = New System.Drawing.Size(94, 20)
+        Me.txtValor.Size = New System.Drawing.Size(124, 22)
         Me.txtValor.TabIndex = 0
+        '
+        'cmbFrecuencia
+        '
+        Me.cmbFrecuencia.AccessibleName = "*Frecuencia"
+        Me.cmbFrecuencia.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbFrecuencia.FormattingEnabled = True
+        Me.cmbFrecuencia.Items.AddRange(New Object() {"MENSUAL"})
+        Me.cmbFrecuencia.Location = New System.Drawing.Point(169, 48)
+        Me.cmbFrecuencia.Name = "cmbFrecuencia"
+        Me.cmbFrecuencia.Size = New System.Drawing.Size(139, 24)
+        Me.cmbFrecuencia.TabIndex = 4
         '
         'frmSelectConcepto
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(532, 420)
+        Me.ClientSize = New System.Drawing.Size(709, 517)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.MinimumSize = New System.Drawing.Size(450, 350)
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.MinimumSize = New System.Drawing.Size(594, 420)
         Me.Name = "frmSelectConcepto"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Nuevo Concepto"
@@ -168,6 +173,6 @@ Partial Class frmSelectConcepto
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents LabelX2 As DevComponents.DotNetBar.LabelX
     Friend WithEvents LabelX1 As DevComponents.DotNetBar.LabelX
-    Friend WithEvents txtFrecuencia As TextBox
     Friend WithEvents txtValor As TextBox
+    Friend WithEvents cmbFrecuencia As ComboBox
 End Class
