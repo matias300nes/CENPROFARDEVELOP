@@ -74,7 +74,7 @@ Public Class frmSelectConcepto
         LlenarGrilla()
         Permitir = True
         CargarCajas()
-
+        cmbFrecuencia.SelectedIndex = 0
         With grdConceptos
             .Columns(ColumnasDelGrdConceptos.Id).Visible = False
             .Columns(ColumnasDelGrdConceptos.PerteneceA).Visible = False
@@ -102,7 +102,7 @@ Public Class frmSelectConcepto
                     Dim pertenecea = IIf(.Cells(ColumnasDelGrdConceptos.PerteneceA).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.PerteneceA).Value)
                     Dim tipovalor = IIf(.Cells(ColumnasDelGrdConceptos.TipoDeValor).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.TipoDeValor).Value)
                     Dim valor = IIf(txtValor.Text = "", .Cells(ColumnasDelGrdConceptos.Valor).Value, txtValor.Text)
-                    Dim frecuencia = txtFrecuencia.Text
+                    Dim frecuencia = cmbFrecuencia.Text
                     Dim campoaplicable = IIf(.Cells(ColumnasDelGrdConceptos.CampoAplicable).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.CampoAplicable).Value)
 
                     frmFarmacias_Conceptos.grdConceptosPanel.Rows.Add(id, codigo, nombre, descripcion, conceptopago, pertenecea, tipovalor, valor, frecuencia, campoaplicable)
