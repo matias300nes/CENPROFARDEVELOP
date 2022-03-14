@@ -108,7 +108,7 @@ Public Class frmPresentaciones
         End If
     End Sub
 
-    Private Sub grd_SelectionChanged(sender As Object, e As EventArgs) Handles grd.SelectionChanged 'comentar cuando se necesite ver el diseñador
+    Private Sub grd_SelectionChanged(sender As Object, e As EventArgs) ' Handles grd.SelectionChanged 'comentar cuando se necesite ver el diseñador
         ''DataGridView1.SelectedRows.Count().ToString()
         If grd.SelectedRows.Count() > 1 Then
             btnUnificar.Enabled = True
@@ -741,6 +741,9 @@ Public Class frmPresentaciones
             grdItems.Height = grdItems.Height - variableajuste
             GbFarmaciaForm.Height = GbFarmaciaForm.Height - variableajuste
             Label19.Location = New Point(Label19.Location.X, Label19.Location.Y - variableajuste)
+            GroupBox2.Location = New Point(GroupBox2.Location.X, GroupBox2.Location.Y - variableajuste)
+            cmbEstado.Location = New Point(cmbEstado.Location.X, cmbEstado.Location.Y - variableajuste)
+            Label9.Location = New Point(Label9.Location.X, Label9.Location.Y - variableajuste)
             lblCantidadFilas.Location = New Point(lblCantidadFilas.Location.X, lblCantidadFilas.Location.Y - variableajuste)
 
             'rdPendientes.Location = New Point(rdPendientes.Location.X, rdPendientes.Location.Y - variableajuste)
@@ -765,11 +768,11 @@ Public Class frmPresentaciones
             grdItems.Height = grdItems.Height + variableajuste
             GbFarmaciaForm.Height = GbFarmaciaForm.Height + variableajuste
             Label19.Location = New Point(Label19.Location.X, Label19.Location.Y + variableajuste)
+            GroupBox2.Location = New Point(GroupBox2.Location.X, GroupBox2.Location.Y + variableajuste)
+            cmbEstado.Location = New Point(cmbEstado.Location.X, cmbEstado.Location.Y + variableajuste)
+            Label9.Location = New Point(Label9.Location.X, Label9.Location.Y + variableajuste)
             lblCantidadFilas.Location = New Point(lblCantidadFilas.Location.X, lblCantidadFilas.Location.Y + variableajuste)
 
-            'rdPendientes.Location = New Point(rdPendientes.Location.X, rdPendientes.Location.Y + variableajuste)
-            'rdAnuladas.Location = New Point(rdAnuladas.Location.X, rdAnuladas.Location.Y + variableajuste)
-            'rdTodasOC.Location = New Point(rdTodasOC.Location.X, rdTodasOC.Location.Y + variableajuste)
 
             Label4.Location = New Point(Label4.Location.X, Label4.Location.Y + variableajuste)
             txtRecaudado.Location = New Point(txtRecaudado.Location.X, txtRecaudado.Location.Y + variableajuste)
