@@ -10,6 +10,18 @@ Public Class frmConceptos
 
     Dim bolpoliticas As Boolean
 
+    Enum gridcols
+        Id = 0
+        Codigo = 1
+        Nombre = 2
+        Descripcion = 3
+        ConceptoPago = 4
+        Pertenece = 5
+        TipoDeValor = 6
+        Valor = 7
+        CampoAplicable = 8
+    End Enum
+
 #Region "Procedimientos Formularios"
 
     Private Sub frmAlmacenes_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles Me.KeyDown
@@ -40,6 +52,14 @@ Public Class frmConceptos
         Permitir = True
         CargarCajas()
         PrepararBotones()
+
+        With grd
+            .Columns(gridcols.CampoAplicable).Visible = False
+            .Columns(gridcols.Pertenece).Visible = False
+            .Columns(gridcols.TipoDeValor).Visible = False
+            .Columns(gridcols.ConceptoPago).Visible = False
+            .AutoResizeColumns()
+        End With
     End Sub
 
     Private Sub chkEliminados_CheckedChanged(sender As Object, e As EventArgs) Handles chkEliminados.CheckedChanged
@@ -801,14 +821,6 @@ Public Class frmConceptos
     End Function
 
 #End Region
-
-
-
-
-
-
-
-
 
 
 
