@@ -108,7 +108,7 @@ Public Class frmPresentaciones
         End If
     End Sub
 
-    Private Sub grd_SelectionChanged(sender As Object, e As EventArgs) ' Handles grd.SelectionChanged 'comentar cuando se necesite ver el diseñador
+    Private Sub grd_SelectionChanged(sender As Object, e As EventArgs) Handles grd.SelectionChanged 'comentar cuando se necesite ver el diseñador
         ''DataGridView1.SelectedRows.Count().ToString()
         If grd.SelectedRows.Count() > 1 Then
             btnUnificar.Enabled = True
