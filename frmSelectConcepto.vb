@@ -74,6 +74,16 @@ Public Class frmSelectConcepto
         LlenarGrilla()
         Permitir = True
         CargarCajas()
+
+        With grdConceptos
+            .Columns(ColumnasDelGrdConceptos.Id).Visible = False
+            .Columns(ColumnasDelGrdConceptos.PerteneceA).Visible = False
+            .Columns(ColumnasDelGrdConceptos.TipoDeValor).Visible = False
+            .Columns(ColumnasDelGrdConceptos.ConceptoPago).Visible = False
+            .Columns(ColumnasDelGrdConceptos.CampoAplicable).Visible = False
+
+            .AutoResizeColumns()
+        End With
     End Sub
 
     Private Sub btnListo_Click(sender As Object, e As EventArgs) Handles btnListo.Click

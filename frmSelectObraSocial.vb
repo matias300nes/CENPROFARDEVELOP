@@ -185,6 +185,8 @@ Public Class frmSelectObraSocial
         'RaiseEvent ev_CellChanged(sender, e) 'por ahora lo usa el formulario entryline
     End Sub
 
+
+
     'Private Sub grdPresentaciones_SelectionChanged(sender As Object, e As DataGridViewCellEventArgs) Handles grdPresentaciones.SelectionChanged
     '    Dim connection As SqlClient.SqlConnection = Nothing
     '    Dim ds As Data.DataSet
