@@ -21,7 +21,10 @@ Public Class frmGrupos
         asignarTags()
 
         LlenarGrilla()
-        cmbMandataria.SelectedIndex = 0
+        If cmbMandataria.Items.Count > 0 Then
+            cmbMandataria.SelectedIndex = 0
+        End If
+
         'cmbMandataria.SelectedIndex = 0
     End Sub
 
@@ -187,28 +190,31 @@ Public Class frmGrupos
 
     Protected Sub LlenarGrilla()
         Dim o(1) As String
-        Sql = $"exec spGrupos_GruposOS_Select_All_By_IDMandataria @idmandataria = {cmbMandataria.SelectedValue}"
-        'GetDataset()
-        Dim dtGrupos_Os As New DataTable
-        Dim connection = Nothing
-        Try
-            connection = SqlHelper.GetConnection(ConnStringSEI)
-            ''Detalle de liquidacion
-            'Dim Sql = $"exec spObrasSociales_Select_All_By_IDMandataria @IDMandataria = {frmGrupos.cmbMandataria.SelectedValue}"
+        If cmbMandataria.SelectedValue IsNot Nothing Then
+            Sql = $"exec spGrupos_GruposOS_Select_All_By_IDMandataria @idmandataria = {cmbMandataria.SelectedValue}"
+            'GetDataset()
+            Dim dtGrupos_Os As New DataTable
+            Dim connection = Nothing
+            Try
+                connection = SqlHelper.GetConnection(ConnStringSEI)
+                ''Detalle de liquidacion
+                'Dim Sql = $"exec spObrasSociales_Select_All_By_IDMandataria @IDMandataria = {frmGrupos.cmbMandataria.SelectedValue}"
 
-            Dim cmd As New SqlCommand(Sql, connection)
-            Dim da As New SqlDataAdapter(cmd)
+                Dim cmd As New SqlCommand(Sql, connection)
+                Dim da As New SqlDataAdapter(cmd)
 
-            da.Fill(dtGrupos_Os)
+                da.Fill(dtGrupos_Os)
 
-            grdGrupos_Os.DataSource = dtGrupos_Os
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        Finally
-            If Not connection Is Nothing Then
-                CType(connection, IDisposable).Dispose()
-            End If
-        End Try
+                grdGrupos_Os.DataSource = dtGrupos_Os
+            Catch ex As Exception
+                MsgBox(ex.Message)
+            Finally
+                If Not connection Is Nothing Then
+                    CType(connection, IDisposable).Dispose()
+                End If
+            End Try
+        End If
+
         With grdGrupos_Os
             .VirtualMode = False
             .AllowUserToAddRows = False
