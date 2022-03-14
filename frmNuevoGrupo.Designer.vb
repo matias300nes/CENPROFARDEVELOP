@@ -27,11 +27,11 @@ Partial Class frmNuevoGrupo
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.grdGruposMandataria = New System.Windows.Forms.DataGridView()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.txtGrupo = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.btnEliminar = New DevComponents.DotNetBar.ButtonX()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
-        Me.cmbMandataria = New DevComponents.DotNetBar.Controls.ComboBoxEx()
-        Me.txtGrupo = New TextBoxConFormatoVB.FormattedTextBoxVB()
+        Me.cmbMandataria = New System.Windows.Forms.ComboBox()
         Me.TableLayoutPanel1.SuspendLayout()
         CType(Me.grdGruposMandataria, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
@@ -84,17 +84,37 @@ Partial Class frmNuevoGrupo
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.cmbMandataria)
         Me.GroupBox1.Controls.Add(Me.txtGrupo)
         Me.GroupBox1.Controls.Add(Me.btnListo)
         Me.GroupBox1.Controls.Add(Me.btnEliminar)
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Controls.Add(Me.Label13)
-        Me.GroupBox1.Controls.Add(Me.cmbMandataria)
         Me.GroupBox1.Location = New System.Drawing.Point(3, 3)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(701, 71)
         Me.GroupBox1.TabIndex = 3
         Me.GroupBox1.TabStop = False
+        '
+        'txtGrupo
+        '
+        Me.txtGrupo.AccessibleName = "*Grupo"
+        Me.txtGrupo.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtGrupo.Decimals = CType(2, Byte)
+        Me.txtGrupo.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
+        Me.txtGrupo.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
+        Me.txtGrupo.Location = New System.Drawing.Point(212, 34)
+        Me.txtGrupo.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtGrupo.MaxLength = 11
+        Me.txtGrupo.Name = "txtGrupo"
+        Me.txtGrupo.Size = New System.Drawing.Size(64, 22)
+        Me.txtGrupo.TabIndex = 278
+        Me.txtGrupo.Text_1 = Nothing
+        Me.txtGrupo.Text_2 = Nothing
+        Me.txtGrupo.Text_3 = Nothing
+        Me.txtGrupo.Text_4 = Nothing
+        Me.txtGrupo.UserValues = Nothing
         '
         'btnEliminar
         '
@@ -135,35 +155,12 @@ Partial Class frmNuevoGrupo
         '
         'cmbMandataria
         '
-        Me.cmbMandataria.DisplayMember = "Text"
-        Me.cmbMandataria.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
+        Me.cmbMandataria.Enabled = False
         Me.cmbMandataria.FormattingEnabled = True
-        Me.cmbMandataria.ItemHeight = 16
-        Me.cmbMandataria.Location = New System.Drawing.Point(32, 33)
+        Me.cmbMandataria.Location = New System.Drawing.Point(32, 34)
         Me.cmbMandataria.Name = "cmbMandataria"
-        Me.cmbMandataria.Size = New System.Drawing.Size(153, 22)
-        Me.cmbMandataria.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.cmbMandataria.TabIndex = 0
-        '
-        'txtGrupo
-        '
-        Me.txtGrupo.AccessibleName = "*Grupo"
-        Me.txtGrupo.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtGrupo.Decimals = CType(2, Byte)
-        Me.txtGrupo.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
-        Me.txtGrupo.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
-        Me.txtGrupo.Location = New System.Drawing.Point(212, 34)
-        Me.txtGrupo.Margin = New System.Windows.Forms.Padding(4)
-        Me.txtGrupo.MaxLength = 11
-        Me.txtGrupo.Name = "txtGrupo"
-        Me.txtGrupo.Size = New System.Drawing.Size(64, 22)
-        Me.txtGrupo.TabIndex = 278
-        Me.txtGrupo.Text_1 = Nothing
-        Me.txtGrupo.Text_2 = Nothing
-        Me.txtGrupo.Text_3 = Nothing
-        Me.txtGrupo.Text_4 = Nothing
-        Me.txtGrupo.UserValues = Nothing
+        Me.cmbMandataria.Size = New System.Drawing.Size(173, 24)
+        Me.cmbMandataria.TabIndex = 279
         '
         'frmNuevoGrupo
         '
@@ -188,9 +185,9 @@ Partial Class frmNuevoGrupo
     Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
     Friend WithEvents grdGruposMandataria As DataGridView
     Friend WithEvents GroupBox1 As GroupBox
-    Friend WithEvents cmbMandataria As DevComponents.DotNetBar.Controls.ComboBoxEx
     Friend WithEvents btnEliminar As DevComponents.DotNetBar.ButtonX
     Friend WithEvents Label1 As Label
     Friend WithEvents Label13 As Label
     Friend WithEvents txtGrupo As TextBoxConFormatoVB.FormattedTextBoxVB
+    Friend WithEvents cmbMandataria As ComboBox
 End Class
