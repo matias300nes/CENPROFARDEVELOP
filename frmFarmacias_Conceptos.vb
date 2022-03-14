@@ -186,75 +186,82 @@ Public Class frmFarmacias_Conceptos
 
     Private Sub btnGuardar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGuardar.Click
 
-        Dim res As Integer
+        Dim longitudCuit = txtCuit.Text.Length
 
-        If bolModo = False Then
-            If MessageBox.Show("Está seguro que desea modificar la Farmacia seleccionada?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
-                Exit Sub
-            End If
-        End If
+        If longitudCuit < 11 Then
+            MsgBox("El cuit debe ser de 11 dígitos.", MsgBoxStyle.Information, "Control de Errores")
+            txtCuit.Focus()
+        Else
+            Dim res As Integer
 
-        Util.MsgStatus(Status1, "Guardando el registro...", My.Resources.Resources.indicator_white)
-
-        If ReglasNegocio() Then
-            Verificar_Datos()
-            If bolpoliticas Then
-                If bolModo Then
-                    'If ALTA Then
-                    res = AgregarRegistro()
-                    Select Case res
-                        Case -2
-                            Util.MsgStatus(Status1, "El registro ya existe.", My.Resources.Resources.stop_error.ToBitmap)
-                            Exit Sub
-                        Case -1
-                            Util.MsgStatus(Status1, "No se pudo actualizar el registro.", My.Resources.Resources.stop_error.ToBitmap)
-                            Exit Sub
-                        Case 0
-                            Util.MsgStatus(Status1, "No se pudo agregar el registro.", My.Resources.Resources.stop_error.ToBitmap)
-                            Exit Sub
-                        Case Else
-                            Util.MsgStatus(Status1, "Se ha actualizado el registro.", My.Resources.Resources.ok.ToBitmap)
-                    End Select
-                    'Else
-                    '    Util.MsgStatus(Status1, "No tiene permiso para Agregar registros.", My.Resources.stop_error.ToBitmap)
-                    'End If
-                Else
-                    'If MODIFICA Then
-                    res = ActualizarRegistro()
-                    Select Case res
-                        Case -3
-                            Util.MsgStatus(Status1, "Ya existe otro Registro con este mismo Código.", My.Resources.stop_error.ToBitmap)
-                            Exit Sub
-                        Case -2
-                            Util.MsgStatus(Status1, "El registro ya existe.", My.Resources.Resources.stop_error.ToBitmap)
-                            Exit Sub
-                        Case -1
-                            Util.MsgStatus(Status1, "No se pudo actualizar el registro.", My.Resources.Resources.stop_error.ToBitmap)
-                            Exit Sub
-                        Case 0
-                            Util.MsgStatus(Status1, "No se pudo agregar el registro.", My.Resources.Resources.stop_error.ToBitmap)
-                            Exit Sub
-                        Case Else
-                            Util.MsgStatus(Status1, "Se ha actualizado el registro.", My.Resources.Resources.ok.ToBitmap)
-
-
-
-                    End Select
-                    '    Else
-                    '    Util.MsgStatus(Status1, "No tiene permiso para modificar registros.", My.Resources.stop_error.ToBitmap)
-                    'End If
+            If bolModo = False Then
+                If MessageBox.Show("Está seguro que desea modificar la Farmacia seleccionada?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
+                    Exit Sub
                 End If
-
-                bolModo = False
-                PrepararBotones()
-                LlenarCmbProvincias()
-                MDIPrincipal.NoActualizarBase = False
-                btnActualizar_Click(sender, e)
             End If
-        End If
 
-        If Origen = 1 Then
-            Me.Close()
+            Util.MsgStatus(Status1, "Guardando el registro...", My.Resources.Resources.indicator_white)
+
+            If ReglasNegocio() Then
+                Verificar_Datos()
+                If bolpoliticas Then
+                    If bolModo Then
+                        'If ALTA Then
+                        res = AgregarRegistro()
+                        Select Case res
+                            Case -2
+                                Util.MsgStatus(Status1, "El registro ya existe.", My.Resources.Resources.stop_error.ToBitmap)
+                                Exit Sub
+                            Case -1
+                                Util.MsgStatus(Status1, "No se pudo actualizar el registro.", My.Resources.Resources.stop_error.ToBitmap)
+                                Exit Sub
+                            Case 0
+                                Util.MsgStatus(Status1, "No se pudo agregar el registro.", My.Resources.Resources.stop_error.ToBitmap)
+                                Exit Sub
+                            Case Else
+                                Util.MsgStatus(Status1, "Se ha actualizado el registro.", My.Resources.Resources.ok.ToBitmap)
+                        End Select
+                        'Else
+                        '    Util.MsgStatus(Status1, "No tiene permiso para Agregar registros.", My.Resources.stop_error.ToBitmap)
+                        'End If
+                    Else
+                        'If MODIFICA Then
+                        res = ActualizarRegistro()
+                        Select Case res
+                            Case -3
+                                Util.MsgStatus(Status1, "Ya existe otro Registro con este mismo Código.", My.Resources.stop_error.ToBitmap)
+                                Exit Sub
+                            Case -2
+                                Util.MsgStatus(Status1, "El registro ya existe.", My.Resources.Resources.stop_error.ToBitmap)
+                                Exit Sub
+                            Case -1
+                                Util.MsgStatus(Status1, "No se pudo actualizar el registro.", My.Resources.Resources.stop_error.ToBitmap)
+                                Exit Sub
+                            Case 0
+                                Util.MsgStatus(Status1, "No se pudo agregar el registro.", My.Resources.Resources.stop_error.ToBitmap)
+                                Exit Sub
+                            Case Else
+                                Util.MsgStatus(Status1, "Se ha actualizado el registro.", My.Resources.Resources.ok.ToBitmap)
+
+
+
+                        End Select
+                        '    Else
+                        '    Util.MsgStatus(Status1, "No tiene permiso para modificar registros.", My.Resources.stop_error.ToBitmap)
+                        'End If
+                    End If
+
+                    bolModo = False
+                    PrepararBotones()
+                    LlenarCmbProvincias()
+                    MDIPrincipal.NoActualizarBase = False
+                    btnActualizar_Click(sender, e)
+                End If
+            End If
+
+            If Origen = 1 Then
+                Me.Close()
+            End If
         End If
 
     End Sub
@@ -1086,12 +1093,12 @@ Public Class frmFarmacias_Conceptos
 
             If result = DialogResult.Yes Then
                 If grdProfesionalesPanel.CurrentRow IsNot Nothing Then
-                    ds_coincidencia = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT idprofesional, idFarmacia FROM Farmacias_Conceptos WHERE idprofesional = {grdProfesionalesPanel.CurrentRow.Cells(ColumnasDelGrdProfesionalesPanel.Id).Value} AND idFarmacia = {txtID.Text}") 'revisar
+                    ds_coincidencia = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT idprofesional, idFarmacia FROM Farmacias_Profesionales WHERE idprofesional = {grdProfesionalesPanel.CurrentRow.Cells(ColumnasDelGrdProfesionalesPanel.Id).Value} AND idFarmacia = {txtID.Text}") 'revisar
                     If ds_coincidencia.Tables(0).Rows.Count = 1 Then 'si encuentro esa relacion
                         Dim param_idProfesional As New SqlClient.SqlParameter
                         param_idProfesional.ParameterName = "@idprofesional"
                         param_idProfesional.SqlDbType = SqlDbType.BigInt
-                        param_idProfesional.Value = grdConceptosPanel.CurrentRow.Cells(ColumnasDelGrdProfesionalesPanel.Id).Value
+                        param_idProfesional.Value = grdProfesionalesPanel.CurrentRow.Cells(ColumnasDelGrdProfesionalesPanel.Id).Value
                         param_idProfesional.Direction = ParameterDirection.InputOutput
 
                         Dim param_idFarmacia As New SqlClient.SqlParameter
@@ -1549,7 +1556,7 @@ Public Class frmFarmacias_Conceptos
 
     End Sub
 
-    Private Overloads Sub grd_CurrentCellChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles grd.CurrentCellChanged
+    Private Overloads Sub grd_CurrentCellChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles grd.CurrentCellChanged 'comentar
         LlenarGrdConceptosPanel()
         LlenarGrdProfesionalesPanel()
     End Sub
