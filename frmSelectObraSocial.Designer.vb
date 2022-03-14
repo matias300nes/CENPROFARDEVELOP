@@ -38,7 +38,7 @@ Partial Class frmSelectObraSocial
         Me.btnListo.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
         Me.btnListo.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.btnListo.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.btnListo.Location = New System.Drawing.Point(221, 383)
+        Me.btnListo.Location = New System.Drawing.Point(162, 383)
         Me.btnListo.Name = "btnListo"
         Me.btnListo.Size = New System.Drawing.Size(89, 23)
         Me.btnListo.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
@@ -60,22 +60,26 @@ Partial Class frmSelectObraSocial
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(532, 420)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(413, 420)
         Me.TableLayoutPanel1.TabIndex = 3
         '
         'grdObrasSociales
         '
         Me.grdObrasSociales.AllowUserToAddRows = False
         Me.grdObrasSociales.AllowUserToDeleteRows = False
+        Me.grdObrasSociales.AllowUserToResizeColumns = False
+        Me.grdObrasSociales.AllowUserToResizeRows = False
+        Me.grdObrasSociales.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.grdObrasSociales.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.grdObrasSociales.Dock = System.Windows.Forms.DockStyle.Fill
         Me.grdObrasSociales.Location = New System.Drawing.Point(3, 53)
         Me.grdObrasSociales.MultiSelect = False
         Me.grdObrasSociales.Name = "grdObrasSociales"
         Me.grdObrasSociales.ReadOnly = True
+        Me.grdObrasSociales.RowHeadersVisible = False
         Me.grdObrasSociales.RowHeadersWidth = 51
         Me.grdObrasSociales.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.grdObrasSociales.Size = New System.Drawing.Size(526, 314)
+        Me.grdObrasSociales.Size = New System.Drawing.Size(407, 314)
         Me.grdObrasSociales.TabIndex = 0
         '
         'GroupBox1
@@ -86,7 +90,7 @@ Partial Class frmSelectObraSocial
         Me.GroupBox1.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Padding = New System.Windows.Forms.Padding(2)
-        Me.GroupBox1.Size = New System.Drawing.Size(528, 46)
+        Me.GroupBox1.Size = New System.Drawing.Size(409, 46)
         Me.GroupBox1.TabIndex = 3
         Me.GroupBox1.TabStop = False
         '
@@ -104,9 +108,10 @@ Partial Class frmSelectObraSocial
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(532, 420)
+        Me.ClientSize = New System.Drawing.Size(413, 420)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.MinimumSize = New System.Drawing.Size(400, 400)
         Me.Name = "frmSelectObraSocial"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Obras Sociales"

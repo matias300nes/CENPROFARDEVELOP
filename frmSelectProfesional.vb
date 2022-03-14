@@ -14,17 +14,6 @@ Public Class frmSelectProfesional
 
     Dim dtConceptos_Created As Boolean
     Dim count As Integer = 0
-    Enum ColumnasDelGrdConceptos
-        Id = 0
-        Codigo = 1
-        Nombre = 2
-        Descripcion = 3
-        ConceptoPago = 4
-        PerteneceA = 5
-        TipoDeValor = 6
-        Valor = 7
-        CampoAplicable = 8
-    End Enum
 
     Enum ColumnasDelGrdProfesionales
         Id = 0
@@ -33,7 +22,12 @@ Public Class frmSelectProfesional
         Apellido = 3
         Direccion = 4
         Celular = 5
-        Email = 6
+        email = 6
+        IdLocalidad = 7
+        IdProvincia = 8
+        CodigoPostal = 9
+        Provincia = 10
+        Localidad = 11
     End Enum
     Protected Function ReglasNegocio() As Boolean
         Dim msg As String
@@ -76,6 +70,18 @@ Public Class frmSelectProfesional
 
     Private Sub frmNuevaLiquidacion_Load(sender As Object, e As EventArgs) Handles Me.Load
         LlenarGrilla()
+
+        With grdProfesionales
+            .Columns(ColumnasDelGrdProfesionales.Id).Visible = False
+            .Columns(ColumnasDelGrdProfesionales.IdLocalidad).Visible = False
+            .Columns(ColumnasDelGrdProfesionales.IdProvincia).Visible = False
+            .Columns(ColumnasDelGrdProfesionales.CodigoPostal).Visible = False
+            .Columns(ColumnasDelGrdProfesionales.Direccion).Visible = False
+            .Columns(ColumnasDelGrdProfesionales.Provincia).Visible = False
+            .Columns(ColumnasDelGrdProfesionales.Celular).Visible = False
+            .Columns(ColumnasDelGrdProfesionales.Localidad).Visible = False
+            .AutoResizeColumns()
+        End With
     End Sub
 
     Private Sub btnListo_Click(sender As Object, e As EventArgs) Handles btnListo.Click
@@ -110,6 +116,4 @@ Public Class frmSelectProfesional
 
 
     End Sub
-
-
 End Class

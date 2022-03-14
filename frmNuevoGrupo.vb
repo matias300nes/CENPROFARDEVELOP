@@ -15,16 +15,12 @@ Public Class frmNuevoGrupo
     Dim dtConceptos_Created As Boolean
     Dim count As Integer = 0
     Dim Permitir As Boolean
-    Enum ColumnasDelGrdConceptos
-        Id = 0
-        Codigo = 1
-        Nombre = 2
-        Descripcion = 3
-        ConceptoPago = 4
-        PerteneceA = 5
-        TipoDeValor = 6
-        Valor = 7
-        CampoAplicable = 8
+
+    Enum ColumnasGrupos
+        ID = 0
+        IdMandataria = 1
+        Mandataria = 2
+        Grupo = 3
     End Enum
 
     Private Sub asignarTags()
@@ -76,6 +72,13 @@ Public Class frmNuevoGrupo
         CargarCajas()
         cmbMandataria.SelectedValue = frmGrupos.cmbMandataria.SelectedValue
         cmbMandataria.Text = frmGrupos.cmbMandataria.Text
+
+        With grdGruposMandataria
+            .Columns(ColumnasGrupos.ID).Visible = False
+            .Columns(ColumnasGrupos.IdMandataria).Visible = False
+            .AutoResizeColumns()
+        End With
+
     End Sub
 
     Private Sub btnListo_Click(sender As Object, e As EventArgs) Handles btnListo.Click

@@ -69,6 +69,11 @@ Public Class frmSelectObraSocial
         LlenarGrilla()
         Permitir = True
         CargarCajas()
+
+        With grdObrasSociales
+            .Columns(ColumnasDelGrdObrasSociales.IdOS).Visible = False
+            .AutoResizeColumns()
+        End With
     End Sub
 
     Private Sub btnListo_Click(sender As Object, e As EventArgs) Handles btnListo.Click
