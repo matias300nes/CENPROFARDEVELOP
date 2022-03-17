@@ -31,8 +31,7 @@ Partial Class frmSaldos
         Me.btnAplicarConceptos = New DevComponents.DotNetBar.ButtonX()
         Me.txtBuscar = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.lblTotal = New System.Windows.Forms.Label()
-        Me.Label23 = New System.Windows.Forms.Label()
+        Me.lblSeleccionados = New System.Windows.Forms.Label()
         Me.txtID = New System.Windows.Forms.TextBox()
         Me.btnSelection = New System.Windows.Forms.Button()
         CType(Me.grdFarmacia, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -99,9 +98,9 @@ Partial Class frmSaldos
         Me.btnPago.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnPago.BackColor = System.Drawing.SystemColors.Control
         Me.btnPago.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.btnPago.Location = New System.Drawing.Point(348, 273)
+        Me.btnPago.Location = New System.Drawing.Point(557, 270)
         Me.btnPago.Name = "btnPago"
-        Me.btnPago.Size = New System.Drawing.Size(133, 23)
+        Me.btnPago.Size = New System.Drawing.Size(133, 25)
         Me.btnPago.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnPago.TabIndex = 6
         Me.btnPago.Text = "Cheques/Transferencia"
@@ -113,9 +112,9 @@ Partial Class frmSaldos
         Me.btnAplicarConceptos.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnAplicarConceptos.BackColor = System.Drawing.SystemColors.Control
         Me.btnAplicarConceptos.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.btnAplicarConceptos.Location = New System.Drawing.Point(490, 273)
+        Me.btnAplicarConceptos.Location = New System.Drawing.Point(706, 270)
         Me.btnAplicarConceptos.Name = "btnAplicarConceptos"
-        Me.btnAplicarConceptos.Size = New System.Drawing.Size(107, 23)
+        Me.btnAplicarConceptos.Size = New System.Drawing.Size(107, 25)
         Me.btnAplicarConceptos.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnAplicarConceptos.TabIndex = 7
         Me.btnAplicarConceptos.Text = "Aplicar conceptos"
@@ -137,28 +136,17 @@ Partial Class frmSaldos
         Me.Label3.TabIndex = 9
         Me.Label3.Text = "Buscar:"
         '
-        'lblTotal
+        'lblSeleccionados
         '
-        Me.lblTotal.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lblTotal.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTotal.ForeColor = System.Drawing.Color.DarkGreen
-        Me.lblTotal.Location = New System.Drawing.Point(684, 271)
-        Me.lblTotal.Name = "lblTotal"
-        Me.lblTotal.Size = New System.Drawing.Size(130, 24)
-        Me.lblTotal.TabIndex = 391
-        Me.lblTotal.Text = "$ [Total]"
-        Me.lblTotal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Label23
-        '
-        Me.Label23.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label23.AutoSize = True
-        Me.Label23.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label23.Location = New System.Drawing.Point(644, 276)
-        Me.Label23.Name = "Label23"
-        Me.Label23.Size = New System.Drawing.Size(42, 16)
-        Me.Label23.TabIndex = 390
-        Me.Label23.Text = "Total:"
+        Me.lblSeleccionados.AutoSize = True
+        Me.lblSeleccionados.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblSeleccionados.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.lblSeleccionados.Location = New System.Drawing.Point(151, 260)
+        Me.lblSeleccionados.Name = "lblSeleccionados"
+        Me.lblSeleccionados.Size = New System.Drawing.Size(86, 13)
+        Me.lblSeleccionados.TabIndex = 391
+        Me.lblSeleccionados.Text = "0 Seleccionados"
+        Me.lblSeleccionados.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'txtID
         '
@@ -184,8 +172,7 @@ Partial Class frmSaldos
         Me.ClientSize = New System.Drawing.Size(834, 544)
         Me.Controls.Add(Me.btnSelection)
         Me.Controls.Add(Me.txtID)
-        Me.Controls.Add(Me.Label23)
-        Me.Controls.Add(Me.lblTotal)
+        Me.Controls.Add(Me.lblSeleccionados)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.txtBuscar)
         Me.Controls.Add(Me.btnAplicarConceptos)
@@ -214,8 +201,7 @@ Partial Class frmSaldos
     Friend WithEvents btnAplicarConceptos As DevComponents.DotNetBar.ButtonX
     Friend WithEvents txtBuscar As TextBox
     Friend WithEvents Label3 As Label
-    Friend WithEvents lblTotal As Label
-    Friend WithEvents Label23 As Label
+    Friend WithEvents lblSeleccionados As Label
     Friend WithEvents txtID As TextBox
     Friend WithEvents btnSelection As Button
 End Class

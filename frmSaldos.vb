@@ -137,13 +137,26 @@ Public Class frmSaldos
 
     ''Revisa si almenos un registro tiene un checkbox activado
     Private Function checkSelected() As Boolean
-        For Each row As DataGridViewRow In grdFarmacia.Rows
-            If row.Cells(grdFarmaciaCols.Seleccion).Value = True Then
+        For Each row As DataRow In dtFarmacias.Rows
+            If row(grdFarmaciaCols.Seleccion) = True Then
                 Return True
             End If
         Next
         Return False
     End Function
+
+    Private Sub countSelected()
+        ''refresco la seleccion para impactar datos
+        Dim temprow As DataGridViewCell = Nothing
+        Dim cant As Integer = 0
+        If grdFarmacia.CurrentCell IsNot Nothing Then
+            temprow = grdFarmacia.CurrentCell
+            grdFarmacia.CurrentCell = Nothing
+        End If
+        grdFarmacia.CurrentCell = temprow
+        cant = dtFarmacias.Select($"{dtFarmacias.Columns(grdFarmaciaCols.Seleccion).ColumnName} = True").Length
+        lblSeleccionados.Text = cant.ToString + IIf(cant <> 1, " Seleccionados", " Seleccionado")
+    End Sub
 
 #End Region
 
@@ -174,6 +187,8 @@ Public Class frmSaldos
             End If
         End If
     End Sub
+
+
 
     Private Sub txtID_TextChanged(sender As Object, e As EventArgs) Handles txtID.TextChanged
         requestGrdItemData()
@@ -225,6 +240,7 @@ Public Class frmSaldos
             Next
             btnSelection.Text = "Deseleccionar todo"
         End If
+        countSelected()
     End Sub
 
     Private Sub btnAplicarConceptos_Click(sender As Object, e As EventArgs) Handles btnAplicarConceptos.Click
@@ -245,6 +261,12 @@ Public Class frmSaldos
             AplicarConceptos.ShowDialog()
         Else
             MsgBox("Debe seleccionar al menos una razón social para poder aplicar conceptos.")
+        End If
+    End Sub
+
+    Private Sub grdFarmacia_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles grdFarmacia.CellContentClick
+        If e.ColumnIndex = grdFarmaciaCols.Seleccion Then
+            countSelected()
         End If
     End Sub
 

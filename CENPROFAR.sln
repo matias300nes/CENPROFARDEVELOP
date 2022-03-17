@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31727.386
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "CENPROFAR", "CENPROFAR.vbproj", "{748621E3-13EA-42B3-A4A3-5F15C448AE4B}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ReportesNet", "ReportesNET\ReportesNet.vbproj", "{BF02D5AC-9386-40F6-8B88-E9095F35796B}"
@@ -34,5 +36,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {506D6A7C-5C8D-4BAE-BCF4-588DBCAA1B19}
 	EndGlobalSection
 EndGlobal
