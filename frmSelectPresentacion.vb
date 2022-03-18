@@ -95,6 +95,16 @@ Public Class frmSelectPresentacion
     Private Sub frmNuevaLiquidacion_Load(sender As Object, e As EventArgs) Handles Me.Load
         LlenarGrilla()
         llenarCmbEstados()
+
+        With grdPresentaciones
+            .Columns(GridCols.ID).Visible = False
+            .Columns(GridCols.IdObraSocial).Visible = False
+            .Columns(GridCols.Fecha).Visible = False
+            .Columns(GridCols.Estado).Visible = False
+            .Columns(GridCols.Total).DefaultCellStyle.Format = "c"
+
+            .AutoResizeColumns()
+        End With
     End Sub
 
     Private Sub btnListo_Click(sender As Object, e As EventArgs) Handles btnListo.Click
@@ -178,6 +188,8 @@ Public Class frmSelectPresentacion
                     CType(connection, IDisposable).Dispose()
                 End If
             End Try
+        Else
+            cmbPago.DataSource = {$"1º PAGO", $"PAGO UNICO"}
         End If
 
     End Sub

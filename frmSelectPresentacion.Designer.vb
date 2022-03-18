@@ -28,11 +28,11 @@ Partial Class frmSelectPresentacion
         Me.chkAgrupar = New System.Windows.Forms.CheckBox()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.cmbPago = New DevComponents.DotNetBar.Controls.ComboBoxEx()
         Me.lblCantPagos = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.cmbEstado = New DevComponents.DotNetBar.Controls.ComboBoxEx()
+        Me.cmbPago = New DevComponents.DotNetBar.Controls.ComboBoxEx()
         CType(Me.grdPresentaciones, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -42,17 +42,18 @@ Partial Class frmSelectPresentacion
         '
         Me.grdPresentaciones.AllowUserToAddRows = False
         Me.grdPresentaciones.AllowUserToDeleteRows = False
+        Me.grdPresentaciones.AllowUserToResizeRows = False
+        Me.grdPresentaciones.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.grdPresentaciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.grdPresentaciones.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.grdPresentaciones.Location = New System.Drawing.Point(4, 96)
-        Me.grdPresentaciones.Margin = New System.Windows.Forms.Padding(4)
+        Me.grdPresentaciones.Location = New System.Drawing.Point(3, 78)
         Me.grdPresentaciones.MultiSelect = False
         Me.grdPresentaciones.Name = "grdPresentaciones"
         Me.grdPresentaciones.ReadOnly = True
         Me.grdPresentaciones.RowHeadersVisible = False
         Me.grdPresentaciones.RowHeadersWidth = 51
         Me.grdPresentaciones.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.grdPresentaciones.Size = New System.Drawing.Size(671, 358)
+        Me.grdPresentaciones.Size = New System.Drawing.Size(611, 291)
         Me.grdPresentaciones.TabIndex = 0
         '
         'btnListo
@@ -60,10 +61,9 @@ Partial Class frmSelectPresentacion
         Me.btnListo.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
         Me.btnListo.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.btnListo.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.btnListo.Location = New System.Drawing.Point(280, 473)
-        Me.btnListo.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnListo.Location = New System.Drawing.Point(264, 384)
         Me.btnListo.Name = "btnListo"
-        Me.btnListo.Size = New System.Drawing.Size(119, 28)
+        Me.btnListo.Size = New System.Drawing.Size(89, 23)
         Me.btnListo.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnListo.TabIndex = 2
         Me.btnListo.Text = "Listo"
@@ -71,10 +71,9 @@ Partial Class frmSelectPresentacion
         'chkAgrupar
         '
         Me.chkAgrupar.AutoSize = True
-        Me.chkAgrupar.Location = New System.Drawing.Point(227, 47)
-        Me.chkAgrupar.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkAgrupar.Location = New System.Drawing.Point(160, 37)
         Me.chkAgrupar.Name = "chkAgrupar"
-        Me.chkAgrupar.Size = New System.Drawing.Size(168, 21)
+        Me.chkAgrupar.Size = New System.Drawing.Size(127, 17)
         Me.chkAgrupar.TabIndex = 0
         Me.chkAgrupar.Text = "Agrupar por Farmacia"
         Me.chkAgrupar.UseVisualStyleBackColor = True
@@ -88,13 +87,13 @@ Partial Class frmSelectPresentacion
         Me.TableLayoutPanel1.Controls.Add(Me.btnListo, 0, 2)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
-        Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 3
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 92.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 75.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 59.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(679, 517)
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 48.0!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(617, 420)
         Me.TableLayoutPanel1.TabIndex = 3
         '
         'GroupBox1
@@ -106,55 +105,44 @@ Partial Class frmSelectPresentacion
         Me.GroupBox1.Controls.Add(Me.cmbEstado)
         Me.GroupBox1.Controls.Add(Me.chkAgrupar)
         Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GroupBox1.Location = New System.Drawing.Point(3, 2)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.GroupBox1.Location = New System.Drawing.Point(2, 2)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.GroupBox1.Size = New System.Drawing.Size(673, 88)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.GroupBox1.Size = New System.Drawing.Size(613, 71)
         Me.GroupBox1.TabIndex = 4
         Me.GroupBox1.TabStop = False
         '
-        'cmbPago
-        '
-        Me.cmbPago.DisplayMember = "Text"
-        Me.cmbPago.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
-        Me.cmbPago.FormattingEnabled = True
-        Me.cmbPago.ItemHeight = 14
-        Me.cmbPago.Location = New System.Drawing.Point(235, 15)
-        Me.cmbPago.Margin = New System.Windows.Forms.Padding(4)
-        Me.cmbPago.Name = "cmbPago"
-        Me.cmbPago.Size = New System.Drawing.Size(188, 20)
-        Me.cmbPago.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.cmbPago.TabIndex = 8
-        Me.cmbPago.Visible = False
-        '
         'lblCantPagos
         '
+        Me.lblCantPagos.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblCantPagos.AutoSize = True
-        Me.lblCantPagos.Location = New System.Drawing.Point(587, 49)
-        Me.lblCantPagos.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblCantPagos.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lblCantPagos.Location = New System.Drawing.Point(548, 40)
         Me.lblCantPagos.Name = "lblCantPagos"
-        Me.lblCantPagos.Size = New System.Drawing.Size(16, 17)
+        Me.lblCantPagos.Size = New System.Drawing.Size(13, 13)
         Me.lblCantPagos.TabIndex = 7
         Me.lblCantPagos.Text = "0"
         Me.lblCantPagos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Label2
         '
+        Me.Label2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(427, 48)
-        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label2.Location = New System.Drawing.Point(428, 39)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(156, 17)
+        Me.Label2.Size = New System.Drawing.Size(116, 13)
         Me.Label2.TabIndex = 6
         Me.Label2.Text = "Cant. pagos anteriores:"
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(20, 22)
+        Me.Label1.Location = New System.Drawing.Point(15, 18)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(56, 17)
+        Me.Label1.Size = New System.Drawing.Size(43, 13)
         Me.Label1.TabIndex = 5
         Me.Label1.Text = "Estado:"
         '
@@ -164,21 +152,34 @@ Partial Class frmSelectPresentacion
         Me.cmbEstado.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
         Me.cmbEstado.FormattingEnabled = True
         Me.cmbEstado.ItemHeight = 16
-        Me.cmbEstado.Location = New System.Drawing.Point(23, 44)
-        Me.cmbEstado.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.cmbEstado.Location = New System.Drawing.Point(17, 36)
+        Me.cmbEstado.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.cmbEstado.Name = "cmbEstado"
-        Me.cmbEstado.Size = New System.Drawing.Size(165, 22)
+        Me.cmbEstado.Size = New System.Drawing.Size(125, 22)
         Me.cmbEstado.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.cmbEstado.TabIndex = 4
         '
+        'cmbPago
+        '
+        Me.cmbPago.DisplayMember = "Text"
+        Me.cmbPago.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
+        Me.cmbPago.FormattingEnabled = True
+        Me.cmbPago.ItemHeight = 14
+        Me.cmbPago.Location = New System.Drawing.Point(275, 11)
+        Me.cmbPago.Name = "cmbPago"
+        Me.cmbPago.Size = New System.Drawing.Size(121, 20)
+        Me.cmbPago.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.cmbPago.TabIndex = 8
+        Me.cmbPago.Visible = False
+        '
         'frmSelectPresentacion
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(679, 517)
+        Me.ClientSize = New System.Drawing.Size(617, 420)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(4)
+        Me.MinimumSize = New System.Drawing.Size(500, 400)
         Me.Name = "frmSelectPresentacion"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Seleccionar presentación"

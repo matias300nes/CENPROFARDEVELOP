@@ -326,53 +326,53 @@ Public Class frmLiquidaciones
         End If
     End Sub
 
-    Private Sub grdItems_CellBeginEdit(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellCancelEventArgs)
-        editando_celda = True
-    End Sub
+    'Private Sub grdItems_CellBeginEdit(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellCancelEventArgs)
+    '    editando_celda = True
+    'End Sub
 
-    Private Sub txtid_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtID.KeyPress
+    'Private Sub txtid_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)
 
-        If e.KeyChar = ChrW(Keys.Enter) Then
-            e.Handled = True
-            SendKeys.Send("{TAB}")
-        End If
-    End Sub
+    '    If e.KeyChar = ChrW(Keys.Enter) Then
+    '        e.Handled = True
+    '        SendKeys.Send("{TAB}")
+    '    End If
+    'End Sub
 
-    Private Sub dtpfecha_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)
+    'Private Sub dtpfecha_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)
 
-        If e.KeyChar = ChrW(Keys.Enter) Then
-            e.Handled = True
-            SendKeys.Send("{TAB}")
-        End If
-    End Sub
+    '    If e.KeyChar = ChrW(Keys.Enter) Then
+    '        e.Handled = True
+    '        SendKeys.Send("{TAB}")
+    '    End If
+    'End Sub
 
-    Private Sub grditems_CellMouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellMouseEventArgs)
-        Cell_X = e.ColumnIndex
-        Cell_Y = e.RowIndex
-    End Sub
+    'Private Sub grditems_CellMouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellMouseEventArgs)
+    '    Cell_X = e.ColumnIndex
+    '    Cell_Y = e.RowIndex
+    'End Sub
 
-    Private Sub cmbOrdenDeCompra_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        If band = 1 Then
-            If llenandoCombo = False Then
-                btnLlenarGrilla_Click(sender, e)
-            End If
-        End If
-    End Sub
+    'Private Sub cmbOrdenDeCompra_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    '    If band = 1 Then
+    '        If llenandoCombo = False Then
+    '            btnLlenarGrilla_Click(sender, e)
+    '        End If
+    '    End If
+    'End Sub
 
-    Private Sub cmbOrdenDeCompra_SelectionChangeCommitted(ByVal sender As Object, ByVal e As System.EventArgs)
-        If band = 1 Then
-            If llenandoCombo = False Then
-                btnLlenarGrilla_Click(sender, e)
-            End If
-        End If
-    End Sub
+    'Private Sub cmbOrdenDeCompra_SelectionChangeCommitted(ByVal sender As Object, ByVal e As System.EventArgs)
+    '    If band = 1 Then
+    '        If llenandoCombo = False Then
+    '            btnLlenarGrilla_Click(sender, e)
+    '        End If
+    '    End If
+    'End Sub
 
-    Private Sub txtsubtotalNoGravado_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)
-        If e.KeyChar = ChrW(Keys.Enter) Then
-            e.Handled = True
-            SendKeys.Send("{TAB}")
-        End If
-    End Sub
+    'Private Sub txtsubtotalNoGravado_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)
+    '    If e.KeyChar = ChrW(Keys.Enter) Then
+    '        e.Handled = True
+    '        SendKeys.Send("{TAB}")
+    '    End If
+    'End Sub
 
     Private Sub chkGrillaInferior_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkGrillaInferior.CheckedChanged
         Dim xgrd As Long, ygrd As Long, hgrd As Long, variableajuste As Long
@@ -386,6 +386,7 @@ Public Class frmLiquidaciones
             chkGrillaInferior.Text = "Disminuir Grilla Inferior"
             chkGrillaInferior.Location = New Point(chkGrillaInferior.Location.X, chkGrillaInferior.Location.Y - variableajuste)
             GroupBox1.Height = GroupBox1.Height - variableajuste
+            TableLayoutPanel1.Height = TableLayoutPanel1.Height - variableajuste
             grd.Location = New Point(xgrd, ygrd - variableajuste)
             grd.Height = hgrd + variableajuste
             Label19.Location = New Point(Label19.Location.X, Label19.Location.Y - variableajuste)
@@ -395,6 +396,7 @@ Public Class frmLiquidaciones
             chkGrillaInferior.Text = "Aumentar Grilla Inferior"
             chkGrillaInferior.Location = New Point(chkGrillaInferior.Location.X, chkGrillaInferior.Location.Y + variableajuste)
             GroupBox1.Height = GroupBox1.Height + variableajuste
+            TableLayoutPanel1.Height = TableLayoutPanel1.Height + variableajuste
             grd.Location = New Point(xgrd, ygrd + variableajuste)
             grd.Height = hgrd - variableajuste
             Label19.Location = New Point(Label19.Location.X, Label19.Location.Y + variableajuste)
@@ -720,37 +722,10 @@ Public Class frmLiquidaciones
 
 
     Private Sub configurarform()
-        'Me.Text = "Liquidación"
-
-        ''Me.grd.Location = New Size(GroupBox1.Location.X, GroupBox1.Location.Y + GroupBox1.Size.Height + 7)
-
-        'Me.grd.Location = New Size(14, 65)
-        'Me.grd.BringToFront()
-
-        'If LLAMADO_POR_FORMULARIO Then
-        '    LLAMADO_POR_FORMULARIO = False
-        '    Me.Top = ARRIBA
-        '    Me.Left = IZQUIERDA
-        'Else
-        '    Me.Top = 0
-        '    Me.Left = (Screen.PrimaryScreen.WorkingArea.Width - Me.Width) \ 2
-        'End If
-
-        'Me.WindowState = FormWindowState.Maximized
-
-        ''Me.grd.Size = New Size(Screen.PrimaryScreen.WorkingArea.Width - 27, Me.Size.Height - 7 - GroupBox1.Size.Height - GroupBox1.Location.Y - 65)
-        ''Me.grd.Size = New Size(Screen.PrimaryScreen.WorkingArea.Width - 27, Me.Size.Height - 3 - GroupBox1.Size.Height - GroupBox1.Location.Y - 62) '65)
-        ''Me.grd.Size = New Size(4 / 6 * SuperGrdResultado.Width, 100) '65)
-        'Me.grd.Size = New Size(3.5 / 6 * SuperGrdResultado.Width, 100) '65)
 
         Me.Text = "Liquidación"
 
-        'Me.grd.Location = New Size(TableLayoutPanel4.Location.X, TableLayoutPanel4.Location.Y + TableLayoutPanel4.Size.Height + 7)
-        Me.grd.Location = New Size(TableLayoutPanel4.Location.X, TableLayoutPanel4.Location.Y + TableLayoutPanel4.Size.Height + 5) 'funcionando
-        '9; 29
-        'Me.TableLayoutPanel4.SendToBack()
-        'Me.grd.Location = New Size(TableLayoutPanel4.Location.X, TableLayoutPanel4.Size.Height + 500)
-
+        Me.grd.Location = New Size(GroupBox1.Location.X, GroupBox1.Location.Y + GroupBox1.Size.Height + 5) 'funcionando
 
         If LLAMADO_POR_FORMULARIO Then
             LLAMADO_POR_FORMULARIO = False
@@ -763,8 +738,7 @@ Public Class frmLiquidaciones
 
         Me.WindowState = FormWindowState.Maximized
 
-        'Me.grd.Size = New Size(Screen.PrimaryScreen.WorkingArea.Width - 27, Me.Size.Height - 7 - TableLayoutPanel4.Size.Height - TableLayoutPanel4.Location.Y - 50)
-        Me.grd.Size = New Size(Screen.PrimaryScreen.WorkingArea.Width - 27, Me.Size.Height - 3 - TableLayoutPanel4.Size.Height - TableLayoutPanel4.Location.Y - 62) '65)
+        Me.grd.Size = New Size(Screen.PrimaryScreen.WorkingArea.Width - 27, Me.Size.Height - 3 - GroupBox1.Size.Height - GroupBox1.Location.Y - 62) '65)
 
     End Sub
 
@@ -1039,18 +1013,6 @@ Public Class frmLiquidaciones
 
     Private Sub Contar_Filas()
         lblCantLiq.Text = grd.Rows.Count
-    End Sub
-
-    Private Sub CalcularMontoIVA()
-        'If band = 1 Then
-        '    If txtMontoIVA21.Text = "" Then txtMontoIVA21.Text = "0"
-        '    If txtMontoIVA10.Text = "" Then txtMontoIVA10.Text = "0"
-        '    If txtMontoIVA27.Text = "" Then txtMontoIVA27.Text = "0"
-        '    If txtSubtotal.Text = "" Then txtSubtotal.Text = "0"
-        '    If txtSubtotalExento.Text = "" Then txtSubtotalExento.Text = "0"
-        '    lblMontoIva.Text = Format(CDbl(txtMontoIVA10.Text) + CDbl(txtMontoIVA21.Text) + CDbl(txtMontoIVA27.Text), "###0.00")
-        '    lblTotal.Text = Format(CDbl(txtSubtotalExento.Text) + CDbl(txtSubtotal.Text) + CDbl(lblMontoIva.Text) + CDbl(lblImpuestos.Text), "###0.00")
-        'End If
     End Sub
 
 
@@ -1799,9 +1761,9 @@ Public Class frmLiquidaciones
     Private Sub btnLlenarGrilla_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         'Dim i As Integer
 
-        If bolModo Then 'SOLO LLENA LA GRILLA EN MODO NUEVO...
+        'If bolModo Then 'SOLO LLENA LA GRILLA EN MODO NUEVO...
 
-        End If
+        'End If
 
     End Sub
 
@@ -2542,4 +2504,5 @@ Public Class frmLiquidaciones
             UpdateGrdPrincipal()
         End If
     End Sub
+
 End Class
