@@ -175,46 +175,6 @@ Public Class frmLiquidaciones
         ToolStrip_lblCodMaterial.Visible = True
         txtBusquedaMAT.Visible = True
 
-        'With grdDetalleLiquidacion
-        '    .VirtualMode = False
-        '    .EnableHeadersVisualStyles = False
-        '    .ColumnHeadersBorderStyle = 1
-        '    .AllowUserToAddRows = False
-        '    .AlternatingRowsDefaultCellStyle.BackColor = Color.AliceBlue
-        '    .RowsDefaultCellStyle.BackColor = Color.White
-        '    .AllowUserToOrderColumns = False
-        '    '.SelectionMode = DataGridViewSelectionMode.CellSelect
-        '    .SelectionMode = DataGridViewSelectionMode.FullRowSelect
-        '    .AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells
-        'End With
-
-        'With grdDetalleLiquidacion.ColumnHeadersDefaultCellStyle
-        '    .BackColor = Color.LightBlue  'Color.BlueViolet
-        '    .ForeColor = Color.Black
-        '    .Font = New Font("Microsoft Sans Serif", 8, FontStyle.Bold)
-        'End With
-
-        'grdDetalleLiquidacion.Font = New Font("Microsoft Sans Serif", 7, FontStyle.Regular)
-
-        'With grdDetalleLiquidacionFiltrada
-        '    .VirtualMode = False
-        '    .AllowUserToAddRows = False
-        '    .EnableHeadersVisualStyles = False
-        '    .ColumnHeadersBorderStyle = 1
-        '    .AlternatingRowsDefaultCellStyle.BackColor = Color.AliceBlue
-        '    .RowsDefaultCellStyle.BackColor = Color.White
-        '    .AllowUserToOrderColumns = False
-        '    '.SelectionMode = DataGridViewSelectionMode.CellSelect
-        '    .SelectionMode = DataGridViewSelectionMode.FullRowSelect
-        '    .AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells
-        'End With
-
-        'With grdDetalleLiquidacionFiltrada.ColumnHeadersDefaultCellStyle
-        '    .BackColor = Color.LightBlue  'Color.BlueViolet
-        '    .ForeColor = Color.Black
-        '    .Font = New Font("Microsoft Sans Serif", 8, FontStyle.Bold)
-        'End With
-
         ''Agrego tipos de pago al combobox
         Dim dtTipoPago As New DataTable
         With dtTipoPago
@@ -272,30 +232,21 @@ Public Class frmLiquidaciones
 
         With grd
             ''autosize mode
-            .AutoSizeColumnsMode = .AutoSizeColumnsMode.Fill
+            .AutoSizeColumnsMode = DataGridViewAutoSizeColumnMode.Fill
 
             ''Hide not needed columns from grd
             .Columns(GrdColumns.IdPresentacion).Visible = False
             .Columns(GrdColumns.PresentacionCodigo).Visible = False
             .Columns(GrdColumns.Agrupado).Visible = False
             .Columns(GrdColumns.Liquidado).Visible = False
-            '.Columns(GrdColumns.Fecha_creacion).Visible = False
 
-            ''resize some columns
-            .Columns(GrdColumns.Codigo).Width = 80
-            .Columns(GrdColumns.Fecha_presentacion).Width = 180
+            .Columns(GrdColumns.Fecha_presentacion).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+            .Columns(GrdColumns.Fecha_creacion).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
 
-            .Columns(GrdColumns.Fecha_presentacion).DefaultCellStyle.Alignment =
-                .Columns(GrdColumns.Fecha_presentacion).DefaultCellStyle.Alignment.MiddleCenter
 
-            .Columns(GrdColumns.Fecha_liquidacion).Width = 180
+            .Columns(GrdColumns.Fecha_liquidacion).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
 
-            .Columns(GrdColumns.Fecha_liquidacion).DefaultCellStyle.Alignment =
-                .Columns(GrdColumns.Fecha_liquidacion).DefaultCellStyle.Alignment.MiddleCenter
-
-            .Columns(GrdColumns.Fecha_liquidacion).Width = 180
-            .Columns(GrdColumns.Estado).Width = 120
-            .Columns(GrdColumns.total).Width = 120
+            .AutoResizeColumns()
         End With
 
         If bolModo = True Then
@@ -648,6 +599,10 @@ Public Class frmLiquidaciones
         ImportExcel.ShowDialog()
     End Sub
 
+    Private Sub btnAddConceptos_Click(sender As Object, e As EventArgs) Handles btnAddConceptos.Click
+
+    End Sub
+
     Friend Sub addAceptadosFromExcel(dtAceptados As DataTable)
         Dim currentDetalle As DataRow
         Dim currentConcepto As DataRow
@@ -725,7 +680,7 @@ Public Class frmLiquidaciones
 
         Me.Text = "Liquidación"
 
-        Me.grd.Location = New Size(GroupBox1.Location.X, GroupBox1.Location.Y + GroupBox1.Size.Height + 5) 'funcionando
+        Me.grd.Location = New Size(GroupBox1.Location.X, GroupBox1.Location.Y + GroupBox1.Size.Height) 'funcionando
 
         If LLAMADO_POR_FORMULARIO Then
             LLAMADO_POR_FORMULARIO = False
@@ -738,7 +693,7 @@ Public Class frmLiquidaciones
 
         Me.WindowState = FormWindowState.Maximized
 
-        Me.grd.Size = New Size(Screen.PrimaryScreen.WorkingArea.Width - 27, Me.Size.Height - 3 - GroupBox1.Size.Height - GroupBox1.Location.Y - 62) '65)
+        Me.grd.Size = New Size(Screen.PrimaryScreen.WorkingArea.Width, Me.Size.Height - 3 - GroupBox1.Size.Height - GroupBox1.Location.Y - 62) '65)
 
     End Sub
 
@@ -2504,5 +2459,6 @@ Public Class frmLiquidaciones
             UpdateGrdPrincipal()
         End If
     End Sub
+
 
 End Class
