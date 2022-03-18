@@ -600,7 +600,8 @@ Public Class frmLiquidaciones
     End Sub
 
     Private Sub btnAddConceptos_Click(sender As Object, e As EventArgs) Handles btnAddConceptos.Click
-
+        Dim AddConceptos As New frmAddConceptosLiq()
+        AddConceptos.ShowDialog()
     End Sub
 
     Friend Sub addAceptadosFromExcel(dtAceptados As DataTable)

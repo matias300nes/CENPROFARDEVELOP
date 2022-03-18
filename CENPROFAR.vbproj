@@ -193,6 +193,12 @@
     <Compile Include="fn_Stock_Material_Unidad_Result.vb">
       <DependentUpon>conexionDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="frmAddConceptosLiq.Designer.vb">
+      <DependentUpon>frmAddConceptosLiq.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmAddConceptosLiq.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmAgregarCheques.Designer.vb">
       <DependentUpon>frmAgregarCheques.vb</DependentUpon>
     </Compile>
@@ -1551,6 +1557,9 @@
     <EmbeddedResource Include="AboutBox1.resx">
       <DependentUpon>AboutBox1.vb</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAddConceptosLiq.resx">
+      <DependentUpon>frmAddConceptosLiq.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmAgregarCheques.resx">
       <DependentUpon>frmAgregarCheques.vb</DependentUpon>

@@ -28,11 +28,11 @@ Partial Class frmSelectPresentacion
         Me.chkAgrupar = New System.Windows.Forms.CheckBox()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.cmbPago = New DevComponents.DotNetBar.Controls.ComboBoxEx()
         Me.lblCantPagos = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.cmbEstado = New DevComponents.DotNetBar.Controls.ComboBoxEx()
-        Me.cmbPago = New DevComponents.DotNetBar.Controls.ComboBoxEx()
         CType(Me.grdPresentaciones, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -87,7 +87,7 @@ Partial Class frmSelectPresentacion
         Me.TableLayoutPanel1.Controls.Add(Me.btnListo, 0, 2)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
-        Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(2)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 3
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 75.0!))
@@ -106,12 +106,25 @@ Partial Class frmSelectPresentacion
         Me.GroupBox1.Controls.Add(Me.chkAgrupar)
         Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox1.Location = New System.Drawing.Point(2, 2)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(2)
         Me.GroupBox1.Size = New System.Drawing.Size(613, 71)
         Me.GroupBox1.TabIndex = 4
         Me.GroupBox1.TabStop = False
+        '
+        'cmbPago
+        '
+        Me.cmbPago.DisplayMember = "Text"
+        Me.cmbPago.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
+        Me.cmbPago.FormattingEnabled = True
+        Me.cmbPago.ItemHeight = 14
+        Me.cmbPago.Location = New System.Drawing.Point(275, 11)
+        Me.cmbPago.Name = "cmbPago"
+        Me.cmbPago.Size = New System.Drawing.Size(121, 20)
+        Me.cmbPago.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.cmbPago.TabIndex = 8
+        Me.cmbPago.Visible = False
         '
         'lblCantPagos
         '
@@ -153,24 +166,11 @@ Partial Class frmSelectPresentacion
         Me.cmbEstado.FormattingEnabled = True
         Me.cmbEstado.ItemHeight = 16
         Me.cmbEstado.Location = New System.Drawing.Point(17, 36)
-        Me.cmbEstado.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.cmbEstado.Margin = New System.Windows.Forms.Padding(2)
         Me.cmbEstado.Name = "cmbEstado"
         Me.cmbEstado.Size = New System.Drawing.Size(125, 22)
         Me.cmbEstado.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.cmbEstado.TabIndex = 4
-        '
-        'cmbPago
-        '
-        Me.cmbPago.DisplayMember = "Text"
-        Me.cmbPago.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
-        Me.cmbPago.FormattingEnabled = True
-        Me.cmbPago.ItemHeight = 14
-        Me.cmbPago.Location = New System.Drawing.Point(275, 11)
-        Me.cmbPago.Name = "cmbPago"
-        Me.cmbPago.Size = New System.Drawing.Size(121, 20)
-        Me.cmbPago.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.cmbPago.TabIndex = 8
-        Me.cmbPago.Visible = False
         '
         'frmSelectPresentacion
         '
