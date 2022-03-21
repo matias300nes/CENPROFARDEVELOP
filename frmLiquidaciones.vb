@@ -64,17 +64,36 @@ Public Class frmLiquidaciones
         Agrupado = 14
     End Enum
 
+    'Enum ColumnasDelGridItems
+    '    ID = 0
+    '    IdFarmacia = 1
+    '    CodigoFarmacia = 2
+    '    Farmacia = 3
+    '    IdPresentacion = 4
+    '    Recetas = 5
+    '    Recaudado = 6
+    '    ACargoOS = 7
+    '    Bonificacion = 8
+    '    Total = 9
+    'End Enum
+
     Enum ColumnasDelGridItems
         ID = 0
-        IdFarmacia = 1
-        CodigoFarmacia = 2
-        Farmacia = 3
-        IdPresentacion = 4
-        Recetas = 5
-        Recaudado = 6
-        ACargoOS = 7
-        Bonificacion = 8
-        Total = 9
+        IdPresentacion_det = 1
+        IdFarmacia = 2
+        nº = 3
+        CodigoFarmacia = 4
+        Farmacia = 5
+        IdLiquidacion = 6
+        Recetas = 7
+        Recaudado = 8
+        ACargoOS = 9
+        ACargoOSP = 10
+        Final = 11
+        RecetasA = 12
+        RecaudadoA = 13
+        ACargoOSA = 14
+        Bonificación = 15
     End Enum
 
     Enum ColumnasDelGridItems1
@@ -600,7 +619,8 @@ Public Class frmLiquidaciones
     End Sub
 
     Private Sub btnAddConceptos_Click(sender As Object, e As EventArgs) Handles btnAddConceptos.Click
-        Dim AddConceptos As New frmAddConceptosLiq()
+        Dim farmacias As DataTable = gl_dataset.Tables(0)
+        Dim AddConceptos As New frmAddConceptosLiq(Farmacias)
         AddConceptos.ShowDialog()
     End Sub
 

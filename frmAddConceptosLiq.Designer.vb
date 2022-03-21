@@ -30,12 +30,12 @@ Partial Class frmAddConceptosLiq
         Me.btnAplicarConceptos = New DevComponents.DotNetBar.ButtonX()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.grdHistorial = New System.Windows.Forms.DataGridView()
-        Me.grdFarmacia = New System.Windows.Forms.DataGridView()
+        Me.grdFarmacias = New System.Windows.Forms.DataGridView()
+        Me.grdConceptos = New System.Windows.Forms.DataGridView()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
-        Me.btnListo = New DevComponents.DotNetBar.ButtonX()
-        CType(Me.grdHistorial, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.grdFarmacia, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.btnGenerar = New DevComponents.DotNetBar.ButtonX()
+        CType(Me.grdFarmacias, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.grdConceptos, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -90,12 +90,12 @@ Partial Class frmAddConceptosLiq
         Me.btnAplicarConceptos.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnAplicarConceptos.BackColor = System.Drawing.SystemColors.Control
         Me.btnAplicarConceptos.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.btnAplicarConceptos.Location = New System.Drawing.Point(403, 194)
+        Me.btnAplicarConceptos.Location = New System.Drawing.Point(424, 194)
         Me.btnAplicarConceptos.Name = "btnAplicarConceptos"
-        Me.btnAplicarConceptos.Size = New System.Drawing.Size(107, 25)
+        Me.btnAplicarConceptos.Size = New System.Drawing.Size(86, 25)
         Me.btnAplicarConceptos.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnAplicarConceptos.TabIndex = 402
-        Me.btnAplicarConceptos.Text = "Aplicar concepto"
+        Me.btnAplicarConceptos.Text = "Aplicar"
         Me.btnAplicarConceptos.TextColor = System.Drawing.SystemColors.InfoText
         '
         'Label2
@@ -104,9 +104,9 @@ Partial Class frmAddConceptosLiq
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.Location = New System.Drawing.Point(12, 210)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(72, 16)
+        Me.Label2.Size = New System.Drawing.Size(151, 16)
         Me.Label2.TabIndex = 400
-        Me.Label2.Text = "Farmacias"
+        Me.Label2.Text = "Farmacias y conceptos:"
         '
         'Label1
         '
@@ -118,49 +118,50 @@ Partial Class frmAddConceptosLiq
         Me.Label1.TabIndex = 399
         Me.Label1.Text = "Concepto:"
         '
-        'grdHistorial
+        'grdFarmacias
         '
-        Me.grdHistorial.AllowUserToAddRows = False
-        Me.grdHistorial.AllowUserToDeleteRows = False
-        Me.grdHistorial.AllowUserToResizeRows = False
-        Me.grdHistorial.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.grdFarmacias.AllowUserToAddRows = False
+        Me.grdFarmacias.AllowUserToDeleteRows = False
+        Me.grdFarmacias.AllowUserToResizeRows = False
+        Me.grdFarmacias.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.grdHistorial.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
-        Me.grdHistorial.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.grdHistorial.Location = New System.Drawing.Point(12, 235)
-        Me.grdHistorial.MultiSelect = False
-        Me.grdHistorial.Name = "grdHistorial"
-        Me.grdHistorial.ReadOnly = True
-        Me.grdHistorial.RowHeadersVisible = False
-        Me.grdHistorial.RowHeadersWidth = 51
-        Me.grdHistorial.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.grdHistorial.Size = New System.Drawing.Size(500, 210)
-        Me.grdHistorial.TabIndex = 398
+        Me.grdFarmacias.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.grdFarmacias.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.grdFarmacias.Location = New System.Drawing.Point(12, 235)
+        Me.grdFarmacias.MultiSelect = False
+        Me.grdFarmacias.Name = "grdFarmacias"
+        Me.grdFarmacias.ReadOnly = True
+        Me.grdFarmacias.RowHeadersVisible = False
+        Me.grdFarmacias.RowHeadersWidth = 51
+        Me.grdFarmacias.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.grdFarmacias.Size = New System.Drawing.Size(500, 210)
+        Me.grdFarmacias.TabIndex = 398
         '
-        'grdFarmacia
+        'grdConceptos
         '
-        Me.grdFarmacia.AllowUserToAddRows = False
-        Me.grdFarmacia.AllowUserToDeleteRows = False
-        Me.grdFarmacia.AllowUserToResizeRows = False
-        Me.grdFarmacia.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.grdConceptos.AllowUserToAddRows = False
+        Me.grdConceptos.AllowUserToDeleteRows = False
+        Me.grdConceptos.AllowUserToResizeRows = False
+        Me.grdConceptos.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.grdFarmacia.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
-        Me.grdFarmacia.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.grdFarmacia.Location = New System.Drawing.Point(12, 40)
-        Me.grdFarmacia.Name = "grdFarmacia"
-        Me.grdFarmacia.RowHeadersVisible = False
-        Me.grdFarmacia.RowHeadersWidth = 51
-        Me.grdFarmacia.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.grdFarmacia.Size = New System.Drawing.Size(500, 135)
-        Me.grdFarmacia.TabIndex = 397
+        Me.grdConceptos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.grdConceptos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.grdConceptos.Location = New System.Drawing.Point(12, 40)
+        Me.grdConceptos.Name = "grdConceptos"
+        Me.grdConceptos.RowHeadersVisible = False
+        Me.grdConceptos.RowHeadersWidth = 51
+        Me.grdConceptos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.grdConceptos.Size = New System.Drawing.Size(500, 135)
+        Me.grdConceptos.TabIndex = 397
         '
         'TableLayoutPanel1
         '
-        Me.TableLayoutPanel1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.TableLayoutPanel1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TableLayoutPanel1.ColumnCount = 1
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Controls.Add(Me.btnListo, 0, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.btnGenerar, 0, 0)
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(11, 450)
         Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(2)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
@@ -171,17 +172,18 @@ Partial Class frmAddConceptosLiq
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(502, 44)
         Me.TableLayoutPanel1.TabIndex = 409
         '
-        'btnListo
+        'btnGenerar
         '
-        Me.btnListo.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnListo.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.btnListo.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.btnListo.Location = New System.Drawing.Point(184, 10)
-        Me.btnListo.Name = "btnListo"
-        Me.btnListo.Size = New System.Drawing.Size(133, 27)
-        Me.btnListo.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnListo.TabIndex = 2
-        Me.btnListo.Text = "Generar conceptos"
+        Me.btnGenerar.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnGenerar.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.btnGenerar.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
+        Me.btnGenerar.Location = New System.Drawing.Point(184, 10)
+        Me.btnGenerar.Name = "btnGenerar"
+        Me.btnGenerar.Size = New System.Drawing.Size(133, 27)
+        Me.btnGenerar.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnGenerar.TabIndex = 2
+        Me.btnGenerar.Text = "Generar conceptos"
+        Me.btnGenerar.TextColor = System.Drawing.SystemColors.WindowText
         '
         'frmAddConceptosLiq
         '
@@ -197,12 +199,14 @@ Partial Class frmAddConceptosLiq
         Me.Controls.Add(Me.btnAplicarConceptos)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.grdHistorial)
-        Me.Controls.Add(Me.grdFarmacia)
+        Me.Controls.Add(Me.grdFarmacias)
+        Me.Controls.Add(Me.grdConceptos)
+        Me.MinimumSize = New System.Drawing.Size(450, 450)
         Me.Name = "frmAddConceptosLiq"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Añadir conceptos"
-        CType(Me.grdHistorial, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.grdFarmacia, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.grdFarmacias, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.grdConceptos, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -217,8 +221,8 @@ Partial Class frmAddConceptosLiq
     Friend WithEvents btnAplicarConceptos As DevComponents.DotNetBar.ButtonX
     Friend WithEvents Label2 As Label
     Friend WithEvents Label1 As Label
-    Friend WithEvents grdHistorial As DataGridView
-    Friend WithEvents grdFarmacia As DataGridView
+    Friend WithEvents grdFarmacias As DataGridView
+    Friend WithEvents grdConceptos As DataGridView
     Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
-    Friend WithEvents btnListo As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents btnGenerar As DevComponents.DotNetBar.ButtonX
 End Class
