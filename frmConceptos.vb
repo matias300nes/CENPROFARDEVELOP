@@ -148,6 +148,7 @@ Public Class frmConceptos
                     '    Util.MsgStatus(Status1, "No tiene permiso para modificar registros.", My.Resources.stop_error.ToBitmap)
                     'End If
                 End If
+                btnActualizar_Click(sender, e)
             End If
         End If
     End Sub
@@ -315,6 +316,12 @@ Public Class frmConceptos
         txtID.Tag = "0"
         txtCODIGO.Tag = "1"
         txtNombre.Tag = "2"
+        txtDescripcion.Tag = "3"
+        cmbConceptoPago.Tag = "4"
+        cmbPerteneceA.Tag = "5"
+        cmbTipoValor.Tag = "6"
+        txtValor.Tag = "7"
+        cmbCamposAplicables.Tag = "8"
     End Sub
 
     Private Sub LlenarCmbConceptoPago()
