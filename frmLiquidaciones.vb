@@ -2210,7 +2210,7 @@ Public Class frmLiquidaciones
         Next
     End Sub
 
-    Private Sub añadirConcepto(concepto As DataRow)
+    Friend Sub añadirConcepto(concepto As DataRow)
         Dim collection = gl_dataset.Tables(1).Select($"IdDetalle = '{concepto("IdDetalle")}' and detalle = '{concepto("detalle")}'")
         If collection.Length > 0 Then
             'UPDATE

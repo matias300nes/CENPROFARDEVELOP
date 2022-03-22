@@ -41,11 +41,12 @@ Public Class frmAddConceptosLiq
     Enum colsFarmaciasConceptos
         nº = 0
         Codigo = 1
-        Farmacia = 2
-        ACargoOS = 3
-        Total = 4
-        Concepto = 5
-        Importe = 6
+        idFarmacia = 2
+        Farmacia = 3
+        ACargoOS = 4
+        Total = 5
+        Concepto = 6
+        Importe = 7
     End Enum
 
     Public Sub New(farmacias As DataTable)
@@ -57,6 +58,7 @@ Public Class frmAddConceptosLiq
         Dim dt As New DataTable()
         dt.Columns.Add("nº", GetType(Integer))
         dt.Columns.Add("Código", GetType(String))
+        dt.Columns.Add("IdFarmacia", GetType(Long))
         dt.Columns.Add("Farmacia", GetType(String))
         dt.Columns.Add("A Cargo OS", GetType(Decimal))
         dt.Columns.Add("Subtotal", GetType(Decimal))
@@ -135,12 +137,50 @@ Public Class frmAddConceptosLiq
 
             With grdFarmacias
                 .DataSource = Me.farmaciasConceptos
+                .Columns(colsFarmaciasConceptos.idFarmacia).Visible = False
                 .Columns(colsFarmaciasConceptos.ACargoOS).DefaultCellStyle.Format = "c"
                 .Columns(colsFarmaciasConceptos.Total).DefaultCellStyle.Format = "c"
                 .Columns(colsFarmaciasConceptos.Importe).DefaultCellStyle.Format = "c"
-
+                .Columns(colsFarmaciasConceptos.Importe).DefaultCellStyle.BackColor = Color.DarkOliveGreen
+                .Columns(colsFarmaciasConceptos.Importe).DefaultCellStyle.ForeColor = Color.White
+                For Each column As DataGridViewColumn In .Columns
+                    column.ReadOnly = True
+                Next
+                .Columns(colsFarmaciasConceptos.Importe).ReadOnly = False
                 .AutoResizeColumns()
             End With
         End If
+    End Sub
+
+    Private Sub btnGenerar_Click(sender As Object, e As EventArgs) Handles btnGenerar.Click
+
+        Dim dtConceptos As New DataTable()
+        dtConceptos.Columns.Add("ID", GetType(Long))
+        dtConceptos.Columns.Add("IdDetalle", GetType(Long))
+        dtConceptos.Columns.Add("IdFarmacia", GetType(String))
+        dtConceptos.Columns.Add("detalle", GetType(String))
+        dtConceptos.Columns.Add("valor", GetType(Decimal))
+        dtConceptos.Columns.Add("estado", GetType(String))
+        dtConceptos.Columns.Add("edit")
+
+        Dim concepto As DataRow
+        For Each row As DataRow In farmaciasConceptos.Rows
+            concepto = dtConceptos.NewRow
+            concepto("IdDetalle") = row(colsFarmaciasConceptos.nº)
+            concepto("IdFarmacia") = row(colsFarmaciasConceptos.idFarmacia)
+            concepto("detalle") = row(colsFarmaciasConceptos.Concepto)
+            concepto("valor") = row(colsFarmaciasConceptos.Importe)
+            concepto("edit") = True
+            dtConceptos.Rows.Add(concepto)
+        Next
+
+        For Each item As DataRow In dtConceptos.Rows
+            frmLiquidaciones.añadirConcepto(item)
+        Next
+
+        frmLiquidaciones.UpdateGrdPrincipal()
+
+        Me.Dispose()
+        Me.Close()
     End Sub
 End Class

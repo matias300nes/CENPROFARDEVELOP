@@ -131,7 +131,6 @@ Partial Class frmAddConceptosLiq
         Me.grdFarmacias.Location = New System.Drawing.Point(12, 235)
         Me.grdFarmacias.MultiSelect = False
         Me.grdFarmacias.Name = "grdFarmacias"
-        Me.grdFarmacias.ReadOnly = True
         Me.grdFarmacias.RowHeadersVisible = False
         Me.grdFarmacias.RowHeadersWidth = 51
         Me.grdFarmacias.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
@@ -148,7 +147,9 @@ Partial Class frmAddConceptosLiq
         Me.grdConceptos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.grdConceptos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.grdConceptos.Location = New System.Drawing.Point(12, 40)
+        Me.grdConceptos.MultiSelect = False
         Me.grdConceptos.Name = "grdConceptos"
+        Me.grdConceptos.ReadOnly = True
         Me.grdConceptos.RowHeadersVisible = False
         Me.grdConceptos.RowHeadersWidth = 51
         Me.grdConceptos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
