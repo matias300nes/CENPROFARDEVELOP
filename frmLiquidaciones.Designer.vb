@@ -174,7 +174,7 @@ Partial Class frmLiquidaciones
         Me.GroupBox1.ForeColor = System.Drawing.Color.Black
         Me.GroupBox1.Location = New System.Drawing.Point(0, 30)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(1383, 438)
+        Me.GroupBox1.Size = New System.Drawing.Size(1400, 438)
         Me.GroupBox1.TabIndex = 65
         Me.GroupBox1.TabStop = False
         '

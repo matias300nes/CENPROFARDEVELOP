@@ -22,9 +22,6 @@ Partial Class frmAddConceptosLiq
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.btnSelection = New System.Windows.Forms.Button()
-        Me.txtID = New System.Windows.Forms.TextBox()
-        Me.lblSeleccionados = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.txtBuscar = New System.Windows.Forms.TextBox()
         Me.btnAplicarConceptos = New DevComponents.DotNetBar.ButtonX()
@@ -34,44 +31,16 @@ Partial Class frmAddConceptosLiq
         Me.grdConceptos = New System.Windows.Forms.DataGridView()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.btnGenerar = New DevComponents.DotNetBar.ButtonX()
+        Me.lblStatus = New System.Windows.Forms.Label()
         CType(Me.grdFarmacias, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdConceptos, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
         '
-        'btnSelection
-        '
-        Me.btnSelection.Location = New System.Drawing.Point(12, 181)
-        Me.btnSelection.Name = "btnSelection"
-        Me.btnSelection.Size = New System.Drawing.Size(128, 23)
-        Me.btnSelection.TabIndex = 407
-        Me.btnSelection.Text = "Seleccionar todo"
-        Me.btnSelection.UseVisualStyleBackColor = True
-        '
-        'txtID
-        '
-        Me.txtID.Location = New System.Drawing.Point(82, 13)
-        Me.txtID.Name = "txtID"
-        Me.txtID.ReadOnly = True
-        Me.txtID.Size = New System.Drawing.Size(46, 20)
-        Me.txtID.TabIndex = 406
-        '
-        'lblSeleccionados
-        '
-        Me.lblSeleccionados.AutoSize = True
-        Me.lblSeleccionados.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblSeleccionados.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblSeleccionados.Location = New System.Drawing.Point(147, 186)
-        Me.lblSeleccionados.Name = "lblSeleccionados"
-        Me.lblSeleccionados.Size = New System.Drawing.Size(86, 13)
-        Me.lblSeleccionados.TabIndex = 405
-        Me.lblSeleccionados.Text = "0 Seleccionados"
-        Me.lblSeleccionados.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(137, 15)
+        Me.Label3.Location = New System.Drawing.Point(127, 15)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(43, 13)
         Me.Label3.TabIndex = 404
@@ -79,7 +48,7 @@ Partial Class frmAddConceptosLiq
         '
         'txtBuscar
         '
-        Me.txtBuscar.Location = New System.Drawing.Point(183, 11)
+        Me.txtBuscar.Location = New System.Drawing.Point(173, 11)
         Me.txtBuscar.Name = "txtBuscar"
         Me.txtBuscar.Size = New System.Drawing.Size(167, 20)
         Me.txtBuscar.TabIndex = 403
@@ -168,8 +137,8 @@ Partial Class frmAddConceptosLiq
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 48.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 48.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 48.0!))
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(502, 44)
         Me.TableLayoutPanel1.TabIndex = 409
         '
@@ -186,15 +155,26 @@ Partial Class frmAddConceptosLiq
         Me.btnGenerar.Text = "Generar conceptos"
         Me.btnGenerar.TextColor = System.Drawing.SystemColors.WindowText
         '
+        'lblStatus
+        '
+        Me.lblStatus.AutoSize = True
+        Me.lblStatus.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblStatus.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.lblStatus.Location = New System.Drawing.Point(12, 184)
+        Me.lblStatus.Name = "lblStatus"
+        Me.lblStatus.Size = New System.Drawing.Size(37, 13)
+        Me.lblStatus.TabIndex = 405
+        Me.lblStatus.Text = "Status"
+        Me.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lblStatus.Visible = False
+        '
         'frmAddConceptosLiq
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(524, 496)
         Me.Controls.Add(Me.TableLayoutPanel1)
-        Me.Controls.Add(Me.btnSelection)
-        Me.Controls.Add(Me.txtID)
-        Me.Controls.Add(Me.lblSeleccionados)
+        Me.Controls.Add(Me.lblStatus)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.txtBuscar)
         Me.Controls.Add(Me.btnAplicarConceptos)
@@ -213,10 +193,6 @@ Partial Class frmAddConceptosLiq
         Me.PerformLayout()
 
     End Sub
-
-    Friend WithEvents btnSelection As Button
-    Friend WithEvents txtID As TextBox
-    Friend WithEvents lblSeleccionados As Label
     Friend WithEvents Label3 As Label
     Friend WithEvents txtBuscar As TextBox
     Friend WithEvents btnAplicarConceptos As DevComponents.DotNetBar.ButtonX
@@ -226,4 +202,5 @@ Partial Class frmAddConceptosLiq
     Friend WithEvents grdConceptos As DataGridView
     Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
     Friend WithEvents btnGenerar As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents lblStatus As Label
 End Class

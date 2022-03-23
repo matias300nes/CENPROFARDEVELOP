@@ -578,8 +578,8 @@ Public Class frmLiquidaciones
 
                     If .Rows(i)("A Cargo OS P") IsNot DBNull.Value Then
                         ACargoOS_P += .Rows(i)("A Cargo OS P")
-                    End If
 
+                    End If
                 Next
             End If
         End With
@@ -607,7 +607,6 @@ Public Class frmLiquidaciones
         '    cmbTipoPago.SelectedValue = "FINAL"
         '    UpdateGrdPrincipal()
         'End If
-
         lblTotal.Text = String.Format("{0:N2}", Total)
         lblTransferencia.Text = String.Format("{0:N2}", Transferencia)
         lblCantidadItems.Text = gl_dataset.Tables(0).Rows.Count
@@ -1623,6 +1622,7 @@ Public Class frmLiquidaciones
                                     btnCargarPresentacion.Enabled = False
 
                                     MDIPrincipal.NoActualizarBase = False
+                                    txtID.Text = ""
                                     btnActualizar_Click(sender, e)
                                     btnEliminar.Enabled = Not chkLiquidado.Checked
 
@@ -1992,7 +1992,19 @@ Public Class frmLiquidaciones
                 Groupheaders.Add(GroupHeader3)
             End If
 
-
+            ''elimino las columnas de pagado si estan vacias
+            For Each fila As GridRow In panel.Rows
+                With fila
+                    Dim pagado As Decimal = 0
+                    If .Cells(ColumnasDelGridItems.ACargoOSP).Value IsNot DBNull.Value Then
+                        pagado += .Cells(ColumnasDelGridItems.ACargoOSP).Value
+                    End If
+                    If pagado <= 0 Then
+                        SuperGrdResultado.PrimaryGrid.Columns(ColumnasDelGridItems.ACargoOSP).Visible = False
+                        SuperGrdResultado.PrimaryGrid.Columns(ColumnasDelGridItems.Final).Visible = False
+                    End If
+                End With
+            Next fila
 
 
             'Pinto la fila con error
@@ -2011,6 +2023,13 @@ Public Class frmLiquidaciones
                                 .CellStyles.Default.Background.Color1 = Color.SandyBrown
                                 .CellStyles.Default.TextColor = Color.White
                             End If
+                        End If
+                        Dim pagado As Decimal = 0
+                        If .Cells(ColumnasDelGridItems.ACargoOSP).Value IsNot DBNull.Value Then
+                            pagado += .Cells(ColumnasDelGridItems.ACargoOSP).Value
+                        End If
+                        If pagado <= 0 Then
+                            MsgBox("No hay pagado")
                         End If
                     End With
 

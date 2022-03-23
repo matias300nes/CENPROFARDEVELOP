@@ -5,6 +5,7 @@ Imports Utiles.Util
 Public Class frmAddConceptosLiq
 
     Dim farmaciasConceptos As DataTable
+    Dim dtConceptos As DataTable
 
     Enum colsFarmacias
         ID = 0
@@ -86,7 +87,7 @@ Public Class frmAddConceptosLiq
     End Sub
 
     Private Sub frmAddConceptosLiq_Load(sender As Object, e As EventArgs) Handles Me.Load
-        Dim dtConceptos As DataTable = New DataTable()
+        dtConceptos = New DataTable()
         Dim dt As New DataTable()
         Dim connection As SqlClient.SqlConnection = Nothing
         Dim sql As String = "exec spConceptos_Select_All @Eliminado = 0"
@@ -141,6 +142,8 @@ Public Class frmAddConceptosLiq
                 .Columns(colsFarmaciasConceptos.ACargoOS).DefaultCellStyle.Format = "c"
                 .Columns(colsFarmaciasConceptos.Total).DefaultCellStyle.Format = "c"
                 .Columns(colsFarmaciasConceptos.Importe).DefaultCellStyle.Format = "c"
+                .Columns(colsFarmaciasConceptos.ACargoOS).Visible = False
+                .Columns(colsFarmaciasConceptos.Total).Visible = False
                 .Columns(colsFarmaciasConceptos.Importe).DefaultCellStyle.BackColor = Color.DarkOliveGreen
                 .Columns(colsFarmaciasConceptos.Importe).DefaultCellStyle.ForeColor = Color.White
                 For Each column As DataGridViewColumn In .Columns
@@ -154,27 +157,27 @@ Public Class frmAddConceptosLiq
 
     Private Sub btnGenerar_Click(sender As Object, e As EventArgs) Handles btnGenerar.Click
 
-        Dim dtConceptos As New DataTable()
-        dtConceptos.Columns.Add("ID", GetType(Long))
-        dtConceptos.Columns.Add("IdDetalle", GetType(Long))
-        dtConceptos.Columns.Add("IdFarmacia", GetType(String))
-        dtConceptos.Columns.Add("detalle", GetType(String))
-        dtConceptos.Columns.Add("valor", GetType(Decimal))
-        dtConceptos.Columns.Add("estado", GetType(String))
-        dtConceptos.Columns.Add("edit")
+        Dim dt As New DataTable()
+        dt.Columns.Add("ID", GetType(Long))
+        dt.Columns.Add("IdDetalle", GetType(Long))
+        dt.Columns.Add("IdFarmacia", GetType(String))
+        dt.Columns.Add("detalle", GetType(String))
+        dt.Columns.Add("valor", GetType(Decimal))
+        dt.Columns.Add("estado", GetType(String))
+        dt.Columns.Add("edit")
 
         Dim concepto As DataRow
         For Each row As DataRow In farmaciasConceptos.Rows
-            concepto = dtConceptos.NewRow
+            concepto = dt.NewRow
             concepto("IdDetalle") = row(colsFarmaciasConceptos.nº)
             concepto("IdFarmacia") = row(colsFarmaciasConceptos.idFarmacia)
             concepto("detalle") = row(colsFarmaciasConceptos.Concepto)
             concepto("valor") = row(colsFarmaciasConceptos.Importe)
             concepto("edit") = True
-            dtConceptos.Rows.Add(concepto)
+            dt.Rows.Add(concepto)
         Next
 
-        For Each item As DataRow In dtConceptos.Rows
+        For Each item As DataRow In dt.Rows
             frmLiquidaciones.añadirConcepto(item)
         Next
 
@@ -182,5 +185,13 @@ Public Class frmAddConceptosLiq
 
         Me.Dispose()
         Me.Close()
+    End Sub
+
+    Private Sub txtBuscar_TextChanged(sender As Object, e As EventArgs) Handles txtBuscar.TextChanged
+        ''buscador
+        Dim dv As New DataView(dtConceptos)
+        dv.RowFilter = $"{dtConceptos.Columns(colsConceptos.Nombre).ColumnName} LIKE '%{txtBuscar.Text}%'"
+        grdConceptos.DataSource = dv
+
     End Sub
 End Class
