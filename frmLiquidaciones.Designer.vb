@@ -332,24 +332,26 @@ Partial Class frmLiquidaciones
         Me.chkComisionCentro.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.chkComisionCentro.AutoSize = True
-        Me.chkComisionCentro.Location = New System.Drawing.Point(1111, 83)
+        Me.chkComisionCentro.Location = New System.Drawing.Point(1156, 84)
         Me.chkComisionCentro.Name = "chkComisionCentro"
         Me.chkComisionCentro.Size = New System.Drawing.Size(137, 17)
         Me.chkComisionCentro.TabIndex = 392
         Me.chkComisionCentro.Text = "Comisión CENPROFAR"
         Me.chkComisionCentro.UseVisualStyleBackColor = True
+        Me.chkComisionCentro.Visible = False
         '
         'chkImpCheque
         '
         Me.chkImpCheque.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.chkImpCheque.AutoSize = True
-        Me.chkImpCheque.Location = New System.Drawing.Point(1124, 83)
+        Me.chkImpCheque.Location = New System.Drawing.Point(1178, 83)
         Me.chkImpCheque.Name = "chkImpCheque"
         Me.chkImpCheque.Size = New System.Drawing.Size(109, 17)
         Me.chkImpCheque.TabIndex = 391
         Me.chkImpCheque.Text = "Impuesto Cheque"
         Me.chkImpCheque.UseVisualStyleBackColor = True
+        Me.chkImpCheque.Visible = False
         '
         'chkIngresosBrutos
         '
@@ -362,6 +364,7 @@ Partial Class frmLiquidaciones
         Me.chkIngresosBrutos.TabIndex = 390
         Me.chkIngresosBrutos.Text = "Ingresos Brutos"
         Me.chkIngresosBrutos.UseVisualStyleBackColor = True
+        Me.chkIngresosBrutos.Visible = False
         '
         'Label23
         '
