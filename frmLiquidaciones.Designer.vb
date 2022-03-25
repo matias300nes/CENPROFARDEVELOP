@@ -39,6 +39,7 @@ Partial Class frmLiquidaciones
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.SuperGrdResultado = New DevComponents.DotNetBar.SuperGrid.SuperGridControl()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.chkConceptosFinales = New System.Windows.Forms.CheckBox()
         Me.btnAddConceptos = New DevComponents.DotNetBar.ButtonX()
         Me.lblTransferencia = New System.Windows.Forms.Label()
         Me.btnLiquidar = New DevComponents.DotNetBar.ButtonX()
@@ -143,8 +144,11 @@ Partial Class frmLiquidaciones
         Me.GroupBox1.Controls.Add(Me.lblFecha_creacion)
         Me.GroupBox1.Controls.Add(Me.chkLiquidado)
         Me.GroupBox1.Controls.Add(Me.chkAgrupado)
+        Me.GroupBox1.Controls.Add(Me.chkImpCheque)
+        Me.GroupBox1.Controls.Add(Me.chkComisionCentro)
         Me.GroupBox1.Controls.Add(Me.LabelX1)
         Me.GroupBox1.Controls.Add(Me.cmbTipoPago)
+        Me.GroupBox1.Controls.Add(Me.chkIngresosBrutos)
         Me.GroupBox1.Controls.Add(Me.lblCantidadItems)
         Me.GroupBox1.Controls.Add(Me.lblCantLiq)
         Me.GroupBox1.Controls.Add(Me.chkGrillaInferior)
@@ -174,7 +178,7 @@ Partial Class frmLiquidaciones
         Me.GroupBox1.ForeColor = System.Drawing.Color.Black
         Me.GroupBox1.Location = New System.Drawing.Point(0, 30)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(1400, 438)
+        Me.GroupBox1.Size = New System.Drawing.Size(1434, 438)
         Me.GroupBox1.TabIndex = 65
         Me.GroupBox1.TabStop = False
         '
@@ -191,7 +195,7 @@ Partial Class frmLiquidaciones
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1330, 303)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1364, 303)
         Me.TableLayoutPanel1.TabIndex = 417
         '
         'SuperGrdResultado
@@ -227,38 +231,46 @@ Partial Class frmLiquidaciones
         Background7.Color1 = System.Drawing.Color.Transparent
         Me.SuperGrdResultado.PrimaryGrid.DefaultVisualStyles.RowStyles.Default.Background = Background7
         Me.SuperGrdResultado.PrimaryGrid.SelectionGranularity = DevComponents.DotNetBar.SuperGrid.SelectionGranularity.Row
-        Me.SuperGrdResultado.Size = New System.Drawing.Size(1046, 283)
+        Me.SuperGrdResultado.Size = New System.Drawing.Size(1073, 283)
         Me.SuperGrdResultado.TabIndex = 381
         Me.SuperGrdResultado.Text = "SuperGridControl1"
         '
         'GroupBox4
         '
         Me.GroupBox4.CausesValidation = False
+        Me.GroupBox4.Controls.Add(Me.chkConceptosFinales)
         Me.GroupBox4.Controls.Add(Me.btnAddConceptos)
         Me.GroupBox4.Controls.Add(Me.lblTransferencia)
         Me.GroupBox4.Controls.Add(Me.btnLiquidar)
         Me.GroupBox4.Controls.Add(Me.Label1)
         Me.GroupBox4.Controls.Add(Me.lblTotal)
-        Me.GroupBox4.Controls.Add(Me.chkComisionCentro)
-        Me.GroupBox4.Controls.Add(Me.chkImpCheque)
-        Me.GroupBox4.Controls.Add(Me.chkIngresosBrutos)
         Me.GroupBox4.Controls.Add(Me.Label23)
         Me.GroupBox4.Controls.Add(Me.btnExcelWindow)
         Me.GroupBox4.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GroupBox4.Location = New System.Drawing.Point(1078, 4)
+        Me.GroupBox4.Location = New System.Drawing.Point(1105, 4)
         Me.GroupBox4.Margin = New System.Windows.Forms.Padding(10, 4, 10, 10)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(242, 289)
+        Me.GroupBox4.Size = New System.Drawing.Size(249, 289)
         Me.GroupBox4.TabIndex = 386
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Resúmen"
+        '
+        'chkConceptosFinales
+        '
+        Me.chkConceptosFinales.AutoSize = True
+        Me.chkConceptosFinales.Location = New System.Drawing.Point(25, 125)
+        Me.chkConceptosFinales.Name = "chkConceptosFinales"
+        Me.chkConceptosFinales.Size = New System.Drawing.Size(151, 17)
+        Me.chkConceptosFinales.TabIndex = 426
+        Me.chkConceptosFinales.Text = "Comision CPF - Ing, Brutos"
+        Me.chkConceptosFinales.UseVisualStyleBackColor = True
         '
         'btnAddConceptos
         '
         Me.btnAddConceptos.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
         Me.btnAddConceptos.BackColor = System.Drawing.Color.Transparent
         Me.btnAddConceptos.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.btnAddConceptos.Location = New System.Drawing.Point(23, 58)
+        Me.btnAddConceptos.Location = New System.Drawing.Point(23, 74)
         Me.btnAddConceptos.Name = "btnAddConceptos"
         Me.btnAddConceptos.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(3)
         Me.btnAddConceptos.Size = New System.Drawing.Size(109, 25)
@@ -270,7 +282,7 @@ Partial Class frmLiquidaciones
         'lblTransferencia
         '
         Me.lblTransferencia.AutoSize = True
-        Me.lblTransferencia.Location = New System.Drawing.Point(98, 170)
+        Me.lblTransferencia.Location = New System.Drawing.Point(98, 167)
         Me.lblTransferencia.Name = "lblTransferencia"
         Me.lblTransferencia.Size = New System.Drawing.Size(84, 13)
         Me.lblTransferencia.TabIndex = 424
@@ -284,10 +296,10 @@ Partial Class frmLiquidaciones
         Me.btnLiquidar.BackColor = System.Drawing.Color.Transparent
         Me.btnLiquidar.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
         Me.btnLiquidar.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnLiquidar.Location = New System.Drawing.Point(56, 253)
+        Me.btnLiquidar.Location = New System.Drawing.Point(56, 249)
         Me.btnLiquidar.Name = "btnLiquidar"
         Me.btnLiquidar.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(3)
-        Me.btnLiquidar.Size = New System.Drawing.Size(140, 28)
+        Me.btnLiquidar.Size = New System.Drawing.Size(147, 28)
         Me.btnLiquidar.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnLiquidar.TabIndex = 393
         Me.btnLiquidar.Text = "Liquidar"
@@ -296,7 +308,7 @@ Partial Class frmLiquidaciones
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(20, 169)
+        Me.Label1.Location = New System.Drawing.Point(20, 166)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(75, 13)
         Me.Label1.TabIndex = 423
@@ -308,9 +320,9 @@ Partial Class frmLiquidaciones
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblTotal.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblTotal.ForeColor = System.Drawing.Color.DarkGreen
-        Me.lblTotal.Location = New System.Drawing.Point(7, 214)
+        Me.lblTotal.Location = New System.Drawing.Point(7, 210)
         Me.lblTotal.Name = "lblTotal"
-        Me.lblTotal.Size = New System.Drawing.Size(222, 24)
+        Me.lblTotal.Size = New System.Drawing.Size(229, 24)
         Me.lblTotal.TabIndex = 389
         Me.lblTotal.Text = "$ [Total]"
         Me.lblTotal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -320,7 +332,7 @@ Partial Class frmLiquidaciones
         Me.chkComisionCentro.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.chkComisionCentro.AutoSize = True
-        Me.chkComisionCentro.Location = New System.Drawing.Point(23, 142)
+        Me.chkComisionCentro.Location = New System.Drawing.Point(1111, 83)
         Me.chkComisionCentro.Name = "chkComisionCentro"
         Me.chkComisionCentro.Size = New System.Drawing.Size(137, 17)
         Me.chkComisionCentro.TabIndex = 392
@@ -332,7 +344,7 @@ Partial Class frmLiquidaciones
         Me.chkImpCheque.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.chkImpCheque.AutoSize = True
-        Me.chkImpCheque.Location = New System.Drawing.Point(23, 119)
+        Me.chkImpCheque.Location = New System.Drawing.Point(1124, 83)
         Me.chkImpCheque.Name = "chkImpCheque"
         Me.chkImpCheque.Size = New System.Drawing.Size(109, 17)
         Me.chkImpCheque.TabIndex = 391
@@ -344,7 +356,7 @@ Partial Class frmLiquidaciones
         Me.chkIngresosBrutos.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.chkIngresosBrutos.AutoSize = True
-        Me.chkIngresosBrutos.Location = New System.Drawing.Point(23, 96)
+        Me.chkIngresosBrutos.Location = New System.Drawing.Point(1134, 84)
         Me.chkIngresosBrutos.Name = "chkIngresosBrutos"
         Me.chkIngresosBrutos.Size = New System.Drawing.Size(99, 17)
         Me.chkIngresosBrutos.TabIndex = 390
@@ -356,7 +368,7 @@ Partial Class frmLiquidaciones
         Me.Label23.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label23.AutoSize = True
-        Me.Label23.Location = New System.Drawing.Point(20, 201)
+        Me.Label23.Location = New System.Drawing.Point(20, 197)
         Me.Label23.Name = "Label23"
         Me.Label23.Size = New System.Drawing.Size(74, 13)
         Me.Label23.TabIndex = 388
@@ -367,7 +379,7 @@ Partial Class frmLiquidaciones
         Me.btnExcelWindow.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
         Me.btnExcelWindow.BackColor = System.Drawing.Color.Transparent
         Me.btnExcelWindow.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.btnExcelWindow.Location = New System.Drawing.Point(23, 24)
+        Me.btnExcelWindow.Location = New System.Drawing.Point(23, 33)
         Me.btnExcelWindow.Name = "btnExcelWindow"
         Me.btnExcelWindow.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(3)
         Me.btnExcelWindow.Size = New System.Drawing.Size(109, 25)
@@ -778,4 +790,5 @@ Partial Class frmLiquidaciones
     Friend WithEvents lblcuit As Label
     Friend WithEvents lblcmbObrasSociales As Label
     Friend WithEvents btnAddConceptos As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents chkConceptosFinales As CheckBox
 End Class

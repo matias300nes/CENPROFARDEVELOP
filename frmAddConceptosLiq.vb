@@ -118,7 +118,7 @@ Public Class frmAddConceptosLiq
             .Columns(colsConceptos.Valor).DefaultCellStyle.Format = "0.00'%'"
             .AutoResizeColumns()
         End With
-
+        btnGenerar.Enabled = False
 
     End Sub
 
@@ -152,6 +152,7 @@ Public Class frmAddConceptosLiq
                 .Columns(colsFarmaciasConceptos.Importe).ReadOnly = False
                 .AutoResizeColumns()
             End With
+            btnGenerar.Enabled = True
         End If
     End Sub
 
@@ -172,7 +173,7 @@ Public Class frmAddConceptosLiq
             concepto("IdDetalle") = row(colsFarmaciasConceptos.nº)
             concepto("IdFarmacia") = row(colsFarmaciasConceptos.idFarmacia)
             concepto("detalle") = row(colsFarmaciasConceptos.Concepto)
-            concepto("valor") = row(colsFarmaciasConceptos.Importe)
+            concepto("valor") = -row(colsFarmaciasConceptos.Importe)
             concepto("edit") = True
             dt.Rows.Add(concepto)
         Next

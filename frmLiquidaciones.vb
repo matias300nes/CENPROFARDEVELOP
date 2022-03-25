@@ -588,8 +588,7 @@ Public Class frmLiquidaciones
             Transferencia = Total
             If .Rows.Count > 0 Then
                 For Each concepto As DataRow In gl_dataset.Tables(1).Rows
-                    If concepto("detalle") = "Impuesto cheque" Or
-                       concepto("detalle") = "Comisión centro" Or
+                    If concepto("detalle") = "Comisión centro" Or
                        concepto("detalle") = "Ingresos Brutos" Then
 
                         Transferencia -= concepto("valor")
@@ -665,11 +664,10 @@ Public Class frmLiquidaciones
                 End If
             End If
             ''nacho 
-            If currentConcepto IsNot Nothing Then ' If currentConcepto Is DBNull.Value Then
-                'currentConcepto("valor") = item("A Cargo OS")
-                'currentConcepto("estado") = "update"
-            End If
-
+            'If currentConcepto IsNot Nothing Then ' If currentConcepto Is DBNull.Value Then
+            '    'currentConcepto("valor") = item("A Cargo OS")
+            '    'currentConcepto("estado") = "update"
+            'End If
 
         Next
     End Sub
@@ -684,16 +682,15 @@ Public Class frmLiquidaciones
     End Sub
 
 
-    Private Sub CalcularDetalleSuperGrd(datasetLiquidacion As DataSet)
-        If DataBindingComplete = True Then
-            'SuperGrdResultado.PrimaryGrid.Footer.Text = "Prueba"
-            'SuperGrdResultado.PrimaryGrid.GetParentPanel().Footer.Text = "prueba"
-            'SuperGrdResultado.PrimaryGrid.GridPanel.GetParentPanel.Footer.Text = "prueba"
+    'Private Sub CalcularDetalleSuperGrd(datasetLiquidacion As DataSet)
+    '    If DataBindingComplete = True Then
+    '        'SuperGrdResultado.PrimaryGrid.Footer.Text = "Prueba"
+    '        'SuperGrdResultado.PrimaryGrid.GetParentPanel().Footer.Text = "prueba"
+    '        'SuperGrdResultado.PrimaryGrid.GridPanel.GetParentPanel.Footer.Text = "prueba"
 
 
-        End If
-    End Sub
-
+    '    End If
+    'End Sub
 
 
     Private Sub configurarform()
@@ -2091,7 +2088,7 @@ Public Class frmLiquidaciones
             panel.Columns(0).Visible = False 'ID
             panel.Columns(1).Visible = False 'IdDetalle
             panel.Columns(2).Visible = False 'IdFarmacia
-            panel.Columns(5).Visible = False 'estado
+            'panel.Columns(5).Visible = False 'estado
             panel.Columns(6).Width = 30 'hago el boton de eliminar mas pequeño
 
             panel.Columns(3).AllowEdit = False
@@ -2141,19 +2138,19 @@ Public Class frmLiquidaciones
         End If
     End Sub
 
-    Private Sub UpdateDetailsFooter(ByVal panel As GridPanel, ByVal panelSuperior As GridPanel)
-        If panel.Footer Is Nothing Then
-            panel.Footer = New GridFooter()
-        End If
-        If panelSuperior.Footer Is Nothing Then
-            panelSuperior.Footer = New GridFooter()
-        End If
+    'Private Sub UpdateDetailsFooter(ByVal panel As GridPanel, ByVal panelSuperior As GridPanel)
+    '    If panel.Footer Is Nothing Then
+    '        panel.Footer = New GridFooter()
+    '    End If
+    '    If panelSuperior.Footer Is Nothing Then
+    '        panelSuperior.Footer = New GridFooter()
+    '    End If
 
-        'Dim total As Decimal = TotalRows(panel.Rows, panelSuperior.Rows)
-        Dim total As Decimal = 999.99
+    '    'Dim total As Decimal = TotalRows(panel.Rows, panelSuperior.Rows)
+    '    Dim total As Decimal = 999.99
 
-        panel.Footer.Text = String.Format("Total a pagar: <font color=""Green""><i>${0}</i></font>", total)
-    End Sub
+    '    panel.Footer.Text = String.Format("Total a pagar: <font color=""Green""><i>${0}</i></font>", total)
+    'End Sub
 
     Private Sub chkIngresosBrutos_CheckedChanged(sender As Object, e As EventArgs) Handles chkIngresosBrutos.CheckedChanged
         If chkIngresosBrutos.Checked Then
@@ -2500,5 +2497,51 @@ Public Class frmLiquidaciones
         End If
     End Sub
 
+    Private Sub chkConceptosFinales_Click(sender As Object, e As EventArgs) Handles chkConceptosFinales.Click
+        Dim dtFinales As New DataTable
+        dtFinales.Columns.Add("ID", GetType(Integer))
+        dtFinales.Columns.Add("Order", GetType(Integer))
+        dtFinales.Columns.Add("Name", GetType(String))
+        dtFinales.Columns.Add("Value", GetType(Decimal))
 
+        dtFinales.Rows.Add(
+            1,
+            1,
+            "Comisión cenprofar",
+            0.0075
+        )
+        dtFinales.Rows.Add(
+            2,
+            2,
+            "Ingresos brutos",
+            0.025
+        )
+        Dim newConcepto As DataRow
+        For Each farmacia As DataRow In gl_dataset.Tables(0).Rows
+            Dim conceptosfinales = gl_dataset.Tables(1).Select($"IdDetalle = '{farmacia("nº")}' and (detalle = 'Comisión cenprofar' or detalle = 'Ingresos brutos')")
+            Dim subtotal As Decimal = farmacia("Subtotal")
+            For Each item As DataRow In conceptosfinales
+                subtotal -= item("valor")
+            Next
+            For Each conceptoFinal As DataRow In dtFinales.Rows
+                ''creo el concepto
+                newConcepto = gl_dataset.Tables(1).NewRow ' <- dtConceptos
+
+                newConcepto("IdDetalle") = farmacia("nº")
+                newConcepto("IdFarmacia") = farmacia("IdFarmacia")
+                newConcepto("detalle") = conceptoFinal("Name")
+                newConcepto("valor") = -(subtotal * conceptoFinal("Value"))
+                subtotal += newConcepto("valor")
+                newConcepto("edit") = True
+                newConcepto("estado") = "insert"
+
+                If chkConceptosFinales.Checked Then
+                    añadirConcepto(newConcepto)
+                Else
+                    eliminarConcepto(newConcepto)
+                End If
+            Next
+        Next
+        UpdateGrdPrincipal()
+    End Sub
 End Class
