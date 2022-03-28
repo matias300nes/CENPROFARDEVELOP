@@ -612,6 +612,12 @@ Public Class frmFarmacias_Conceptos
                 param_motivobaja.Value = txtMotivoBaja.Text.ToUpper
                 param_motivobaja.Direction = ParameterDirection.Input
 
+                Dim param_user As New SqlClient.SqlParameter
+                param_user.ParameterName = "@user"
+                param_user.SqlDbType = SqlDbType.Int
+                param_user.Value = UserID
+                param_user.Direction = ParameterDirection.Input
+
                 Dim param_res As New SqlClient.SqlParameter
                 param_res.ParameterName = "@res"
                 param_res.SqlDbType = SqlDbType.Int
@@ -623,7 +629,7 @@ Public Class frmFarmacias_Conceptos
                                           param_codigo, param_CodFACAF, param_CodPAMI, param_CodFarmaLink, param_CodFarmaPlus,
                                           param_CodCSF, param_nombre, param_razonSocial, param_preferenciaPago, param_cbu, param_cuit, param_domicilio, param_localidad,
                                           param_telefono, param_email, param_contribuyente, param_estadofarmacia, param_motivobaja,
-                                          param_res)
+                                          param_user, param_res)
 
                     txtID.Text = param_id.Value
                     codigo = param_codigo.Value
@@ -809,6 +815,12 @@ Public Class frmFarmacias_Conceptos
                 param_motivobaja.Value = txtMotivoBaja.Text.ToUpper
                 param_motivobaja.Direction = ParameterDirection.Input
 
+                Dim param_user As New SqlClient.SqlParameter
+                param_user.ParameterName = "@user"
+                param_user.SqlDbType = SqlDbType.Int
+                param_user.Value = UserID
+                param_user.Direction = ParameterDirection.Input
+
                 Dim param_res As New SqlClient.SqlParameter
                 param_res.ParameterName = "@res"
                 param_res.SqlDbType = SqlDbType.Int
@@ -819,7 +831,7 @@ Public Class frmFarmacias_Conceptos
                     SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spFarmacias_Update", param_id, param_cod,
                                           param_nombre, param_CodFACAF, param_CodPAMI, param_CodFarmaLink, param_CodFarmaPlus,
                                           param_CodCSF, param_razonSocial, param_preferenciaPago, param_cbu, param_cuit, param_domicilio, param_localidad, param_telefono,
-                                          param_email, param_contribuyente, param_estadofarmacia, param_motivobaja, param_res)
+                                          param_email, param_contribuyente, param_estadofarmacia, param_motivobaja, param_user, param_res)
 
                     If param_res.Value = 1 Then
                         AgregarRelacionConcepto_Farmacia()
