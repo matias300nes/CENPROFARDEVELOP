@@ -1905,28 +1905,19 @@ Public Class frmPresentaciones
         dtpFECHA.Enabled = True
         txtObservacion.Enabled = True
 
-        'Try
-        '    grdItems.Columns(ColumnasDelGridItems.Status).Visible = Not bolModo
-
-        '    grdItems.Columns(ColumnasDelGridItems.Saldo).Visible = Not bolModo
-        'Catch ex As Exception
-
-        'End Try
         Util.LimpiarTextBox(Me.Controls)
-        'If btnBand_Copiar = True Then
-        '    Util.LimpiarTextBox(Me.Controls)
-        'End If
-
         PrepararGridItems()
+
+        'solucion momentanea revisar
+        txtObservacion.Text = ""
+        txtPeriodo.Text = ""
+        txtCodigo.Text = ""
+        cmbObraSocial.Text = ""
+        Util.LimpiarGridItems(grdItems)
 
         lblCantidadFilas.Text = "0"
 
-        'cmbAutoriza.SelectedValue = 2
-
         lblStatus.Text = "EN PROCESO"
-
-        'btnCopiarOC.Enabled = False
-        'btnFinalizar.Enabled = False
 
         dtpFECHA.Focus()
 
@@ -2159,7 +2150,7 @@ Public Class frmPresentaciones
         Util.LimpiarTextBox(Me.Controls)
         LimpiarGridItems(grdItems)
         LimpiarGridItems(grd)
-        grd.ClearSelection()
+
         bolModo = False
     End Sub
 
@@ -2287,6 +2278,9 @@ Public Class frmPresentaciones
             Dim FilasSeleccionadas As DataGridViewSelectedRowCollection = grd.SelectedRows
             Dim condicion As String = ""
             Dim sql As String = ""
+            Dim obrasocial = cmbObraSocial.Text
+            Dim periodo = txtPeriodo.Text
+            Dim observacion = txtObservacion.Text
             Try
                 connection = SqlHelper.GetConnection(ConnStringSEI)
             Catch ex As Exception
@@ -2354,6 +2348,9 @@ Public Class frmPresentaciones
                 dsRowsSelected = SqlHelper.ExecuteDataset(connection, CommandType.Text, sql)
                 dsRowsSelected.Dispose()
                 btnNuevo_Click(sender, e)
+                cmbObraSocial.Text = obrasocial
+                txtPeriodo.Text = periodo
+                txtObservacion.Text = "UNIFICADA - " + obrasocial
                 Dim dt = dsRowsSelected.Tables(0)
                 Dim i As Integer
                 For i = 0 To dt.Rows.Count - 1
@@ -2416,6 +2413,8 @@ Public Class frmPresentaciones
             Dim sql As String = ""
             Dim dt_Items As New DataTable
             Dim obrasocial = cmbObraSocial.Text
+            Dim observaciones = txtObservacion.Text
+            Dim periodo = txtPeriodo.Text
 
             dt_Items.Columns.Add("Id")
             dt_Items.Columns.Add("IdFarmacia")
@@ -2490,8 +2489,10 @@ Public Class frmPresentaciones
                 Next
 
                 cmbObraSocial.Text = obrasocial
-
-                btnGuardar_Click(sender, e)
+                txtPeriodo.Text = periodo
+                txtObservacion.Text = observaciones
+                CalcularTotales()
+                'btnGuardar_Click(sender, e)
 
             Catch ex As Exception
                 Dim errMessage As String = ""
