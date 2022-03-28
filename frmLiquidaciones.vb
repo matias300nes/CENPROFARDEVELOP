@@ -1622,7 +1622,7 @@ Public Class frmLiquidaciones
                                     txtID.Text = ""
                                     btnActualizar_Click(sender, e)
                                     btnEliminar.Enabled = Not chkLiquidado.Checked
-
+                                    Contar_Filas()
                                     Util.MsgStatus(Status1, "Se ha actualizado el registro.", My.Resources.Resources.ok.ToBitmap)
 
                             End Select
@@ -2088,7 +2088,7 @@ Public Class frmLiquidaciones
             panel.Columns(0).Visible = False 'ID
             panel.Columns(1).Visible = False 'IdDetalle
             panel.Columns(2).Visible = False 'IdFarmacia
-            'panel.Columns(5).Visible = False 'estado
+            panel.Columns(5).Visible = False 'estado
             panel.Columns(6).Width = 30 'hago el boton de eliminar mas pequeño
 
             panel.Columns(3).AllowEdit = False
