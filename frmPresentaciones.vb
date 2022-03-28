@@ -2386,7 +2386,7 @@ Public Class frmPresentaciones
 
 
                 Next
-                'CalcularTotales()
+                CalcularTotales()
             Catch ex As Exception
                 Dim errMessage As String = ""
                 Dim tempException As Exception = ex
