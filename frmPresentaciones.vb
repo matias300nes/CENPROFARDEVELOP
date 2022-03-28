@@ -108,7 +108,7 @@ Public Class frmPresentaciones
         End If
     End Sub
 
-    Private Sub grd_SelectionChanged(sender As Object, e As EventArgs) Handles grd.SelectionChanged 'comentar cuando se necesite ver el diseñador
+    Private Sub grd_SelectionChanged(sender As Object, e As EventArgs) 'Handles grd.SelectionChanged 'comentar cuando se necesite ver el diseñador
         ''DataGridView1.SelectedRows.Count().ToString()
         If grd.SelectedRows.Count() > 1 Then
             btnUnificar.Enabled = True
@@ -119,6 +119,9 @@ Public Class frmPresentaciones
 
     Private Sub frmPresentaciones_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         ''prueba nacho
+        btnCancelar.Enabled = False
+        btnEliminar.Enabled = False
+
         Cursor = Cursors.WaitCursor
 
         ToolStrip_lblCodMaterial.Visible = True
@@ -2040,51 +2043,51 @@ Public Class frmPresentaciones
     End Sub
 
     Private Sub btnEliminar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEliminar.Click
-        '
-        ' Para borrar un vale hay que tener un permiso especial de eliminacion
-        ' ademas, no se puede borrar un vale ya eliminado de antes.
-        ' La eliminacion es lógica...y se reversan los items para ajustar el inventario
-        '
-        Dim res As Integer
+        ''
+        '' Para borrar un vale hay que tener un permiso especial de eliminacion
+        '' ademas, no se puede borrar un vale ya eliminado de antes.
+        '' La eliminacion es lógica...y se reversan los items para ajustar el inventario
+        ''
+        'Dim res As Integer
 
-        If MessageBox.Show("¿Está seguro que desea Anular la Presentación seleccionada?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
-            Exit Sub
-        End If
+        'If MessageBox.Show("¿Está seguro que desea Anular la Presentación seleccionada?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
+        '    Exit Sub
+        'End If
 
-        If chkEliminado.Checked = False Then
+        'If chkEliminado.Checked = False Then
 
-            'si tiene al menos una recepcion cargada no se puede eliminar ...
-            res = CuentaRecepcionesPorOrdenDeCompra(CType(txtID.Text, Long))
-            If res >= 1 Then
-                Util.MsgStatus(Status1, "No se puede Anular la Orden de Compra ya que tiene 'Recepciones' efectuadas.", My.Resources.stop_error.ToBitmap)
-                Util.MsgStatus(Status1, "No se puede Anular la Orden de Compra ya que tiene 'Recepciones' efectuadas.", My.Resources.stop_error.ToBitmap, True)
-                Exit Sub
-            End If
+        '    'si tiene al menos una recepcion cargada no se puede eliminar ...
+        '    res = CuentaRecepcionesPorOrdenDeCompra(CType(txtID.Text, Long))
+        '    If res >= 1 Then
+        '        Util.MsgStatus(Status1, "No se puede Anular la Orden de Compra ya que tiene 'Recepciones' efectuadas.", My.Resources.stop_error.ToBitmap)
+        '        Util.MsgStatus(Status1, "No se puede Anular la Orden de Compra ya que tiene 'Recepciones' efectuadas.", My.Resources.stop_error.ToBitmap, True)
+        '        Exit Sub
+        '    End If
 
-            If MessageBox.Show("Esta acción Anulará todos los items." + vbCrLf + "¿Está seguro que desea Anular?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
-                Util.MsgStatus(Status1, "Anulando el registro...", My.Resources.Resources.indicator_white)
-                res = EliminarRegistro("Anular")
-                Select Case res
-                    Case -1
-                        Util.MsgStatus(Status1, "No se pudo Anular la OC.", My.Resources.stop_error.ToBitmap)
-                        Util.MsgStatus(Status1, "No se pudo Anular la OC.", My.Resources.stop_error.ToBitmap, True)
-                    Case 0
-                        Util.MsgStatus(Status1, "No se pudo Anular la OC.", My.Resources.stop_error.ToBitmap)
-                        Util.MsgStatus(Status1, "No se pudo Anular la OC.", My.Resources.stop_error.ToBitmap, True)
-                    Case Else
-                        PrepararBotones()
-                        btnActualizar_Click(sender, e)
-                        Util.MsgStatus(Status1, "Se ha Anulado la OC.", My.Resources.ok.ToBitmap)
-                        Util.MsgStatus(Status1, "Se ha Anulado la OC.", My.Resources.ok.ToBitmap, True, True)
-                End Select
-            Else
-                Util.MsgStatus(Status1, "Acción de Anulado cancelada.", My.Resources.stop_error.ToBitmap)
-                Util.MsgStatus(Status1, "Acción de Anulado cancelada.", My.Resources.stop_error.ToBitmap, True)
-            End If
-        Else
-            Util.MsgStatus(Status1, "El registro ya está Anulado.", My.Resources.stop_error.ToBitmap)
-            Util.MsgStatus(Status1, "El registro ya está Anulado.", My.Resources.stop_error.ToBitmap, True)
-        End If
+        '    If MessageBox.Show("Esta acción Anulará todos los items." + vbCrLf + "¿Está seguro que desea Anular?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
+        '        Util.MsgStatus(Status1, "Anulando el registro...", My.Resources.Resources.indicator_white)
+        '        res = EliminarRegistro("Anular")
+        '        Select Case res
+        '            Case -1
+        '                Util.MsgStatus(Status1, "No se pudo Anular la OC.", My.Resources.stop_error.ToBitmap)
+        '                Util.MsgStatus(Status1, "No se pudo Anular la OC.", My.Resources.stop_error.ToBitmap, True)
+        '            Case 0
+        '                Util.MsgStatus(Status1, "No se pudo Anular la OC.", My.Resources.stop_error.ToBitmap)
+        '                Util.MsgStatus(Status1, "No se pudo Anular la OC.", My.Resources.stop_error.ToBitmap, True)
+        '            Case Else
+        '                PrepararBotones()
+        '                btnActualizar_Click(sender, e)
+        '                Util.MsgStatus(Status1, "Se ha Anulado la OC.", My.Resources.ok.ToBitmap)
+        '                Util.MsgStatus(Status1, "Se ha Anulado la OC.", My.Resources.ok.ToBitmap, True, True)
+        '        End Select
+        '    Else
+        '        Util.MsgStatus(Status1, "Acción de Anulado cancelada.", My.Resources.stop_error.ToBitmap)
+        '        Util.MsgStatus(Status1, "Acción de Anulado cancelada.", My.Resources.stop_error.ToBitmap, True)
+        '    End If
+        'Else
+        '    Util.MsgStatus(Status1, "El registro ya está Anulado.", My.Resources.stop_error.ToBitmap)
+        '    Util.MsgStatus(Status1, "El registro ya está Anulado.", My.Resources.stop_error.ToBitmap, True)
+        'End If
     End Sub
 
     Private Sub btnAnular_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
@@ -2162,14 +2165,14 @@ Public Class frmPresentaciones
 
     End Sub
 
-    Private Overloads Sub btnCancelar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCancelar.Click
-        cmbEstado.Enabled = True
-        Util.LimpiarTextBox(Me.Controls)
-        LimpiarGridItems(grdItems)
-        LimpiarGridItems(grd)
+    'Private Overloads Sub btnCancelar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCancelar.Click
+    '    cmbEstado.Enabled = True
+    '    Util.LimpiarTextBox(Me.Controls)
+    '    LimpiarGridItems(grdItems)
+    '    LimpiarGridItems(grd)
 
-        bolModo = False
-    End Sub
+    '    bolModo = False
+    'End Sub
 
     Private Sub btnCopiarOC_Click(ByVal sender As Object, ByVal e As System.EventArgs)
         Dim UltId As Long

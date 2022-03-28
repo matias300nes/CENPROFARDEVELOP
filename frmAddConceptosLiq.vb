@@ -104,7 +104,7 @@ Public Class frmAddConceptosLiq
         da.Fill(dt)
 
         Dim dv As New DataView(dt)
-        dv.RowFilter = $"[Pertenece a] = 'LIQUIDACIONES'"
+        dv.RowFilter = $"[Pertenece a] = 1" ''1 = conceptos de liquidacion
 
         dtConceptos = dv.Table
 
@@ -127,10 +127,10 @@ Public Class frmAddConceptosLiq
             Dim concepto As DataGridViewRow = grdConceptos.CurrentRow
             For Each farmacia As DataRow In farmaciasConceptos.Rows
                 farmacia(colsFarmaciasConceptos.Concepto) = concepto.Cells(colsConceptos.Nombre).Value
-                If concepto.Cells(colsConceptos.CampoAplicable).Value = "A CARGO OS" Then
+                If concepto.Cells(colsConceptos.CampoAplicable).Value = 1 Then ''sobre a cargo os
                     farmacia(colsFarmaciasConceptos.Importe) = farmacia(colsFarmaciasConceptos.ACargoOS) * (concepto.Cells(colsConceptos.Valor).Value / 100)
                 End If
-                If concepto.Cells(colsConceptos.CampoAplicable).Value = "TOTAL" Then
+                If concepto.Cells(colsConceptos.CampoAplicable).Value = 2 Then ''sobre total
                     farmacia(colsFarmaciasConceptos.Importe) = farmacia(colsFarmaciasConceptos.Total) * (concepto.Cells(colsConceptos.Valor).Value / 100)
                 End If
 
