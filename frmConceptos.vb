@@ -69,21 +69,24 @@ Public Class frmConceptos
         btnCancelar.Enabled = Not chkEliminados.Checked
         btnEliminar.Enabled = Not chkEliminados.Checked
 
+        txtID.Text = ""
         If chkEliminados.Checked = True Then
-            SQL = "exec spAlmacenes_Select_All @Eliminado = 1"
+            SQL = "exec spConceptos_Select_All @Eliminado = 1"
         Else
-            SQL = "exec spAlmacenes_Select_All @Eliminado = 0"
+            SQL = "exec spConceptos_Select_All @Eliminado = 0"
         End If
 
         LlenarGrilla()
 
-        'LlenarGridItems()
+        CargarCajas()
 
         If grd.RowCount = 0 Then
             btnActivar.Enabled = False
         Else
             btnActivar.Enabled = chkEliminados.Checked
         End If
+
+
     End Sub
 
 #End Region
@@ -245,7 +248,7 @@ Public Class frmConceptos
         Dim connection As SqlClient.SqlConnection = Nothing
         Dim ds_Update As Data.DataSet
 
-        If MessageBox.Show("Está por activar nuevamente el depósito: " & grd.CurrentRow.Cells(2).Value.ToString & ". Desea continuar?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
+        If MessageBox.Show("Está por activar nuevamente el concepto: " & grd.CurrentRow.Cells(gridcols.Nombre).Value.ToString & ". Desea continuar?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
             Exit Sub
         End If
 
@@ -259,18 +262,22 @@ Public Class frmConceptos
 
         Try
 
-            ds_Update = SqlHelper.ExecuteDataset(connection, CommandType.Text, "UPDATE Almacenes SET Eliminado = 0 WHERE id = " & grd.CurrentRow.Cells(0).Value)
+            ds_Update = SqlHelper.ExecuteDataset(connection, CommandType.Text, "UPDATE Conceptos SET Eliminado = 0 WHERE id = " & grd.CurrentRow.Cells(0).Value)
             ds_Update.Dispose()
 
-            SQL = "exec spAlmacenes_Select_All @Eliminado = 1"
+            txtID.Text = ""
+
+            SQL = "exec spConceptos_Select_All @Eliminado = 1"
 
             LlenarGrilla()
+
+            CargarCajas()
 
             If grd.RowCount = 0 Then
                 btnActivar.Enabled = False
             End If
 
-            Util.MsgStatus(Status1, "El depósito se activó correctamente.", My.Resources.ok.ToBitmap)
+            Util.MsgStatus(Status1, "El conceptos se activó correctamente.", My.Resources.ok.ToBitmap)
 
         Catch ex As Exception
             Dim errMessage As String = ""
