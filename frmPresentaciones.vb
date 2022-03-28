@@ -1925,6 +1925,23 @@ Public Class frmPresentaciones
 
     End Sub
 
+    Private Overloads Sub btnActualizar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnActualizar.Click
+        If MDIPrincipal.NoActualizarBase = False Then
+            'SQL = $"exec spPresentaciones_Select_All @Estado = {cmbEstado.Text.Replace(" ", "")} ,@Eliminado = 0"
+            SQL = $"exec spPresentaciones_Select_All @Estado = {cmbEstado.Text.Replace(" ", "")} ,@Eliminado = 0"
+            Me.Cursor = Cursors.WaitCursor
+            LlenarGrilla()
+            Permitir = True
+            CargarCajas()
+            PrepararBotones()
+            Me.Cursor = Cursors.Default
+            'GrillaActualizar()
+        End If
+
+
+    End Sub
+
+
     Private Sub btnGuardar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGuardar.Click
         Dim res As Integer, res_item As Integer
         Dim registro As Integer
@@ -2369,6 +2386,7 @@ Public Class frmPresentaciones
 
 
                 Next
+                'CalcularTotales()
             Catch ex As Exception
                 Dim errMessage As String = ""
                 Dim tempException As Exception = ex
