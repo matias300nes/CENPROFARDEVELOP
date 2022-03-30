@@ -199,10 +199,10 @@
     <Compile Include="frmAddConceptosLiq.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmAgregarCheques.Designer.vb">
-      <DependentUpon>frmAgregarCheques.vb</DependentUpon>
+    <Compile Include="frmAgregarPagos.Designer.vb">
+      <DependentUpon>frmAgregarPagos.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmAgregarCheques.vb">
+    <Compile Include="frmAgregarPagos.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmAplicarConceptos.Designer.vb">
@@ -1561,8 +1561,8 @@
     <EmbeddedResource Include="frmAddConceptosLiq.resx">
       <DependentUpon>frmAddConceptosLiq.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmAgregarCheques.resx">
-      <DependentUpon>frmAgregarCheques.vb</DependentUpon>
+    <EmbeddedResource Include="frmAgregarPagos.resx">
+      <DependentUpon>frmAgregarPagos.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmAplicarConceptos.resx">
       <DependentUpon>frmAplicarConceptos.vb</DependentUpon>

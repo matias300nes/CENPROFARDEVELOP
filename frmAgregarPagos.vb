@@ -1,7 +1,7 @@
 ﻿Imports Microsoft.ApplicationBlocks.Data
 Imports Utiles.Util
 
-Public Class frmAgregarCheques
+Public Class frmAgregarPagos
     Enum gridColumns
         idFarmacia = 0
         razonSocial = 1
