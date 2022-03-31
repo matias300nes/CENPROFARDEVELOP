@@ -199,10 +199,16 @@
     <Compile Include="frmAddConceptosLiq.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmAgregarCheques.Designer.vb">
-      <DependentUpon>frmAgregarCheques.vb</DependentUpon>
+    <Compile Include="frmAgregarPagos_Copia.Designer.vb">
+      <DependentUpon>frmAgregarPagos_Copia.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmAgregarCheques.vb">
+    <Compile Include="frmAgregarPagos_Copia.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAgregarPagos.Designer.vb">
+      <DependentUpon>frmAgregarPagos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmAgregarPagos.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmAplicarConceptos.Designer.vb">
@@ -929,6 +935,12 @@
     <Compile Include="Reportes\frmPresentacionRpt.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Reportes\frmRtpCheques.Designer.vb">
+      <DependentUpon>frmRtpCheques.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\frmRtpCheques.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Service References\WS_Porkys\Reference.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1561,8 +1573,11 @@
     <EmbeddedResource Include="frmAddConceptosLiq.resx">
       <DependentUpon>frmAddConceptosLiq.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmAgregarCheques.resx">
-      <DependentUpon>frmAgregarCheques.vb</DependentUpon>
+    <EmbeddedResource Include="frmAgregarPagos_Copia.resx">
+      <DependentUpon>frmAgregarPagos_Copia.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAgregarPagos.resx">
+      <DependentUpon>frmAgregarPagos.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmAplicarConceptos.resx">
       <DependentUpon>frmAplicarConceptos.vb</DependentUpon>
@@ -1995,6 +2010,10 @@
     <EmbeddedResource Include="Reportes\frmPresentacionRpt.resx">
       <DependentUpon>frmPresentacionRpt.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\frmRtpCheques.resx">
+      <DependentUpon>frmRtpCheques.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\rptCheques.rdlc" />
     <EmbeddedResource Include="Reportes\rptPresentacion.rdlc" />
   </ItemGroup>
   <ItemGroup>

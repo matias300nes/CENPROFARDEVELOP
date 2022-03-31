@@ -215,7 +215,7 @@ Public Class frmSaldos
             Dim dv As New DataView(dtFarmacias)
             dv.RowFilter = $"[Selección] = 1"
 
-            Dim AgregarCheques As New frmAgregarCheques(dv.ToTable())
+            Dim AgregarCheques As New frmAgregarPagos(dv.ToTable())
             AgregarCheques.ShowDialog()
         Else
             MsgBox("Debe seleccionar al menos una razón social para poder realizar el pago.")
@@ -268,6 +268,11 @@ Public Class frmSaldos
         If e.ColumnIndex = grdFarmaciaCols.Seleccion Then
             countSelected()
         End If
+    End Sub
+
+    Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
+        Dim reporte As New frmRtpCheques()
+        reporte.ShowDialog()
     End Sub
 
 #End Region
