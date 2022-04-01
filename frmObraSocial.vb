@@ -729,6 +729,7 @@ Public Class frmObraSocial
             .Columns(ObrasSocialesCols.CodFACAF).Visible = False
             .Columns(ObrasSocialesCols.Telefono).Visible = False
             .Columns(ObrasSocialesCols.IdLocalidad).Visible = False
+            .Columns(ObrasSocialesCols.Domicilio).Visible = False
             .Columns(ObrasSocialesCols.IdProvincia).Visible = False
             .Columns(ObrasSocialesCols.Bonificacion).Visible = False
 

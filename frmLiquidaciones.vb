@@ -2459,11 +2459,15 @@ Public Class frmLiquidaciones
             btnLiquidar.Enabled = False
             btnExcelWindow.Enabled = False
             btnEliminar.Enabled = False
+            chkConceptosFinales.Enabled = False
+            btnAddConceptos.Enabled = False
         Else
             btnGuardar.Enabled = True
             btnLiquidar.Enabled = True
             btnExcelWindow.Enabled = True
             btnEliminar.Enabled = True
+            chkConceptosFinales.Enabled = True
+            btnAddConceptos.Enabled = True
         End If
     End Sub
 
