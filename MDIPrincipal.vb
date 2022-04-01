@@ -4313,5 +4313,8 @@ Pedidos:
         ImportarExcel.ShowDialog()
     End Sub
 
-
+    Private Sub RazonesSocialesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RazonesSocialesToolStripMenuItem.Click
+        frmRazonesSociales.MdiParent = Me
+        frmRazonesSociales.Show()
+    End Sub
 End Class
