@@ -217,6 +217,12 @@
     <Compile Include="frmAplicarConceptos.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmRazonesSociales.Designer.vb">
+      <DependentUpon>frmRazonesSociales.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmRazonesSociales.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmGrupos_old.Designer.vb">
       <DependentUpon>frmGrupos_old.vb</DependentUpon>
     </Compile>
@@ -1581,6 +1587,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmAplicarConceptos.resx">
       <DependentUpon>frmAplicarConceptos.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmRazonesSociales.resx">
+      <DependentUpon>frmRazonesSociales.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmGrupos_old.resx">
       <DependentUpon>frmGrupos_old.vb</DependentUpon>
