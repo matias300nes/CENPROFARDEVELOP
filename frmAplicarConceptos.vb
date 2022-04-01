@@ -6,14 +6,14 @@ Public Class frmAplicarConceptos
     Enum dtCols
         idConcepto = 0
         idFarmacia = 1
-        Farmacias = 3
-        RazonSocial = 4
-        Concepto = 5
-        Importe = 6
-        Frecuencia = 7
-        MesesSinCobrar = 8
-        FechaCobrado = 9
-        DateAdd = 10
+        Farmacia = 2
+        RazonSocial = 3
+        Concepto = 4
+        Importe = 5
+        Frecuencia = 6
+        MesesSinCobrar = 7
+        FechaCobrado = 8
+        DateAdd = 9
     End Enum
 
     Enum grdCols
@@ -102,7 +102,7 @@ Public Class frmAplicarConceptos
                 newrow(grdCols.idConcepto) = item(dtCols.idConcepto)
                 newrow(grdCols.idFarmacia) = item(dtCols.idFarmacia)
                 newrow(grdCols.RazonSocial) = item(dtCols.RazonSocial)
-                newrow(grdCols.Farmacia) = item(dtCols.Farmacias)
+                newrow(grdCols.Farmacia) = item(dtCols.Farmacia)
                 newrow(grdCols.Concepto) = item(dtCols.Concepto)
                 newrow(grdCols.Importe) = item(dtCols.Importe)
 
