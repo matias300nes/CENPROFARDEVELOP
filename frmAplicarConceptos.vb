@@ -6,22 +6,24 @@ Public Class frmAplicarConceptos
     Enum dtCols
         idConcepto = 0
         idFarmacia = 1
-        RazonSocial = 2
-        Concepto = 3
-        Importe = 4
-        Frecuencia = 5
-        MesesSinCobrar = 6
-        FechaCobrado = 7
-        DateAdd = 8
+        Farmacias = 3
+        RazonSocial = 4
+        Concepto = 5
+        Importe = 6
+        Frecuencia = 7
+        MesesSinCobrar = 8
+        FechaCobrado = 9
+        DateAdd = 10
     End Enum
 
     Enum grdCols
         idConcepto = 0
         idFarmacia = 1
-        RazonSocial = 2
-        Concepto = 3
-        Periodo = 4
-        Importe = 5
+        Farmacia = 2
+        RazonSocial = 3
+        Concepto = 4
+        Periodo = 5
+        Importe = 6
     End Enum
 
     Enum FarmaciaCols
@@ -62,6 +64,7 @@ Public Class frmAplicarConceptos
         dtConceptos = New DataTable()
         dtConceptos.Columns.Add("idConcepto", GetType(Long))
         dtConceptos.Columns.Add("idFarmacia", GetType(Long))
+        dtConceptos.Columns.Add("Farmacia", GetType(String))
         dtConceptos.Columns.Add("Razón social", GetType(String))
         dtConceptos.Columns.Add("Concepto", GetType(String))
         dtConceptos.Columns.Add("Período", GetType(String))
@@ -99,6 +102,7 @@ Public Class frmAplicarConceptos
                 newrow(grdCols.idConcepto) = item(dtCols.idConcepto)
                 newrow(grdCols.idFarmacia) = item(dtCols.idFarmacia)
                 newrow(grdCols.RazonSocial) = item(dtCols.RazonSocial)
+                newrow(grdCols.Farmacia) = item(dtCols.Farmacias)
                 newrow(grdCols.Concepto) = item(dtCols.Concepto)
                 newrow(grdCols.Importe) = item(dtCols.Importe)
 
