@@ -5,22 +5,40 @@ Public Class frmAgregarPagos
     Enum gridColumns
         idFarmacia = 0
         razonSocial = 1
-        tipoPago = 2
-        importe = 3
-        eliminar = 4
+        farmacia = 2
+        tipoPago = 3
+        importe = 4
+        eliminar = 5
     End Enum
+
+    'Enum FarmaciaCols
+    '    ID = 0
+    '    Seleccion = 1
+    '    Codigo = 2
+    '    RazonSocial = 3
+    '    Nombre = 4
+    '    PreferenciaPago = 5
+    '    Saldo = 6
+    '    Cuit = 7
+    '    Telefono = 8
+    '    Email = 9
+    'End Enum
 
     Enum FarmaciaCols
         ID = 0
         Seleccion = 1
         Codigo = 2
-        RazonSocial = 3
-        Nombre = 4
-        PreferenciaPago = 5
-        Saldo = 6
-        Cuit = 7
-        Telefono = 8
-        Email = 9
+        Nombre = 3
+        IdRazonSocial = 4
+        RazonSocial = 5
+        Cuit = 6
+        CBU = 7
+        Banco = 8
+        NroCta = 9
+        PreferenciaPago = 10
+        Saldo = 11
+        Telefono = 12
+        Email = 13
     End Enum
 
     Dim farmacias As DataTable
@@ -40,6 +58,7 @@ Public Class frmAgregarPagos
         dt = New DataTable()
         dt.Columns.Add("IdFarmacia", GetType(Long))
         dt.Columns.Add("Razón Social", GetType(String))
+        dt.Columns.Add("Farmacia", GetType(String))
         dt.Columns.Add("Tipo de pago", GetType(String))
         dt.Columns.Add("Importe", GetType(Decimal))
 
@@ -55,15 +74,15 @@ Public Class frmAgregarPagos
 
             .Columns(gridColumns.importe).DefaultCellStyle.Format = "N2"
             .Columns(gridColumns.idFarmacia).Visible = False
-            .Columns(gridColumns.razonSocial).Width = 180
-            .Columns(gridColumns.eliminar).Width = 70
-
+            '.Columns(gridColumns.razonSocial).Width = 180
+            '.Columns(gridColumns.eliminar).Width = 70
+            .AutoResizeColumns()
         End With
 
-        With cmbRazonSocial
+        With cmbFarmacia
             .DataSource = farmacias
             .ValueMember = farmacias.Columns(FarmaciaCols.ID).ColumnName
-            .DisplayMember = farmacias.Columns(FarmaciaCols.RazonSocial).ColumnName
+            .DisplayMember = farmacias.Columns(FarmaciaCols.Nombre).ColumnName
         End With
 
         cmbTipoPago.DataSource = {"Cheque", "Transferencia", "Echeq"}
@@ -74,6 +93,7 @@ Public Class frmAgregarPagos
             If farmacia(FarmaciaCols.Saldo) > 0 Then
                 Dim newRow As DataRow = dt.NewRow
                 newRow(gridColumns.razonSocial) = farmacia(FarmaciaCols.RazonSocial)
+                newRow(gridColumns.farmacia) = farmacia(FarmaciaCols.Nombre)
                 newRow(gridColumns.tipoPago) = farmacia(FarmaciaCols.PreferenciaPago)
                 newRow(gridColumns.importe) = Decimal.Parse(farmacia(FarmaciaCols.Saldo))
                 dt.Rows.Add(newRow)
@@ -88,7 +108,7 @@ Public Class frmAgregarPagos
             lblRazonSocial.Text = $"{Me.farmacias.Rows(0)(FarmaciaCols.RazonSocial)} - {Me.farmacias.Rows(0)(FarmaciaCols.Nombre)}"
             lblSaldoActual.Text = String.Format("{0:C}", Me.farmacias.Rows(0)(FarmaciaCols.Saldo))
             grdPagos.Columns(gridColumns.razonSocial).Visible = False
-            cmbRazonSocial.Enabled = False
+            cmbFarmacia.Enabled = False
         End If
 
         CalcularTotal()
@@ -97,10 +117,10 @@ Public Class frmAgregarPagos
 
     Private Sub btnAgregar_Click(sender As Object, e As EventArgs) Handles btnAgregar.Click
 
-        If cmbRazonSocial.SelectedValue Is Nothing Then
-            MsgBox($"no se encontró la razón social {cmbRazonSocial.Text}.")
-            cmbRazonSocial.SelectedIndex = 0
-            cmbRazonSocial.Focus()
+        If cmbFarmacia.SelectedValue Is Nothing Then
+            MsgBox($"no se encontró la razón social {cmbFarmacia.Text}.")
+            cmbFarmacia.SelectedIndex = 0
+            cmbFarmacia.Focus()
             Exit Sub
         End If
 
@@ -117,8 +137,9 @@ Public Class frmAgregarPagos
         End If
 
         Dim newRow As DataRow = dt.NewRow
-        newRow(gridColumns.idFarmacia) = cmbRazonSocial.SelectedValue
-        newRow(gridColumns.razonSocial) = cmbRazonSocial.SelectedItem.Row(FarmaciaCols.Nombre)
+        newRow(gridColumns.idFarmacia) = cmbFarmacia.SelectedValue
+        newRow(gridColumns.razonSocial) = cmbFarmacia.SelectedItem.Row(FarmaciaCols.RazonSocial)
+        newRow(gridColumns.farmacia) = cmbFarmacia.SelectedItem.Row(FarmaciaCols.Nombre)
         newRow(gridColumns.tipoPago) = cmbTipoPago.SelectedValue.ToString.ToUpper
         newRow(gridColumns.importe) = Decimal.Parse(txtImporte.Text)
         dt.Rows.Add(newRow)
@@ -270,8 +291,8 @@ Public Class frmAgregarPagos
         End If
     End Sub
 
-    Private Sub cmbRazonSocial_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbRazonSocial.SelectedIndexChanged
-        Dim saldo As Decimal = cmbRazonSocial.SelectedItem.Row(FarmaciaCols.Saldo)
+    Private Sub cmbRazonSocial_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbFarmacia.SelectedIndexChanged
+        Dim saldo As Decimal = cmbFarmacia.SelectedItem.Row(FarmaciaCols.Saldo)
         lblSaldoIndividual.Text = String.Format("{0:C}", saldo)
     End Sub
 

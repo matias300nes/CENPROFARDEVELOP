@@ -28,7 +28,7 @@ Partial Class frmAgregarPagos
         Me.pControls = New System.Windows.Forms.Panel()
         Me.lblSaldoIndividual = New System.Windows.Forms.Label()
         Me.label4 = New System.Windows.Forms.Label()
-        Me.cmbRazonSocial = New DevComponents.DotNetBar.Controls.ComboBoxEx()
+        Me.cmbFarmacia = New DevComponents.DotNetBar.Controls.ComboBoxEx()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.txtImporte = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.btnAgregar = New DevComponents.DotNetBar.ButtonX()
@@ -118,7 +118,7 @@ Partial Class frmAgregarPagos
         Me.pControls.Controls.Add(Me.Label5)
         Me.pControls.Controls.Add(Me.lblSaldoIndividual)
         Me.pControls.Controls.Add(Me.label4)
-        Me.pControls.Controls.Add(Me.cmbRazonSocial)
+        Me.pControls.Controls.Add(Me.cmbFarmacia)
         Me.pControls.Controls.Add(Me.Label3)
         Me.pControls.Controls.Add(Me.txtImporte)
         Me.pControls.Controls.Add(Me.btnAgregar)
@@ -154,20 +154,19 @@ Partial Class frmAgregarPagos
         Me.label4.TabIndex = 13
         Me.label4.Text = "Saldo:"
         '
-        'cmbRazonSocial
+        'cmbFarmacia
         '
-        Me.cmbRazonSocial.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cmbRazonSocial.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbRazonSocial.DisplayMember = "Text"
-        Me.cmbRazonSocial.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
-        Me.cmbRazonSocial.FormattingEnabled = True
-        Me.cmbRazonSocial.ItemHeight = 14
-        Me.cmbRazonSocial.Location = New System.Drawing.Point(25, 39)
-        Me.cmbRazonSocial.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.cmbRazonSocial.Name = "cmbRazonSocial"
-        Me.cmbRazonSocial.Size = New System.Drawing.Size(179, 20)
-        Me.cmbRazonSocial.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.cmbRazonSocial.TabIndex = 0
+        Me.cmbFarmacia.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmbFarmacia.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cmbFarmacia.DisplayMember = "Text"
+        Me.cmbFarmacia.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
+        Me.cmbFarmacia.FormattingEnabled = True
+        Me.cmbFarmacia.ItemHeight = 14
+        Me.cmbFarmacia.Location = New System.Drawing.Point(19, 32)
+        Me.cmbFarmacia.Name = "cmbFarmacia"
+        Me.cmbFarmacia.Size = New System.Drawing.Size(135, 20)
+        Me.cmbFarmacia.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.cmbFarmacia.TabIndex = 0
         '
         'Label3
         '
@@ -175,9 +174,9 @@ Partial Class frmAgregarPagos
         Me.Label3.Location = New System.Drawing.Point(21, 20)
         Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(89, 17)
+        Me.Label3.Size = New System.Drawing.Size(50, 13)
         Me.Label3.TabIndex = 12
-        Me.Label3.Text = "Razón social"
+        Me.Label3.Text = "Farmacia"
         '
         'txtImporte
         '
@@ -457,7 +456,7 @@ Partial Class frmAgregarPagos
     Friend WithEvents TableLayoutPanel2 As TableLayoutPanel
     Friend WithEvents pControls As Panel
     Friend WithEvents txtImporte As TextBoxConFormatoVB.FormattedTextBoxVB
-    Friend WithEvents cmbRazonSocial As DevComponents.DotNetBar.Controls.ComboBoxEx
+    Friend WithEvents cmbFarmacia As DevComponents.DotNetBar.Controls.ComboBoxEx
     Friend WithEvents Label3 As Label
     Friend WithEvents lblSaldoIndividual As Label
     Friend WithEvents label4 As Label
