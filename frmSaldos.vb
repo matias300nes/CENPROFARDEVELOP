@@ -11,13 +11,17 @@ Public Class frmSaldos
         ID = 0
         Seleccion = 1
         Codigo = 2
-        RazonSocial = 3
-        Nombre = 4
-        PreferenciaPago = 5
-        Saldo = 6
-        Cuit = 7
-        Telefono = 8
-        Email = 9
+        Nombre = 3
+        IdRazonSocial = 4
+        RazonSocial = 5
+        Cuit = 6
+        CBU = 7
+        Banco = 8
+        NroCta = 9
+        PreferenciaPago = 10
+        Saldo = 11
+        Telefono = 12
+        Email = 13
     End Enum
 
     Enum grdHistorialCols
@@ -39,13 +43,17 @@ Public Class frmSaldos
             .Columns(grdFarmaciaCols.Cuit).Visible = False
             .Columns(grdFarmaciaCols.Telefono).Visible = False
             .Columns(grdFarmaciaCols.Email).Visible = False
+            .Columns(grdFarmaciaCols.IdRazonSocial).Visible = False
+            .Columns(grdFarmaciaCols.CBU).Visible = False
+            .Columns(grdFarmaciaCols.NroCta).Visible = False
+            .Columns(grdFarmaciaCols.Banco).Visible = False
 
             ''cambiar width
-            .Columns(grdFarmaciaCols.Seleccion).Width = 50
-            .Columns(grdFarmaciaCols.Codigo).Width = 70
-            '.Columns(grdFarmaciaCols.Nombre).Width = 200
-            .Columns(grdFarmaciaCols.PreferenciaPago).Width = 70
-            .Columns(grdFarmaciaCols.Saldo).Width = 100
+            '.Columns(grdFarmaciaCols.Seleccion).Width = 50
+            '.Columns(grdFarmaciaCols.Codigo).Width = 70
+            ''.Columns(grdFarmaciaCols.Nombre).Width = 200
+            '.Columns(grdFarmaciaCols.PreferenciaPago).Width = 70
+            '.Columns(grdFarmaciaCols.Saldo).Width = 100
 
             .Columns(grdFarmaciaCols.Saldo).DefaultCellStyle.Format = "c"
 
@@ -55,6 +63,8 @@ Public Class frmSaldos
                     col.ReadOnly = True
                 End If
             Next
+
+            .AutoResizeColumns()
         End With
 
         With grdHistorial
