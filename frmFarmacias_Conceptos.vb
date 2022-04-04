@@ -44,6 +44,28 @@ Public Class frmFarmacias_Conceptos
         Email = 6
     End Enum
     Enum GridItemsCols
+        'ID = 0
+        'Codigo = 1
+        'CodPAMI = 2
+        'CodFACAF = 3
+        'CodFarmaLink = 4
+        'CodFarmaPlus = 5
+        'CodCSF = 6
+        'Farmacia = 7
+        'Cuit = 8
+        'RazonSocial = 9
+        'PreferenciaPago = 10
+        'Cbu = 11
+        'Domicilio = 12
+        'Telefono = 13
+        'Email = 14
+        'Contribuyente = 15
+        'EstadoFarmacia = 16
+        'MotivoBaja = 17
+        'IdProvincia = 18
+        'IdLocalidad = 19
+        'Localidad = 20
+
         ID = 0
         Codigo = 1
         CodPAMI = 2
@@ -52,19 +74,17 @@ Public Class frmFarmacias_Conceptos
         CodFarmaPlus = 5
         CodCSF = 6
         Farmacia = 7
-        Cuit = 8
+        IdRazonSocial = 8
         RazonSocial = 9
         PreferenciaPago = 10
-        Cbu = 11
-        Domicilio = 12
-        Telefono = 13
-        Email = 14
-        Contribuyente = 15
-        EstadoFarmacia = 16
-        MotivoBaja = 17
-        IdProvincia = 18
-        IdLocalidad = 19
-        Localidad = 20
+        Domicilio = 11
+        Telefono = 12
+        Email = 13
+        EstadoFarmacia = 14
+        MotivoBaja = 15
+        IdProvincia = 16
+        IdLocalidad = 17
+        Localidad = 18
     End Enum
 #End Region
 
@@ -186,82 +206,75 @@ Public Class frmFarmacias_Conceptos
 
     Private Sub btnGuardar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGuardar.Click
 
-        Dim longitudCuit = txtCuit.Text.Length
+        Dim res As Integer
 
-        If longitudCuit < 11 Then
-            MsgBox("El cuit debe ser de 11 dígitos.", MsgBoxStyle.Information, "Control de Errores")
-            txtCuit.Focus()
-        Else
-            Dim res As Integer
+        If bolModo = False Then
+            If MessageBox.Show("Está seguro que desea modificar la Farmacia seleccionada?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
+                Exit Sub
+            End If
+        End If
 
-            If bolModo = False Then
-                If MessageBox.Show("Está seguro que desea modificar la Farmacia seleccionada?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
-                    Exit Sub
+        Util.MsgStatus(Status1, "Guardando el registro...", My.Resources.Resources.indicator_white)
+
+        If ReglasNegocio() Then
+            Verificar_Datos()
+            If bolpoliticas Then
+                If bolModo Then
+                    'If ALTA Then
+                    res = AgregarRegistro()
+                    Select Case res
+                        Case -2
+                            Util.MsgStatus(Status1, "El registro ya existe.", My.Resources.Resources.stop_error.ToBitmap)
+                            Exit Sub
+                        Case -1
+                            Util.MsgStatus(Status1, "No se pudo actualizar el registro.", My.Resources.Resources.stop_error.ToBitmap)
+                            Exit Sub
+                        Case 0
+                            Util.MsgStatus(Status1, "No se pudo agregar el registro.", My.Resources.Resources.stop_error.ToBitmap)
+                            Exit Sub
+                        Case Else
+                            Util.MsgStatus(Status1, "Se ha actualizado el registro.", My.Resources.Resources.ok.ToBitmap)
+                    End Select
+                    'Else
+                    '    Util.MsgStatus(Status1, "No tiene permiso para Agregar registros.", My.Resources.stop_error.ToBitmap)
+                    'End If
+                Else
+                    'If MODIFICA Then
+                    res = ActualizarRegistro()
+                    Select Case res
+                        Case -3
+                            Util.MsgStatus(Status1, "Ya existe otro Registro con este mismo Código.", My.Resources.stop_error.ToBitmap)
+                            Exit Sub
+                        Case -2
+                            Util.MsgStatus(Status1, "El registro ya existe.", My.Resources.Resources.stop_error.ToBitmap)
+                            Exit Sub
+                        Case -1
+                            Util.MsgStatus(Status1, "No se pudo actualizar el registro.", My.Resources.Resources.stop_error.ToBitmap)
+                            Exit Sub
+                        Case 0
+                            Util.MsgStatus(Status1, "No se pudo agregar el registro.", My.Resources.Resources.stop_error.ToBitmap)
+                            Exit Sub
+                        Case Else
+                            Util.MsgStatus(Status1, "Se ha actualizado el registro.", My.Resources.Resources.ok.ToBitmap)
+
+
+
+                    End Select
+                    '    Else
+                    '    Util.MsgStatus(Status1, "No tiene permiso para modificar registros.", My.Resources.stop_error.ToBitmap)
+                    'End If
                 End If
+
+                bolModo = False
+                PrepararBotones()
+                LlenarCmbProvincias()
+                MDIPrincipal.NoActualizarBase = False
+                btnActualizar_Click(sender, e)
             End If
+        End If
 
-            Util.MsgStatus(Status1, "Guardando el registro...", My.Resources.Resources.indicator_white)
-
-            If ReglasNegocio() Then
-                Verificar_Datos()
-                If bolpoliticas Then
-                    If bolModo Then
-                        'If ALTA Then
-                        res = AgregarRegistro()
-                        Select Case res
-                            Case -2
-                                Util.MsgStatus(Status1, "El registro ya existe.", My.Resources.Resources.stop_error.ToBitmap)
-                                Exit Sub
-                            Case -1
-                                Util.MsgStatus(Status1, "No se pudo actualizar el registro.", My.Resources.Resources.stop_error.ToBitmap)
-                                Exit Sub
-                            Case 0
-                                Util.MsgStatus(Status1, "No se pudo agregar el registro.", My.Resources.Resources.stop_error.ToBitmap)
-                                Exit Sub
-                            Case Else
-                                Util.MsgStatus(Status1, "Se ha actualizado el registro.", My.Resources.Resources.ok.ToBitmap)
-                        End Select
-                        'Else
-                        '    Util.MsgStatus(Status1, "No tiene permiso para Agregar registros.", My.Resources.stop_error.ToBitmap)
-                        'End If
-                    Else
-                        'If MODIFICA Then
-                        res = ActualizarRegistro()
-                        Select Case res
-                            Case -3
-                                Util.MsgStatus(Status1, "Ya existe otro Registro con este mismo Código.", My.Resources.stop_error.ToBitmap)
-                                Exit Sub
-                            Case -2
-                                Util.MsgStatus(Status1, "El registro ya existe.", My.Resources.Resources.stop_error.ToBitmap)
-                                Exit Sub
-                            Case -1
-                                Util.MsgStatus(Status1, "No se pudo actualizar el registro.", My.Resources.Resources.stop_error.ToBitmap)
-                                Exit Sub
-                            Case 0
-                                Util.MsgStatus(Status1, "No se pudo agregar el registro.", My.Resources.Resources.stop_error.ToBitmap)
-                                Exit Sub
-                            Case Else
-                                Util.MsgStatus(Status1, "Se ha actualizado el registro.", My.Resources.Resources.ok.ToBitmap)
-
-
-
-                        End Select
-                        '    Else
-                        '    Util.MsgStatus(Status1, "No tiene permiso para modificar registros.", My.Resources.stop_error.ToBitmap)
-                        'End If
-                    End If
-
-                    bolModo = False
-                    PrepararBotones()
-                    LlenarCmbProvincias()
-                    MDIPrincipal.NoActualizarBase = False
-                    btnActualizar_Click(sender, e)
-                End If
-            End If
-
-            If Origen = 1 Then
-                Me.Close()
-            End If
+        If Origen = 1 Then
+            Me.Close()
         End If
 
     End Sub
@@ -538,10 +551,9 @@ Public Class frmFarmacias_Conceptos
                 param_nombre.Direction = ParameterDirection.Input
 
                 Dim param_razonSocial As New SqlClient.SqlParameter
-                param_razonSocial.ParameterName = "@RazonSocial"
-                param_razonSocial.SqlDbType = SqlDbType.VarChar
-                param_razonSocial.Size = 100
-                param_razonSocial.Value = txtRazonSocial.Text.ToUpper
+                param_razonSocial.ParameterName = "@IdRazonSocial"
+                param_razonSocial.SqlDbType = SqlDbType.BigInt
+                param_razonSocial.Value = txtIdRazonSocial.Text.ToUpper
                 param_razonSocial.Direction = ParameterDirection.Input
 
                 Dim param_preferenciaPago As New SqlClient.SqlParameter
@@ -550,19 +562,6 @@ Public Class frmFarmacias_Conceptos
                 param_preferenciaPago.Size = 100
                 param_preferenciaPago.Value = cmbPreferenciaPago.Text.ToUpper
                 param_preferenciaPago.Direction = ParameterDirection.Input
-
-                Dim param_cbu As New SqlClient.SqlParameter
-                param_cbu.ParameterName = "@Cbu"
-                param_cbu.SqlDbType = SqlDbType.VarChar
-                param_cbu.Size = 100
-                param_cbu.Value = txtCBU.Text.ToUpper
-                param_cbu.Direction = ParameterDirection.Input
-
-                Dim param_cuit As New SqlClient.SqlParameter
-                param_cuit.ParameterName = "@Cuit"
-                param_cuit.SqlDbType = SqlDbType.BigInt
-                param_cuit.Value = Long.Parse(txtCuit.Text)
-                param_cuit.Direction = ParameterDirection.Input
 
                 Dim param_domicilio As New SqlClient.SqlParameter
                 param_domicilio.ParameterName = "@Domicilio"
@@ -590,13 +589,6 @@ Public Class frmFarmacias_Conceptos
                 param_email.Size = 100
                 param_email.Value = txtEmail.Text.ToUpper
                 param_email.Direction = ParameterDirection.Input
-
-                Dim param_contribuyente As New SqlClient.SqlParameter
-                param_contribuyente.ParameterName = "@Contribuyente"
-                param_contribuyente.SqlDbType = SqlDbType.VarChar
-                param_contribuyente.Size = 100
-                param_contribuyente.Value = txtTipoContribuyente.Text.ToUpper
-                param_contribuyente.Direction = ParameterDirection.Input
 
                 Dim param_estadofarmacia As New SqlClient.SqlParameter
                 param_estadofarmacia.ParameterName = "@EstadoFarmacia"
@@ -627,8 +619,8 @@ Public Class frmFarmacias_Conceptos
                 Try
                     SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spFarmacias_Insert", param_id,
                                           param_codigo, param_CodFACAF, param_CodPAMI, param_CodFarmaLink, param_CodFarmaPlus,
-                                          param_CodCSF, param_nombre, param_razonSocial, param_preferenciaPago, param_cbu, param_cuit, param_domicilio, param_localidad,
-                                          param_telefono, param_email, param_contribuyente, param_estadofarmacia, param_motivobaja,
+                                          param_CodCSF, param_nombre, param_razonSocial, param_preferenciaPago, param_domicilio, param_localidad,
+                                          param_telefono, param_email, param_estadofarmacia, param_motivobaja,
                                           param_user, param_res)
 
                     txtID.Text = param_id.Value
@@ -740,10 +732,9 @@ Public Class frmFarmacias_Conceptos
                 param_nombre.Direction = ParameterDirection.Input
 
                 Dim param_razonSocial As New SqlClient.SqlParameter
-                param_razonSocial.ParameterName = "@RazonSocial"
-                param_razonSocial.SqlDbType = SqlDbType.VarChar
-                param_razonSocial.Size = 100
-                param_razonSocial.Value = txtRazonSocial.Text.ToUpper
+                param_razonSocial.ParameterName = "@IdRazonSocial"
+                param_razonSocial.SqlDbType = SqlDbType.BigInt
+                param_razonSocial.Value = txtIdRazonSocial.Text
                 param_razonSocial.Direction = ParameterDirection.Input
 
                 Dim param_preferenciaPago As New SqlClient.SqlParameter
@@ -752,20 +743,6 @@ Public Class frmFarmacias_Conceptos
                 param_preferenciaPago.Size = 100
                 param_preferenciaPago.Value = cmbPreferenciaPago.Text.ToUpper
                 param_preferenciaPago.Direction = ParameterDirection.Input
-
-                Dim param_cbu As New SqlClient.SqlParameter
-                param_cbu.ParameterName = "@Cbu"
-                param_cbu.SqlDbType = SqlDbType.VarChar
-                param_cbu.Size = 100
-                param_cbu.Value = txtCBU.Text.ToUpper
-                param_cbu.Direction = ParameterDirection.Input
-
-                Dim param_cuit As New SqlClient.SqlParameter
-                param_cuit.ParameterName = "@Cuit"
-                param_cuit.SqlDbType = SqlDbType.BigInt
-                param_cuit.Size = 11
-                param_cuit.Value = Long.Parse(txtCuit.Text)
-                param_cuit.Direction = ParameterDirection.Input
 
                 Dim param_domicilio As New SqlClient.SqlParameter
                 param_domicilio.ParameterName = "@Domicilio"
@@ -793,13 +770,6 @@ Public Class frmFarmacias_Conceptos
                 param_email.Size = 100
                 param_email.Value = txtEmail.Text.ToUpper
                 param_email.Direction = ParameterDirection.Input
-
-                Dim param_contribuyente As New SqlClient.SqlParameter
-                param_contribuyente.ParameterName = "@Contribuyente"
-                param_contribuyente.SqlDbType = SqlDbType.VarChar
-                param_contribuyente.Size = 100
-                param_contribuyente.Value = txtTipoContribuyente.Text.ToUpper
-                param_contribuyente.Direction = ParameterDirection.Input
 
                 Dim param_estadofarmacia As New SqlClient.SqlParameter
                 param_estadofarmacia.ParameterName = "@EstadoFarmacia"
@@ -830,8 +800,8 @@ Public Class frmFarmacias_Conceptos
                 Try
                     SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spFarmacias_Update", param_id, param_cod,
                                           param_nombre, param_CodFACAF, param_CodPAMI, param_CodFarmaLink, param_CodFarmaPlus,
-                                          param_CodCSF, param_razonSocial, param_preferenciaPago, param_cbu, param_cuit, param_domicilio, param_localidad, param_telefono,
-                                          param_email, param_contribuyente, param_estadofarmacia, param_motivobaja, param_user, param_res)
+                                          param_CodCSF, param_razonSocial, param_preferenciaPago, param_domicilio, param_localidad, param_telefono,
+                                          param_email, param_estadofarmacia, param_motivobaja, param_user, param_res)
 
                     If param_res.Value = 1 Then
                         AgregarRelacionConcepto_Farmacia()
@@ -952,9 +922,8 @@ Public Class frmFarmacias_Conceptos
             .Columns(GridItemsCols.CodFarmaLink).Visible = False
             .Columns(GridItemsCols.CodFarmaPlus).Visible = False
             .Columns(GridItemsCols.CodCSF).Visible = False
-            .Columns(GridItemsCols.Contribuyente).Visible = False
+            .Columns(GridItemsCols.IdRazonSocial).Visible = False
             .Columns(GridItemsCols.PreferenciaPago).Visible = False
-            .Columns(GridItemsCols.Cbu).Visible = False
             .Columns(GridItemsCols.Telefono).Visible = False
             .Columns(GridItemsCols.Domicilio).Visible = False
             .Columns(GridItemsCols.EstadoFarmacia).Visible = False
@@ -1437,19 +1406,16 @@ Public Class frmFarmacias_Conceptos
         txtID.Tag = "0"
         txtCODIGO.Tag = "1"
         txtFarmacia.Tag = "7"
-        txtCuit.Tag = "8"
+        txtIdRazonSocial.Tag = "8"
         txtRazonSocial.Tag = "9"
         cmbPreferenciaPago.Tag = "10"
-        txtCBU.Tag = "11"
-        txtDomicilio.Tag = "12"
-        txtTelefono.Tag = "13"
-        txtEmail.Tag = "14"
-        txtTipoContribuyente.Tag = "15"
-        cmbEstado.Text = "16"
-        txtMotivoBaja.Text = "17"
-        cmbProvincia.Tag = "18"
-        cmbLocalidad.Tag = "19"
-
+        txtDomicilio.Tag = "11"
+        txtTelefono.Tag = "12"
+        txtEmail.Tag = "13"
+        cmbEstado.Tag = "14"
+        txtMotivoBaja.Tag = "15"
+        cmbProvincia.Tag = "16"
+        cmbLocalidad.Tag = "17"
     End Sub
 
     Private Sub Verificar_Datos()
@@ -1630,6 +1596,14 @@ Public Class frmFarmacias_Conceptos
     Private Sub btnSeleccionar_Click(sender As Object, e As EventArgs) Handles btnSeleccionar.Click
         Dim selectRazonSocial As New frmSelectRazonSocial
         selectRazonSocial.ShowDialog()
+    End Sub
+
+    Private Sub cmbLocalidad_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbLocalidad.SelectedIndexChanged
+
+    End Sub
+
+    Private Sub cmbProvincia_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbProvincia.SelectedIndexChanged
+
     End Sub
 
 
