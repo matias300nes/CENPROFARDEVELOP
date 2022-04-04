@@ -1534,7 +1534,7 @@ Public Class frmFarmacias_Conceptos
 
     End Sub
 
-    Private Overloads Sub grd_CurrentCellChanged(ByVal sender As Object, ByVal e As System.EventArgs) 'Handles grd.CurrentCellChanged 'comentar
+    Private Overloads Sub grd_CurrentCellChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles grd.CurrentCellChanged 'comentar
         LlenarGrdConceptosPanel()
         LlenarGrdProfesionalesPanel()
     End Sub

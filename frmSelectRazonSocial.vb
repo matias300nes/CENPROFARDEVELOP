@@ -81,20 +81,19 @@ Public Class frmSelectRazonSocial
     Private Sub btnListo_Click(sender As Object, e As EventArgs) Handles btnListo.Click
 
         If grdRazonSocial.CurrentRow IsNot Nothing Then
+            Dim idRazonSocial As Double
+            Dim RazonSocial As String
+            Dim tipopago As String
             ''Llenado de grdConceptosPanel
             With grdRazonSocial.CurrentRow
-
-                'Dim id = .Cells(ColumnasDelGrdProfesionales.Id).Value
-                'Dim codigo = IIf(.Cells(ColumnasDelGrdProfesionales.Codigo).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdProfesionales.Codigo).Value)
-                'Dim nombre = IIf(.Cells(ColumnasDelGrdProfesionales.Nombre).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdProfesionales.Nombre).Value)
-                'Dim apellido = IIf(.Cells(ColumnasDelGrdProfesionales.Apellido).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdProfesionales.Apellido).Value)
-                'Dim direccion = IIf(.Cells(ColumnasDelGrdProfesionales.Direccion).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdProfesionales.Direccion).Value)
-                'Dim celular = IIf(.Cells(ColumnasDelGrdProfesionales.Celular).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdProfesionales.Celular).Value)
-                'Dim email = IIf(.Cells(ColumnasDelGrdProfesionales.email).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdProfesionales.email).Value)
-
-                'frmFarmacias_Conceptos.grdProfesionalesPanel.Rows.Add(id, codigo, nombre, apellido, direccion, celular, email)
+                idRazonSocial = .Cells(grdColumns.ID).Value
+                RazonSocial = .Cells(grdColumns.RazonSocial).Value
+                tipopago = .Cells(grdColumns.PreferenciaPago).Value
             End With
 
+            frmFarmacias_Conceptos.txtIdRazonSocial.Text = idRazonSocial
+            frmFarmacias_Conceptos.txtRazonSocial.Text = RazonSocial
+            frmFarmacias_Conceptos.cmbPreferenciaPago.SelectedValue = tipopago
 
             Me.Dispose()
             Me.Close()

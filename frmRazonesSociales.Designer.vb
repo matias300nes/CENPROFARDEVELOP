@@ -60,7 +60,7 @@ Partial Class frmRazonesSociales
         Me.chkEliminados.BackColor = System.Drawing.Color.Transparent
         Me.chkEliminados.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.chkEliminados.ForeColor = System.Drawing.Color.Red
-        Me.chkEliminados.Location = New System.Drawing.Point(664, 181)
+        Me.chkEliminados.Location = New System.Drawing.Point(611, 179)
         Me.chkEliminados.Name = "chkEliminados"
         Me.chkEliminados.Size = New System.Drawing.Size(109, 17)
         Me.chkEliminados.TabIndex = 257
@@ -137,7 +137,7 @@ Partial Class frmRazonesSociales
         Me.GroupPanel1.Location = New System.Drawing.Point(11, 29)
         Me.GroupPanel1.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupPanel1.Name = "GroupPanel1"
-        Me.GroupPanel1.Size = New System.Drawing.Size(844, 212)
+        Me.GroupPanel1.Size = New System.Drawing.Size(861, 212)
         '
         '
         '
@@ -535,7 +535,7 @@ Partial Class frmRazonesSociales
         Me.txtDescripcion.Location = New System.Drawing.Point(348, 37)
         Me.txtDescripcion.Margin = New System.Windows.Forms.Padding(2)
         Me.txtDescripcion.Name = "txtDescripcion"
-        Me.txtDescripcion.Size = New System.Drawing.Size(320, 20)
+        Me.txtDescripcion.Size = New System.Drawing.Size(337, 20)
         Me.txtDescripcion.TabIndex = 2
         '
         'frmRazonesSociales

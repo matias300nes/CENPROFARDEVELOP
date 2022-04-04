@@ -215,7 +215,7 @@ Partial Class frmFarmacias_Conceptos
         Me.GroupBox1.DisabledBackColor = System.Drawing.Color.Empty
         Me.GroupBox1.Location = New System.Drawing.Point(12, 28)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(1146, 291)
+        Me.GroupBox1.Size = New System.Drawing.Size(1219, 291)
         '
         '
         '
@@ -254,6 +254,7 @@ Partial Class frmFarmacias_Conceptos
         Me.txtIdRazonSocial.ReadOnly = True
         Me.txtIdRazonSocial.Size = New System.Drawing.Size(72, 20)
         Me.txtIdRazonSocial.TabIndex = 293
+        Me.txtIdRazonSocial.Visible = False
         '
         'btnSeleccionar
         '
@@ -449,7 +450,7 @@ Partial Class frmFarmacias_Conceptos
         Me.SuperTabControl1.ReorderTabsEnabled = True
         Me.SuperTabControl1.SelectedTabFont = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold)
         Me.SuperTabControl1.SelectedTabIndex = 0
-        Me.SuperTabControl1.Size = New System.Drawing.Size(552, 255)
+        Me.SuperTabControl1.Size = New System.Drawing.Size(596, 255)
         Me.SuperTabControl1.TabFont = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SuperTabControl1.TabIndex = 65
         Me.SuperTabControl1.Tabs.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.stiConceptos, Me.stiCodigos, Me.stiProfesionales, Me.btnAdd, Me.btnEliminarPanel})
@@ -462,7 +463,7 @@ Partial Class frmFarmacias_Conceptos
         Me.SuperTabControlPanel1.Location = New System.Drawing.Point(0, 26)
         Me.SuperTabControlPanel1.Margin = New System.Windows.Forms.Padding(2)
         Me.SuperTabControlPanel1.Name = "SuperTabControlPanel1"
-        Me.SuperTabControlPanel1.Size = New System.Drawing.Size(552, 229)
+        Me.SuperTabControlPanel1.Size = New System.Drawing.Size(596, 229)
         Me.SuperTabControlPanel1.TabIndex = 1
         Me.SuperTabControlPanel1.TabItem = Me.stiConceptos
         '
@@ -480,7 +481,7 @@ Partial Class frmFarmacias_Conceptos
         Me.grdConceptosPanel.RowHeadersWidth = 51
         Me.grdConceptosPanel.RowTemplate.Height = 24
         Me.grdConceptosPanel.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.grdConceptosPanel.Size = New System.Drawing.Size(552, 229)
+        Me.grdConceptosPanel.Size = New System.Drawing.Size(596, 229)
         Me.grdConceptosPanel.TabIndex = 0
         '
         'Id
@@ -834,7 +835,7 @@ Partial Class frmFarmacias_Conceptos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1136, 434)
+        Me.ClientSize = New System.Drawing.Size(1192, 434)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.Label1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
