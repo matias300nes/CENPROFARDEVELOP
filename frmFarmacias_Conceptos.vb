@@ -1568,7 +1568,7 @@ Public Class frmFarmacias_Conceptos
 
     End Sub
 
-    Private Overloads Sub grd_CurrentCellChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles grd.CurrentCellChanged 'comentar
+    Private Overloads Sub grd_CurrentCellChanged(ByVal sender As Object, ByVal e As System.EventArgs) 'Handles grd.CurrentCellChanged 'comentar
         LlenarGrdConceptosPanel()
         LlenarGrdProfesionalesPanel()
     End Sub
@@ -1625,6 +1625,11 @@ Public Class frmFarmacias_Conceptos
                     EliminarRelacionProfesional_Farmacia()
                 End If
         End Select
+    End Sub
+
+    Private Sub btnSeleccionar_Click(sender As Object, e As EventArgs) Handles btnSeleccionar.Click
+        Dim selectRazonSocial As New frmSelectRazonSocial
+        selectRazonSocial.ShowDialog()
     End Sub
 
 

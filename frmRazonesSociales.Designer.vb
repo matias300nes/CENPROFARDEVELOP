@@ -50,7 +50,6 @@ Partial Class frmRazonesSociales
         Me.txtCODIGO = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.txtNombre = New System.Windows.Forms.TextBox()
         Me.txtDescripcion = New System.Windows.Forms.TextBox()
-        Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
         Me.GroupPanel1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -61,7 +60,7 @@ Partial Class frmRazonesSociales
         Me.chkEliminados.BackColor = System.Drawing.Color.Transparent
         Me.chkEliminados.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.chkEliminados.ForeColor = System.Drawing.Color.Red
-        Me.chkEliminados.Location = New System.Drawing.Point(603, 181)
+        Me.chkEliminados.Location = New System.Drawing.Point(664, 181)
         Me.chkEliminados.Name = "chkEliminados"
         Me.chkEliminados.Size = New System.Drawing.Size(109, 17)
         Me.chkEliminados.TabIndex = 257
@@ -103,7 +102,6 @@ Partial Class frmRazonesSociales
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupPanel1.CanvasColor = System.Drawing.SystemColors.Control
         Me.GroupPanel1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007
-        Me.GroupPanel1.Controls.Add(Me.ButtonX1)
         Me.GroupPanel1.Controls.Add(Me.Label13)
         Me.GroupPanel1.Controls.Add(Me.txtCbu)
         Me.GroupPanel1.Controls.Add(Me.Label10)
@@ -139,7 +137,7 @@ Partial Class frmRazonesSociales
         Me.GroupPanel1.Location = New System.Drawing.Point(11, 29)
         Me.GroupPanel1.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupPanel1.Name = "GroupPanel1"
-        Me.GroupPanel1.Size = New System.Drawing.Size(776, 212)
+        Me.GroupPanel1.Size = New System.Drawing.Size(844, 212)
         '
         '
         '
@@ -537,21 +535,8 @@ Partial Class frmRazonesSociales
         Me.txtDescripcion.Location = New System.Drawing.Point(348, 37)
         Me.txtDescripcion.Margin = New System.Windows.Forms.Padding(2)
         Me.txtDescripcion.Name = "txtDescripcion"
-        Me.txtDescripcion.Size = New System.Drawing.Size(252, 20)
+        Me.txtDescripcion.Size = New System.Drawing.Size(320, 20)
         Me.txtDescripcion.TabIndex = 2
-        '
-        'ButtonX1
-        '
-        Me.ButtonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.ButtonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.ButtonX1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonX1.Location = New System.Drawing.Point(563, 166)
-        Me.ButtonX1.Name = "ButtonX1"
-        Me.ButtonX1.Size = New System.Drawing.Size(157, 34)
-        Me.ButtonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.ButtonX1.TabIndex = 312
-        Me.ButtonX1.Text = "Usar Razon Social"
-        Me.ButtonX1.Visible = False
         '
         'frmRazonesSociales
         '
@@ -563,6 +548,7 @@ Partial Class frmRazonesSociales
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MinimumSize = New System.Drawing.Size(750, 398)
         Me.Name = "frmRazonesSociales"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Razones Sociales"
         Me.Controls.SetChildIndex(Me.GroupPanel1, 0)
         Me.GroupPanel1.ResumeLayout(False)
@@ -606,5 +592,4 @@ Partial Class frmRazonesSociales
     Friend WithEvents txtCbu As TextBoxConFormatoVB.FormattedTextBoxVB
     Friend WithEvents Label10 As Label
     Friend WithEvents txtBanco As TextBoxConFormatoVB.FormattedTextBoxVB
-    Friend WithEvents ButtonX1 As DevComponents.DotNetBar.ButtonX
 End Class
