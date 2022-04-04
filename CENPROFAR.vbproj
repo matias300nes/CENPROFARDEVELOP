@@ -138,9 +138,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\TextBoxConFormatoVB\bin\TextBoxConFormatoVB.dll</HintPath>
     </Reference>
-    <Reference Include="Utiles">
-      <HintPath>Utiles\bin\Debug\Utiles.dll</HintPath>
-    </Reference>
     <Reference Include="WebServicePorkys">
       <HintPath>..\..\WebServicePorkys\WebServicePorkys\WebServicePorkys\bin\WebServicePorkys.dll</HintPath>
     </Reference>
@@ -2275,7 +2272,12 @@
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\WS_Porkys\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="Utiles\Utiles.vbproj">
+      <Project>{c0874813-c3ad-430b-af41-212f7503d523}</Project>
+      <Name>Utiles</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
