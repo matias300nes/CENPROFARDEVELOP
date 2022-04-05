@@ -50,6 +50,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\GMap.NET.WindowsForms.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.ApplicationBlocks.Data, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Microsoft.ApplicationBlocks.Data.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -128,10 +132,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Microsoft.ApplicationBlocks.Data\Microsoft.ApplicationBlocks.Data.vbproj">
-      <Project>{0ED3D747-FA56-4481-8A26-4A0E39BA7D03}</Project>
-      <Name>Microsoft.ApplicationBlocks.Data</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TextBoxConFormatoVB\TextBoxConFormatoVB.vbproj">
       <Project>{61F7A5E1-7927-4FBD-B04A-A6F0B1CADF4C}</Project>
       <Name>TextBoxConFormatoVB</Name>

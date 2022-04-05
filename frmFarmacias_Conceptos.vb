@@ -113,9 +113,14 @@ Public Class frmFarmacias_Conceptos
             .Rows.Add(row1)
 
             Dim row2 As DataRow = .NewRow()
-            row2("DisplayMember") = "Transferencia"
-            row2("ValueMember") = "TRANSFERENCIA"
+            row2("DisplayMember") = "ECheq"
+            row2("ValueMember") = "ECHEQ"
             .Rows.Add(row2)
+
+            Dim row3 As DataRow = .NewRow()
+            row3("DisplayMember") = "Transferencia"
+            row3("ValueMember") = "TRANSFERENCIA"
+            .Rows.Add(row3)
         End With
 
         With cmbPreferenciaPago

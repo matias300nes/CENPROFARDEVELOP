@@ -14,18 +14,19 @@ Public Class frmRazonesSociales
         Id = 0
         Codigo = 1
         Nombre = 2
-        PreferenciaPago = 3
-        Cbu = 4
-        Cuit = 5
-        NroCuenta = 6
-        Banco = 7
-        Email = 8
-        Celular = 9
-        Domicilio = 10
-        IdLocalidad = 11
-        IdProvincia = 12
-        Localidad = 13
-        Provincia = 14
+        Sociedad = 3
+        PreferenciaPago = 4
+        Cbu = 5
+        Cuit = 6
+        NroCuenta = 7
+        Banco = 8
+        Email = 9
+        Celular = 10
+        Domicilio = 11
+        IdLocalidad = 12
+        IdProvincia = 13
+        Localidad = 14
+        Provincia = 15
     End Enum
 
 #Region "Procedimientos Formularios"
@@ -46,6 +47,35 @@ Public Class frmRazonesSociales
     End Sub
 
     Private Sub frmConceptos_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+
+
+        Dim dtPreferenciaPago As New DataTable
+        With dtPreferenciaPago
+            .Columns.Add("DisplayMember")
+            .Columns.Add("ValueMember")
+
+            Dim row1 As DataRow = .NewRow()
+            row1("DisplayMember") = "Cheque"
+            row1("ValueMember") = "CHEQUE"
+            .Rows.Add(row1)
+
+            Dim row2 As DataRow = .NewRow()
+            row2("DisplayMember") = "ECheq"
+            row2("ValueMember") = "ECHEQ"
+            .Rows.Add(row2)
+
+            Dim row3 As DataRow = .NewRow()
+            row3("DisplayMember") = "Transferencia"
+            row3("ValueMember") = "TRANSFERENCIA"
+            .Rows.Add(row3)
+        End With
+
+        With cmbPreferenciaPago
+            .DataSource = dtPreferenciaPago
+            .DisplayMember = "DisplayMember"
+            .ValueMember = "ValueMember"
+        End With
+
         'AsignarPermisos(UserID, Me.Name, ALTA, MODIFICA, BAJA, BAJA_FISICA)
         configurarform()
         asignarTags()
@@ -59,6 +89,18 @@ Public Class frmRazonesSociales
         PrepararBotones()
 
         With grd
+            .Columns(gridcols.Id).Visible = False
+            .Columns(gridcols.IdLocalidad).Visible = False
+            .Columns(gridcols.IdProvincia).Visible = False
+            .Columns(gridcols.Sociedad).Visible = False
+            .Columns(gridcols.Banco).Visible = False
+            .Columns(gridcols.Cbu).Visible = False
+            .Columns(gridcols.Celular).Visible = False
+            .Columns(gridcols.Email).Visible = False
+            .Columns(gridcols.Localidad).Visible = False
+            .Columns(gridcols.Provincia).Visible = False
+            .Columns(gridcols.PreferenciaPago).Visible = False
+            .Columns(gridcols.NroCuenta).Visible = False
             'comentado
             '.Columns(gridcols.CampoAplicable).Visible = False
             '.Columns(gridcols.Pertenece).Visible = False
@@ -177,55 +219,33 @@ Public Class frmRazonesSociales
     Private Sub btnEliminar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEliminar.Click
         'REVISAR
 
-        'Dim res As Integer
-        'Dim ds_Almacen As Data.DataSet
-        'If MessageBox.Show("Está seguro que desea eliminar la razón social seleccionada?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
-        '    Exit Sub
+        Dim res As Integer
+
+        If MessageBox.Show("Está seguro que desea eliminar la razón social seleccionada?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
+            Exit Sub
+        End If
+
+        'If BAJA_FISICA Then
+        Util.MsgStatus(Status1, "Eliminando el registro...", My.Resources.Resources.indicator_white)
+        res = EliminarRegistro()
+        Select Case res
+            Case -2
+                Util.MsgStatus(Status1, "El registro no existe.", My.Resources.stop_error.ToBitmap)
+            Case -1
+                Util.MsgStatus(Status1, "No se pudo borrar el registro.", My.Resources.stop_error.ToBitmap)
+            Case 0
+                Util.MsgStatus(Status1, "No se pudo borrar el registro.", My.Resources.stop_error.ToBitmap)
+            Case Else
+                Util.MsgStatus(Status1, "Se ha borrado el registro.", My.Resources.ok.ToBitmap)
+                If Me.grd.RowCount = 0 Then
+                    bolModo = True
+                    PrepararBotones()
+                    Util.LimpiarTextBox(Me.Controls)
+                End If
+        End Select
+        'Else
+        ' Util.MsgStatus(Status1, "No tiene permiso para eliminar registros.", My.Resources.stop_error.ToBitmap)
         'End If
-
-        'Try
-        '    ds_Almacen = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, "SELECT  IDAlmacen FROM Materiales where IDAlmacen = '" & txtID.Text & "'")
-        '    ds_Almacen.Dispose()
-
-        '    If ds_Almacen.Tables(0).Rows.Count > 0 Then
-        '        MsgBox("No se puede eliminar un Depósito que esté asociado a un material. Por favor verifique.", MsgBoxStyle.Information, "Atención")
-        '        Exit Sub
-        '    End If
-
-        'Catch ex As Exception
-        '    Dim errMessage As String = ""
-        '    Dim tempException As Exception = ex
-
-        '    While (Not tempException Is Nothing)
-        '        errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
-        '        tempException = tempException.InnerException
-        '    End While
-
-        '    MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-        '      + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
-        '      "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        'End Try
-        ''If BAJA_FISICA Then
-        'Util.MsgStatus(Status1, "Eliminando el registro...", My.Resources.Resources.indicator_white)
-        'res = EliminarRegistro()
-        'Select Case res
-        '    Case -2
-        '        Util.MsgStatus(Status1, "El registro no existe.", My.Resources.stop_error.ToBitmap)
-        '    Case -1
-        '        Util.MsgStatus(Status1, "No se pudo borrar el registro.", My.Resources.stop_error.ToBitmap)
-        '    Case 0
-        '        Util.MsgStatus(Status1, "No se pudo borrar el registro.", My.Resources.stop_error.ToBitmap)
-        '    Case Else
-        '        Util.MsgStatus(Status1, "Se ha borrado el registro.", My.Resources.ok.ToBitmap)
-        '        If Me.grd.RowCount = 0 Then
-        '            bolModo = True
-        '            PrepararBotones()
-        '            Util.LimpiarTextBox(Me.Controls)
-        '        End If
-        'End Select
-        ''Else
-        '' Util.MsgStatus(Status1, "No tiene permiso para eliminar registros.", My.Resources.stop_error.ToBitmap)
-        ''End If
     End Sub
 
     Private Sub btnImprimir_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnImprimir.Click
@@ -331,16 +351,17 @@ Public Class frmRazonesSociales
         txtID.Tag = "0"
         txtCODIGO.Tag = "1"
         txtNombre.Tag = "2"
-        cmbPreferenciaPago.Tag = "3"
-        txtCbu.Tag = "4"
-        txtCuit.Tag = "5"
-        txtNroCuenta.Tag = "6"
-        txtBanco.Tag = "7"
-        txtEmail.Tag = "8"
-        txtTelefono.Tag = "9"
-        txtDomicilio.Tag = "10"
-        cmbProvincia.Tag = "12"
-        cmbLocalidad.Tag = "11"
+        chkSociedad.Tag = "3"
+        cmbPreferenciaPago.Tag = "4"
+        txtCbu.Tag = "5"
+        txtCuit.Tag = "6"
+        txtNroCuenta.Tag = "7"
+        txtBanco.Tag = "8"
+        txtEmail.Tag = "9"
+        txtTelefono.Tag = "10"
+        txtDomicilio.Tag = "11"
+        cmbProvincia.Tag = "13"
+        cmbLocalidad.Tag = "12"
     End Sub
 
 
@@ -453,8 +474,14 @@ Public Class frmRazonesSociales
                 Dim param_idLocalidad As New SqlClient.SqlParameter
                 param_idLocalidad.ParameterName = "@idLocalidad"
                 param_idLocalidad.SqlDbType = SqlDbType.BigInt
-                param_idLocalidad.Value = cmbLocalidad.SelectedValue 'cambiar por idlocalidad
+                param_idLocalidad.Value = IdLocalidad 'cambiar por idlocalidad
                 param_idLocalidad.Direction = ParameterDirection.Input
+
+                Dim param_sociedad As New SqlClient.SqlParameter
+                param_sociedad.ParameterName = "@sociedad"
+                param_sociedad.SqlDbType = SqlDbType.Bit
+                param_sociedad.Value = chkSociedad.Checked
+                param_sociedad.Direction = ParameterDirection.Input
 
                 Dim param_useradd As New SqlClient.SqlParameter
                 param_useradd.ParameterName = "@useradd"
@@ -471,7 +498,7 @@ Public Class frmRazonesSociales
                 Try
                     SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spRazonesSociales_Insert", param_id, param_codigo, param_nombre,
                                               param_cuit, param_preferenciaPago, param_cbu, param_nroCuenta, param_banco, param_email, param_celular,
-                                              param_domicilio, param_idLocalidad, param_useradd, param_res)
+                                              param_domicilio, param_idLocalidad, param_sociedad, param_useradd, param_res)
                     txtID.Text = param_id.Value
                     res = param_res.Value
 
@@ -598,8 +625,14 @@ Public Class frmRazonesSociales
                 Dim param_idLocalidad As New SqlClient.SqlParameter
                 param_idLocalidad.ParameterName = "@idLocalidad"
                 param_idLocalidad.SqlDbType = SqlDbType.BigInt
-                param_idLocalidad.Value = cmbLocalidad.SelectedValue 'cambiar por idlocalidad
+                param_idLocalidad.Value = IdLocalidad 'cambiar por idlocalidad
                 param_idLocalidad.Direction = ParameterDirection.Input
+
+                Dim param_sociedad As New SqlClient.SqlParameter
+                param_sociedad.ParameterName = "@sociedad"
+                param_sociedad.SqlDbType = SqlDbType.Bit
+                param_sociedad.Value = chkSociedad.Checked
+                param_sociedad.Direction = ParameterDirection.Input
 
                 Dim param_userupd As New SqlClient.SqlParameter
                 param_userupd.ParameterName = "@userupd"
@@ -616,7 +649,7 @@ Public Class frmRazonesSociales
 
                 SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spRazonesSociales_Update", param_id, param_nombre,
                                               param_cuit, param_preferenciaPago, param_cbu, param_nroCuenta, param_banco, param_email, param_celular,
-                                              param_domicilio, param_idLocalidad, param_userupd, param_res)
+                                              param_domicilio, param_idLocalidad, param_sociedad, param_userupd, param_res)
                 res = param_res.Value
 
 
