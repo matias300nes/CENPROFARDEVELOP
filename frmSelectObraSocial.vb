@@ -76,7 +76,7 @@ Public Class frmSelectObraSocial
         End With
     End Sub
 
-    Private Sub btnListo_Click(sender As Object, e As EventArgs) Handles btnListo.Click
+    Private Sub btnListo_Click(sender As Object, e As EventArgs) Handles btnAñadir.Click
 
         If ReglasNegocio() Then
 
@@ -190,49 +190,119 @@ Public Class frmSelectObraSocial
         'RaiseEvent ev_CellChanged(sender, e) 'por ahora lo usa el formulario entryline
     End Sub
 
+    Private Sub btnEliminar_Click(sender As Object, e As EventArgs) Handles btnEliminar.Click
 
 
-    'Private Sub grdPresentaciones_SelectionChanged(sender As Object, e As DataGridViewCellEventArgs) Handles grdPresentaciones.SelectionChanged
-    '    Dim connection As SqlClient.SqlConnection = Nothing
-    '    Dim ds As Data.DataSet
+        Dim res As Integer
+        If MessageBox.Show($"Está seguro que desea eliminar la obra social {grdObrasSociales.CurrentRow.Cells(1).Value} del grupo {grdObrasSociales.CurrentRow.Cells(3).Value}?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
+            Exit Sub
+        End If
 
-    '    Try
-    '        connection = SqlHelper.GetConnection(ConnStringSEI)
-    '    Catch ex As Exception
-    '        MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-    '        Exit Sub
-    '    End Try
+        Try
 
-    '    Try
+            MsgBox("Eliminando el registro...", MsgBoxStyle.Information, "Atención")
 
-    '        ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, " Select distinct [estado] As Estado from Presentaciones where estado = 'PRESENTADO' or estado = 'PAGO PARCIAL'")
-    '        ds.Dispose()
+                res = EliminarRegistro()
+                Select Case res
+                    Case -2
+                        MsgBox("El registro no existe.", MsgBoxStyle.Information, "Atención")
+                    Case -1
+                        MsgBox("No se pudo borrar el registro.", MsgBoxStyle.Information, "Atención")
+                    Case 0
+                        MsgBox("No se pudo borrar el registro.", MsgBoxStyle.Information, "Atención")
+                    Case Else
+                    MsgBox("Se ha borrado el registro.", MsgBoxStyle.Information, "Atención")
+                    LlenarGrilla()
+            End Select
 
-    '        With Me.cmbEstado
-    '            .DataSource = ds.Tables(0).DefaultView
-    '            .DisplayMember = "estado"
-    '            '.ValueMember = "ID"
-    '            .AutoCompleteMode = AutoCompleteMode.SuggestAppend
-    '            .AutoCompleteSource = AutoCompleteSource.ListItems
-    '            '.SelectedIndex = "ID"
-    '        End With
 
-    '    Catch ex As Exception
-    '        Dim errMessage As String = ""
-    '        Dim tempException As Exception = ex
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
 
-    '        While (Not tempException Is Nothing)
-    '            errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
-    '            tempException = tempException.InnerException
-    '        End While
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
 
-    '        MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-    '          + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
-    '          "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
-    '    Finally
-    '        If Not connection Is Nothing Then
-    '            CType(connection, IDisposable).Dispose()
-    '        End If
-    '    End Try
-    'End Sub
+            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
+    End Sub
+
+    Private Function EliminarRegistro() As Integer
+
+        Dim connection As SqlClient.SqlConnection = Nothing
+        Dim res As Integer = 0
+
+
+        Try
+            Try
+                connection = SqlHelper.GetConnection(ConnStringSEI)
+            Catch ex As Exception
+                MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Exit Function
+            End Try
+
+
+            Try
+
+                Dim param_idObraSocial As New SqlClient.SqlParameter
+                param_idObraSocial.ParameterName = "@idobrasocial"
+                param_idObraSocial.SqlDbType = SqlDbType.BigInt
+                param_idObraSocial.Value = grdObrasSociales.CurrentRow.Cells(0).Value
+                param_idObraSocial.Direction = ParameterDirection.Input
+
+                Dim param_idGrupo As New SqlClient.SqlParameter
+                param_idGrupo.ParameterName = "@idgrupo"
+                param_idGrupo.SqlDbType = SqlDbType.BigInt
+                param_idGrupo.Value = grdObrasSociales.CurrentRow.Cells(3).Value
+                param_idGrupo.Direction = ParameterDirection.Input
+
+                Dim param_res As New SqlClient.SqlParameter
+                param_res.ParameterName = "@res"
+                param_res.SqlDbType = SqlDbType.Int
+                param_res.Value = DBNull.Value
+                param_res.Direction = ParameterDirection.Output
+
+                Try
+
+                    SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spGrupos_OS_Delete", param_idObraSocial, param_idGrupo, param_res)
+                    res = param_res.Value
+                    EliminarRegistro = res
+
+                Catch ex As Exception
+                    '' 
+
+
+                    Throw ex
+                End Try
+            Finally
+                ''
+            End Try
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        Finally
+            If Not connection Is Nothing Then
+                CType(connection, IDisposable).Dispose()
+            End If
+        End Try
+    End Function
+
+    Private Sub btnAñadir_Click(sender As Object, e As EventArgs) Handles btnAñadir.Click
+
+    End Sub
 End Class

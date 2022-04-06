@@ -24,7 +24,7 @@ Public Class frmGrupos
         If cmbMandataria.Items.Count > 0 Then
             cmbMandataria.SelectedIndex = 0
         End If
-
+        grdGrupos_Os.Columns(0).Visible = False
         'cmbMandataria.SelectedIndex = 0
     End Sub
 

@@ -2043,6 +2043,56 @@ Public Class frmPresentaciones
     End Sub
 
     Private Sub btnEliminar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEliminar.Click
+
+        Dim ds_liquidaciones As Data.DataSet
+        Dim res As Integer
+        If MessageBox.Show("Está seguro que desea eliminar la razón social seleccionada?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
+            Exit Sub
+        End If
+
+        Try
+            ds_liquidaciones = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, "SELECT  IDPresentacion FROM Liquidaciones where IDPresentacion = '" & txtID.Text & "'")
+            ds_liquidaciones.Dispose()
+
+            If ds_liquidaciones.Tables(0).Rows.Count > 0 Then
+                MsgBox("No se puede eliminar una presentación que tenga una o más liquidaciones. Por favor verifique.", MsgBoxStyle.Information, "Atención")
+                Exit Sub
+
+            Else
+                Util.MsgStatus(Status1, "Eliminando el registro...", My.Resources.Resources.indicator_white)
+                Res = EliminarRegistro()
+                Select Case Res
+                    Case -2
+                        Util.MsgStatus(Status1, "El registro no existe.", My.Resources.stop_error.ToBitmap)
+                    Case -1
+                        Util.MsgStatus(Status1, "No se pudo borrar el registro.", My.Resources.stop_error.ToBitmap)
+                    Case 0
+                        Util.MsgStatus(Status1, "No se pudo borrar el registro.", My.Resources.stop_error.ToBitmap)
+                    Case Else
+                        Util.MsgStatus(Status1, "Se ha borrado el registro.", My.Resources.ok.ToBitmap)
+                        If Me.grd.RowCount = 0 Then
+                            bolModo = True
+                            PrepararBotones()
+                            Util.LimpiarTextBox(Me.Controls)
+                        End If
+                End Select
+            End If
+
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
+
         ''
         '' Para borrar un vale hay que tener un permiso especial de eliminacion
         '' ademas, no se puede borrar un vale ya eliminado de antes.
@@ -2089,6 +2139,79 @@ Public Class frmPresentaciones
         '    Util.MsgStatus(Status1, "El registro ya está Anulado.", My.Resources.stop_error.ToBitmap, True)
         'End If
     End Sub
+
+
+    Private Function EliminarRegistro() As Integer
+
+        Dim connection As SqlClient.SqlConnection = Nothing
+        Dim res As Integer = 0
+
+
+        Try
+            Try
+                connection = SqlHelper.GetConnection(ConnStringSEI)
+            Catch ex As Exception
+                MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Exit Function
+            End Try
+
+
+            Try
+
+                Dim param_id As New SqlClient.SqlParameter("@id", SqlDbType.BigInt, ParameterDirection.Input)
+                param_id.Value = CType(txtID.Text, Long)
+                param_id.Direction = ParameterDirection.Input
+
+                Dim param_userdel As New SqlClient.SqlParameter
+                param_userdel.ParameterName = "@userdel"
+                param_userdel.SqlDbType = SqlDbType.Int
+                param_userdel.Value = UserID
+                param_userdel.Direction = ParameterDirection.Input
+
+                Dim param_res As New SqlClient.SqlParameter
+                param_res.ParameterName = "@res"
+                param_res.SqlDbType = SqlDbType.Int
+                param_res.Value = DBNull.Value
+                param_res.Direction = ParameterDirection.Output
+
+                Try
+
+                    SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spPresentacionesEnc_Det_Delete", param_id, param_userdel, param_res)
+                    res = param_res.Value
+
+                    If res > 0 Then Util.BorrarGrilla(grd)
+                    If res > 0 Then Util.BorrarGrilla(grdItems)
+                    EliminarRegistro = res
+
+                Catch ex As Exception
+                    '' 
+
+
+                    Throw ex
+                End Try
+            Finally
+                ''
+            End Try
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        Finally
+            If Not connection Is Nothing Then
+                CType(connection, IDisposable).Dispose()
+            End If
+        End Try
+    End Function
+
 
     Private Sub btnAnular_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Dim res As Integer
