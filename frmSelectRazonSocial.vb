@@ -18,18 +18,19 @@ Public Class frmSelectRazonSocial
         ID = 0
         Codigo = 1
         RazonSocial = 2
-        PreferenciaPago = 3
-        Cbu = 4
-        Cuit = 5
-        NroCuenta = 6
-        Banco = 7
-        Email = 8
-        Celular = 9
-        Domicilio = 10
-        IdLocalidad = 11
-        IdProvincia = 12
-        Localidad = 13
-        Provincia = 14
+        Sociedad = 3
+        PreferenciaPago = 4
+        Cbu = 5
+        Cuit = 6
+        NroCuenta = 7
+        Banco = 8
+        Email = 9
+        Celular = 10
+        Domicilio = 11
+        IdLocalidad = 12
+        IdProvincia = 13
+        Localidad = 14
+        Provincia = 15
     End Enum
 
     Private Sub LlenarGrilla()
@@ -60,7 +61,7 @@ Public Class frmSelectRazonSocial
 
         With grdRazonSocial
             .Columns(grdColumns.ID).Visible = False
-
+            .Columns(grdColumns.Sociedad).Visible = False
             .Columns(grdColumns.Domicilio).Visible = False
             .Columns(grdColumns.IdLocalidad).Visible = False
             .Columns(grdColumns.IdProvincia).Visible = False
