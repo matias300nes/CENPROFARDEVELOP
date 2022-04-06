@@ -10,10 +10,11 @@ Public Class frmAplicarConceptos
         RazonSocial = 3
         Concepto = 4
         Importe = 5
-        Frecuencia = 6
-        MesesSinCobrar = 7
-        FechaCobrado = 8
-        DateAdd = 9
+        Conceptopago = 6
+        Frecuencia = 7
+        MesesSinCobrar = 8
+        FechaCobrado = 9
+        DateAdd = 10
     End Enum
 
     Enum grdCols
@@ -23,7 +24,8 @@ Public Class frmAplicarConceptos
         RazonSocial = 3
         Concepto = 4
         Periodo = 5
-        Importe = 6
+        Tipo = 6
+        Importe = 7
     End Enum
 
     Enum FarmaciaCols
@@ -68,6 +70,7 @@ Public Class frmAplicarConceptos
         dtConceptos.Columns.Add("Razón social", GetType(String))
         dtConceptos.Columns.Add("Concepto", GetType(String))
         dtConceptos.Columns.Add("Período", GetType(String))
+        dtConceptos.Columns.Add("Tipo", GetType(String))
         dtConceptos.Columns.Add("Importe", GetType(String))
 
         requestGrdData()
@@ -104,6 +107,7 @@ Public Class frmAplicarConceptos
                 newrow(grdCols.RazonSocial) = item(dtCols.RazonSocial)
                 newrow(grdCols.Farmacia) = item(dtCols.Farmacia)
                 newrow(grdCols.Concepto) = item(dtCols.Concepto)
+                newrow(grdCols.Tipo) = item(dtCols.Conceptopago)
                 newrow(grdCols.Importe) = item(dtCols.Importe)
 
                 ''newrow(grdCols.Periodo) = item(dtCols.FechaCobrado)
@@ -135,6 +139,7 @@ Public Class frmAplicarConceptos
             .Columns(grdCols.RazonSocial).Width = 180
             .Columns(grdCols.Concepto).Width = 180
 
+            .AutoResizeColumns()
             '.Columns(grdFarmaciaCols.Saldo).DefaultCellStyle.Format = "c"
         End With
 
@@ -200,6 +205,17 @@ Public Class frmAplicarConceptos
                 param_credito.SqlDbType = SqlDbType.Decimal
                 param_credito.Value = DBNull.Value
                 param_credito.Direction = ParameterDirection.Input
+
+                ''valor segun credito/debito
+                If concepto(grdCols.Tipo) = "DÉBITO" Then
+                    param_debito.Value = concepto(grdCols.Importe)
+                    param_credito.Value = DBNull.Value
+
+                End If
+                If concepto(grdCols.Tipo) = "CRÉDITO" Then
+                    param_credito.Value = concepto(grdCols.Importe)
+                    param_debito.Value = DBNull.Value
+                End If
 
                 ''user
                 Dim param_user As New SqlClient.SqlParameter

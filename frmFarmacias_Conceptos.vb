@@ -1603,14 +1603,6 @@ Public Class frmFarmacias_Conceptos
         selectRazonSocial.ShowDialog()
     End Sub
 
-    Private Sub cmbLocalidad_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbLocalidad.SelectedIndexChanged
-
-    End Sub
-
-    Private Sub cmbProvincia_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbProvincia.SelectedIndexChanged
-
-    End Sub
-
 
 #End Region
 
