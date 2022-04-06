@@ -1881,7 +1881,6 @@ Public Class frmLiquidaciones
         End Sub
 
         Private Sub MyGridButtonXEditControlClick(ByVal sender As Object, ByVal e As EventArgs)
-
             ''con editorcell puedo conocer info de el cellpanel
             Dim row_index = EditorCell.RowIndex
             Dim parent = EditorCell.GridPanel.Parent
@@ -2547,5 +2546,53 @@ Public Class frmLiquidaciones
             Next
         Next
         UpdateGrdPrincipal()
+    End Sub
+
+    Friend Sub ActualizarFinales()
+        Dim dtFinales As New DataTable
+        dtFinales.Columns.Add("ID", GetType(Integer))
+        dtFinales.Columns.Add("Order", GetType(Integer))
+        dtFinales.Columns.Add("Name", GetType(String))
+        dtFinales.Columns.Add("Value", GetType(Decimal))
+
+        dtFinales.Rows.Add(
+            1,
+            1,
+            "Comisión cenprofar",
+            0.0075
+        )
+        dtFinales.Rows.Add(
+            2,
+            2,
+            "Ingresos brutos",
+            0.025
+        )
+
+        Dim newConcepto As DataRow
+        For Each farmacia As DataRow In gl_dataset.Tables(0).Rows
+            Dim conceptosfinales = gl_dataset.Tables(1).Select($"IdDetalle = '{farmacia("nº")}' and (detalle = 'Comisión cenprofar' or detalle = 'Ingresos brutos')")
+            Dim subtotal As Decimal = farmacia("Subtotal")
+            For Each item As DataRow In conceptosfinales
+                subtotal -= item("valor")
+            Next
+            For Each conceptoFinal As DataRow In conceptosfinales
+                ''creo el concepto
+                newConcepto = gl_dataset.Tables(1).NewRow ' <- dtConceptos
+
+                newConcepto("IdDetalle") = farmacia("nº")
+                newConcepto("IdFarmacia") = farmacia("IdFarmacia")
+                newConcepto("detalle") = conceptoFinal("detalle")
+                newConcepto("valor") = -(subtotal * dtFinales.Select($"name = '{conceptoFinal("detalle")}'")(0)("value"))
+                subtotal += newConcepto("valor")
+                newConcepto("edit") = True
+                newConcepto("estado") = "insert"
+
+                añadirConcepto(newConcepto) ''en este caso solo actualiza
+            Next
+        Next
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        ActualizarFinales()
     End Sub
 End Class
