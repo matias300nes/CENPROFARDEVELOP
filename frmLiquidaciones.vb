@@ -2588,7 +2588,4 @@ Public Class frmLiquidaciones
 
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        ActualizarFinales()
-    End Sub
 End Class
