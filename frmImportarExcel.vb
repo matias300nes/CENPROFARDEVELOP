@@ -31,8 +31,6 @@ Public Class frmImportarExcel
 
     End Sub
 
-    ''Ini
-
 
     Private Sub frmImportarExcel_Load(sender As Object, e As EventArgs) Handles Me.Load
         With grdDetalleLiquidacion
@@ -699,7 +697,7 @@ Public Class frmImportarExcel
                     row("IdDetalle") = IdDetalle
                     row("IdFarmacia") = grdDetalleLiquidacionFiltrada.Rows(j).Cells("IdFarmacia").Value
                     row("detalle") = ColumnName
-                    row("valor") = Decimal.Parse(grdDetalleLiquidacionFiltrada.Rows(j).Cells(i).Value) * -1
+                    row("valor") = Math.Round(Decimal.Parse(grdDetalleLiquidacionFiltrada.Rows(j).Cells(i).Value) * -1, 2, MidpointRounding.ToEven)
                     row("edit") = True
                     row("estado") = "insert"
                     If (row("valor") <> 0) Then
@@ -714,6 +712,8 @@ Public Class frmImportarExcel
         frmLiquidaciones.addConceptosFromExcel(dtConceptos)
 
         frmLiquidaciones.UpdateGrdPrincipal()
+
+        frmLiquidaciones.ActualizarFinales()
 
         Me.Dispose()
         Me.Close()

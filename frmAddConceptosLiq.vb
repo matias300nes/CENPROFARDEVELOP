@@ -128,10 +128,10 @@ Public Class frmAddConceptosLiq
             For Each farmacia As DataRow In farmaciasConceptos.Rows
                 farmacia(colsFarmaciasConceptos.Concepto) = concepto.Cells(colsConceptos.Nombre).Value
                 If concepto.Cells(colsConceptos.CampoAplicable).Value = 1 Then ''sobre a cargo os
-                    farmacia(colsFarmaciasConceptos.Importe) = farmacia(colsFarmaciasConceptos.ACargoOS) * (concepto.Cells(colsConceptos.Valor).Value / 100)
+                    farmacia(colsFarmaciasConceptos.Importe) = Math.Round(farmacia(colsFarmaciasConceptos.ACargoOS) * (concepto.Cells(colsConceptos.Valor).Value / 100), 2, MidpointRounding.ToEven)
                 End If
                 If concepto.Cells(colsConceptos.CampoAplicable).Value = 2 Then ''sobre total
-                    farmacia(colsFarmaciasConceptos.Importe) = farmacia(colsFarmaciasConceptos.Total) * (concepto.Cells(colsConceptos.Valor).Value / 100)
+                    farmacia(colsFarmaciasConceptos.Importe) = Math.Round(farmacia(colsFarmaciasConceptos.Total) * (concepto.Cells(colsConceptos.Valor).Value / 100), 2, MidpointRounding.ToEven)
                 End If
 
             Next
@@ -183,6 +183,8 @@ Public Class frmAddConceptosLiq
         Next
 
         frmLiquidaciones.UpdateGrdPrincipal()
+
+        frmLiquidaciones.ActualizarFinales()
 
         Me.Dispose()
         Me.Close()
