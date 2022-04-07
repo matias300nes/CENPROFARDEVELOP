@@ -41,9 +41,10 @@ Partial Class frmNuevoGrupo
         '
         Me.btnListo.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
         Me.btnListo.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.btnListo.Location = New System.Drawing.Point(25, 74)
+        Me.btnListo.Location = New System.Drawing.Point(33, 91)
+        Me.btnListo.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnListo.Name = "btnListo"
-        Me.btnListo.Size = New System.Drawing.Size(105, 23)
+        Me.btnListo.Size = New System.Drawing.Size(140, 28)
         Me.btnListo.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnListo.TabIndex = 2
         Me.btnListo.Text = "Añadir"
@@ -56,13 +57,13 @@ Partial Class frmNuevoGrupo
         Me.TableLayoutPanel1.Controls.Add(Me.GroupBox1, 0, 0)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
-        Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 3
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 120.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 148.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(284, 362)
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 37.0!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(379, 446)
         Me.TableLayoutPanel1.TabIndex = 3
         '
         'grdGruposMandataria
@@ -74,14 +75,15 @@ Partial Class frmNuevoGrupo
         Me.grdGruposMandataria.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.grdGruposMandataria.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.grdGruposMandataria.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.grdGruposMandataria.Location = New System.Drawing.Point(3, 123)
+        Me.grdGruposMandataria.Location = New System.Drawing.Point(4, 152)
+        Me.grdGruposMandataria.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.grdGruposMandataria.MultiSelect = False
         Me.grdGruposMandataria.Name = "grdGruposMandataria"
         Me.grdGruposMandataria.ReadOnly = True
         Me.grdGruposMandataria.RowHeadersVisible = False
         Me.grdGruposMandataria.RowHeadersWidth = 51
         Me.grdGruposMandataria.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.grdGruposMandataria.Size = New System.Drawing.Size(278, 206)
+        Me.grdGruposMandataria.Size = New System.Drawing.Size(371, 253)
         Me.grdGruposMandataria.TabIndex = 0
         '
         'GroupBox1
@@ -93,11 +95,11 @@ Partial Class frmNuevoGrupo
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Controls.Add(Me.Label13)
         Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GroupBox1.Location = New System.Drawing.Point(2, 2)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.GroupBox1.Location = New System.Drawing.Point(3, 2)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(2, 2, 2, 2)
-        Me.GroupBox1.Size = New System.Drawing.Size(280, 116)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.GroupBox1.Size = New System.Drawing.Size(373, 144)
         Me.GroupBox1.TabIndex = 3
         Me.GroupBox1.TabStop = False
         '
@@ -105,10 +107,10 @@ Partial Class frmNuevoGrupo
         '
         Me.cmbMandataria.Enabled = False
         Me.cmbMandataria.FormattingEnabled = True
-        Me.cmbMandataria.Location = New System.Drawing.Point(25, 38)
-        Me.cmbMandataria.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.cmbMandataria.Location = New System.Drawing.Point(33, 47)
+        Me.cmbMandataria.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.cmbMandataria.Name = "cmbMandataria"
-        Me.cmbMandataria.Size = New System.Drawing.Size(152, 21)
+        Me.cmbMandataria.Size = New System.Drawing.Size(201, 24)
         Me.cmbMandataria.TabIndex = 279
         '
         'txtGrupo
@@ -119,10 +121,11 @@ Partial Class frmNuevoGrupo
         Me.txtGrupo.Decimals = CType(2, Byte)
         Me.txtGrupo.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtGrupo.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
-        Me.txtGrupo.Location = New System.Drawing.Point(200, 38)
+        Me.txtGrupo.Location = New System.Drawing.Point(267, 47)
+        Me.txtGrupo.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtGrupo.MaxLength = 11
         Me.txtGrupo.Name = "txtGrupo"
-        Me.txtGrupo.Size = New System.Drawing.Size(50, 20)
+        Me.txtGrupo.Size = New System.Drawing.Size(65, 22)
         Me.txtGrupo.TabIndex = 278
         Me.txtGrupo.Text_1 = Nothing
         Me.txtGrupo.Text_2 = Nothing
@@ -135,9 +138,10 @@ Partial Class frmNuevoGrupo
         Me.btnEliminar.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
         Me.btnEliminar.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnEliminar.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.btnEliminar.Location = New System.Drawing.Point(145, 74)
+        Me.btnEliminar.Location = New System.Drawing.Point(193, 91)
+        Me.btnEliminar.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnEliminar.Name = "btnEliminar"
-        Me.btnEliminar.Size = New System.Drawing.Size(105, 23)
+        Me.btnEliminar.Size = New System.Drawing.Size(140, 28)
         Me.btnEliminar.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnEliminar.TabIndex = 277
         Me.btnEliminar.Text = "Eliminar"
@@ -147,9 +151,10 @@ Partial Class frmNuevoGrupo
         Me.Label1.AutoSize = True
         Me.Label1.BackColor = System.Drawing.Color.Transparent
         Me.Label1.ForeColor = System.Drawing.Color.Blue
-        Me.Label1.Location = New System.Drawing.Point(198, 20)
+        Me.Label1.Location = New System.Drawing.Point(264, 25)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(40, 13)
+        Me.Label1.Size = New System.Drawing.Size(53, 17)
         Me.Label1.TabIndex = 276
         Me.Label1.Text = "Grupo*"
         '
@@ -158,21 +163,23 @@ Partial Class frmNuevoGrupo
         Me.Label13.AutoSize = True
         Me.Label13.BackColor = System.Drawing.Color.Transparent
         Me.Label13.ForeColor = System.Drawing.Color.Blue
-        Me.Label13.Location = New System.Drawing.Point(22, 20)
+        Me.Label13.Location = New System.Drawing.Point(29, 25)
+        Me.Label13.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(60, 13)
+        Me.Label13.Size = New System.Drawing.Size(79, 17)
         Me.Label13.TabIndex = 274
         Me.Label13.Text = "Mandataria"
         '
         'frmNuevoGrupo
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(284, 362)
+        Me.ClientSize = New System.Drawing.Size(379, 446)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.MaximumSize = New System.Drawing.Size(500, 500)
-        Me.MinimumSize = New System.Drawing.Size(300, 401)
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.MaximumSize = New System.Drawing.Size(661, 605)
+        Me.MinimumSize = New System.Drawing.Size(394, 483)
         Me.Name = "frmNuevoGrupo"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Nuevo Grupo"
