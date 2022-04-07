@@ -598,14 +598,6 @@ Public Class frmLiquidaciones
             End If
         End With
 
-        'If (ACargoOS <= ACargoOS_A + ACargoOS_P Or ACargoOS <= ACargoOS_A + Total) And
-        '    cmbTipoPago.Text = "Parcial" And
-        '    chkLiquidado.Checked = False Then
-
-        '    MsgBox("Los importes presentados y aceptados son iguales, se configurará la liquidación como pago final")
-        '    cmbTipoPago.SelectedValue = "FINAL"
-        '    UpdateGrdPrincipal()
-        'End If
         lblTotal.Text = String.Format("{0:N2}", Total)
         lblTransferencia.Text = String.Format("{0:N2}", Transferencia)
         lblCantidadItems.Text = gl_dataset.Tables(0).Rows.Count
@@ -1930,8 +1922,10 @@ Public Class frmLiquidaciones
                 Next
                 parent("Subtotal").Value = total
 
+                frmLiquidaciones.ActualizarFinales()
+
                 panel.Footer = New GridFooter()
-                panel.Footer.Text = String.Format("Total a pagar: <font color=""Green""><i>${0:N2}</i></font> {1:N2}", total, pendiente)
+                panel.Footer.Text = String.Format("Total a pagar: <font color=""Green""><i>${0:N2}</i></font> {1:N2}", parent("Subtotal").Value, pendiente)
             End If
 
         End Sub
@@ -2533,7 +2527,7 @@ Public Class frmLiquidaciones
                 newConcepto("IdDetalle") = farmacia("nº")
                 newConcepto("IdFarmacia") = farmacia("IdFarmacia")
                 newConcepto("detalle") = conceptoFinal("Name")
-                newConcepto("valor") = -(subtotal * conceptoFinal("Value"))
+                newConcepto("valor") = Math.Round(-(subtotal * conceptoFinal("Value")), 2, MidpointRounding.ToEven)
                 subtotal += newConcepto("valor")
                 newConcepto("edit") = True
                 newConcepto("estado") = "insert"
@@ -2582,14 +2576,16 @@ Public Class frmLiquidaciones
                 newConcepto("IdDetalle") = farmacia("nº")
                 newConcepto("IdFarmacia") = farmacia("IdFarmacia")
                 newConcepto("detalle") = conceptoFinal("detalle")
-                newConcepto("valor") = -(subtotal * dtFinales.Select($"name = '{conceptoFinal("detalle")}'")(0)("value"))
+                newConcepto("valor") = Math.Round(-(subtotal * dtFinales.Select($"name = '{conceptoFinal("detalle")}'")(0)("value")), 2, MidpointRounding.ToEven)
                 subtotal += newConcepto("valor")
                 newConcepto("edit") = True
                 newConcepto("estado") = "insert"
 
                 añadirConcepto(newConcepto) ''en este caso solo actualiza
             Next
+            farmacia("Subtotal") = subtotal ''actualizo el source para que lo refleje en la grilla
         Next
+
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
