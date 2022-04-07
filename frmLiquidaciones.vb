@@ -2145,79 +2145,79 @@ Public Class frmLiquidaciones
     '    panel.Footer.Text = String.Format("Total a pagar: <font color=""Green""><i>${0}</i></font>", total)
     'End Sub
 
-    Private Sub chkIngresosBrutos_CheckedChanged(sender As Object, e As EventArgs) Handles chkIngresosBrutos.CheckedChanged
-        If chkIngresosBrutos.Checked Then
-            addConceptos("Ingresos Brutos", 0.025)
-        Else
-            deleteConceptos("Ingresos Brutos")
-        End If
+    'Private Sub chkIngresosBrutos_CheckedChanged(sender As Object, e As EventArgs) Handles chkIngresosBrutos.CheckedChanged
+    '    If chkIngresosBrutos.Checked Then
+    '        addConceptos("Ingresos Brutos", 0.025)
+    '    Else
+    '        deleteConceptos("Ingresos Brutos")
+    '    End If
 
-        UpdateGrdPrincipal()
-    End Sub
+    '    UpdateGrdPrincipal()
+    'End Sub
 
-    Private Sub chkImpCheque_CheckedChanged(sender As Object, e As EventArgs) Handles chkImpCheque.CheckedChanged
-        If chkImpCheque.Checked Then
-            addConceptos("Impuesto cheque", 0.00075)
-        Else
-            deleteConceptos("Impuesto cheque")
-        End If
+    'Private Sub chkImpCheque_CheckedChanged(sender As Object, e As EventArgs) Handles chkImpCheque.CheckedChanged
+    '    If chkImpCheque.Checked Then
+    '        addConceptos("Impuesto cheque", 0.00075)
+    '    Else
+    '        deleteConceptos("Impuesto cheque")
+    '    End If
 
-        UpdateGrdPrincipal()
-    End Sub
+    '    UpdateGrdPrincipal()
+    'End Sub
 
-    Private Sub chkComisionCentro_CheckedChanged(sender As Object, e As EventArgs) Handles chkComisionCentro.CheckedChanged
-        If chkComisionCentro.Checked Then
-            addConceptos("Comisión centro", 0.0075)
-        Else
-            deleteConceptos("Comisión centro")
-        End If
+    'Private Sub chkComisionCentro_CheckedChanged(sender As Object, e As EventArgs) Handles chkComisionCentro.CheckedChanged
+    '    If chkComisionCentro.Checked Then
+    '        addConceptos("Comisión centro", 0.0075)
+    '    Else
+    '        deleteConceptos("Comisión centro")
+    '    End If
 
-        UpdateGrdPrincipal()
-    End Sub
+    '    UpdateGrdPrincipal()
+    'End Sub
 
-    Private Sub addConceptos(detalle As String, porcentaje As Decimal)
-        Dim valor As Decimal = 0
-        Dim concepto As DataRow
+    'Private Sub addConceptos(detalle As String, porcentaje As Decimal)
+    '    Dim valor As Decimal = 0
+    '    Dim concepto As DataRow
 
-        For Each Farmacia As DataRow In gl_dataset.Tables(0).Rows
-            valor = -Farmacia("subtotal") * Decimal.Parse(porcentaje)
+    '    For Each Farmacia As DataRow In gl_dataset.Tables(0).Rows
+    '        valor = -Farmacia("subtotal") * Decimal.Parse(porcentaje)
 
-            'Dim CurrentConcepto = gl_dataset.Tables(1).Select($"IdDetalle = '{Farmacia("ID")}' and detalle = '{detalle}'")(0)
-            Dim CurrentConcepto = gl_dataset.Tables(1).Select($"IdDetalle = '{Farmacia("nº")}' and detalle = '{detalle}'")
-            If CurrentConcepto Is DBNull.Value Then ' If CurrentConcepto IsNot Nothing Then
-                CurrentConcepto("valor") = valor
-                If CurrentConcepto("estado") = "saved" Then
-                    CurrentConcepto("estado") = "update"
-                Else
-                    CurrentConcepto("estado") = "insert"
-                End If
-            Else
-                ''creo el concepto
-                concepto = gl_dataset.Tables(1).NewRow ' <- dtConceptos
+    '        'Dim CurrentConcepto = gl_dataset.Tables(1).Select($"IdDetalle = '{Farmacia("ID")}' and detalle = '{detalle}'")(0)
+    '        Dim CurrentConcepto = gl_dataset.Tables(1).Select($"IdDetalle = '{Farmacia("nº")}' and detalle = '{detalle}'")
+    '        If CurrentConcepto Is DBNull.Value Then ' If CurrentConcepto IsNot Nothing Then
+    '            CurrentConcepto("valor") = valor
+    '            If CurrentConcepto("estado") = "saved" Then
+    '                CurrentConcepto("estado") = "update"
+    '            Else
+    '                CurrentConcepto("estado") = "insert"
+    '            End If
+    '        Else
+    '            ''creo el concepto
+    '            concepto = gl_dataset.Tables(1).NewRow ' <- dtConceptos
 
-                concepto("IdDetalle") = Farmacia("nº")
-                concepto("IdFarmacia") = Farmacia("IdFarmacia")
-                concepto("detalle") = detalle
-                concepto("valor") = valor
-                'concepto("edit") = New DataGridViewButtonXCell()
-                concepto("edit") = True
-                concepto("estado") = "insert"
+    '            concepto("IdDetalle") = Farmacia("nº")
+    '            concepto("IdFarmacia") = Farmacia("IdFarmacia")
+    '            concepto("detalle") = detalle
+    '            concepto("valor") = valor
+    '            'concepto("edit") = New DataGridViewButtonXCell()
+    '            concepto("edit") = True
+    '            concepto("estado") = "insert"
 
-                gl_dataset.Tables(1).Rows.Add(concepto)
-            End If
+    '            gl_dataset.Tables(1).Rows.Add(concepto)
+    '        End If
 
 
-        Next
-    End Sub
+    '    Next
+    'End Sub
 
-    Private Sub deleteConceptos(detalle As String)
-        Dim dtDetalle As DataTable = gl_dataset.Tables(1)
-        Dim rows = dtDetalle.Select($"detalle = '{detalle}'")
+    'Private Sub deleteConceptos(detalle As String)
+    '    Dim dtDetalle As DataTable = gl_dataset.Tables(1)
+    '    Dim rows = dtDetalle.Select($"detalle = '{detalle}'")
 
-        For Each row As DataRow In rows
-            row.Delete()
-        Next
-    End Sub
+    '    For Each row As DataRow In rows
+    '        row.Delete()
+    '    Next
+    'End Sub
 
     Friend Sub añadirConcepto(concepto As DataRow)
         Dim collection = gl_dataset.Tables(1).Select($"IdDetalle = '{concepto("IdDetalle")}' and detalle = '{concepto("detalle")}'")
