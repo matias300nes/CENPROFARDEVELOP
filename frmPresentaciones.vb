@@ -119,7 +119,7 @@ Public Class frmPresentaciones
 
     Private Sub frmPresentaciones_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         ''prueba nacho
-        btnCancelar.Enabled = False
+        'btnCancelar.Enabled = False comentado
         btnEliminar.Enabled = False
 
         Cursor = Cursors.WaitCursor

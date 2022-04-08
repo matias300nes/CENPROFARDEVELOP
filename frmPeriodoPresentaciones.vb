@@ -39,6 +39,10 @@ Public Class frmPeriodoPresentaciones
         Permitir = True
         CargarCajas()
         PrepararBotones()
+        With grd
+            .Columns(2).Visible = False 'idmandataria
+            .AutoResizeColumns()
+        End With
     End Sub
 
     Private Sub chkEliminados_CheckedChanged(sender As Object, e As EventArgs) Handles chkEliminados.CheckedChanged
