@@ -212,7 +212,7 @@ Partial Class frmGrupos
         Me.Controls.Add(Me.GroupPanel1)
         Me.Name = "frmGrupos"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "frmGrupos2"
+        Me.Text = "Grupos"
         Me.GroupPanel1.ResumeLayout(False)
         Me.GroupPanel1.PerformLayout()
         CType(Me.grdGrupos_Os, System.ComponentModel.ISupportInitialize).EndInit()

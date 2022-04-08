@@ -39,6 +39,10 @@ Public Class frmPeriodoPresentaciones
         Permitir = True
         CargarCajas()
         PrepararBotones()
+        With grd
+            .Columns(2).Visible = False 'idmandataria
+            .AutoResizeColumns()
+        End With
     End Sub
 
     Private Sub chkEliminados_CheckedChanged(sender As Object, e As EventArgs) Handles chkEliminados.CheckedChanged
@@ -360,7 +364,8 @@ Public Class frmPeriodoPresentaciones
 
         Try
 
-            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT Id, Nombre FROM Grupos WHERE IdMandataria = {cmbMandatarias.SelectedValue}")
+            'ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT Id, Nombre FROM Grupos WHERE IdMandataria = {cmbMandatarias.SelectedValue}")
+            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT Id, Nombre FROM Grupos g INNER JOIN Grupos_OS g_os ON g_os.idgrupo = g.id WHERE g.IdMandataria = {cmbMandatarias.SelectedValue} AND g.Eliminado = 0")
             ds.Dispose()
 
             With cmbGrupos

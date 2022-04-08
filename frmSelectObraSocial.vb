@@ -134,8 +134,20 @@ Public Class frmSelectObraSocial
                 param_idGrupo.Value = idGrupo
                 param_idGrupo.Direction = ParameterDirection.Input
 
+                Dim param_useradd As New SqlClient.SqlParameter
+                param_useradd.ParameterName = "@useradd"
+                param_useradd.SqlDbType = SqlDbType.BigInt
+                param_useradd.Value = UserID
+                param_useradd.Direction = ParameterDirection.Input
+
+                Dim param_res As New SqlClient.SqlParameter
+                param_res.ParameterName = "@res"
+                param_res.SqlDbType = SqlDbType.Int
+                param_res.Value = DBNull.Value
+                param_res.Direction = ParameterDirection.InputOutput
+
                 Try
-                    SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spGrupos_OS_Insert", param_idGrupo, param_idOS)
+                    SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spGrupos_OS_Insert", param_idGrupo, param_idOS, param_useradd, param_res)
                 Catch ex As Exception
                     Throw ex
                 End Try
@@ -261,6 +273,12 @@ Public Class frmSelectObraSocial
                 param_idGrupo.Value = grdObrasSociales.CurrentRow.Cells(3).Value
                 param_idGrupo.Direction = ParameterDirection.Input
 
+                Dim param_userdel As New SqlClient.SqlParameter
+                param_userdel.ParameterName = "@userdel"
+                param_userdel.SqlDbType = SqlDbType.Int
+                param_userdel.Value = UserID
+                param_userdel.Direction = ParameterDirection.Input
+
                 Dim param_res As New SqlClient.SqlParameter
                 param_res.ParameterName = "@res"
                 param_res.SqlDbType = SqlDbType.Int
@@ -269,7 +287,7 @@ Public Class frmSelectObraSocial
 
                 Try
 
-                    SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spGrupos_OS_Delete", param_idObraSocial, param_idGrupo, param_res)
+                    SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spGrupos_OS_Delete", param_idObraSocial, param_idGrupo, param_userdel, param_res)
                     res = param_res.Value
                     EliminarRegistro = res
 
