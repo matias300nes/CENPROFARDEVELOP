@@ -360,7 +360,8 @@ Public Class frmPeriodoPresentaciones
 
         Try
 
-            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT Id, Nombre FROM Grupos WHERE IdMandataria = {cmbMandatarias.SelectedValue}")
+            'ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT Id, Nombre FROM Grupos WHERE IdMandataria = {cmbMandatarias.SelectedValue}")
+            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT Id, Nombre FROM Grupos g INNER JOIN Grupos_OS g_os ON g_os.idgrupo = g.id WHERE g.IdMandataria = {cmbMandatarias.SelectedValue} AND g.Eliminado = 0")
             ds.Dispose()
 
             With cmbGrupos

@@ -18,6 +18,12 @@ Public Class frmGrupos
         configurarform()
         LlenarCmbMandatarias()
 
+        If cmbGrupo.Text = "" Then
+            btnAgregarOS.Enabled = False
+        Else
+            btnAgregarOS.Enabled = True
+        End If
+
         asignarTags()
 
         LlenarGrilla()
@@ -133,7 +139,7 @@ Public Class frmGrupos
 
         Try
 
-            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT Id, Nombre FROM Grupos WHERE IdMandataria = {cmbMandataria.SelectedValue}")
+            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT Id, Nombre FROM Grupos WHERE IdMandataria = {cmbMandataria.SelectedValue} AND eliminado = 0")
             ds.Dispose()
 
             With cmbGrupo
@@ -311,6 +317,7 @@ Public Class frmGrupos
     Private Sub btnAgregarOS_Click(sender As Object, e As EventArgs) Handles btnAgregarOS.Click
         Dim cargarObraSocial As New frmSelectObraSocial
         cargarObraSocial.ShowDialog()
+        cmbMandataria_SelectedValueChanged(sender, e)
         LlenarGrilla()
     End Sub
 
@@ -363,6 +370,7 @@ Public Class frmGrupos
     Private Sub btnAgregarGrupo_Click(sender As Object, e As EventArgs) Handles btnAgregarGrupo.Click
         Dim cargarNuevoGrupo As New frmNuevoGrupo
         cargarNuevoGrupo.ShowDialog()
+        cmbMandataria_SelectedValueChanged(sender, e)
         LlenarCmbGrupos()
     End Sub
 
@@ -370,10 +378,25 @@ Public Class frmGrupos
         If cmbLlenado = True Then
             cmbGrupo.Text = ""
             LlenarCmbGrupos()
+
+            If cmbGrupo.Text = "" Then
+                btnAgregarOS.Enabled = False
+            Else
+                btnAgregarOS.Enabled = True
+            End If
+
             If cmbMandataria.SelectedValue IsNot Nothing Then
                 Sql = $"exec spGrupos_GruposOS_Select_All_By_IDMandataria @idmandataria = {cmbMandataria.SelectedValue}"
                 LlenarGrilla()
             End If
+        End If
+    End Sub
+
+    Private Sub cmbGrupo_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbGrupo.SelectedValueChanged
+        If cmbGrupo.Text = "" Then
+            btnAgregarOS.Enabled = False
+        Else
+            btnAgregarOS.Enabled = True
         End If
     End Sub
 

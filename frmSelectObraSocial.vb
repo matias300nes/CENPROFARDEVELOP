@@ -273,6 +273,12 @@ Public Class frmSelectObraSocial
                 param_idGrupo.Value = grdObrasSociales.CurrentRow.Cells(3).Value
                 param_idGrupo.Direction = ParameterDirection.Input
 
+                Dim param_userdel As New SqlClient.SqlParameter
+                param_userdel.ParameterName = "@userdel"
+                param_userdel.SqlDbType = SqlDbType.Int
+                param_userdel.Value = UserID
+                param_userdel.Direction = ParameterDirection.Input
+
                 Dim param_res As New SqlClient.SqlParameter
                 param_res.ParameterName = "@res"
                 param_res.SqlDbType = SqlDbType.Int
@@ -281,7 +287,7 @@ Public Class frmSelectObraSocial
 
                 Try
 
-                    SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spGrupos_OS_Delete", param_idObraSocial, param_idGrupo, param_res)
+                    SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spGrupos_OS_Delete", param_idObraSocial, param_idGrupo, param_userdel, param_res)
                     res = param_res.Value
                     EliminarRegistro = res
 

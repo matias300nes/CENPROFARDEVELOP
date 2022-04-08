@@ -15,6 +15,7 @@ Public Class frmNuevoGrupo
     Dim dtConceptos_Created As Boolean
     Dim count As Integer = 0
     Dim Permitir As Boolean
+    Dim tran As SqlClient.SqlTransaction
 
     Enum ColumnasGrupos
         ID = 0
@@ -26,6 +27,37 @@ Public Class frmNuevoGrupo
     Private Sub asignarTags()
         'txtValor.Tag = "7"
     End Sub
+
+    Private Function Abrir_Tran(ByRef cnn As SqlClient.SqlConnection) As Boolean
+        If tran Is Nothing Then
+            Try
+                tran = cnn.BeginTransaction
+                Abrir_Tran = True
+            Catch ex As Exception
+                Abrir_Tran = False
+                Exit Function
+            End Try
+        End If
+    End Function
+
+    Private Sub Cerrar_Tran()
+        'Cierra o finaliza la transaccion
+        If Not (tran Is Nothing) Then
+            tran.Commit()
+            tran.Dispose()
+            tran = Nothing
+        End If
+    End Sub
+
+    Private Sub Cancelar_Tran()
+        'Cancela la transaccion
+        If Not (tran Is Nothing) Then
+            tran.Rollback()
+            tran.Dispose()
+            tran = Nothing
+        End If
+    End Sub
+
     Protected Function ReglasNegocio() As Boolean
         Dim msg As String
         ReglasNegocio = False
@@ -47,7 +79,7 @@ Public Class frmNuevoGrupo
         Try
             connection = SqlHelper.GetConnection(ConnStringSEI)
             ''Detalle de liquidacion
-            Dim Sql = $"exec spGrupos_Select_All @IDMandataria = {frmGrupos.cmbMandataria.SelectedValue}"
+            Dim Sql = $"exec spGrupos_Select_All @Eliminado = 0, @IDMandataria = {frmGrupos.cmbMandataria.SelectedValue}"
 
             Dim cmd As New SqlCommand(Sql, connection)
             Dim da As New SqlDataAdapter(cmd)
@@ -117,7 +149,7 @@ Public Class frmNuevoGrupo
 
         Try
 
-            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT IdMandataria, Nombre FROM Grupos WHERE IDMandataria = {idmandataia} AND Nombre = {grupo}")
+            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT IdMandataria, Nombre FROM Grupos WHERE IDMandataria = {idmandataia} AND Nombre = {grupo} AND eliminado = 0")
             ds.Dispose()
 
             If ds.Tables(0).Rows.Count = 1 Then
@@ -171,6 +203,12 @@ Public Class frmNuevoGrupo
                 param_grupo.Value = Grupo
                 param_grupo.Direction = ParameterDirection.Input
 
+                Dim param_useradd As New SqlClient.SqlParameter
+                param_useradd.ParameterName = "@useradd"
+                param_useradd.SqlDbType = SqlDbType.Int
+                param_useradd.Value = UserID
+                param_useradd.Direction = ParameterDirection.Input
+
                 Dim param_res As New SqlClient.SqlParameter
                 param_res.ParameterName = "@res"
                 param_res.SqlDbType = SqlDbType.Int
@@ -181,7 +219,7 @@ Public Class frmNuevoGrupo
                 ''la misma mandataria y el mismo grupo
 
                 Try
-                    SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spGrupos_Insert", param_idMandataria, param_grupo, param_res)
+                    SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spGrupos_Insert", param_idMandataria, param_grupo, param_useradd, param_res)
                 Catch ex As Exception
                     Throw ex
                 End Try
@@ -244,7 +282,16 @@ Public Class frmNuevoGrupo
         Dim ds_existenPeriodPresen As Data.DataSet
         Dim res As Integer
         Dim i As Integer
-        If MessageBox.Show("¿Está seguro que desea eliminar el grupo seleccionado? Se eliminará todo lo relacionado al mismo.", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
+        Dim connection As SqlClient.SqlConnection = Nothing
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+        Catch ex As Exception
+            MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End Try
+
+        If Abrir_Tran(connection) = False Then
+            MessageBox.Show("No se pudo abrir una transaccion", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
 
@@ -262,49 +309,66 @@ Public Class frmNuevoGrupo
                     MsgBox("No se puede eliminar un grupo que tenga un Periodo Presentacion ya asignado. Por favor verifique.", MsgBoxStyle.Information, "Atención")
                     Exit Sub
                 Else 'no existen periodopresentacion -> puedo eliminar el grupo
-                    MsgBox("Eliminando el registro...", MsgBoxStyle.Information, "Atención")
+                    MsgBox("Eliminando grupo...", MsgBoxStyle.Information, "Atención")
                     res = EliminarRegistro()
                     Select Case res
                         Case -2
-                            MsgBox("El registro no existe.", MsgBoxStyle.Information, "Atención")
+                            Cancelar_Tran()
+                            MsgBox("El grupo no existe.", MsgBoxStyle.Information, "Atención")
                         Case -1
-                            MsgBox("No se pudo borrar el registro.", MsgBoxStyle.Information, "Atención")
+                            Cancelar_Tran()
+                            MsgBox("No se pudo borrar el grupo.", MsgBoxStyle.Information, "Atención")
                         Case 0
-                            MsgBox("No se pudo borrar el registro.", MsgBoxStyle.Information, "Atención")
+                            Cancelar_Tran()
+                            MsgBox("No se pudo borrar el grupo.", MsgBoxStyle.Information, "Atención")
                         Case Else
-                            MsgBox("Se ha borrado el registro.", MsgBoxStyle.Information, "Atención")
-                            MsgBox("Eliminando las Obras Sociales relacionadas al grupo...", MsgBoxStyle.Information, "Atención")
+                            MsgBox("Se ha borrado el grupo.", MsgBoxStyle.Information, "Atención")
+                            MsgBox("Eliminando las obras sociales...", MsgBoxStyle.Information, "Atención")
                             For i = 0 To ds_existenOS.Tables(0).Rows.Count - 1
                                 res = EliminarOSdeGrupo(ds_existenOS.Tables(0).Rows(i).Item(0), ds_existenOS.Tables(0).Rows(i).Item(1))
                                 Select Case res
                                     Case -2
-                                        MsgBox("El registro no existe.", MsgBoxStyle.Information, "Atención")
+                                        Cancelar_Tran()
+                                        MsgBox("La obra social no existe.", MsgBoxStyle.Information, "Atención")
                                     Case -1
-                                        MsgBox("No se pudo borrar el registro.", MsgBoxStyle.Information, "Atención")
+                                        Cancelar_Tran()
+                                        MsgBox("No se pudo borrar la obra social.", MsgBoxStyle.Information, "Atención")
                                     Case 0
-                                        MsgBox("No se pudo borrar el registro.", MsgBoxStyle.Information, "Atención")
+                                        Cancelar_Tran()
+                                        MsgBox("No se pudo borrar la obra social.", MsgBoxStyle.Information, "Atención")
                                     Case Else
-                                        MsgBox("Se ha borrado el registro.", MsgBoxStyle.Information, "Atención")
-                                        LlenarGrilla()
                                 End Select
                             Next
-                            LlenarGrilla()
+                            If res = 1 Then
+                                MsgBox("Se ha borrado la obra social.", MsgBoxStyle.Information, "Atención")
+                                LlenarGrilla()
+                                Me.Close()
+                            Else
+                                Cancelar_Tran()
+                                MsgBox("No se pudo borrar la obra social.", MsgBoxStyle.Information, "Atención")
+                            End If
+
                     End Select
                 End If
 
             Else ' no existen os en grupo -> puedo eliminar el grupo ya que no esta cargada ninguna presentacion
-                MsgBox("Eliminando el registro...", MsgBoxStyle.Information, "Atención")
+                MsgBox("Eliminando grupo...", MsgBoxStyle.Information, "Atención")
                 res = EliminarRegistro()
                 Select Case res
                     Case -2
-                        MsgBox("El registro no existe.", MsgBoxStyle.Information, "Atención")
+                        Cancelar_Tran()
+                        MsgBox("El grupo no existe.", MsgBoxStyle.Information, "Atención")
                     Case -1
-                        MsgBox("No se pudo borrar el registro.", MsgBoxStyle.Information, "Atención")
+                        Cancelar_Tran()
+                        MsgBox("No se pudo borrar el grupo.", MsgBoxStyle.Information, "Atención")
                     Case 0
-                        MsgBox("No se pudo borrar el registro.", MsgBoxStyle.Information, "Atención")
+                        Cancelar_Tran()
+                        MsgBox("No se pudo borrar el grupo.", MsgBoxStyle.Information, "Atención")
                     Case Else
-                        MsgBox("Se ha borrado el registro.", MsgBoxStyle.Information, "Atención")
+                        MsgBox("Se ha borrado el grupo.", MsgBoxStyle.Information, "Atención")
                         LlenarGrilla()
+
+                        Me.Close()
                 End Select
             End If
 
@@ -421,6 +485,12 @@ Public Class frmNuevoGrupo
                 param_idGrupo.Value = idGrupo
                 param_idGrupo.Direction = ParameterDirection.Input
 
+                Dim param_userdel As New SqlClient.SqlParameter
+                param_userdel.ParameterName = "@userdel"
+                param_userdel.SqlDbType = SqlDbType.Int
+                param_userdel.Value = UserID
+                param_userdel.Direction = ParameterDirection.Input
+
                 Dim param_res As New SqlClient.SqlParameter
                 param_res.ParameterName = "@res"
                 param_res.SqlDbType = SqlDbType.Int
@@ -429,7 +499,7 @@ Public Class frmNuevoGrupo
 
                 Try
 
-                    SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spGrupos_OS_Delete", param_idObraSocial, param_idGrupo, param_res)
+                    SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spGrupos_OS_Delete", param_idObraSocial, param_idGrupo, param_userdel, param_res)
                     res = param_res.Value
                     EliminarOSdeGrupo = res
 
