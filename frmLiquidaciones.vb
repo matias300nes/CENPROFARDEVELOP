@@ -1530,7 +1530,7 @@ Public Class frmLiquidaciones
         lblFecha_presentacion.Text = "-"
         lblFecha_creacion.Text = Today.Date.ToString
         lblFecha_liquidado.Text = "-"
-        lblStatus.Text = "CONFECCIONANDO"
+        lblStatus.Text = "NUEVO"
         lblCantidadItems.Text = "0"
         lblTotal.Text = "$ 0"
         lblTransferencia.Text = "$ 0"
