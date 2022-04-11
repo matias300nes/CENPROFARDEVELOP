@@ -280,10 +280,10 @@ Public Class frmSaldos
         End If
     End Sub
 
-    Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
-        Dim reporte As New frmRtpCheques()
-        reporte.ShowDialog()
-    End Sub
+    'Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
+    '    Dim reporte As New frmRtpCheques()
+    '    reporte.ShowDialog()
+    'End Sub
 
 #End Region
 End Class

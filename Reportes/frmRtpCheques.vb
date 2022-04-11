@@ -2,10 +2,10 @@
     Enum colsCheques
         id = 0
         seleccion = 1
-        FechaEmision = 2
-        FechaPago = 3
-        Monto = 4
-        PagueseA = 5
+        PagueseA = 2
+        FechaEmision = 3
+        FechaPago = 4
+        Monto = 5
         IdFarmacia = 6
     End Enum
     Public Sub New(Cheques As DataTable)
