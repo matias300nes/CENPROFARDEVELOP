@@ -2,11 +2,11 @@
 <Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <Body>
     <ReportItems>
-      <Tablix Name="Tablix2">
+      <Tablix Name="Tablix1">
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>24.4cm</Width>
+              <Width>25.50655cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -15,9 +15,9 @@
               <TablixCells>
                 <TablixCell>
                   <CellContents>
-                    <Rectangle Name="Rectangle2">
+                    <Rectangle Name="Rectangle1">
                       <ReportItems>
-                        <Textbox Name="Textbox1">
+                        <Textbox Name="Textbox9">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -48,7 +48,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <Textbox Name="Textbox2">
+                        <Textbox Name="Textbox10">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -80,7 +80,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <Textbox Name="Textbox3">
+                        <Textbox Name="Textbox11">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -112,7 +112,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <Textbox Name="Textbox4">
+                        <Textbox Name="Textbox12">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -144,7 +144,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <Textbox Name="Textbox5">
+                        <Textbox Name="Textbox13">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -176,7 +176,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <Textbox Name="Textbox6">
+                        <Textbox Name="Textbox14">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -206,7 +206,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <Textbox Name="Textbox7">
+                        <Textbox Name="Textbox15">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -238,7 +238,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <Textbox Name="Textbox8">
+                        <Textbox Name="Textbox16">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -270,7 +270,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <Textbox Name="Textbox19">
+                        <Textbox Name="Textbox20">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -285,7 +285,6 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox10</rd:DefaultName>
-                          <Top>0cm</Top>
                           <Left>8.5625cm</Left>
                           <Height>1.05563cm</Height>
                           <Width>2.5cm</Width>
@@ -308,7 +307,6 @@
                         </Border>
                       </Style>
                     </Rectangle>
-                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
               </TablixCells>
@@ -323,13 +321,13 @@
         <TablixRowHierarchy>
           <TablixMembers>
             <TablixMember>
-              <Group Name="Detalles" />
+              <Group Name="Detalles1" />
             </TablixMember>
           </TablixMembers>
         </TablixRowHierarchy>
-        <DataSetName>Cheques</DataSetName>
+        <DataSetName>DataSet1</DataSetName>
         <Height>7.6cm</Height>
-        <Width>24.4cm</Width>
+        <Width>25.50655cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -337,10 +335,10 @@
         </Style>
       </Tablix>
     </ReportItems>
-    <Height>2.99213in</Height>
+    <Height>4.74213in</Height>
     <Style />
   </Body>
-  <Width>24.4cm</Width>
+  <Width>25.50655cm</Width>
   <Page>
     <PageHeight>34cm</PageHeight>
     <PageWidth>20.4cm</PageWidth>
@@ -362,7 +360,7 @@
     </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="Cheques">
+    <DataSet Name="DataSet1">
       <Query>
         <DataSourceName>dsSistema</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
