@@ -857,8 +857,8 @@ logindenuevo:
     End Sub
 
     Private Sub ChequesEnCarteraToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChequesEnCarteraToolStripMenuItem.Click
-        frmCheques.MdiParent = Me
-        frmCheques.Show()
+        frmCheques_old.MdiParent = Me
+        frmCheques_old.Show()
     End Sub
 
     Private Sub CierreDeObrasToolStripMenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
@@ -4316,5 +4316,10 @@ Pedidos:
     Private Sub RazonesSocialesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RazonesSocialesToolStripMenuItem.Click
         frmRazonesSociales.MdiParent = Me
         frmRazonesSociales.Show()
+    End Sub
+
+    Private Sub ChequesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ChequesToolStripMenuItem.Click
+        frmCheques.MdiParent = Me
+        frmCheques.Show()
     End Sub
 End Class
