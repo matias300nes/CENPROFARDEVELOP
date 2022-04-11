@@ -47,7 +47,8 @@ Public Class frmAddConceptosLiq
         ACargoOS = 4
         Total = 5
         Concepto = 6
-        Importe = 7
+        tipo = 7
+        Importe = 8
     End Enum
 
     Public Sub New(farmacias As DataTable)
@@ -64,6 +65,7 @@ Public Class frmAddConceptosLiq
         dt.Columns.Add("A Cargo OS", GetType(Decimal))
         dt.Columns.Add("Subtotal", GetType(Decimal))
         dt.Columns.Add("Concepto", GetType(String))
+        dt.Columns.Add("Tipo", GetType(String))
         dt.Columns.Add("Importe", GetType(Decimal))
         For Each farmacia As DataRow In farmacias.Rows
             Dim newrow As DataRow = dt.NewRow
@@ -133,6 +135,12 @@ Public Class frmAddConceptosLiq
                 If concepto.Cells(colsConceptos.CampoAplicable).Value = 2 Then ''sobre total
                     farmacia(colsFarmaciasConceptos.Importe) = Math.Round(farmacia(colsFarmaciasConceptos.Total) * (concepto.Cells(colsConceptos.Valor).Value / 100), 2, MidpointRounding.ToEven)
                 End If
+                If concepto.Cells(colsConceptos.ConceptoPago).Value = 1 Then ''credito
+                    farmacia(colsFarmaciasConceptos.tipo) = "CRÉDITO"
+                End If
+                If concepto.Cells(colsConceptos.ConceptoPago).Value = 2 Then ''Debito
+                    farmacia(colsFarmaciasConceptos.tipo) = "DÉBITO"
+                End If
 
             Next
 
@@ -157,6 +165,14 @@ Public Class frmAddConceptosLiq
     End Sub
 
     Private Sub btnGenerar_Click(sender As Object, e As EventArgs) Handles btnGenerar.Click
+        ''control de valores
+        For Each drv As DataGridViewRow In grdFarmacias.Rows
+            If drv.Cells(colsFarmaciasConceptos.Importe).Value < 0 Then
+                MessageBox.Show("Debe ingresar importes positivos", "Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Exit Sub
+            End If
+        Next
 
         Dim dt As New DataTable()
         dt.Columns.Add("ID", GetType(Long))
@@ -173,9 +189,16 @@ Public Class frmAddConceptosLiq
             concepto("IdDetalle") = row(colsFarmaciasConceptos.nº)
             concepto("IdFarmacia") = row(colsFarmaciasConceptos.idFarmacia)
             concepto("detalle") = row(colsFarmaciasConceptos.Concepto)
-            concepto("valor") = -row(colsFarmaciasConceptos.Importe)
+            If row(colsFarmaciasConceptos.tipo) = "CRÉDITO" Then
+                concepto("valor") = row(colsFarmaciasConceptos.Importe)
+            End If
+            If row(colsFarmaciasConceptos.tipo) = "DÉBITO" Then
+                concepto("valor") = -row(colsFarmaciasConceptos.Importe)
+            End If
             concepto("edit") = True
-            dt.Rows.Add(concepto)
+            If concepto("valor") <> 0 Then
+                dt.Rows.Add(concepto)
+            End If
         Next
 
         For Each item As DataRow In dt.Rows

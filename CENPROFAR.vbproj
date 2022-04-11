@@ -2030,6 +2030,7 @@
       <DependentUpon>frmRtpCheques.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reportes\rptCheques.rdlc" />
+    <EmbeddedResource Include="Reportes\rptChequesCopia.rdlc" />
     <EmbeddedResource Include="Reportes\rptPresentacion.rdlc" />
   </ItemGroup>
   <ItemGroup>
