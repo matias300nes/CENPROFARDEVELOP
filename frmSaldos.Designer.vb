@@ -34,7 +34,6 @@ Partial Class frmSaldos
         Me.lblSeleccionados = New System.Windows.Forms.Label()
         Me.txtID = New System.Windows.Forms.TextBox()
         Me.btnSelection = New System.Windows.Forms.Button()
-        Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
         CType(Me.grdFarmacia, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grdHistorial, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -49,7 +48,7 @@ Partial Class frmSaldos
         Me.grdFarmacia.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.grdFarmacia.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.grdFarmacia.Location = New System.Drawing.Point(23, 55)
-        Me.grdFarmacia.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.grdFarmacia.Margin = New System.Windows.Forms.Padding(4)
         Me.grdFarmacia.Name = "grdFarmacia"
         Me.grdFarmacia.RowHeadersVisible = False
         Me.grdFarmacia.RowHeadersWidth = 51
@@ -67,7 +66,7 @@ Partial Class frmSaldos
         Me.grdHistorial.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.grdHistorial.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.grdHistorial.Location = New System.Drawing.Point(23, 383)
-        Me.grdHistorial.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.grdHistorial.Margin = New System.Windows.Forms.Padding(4)
         Me.grdHistorial.MultiSelect = False
         Me.grdHistorial.Name = "grdHistorial"
         Me.grdHistorial.ReadOnly = True
@@ -104,7 +103,7 @@ Partial Class frmSaldos
         Me.btnPago.BackColor = System.Drawing.SystemColors.Control
         Me.btnPago.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
         Me.btnPago.Location = New System.Drawing.Point(743, 332)
-        Me.btnPago.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnPago.Margin = New System.Windows.Forms.Padding(4)
         Me.btnPago.Name = "btnPago"
         Me.btnPago.Size = New System.Drawing.Size(177, 31)
         Me.btnPago.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
@@ -119,7 +118,7 @@ Partial Class frmSaldos
         Me.btnAplicarConceptos.BackColor = System.Drawing.SystemColors.Control
         Me.btnAplicarConceptos.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
         Me.btnAplicarConceptos.Location = New System.Drawing.Point(941, 332)
-        Me.btnAplicarConceptos.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnAplicarConceptos.Margin = New System.Windows.Forms.Padding(4)
         Me.btnAplicarConceptos.Name = "btnAplicarConceptos"
         Me.btnAplicarConceptos.Size = New System.Drawing.Size(143, 31)
         Me.btnAplicarConceptos.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
@@ -130,7 +129,7 @@ Partial Class frmSaldos
         'txtBuscar
         '
         Me.txtBuscar.Location = New System.Drawing.Point(251, 15)
-        Me.txtBuscar.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtBuscar.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBuscar.Name = "txtBuscar"
         Me.txtBuscar.Size = New System.Drawing.Size(291, 22)
         Me.txtBuscar.TabIndex = 8
@@ -161,7 +160,7 @@ Partial Class frmSaldos
         'txtID
         '
         Me.txtID.Location = New System.Drawing.Point(101, 15)
-        Me.txtID.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtID.Margin = New System.Windows.Forms.Padding(4)
         Me.txtID.Name = "txtID"
         Me.txtID.ReadOnly = True
         Me.txtID.Size = New System.Drawing.Size(75, 22)
@@ -170,34 +169,18 @@ Partial Class frmSaldos
         'btnSelection
         '
         Me.btnSelection.Location = New System.Drawing.Point(21, 314)
-        Me.btnSelection.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnSelection.Margin = New System.Windows.Forms.Padding(4)
         Me.btnSelection.Name = "btnSelection"
         Me.btnSelection.Size = New System.Drawing.Size(171, 28)
         Me.btnSelection.TabIndex = 396
         Me.btnSelection.Text = "Seleccionar todo"
         Me.btnSelection.UseVisualStyleBackColor = True
         '
-        'ButtonX1
-        '
-        Me.ButtonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.ButtonX1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ButtonX1.BackColor = System.Drawing.SystemColors.Control
-        Me.ButtonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.ButtonX1.Location = New System.Drawing.Point(542, 332)
-        Me.ButtonX1.Margin = New System.Windows.Forms.Padding(4)
-        Me.ButtonX1.Name = "ButtonX1"
-        Me.ButtonX1.Size = New System.Drawing.Size(177, 31)
-        Me.ButtonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.ButtonX1.TabIndex = 397
-        Me.ButtonX1.Text = "Imprimir"
-        Me.ButtonX1.TextColor = System.Drawing.SystemColors.InfoText
-        '
         'frmSaldos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1112, 670)
-        Me.Controls.Add(Me.ButtonX1)
         Me.Controls.Add(Me.btnSelection)
         Me.Controls.Add(Me.txtID)
         Me.Controls.Add(Me.lblSeleccionados)
@@ -210,7 +193,7 @@ Partial Class frmSaldos
         Me.Controls.Add(Me.grdHistorial)
         Me.Controls.Add(Me.grdFarmacia)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MinimumSize = New System.Drawing.Size(994, 47)
         Me.Name = "frmSaldos"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
@@ -233,5 +216,4 @@ Partial Class frmSaldos
     Friend WithEvents lblSeleccionados As Label
     Friend WithEvents txtID As TextBox
     Friend WithEvents btnSelection As Button
-    Friend WithEvents ButtonX1 As DevComponents.DotNetBar.ButtonX
 End Class
