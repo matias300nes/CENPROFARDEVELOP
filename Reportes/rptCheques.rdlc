@@ -6,7 +6,7 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>25.50655cm</Width>
+              <Width>20cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -307,6 +307,7 @@
                         </Border>
                       </Style>
                     </Rectangle>
+                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
               </TablixCells>
@@ -327,7 +328,7 @@
         </TablixRowHierarchy>
         <DataSetName>DataSet1</DataSetName>
         <Height>7.6cm</Height>
-        <Width>25.50655cm</Width>
+        <Width>20cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -335,12 +336,12 @@
         </Style>
       </Tablix>
     </ReportItems>
-    <Height>4.74213in</Height>
+    <Height>7.6cm</Height>
     <Style />
   </Body>
-  <Width>25.50655cm</Width>
+  <Width>20cm</Width>
   <Page>
-    <PageHeight>34cm</PageHeight>
+    <PageHeight>30.4cm</PageHeight>
     <PageWidth>20.4cm</PageWidth>
     <LeftMargin>0cm</LeftMargin>
     <RightMargin>0cm</RightMargin>

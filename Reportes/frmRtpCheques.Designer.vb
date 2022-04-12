@@ -23,12 +23,15 @@ Partial Class frmRtpCheques
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim ReportDataSource1 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
         Me.spRPT_PresentacionBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.dsSistema = New CENPROFAR.dsSistema()
         Me.spRPT_PresentacionTableAdapter = New CENPROFAR.dsSistemaTableAdapters.spRPT_PresentacionTableAdapter()
         Me.ReportViewer1 = New Microsoft.Reporting.WinForms.ReportViewer()
+        Me.PagosBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         CType(Me.spRPT_PresentacionBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dsSistema, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PagosBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'spRPT_PresentacionBindingSource
@@ -48,23 +51,34 @@ Partial Class frmRtpCheques
         'ReportViewer1
         '
         Me.ReportViewer1.Dock = System.Windows.Forms.DockStyle.Fill
+        ReportDataSource1.Name = "DataSet1"
+        ReportDataSource1.Value = Me.PagosBindingSource
+        Me.ReportViewer1.LocalReport.DataSources.Add(ReportDataSource1)
         Me.ReportViewer1.LocalReport.ReportEmbeddedResource = "CENPROFAR.rptCheques.rdlc"
         Me.ReportViewer1.Location = New System.Drawing.Point(0, 0)
+        Me.ReportViewer1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.ReportViewer1.Name = "ReportViewer1"
         Me.ReportViewer1.ServerReport.BearerToken = Nothing
-        Me.ReportViewer1.Size = New System.Drawing.Size(800, 450)
+        Me.ReportViewer1.Size = New System.Drawing.Size(600, 366)
         Me.ReportViewer1.TabIndex = 0
+        '
+        'PagosBindingSource
+        '
+        Me.PagosBindingSource.DataMember = "Pagos"
+        Me.PagosBindingSource.DataSource = Me.dsSistema
         '
         'frmRtpCheques
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.ClientSize = New System.Drawing.Size(600, 366)
         Me.Controls.Add(Me.ReportViewer1)
+        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Name = "frmRtpCheques"
         Me.Text = "frmRtpCheques"
         CType(Me.spRPT_PresentacionBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dsSistema, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PagosBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -72,4 +86,5 @@ Partial Class frmRtpCheques
     Friend WithEvents dsSistema As dsSistema
     Friend WithEvents spRPT_PresentacionTableAdapter As dsSistemaTableAdapters.spRPT_PresentacionTableAdapter
     Friend WithEvents ReportViewer1 As Microsoft.Reporting.WinForms.ReportViewer
+    Friend WithEvents PagosBindingSource As BindingSource
 End Class

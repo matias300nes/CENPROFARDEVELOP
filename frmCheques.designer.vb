@@ -43,7 +43,8 @@ Partial Class frmCheques
         Me.grdCheques.AllowUserToAddRows = False
         Me.grdCheques.AllowUserToDeleteRows = False
         Me.grdCheques.AllowUserToResizeRows = False
-        Me.grdCheques.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.grdCheques.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.grdCheques.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.grdCheques.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
@@ -82,6 +83,7 @@ Partial Class frmCheques
         '
         'lblSeleccionados
         '
+        Me.lblSeleccionados.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lblSeleccionados.AutoSize = True
         Me.lblSeleccionados.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblSeleccionados.ForeColor = System.Drawing.SystemColors.ControlText
@@ -102,6 +104,7 @@ Partial Class frmCheques
         '
         'btnSelection
         '
+        Me.btnSelection.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btnSelection.Location = New System.Drawing.Point(16, 278)
         Me.btnSelection.Name = "btnSelection"
         Me.btnSelection.Size = New System.Drawing.Size(128, 23)
@@ -136,7 +139,7 @@ Partial Class frmCheques
         '
         Me.dtpDesde.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
         Me.dtpDesde.Location = New System.Drawing.Point(86, 32)
-        Me.dtpDesde.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.dtpDesde.Margin = New System.Windows.Forms.Padding(2)
         Me.dtpDesde.Name = "dtpDesde"
         Me.dtpDesde.Size = New System.Drawing.Size(91, 20)
         Me.dtpDesde.TabIndex = 400
@@ -145,7 +148,7 @@ Partial Class frmCheques
         '
         Me.dtpHasta.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
         Me.dtpHasta.Location = New System.Drawing.Point(188, 32)
-        Me.dtpHasta.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.dtpHasta.Margin = New System.Windows.Forms.Padding(2)
         Me.dtpHasta.Name = "dtpHasta"
         Me.dtpHasta.Size = New System.Drawing.Size(91, 20)
         Me.dtpHasta.TabIndex = 402
@@ -177,7 +180,7 @@ Partial Class frmCheques
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.grdCheques)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.MinimumSize = New System.Drawing.Size(750, 45)
+        Me.MinimumSize = New System.Drawing.Size(600, 250)
         Me.Name = "frmCheques"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Cheques"
