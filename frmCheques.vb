@@ -207,11 +207,25 @@ Public Class frmCheques
         End If
     End Sub
 
-    'Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
-    '    Dim reporte As New frmRtpCheques()
-    '    reporte.ShowDialog()
-    'End Sub
+    Private Sub btnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click
+        ''me aseguro de que quede la fila seleccionada
+        Dim temprow As DataGridViewCell = Nothing
+        If grdCheques.CurrentCell IsNot Nothing Then
+            temprow = grdCheques.CurrentCell
+            grdCheques.CurrentCell = Nothing
+        End If
+        grdCheques.CurrentCell = temprow
 
+        If checkSelected() Then
+            Dim dv As New DataView(dtCheques)
+            dv.RowFilter = $"[Selección] = 1"
+
+            Dim AgregarCheques As New frmRtpCheques(dv.ToTable())
+            AgregarCheques.ShowDialog()
+        Else
+            MsgBox("Debe seleccionar al menos un cheque para poder imprimir.")
+        End If
+    End Sub
 
 #End Region
 End Class
