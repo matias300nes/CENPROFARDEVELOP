@@ -18,10 +18,11 @@ Public Class frmSaldos
         CBU = 7
         Banco = 8
         NroCta = 9
-        PreferenciaPago = 10
-        Saldo = 11
-        Telefono = 12
-        Email = 13
+        Sociedad = 10
+        PreferenciaPago = 11
+        Saldo = 12
+        Telefono = 13
+        Email = 14
     End Enum
 
     Enum grdHistorialCols
@@ -47,6 +48,8 @@ Public Class frmSaldos
             .Columns(grdFarmaciaCols.CBU).Visible = False
             .Columns(grdFarmaciaCols.NroCta).Visible = False
             .Columns(grdFarmaciaCols.Banco).Visible = False
+            .Columns(grdFarmaciaCols.Sociedad).Visible = False
+
 
             ''cambiar width
             '.Columns(grdFarmaciaCols.Seleccion).Width = 50
