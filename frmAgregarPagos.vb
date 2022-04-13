@@ -35,10 +35,11 @@ Public Class frmAgregarPagos
         CBU = 7
         Banco = 8
         NroCta = 9
-        PreferenciaPago = 10
-        Saldo = 11
-        Telefono = 12
-        Email = 13
+        Sociedad = 10
+        PreferenciaPago = 11
+        Saldo = 12
+        Telefono = 13
+        Email = 14
     End Enum
 
     Dim farmacias As DataTable
@@ -234,6 +235,10 @@ Public Class frmAgregarPagos
 
                 res = param_res.Value
 
+                If res = 1 Then
+                    agregarRegistro(pago(gridColumns.idFarmacia), pago(gridColumns.tipoPago).ToString.ToUpper, pago(gridColumns.importe), pago(gridColumns.farmacia), pago(gridColumns.razonSocial))
+                End If
+
                 If (res <= 0) Then
                     tran.Rollback()
                     GenerarPago = res
@@ -267,6 +272,122 @@ Public Class frmAgregarPagos
         End If
 
         GenerarPago = res
+    End Function
+
+    Private Function agregarRegistro(ByVal idFarmacia As Long, ByVal tipopago As String, ByVal importe As Decimal, ByVal farmacia As String, ByVal razonSocial As String) As Integer
+        Dim res As Integer = 0
+
+        Dim connection As SqlClient.SqlConnection = Nothing
+        connection = SqlHelper.GetConnection(ConnStringSEI)
+        Dim tran As SqlClient.SqlTransaction = connection.BeginTransaction
+        Dim sociedad As Boolean = cmbFarmacia.SelectedItem.Row(FarmaciaCols.Sociedad)
+        Try
+
+            ''ID
+            Dim param_id As New SqlClient.SqlParameter
+            param_id.ParameterName = "@id"
+            param_id.SqlDbType = SqlDbType.BigInt
+            param_id.Value = DBNull.Value
+            param_id.Direction = ParameterDirection.InputOutput
+
+            ''fecha emision
+            Dim param_FechaEmision As New SqlClient.SqlParameter
+            param_FechaEmision.ParameterName = "@fechaemision"
+            param_FechaEmision.SqlDbType = SqlDbType.DateTime
+            param_FechaEmision.Value = DBNull.Value
+            param_FechaEmision.Direction = ParameterDirection.Input
+
+            ''fecha pago
+            Dim param_FechaPago As New SqlClient.SqlParameter
+            param_FechaPago.ParameterName = "@fechapago"
+            param_FechaPago.SqlDbType = SqlDbType.DateTime
+            param_FechaPago.Value = DBNull.Value
+            param_FechaPago.Direction = ParameterDirection.Input
+
+            ''monto
+            Dim param_monto As New SqlClient.SqlParameter
+            param_monto.ParameterName = "@monto"
+            param_monto.SqlDbType = SqlDbType.Decimal
+            param_monto.Value = importe
+            param_monto.Direction = ParameterDirection.Input
+
+            ''paguese a
+            Dim param_pagueseA As New SqlClient.SqlParameter
+            param_pagueseA.ParameterName = "@pagueseA"
+            param_pagueseA.SqlDbType = SqlDbType.VarChar
+            param_pagueseA.Size = 100
+            param_pagueseA.Value = IIf(sociedad = True, razonSocial, farmacia + " y/o " + razonSocial)
+            param_pagueseA.Direction = ParameterDirection.Input
+
+            ''IdFarmacia
+            Dim param_idFarmacia As New SqlClient.SqlParameter
+            param_idFarmacia.ParameterName = "@idFarmacia"
+            param_idFarmacia.SqlDbType = SqlDbType.BigInt
+            param_idFarmacia.Value = idFarmacia
+            param_idFarmacia.Direction = ParameterDirection.Input
+
+            ''tipo pago
+            Dim param_Tipo As New SqlClient.SqlParameter
+            param_Tipo.ParameterName = "@tipo"
+            param_Tipo.SqlDbType = SqlDbType.VarChar
+            param_Tipo.Size = 100
+            param_Tipo.Value = tipopago
+            param_Tipo.Direction = ParameterDirection.Input
+
+            ''user
+            Dim param_user As New SqlClient.SqlParameter
+            param_user.ParameterName = "@useradd"
+            param_user.SqlDbType = SqlDbType.Int
+            param_user.Value = UserID
+            param_user.Direction = ParameterDirection.Input
+
+            ''res
+            Dim param_res As New SqlClient.SqlParameter
+            param_res.ParameterName = "@res"
+            param_res.SqlDbType = SqlDbType.Int
+            param_res.Value = DBNull.Value
+            param_res.Direction = ParameterDirection.InputOutput
+
+
+            SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spPagos_Insert",
+                                          param_id, param_FechaEmision, param_FechaPago, param_monto, param_pagueseA,
+                                          param_idFarmacia, param_Tipo, param_user, param_res)
+
+            res = param_res.Value
+
+            If (res <= 0) Then
+                tran.Rollback()
+                agregarRegistro = res
+            End If
+
+
+            If res >= 1 Then
+                tran.Commit()
+            Else
+                tran.Rollback()
+            End If
+
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            tran.Rollback()
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
+        If connection IsNot Nothing Then
+            connection.Dispose()
+        End If
+
+        agregarRegistro = res
     End Function
 
     Private Sub btnListo_Click(sender As Object, e As EventArgs) Handles btnListo.Click
