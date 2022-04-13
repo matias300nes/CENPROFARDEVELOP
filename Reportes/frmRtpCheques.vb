@@ -1,4 +1,8 @@
-﻿Public Class frmRtpCheques
+﻿Imports System.Data.SqlClient
+Imports Microsoft.ApplicationBlocks.Data
+Imports Utiles.Util
+
+Public Class frmRtpCheques
     Enum colsCheques
         id = 0
         seleccion = 1
@@ -33,4 +37,5 @@
 
         Me.ReportViewer1.RefreshReport()
     End Sub
+
 End Class
