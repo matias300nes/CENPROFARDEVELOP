@@ -214,6 +214,12 @@
     <Compile Include="frmAplicarConceptos.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmPlanes.Designer.vb">
+      <DependentUpon>frmPlanes.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmPlanes.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmRazonesSociales.Designer.vb">
       <DependentUpon>frmRazonesSociales.vb</DependentUpon>
     </Compile>
@@ -1596,6 +1602,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmAplicarConceptos.resx">
       <DependentUpon>frmAplicarConceptos.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPlanes.resx">
+      <DependentUpon>frmPlanes.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmRazonesSociales.resx">
       <DependentUpon>frmRazonesSociales.vb</DependentUpon>

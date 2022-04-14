@@ -4322,4 +4322,9 @@ Pedidos:
         frmCheques.MdiParent = Me
         frmCheques.Show()
     End Sub
+
+    Private Sub PlanesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PlanesToolStripMenuItem.Click
+        frmPlanes.MdiParent = Me
+        frmPlanes.Show()
+    End Sub
 End Class
