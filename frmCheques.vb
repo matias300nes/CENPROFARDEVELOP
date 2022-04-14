@@ -11,10 +11,11 @@ Public Class frmCheques
         id = 0
         seleccion = 1
         PagueseA = 2
-        FechaEmision = 3
-        FechaPago = 4
-        Monto = 5
-        IdFarmacia = 6
+        FechaCreacion = 3
+        FechaEmision = 4
+        FechaPago = 5
+        Monto = 6
+        IdFarmacia = 7
     End Enum
 
 #End Region
@@ -24,6 +25,7 @@ Public Class frmCheques
         With grdCheques
             ''ocultar columnas
             .Columns(colsCheques.IdFarmacia).Visible = False
+            .Columns(colsCheques.id).Visible = False
 
             .Columns(colsCheques.Monto).DefaultCellStyle.Format = "c"
 
@@ -121,6 +123,109 @@ Public Class frmCheques
         lblSeleccionados.Text = cant.ToString + IIf(cant <> 1, " Seleccionados", " Seleccionado")
     End Sub
 
+    Public Function Money2Text(ByVal value As Double) As String
+        Dim intPart As Double = Math.Truncate(value)
+        Dim decPart As Double = Math.Round((value - intPart) * 100)
+        Dim word As String = Num2Text(intPart) + " CON " + Num2Text(decPart) + " CENTAVOS"
+        Return word
+    End Function
+
+    Public Function Num2Text(ByVal value As Double) As String
+
+        Select Case value
+            Case 0
+                Num2Text = "CERO"
+            Case 1
+                Num2Text = "UN"
+            Case 2
+                Num2Text = "DOS"
+            Case 3
+                Num2Text = "TRES"
+            Case 4
+                Num2Text = "CUATRO"
+            Case 5
+                Num2Text = "CINCO"
+            Case 6
+                Num2Text = "SEIS"
+            Case 7
+                Num2Text = "SIETE"
+            Case 8
+                Num2Text = "OCHO"
+            Case 9
+                Num2Text = "NUEVE"
+            Case 10
+                Num2Text = "DIEZ"
+            Case 11
+                Num2Text = "ONCE"
+            Case 12
+                Num2Text = "DOCE"
+            Case 13
+                Num2Text = "TRECE"
+            Case 14
+                Num2Text = "CATORCE"
+            Case 15
+                Num2Text = "QUINCE"
+            Case Is < 20
+                Num2Text = "DIECI" & Num2Text(value - 10)
+            Case 20
+                Num2Text = "VEINTE"
+            Case Is < 30
+                Num2Text = "VEINTI" & Num2Text(value - 20)
+            Case 30
+                Num2Text = "TREINTA"
+            Case 40
+                Num2Text = "CUARENTA"
+            Case 50
+                Num2Text = "CINCUENTA"
+            Case 60
+                Num2Text = "SESENTA"
+            Case 70
+                Num2Text = "SETENTA"
+            Case 80
+                Num2Text = "OCHENTA"
+            Case 90
+                Num2Text = "NOVENTA"
+            Case Is < 100
+                Num2Text = Num2Text(Int(value \ 10) * 10) & " Y " & Num2Text(value Mod 10)
+            Case 100
+                Num2Text = "CIEN"
+            Case Is < 200
+                Num2Text = "CIENTO " & Num2Text(value - 100)
+            Case 200, 300, 400, 600, 800
+                Num2Text = Num2Text(Int(value \ 100)) & "CIENTOS"
+            Case 500
+                Num2Text = "QUINIENTOS"
+            Case 700
+                Num2Text = "SETECIENTOS"
+            Case 900
+                Num2Text = "NOVECIENTOS"
+            Case Is < 1000
+                Num2Text = Num2Text(Int(value \ 100) * 100) & " " & Num2Text(value Mod 100)
+            Case 1000
+                Num2Text = "MIL"
+            Case Is < 2000
+                Num2Text = "MIL " & Num2Text(value Mod 1000)
+            Case Is < 1000000
+                Num2Text = Num2Text(Int(value \ 1000)) & " MIL"
+                If value Mod 1000 Then Num2Text = Num2Text & " " & Num2Text(value Mod 1000)
+            Case 1000000
+                Num2Text = "UN MILLON"
+            Case Is < 2000000
+                Num2Text = "UN MILLON " & Num2Text(value Mod 1000000)
+            Case Is < 1000000000000.0#
+                Num2Text = Num2Text(Int(value / 1000000)) & " MILLONES "
+                If (value - Int(value / 1000000) * 1000000) Then Num2Text = Num2Text & " " & Num2Text(value - Int(value / 1000000) * 1000000)
+            Case 1000000000000.0#
+                Num2Text = "UN BILLON"
+            Case Is < 2000000000000.0#
+                Num2Text = "UN BILLON " & Num2Text(value - Int(value / 1000000000000.0#) * 1000000000000.0#)
+            Case Else
+                Num2Text = Num2Text(Int(value / 1000000000000.0#)) & " BILLONES"
+                If (value - Int(value / 1000000000000.0#) * 1000000000000.0#) Then Num2Text = Num2Text & " " & Num2Text(value - Int(value / 1000000000000.0#) * 1000000000000.0#)
+        End Select
+
+    End Function
+
 #End Region
 
 #Region "Eventos"
@@ -129,7 +234,8 @@ Public Class frmCheques
         If txtID.Text <> "" Then
             setStyles()
         End If
-
+        dtpDesde.CustomFormat = "--/--/----"
+        dtpHasta.CustomFormat = "--/--/----"
     End Sub
 
     Private Sub grdCheques_SelectionChanged(sender As Object, e As EventArgs) Handles grdCheques.SelectionChanged
@@ -225,6 +331,38 @@ Public Class frmCheques
         Else
             MsgBox("Debe seleccionar al menos un cheque para poder imprimir.")
         End If
+    End Sub
+
+    Private Sub dtpDesde_ValueChanged(sender As Object, e As EventArgs) Handles dtpDesde.ValueChanged
+        dtpDesde.CustomFormat = "dd/MM/yyyy"
+        filtrarporfecha()
+    End Sub
+
+    Private Sub dtpHasta_ValueChanged(sender As Object, e As EventArgs) Handles dtpHasta.ValueChanged
+        dtpHasta.CustomFormat = "dd/MM/yyyy"
+        filtrarporfecha()
+    End Sub
+
+    Private Sub btnLimpiar_Click(sender As Object, e As EventArgs) Handles btnLimpiar.Click
+        dtpDesde.CustomFormat = "--/--/----"
+        dtpHasta.CustomFormat = "--/--/----"
+        txtBuscar.Text = ""
+        btnLimpiar.Visible = False
+        grdCheques.DataSource = dtCheques
+    End Sub
+
+    Private Sub filtrarporfecha()
+        ''buscador
+        If dtCheques IsNot Nothing And dtpDesde.CustomFormat = "dd/MM/yyyy" And dtpHasta.CustomFormat = "dd/MM/yyyy" Then
+            Dim dv As New DataView(dtCheques)
+            dv.RowFilter = $"
+                [{dtCheques.Columns(colsCheques.FechaCreacion).ColumnName}] >= '{dtpDesde.Value}'
+                AND [{dtCheques.Columns(colsCheques.FechaCreacion).ColumnName}] <= '{dtpHasta.Value}'
+            "
+            grdCheques.DataSource = dv
+            btnLimpiar.Visible = True
+        End If
+
     End Sub
 
 #End Region

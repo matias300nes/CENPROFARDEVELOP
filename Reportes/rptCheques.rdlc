@@ -11,7 +11,7 @@
           </TablixColumns>
           <TablixRows>
             <TablixRow>
-              <Height>7.6cm</Height>
+              <Height>7.65cm</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -24,24 +24,28 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>19 febrero</Value>
+                                  <Value>= Format(Fields!FechaEmision.Value, "dd MMMM")</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox1</rd:DefaultName>
-                          <Top>1.09091cm</Top>
-                          <Left>6.02723cm</Left>
+                          <Top>0.98046cm</Top>
+                          <Left>6.34473cm</Left>
                           <Height>0.6cm</Height>
-                          <Width>2.5cm</Width>
+                          <Width>3.66943cm</Width>
                           <Style>
                             <Border>
                               <Style>None</Style>
+                              <Width>0.5pt</Width>
                             </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -55,7 +59,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>2020</Value>
+                                  <Value>=Format(Fields!FechaEmision.Value,"yyyy")</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -65,15 +69,17 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox1</rd:DefaultName>
-                          <Top>1.09091cm</Top>
-                          <Left>11.43236cm</Left>
+                          <Top>0.98046cm</Top>
+                          <Left>11.53236cm</Left>
                           <Height>0.6cm</Height>
-                          <Width>2.5cm</Width>
+                          <Width>1.63992cm</Width>
                           <ZIndex>1</ZIndex>
                           <Style>
                             <Border>
                               <Style>None</Style>
+                              <Width>0.5pt</Width>
                             </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -87,25 +93,29 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>20</Value>
+                                  <Value>=Format(Fields!FechaPago.Value,"dd")</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox1</rd:DefaultName>
                           <Top>1.48046cm</Top>
-                          <Left>4.72667cm</Left>
+                          <Left>4.6738cm</Left>
                           <Height>0.6cm</Height>
                           <Width>0.976cm</Width>
                           <ZIndex>2</ZIndex>
                           <Style>
                             <Border>
                               <Style>None</Style>
+                              <Width>0.5pt</Width>
                             </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -119,25 +129,29 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>febrero</Value>
+                                  <Value>= format(Fields!FechaPago.Value, "MMMM")</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox1</rd:DefaultName>
                           <Top>1.48046cm</Top>
-                          <Left>5.83322cm</Left>
+                          <Left>6.16196cm</Left>
                           <Height>0.6cm</Height>
-                          <Width>2.5cm</Width>
+                          <Width>2.69401cm</Width>
                           <ZIndex>3</ZIndex>
                           <Style>
                             <Border>
                               <Style>None</Style>
+                              <Width>0.5pt</Width>
                             </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -151,25 +165,29 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>2020</Value>
+                                  <Value>=format(Fields!FechaPago.Value,"yyyy")</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox1</rd:DefaultName>
                           <Top>1.48046cm</Top>
-                          <Left>9.21747cm</Left>
+                          <Left>9.28766cm</Left>
                           <Height>0.6cm</Height>
                           <Width>2.5cm</Width>
                           <ZIndex>4</ZIndex>
                           <Style>
                             <Border>
                               <Style>None</Style>
+                              <Width>0.5pt</Width>
                             </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -187,19 +205,23 @@
                                   <Style />
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox1</rd:DefaultName>
                           <Top>0.67028cm</Top>
-                          <Left>14.29963cm</Left>
+                          <Left>14.39963cm</Left>
                           <Height>0.6cm</Height>
-                          <Width>2.5cm</Width>
+                          <Width>4.00564cm</Width>
                           <ZIndex>5</ZIndex>
                           <Style>
                             <Border>
                               <Style>None</Style>
+                              <Width>0.5pt</Width>
                             </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -207,7 +229,6 @@
                           </Style>
                         </Textbox>
                         <Textbox Name="Textbox15">
-                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -219,19 +240,22 @@
                                   </Style>
                                 </TextRun>
                               </TextRuns>
+                              <HangingIndent>1.6cm</HangingIndent>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox1</rd:DefaultName>
                           <Top>1.9673cm</Top>
-                          <Left>5.65563cm</Left>
-                          <Height>0.6cm</Height>
-                          <Width>6.16183cm</Width>
+                          <Left>4.43595cm</Left>
+                          <Height>0.93295cm</Height>
+                          <Width>9.49903cm</Width>
                           <ZIndex>6</ZIndex>
                           <Style>
                             <Border>
                               <Style>None</Style>
+                              <Width>0.5pt</Width>
                             </Border>
+                            <VerticalAlign>Top</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -239,31 +263,33 @@
                           </Style>
                         </Textbox>
                         <Textbox Name="Textbox16">
-                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>VEINTE MIL PESOS</Value>
+                                  <Value>=Code.Money2Text(Fields!Monto.Value)</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
+                              <HangingIndent>2.8cm</HangingIndent>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox1</rd:DefaultName>
                           <Top>2.90025cm</Top>
-                          <Left>7.02564cm</Left>
-                          <Height>0.6cm</Height>
-                          <Width>4.89183cm</Width>
+                          <Left>4.43595cm</Left>
+                          <Height>1.37475cm</Height>
+                          <Width>9.49903cm</Width>
                           <ZIndex>7</ZIndex>
                           <Style>
                             <Border>
                               <Style>None</Style>
+                              <Width>0.5pt</Width>
                             </Border>
+                            <VerticalAlign>Top</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -304,6 +330,7 @@
                       <Style>
                         <Border>
                           <Style>None</Style>
+                          <Width>0.5pt</Width>
                         </Border>
                       </Style>
                     </Rectangle>
@@ -327,7 +354,7 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DataSet1</DataSetName>
-        <Height>7.6cm</Height>
+        <Height>7.65cm</Height>
         <Width>20cm</Width>
         <Style>
           <Border>
@@ -336,12 +363,12 @@
         </Style>
       </Tablix>
     </ReportItems>
-    <Height>7.6cm</Height>
+    <Height>7.65cm</Height>
     <Style />
   </Body>
   <Width>20cm</Width>
   <Page>
-    <PageHeight>30.4cm</PageHeight>
+    <PageHeight>30.6cm</PageHeight>
     <PageWidth>20.4cm</PageWidth>
     <LeftMargin>0cm</LeftMargin>
     <RightMargin>0cm</RightMargin>
@@ -430,6 +457,109 @@
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>
+  <Code>    Public Function Money2Text(ByVal value As Double) As String
+        Dim intPart As Double = Math.Truncate(value)
+        Dim decPart As Double = Math.Round((value - intPart) * 100)
+        Dim word As String = Num2Text(intPart) + " CON " + Num2Text(decPart) + " CENTAVOS"
+        Return word
+    End Function
+
+
+    Public Function Num2Text(ByVal value As Double) As String
+
+        Select Case value
+            Case 0
+                Num2Text = "CERO"
+            Case 1
+                Num2Text = "UN"
+            Case 2
+                Num2Text = "DOS"
+            Case 3
+                Num2Text = "TRES"
+            Case 4
+                Num2Text = "CUATRO"
+            Case 5
+                Num2Text = "CINCO"
+            Case 6
+                Num2Text = "SEIS"
+            Case 7
+                Num2Text = "SIETE"
+            Case 8
+                Num2Text = "OCHO"
+            Case 9
+                Num2Text = "NUEVE"
+            Case 10
+                Num2Text = "DIEZ"
+            Case 11
+                Num2Text = "ONCE"
+            Case 12
+                Num2Text = "DOCE"
+            Case 13
+                Num2Text = "TRECE"
+            Case 14
+                Num2Text = "CATORCE"
+            Case 15
+                Num2Text = "QUINCE"
+            Case Is &lt; 20
+                Num2Text = "DIECI" &amp; Num2Text(value - 10)
+            Case 20
+                Num2Text = "VEINTE"
+            Case Is &lt; 30
+                Num2Text = "VEINTI" &amp; Num2Text(value - 20)
+            Case 30
+                Num2Text = "TREINTA"
+            Case 40
+                Num2Text = "CUARENTA"
+            Case 50
+                Num2Text = "CINCUENTA"
+            Case 60
+                Num2Text = "SESENTA"
+            Case 70
+                Num2Text = "SETENTA"
+            Case 80
+                Num2Text = "OCHENTA"
+            Case 90
+                Num2Text = "NOVENTA"
+            Case Is &lt; 100
+                Num2Text = Num2Text(Int(value \ 10) * 10) &amp; " Y " &amp; Num2Text(value Mod 10)
+            Case 100
+                Num2Text = "CIEN"
+            Case Is &lt; 200
+                Num2Text = "CIENTO " &amp; Num2Text(value - 100)
+            Case 200, 300, 400, 600, 800
+                Num2Text = Num2Text(Int(value \ 100)) &amp; "CIENTOS"
+            Case 500
+                Num2Text = "QUINIENTOS"
+            Case 700
+                Num2Text = "SETECIENTOS"
+            Case 900
+                Num2Text = "NOVECIENTOS"
+            Case Is &lt; 1000
+                Num2Text = Num2Text(Int(value \ 100) * 100) &amp; " " &amp; Num2Text(value Mod 100)
+            Case 1000
+                Num2Text = "MIL"
+            Case Is &lt; 2000
+                Num2Text = "MIL " &amp; Num2Text(value Mod 1000)
+            Case Is &lt; 1000000
+                Num2Text = Num2Text(Int(value \ 1000)) &amp; " MIL"
+                If value Mod 1000 Then Num2Text = Num2Text &amp; " " &amp; Num2Text(value Mod 1000)
+            Case 1000000
+                Num2Text = "UN MILLON"
+            Case Is &lt; 2000000
+                Num2Text = "UN MILLON " &amp; Num2Text(value Mod 1000000)
+            Case Is &lt; 1000000000000.0#
+                Num2Text = Num2Text(Int(value / 1000000)) &amp; " MILLONES "
+                If (value - Int(value / 1000000) * 1000000) Then Num2Text = Num2Text &amp; " " &amp; Num2Text(value - Int(value / 1000000) * 1000000)
+            Case 1000000000000.0#
+                Num2Text = "UN BILLON"
+            Case Is &lt; 2000000000000.0#
+                Num2Text = "UN BILLON " &amp; Num2Text(value - Int(value / 1000000000000.0#) * 1000000000000.0#)
+            Case Else
+                Num2Text = Num2Text(Int(value / 1000000000000.0#)) &amp; " BILLONES"
+                If (value - Int(value / 1000000000000.0#) * 1000000000000.0#) Then Num2Text = Num2Text &amp; " " &amp; Num2Text(value - Int(value / 1000000000000.0#) * 1000000000000.0#)
+        End Select
+
+    End Function</Code>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>f6003713-8ea9-4ef8-bdce-60c3977e99d9</rd:ReportID>
 </Report>
