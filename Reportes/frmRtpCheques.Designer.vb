@@ -24,25 +24,31 @@ Partial Class frmRtpCheques
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim ReportDataSource1 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
-        Me.spRPT_PresentacionBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmRtpCheques))
+        Me.PagosBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.dsSistema = New CENPROFAR.dsSistema()
+        Me.spRPT_PresentacionBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.spRPT_PresentacionTableAdapter = New CENPROFAR.dsSistemaTableAdapters.spRPT_PresentacionTableAdapter()
         Me.ReportViewer1 = New Microsoft.Reporting.WinForms.ReportViewer()
-        Me.PagosBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        CType(Me.spRPT_PresentacionBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.dsSistema, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PagosBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dsSistema, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.spRPT_PresentacionBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'spRPT_PresentacionBindingSource
+        'PagosBindingSource
         '
-        Me.spRPT_PresentacionBindingSource.DataMember = "spRPT_Presentacion"
-        Me.spRPT_PresentacionBindingSource.DataSource = Me.dsSistema
+        Me.PagosBindingSource.DataMember = "Pagos"
+        Me.PagosBindingSource.DataSource = Me.dsSistema
         '
         'dsSistema
         '
         Me.dsSistema.DataSetName = "dsSistema"
         Me.dsSistema.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        '
+        'spRPT_PresentacionBindingSource
+        '
+        Me.spRPT_PresentacionBindingSource.DataMember = "spRPT_Presentacion"
+        Me.spRPT_PresentacionBindingSource.DataSource = Me.dsSistema
         '
         'spRPT_PresentacionTableAdapter
         '
@@ -56,29 +62,26 @@ Partial Class frmRtpCheques
         Me.ReportViewer1.LocalReport.DataSources.Add(ReportDataSource1)
         Me.ReportViewer1.LocalReport.ReportEmbeddedResource = "CENPROFAR.rptCheques.rdlc"
         Me.ReportViewer1.Location = New System.Drawing.Point(0, 0)
-        Me.ReportViewer1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.ReportViewer1.Margin = New System.Windows.Forms.Padding(2)
         Me.ReportViewer1.Name = "ReportViewer1"
         Me.ReportViewer1.ServerReport.BearerToken = Nothing
-        Me.ReportViewer1.Size = New System.Drawing.Size(600, 366)
+        Me.ReportViewer1.Size = New System.Drawing.Size(694, 385)
         Me.ReportViewer1.TabIndex = 0
-        '
-        'PagosBindingSource
-        '
-        Me.PagosBindingSource.DataMember = "Pagos"
-        Me.PagosBindingSource.DataSource = Me.dsSistema
         '
         'frmRtpCheques
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(600, 366)
+        Me.ClientSize = New System.Drawing.Size(694, 385)
         Me.Controls.Add(Me.ReportViewer1)
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "frmRtpCheques"
-        Me.Text = "frmRtpCheques"
-        CType(Me.spRPT_PresentacionBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.dsSistema, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
+        Me.Text = "Imprimir cheques"
         CType(Me.PagosBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dsSistema, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.spRPT_PresentacionBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub

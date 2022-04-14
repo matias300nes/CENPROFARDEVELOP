@@ -11,10 +11,11 @@ Public Class frmCheques
         id = 0
         seleccion = 1
         PagueseA = 2
-        FechaEmision = 3
-        FechaPago = 4
-        Monto = 5
-        IdFarmacia = 6
+        FechaCreacion = 3
+        FechaEmision = 4
+        FechaPago = 5
+        Monto = 6
+        IdFarmacia = 7
     End Enum
 
 #End Region
@@ -24,6 +25,7 @@ Public Class frmCheques
         With grdCheques
             ''ocultar columnas
             .Columns(colsCheques.IdFarmacia).Visible = False
+            .Columns(colsCheques.id).Visible = False
 
             .Columns(colsCheques.Monto).DefaultCellStyle.Format = "c"
 
@@ -232,7 +234,8 @@ Public Class frmCheques
         If txtID.Text <> "" Then
             setStyles()
         End If
-
+        dtpDesde.CustomFormat = "--/--/----"
+        dtpHasta.CustomFormat = "--/--/----"
     End Sub
 
     Private Sub grdCheques_SelectionChanged(sender As Object, e As EventArgs) Handles grdCheques.SelectionChanged
@@ -328,6 +331,38 @@ Public Class frmCheques
         Else
             MsgBox("Debe seleccionar al menos un cheque para poder imprimir.")
         End If
+    End Sub
+
+    Private Sub dtpDesde_ValueChanged(sender As Object, e As EventArgs) Handles dtpDesde.ValueChanged
+        dtpDesde.CustomFormat = "dd/MM/yyyy"
+        filtrarporfecha()
+    End Sub
+
+    Private Sub dtpHasta_ValueChanged(sender As Object, e As EventArgs) Handles dtpHasta.ValueChanged
+        dtpHasta.CustomFormat = "dd/MM/yyyy"
+        filtrarporfecha()
+    End Sub
+
+    Private Sub btnLimpiar_Click(sender As Object, e As EventArgs) Handles btnLimpiar.Click
+        dtpDesde.CustomFormat = "--/--/----"
+        dtpHasta.CustomFormat = "--/--/----"
+        txtBuscar.Text = ""
+        btnLimpiar.Visible = False
+        grdCheques.DataSource = dtCheques
+    End Sub
+
+    Private Sub filtrarporfecha()
+        ''buscador
+        If dtCheques IsNot Nothing And dtpDesde.CustomFormat = "dd/MM/yyyy" And dtpHasta.CustomFormat = "dd/MM/yyyy" Then
+            Dim dv As New DataView(dtCheques)
+            dv.RowFilter = $"
+                [{dtCheques.Columns(colsCheques.FechaCreacion).ColumnName}] >= '{dtpDesde.Value}'
+                AND [{dtCheques.Columns(colsCheques.FechaCreacion).ColumnName}] <= '{dtpHasta.Value}'
+            "
+            grdCheques.DataSource = dv
+            btnLimpiar.Visible = True
+        End If
+
     End Sub
 
 #End Region
