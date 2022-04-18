@@ -445,7 +445,7 @@ Partial Class frmObraSocial
         Me.nudBonificacion.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.nudBonificacion.DecimalPlaces = 2
         Me.nudBonificacion.Increment = New Decimal(New Integer() {1, 0, 0, 131072})
-        Me.nudBonificacion.Location = New System.Drawing.Point(132, 247)
+        Me.nudBonificacion.Location = New System.Drawing.Point(27, 268)
         Me.nudBonificacion.Margin = New System.Windows.Forms.Padding(4)
         Me.nudBonificacion.Maximum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.nudBonificacion.Name = "nudBonificacion"
