@@ -316,6 +316,12 @@
     <Compile Include="frmSelectObraSocial.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmSelectPlan.Designer.vb">
+      <DependentUpon>frmSelectPlan.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmSelectPlan.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmSelectProfesional.Designer.vb">
       <DependentUpon>frmSelectProfesional.vb</DependentUpon>
     </Compile>
@@ -1662,6 +1668,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmSelectObraSocial.resx">
       <DependentUpon>frmSelectObraSocial.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSelectPlan.resx">
+      <DependentUpon>frmSelectPlan.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSelectProfesional.resx">
       <DependentUpon>frmSelectProfesional.vb</DependentUpon>

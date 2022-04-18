@@ -13,6 +13,14 @@ Public Class frmObraSocial
     Dim llenandoCombo As Boolean
 
 #Region "Enum"
+
+    Enum ColumnasDelGrdPlanesPanel
+        Id = 0
+        Codigo = 1
+        Nombre = 2
+        Porcentaje = 3
+    End Enum
+
     Enum ObrasSocialesCols
         ID = 0
         Codigo = 1
@@ -92,6 +100,10 @@ Public Class frmObraSocial
         Else
             btnActivar.Enabled = chkEliminados.Checked
         End If
+    End Sub
+
+    Private Overloads Sub grd_CurrentCellChanged(ByVal sender As Object, ByVal e As System.EventArgs) 'Handles grd.CurrentCellChanged 'comentar
+        LlenargrdPlanesPanel()
     End Sub
 
 #End Region
@@ -485,6 +497,11 @@ Public Class frmObraSocial
                     txtID.Text = param_id.Value
                     codigo = param_codigo.Value
 
+
+                    If param_res.Value = 1 Then
+                        AgregarRelacionPlan_ObraSocial()
+                    End If
+
                     AgregarRegistro = param_res.Value
 
 
@@ -617,7 +634,9 @@ Public Class frmObraSocial
                                               param_descripcion, param_domicilio, param_localidad, param_bonificacion, param_res)
 
                 ActualizarRegistro = param_res.Value
-
+                If param_res.Value = 1 Then
+                    AgregarRelacionPlan_ObraSocial()
+                End If
 
             Catch ex As Exception
                 Dim errMessage As String = ""
@@ -734,6 +753,12 @@ Public Class frmObraSocial
             .Columns(ObrasSocialesCols.Bonificacion).Visible = False
 
             .AutoResizeColumns()
+        End With
+
+        With grdPlanesPanel
+            .Columns(ColumnasDelGrdPlanesPanel.Id).Visible = False
+
+            '.AutoResizeColumns()
         End With
 
     End Sub
@@ -911,6 +936,215 @@ Public Class frmObraSocial
             End If
 
         End If
+    End Sub
+
+    Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
+        Dim cargarPlanes As New frmSelectPlan
+        cargarPlanes.ShowDialog()
+    End Sub
+
+    Private Sub LlenargrdPlanesPanel()
+        grdPlanesPanel.Rows.Clear()
+
+        Dim connection As SqlClient.SqlConnection = Nothing
+        Dim query_OsPlan As String
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+        Catch ex As Exception
+            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End Try
+
+        Try
+            Dim dt As New DataTable
+
+            If txtID.Text = "" Then
+                query_OsPlan = "exec spObrasSociales_Planes_Select_By_IDObraSocial @IdObraSocial = '1'"
+            Else
+                query_OsPlan = "exec spObrasSociales_Planes_Select_By_IDObraSocial @IdObraSocial = " & txtID.Text & ""
+            End If
+
+            Dim cmd As New SqlCommand(query_OsPlan, connection)
+            Dim da As New SqlDataAdapter(cmd)
+            Dim i As Integer
+
+            da.Fill(dt)
+
+            For i = 0 To dt.Rows.Count - 1
+                grdPlanesPanel.Rows.Add(
+                    dt.Rows(i)(ColumnasDelGrdPlanesPanel.Id).ToString(),
+                    dt.Rows(i)(ColumnasDelGrdPlanesPanel.Codigo).ToString(),
+                    dt.Rows(i)(ColumnasDelGrdPlanesPanel.Nombre).ToString(),
+                    dt.Rows(i)(ColumnasDelGrdPlanesPanel.Porcentaje).ToString())
+            Next
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        Finally
+            If Not connection Is Nothing Then
+                CType(connection, IDisposable).Dispose()
+            End If
+        End Try
+
+    End Sub
+
+
+    Private Sub EliminarRelacionPlan_ObraSocial()
+        Dim connection As SqlClient.SqlConnection = Nothing
+        Dim ds_coincidencia As Data.DataSet
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+        Catch ex As Exception
+            MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End Try
+
+        Try
+            Dim result As DialogResult = MessageBox.Show($"Está a punto de eliminar el plan {grdPlanesPanel.CurrentRow.Cells(ColumnasDelGrdPlanesPanel.Nombre).Value}
+¿Está seguro que desea continuar?",
+                                  "Eliminar",
+                                  MessageBoxButtons.YesNo)
+
+            If result = DialogResult.Yes Then
+                If grdPlanesPanel.CurrentRow IsNot Nothing Then
+                    ds_coincidencia = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT IdObraSocial, IdPlan FROM ObrasSociales_Planes WHERE idPlan = {grdPlanesPanel.CurrentRow.Cells(ColumnasDelGrdPlanesPanel.Id).Value} AND IdObraSocial = {txtID.Text}") 'revisar
+                    If ds_coincidencia.Tables(0).Rows.Count = 1 Then 'si encuentro esa relacion
+                        Dim param_idPlan As New SqlClient.SqlParameter
+                        param_idPlan.ParameterName = "@idPlan"
+                        param_idPlan.SqlDbType = SqlDbType.BigInt
+                        param_idPlan.Value = grdPlanesPanel.CurrentRow.Cells(ColumnasDelGrdPlanesPanel.Id).Value
+                        param_idPlan.Direction = ParameterDirection.Input
+
+                        Dim param_idObraSocial As New SqlClient.SqlParameter
+                        param_idObraSocial.ParameterName = "@idObraSocial"
+                        param_idObraSocial.SqlDbType = SqlDbType.BigInt
+                        param_idObraSocial.Value = txtID.Text
+                        param_idObraSocial.Direction = ParameterDirection.InputOutput
+
+                        Dim param_res As New SqlClient.SqlParameter
+                        param_res.ParameterName = "@res"
+                        param_res.SqlDbType = SqlDbType.Int
+                        param_res.Value = DBNull.Value
+                        param_res.Direction = ParameterDirection.Output
+
+                        Try
+                            'elimino la relacion en la base de datos
+                            ds_coincidencia.Dispose()
+                            SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spObrasSociales_Planes_Delete", param_idObraSocial, param_idPlan, param_res)
+                            Dim res = param_res.Value
+                            'elimino el item del gridview si antes se eliminó la relacion
+                            If res = 1 Then
+                                grdPlanesPanel.Rows.Remove(grdPlanesPanel.CurrentRow)
+                            End If
+                        Catch ex As Exception
+                            Throw ex
+                        End Try
+                    Else
+                        ds_coincidencia.Dispose()
+
+                    End If
+                End If
+            Else
+                Exit Sub
+            End If
+
+
+
+
+
+
+
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+          + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+          "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        Finally
+            If Not connection Is Nothing Then
+                CType(connection, IDisposable).Dispose()
+            End If
+        End Try
+    End Sub
+
+    Private Sub AgregarRelacionPlan_ObraSocial()
+
+        Dim connection As SqlClient.SqlConnection = Nothing
+        Dim ds_coincidencia As Data.DataSet
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+        Catch ex As Exception
+            MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End Try
+
+        'ds = SqlHelper.ExecuteDataset(conn_del_form, CommandType.Text, "select NombreEmpresaFactura, ModoPagoPredefinido, CUIT, HOMO, TA, PTOVTA, ISNULL(CorreoContador,''), ISNULL(TicketAcceso,''), ISNULL(Token,''), ISNULL(Sign,'')  from parametros")
+
+        'ds.Dispose()
+
+        Try
+            For Each Row As DataGridViewRow In grdPlanesPanel.Rows
+                If Row IsNot Nothing Then
+                    ds_coincidencia = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT idObraSocial, IdPlan FROM ObrasSociales_Planes WHERE idPlan = {Row.Cells(ColumnasDelGrdPlanesPanel.Id).Value} AND idObraSocial = {txtID.Text}")
+                    If ds_coincidencia.Tables(0).Rows.Count <> 1 Then
+                        Dim param_idPlan As New SqlClient.SqlParameter
+                        param_idPlan.ParameterName = "@idPlan"
+                        param_idPlan.SqlDbType = SqlDbType.BigInt
+                        param_idPlan.Value = Row.Cells(ColumnasDelGrdPlanesPanel.Id).Value
+                        param_idPlan.Direction = ParameterDirection.Input
+
+                        Dim param_idObraSocial As New SqlClient.SqlParameter
+                        param_idObraSocial.ParameterName = "@idObraSocial"
+                        param_idObraSocial.SqlDbType = SqlDbType.BigInt
+                        param_idObraSocial.Value = txtID.Text
+                        param_idObraSocial.Direction = ParameterDirection.InputOutput
+
+                        Try
+                            ds_coincidencia.Dispose()
+                            SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spObrasSociales_Planes_Insert", param_idObraSocial, param_idPlan)
+                        Catch ex As Exception
+                            Throw ex
+                        End Try
+                    Else
+                        ds_coincidencia.Dispose()
+                        Continue For
+                    End If
+                End If
+            Next
+
+
+
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+          + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+          "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        Finally
+            If Not connection Is Nothing Then
+                CType(connection, IDisposable).Dispose()
+            End If
+        End Try
+
+
+    End Sub
+
+    Private Sub btnEliminarPanel_Click(sender As Object, e As EventArgs) Handles btnEliminarPanel.Click
+        EliminarRelacionPlan_ObraSocial()
     End Sub
 
 
