@@ -88,16 +88,21 @@ Public Class frmAgregarPagos
 
         cmbTipoPago.DataSource = {"Cheque", "Transferencia", "Echeq"}
 
+        txtImporte.Enabled = False
+        cmbFarmacia.Enabled = False
+        cmbTipoPago.Enabled = False
+        btnAgregar.Enabled = False
+
 
         Dim saldototal As Decimal = 0
         For Each farmacia As DataRow In farmacias.Rows
             If farmacia(FarmaciaCols.Saldo) > 0 Then
-                Dim newRow As DataRow = dt.NewRow
-                newRow(gridColumns.razonSocial) = farmacia(FarmaciaCols.RazonSocial)
-                newRow(gridColumns.farmacia) = farmacia(FarmaciaCols.Nombre)
-                newRow(gridColumns.tipoPago) = farmacia(FarmaciaCols.PreferenciaPago)
-                newRow(gridColumns.importe) = Decimal.Parse(farmacia(FarmaciaCols.Saldo))
-                dt.Rows.Add(newRow)
+                'Dim newRow As DataRow = dt.NewRow
+                'newRow(gridColumns.razonSocial) = farmacia(FarmaciaCols.RazonSocial)
+                'newRow(gridColumns.farmacia) = farmacia(FarmaciaCols.Nombre)
+                'newRow(gridColumns.tipoPago) = farmacia(FarmaciaCols.PreferenciaPago)
+                'newRow(gridColumns.importe) = Decimal.Parse(farmacia(FarmaciaCols.Saldo))
+                'dt.Rows.Add(newRow)
                 saldototal += Decimal.Parse(farmacia(FarmaciaCols.Saldo))
             End If
         Next
@@ -109,7 +114,6 @@ Public Class frmAgregarPagos
             lblRazonSocial.Text = $"{Me.farmacias.Rows(0)(FarmaciaCols.RazonSocial)} - {Me.farmacias.Rows(0)(FarmaciaCols.Nombre)}"
             lblSaldoActual.Text = String.Format("{0:C}", Me.farmacias.Rows(0)(FarmaciaCols.Saldo))
             grdPagos.Columns(gridColumns.razonSocial).Visible = False
-            cmbFarmacia.Enabled = False
         End If
 
         CalcularTotal()
@@ -417,4 +421,35 @@ Public Class frmAgregarPagos
         lblSaldoIndividual.Text = String.Format("{0:C}", saldo)
     End Sub
 
+    Private Sub btnAplicar_Click(sender As Object, e As EventArgs) Handles btnAplicar.Click
+        If txtSerieCheque.Text = "" Or txtNroCheque.Text = "" Then
+            MessageBox.Show("Los campos 'Serie' y 'Numero' de primer cheque son obligatorios",
+              "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End If
+
+        ''bloqueo la configuracion del primer cheque
+        txtNroCheque.Enabled = False
+        txtSerieCheque.Enabled = False
+        btnAplicar.Enabled = False
+
+        ''Activo el formulario para agregar
+        txtImporte.Enabled = True
+        cmbFarmacia.Enabled = IIf(farmacias.Rows.Count > 1, True, False)
+        cmbTipoPago.Enabled = True
+        btnAgregar.Enabled = True
+
+        ''Recomiendo pagos segun el saldo
+        For Each farmacia As DataRow In farmacias.Rows
+            If farmacia(FarmaciaCols.Saldo) > 0 Then
+                Dim newRow As DataRow = dt.NewRow
+                newRow(gridColumns.razonSocial) = farmacia(FarmaciaCols.RazonSocial)
+                newRow(gridColumns.farmacia) = farmacia(FarmaciaCols.Nombre)
+                newRow(gridColumns.tipoPago) = farmacia(FarmaciaCols.PreferenciaPago)
+                newRow(gridColumns.importe) = Decimal.Parse(farmacia(FarmaciaCols.Saldo))
+                dt.Rows.Add(newRow)
+            End If
+        Next
+        CalcularTotal()
+    End Sub
 End Class

@@ -7,12 +7,13 @@ Public Class frmRtpCheques
     Enum colsCheques
         id = 0
         seleccion = 1
-        PagueseA = 2
-        FechaCreacion = 3
-        FechaEmision = 4
-        FechaPago = 5
-        Monto = 6
-        IdFarmacia = 7
+        NroCheque = 2
+        PagueseA = 3
+        FechaCreacion = 4
+        FechaEmision = 5
+        FechaPago = 6
+        Monto = 7
+        IdFarmacia = 8
     End Enum
     Dim Cheques As DataTable
     Public Sub New(Cheques As DataTable)

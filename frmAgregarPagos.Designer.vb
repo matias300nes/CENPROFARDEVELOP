@@ -42,11 +42,18 @@ Partial Class frmAgregarPagos
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.btnListo = New DevComponents.DotNetBar.ButtonX()
+        Me.txtNroCheque = New System.Windows.Forms.TextBox()
+        Me.btnAplicar = New DevComponents.DotNetBar.ButtonX()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.txtSerieCheque = New System.Windows.Forms.TextBox()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.TableLayoutPanel2.SuspendLayout()
         CType(Me.grdPagos, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pControls.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
         '
         'TableLayoutPanel1
@@ -58,29 +65,28 @@ Partial Class frmAgregarPagos
         Me.TableLayoutPanel1.Controls.Add(Me.btnListo, 0, 2)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
-        Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 3
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 86.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 59.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(873, 442)
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 48.0!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(658, 390)
         Me.TableLayoutPanel1.TabIndex = 4
         '
         'TableLayoutPanel2
         '
         Me.TableLayoutPanel2.ColumnCount = 2
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 235.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 176.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel2.Controls.Add(Me.grdPagos, 1, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.pControls, 0, 0)
         Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel2.Location = New System.Drawing.Point(4, 90)
-        Me.TableLayoutPanel2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.TableLayoutPanel2.Location = New System.Drawing.Point(3, 103)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 1
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(865, 289)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(652, 236)
         Me.TableLayoutPanel2.TabIndex = 10
         '
         'grdPagos
@@ -91,15 +97,15 @@ Partial Class frmAgregarPagos
         Me.grdPagos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.grdPagos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.grdPagos.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.grdPagos.Location = New System.Drawing.Point(239, 4)
-        Me.grdPagos.Margin = New System.Windows.Forms.Padding(4, 4, 13, 4)
+        Me.grdPagos.Location = New System.Drawing.Point(179, 3)
+        Me.grdPagos.Margin = New System.Windows.Forms.Padding(3, 3, 10, 3)
         Me.grdPagos.MultiSelect = False
         Me.grdPagos.Name = "grdPagos"
         Me.grdPagos.ReadOnly = True
         Me.grdPagos.RowHeadersVisible = False
         Me.grdPagos.RowHeadersWidth = 51
         Me.grdPagos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.grdPagos.Size = New System.Drawing.Size(613, 281)
+        Me.grdPagos.Size = New System.Drawing.Size(463, 230)
         Me.grdPagos.TabIndex = 5
         '
         'pControls
@@ -114,20 +120,18 @@ Partial Class frmAgregarPagos
         Me.pControls.Controls.Add(Me.cmbTipoPago)
         Me.pControls.Controls.Add(Me.Label6)
         Me.pControls.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pControls.Location = New System.Drawing.Point(4, 4)
-        Me.pControls.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.pControls.Location = New System.Drawing.Point(3, 3)
         Me.pControls.Name = "pControls"
-        Me.pControls.Size = New System.Drawing.Size(227, 281)
+        Me.pControls.Size = New System.Drawing.Size(170, 230)
         Me.pControls.TabIndex = 1
         '
         'lblSaldoIndividual
         '
         Me.lblSaldoIndividual.AutoSize = True
         Me.lblSaldoIndividual.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.lblSaldoIndividual.Location = New System.Drawing.Point(75, 68)
-        Me.lblSaldoIndividual.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblSaldoIndividual.Location = New System.Drawing.Point(56, 55)
         Me.lblSaldoIndividual.Name = "lblSaldoIndividual"
-        Me.lblSaldoIndividual.Size = New System.Drawing.Size(50, 17)
+        Me.lblSaldoIndividual.Size = New System.Drawing.Size(38, 13)
         Me.lblSaldoIndividual.TabIndex = 14
         Me.lblSaldoIndividual.Text = "[saldo]"
         '
@@ -135,10 +139,9 @@ Partial Class frmAgregarPagos
         '
         Me.label4.AutoSize = True
         Me.label4.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.label4.Location = New System.Drawing.Point(24, 68)
-        Me.label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.label4.Location = New System.Drawing.Point(18, 55)
         Me.label4.Name = "label4"
-        Me.label4.Size = New System.Drawing.Size(48, 17)
+        Me.label4.Size = New System.Drawing.Size(37, 13)
         Me.label4.TabIndex = 13
         Me.label4.Text = "Saldo:"
         '
@@ -150,20 +153,19 @@ Partial Class frmAgregarPagos
         Me.cmbFarmacia.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
         Me.cmbFarmacia.FormattingEnabled = True
         Me.cmbFarmacia.ItemHeight = 14
-        Me.cmbFarmacia.Location = New System.Drawing.Point(24, 41)
-        Me.cmbFarmacia.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.cmbFarmacia.Location = New System.Drawing.Point(18, 33)
+        Me.cmbFarmacia.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.cmbFarmacia.Name = "cmbFarmacia"
-        Me.cmbFarmacia.Size = New System.Drawing.Size(179, 20)
+        Me.cmbFarmacia.Size = New System.Drawing.Size(135, 20)
         Me.cmbFarmacia.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.cmbFarmacia.TabIndex = 0
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(20, 20)
-        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label3.Location = New System.Drawing.Point(15, 16)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(66, 17)
+        Me.Label3.Size = New System.Drawing.Size(50, 13)
         Me.Label3.TabIndex = 12
         Me.Label3.Text = "Farmacia"
         '
@@ -174,11 +176,10 @@ Partial Class frmAgregarPagos
         Me.txtImporte.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtImporte.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtImporte.Format = TextBoxConFormatoVB.tbFormats.UnsignedFloatingPointNumber
-        Me.txtImporte.Location = New System.Drawing.Point(24, 185)
-        Me.txtImporte.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtImporte.Location = New System.Drawing.Point(18, 150)
         Me.txtImporte.MaxLength = 15
         Me.txtImporte.Name = "txtImporte"
-        Me.txtImporte.Size = New System.Drawing.Size(179, 23)
+        Me.txtImporte.Size = New System.Drawing.Size(135, 20)
         Me.txtImporte.TabIndex = 2
         Me.txtImporte.Text_1 = Nothing
         Me.txtImporte.Text_2 = Nothing
@@ -190,10 +191,9 @@ Partial Class frmAgregarPagos
         '
         Me.btnAgregar.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
         Me.btnAgregar.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.btnAgregar.Location = New System.Drawing.Point(68, 238)
-        Me.btnAgregar.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnAgregar.Location = New System.Drawing.Point(51, 193)
         Me.btnAgregar.Name = "btnAgregar"
-        Me.btnAgregar.Size = New System.Drawing.Size(91, 25)
+        Me.btnAgregar.Size = New System.Drawing.Size(68, 20)
         Me.btnAgregar.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnAgregar.TabIndex = 3
         Me.btnAgregar.Text = "Agregar"
@@ -201,10 +201,9 @@ Partial Class frmAgregarPagos
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(23, 165)
-        Me.Label7.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label7.Location = New System.Drawing.Point(17, 134)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(55, 17)
+        Me.Label7.Size = New System.Drawing.Size(42, 13)
         Me.Label7.TabIndex = 9
         Me.Label7.Text = "Importe"
         '
@@ -215,36 +214,35 @@ Partial Class frmAgregarPagos
         Me.cmbTipoPago.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbTipoPago.FormattingEnabled = True
         Me.cmbTipoPago.ItemHeight = 14
-        Me.cmbTipoPago.Location = New System.Drawing.Point(24, 117)
-        Me.cmbTipoPago.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.cmbTipoPago.Location = New System.Drawing.Point(18, 95)
         Me.cmbTipoPago.Name = "cmbTipoPago"
-        Me.cmbTipoPago.Size = New System.Drawing.Size(179, 20)
+        Me.cmbTipoPago.Size = New System.Drawing.Size(135, 20)
         Me.cmbTipoPago.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.cmbTipoPago.TabIndex = 1
         '
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(20, 97)
-        Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label6.Location = New System.Drawing.Point(15, 79)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(92, 17)
+        Me.Label6.Size = New System.Drawing.Size(70, 13)
         Me.Label6.TabIndex = 6
         Me.Label6.Text = "Tipo de pago"
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.GroupBox2)
         Me.GroupBox1.Controls.Add(Me.lblRazonSocial)
         Me.GroupBox1.Controls.Add(Me.lblSaldoCubierto)
         Me.GroupBox1.Controls.Add(Me.lblSaldoActual)
         Me.GroupBox1.Controls.Add(Me.Label2)
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GroupBox1.Location = New System.Drawing.Point(3, 2)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.GroupBox1.Location = New System.Drawing.Point(2, 2)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.GroupBox1.Size = New System.Drawing.Size(867, 82)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.GroupBox1.Size = New System.Drawing.Size(654, 96)
         Me.GroupBox1.TabIndex = 4
         Me.GroupBox1.TabStop = False
         '
@@ -252,58 +250,49 @@ Partial Class frmAgregarPagos
         '
         Me.lblRazonSocial.AutoSize = True
         Me.lblRazonSocial.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblRazonSocial.Location = New System.Drawing.Point(13, 20)
-        Me.lblRazonSocial.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblRazonSocial.Location = New System.Drawing.Point(10, 16)
         Me.lblRazonSocial.Name = "lblRazonSocial"
-        Me.lblRazonSocial.Size = New System.Drawing.Size(106, 20)
+        Me.lblRazonSocial.Size = New System.Drawing.Size(86, 16)
         Me.lblRazonSocial.TabIndex = 6
         Me.lblRazonSocial.Text = "Razon social"
         '
         'lblSaldoCubierto
         '
-        Me.lblSaldoCubierto.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblSaldoCubierto.AutoSize = True
         Me.lblSaldoCubierto.CausesValidation = False
-        Me.lblSaldoCubierto.Location = New System.Drawing.Point(618, 49)
-        Me.lblSaldoCubierto.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblSaldoCubierto.Location = New System.Drawing.Point(100, 66)
         Me.lblSaldoCubierto.Name = "lblSaldoCubierto"
-        Me.lblSaldoCubierto.Size = New System.Drawing.Size(28, 17)
+        Me.lblSaldoCubierto.Size = New System.Drawing.Size(22, 13)
         Me.lblSaldoCubierto.TabIndex = 4
         Me.lblSaldoCubierto.Text = "$ 0"
         Me.lblSaldoCubierto.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'lblSaldoActual
         '
-        Me.lblSaldoActual.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblSaldoActual.AutoSize = True
-        Me.lblSaldoActual.Location = New System.Drawing.Point(598, 23)
-        Me.lblSaldoActual.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblSaldoActual.Location = New System.Drawing.Point(84, 45)
         Me.lblSaldoActual.Name = "lblSaldoActual"
-        Me.lblSaldoActual.Size = New System.Drawing.Size(28, 17)
+        Me.lblSaldoActual.Size = New System.Drawing.Size(22, 13)
         Me.lblSaldoActual.TabIndex = 3
         Me.lblSaldoActual.Text = "$ 0"
         Me.lblSaldoActual.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'Label2
         '
-        Me.Label2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(514, 49)
-        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label2.Location = New System.Drawing.Point(22, 66)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(103, 17)
+        Me.Label2.Size = New System.Drawing.Size(78, 13)
         Me.Label2.TabIndex = 2
         Me.Label2.Text = "Saldo cubierto:"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'Label1
         '
-        Me.Label1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(514, 22)
-        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label1.Location = New System.Drawing.Point(22, 44)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(79, 17)
+        Me.Label1.Size = New System.Drawing.Size(60, 13)
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "Saldo total:"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.TopRight
@@ -313,21 +302,80 @@ Partial Class frmAgregarPagos
         Me.btnListo.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
         Me.btnListo.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.btnListo.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.btnListo.Location = New System.Drawing.Point(377, 398)
-        Me.btnListo.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnListo.Location = New System.Drawing.Point(284, 354)
         Me.btnListo.Name = "btnListo"
-        Me.btnListo.Size = New System.Drawing.Size(119, 28)
+        Me.btnListo.Size = New System.Drawing.Size(89, 23)
         Me.btnListo.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnListo.TabIndex = 4
         Me.btnListo.Text = "Generar"
         '
+        'txtNroCheque
+        '
+        Me.txtNroCheque.Location = New System.Drawing.Point(54, 40)
+        Me.txtNroCheque.MaxLength = 8
+        Me.txtNroCheque.Name = "txtNroCheque"
+        Me.txtNroCheque.Size = New System.Drawing.Size(88, 20)
+        Me.txtNroCheque.TabIndex = 7
+        '
+        'btnAplicar
+        '
+        Me.btnAplicar.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnAplicar.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
+        Me.btnAplicar.Location = New System.Drawing.Point(148, 40)
+        Me.btnAplicar.Name = "btnAplicar"
+        Me.btnAplicar.Size = New System.Drawing.Size(68, 20)
+        Me.btnAplicar.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnAplicar.TabIndex = 8
+        Me.btnAplicar.Text = "Aplicar"
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(57, 24)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(44, 13)
+        Me.Label5.TabIndex = 10
+        Me.Label5.Text = "Numero"
+        '
+        'GroupBox2
+        '
+        Me.GroupBox2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox2.Controls.Add(Me.Label8)
+        Me.GroupBox2.Controls.Add(Me.txtSerieCheque)
+        Me.GroupBox2.Controls.Add(Me.btnAplicar)
+        Me.GroupBox2.Controls.Add(Me.Label5)
+        Me.GroupBox2.Controls.Add(Me.txtNroCheque)
+        Me.GroupBox2.Location = New System.Drawing.Point(407, 13)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(232, 75)
+        Me.GroupBox2.TabIndex = 12
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "Configurar 1er Cheque"
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(14, 24)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(31, 13)
+        Me.Label8.TabIndex = 12
+        Me.Label8.Text = "Serie"
+        '
+        'txtSerieCheque
+        '
+        Me.txtSerieCheque.Location = New System.Drawing.Point(17, 40)
+        Me.txtSerieCheque.MaxLength = 1
+        Me.txtSerieCheque.Name = "txtSerieCheque"
+        Me.txtSerieCheque.Size = New System.Drawing.Size(29, 20)
+        Me.txtSerieCheque.TabIndex = 11
+        Me.txtSerieCheque.Text = "R"
+        '
         'frmAgregarPagos
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(873, 442)
+        Me.ClientSize = New System.Drawing.Size(658, 390)
         Me.Controls.Add(Me.TableLayoutPanel1)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Name = "frmAgregarPagos"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Personalizar pago"
@@ -338,6 +386,8 @@ Partial Class frmAgregarPagos
         Me.pControls.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -362,4 +412,10 @@ Partial Class frmAgregarPagos
     Friend WithEvents Label3 As Label
     Friend WithEvents lblSaldoIndividual As Label
     Friend WithEvents label4 As Label
+    Friend WithEvents GroupBox2 As GroupBox
+    Friend WithEvents btnAplicar As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents Label5 As Label
+    Friend WithEvents txtNroCheque As TextBox
+    Friend WithEvents Label8 As Label
+    Friend WithEvents txtSerieCheque As TextBox
 End Class
