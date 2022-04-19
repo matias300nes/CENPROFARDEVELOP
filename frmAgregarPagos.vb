@@ -7,8 +7,9 @@ Public Class frmAgregarPagos
         razonSocial = 1
         farmacia = 2
         tipoPago = 3
-        importe = 4
-        eliminar = 5
+        NroCheque = 4
+        importe = 5
+        eliminar = 6
     End Enum
 
     'Enum FarmaciaCols
@@ -44,6 +45,7 @@ Public Class frmAgregarPagos
 
     Dim farmacias As DataTable
     Dim dt As DataTable
+    Dim firstCheque As Integer
 
     Public Sub New(farmacias As DataTable)
 
@@ -61,6 +63,7 @@ Public Class frmAgregarPagos
         dt.Columns.Add("Razón Social", GetType(String))
         dt.Columns.Add("Farmacia", GetType(String))
         dt.Columns.Add("Tipo de pago", GetType(String))
+        dt.Columns.Add("Nro. Cheque", GetType(String))
         dt.Columns.Add("Importe", GetType(Decimal))
 
         With grdPagos
@@ -75,6 +78,7 @@ Public Class frmAgregarPagos
 
             .Columns(gridColumns.importe).DefaultCellStyle.Format = "N2"
             .Columns(gridColumns.idFarmacia).Visible = False
+            .Columns(gridColumns.importe).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             '.Columns(gridColumns.razonSocial).Width = 180
             '.Columns(gridColumns.eliminar).Width = 70
             .AutoResizeColumns()
@@ -150,6 +154,8 @@ Public Class frmAgregarPagos
         dt.Rows.Add(newRow)
 
         CalcularTotal()
+        recalcularCheques()
+        grdPagos.AutoResizeColumns()
     End Sub
 
     Private Sub CalcularTotal()
@@ -172,6 +178,27 @@ Public Class frmAgregarPagos
 
         btnListo.Enabled = IIf(total <= 0, False, True)
     End Sub
+
+    Private Sub recalcularCheques()
+        Dim count As Integer
+        count = firstCheque
+        For Each pago As DataRow In dt.Rows
+            If pago(gridColumns.tipoPago) = "CHEQUE" Then
+                pago(gridColumns.NroCheque) = $"{txtSerieCheque.Text} {completarNroCheque(count)}"
+                count += 1
+            End If
+        Next
+    End Sub
+
+    'agrega los ceros faltantes para completar los 8 caracteres
+    Private Function completarNroCheque(int As Integer) As String
+        Dim strInt As String = int.ToString()
+        Dim ceros As String = ""
+        For i As Integer = strInt.Length To 7
+            ceros += "0"
+        Next
+        Return ceros + strInt
+    End Function
 
     Private Function GenerarPago() As Integer
         Dim res As Integer = 0
@@ -202,6 +229,9 @@ Public Class frmAgregarPagos
                 param_detalle.SqlDbType = SqlDbType.VarChar
                 param_detalle.Size = 200
                 param_detalle.Value = pago(gridColumns.tipoPago).ToString.ToUpper
+                If pago(gridColumns.tipoPago) = "CHEQUE" Then
+                    param_detalle.Value += " " + pago(gridColumns.NroCheque)
+                End If
                 param_detalle.Direction = ParameterDirection.Input
 
                 ''debito
@@ -240,7 +270,7 @@ Public Class frmAgregarPagos
                 res = param_res.Value
 
                 If res = 1 Then
-                    agregarRegistro(pago(gridColumns.idFarmacia), pago(gridColumns.tipoPago).ToString.ToUpper, pago(gridColumns.importe), pago(gridColumns.farmacia), pago(gridColumns.razonSocial))
+                    agregarRegistro(pago(gridColumns.idFarmacia), pago(gridColumns.tipoPago).ToString.ToUpper, pago(gridColumns.NroCheque), pago(gridColumns.importe), pago(gridColumns.farmacia), pago(gridColumns.razonSocial))
                 End If
 
                 If (res <= 0) Then
@@ -278,7 +308,7 @@ Public Class frmAgregarPagos
         GenerarPago = res
     End Function
 
-    Private Function agregarRegistro(ByVal idFarmacia As Long, ByVal tipopago As String, ByVal importe As Decimal, ByVal farmacia As String, ByVal razonSocial As String) As Integer
+    Private Function agregarRegistro(ByVal idFarmacia As Long, ByVal tipopago As String, ByVal NroCheque As String, ByVal importe As Decimal, ByVal farmacia As String, ByVal razonSocial As String) As Integer
         Dim res As Integer = 0
 
         Dim connection As SqlClient.SqlConnection = Nothing
@@ -293,6 +323,14 @@ Public Class frmAgregarPagos
             param_id.SqlDbType = SqlDbType.BigInt
             param_id.Value = DBNull.Value
             param_id.Direction = ParameterDirection.InputOutput
+
+            ''NroCheque
+            Dim param_NroCheque As New SqlClient.SqlParameter
+            param_NroCheque.ParameterName = "@NroCheque"
+            param_NroCheque.SqlDbType = SqlDbType.VarChar
+            param_NroCheque.Size = 10
+            param_NroCheque.Value = IIf(NroCheque <> "", NroCheque, DBNull.Value)
+            param_NroCheque.Direction = ParameterDirection.Input
 
             ''fecha emision
             Dim param_FechaEmision As New SqlClient.SqlParameter
@@ -355,7 +393,7 @@ Public Class frmAgregarPagos
 
             SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spPagos_Insert",
                                           param_id, param_FechaEmision, param_FechaPago, param_monto, param_pagueseA,
-                                          param_idFarmacia, param_Tipo, param_user, param_res)
+                                          param_idFarmacia, param_Tipo, param_NroCheque, param_user, param_res)
 
             res = param_res.Value
 
@@ -413,6 +451,7 @@ Public Class frmAgregarPagos
         If TypeOf grdPagos.Columns(e.ColumnIndex) Is DataGridViewButtonColumn And e.RowIndex > -1 Then
             grdPagos.Rows.RemoveAt(e.RowIndex)
             CalcularTotal()
+            recalcularCheques()
         End If
     End Sub
 
@@ -427,6 +466,15 @@ Public Class frmAgregarPagos
               "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
+
+        Try
+            firstCheque = Integer.Parse(txtNroCheque.Text)
+        Catch ex As Exception
+            MessageBox.Show($"Revise en campo 'Numero'. {ex.Message}",
+              "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            txtNroCheque.Focus()
+            Exit Sub
+        End Try
 
         ''bloqueo la configuracion del primer cheque
         txtNroCheque.Enabled = False
@@ -451,5 +499,7 @@ Public Class frmAgregarPagos
             End If
         Next
         CalcularTotal()
+        recalcularCheques()
+        grdPagos.AutoResizeColumns()
     End Sub
 End Class
