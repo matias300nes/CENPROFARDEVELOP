@@ -196,6 +196,12 @@
     <Compile Include="frmAddConceptosLiq.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmGenerarTxtPrescam.Designer.vb">
+      <DependentUpon>frmGenerarTxtPrescam.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmGenerarTxtPrescam.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmAgregarPagos_Copia.Designer.vb">
       <DependentUpon>frmAgregarPagos_Copia.vb</DependentUpon>
     </Compile>
@@ -1599,6 +1605,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmAddConceptosLiq.resx">
       <DependentUpon>frmAddConceptosLiq.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmGenerarTxtPrescam.resx">
+      <DependentUpon>frmGenerarTxtPrescam.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmAgregarPagos_Copia.resx">
       <DependentUpon>frmAgregarPagos_Copia.vb</DependentUpon>
