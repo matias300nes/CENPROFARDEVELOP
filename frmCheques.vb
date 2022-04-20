@@ -10,9 +10,9 @@ Public Class frmCheques
     Enum colsCheques
         id = 0
         seleccion = 1
-        NroCheque = 2
-        PagueseA = 3
-        FechaCreacion = 4
+        FechaCreacion = 2
+        NroCheque = 3
+        PagueseA = 4
         FechaEmision = 5
         FechaPago = 6
         Monto = 7
@@ -29,6 +29,7 @@ Public Class frmCheques
             .Columns(colsCheques.id).Visible = False
 
             .Columns(colsCheques.Monto).DefaultCellStyle.Format = "c"
+            .Columns(colsCheques.FechaCreacion).DefaultCellStyle.Format = "dd/MM/yyyy"
 
             ''Bloqueo la edicion para todas las columnas
             For Each col As DataGridViewColumn In .Columns
@@ -227,6 +228,15 @@ Public Class frmCheques
 
     End Function
 
+    Private Function completarNroCheque(int As Integer) As String
+        Dim strInt As String = int.ToString()
+        Dim ceros As String = ""
+        For i As Integer = strInt.Length To 7
+            ceros += "0"
+        Next
+        Return ceros + strInt
+    End Function
+
 #End Region
 
 #Region "Eventos"
@@ -315,15 +325,15 @@ Public Class frmCheques
     End Sub
 
     Private Sub btnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click
-        ''me aseguro de que quede la fila seleccionada
-        Dim temprow As DataGridViewCell = Nothing
-        If grdCheques.CurrentCell IsNot Nothing Then
-            temprow = grdCheques.CurrentCell
-            grdCheques.CurrentCell = Nothing
-        End If
-        grdCheques.CurrentCell = temprow
-
         If checkSelected() Then
+            ''me aseguro de que quede la fila seleccionada
+            Dim temprow As DataGridViewCell = Nothing
+            If grdCheques.CurrentCell IsNot Nothing Then
+                temprow = grdCheques.CurrentCell
+                grdCheques.CurrentCell = Nothing
+            End If
+            grdCheques.CurrentCell = temprow
+
             Dim dv As New DataView(dtCheques)
             dv.RowFilter = $"[Selección] = 1"
 
@@ -365,6 +375,78 @@ Public Class frmCheques
         End If
 
     End Sub
+
+    Private Function checkSerieInput()
+        If txtSerieCheque.Text.Length = txtSerieCheque.MaxLength And txtFirstCheque.Text.Length = txtFirstCheque.MaxLength And txtLastCheque.Text.Length = txtLastCheque.MaxLength Then
+            btnIntervalo.Enabled = True
+        Else
+            btnIntervalo.Enabled = False
+        End If
+    End Function
+
+    Private Sub txtSerieCheque_TextChanged(sender As Object, e As EventArgs) Handles txtSerieCheque.TextChanged
+        checkSerieInput()
+    End Sub
+
+    Private Sub txtFirstCheque_TextChanged(sender As Object, e As EventArgs) Handles txtFirstCheque.TextChanged
+        checkSerieInput()
+    End Sub
+
+    Private Sub txtLastCheque_TextChanged(sender As Object, e As EventArgs) Handles txtLastCheque.TextChanged
+        checkSerieInput()
+    End Sub
+
+    Private Sub btnIntervalo_Click(sender As Object, e As EventArgs) Handles btnIntervalo.Click
+        Dim first As Integer
+        Dim last As Integer
+
+        Try
+            first = Integer.Parse(txtFirstCheque.Text)
+            last = Integer.Parse(txtLastCheque.Text)
+        Catch ex As Exception
+            MessageBox.Show($"Revise los campos 'Desde' 'Hasta'. {ex.Message}",
+              "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            txtFirstCheque.Focus()
+            Exit Sub
+        End Try
+
+        ''controlo que last no se menor que first
+        If first > last Then
+            MessageBox.Show($"Revise los campos 'Desde' 'Hasta'. El primer numero no puede ser mayor que el último",
+             "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            txtFirstCheque.Focus()
+            Exit Sub
+        End If
+
+        Dim count As Integer
+        Dim collection As DataRow()
+        count = first
+        For i As Integer = 0 To last - first
+            collection = dtCheques.Select($"
+                [{dtCheques.Columns(colsCheques.NroCheque).ColumnName}] = 
+                '{txtSerieCheque.Text} {completarNroCheque(count)}'
+            ")
+            If collection.Length > 0 Then
+                collection(0)(colsCheques.seleccion) = 1
+            End If
+            count += 1
+        Next
+
+        btnSelection.Text = "Deseleccionar todo"
+        countSelected()
+    End Sub
+
+    Private Sub dtpEmision_ValueChanged(sender As Object, e As EventArgs) Handles dtpEmision.ValueChanged
+        dtpEmision.CustomFormat = "dd/MM/yyyy"
+        filtrarporfecha()
+    End Sub
+
+    Private Sub dtpPago_ValueChanged(sender As Object, e As EventArgs) Handles dtpPago.ValueChanged
+        dtpPago.CustomFormat = "dd/MM/yyyy"
+        filtrarporfecha()
+    End Sub
+
+
 
 #End Region
 End Class
