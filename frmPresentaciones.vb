@@ -7,6 +7,7 @@ Imports Microsoft.Office.Interop
 Imports System.Runtime.InteropServices
 
 Imports System.Threading
+Imports System.IO
 
 Public Class frmPresentaciones
     Dim IdObraSocial
@@ -50,6 +51,18 @@ Public Class frmPresentaciones
 
     Dim porceniva As Double = 21
 
+    Enum ColumnasDelGrd
+        ''NACHO
+        ID = 0
+        Codigo = 1
+        Fecha = 2
+        IDObraSocial = 3
+        ObraSocial = 4
+        Periodo = 5
+        Estado = 6
+        total = 7
+        Observaciones = 8
+    End Enum
 
     Enum ColumnasDelGridItems
         ''NACHO
@@ -57,12 +70,16 @@ Public Class frmPresentaciones
         IdFarmacia = 1
         CodigoFarmacia = 2
         Nombre = 3
-        IdPresentacion = 4
-        Recetas = 5
-        Recaudado = 6
-        ACargoOS = 7
-        Bonificacion = 8
-        Total = 9
+        IdPlan = 4
+        Plan = 5
+        IdPresentacion = 6
+        Recetas = 7
+        Recaudado = 8
+        ACargoOS = 9
+        Bonificacion = 10
+        Total = 11
+        CodFacaf = 12
+        CodPlan = 13
     End Enum
 
     'Auxiliares para guardar
@@ -141,6 +158,7 @@ Public Class frmPresentaciones
         llenarCmbEstados()
         LlenarCmbFarmacia()
         LlenarCmbObraSocial()
+        LlenarCmbPlanes()
 
         If cmbEstado.Text = "" Then
             cmbEstado.Text = "PRESENTADO"
@@ -182,28 +200,13 @@ Public Class frmPresentaciones
             LlenarGrid_Items()
         End If
 
+        With grd
+            .Columns(ColumnasDelGrd.IDObraSocial).Visible = False
+        End With
 
-        'grd.Columns(0).Visible = False
-        'grd.Columns(1).Visible = False
-        'grd.Columns(2).Visible = False
-        'grd.Columns(3).Visible = False
-        'grd.Columns(4).Visible = False
-        'grd.Columns(5).Visible = False
-        'grd.Columns(6).Visible = False
-        'grd.Columns(7).Visible = False
-        'grd.Columns(8).Visible = False
-        'grd.Columns(9).Visible = False
-        'grd.Columns(10).Visible = False
-        'grd.Columns(11).Visible = False
-        'grd.Columns(12).Visible = False
-        'grd.Columns(13).Visible = False
-        'grd.Columns(14).Visible = False
-        'grd.Columns(15).Visible = False
-        'grd.Columns(16).Visible = False
-        'grd.Columns(17).Visible = False
-        'grd.Columns(18).Visible = False
-        'grd.Columns(19).Visible = False
-        'grd.Columns(20).Visible = False
+        With grdItems
+            .Columns(ColumnasDelGridItems.IdPlan).Visible = False
+        End With
 
         grd.MultiSelect = True
         btnUnificar.Enabled = False
@@ -509,6 +512,52 @@ Public Class frmPresentaciones
     End Sub
 
 
+    Private Sub LlenarCmbPlanes()
+        Dim connection As SqlClient.SqlConnection = Nothing
+        Dim ds As Data.DataSet
+
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+        Catch ex As Exception
+            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End Try
+
+        Try
+
+            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $" SELECT p.id as Id, p.nombre as Nombre 
+                                                                            FROM Planes p 
+                                                                            INNER JOIN ObrasSociales_Planes osp ON osp.IdPlan = p.Id 
+                                                                            WHERE osp.IdObraSocial = {cmbObraSocial.SelectedValue} AND p.eliminado = 0")
+            ds.Dispose()
+
+            With cmbPlanes
+                .DataSource = ds.Tables(0).DefaultView
+                .DisplayMember = "NOMBRE"
+                .ValueMember = "ID"
+                '.SelectedIndex = "ID"
+            End With
+
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If Not connection Is Nothing Then
+                CType(connection, IDisposable).Dispose()
+            End If
+        End Try
+
+    End Sub
+
     Private Sub BorrarElItemToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BorrarElItemToolStripMenuItem.Click
         MsgBox($"Hello world: {sender.ToString}")
         'Dim cell As DataGridViewCell = grdItems.CurrentCell
@@ -631,7 +680,9 @@ Public Class frmPresentaciones
         If band = 1 Then
             If cmbObraSocial.SelectedValue IsNot Nothing Then
                 txtIdObrasocial.Text = cmbObraSocial.SelectedValue.ToString
+                LlenarCmbPlanes()
             End If
+
 
         End If
     End Sub
@@ -1034,6 +1085,8 @@ Public Class frmPresentaciones
             .Cells(ColumnasDelGridItems.ID).Value = 0
             .Cells(ColumnasDelGridItems.Nombre).Value = cmbFarmacias.Text
             .Cells(ColumnasDelGridItems.IdFarmacia).Value = cmbFarmacias.SelectedValue
+            .Cells(ColumnasDelGridItems.IdPlan).Value = cmbPlanes.SelectedValue
+            .Cells(ColumnasDelGridItems.Plan).Value = cmbPlanes.Text
             .Cells(ColumnasDelGridItems.Recetas).Value = txtRecetas.Text
             .Cells(ColumnasDelGridItems.Recaudado).Value = txtImpRecaudado.Text
             .Cells(ColumnasDelGridItems.ACargoOS).Value = txtImpACargoOs.Text
@@ -1097,12 +1150,16 @@ Public Class frmPresentaciones
                     dt.Rows(i)(ColumnasDelGridItems.IdFarmacia).ToString(),
                     dt.Rows(i)(ColumnasDelGridItems.CodigoFarmacia).ToString(),
                     dt.Rows(i)(ColumnasDelGridItems.Nombre).ToString(),
+                    dt.Rows(i)(ColumnasDelGridItems.IdPlan).ToString(),
+                    dt.Rows(i)(ColumnasDelGridItems.Plan).ToString(),
                     dt.Rows(i)(ColumnasDelGridItems.IdPresentacion).ToString(),
                     dt.Rows(i)(ColumnasDelGridItems.Recetas).ToString(),
                     dt.Rows(i)(ColumnasDelGridItems.Recaudado).ToString(),
                     dt.Rows(i)(ColumnasDelGridItems.ACargoOS).ToString(),
                     dt.Rows(i)(ColumnasDelGridItems.Bonificacion).ToString(),
-                    dt.Rows(i)(ColumnasDelGridItems.Total).ToString())
+                    dt.Rows(i)(ColumnasDelGridItems.Total).ToString(),
+                    dt.Rows(i)(ColumnasDelGridItems.CodFacaf).ToString(),
+                    dt.Rows(i)(ColumnasDelGridItems.CodPlan).ToString())
                 ' rodrigo 
 
             Next
@@ -1524,6 +1581,12 @@ Public Class frmPresentaciones
                 param_IdFarmacia.Value = grdItems.Rows(i).Cells(ColumnasDelGridItems.IdFarmacia).Value
                 param_IdFarmacia.Direction = ParameterDirection.Input
 
+                Dim param_idPlan As New SqlClient.SqlParameter
+                param_idPlan.ParameterName = "@idPlan"
+                param_idPlan.SqlDbType = SqlDbType.BigInt
+                param_idPlan.Value = grdItems.Rows(i).Cells(ColumnasDelGridItems.IdPlan).Value
+                param_idPlan.Direction = ParameterDirection.Input
+
                 Dim param_IdPresentacion As New SqlClient.SqlParameter
                 param_IdPresentacion.ParameterName = "@idPresentacion"
                 param_IdPresentacion.SqlDbType = SqlDbType.BigInt
@@ -1582,7 +1645,7 @@ Public Class frmPresentaciones
                 Try
 
                     SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spPresentaciones_Det_Insert_Update",
-                                                  param_id, param_IdFarmacia, param_IdPresentacion, param_Recetas,
+                                                  param_id, param_IdFarmacia, param_idPlan, param_IdPresentacion, param_Recetas,
                                                   param_Recaudado, param_AcargoOS, param_Bonificacion, param_Total,
                                                   param_eliminado, param_user, param_res)
 
@@ -2060,8 +2123,8 @@ Public Class frmPresentaciones
 
             Else
                 Util.MsgStatus(Status1, "Eliminando el registro...", My.Resources.Resources.indicator_white)
-                Res = EliminarRegistro()
-                Select Case Res
+                res = EliminarRegistro()
+                Select Case res
                     Case -2
                         Util.MsgStatus(Status1, "El registro no existe.", My.Resources.stop_error.ToBitmap)
                     Case -1
@@ -2672,6 +2735,12 @@ Public Class frmPresentaciones
                                 $"{LbPeriodo_Mes.Text}-{LbPeriodo_año.Text}"
                                 )
         GbPeriodo.Visible = Not GbPeriodo.Visible
+    End Sub
+
+    Private Sub btnPrescam_Click(sender As Object, e As EventArgs) Handles btnPrescam.Click
+        Dim dt_txt As New DataTable
+        Dim frmPrescam As New frmGenerarTxtPrescam
+        frmPrescam.ShowDialog()
     End Sub
 
 
