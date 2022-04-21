@@ -62,45 +62,25 @@ Public Class frmCheques
         grdCheques.DataSource = dtCheques
     End Sub
 
-    Private Sub requestGrdItemData()
-        'Dim connection As SqlClient.SqlConnection = Nothing
-        'Dim dt As New DataTable()
-        'Dim sql As String = $"exec HistorialCta_SelectByIdFarmacia @IdFarmacia = {txtID.Text}"
-        'If txtID.Text <> "" Then
-        '    Try
-        '        connection = SqlHelper.GetConnection(ConnStringSEI)
-
-        '        Dim cmd As New SqlCommand(sql, connection)
-        '        Dim da As New SqlDataAdapter(cmd)
-
-        '        da.Fill(dt)
-
-        '        grdHistorial.DataSource = dt
-        '    Catch ex As Exception
-        '        MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        '        Exit Sub
-        '    End Try
-        'End If
+    Friend Sub refreshData()
+        If grdCheques.CurrentRow IsNot Nothing Then
+            Dim codigo As String = grdCheques.CurrentRow.Cells(colsCheques.NroCheque).Value.ToString
+            requestGrdData()
+            For Each row As DataGridViewRow In grdCheques.Rows
+                If row.Cells(colsCheques.NroCheque).Value IsNot DBNull.Value Then
+                    If row.Cells(colsCheques.NroCheque).Value = codigo Then
+                        grdCheques.ClearSelection()
+                        row.Selected = True
+                        grdCheques.CurrentCell = grdCheques.Rows(row.Index).Cells(colsCheques.NroCheque)
+                        txtID.Text = row.Cells(colsCheques.id).Value
+                    End If
+                End If
+            Next
+        Else
+            requestGrdData()
+        End If
 
     End Sub
-
-    'Friend Sub refreshData()
-    '    If grdCheques.CurrentRow IsNot Nothing Then
-    '        Dim codigo As String = grdCheques.CurrentRow.Cells(colsCheques.Codigo).Value.ToString
-    '        requestGrdData()
-    '        For Each row As DataGridViewRow In grdCheques.Rows
-    '            If row.Cells(grdFarmaciaCols.Codigo).Value = codigo Then
-    '                grdCheques.ClearSelection()
-    '                row.Selected = True
-    '                grdCheques.CurrentCell = grdCheques.Rows(row.Index).Cells(grdFarmaciaCols.Codigo)
-    '                txtID.Text = row.Cells(grdFarmaciaCols.ID).Value
-    '            End If
-    '        Next
-    '    Else
-    '        requestGrdData()
-    '    End If
-
-    'End Sub
 
     ''Revisa si almenos un registro tiene un checkbox activado
     Private Function checkSelected() As Boolean
@@ -241,12 +221,20 @@ Public Class frmCheques
 
 #Region "Eventos"
     Private Sub frmSaldos_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        dtpDesde.Value = Date.Now
+        dtpHasta.Value = Date.Now
+        dtpEmision.Value = Date.Now
+        dtpPago.Value = Date.Now
+
         requestGrdData()
         If txtID.Text <> "" Then
             setStyles()
         End If
+
         dtpDesde.CustomFormat = "--/--/----"
         dtpHasta.CustomFormat = "--/--/----"
+        dtpEmision.CustomFormat = "--/--/----"
+        dtpPago.CustomFormat = "--/--/----"
     End Sub
 
     Private Sub grdCheques_SelectionChanged(sender As Object, e As EventArgs) Handles grdCheques.SelectionChanged
@@ -276,27 +264,6 @@ Public Class frmCheques
 
     End Sub
 
-    'Private Sub btnPago_Click(sender As Object, e As EventArgs)
-    '    ''me aseguro de que quede la fila seleccionada
-    '    Dim temprow As DataGridViewCell = Nothing
-    '    If grdCheques.CurrentCell IsNot Nothing Then
-    '        temprow = grdCheques.CurrentCell
-    '        grdCheques.CurrentCell = Nothing
-    '    End If
-    '    grdCheques.CurrentCell = temprow
-
-    '    If checkSelected() Then
-    '        Dim dv As New DataView(dtFarmacias)
-    '        dv.RowFilter = $"[Selección] = 1"
-
-    '        Dim AgregarCheques As New frmAgregarPagos(dv.ToTable())
-    '        AgregarCheques.ShowDialog()
-    '    Else
-    '        MsgBox("Debe seleccionar al menos una razón social para poder realizar el pago.")
-    '    End If
-
-    'End Sub
-
     Private Sub btnSelection_Click(sender As Object, e As EventArgs) Handles btnSelection.Click
         If btnSelection.Text = "Seleccionar todo" Then
             For Each row As DataGridViewRow In grdCheques.Rows
@@ -325,6 +292,17 @@ Public Class frmCheques
     End Sub
 
     Private Sub btnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click
+        ''Fechas no nullas
+        If dtpEmision.CustomFormat <> "dd/MM/yyyy" And dtpPago.CustomFormat <> "dd/MM/yyyy" Then
+            MsgBox("Debe seleccionar fecha de emisión y pago para imprimir cheques.")
+            Exit Sub
+        End If
+
+        If dtpEmision.Value > dtpPago.Value Then
+            MsgBox("La fecha de emisión no puede ser mayor que la de pago.")
+            Exit Sub
+        End If
+
         If checkSelected() Then
             ''me aseguro de que quede la fila seleccionada
             Dim temprow As DataGridViewCell = Nothing
@@ -352,6 +330,14 @@ Public Class frmCheques
     Private Sub dtpHasta_ValueChanged(sender As Object, e As EventArgs) Handles dtpHasta.ValueChanged
         dtpHasta.CustomFormat = "dd/MM/yyyy"
         filtrarporfecha()
+    End Sub
+
+    Private Sub dtpEmision_ValueChanged(sender As Object, e As EventArgs) Handles dtpEmision.ValueChanged
+        dtpEmision.CustomFormat = "dd/MM/yyyy"
+    End Sub
+
+    Private Sub dtpPago_ValueChanged(sender As Object, e As EventArgs) Handles dtpPago.ValueChanged
+        dtpPago.CustomFormat = "dd/MM/yyyy"
     End Sub
 
     Private Sub btnLimpiar_Click(sender As Object, e As EventArgs) Handles btnLimpiar.Click
@@ -435,18 +421,6 @@ Public Class frmCheques
         btnSelection.Text = "Deseleccionar todo"
         countSelected()
     End Sub
-
-    Private Sub dtpEmision_ValueChanged(sender As Object, e As EventArgs) Handles dtpEmision.ValueChanged
-        dtpEmision.CustomFormat = "dd/MM/yyyy"
-        filtrarporfecha()
-    End Sub
-
-    Private Sub dtpPago_ValueChanged(sender As Object, e As EventArgs) Handles dtpPago.ValueChanged
-        dtpPago.CustomFormat = "dd/MM/yyyy"
-        filtrarporfecha()
-    End Sub
-
-
 
 #End Region
 End Class
