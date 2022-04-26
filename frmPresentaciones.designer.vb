@@ -115,6 +115,7 @@ Partial Class frmPresentaciones
         Me.Total = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.CodFacaf = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.CodPlan = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.PorcentajePlan = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Eliminar = New System.Windows.Forms.DataGridViewButtonColumn()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.ContextMenuStrip2.SuspendLayout()
@@ -479,7 +480,7 @@ Partial Class frmPresentaciones
         DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.grdItems.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.grdItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.grdItems.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Id, Me.IdFarmacia, Me.CodigoFarmacia, Me.Nombre, Me.IdPlan, Me.Plan, Me.IdPresentacion, Me.Recetas, Me.Recaudad, Me.ACargoOS, Me.Bonificacion, Me.Total, Me.CodFacaf, Me.CodPlan, Me.Eliminar})
+        Me.grdItems.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Id, Me.IdFarmacia, Me.CodigoFarmacia, Me.Nombre, Me.IdPlan, Me.Plan, Me.IdPresentacion, Me.Recetas, Me.Recaudad, Me.ACargoOS, Me.Bonificacion, Me.Total, Me.CodFacaf, Me.CodPlan, Me.PorcentajePlan, Me.Eliminar})
         DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window
         DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -1206,6 +1207,14 @@ Partial Class frmPresentaciones
         Me.CodPlan.Visible = False
         Me.CodPlan.Width = 125
         '
+        'PorcentajePlan
+        '
+        Me.PorcentajePlan.HeaderText = "Porc Plan"
+        Me.PorcentajePlan.MinimumWidth = 6
+        Me.PorcentajePlan.Name = "PorcentajePlan"
+        Me.PorcentajePlan.Visible = False
+        Me.PorcentajePlan.Width = 125
+        '
         'Eliminar
         '
         Me.Eliminar.HeaderText = "Eliminar"
@@ -1335,5 +1344,6 @@ Partial Class frmPresentaciones
     Friend WithEvents Total As DataGridViewTextBoxColumn
     Friend WithEvents CodFacaf As DataGridViewTextBoxColumn
     Friend WithEvents CodPlan As DataGridViewTextBoxColumn
+    Friend WithEvents PorcentajePlan As DataGridViewTextBoxColumn
     Friend WithEvents Eliminar As DataGridViewButtonColumn
 End Class
