@@ -7,9 +7,9 @@ Public Class frmRtpCheques
     Enum colsCheques
         id = 0
         seleccion = 1
-        NroCheque = 2
-        PagueseA = 3
-        FechaCreacion = 4
+        FechaCreacion = 2
+        NroCheque = 3
+        PagueseA = 4
         FechaEmision = 5
         FechaPago = 6
         Monto = 7
