@@ -26,6 +26,10 @@ Partial Class frmObraSocial
         Me.SuperTabControl1 = New DevComponents.DotNetBar.SuperTabControl()
         Me.SuperTabControlPanel1 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.grdPlanesPanel = New System.Windows.Forms.DataGridView()
+        Me.Id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.cod = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Nombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Porcentaje = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.stiPlanes = New DevComponents.DotNetBar.SuperTabItem()
         Me.btnAdd = New DevComponents.DotNetBar.ButtonItem()
         Me.btnEliminarPanel = New DevComponents.DotNetBar.ButtonItem()
@@ -52,10 +56,6 @@ Partial Class frmObraSocial
         Me.chkEliminados = New System.Windows.Forms.CheckBox()
         Me.stiCodigos = New DevComponents.DotNetBar.SuperTabItem()
         Me.stiProfesionales = New DevComponents.DotNetBar.SuperTabItem()
-        Me.Id = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.cod = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Nombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Porcentaje = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GroupBox1.SuspendLayout()
         CType(Me.SuperTabControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControl1.SuspendLayout()
@@ -71,11 +71,10 @@ Partial Class frmObraSocial
         Me.txtID.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtID.Enabled = False
         Me.txtID.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
-        Me.txtID.Location = New System.Drawing.Point(113, 9)
-        Me.txtID.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtID.Location = New System.Drawing.Point(85, 7)
         Me.txtID.MaxLength = 8
         Me.txtID.Name = "txtID"
-        Me.txtID.Size = New System.Drawing.Size(20, 22)
+        Me.txtID.Size = New System.Drawing.Size(16, 20)
         Me.txtID.TabIndex = 50
         Me.txtID.Text_1 = Nothing
         Me.txtID.Text_2 = Nothing
@@ -87,10 +86,9 @@ Partial Class frmObraSocial
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(84, 12)
-        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label1.Location = New System.Drawing.Point(63, 10)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(19, 17)
+        Me.Label1.Size = New System.Drawing.Size(16, 13)
         Me.Label1.TabIndex = 50
         Me.Label1.Text = "Id"
         Me.Label1.Visible = False
@@ -102,12 +100,11 @@ Partial Class frmObraSocial
         Me.txtCODIGO.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtCODIGO.Enabled = False
         Me.txtCODIGO.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.txtCODIGO.Location = New System.Drawing.Point(27, 42)
-        Me.txtCODIGO.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtCODIGO.Location = New System.Drawing.Point(20, 34)
         Me.txtCODIGO.MaxLength = 25
         Me.txtCODIGO.Name = "txtCODIGO"
         Me.txtCODIGO.ReadOnly = True
-        Me.txtCODIGO.Size = New System.Drawing.Size(107, 22)
+        Me.txtCODIGO.Size = New System.Drawing.Size(81, 20)
         Me.txtCODIGO.TabIndex = 0
         Me.txtCODIGO.Text_1 = Nothing
         Me.txtCODIGO.Text_2 = Nothing
@@ -120,10 +117,9 @@ Partial Class frmObraSocial
         Me.Label2.AutoSize = True
         Me.Label2.BackColor = System.Drawing.Color.Transparent
         Me.Label2.ForeColor = System.Drawing.Color.Blue
-        Me.Label2.Location = New System.Drawing.Point(23, 23)
-        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label2.Location = New System.Drawing.Point(17, 19)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(52, 17)
+        Me.Label2.Size = New System.Drawing.Size(40, 13)
         Me.Label2.TabIndex = 51
         Me.Label2.Text = "Código"
         '
@@ -133,11 +129,10 @@ Partial Class frmObraSocial
         Me.txtNombre.Decimals = CType(2, Byte)
         Me.txtNombre.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtNombre.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.txtNombre.Location = New System.Drawing.Point(155, 43)
-        Me.txtNombre.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtNombre.Location = New System.Drawing.Point(116, 35)
         Me.txtNombre.MaxLength = 99
         Me.txtNombre.Name = "txtNombre"
-        Me.txtNombre.Size = New System.Drawing.Size(281, 22)
+        Me.txtNombre.Size = New System.Drawing.Size(212, 20)
         Me.txtNombre.TabIndex = 0
         Me.txtNombre.Text_1 = Nothing
         Me.txtNombre.Text_2 = Nothing
@@ -150,10 +145,9 @@ Partial Class frmObraSocial
         Me.Label3.AutoSize = True
         Me.Label3.BackColor = System.Drawing.Color.Transparent
         Me.Label3.ForeColor = System.Drawing.Color.Blue
-        Me.Label3.Location = New System.Drawing.Point(151, 23)
-        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label3.Location = New System.Drawing.Point(113, 19)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(63, 17)
+        Me.Label3.Size = New System.Drawing.Size(48, 13)
         Me.Label3.TabIndex = 52
         Me.Label3.Text = "Nombre*"
         '
@@ -192,10 +186,9 @@ Partial Class frmObraSocial
         Me.GroupBox1.Controls.Add(Me.txtNombre)
         Me.GroupBox1.Controls.Add(Me.Label2)
         Me.GroupBox1.DisabledBackColor = System.Drawing.Color.Empty
-        Me.GroupBox1.Location = New System.Drawing.Point(16, 34)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4)
+        Me.GroupBox1.Location = New System.Drawing.Point(12, 28)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(1167, 296)
+        Me.GroupBox1.Size = New System.Drawing.Size(896, 240)
         '
         '
         '
@@ -244,13 +237,13 @@ Partial Class frmObraSocial
         Me.SuperTabControl1.ControlBox.Name = ""
         Me.SuperTabControl1.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabControl1.ControlBox.MenuBox, Me.SuperTabControl1.ControlBox.CloseBox})
         Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel1)
-        Me.SuperTabControl1.Location = New System.Drawing.Point(610, 23)
-        Me.SuperTabControl1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.SuperTabControl1.Location = New System.Drawing.Point(458, 19)
+        Me.SuperTabControl1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.SuperTabControl1.Name = "SuperTabControl1"
         Me.SuperTabControl1.ReorderTabsEnabled = True
         Me.SuperTabControl1.SelectedTabFont = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold)
         Me.SuperTabControl1.SelectedTabIndex = 0
-        Me.SuperTabControl1.Size = New System.Drawing.Size(547, 219)
+        Me.SuperTabControl1.Size = New System.Drawing.Size(419, 178)
         Me.SuperTabControl1.TabFont = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SuperTabControl1.TabIndex = 273
         Me.SuperTabControl1.Tabs.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.stiPlanes, Me.btnAdd, Me.btnEliminarPanel})
@@ -260,29 +253,54 @@ Partial Class frmObraSocial
         '
         Me.SuperTabControlPanel1.Controls.Add(Me.grdPlanesPanel)
         Me.SuperTabControlPanel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SuperTabControlPanel1.Location = New System.Drawing.Point(0, 27)
-        Me.SuperTabControlPanel1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.SuperTabControlPanel1.Location = New System.Drawing.Point(0, 26)
+        Me.SuperTabControlPanel1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.SuperTabControlPanel1.Name = "SuperTabControlPanel1"
-        Me.SuperTabControlPanel1.Size = New System.Drawing.Size(547, 192)
+        Me.SuperTabControlPanel1.Size = New System.Drawing.Size(419, 152)
         Me.SuperTabControlPanel1.TabIndex = 1
         Me.SuperTabControlPanel1.TabItem = Me.stiPlanes
         '
         'grdPlanesPanel
         '
         Me.grdPlanesPanel.AllowUserToAddRows = False
+        Me.grdPlanesPanel.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.grdPlanesPanel.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.grdPlanesPanel.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Id, Me.cod, Me.Nombre, Me.Porcentaje})
         Me.grdPlanesPanel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.grdPlanesPanel.Location = New System.Drawing.Point(0, 0)
-        Me.grdPlanesPanel.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.grdPlanesPanel.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.grdPlanesPanel.MultiSelect = False
         Me.grdPlanesPanel.Name = "grdPlanesPanel"
         Me.grdPlanesPanel.RowHeadersVisible = False
         Me.grdPlanesPanel.RowHeadersWidth = 51
         Me.grdPlanesPanel.RowTemplate.Height = 24
         Me.grdPlanesPanel.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.grdPlanesPanel.Size = New System.Drawing.Size(547, 192)
+        Me.grdPlanesPanel.Size = New System.Drawing.Size(419, 152)
         Me.grdPlanesPanel.TabIndex = 0
+        '
+        'Id
+        '
+        Me.Id.HeaderText = "Id"
+        Me.Id.MinimumWidth = 6
+        Me.Id.Name = "Id"
+        '
+        'cod
+        '
+        Me.cod.HeaderText = "Código"
+        Me.cod.MinimumWidth = 6
+        Me.cod.Name = "cod"
+        '
+        'Nombre
+        '
+        Me.Nombre.HeaderText = "Nombre"
+        Me.Nombre.MinimumWidth = 6
+        Me.Nombre.Name = "Nombre"
+        '
+        'Porcentaje
+        '
+        Me.Porcentaje.HeaderText = "Porcentaje"
+        Me.Porcentaje.MinimumWidth = 6
+        Me.Porcentaje.Name = "Porcentaje"
         '
         'stiPlanes
         '
@@ -308,11 +326,10 @@ Partial Class frmObraSocial
         Me.txtCodigoPostal.Decimals = CType(2, Byte)
         Me.txtCodigoPostal.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtCodigoPostal.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
-        Me.txtCodigoPostal.Location = New System.Drawing.Point(285, 162)
-        Me.txtCodigoPostal.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtCodigoPostal.Location = New System.Drawing.Point(214, 132)
         Me.txtCodigoPostal.MaxLength = 4
         Me.txtCodigoPostal.Name = "txtCodigoPostal"
-        Me.txtCodigoPostal.Size = New System.Drawing.Size(89, 22)
+        Me.txtCodigoPostal.Size = New System.Drawing.Size(68, 20)
         Me.txtCodigoPostal.TabIndex = 1
         Me.txtCodigoPostal.Text_1 = Nothing
         Me.txtCodigoPostal.Text_2 = Nothing
@@ -326,11 +343,10 @@ Partial Class frmObraSocial
         Me.txtCuit.Decimals = CType(2, Byte)
         Me.txtCuit.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtCuit.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
-        Me.txtCuit.Location = New System.Drawing.Point(459, 100)
-        Me.txtCuit.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtCuit.Location = New System.Drawing.Point(344, 81)
         Me.txtCuit.MaxLength = 11
         Me.txtCuit.Name = "txtCuit"
-        Me.txtCuit.Size = New System.Drawing.Size(123, 22)
+        Me.txtCuit.Size = New System.Drawing.Size(93, 20)
         Me.txtCuit.TabIndex = 4
         Me.txtCuit.Text_1 = Nothing
         Me.txtCuit.Text_2 = Nothing
@@ -347,10 +363,9 @@ Partial Class frmObraSocial
         Me.cmbLocalidad.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
         Me.cmbLocalidad.FormattingEnabled = True
         Me.cmbLocalidad.ItemHeight = 14
-        Me.cmbLocalidad.Location = New System.Drawing.Point(28, 222)
-        Me.cmbLocalidad.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbLocalidad.Location = New System.Drawing.Point(21, 180)
         Me.cmbLocalidad.Name = "cmbLocalidad"
-        Me.cmbLocalidad.Size = New System.Drawing.Size(160, 20)
+        Me.cmbLocalidad.Size = New System.Drawing.Size(121, 20)
         Me.cmbLocalidad.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.cmbLocalidad.TabIndex = 3
         '
@@ -359,11 +374,10 @@ Partial Class frmObraSocial
         Me.txtTelefono.Decimals = CType(2, Byte)
         Me.txtTelefono.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtTelefono.Format = TextBoxConFormatoVB.tbFormats.SignedNumber
-        Me.txtTelefono.Location = New System.Drawing.Point(27, 100)
-        Me.txtTelefono.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtTelefono.Location = New System.Drawing.Point(20, 81)
         Me.txtTelefono.MaxLength = 20
         Me.txtTelefono.Name = "txtTelefono"
-        Me.txtTelefono.Size = New System.Drawing.Size(145, 22)
+        Me.txtTelefono.Size = New System.Drawing.Size(110, 20)
         Me.txtTelefono.TabIndex = 2
         Me.txtTelefono.Text_1 = Nothing
         Me.txtTelefono.Text_2 = Nothing
@@ -380,10 +394,9 @@ Partial Class frmObraSocial
         Me.cmbProvincia.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbProvincia.FormattingEnabled = True
         Me.cmbProvincia.ItemHeight = 14
-        Me.cmbProvincia.Location = New System.Drawing.Point(396, 160)
-        Me.cmbProvincia.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbProvincia.Location = New System.Drawing.Point(297, 130)
         Me.cmbProvincia.Name = "cmbProvincia"
-        Me.cmbProvincia.Size = New System.Drawing.Size(186, 20)
+        Me.cmbProvincia.Size = New System.Drawing.Size(140, 20)
         Me.cmbProvincia.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.cmbProvincia.TabIndex = 2
         '
@@ -392,11 +405,10 @@ Partial Class frmObraSocial
         Me.txtCodigoFacaf.Decimals = CType(2, Byte)
         Me.txtCodigoFacaf.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtCodigoFacaf.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
-        Me.txtCodigoFacaf.Location = New System.Drawing.Point(459, 43)
-        Me.txtCodigoFacaf.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtCodigoFacaf.Location = New System.Drawing.Point(344, 35)
         Me.txtCodigoFacaf.MaxLength = 3
         Me.txtCodigoFacaf.Name = "txtCodigoFacaf"
-        Me.txtCodigoFacaf.Size = New System.Drawing.Size(125, 22)
+        Me.txtCodigoFacaf.Size = New System.Drawing.Size(95, 20)
         Me.txtCodigoFacaf.TabIndex = 1
         Me.txtCodigoFacaf.Text_1 = Nothing
         Me.txtCodigoFacaf.Text_2 = Nothing
@@ -409,10 +421,9 @@ Partial Class frmObraSocial
         Me.Label9.AutoSize = True
         Me.Label9.BackColor = System.Drawing.Color.Transparent
         Me.Label9.ForeColor = System.Drawing.Color.Blue
-        Me.Label9.Location = New System.Drawing.Point(392, 141)
-        Me.Label9.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label9.Location = New System.Drawing.Point(294, 115)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(71, 17)
+        Me.Label9.Size = New System.Drawing.Size(55, 13)
         Me.Label9.TabIndex = 268
         Me.Label9.Text = "Provincia*"
         '
@@ -421,10 +432,9 @@ Partial Class frmObraSocial
         Me.Label13.AutoSize = True
         Me.Label13.BackColor = System.Drawing.Color.Transparent
         Me.Label13.ForeColor = System.Drawing.Color.Blue
-        Me.Label13.Location = New System.Drawing.Point(456, 23)
-        Me.Label13.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label13.Location = New System.Drawing.Point(342, 19)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(99, 17)
+        Me.Label13.Size = New System.Drawing.Size(76, 13)
         Me.Label13.TabIndex = 272
         Me.Label13.Text = "Código FACAF"
         '
@@ -433,23 +443,20 @@ Partial Class frmObraSocial
         Me.Label7.AutoSize = True
         Me.Label7.BackColor = System.Drawing.Color.Transparent
         Me.Label7.ForeColor = System.Drawing.Color.Blue
-        Me.Label7.Location = New System.Drawing.Point(282, 141)
-        Me.Label7.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label7.Location = New System.Drawing.Point(212, 115)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(94, 17)
+        Me.Label7.Size = New System.Drawing.Size(71, 13)
         Me.Label7.TabIndex = 264
         Me.Label7.Text = "Código postal"
         '
         'nudBonificacion
         '
-        Me.nudBonificacion.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.nudBonificacion.DecimalPlaces = 2
         Me.nudBonificacion.Increment = New Decimal(New Integer() {1, 0, 0, 131072})
-        Me.nudBonificacion.Location = New System.Drawing.Point(27, 268)
-        Me.nudBonificacion.Margin = New System.Windows.Forms.Padding(4)
+        Me.nudBonificacion.Location = New System.Drawing.Point(101, 208)
         Me.nudBonificacion.Maximum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.nudBonificacion.Name = "nudBonificacion"
-        Me.nudBonificacion.Size = New System.Drawing.Size(97, 22)
+        Me.nudBonificacion.Size = New System.Drawing.Size(73, 20)
         Me.nudBonificacion.TabIndex = 8
         '
         'Label8
@@ -458,10 +465,9 @@ Partial Class frmObraSocial
         Me.Label8.AutoSize = True
         Me.Label8.BackColor = System.Drawing.Color.Transparent
         Me.Label8.ForeColor = System.Drawing.Color.Blue
-        Me.Label8.Location = New System.Drawing.Point(25, 199)
-        Me.Label8.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label8.Location = New System.Drawing.Point(19, 162)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(74, 17)
+        Me.Label8.Size = New System.Drawing.Size(57, 13)
         Me.Label8.TabIndex = 266
         Me.Label8.Text = "Localidad*"
         '
@@ -470,10 +476,9 @@ Partial Class frmObraSocial
         Me.Label11.AutoSize = True
         Me.Label11.BackColor = System.Drawing.Color.Transparent
         Me.Label11.ForeColor = System.Drawing.Color.Blue
-        Me.Label11.Location = New System.Drawing.Point(207, 199)
-        Me.Label11.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label11.Location = New System.Drawing.Point(155, 162)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(82, 17)
+        Me.Label11.Size = New System.Drawing.Size(63, 13)
         Me.Label11.TabIndex = 267
         Me.Label11.Text = "Descripción"
         '
@@ -482,44 +487,39 @@ Partial Class frmObraSocial
         Me.Label6.AutoSize = True
         Me.Label6.BackColor = System.Drawing.Color.Transparent
         Me.Label6.ForeColor = System.Drawing.Color.Blue
-        Me.Label6.Location = New System.Drawing.Point(24, 141)
-        Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label6.Location = New System.Drawing.Point(18, 115)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(64, 17)
+        Me.Label6.Size = New System.Drawing.Size(49, 13)
         Me.Label6.TabIndex = 262
         Me.Label6.Text = "Domicilio"
         '
         'txtDomicilio
         '
-        Me.txtDomicilio.Location = New System.Drawing.Point(28, 162)
-        Me.txtDomicilio.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtDomicilio.Location = New System.Drawing.Point(21, 132)
         Me.txtDomicilio.MaxLength = 200
         Me.txtDomicilio.Name = "txtDomicilio"
-        Me.txtDomicilio.Size = New System.Drawing.Size(234, 22)
+        Me.txtDomicilio.Size = New System.Drawing.Size(176, 20)
         Me.txtDomicilio.TabIndex = 0
         '
         'txtDescripcion
         '
-        Me.txtDescripcion.Location = New System.Drawing.Point(210, 220)
-        Me.txtDescripcion.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtDescripcion.Location = New System.Drawing.Point(158, 179)
         Me.txtDescripcion.MaxLength = 200
         Me.txtDescripcion.Multiline = True
         Me.txtDescripcion.Name = "txtDescripcion"
-        Me.txtDescripcion.Size = New System.Drawing.Size(374, 22)
+        Me.txtDescripcion.Size = New System.Drawing.Size(282, 19)
         Me.txtDescripcion.TabIndex = 5
         '
         'Label12
         '
-        Me.Label12.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label12.AutoSize = True
         Me.Label12.BackColor = System.Drawing.Color.Transparent
         Me.Label12.ForeColor = System.Drawing.Color.Blue
-        Me.Label12.Location = New System.Drawing.Point(24, 247)
-        Me.Label12.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label12.Location = New System.Drawing.Point(19, 211)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(100, 17)
+        Me.Label12.Size = New System.Drawing.Size(79, 13)
         Me.Label12.TabIndex = 269
-        Me.Label12.Text = "Bonificación %"
+        Me.Label12.Text = "Bonificación %:"
         Me.Label12.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'Label10
@@ -527,20 +527,18 @@ Partial Class frmObraSocial
         Me.Label10.AutoSize = True
         Me.Label10.BackColor = System.Drawing.Color.Transparent
         Me.Label10.ForeColor = System.Drawing.Color.Blue
-        Me.Label10.Location = New System.Drawing.Point(189, 80)
-        Me.Label10.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label10.Location = New System.Drawing.Point(142, 65)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(42, 17)
+        Me.Label10.Size = New System.Drawing.Size(32, 13)
         Me.Label10.TabIndex = 265
         Me.Label10.Text = "Email"
         '
         'txtEmail
         '
-        Me.txtEmail.Location = New System.Drawing.Point(193, 100)
-        Me.txtEmail.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtEmail.Location = New System.Drawing.Point(145, 81)
         Me.txtEmail.MaxLength = 50
         Me.txtEmail.Name = "txtEmail"
-        Me.txtEmail.Size = New System.Drawing.Size(243, 22)
+        Me.txtEmail.Size = New System.Drawing.Size(183, 20)
         Me.txtEmail.TabIndex = 3
         '
         'Label5
@@ -548,10 +546,9 @@ Partial Class frmObraSocial
         Me.Label5.AutoSize = True
         Me.Label5.BackColor = System.Drawing.Color.Transparent
         Me.Label5.ForeColor = System.Drawing.Color.Blue
-        Me.Label5.Location = New System.Drawing.Point(23, 80)
-        Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label5.Location = New System.Drawing.Point(17, 65)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(64, 17)
+        Me.Label5.Size = New System.Drawing.Size(49, 13)
         Me.Label5.TabIndex = 263
         Me.Label5.Text = "Teléfono"
         '
@@ -560,10 +557,9 @@ Partial Class frmObraSocial
         Me.labelCuit.AutoSize = True
         Me.labelCuit.BackColor = System.Drawing.Color.Transparent
         Me.labelCuit.ForeColor = System.Drawing.Color.Blue
-        Me.labelCuit.Location = New System.Drawing.Point(456, 80)
-        Me.labelCuit.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.labelCuit.Location = New System.Drawing.Point(342, 65)
         Me.labelCuit.Name = "labelCuit"
-        Me.labelCuit.Size = New System.Drawing.Size(37, 17)
+        Me.labelCuit.Size = New System.Drawing.Size(29, 13)
         Me.labelCuit.TabIndex = 258
         Me.labelCuit.Text = "Cuit*"
         '
@@ -574,10 +570,9 @@ Partial Class frmObraSocial
         Me.chkEliminados.BackColor = System.Drawing.Color.Transparent
         Me.chkEliminados.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.chkEliminados.ForeColor = System.Drawing.Color.Red
-        Me.chkEliminados.Location = New System.Drawing.Point(1019, 260)
-        Me.chkEliminados.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkEliminados.Location = New System.Drawing.Point(780, 211)
         Me.chkEliminados.Name = "chkEliminados"
-        Me.chkEliminados.Size = New System.Drawing.Size(138, 21)
+        Me.chkEliminados.Size = New System.Drawing.Size(109, 17)
         Me.chkEliminados.TabIndex = 256
         Me.chkEliminados.Text = "Ver Eliminados"
         Me.chkEliminados.UseVisualStyleBackColor = False
@@ -594,44 +589,16 @@ Partial Class frmObraSocial
         Me.stiProfesionales.Name = "stiProfesionales"
         Me.stiProfesionales.Text = "Profesionales"
         '
-        'Id
-        '
-        Me.Id.HeaderText = "Id"
-        Me.Id.MinimumWidth = 6
-        Me.Id.Name = "Id"
-        Me.Id.Width = 125
-        '
-        'cod
-        '
-        Me.cod.HeaderText = "Código"
-        Me.cod.MinimumWidth = 6
-        Me.cod.Name = "cod"
-        Me.cod.Width = 125
-        '
-        'Nombre
-        '
-        Me.Nombre.HeaderText = "Nombre"
-        Me.Nombre.MinimumWidth = 6
-        Me.Nombre.Name = "Nombre"
-        Me.Nombre.Width = 190
-        '
-        'Porcentaje
-        '
-        Me.Porcentaje.HeaderText = "Porcentaje"
-        Me.Porcentaje.MinimumWidth = 6
-        Me.Porcentaje.Name = "Porcentaje"
-        Me.Porcentaje.Width = 125
-        '
         'frmObraSocial
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1196, 534)
+        Me.ClientSize = New System.Drawing.Size(920, 434)
         Me.Controls.Add(Me.GroupBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(5)
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.MaximizeBox = False
-        Me.MinimumSize = New System.Drawing.Size(1093, 420)
+        Me.MinimumSize = New System.Drawing.Size(824, 349)
         Me.Name = "frmObraSocial"
         Me.Text = "Obras Sociales"
         Me.Controls.SetChildIndex(Me.GroupBox1, 0)

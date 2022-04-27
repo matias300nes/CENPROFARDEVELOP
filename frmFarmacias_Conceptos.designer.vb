@@ -215,7 +215,7 @@ Partial Class frmFarmacias_Conceptos
         Me.GroupBox1.DisabledBackColor = System.Drawing.Color.Empty
         Me.GroupBox1.Location = New System.Drawing.Point(12, 28)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(1219, 291)
+        Me.GroupBox1.Size = New System.Drawing.Size(1168, 291)
         '
         '
         '
@@ -450,7 +450,7 @@ Partial Class frmFarmacias_Conceptos
         Me.SuperTabControl1.ReorderTabsEnabled = True
         Me.SuperTabControl1.SelectedTabFont = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold)
         Me.SuperTabControl1.SelectedTabIndex = 0
-        Me.SuperTabControl1.Size = New System.Drawing.Size(596, 255)
+        Me.SuperTabControl1.Size = New System.Drawing.Size(576, 255)
         Me.SuperTabControl1.TabFont = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SuperTabControl1.TabIndex = 65
         Me.SuperTabControl1.Tabs.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.stiConceptos, Me.stiCodigos, Me.stiProfesionales, Me.btnAdd, Me.btnEliminarPanel})
@@ -463,7 +463,7 @@ Partial Class frmFarmacias_Conceptos
         Me.SuperTabControlPanel1.Location = New System.Drawing.Point(0, 26)
         Me.SuperTabControlPanel1.Margin = New System.Windows.Forms.Padding(2)
         Me.SuperTabControlPanel1.Name = "SuperTabControlPanel1"
-        Me.SuperTabControlPanel1.Size = New System.Drawing.Size(596, 229)
+        Me.SuperTabControlPanel1.Size = New System.Drawing.Size(576, 229)
         Me.SuperTabControlPanel1.TabIndex = 1
         Me.SuperTabControlPanel1.TabItem = Me.stiConceptos
         '
@@ -481,7 +481,7 @@ Partial Class frmFarmacias_Conceptos
         Me.grdConceptosPanel.RowHeadersWidth = 51
         Me.grdConceptosPanel.RowTemplate.Height = 24
         Me.grdConceptosPanel.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.grdConceptosPanel.Size = New System.Drawing.Size(596, 229)
+        Me.grdConceptosPanel.Size = New System.Drawing.Size(576, 229)
         Me.grdConceptosPanel.TabIndex = 0
         '
         'Id
@@ -489,70 +489,70 @@ Partial Class frmFarmacias_Conceptos
         Me.Id.HeaderText = "Id"
         Me.Id.MinimumWidth = 6
         Me.Id.Name = "Id"
-        Me.Id.Width = 125
+        Me.Id.Width = 54
         '
         'cod
         '
         Me.cod.HeaderText = "Codigo"
         Me.cod.MinimumWidth = 6
         Me.cod.Name = "cod"
-        Me.cod.Width = 125
+        Me.cod.Width = 54
         '
         'Nombre
         '
         Me.Nombre.HeaderText = "Nombre"
         Me.Nombre.MinimumWidth = 6
         Me.Nombre.Name = "Nombre"
-        Me.Nombre.Width = 125
+        Me.Nombre.Width = 55
         '
         'Descripcion
         '
         Me.Descripcion.HeaderText = "Descripcion"
         Me.Descripcion.MinimumWidth = 6
         Me.Descripcion.Name = "Descripcion"
-        Me.Descripcion.Width = 125
+        Me.Descripcion.Width = 54
         '
         'ConceptoPago
         '
         Me.ConceptoPago.HeaderText = "Concepto Pago"
         Me.ConceptoPago.MinimumWidth = 6
         Me.ConceptoPago.Name = "ConceptoPago"
-        Me.ConceptoPago.Width = 125
+        Me.ConceptoPago.Width = 54
         '
         'Pertenecea
         '
         Me.Pertenecea.HeaderText = "Pertenece A"
         Me.Pertenecea.MinimumWidth = 6
         Me.Pertenecea.Name = "Pertenecea"
-        Me.Pertenecea.Width = 125
+        Me.Pertenecea.Width = 54
         '
         'TipoValor
         '
         Me.TipoValor.HeaderText = "Tipo de Valor"
         Me.TipoValor.MinimumWidth = 6
         Me.TipoValor.Name = "TipoValor"
-        Me.TipoValor.Width = 125
+        Me.TipoValor.Width = 54
         '
         'Valor
         '
         Me.Valor.HeaderText = "Valor"
         Me.Valor.MinimumWidth = 6
         Me.Valor.Name = "Valor"
-        Me.Valor.Width = 125
+        Me.Valor.Width = 55
         '
         'Frecuencia
         '
         Me.Frecuencia.HeaderText = "Frecuencia"
         Me.Frecuencia.MinimumWidth = 6
         Me.Frecuencia.Name = "Frecuencia"
-        Me.Frecuencia.Width = 125
+        Me.Frecuencia.Width = 54
         '
         'CampoAplicable
         '
         Me.CampoAplicable.HeaderText = "Campo Aplicable"
         Me.CampoAplicable.MinimumWidth = 6
         Me.CampoAplicable.Name = "CampoAplicable"
-        Me.CampoAplicable.Width = 125
+        Me.CampoAplicable.Width = 54
         '
         'stiConceptos
         '
@@ -565,9 +565,9 @@ Partial Class frmFarmacias_Conceptos
         '
         Me.SuperTabControlPanel3.Controls.Add(Me.grdCodigos)
         Me.SuperTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SuperTabControlPanel3.Location = New System.Drawing.Point(0, 22)
+        Me.SuperTabControlPanel3.Location = New System.Drawing.Point(0, 26)
         Me.SuperTabControlPanel3.Name = "SuperTabControlPanel3"
-        Me.SuperTabControlPanel3.Size = New System.Drawing.Size(532, 233)
+        Me.SuperTabControlPanel3.Size = New System.Drawing.Size(545, 229)
         Me.SuperTabControlPanel3.TabIndex = 0
         Me.SuperTabControlPanel3.TabItem = Me.stiCodigos
         '
@@ -587,7 +587,7 @@ Partial Class frmFarmacias_Conceptos
         Me.grdCodigos.RowHeadersWidth = 51
         Me.grdCodigos.RowTemplate.Height = 24
         Me.grdCodigos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.grdCodigos.Size = New System.Drawing.Size(532, 233)
+        Me.grdCodigos.Size = New System.Drawing.Size(545, 229)
         Me.grdCodigos.TabIndex = 1
         '
         'mandatariaNombre
@@ -617,10 +617,10 @@ Partial Class frmFarmacias_Conceptos
         '
         Me.SuperTabControlPanel2.Controls.Add(Me.grdProfesionalesPanel)
         Me.SuperTabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SuperTabControlPanel2.Location = New System.Drawing.Point(0, 22)
+        Me.SuperTabControlPanel2.Location = New System.Drawing.Point(0, 26)
         Me.SuperTabControlPanel2.Margin = New System.Windows.Forms.Padding(2)
         Me.SuperTabControlPanel2.Name = "SuperTabControlPanel2"
-        Me.SuperTabControlPanel2.Size = New System.Drawing.Size(532, 233)
+        Me.SuperTabControlPanel2.Size = New System.Drawing.Size(545, 229)
         Me.SuperTabControlPanel2.TabIndex = 0
         Me.SuperTabControlPanel2.TabItem = Me.stiProfesionales
         '
@@ -638,7 +638,7 @@ Partial Class frmFarmacias_Conceptos
         Me.grdProfesionalesPanel.RowHeadersWidth = 51
         Me.grdProfesionalesPanel.RowTemplate.Height = 24
         Me.grdProfesionalesPanel.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.grdProfesionalesPanel.Size = New System.Drawing.Size(532, 233)
+        Me.grdProfesionalesPanel.Size = New System.Drawing.Size(545, 229)
         Me.grdProfesionalesPanel.TabIndex = 1
         '
         'DataGridViewTextBoxColumn1
