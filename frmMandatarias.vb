@@ -10,6 +10,20 @@ Public Class frmMandatarias
     Dim llenandoCombo As Boolean
     Dim bolpoliticas As Boolean
 
+    Enum colsGrid
+        Id = 0
+        Codigo = 1
+        Mandataria = 2
+        Direccion = 3
+        CodigoPostal = 4
+        IdProvincia = 5
+        Provincia = 6
+        IdLocalidad = 7
+        Localidad = 8
+        Telefono = 9
+        Celular = 10
+    End Enum
+
 #Region "Procedimientos Formularios"
 
     Private Sub frmAlmacenes_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles Me.KeyDown
@@ -39,8 +53,17 @@ Public Class frmMandatarias
         Permitir = True
         CargarCajas()
         PrepararBotones()
-        grd.Columns(5).Visible = False
-        grd.Columns(7).Visible = False
+
+        With grd
+            .Columns(colsGrid.IdLocalidad).Visible = False
+            .Columns(colsGrid.IdProvincia).Visible = False
+            .Columns(colsGrid.CodigoPostal).Visible = False
+            .Columns(colsGrid.Localidad).Visible = False
+            .Columns(colsGrid.Provincia).Visible = False
+
+            .AutoResizeColumns()
+        End With
+
 
     End Sub
 

@@ -31,7 +31,10 @@ Public Class frmGrupos
             cmbMandataria.SelectedIndex = 0
         End If
         grdGrupos_Os.Columns(0).Visible = False
-        'cmbMandataria.SelectedIndex = 0
+        grdGrupos_Os.AutoResizeColumns()
+
+
+        cmbMandataria_SelectedValueChanged(sender, e)
     End Sub
 
 #End Region
