@@ -29,6 +29,7 @@ Partial Class MDIPrincipal
         Me.FarmaciasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ConceptosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ProfesionalesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PlanesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ObrasSocialesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MandatariasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GruposToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -144,7 +145,9 @@ Partial Class MDIPrincipal
         Me.ToolStripStatusLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolTip = New System.Windows.Forms.ToolTip(Me.components)
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.PlanesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator14 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ToolStripSeparator15 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ToolStripSeparator19 = New System.Windows.Forms.ToolStripSeparator()
         Me.MenuStrip.SuspendLayout()
         Me.ToolStrip.SuspendLayout()
         Me.StatusStrip.SuspendLayout()
@@ -163,7 +166,7 @@ Partial Class MDIPrincipal
         '
         'AuxiliaresToolStripMenuItem
         '
-        Me.AuxiliaresToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripSeparator23, Me.RazonesSocialesToolStripMenuItem, Me.FarmaciasToolStripMenuItem, Me.ConceptosToolStripMenuItem, Me.ProfesionalesToolStripMenuItem, Me.PlanesToolStripMenuItem, Me.ObrasSocialesToolStripMenuItem, Me.MandatariasToolStripMenuItem, Me.GruposToolStripMenuItem, Me.PeriodoPresentacionesToolStripMenuItem, Me.ToolStripSeparator5, Me.PresentacionesToolStripMenuItem, Me.LiquidacionesToolStripMenuItem, Me.ChequesToolStripMenuItem, Me.SaldosToolStripMenuItem, Me.ToolStripSeparator24, Me.AsistenteDeImportacionToolStripMenuItem, Me.ToolStripMenuItem1, Me.ToolStripSeparator21, Me.SalirToolStripMenuItem})
+        Me.AuxiliaresToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripSeparator23, Me.RazonesSocialesToolStripMenuItem, Me.ConceptosToolStripMenuItem, Me.ProfesionalesToolStripMenuItem, Me.FarmaciasToolStripMenuItem, Me.ToolStripSeparator15, Me.PlanesToolStripMenuItem, Me.ObrasSocialesToolStripMenuItem, Me.ToolStripSeparator14, Me.MandatariasToolStripMenuItem, Me.GruposToolStripMenuItem, Me.PeriodoPresentacionesToolStripMenuItem, Me.ToolStripSeparator5, Me.PresentacionesToolStripMenuItem, Me.LiquidacionesToolStripMenuItem, Me.ToolStripSeparator19, Me.ChequesToolStripMenuItem, Me.SaldosToolStripMenuItem, Me.ToolStripSeparator24, Me.AsistenteDeImportacionToolStripMenuItem, Me.ToolStripMenuItem1, Me.ToolStripSeparator21, Me.SalirToolStripMenuItem})
         Me.AuxiliaresToolStripMenuItem.Name = "AuxiliaresToolStripMenuItem"
         Me.AuxiliaresToolStripMenuItem.Size = New System.Drawing.Size(59, 24)
         Me.AuxiliaresToolStripMenuItem.Text = "Inicio"
@@ -175,6 +178,7 @@ Partial Class MDIPrincipal
         '
         'RazonesSocialesToolStripMenuItem
         '
+        Me.RazonesSocialesToolStripMenuItem.Image = CType(resources.GetObject("RazonesSocialesToolStripMenuItem.Image"), System.Drawing.Image)
         Me.RazonesSocialesToolStripMenuItem.Name = "RazonesSocialesToolStripMenuItem"
         Me.RazonesSocialesToolStripMenuItem.Size = New System.Drawing.Size(258, 26)
         Me.RazonesSocialesToolStripMenuItem.Text = "Razones Sociales"
@@ -200,6 +204,13 @@ Partial Class MDIPrincipal
         Me.ProfesionalesToolStripMenuItem.Size = New System.Drawing.Size(258, 26)
         Me.ProfesionalesToolStripMenuItem.Text = "Profesionales"
         '
+        'PlanesToolStripMenuItem
+        '
+        Me.PlanesToolStripMenuItem.Image = CType(resources.GetObject("PlanesToolStripMenuItem.Image"), System.Drawing.Image)
+        Me.PlanesToolStripMenuItem.Name = "PlanesToolStripMenuItem"
+        Me.PlanesToolStripMenuItem.Size = New System.Drawing.Size(258, 26)
+        Me.PlanesToolStripMenuItem.Text = "Planes"
+        '
         'ObrasSocialesToolStripMenuItem
         '
         Me.ObrasSocialesToolStripMenuItem.Image = Global.CENPROFAR.My.Resources.Resources.obraSocial
@@ -216,6 +227,7 @@ Partial Class MDIPrincipal
         '
         'GruposToolStripMenuItem
         '
+        Me.GruposToolStripMenuItem.Image = CType(resources.GetObject("GruposToolStripMenuItem.Image"), System.Drawing.Image)
         Me.GruposToolStripMenuItem.Name = "GruposToolStripMenuItem"
         Me.GruposToolStripMenuItem.Size = New System.Drawing.Size(258, 26)
         Me.GruposToolStripMenuItem.Text = "Grupos"
@@ -248,6 +260,7 @@ Partial Class MDIPrincipal
         '
         'ChequesToolStripMenuItem
         '
+        Me.ChequesToolStripMenuItem.Image = CType(resources.GetObject("ChequesToolStripMenuItem.Image"), System.Drawing.Image)
         Me.ChequesToolStripMenuItem.Name = "ChequesToolStripMenuItem"
         Me.ChequesToolStripMenuItem.Size = New System.Drawing.Size(258, 26)
         Me.ChequesToolStripMenuItem.Text = "Cheques"
@@ -269,6 +282,7 @@ Partial Class MDIPrincipal
         Me.AsistenteDeImportacionToolStripMenuItem.Name = "AsistenteDeImportacionToolStripMenuItem"
         Me.AsistenteDeImportacionToolStripMenuItem.Size = New System.Drawing.Size(258, 26)
         Me.AsistenteDeImportacionToolStripMenuItem.Text = "Asistente de importacion"
+        Me.AsistenteDeImportacionToolStripMenuItem.Visible = False
         '
         'ToolStripMenuItem1
         '
@@ -984,11 +998,20 @@ Partial Class MDIPrincipal
         '
         Me.Timer1.Interval = 1200000
         '
-        'PlanesToolStripMenuItem
+        'ToolStripSeparator14
         '
-        Me.PlanesToolStripMenuItem.Name = "PlanesToolStripMenuItem"
-        Me.PlanesToolStripMenuItem.Size = New System.Drawing.Size(258, 26)
-        Me.PlanesToolStripMenuItem.Text = "Planes"
+        Me.ToolStripSeparator14.Name = "ToolStripSeparator14"
+        Me.ToolStripSeparator14.Size = New System.Drawing.Size(255, 6)
+        '
+        'ToolStripSeparator15
+        '
+        Me.ToolStripSeparator15.Name = "ToolStripSeparator15"
+        Me.ToolStripSeparator15.Size = New System.Drawing.Size(255, 6)
+        '
+        'ToolStripSeparator19
+        '
+        Me.ToolStripSeparator19.Name = "ToolStripSeparator19"
+        Me.ToolStripSeparator19.Size = New System.Drawing.Size(255, 6)
         '
         'MDIPrincipal
         '
@@ -1141,4 +1164,7 @@ Partial Class MDIPrincipal
     Friend WithEvents RazonesSocialesToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ChequesToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents PlanesToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator15 As ToolStripSeparator
+    Friend WithEvents ToolStripSeparator14 As ToolStripSeparator
+    Friend WithEvents ToolStripSeparator19 As ToolStripSeparator
 End Class
