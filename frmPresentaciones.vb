@@ -78,8 +78,11 @@ Public Class frmPresentaciones
         ACargoOS = 9
         Bonificacion = 10
         Total = 11
-        CodFacaf = 12
+        CodFacaf_Farm = 12
         CodPlan = 13
+        PorcenPlan = 14
+        'CodPlan = 14
+        'PorcenPlan = 13
     End Enum
 
     'Auxiliares para guardar
@@ -125,13 +128,31 @@ Public Class frmPresentaciones
         End If
     End Sub
 
-    Private Sub grd_SelectionChanged(sender As Object, e As EventArgs) 'Handles grd.SelectionChanged 'comentar cuando se necesite ver el diseñador
+    Private Function ExistePlanEnFarmacia() As Boolean
+        Dim idPlan
+        For Each grdItemsRow As DataGridViewRow In grdItems.Rows
+            IdPlan = grdItemsRow.Cells(ColumnasDelGridItems.IdPlan).Value
+            If IdPlan Is Nothing Or IdPlan = "" Then 'si alguna farmacia no tiene plan bloqueo el prescam
+                Return 0
+                Exit Function
+            End If
+            ExistePlanEnFarmacia = 1
+        Next
+    End Function
+
+
+    Private Sub grd_SelectionChanged(sender As Object, e As EventArgs) Handles grd.SelectionChanged 'comentar cuando se necesite ver el diseñador
         ''DataGridView1.SelectedRows.Count().ToString()
         If grd.SelectedRows.Count() > 1 Then
             btnUnificar.Enabled = True
         Else
             btnUnificar.Enabled = False
         End If
+
+        'If ExistePlanEnFarmacia() = 0 Then
+        '    btnPrescam.Enabled = False
+        'End If
+
     End Sub
 
     Private Sub frmPresentaciones_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -204,9 +225,9 @@ Public Class frmPresentaciones
             .Columns(ColumnasDelGrd.IDObraSocial).Visible = False
         End With
 
-        With grdItems
-            .Columns(ColumnasDelGridItems.IdPlan).Visible = False
-        End With
+        'With grdItems
+        '    .Columns(ColumnasDelGridItems.IdPlan).Visible = False
+        'End With
 
         grd.MultiSelect = True
         btnUnificar.Enabled = False
@@ -356,17 +377,17 @@ Public Class frmPresentaciones
 
     Private Sub grdItems_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles grdItems.MouseUp
 
-        Dim columna As Integer = 0
-        Dim Valor As String
+        'Dim columna As Integer = 0
+        'Dim Valor As String
 
-        Try
-            columna = grdItems.CurrentCell.ColumnIndex
-        Catch ex As Exception
+        'Try
+        '    columna = grdItems.CurrentCell.ColumnIndex
+        'Catch ex As Exception
 
-        End Try
+        'End Try
 
 
-        Valor = ""
+        'Valor = ""
 
 
     End Sub
@@ -1158,8 +1179,9 @@ Public Class frmPresentaciones
                     dt.Rows(i)(ColumnasDelGridItems.ACargoOS).ToString(),
                     dt.Rows(i)(ColumnasDelGridItems.Bonificacion).ToString(),
                     dt.Rows(i)(ColumnasDelGridItems.Total).ToString(),
-                    dt.Rows(i)(ColumnasDelGridItems.CodFacaf).ToString(),
-                    dt.Rows(i)(ColumnasDelGridItems.CodPlan).ToString())
+                    dt.Rows(i)(ColumnasDelGridItems.CodFacaf_Farm).ToString(),
+                    dt.Rows(i)(ColumnasDelGridItems.CodPlan).ToString(),
+                    dt.Rows(i)(ColumnasDelGridItems.PorcenPlan).ToString())
                 ' rodrigo 
 
             Next
