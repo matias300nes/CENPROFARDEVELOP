@@ -131,6 +131,7 @@ Public Class frmSaldos
     End Sub
 
     Friend Sub refreshData()
+        txtID.Text = ""
         If grdFarmacia.CurrentRow IsNot Nothing Then
             Dim codigo As String = grdFarmacia.CurrentRow.Cells(grdFarmaciaCols.Codigo).Value.ToString
             requestGrdData()
