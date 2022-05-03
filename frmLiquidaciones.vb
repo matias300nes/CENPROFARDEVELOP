@@ -2397,6 +2397,13 @@ Public Class frmLiquidaciones
                 param_credito.Value = DBNull.Value
                 param_credito.Direction = ParameterDirection.Input
 
+                ''Idliquidacion_det
+                Dim param_idLiquidacion_det As New SqlClient.SqlParameter
+                param_idLiquidacion_det.ParameterName = "@idLiquidacion_det"
+                param_idLiquidacion_det.SqlDbType = SqlDbType.BigInt
+                param_idLiquidacion_det.Value = farmacia("IdLiquidacion_det")
+                param_idLiquidacion_det.Direction = ParameterDirection.Input
+
                 If farmacia("subtotal") >= 0 Then
                     param_credito.Value = farmacia("subtotal")
                 Else
