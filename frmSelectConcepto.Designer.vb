@@ -27,10 +27,13 @@ Partial Class frmSelectConcepto
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.grdConceptos = New System.Windows.Forms.DataGridView()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.chkProfesional = New System.Windows.Forms.CheckBox()
+        Me.lblProfesional = New DevComponents.DotNetBar.LabelX()
+        Me.cmbProfesionales = New System.Windows.Forms.ComboBox()
+        Me.cmbFrecuencia = New System.Windows.Forms.ComboBox()
         Me.LabelX2 = New DevComponents.DotNetBar.LabelX()
         Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
         Me.txtValor = New System.Windows.Forms.TextBox()
-        Me.cmbFrecuencia = New System.Windows.Forms.ComboBox()
         Me.TableLayoutPanel1.SuspendLayout()
         CType(Me.grdConceptos, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
@@ -42,7 +45,7 @@ Partial Class frmSelectConcepto
         Me.btnListo.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.btnListo.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
         Me.btnListo.Location = New System.Drawing.Point(295, 473)
-        Me.btnListo.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnListo.Margin = New System.Windows.Forms.Padding(4)
         Me.btnListo.Name = "btnListo"
         Me.btnListo.Size = New System.Drawing.Size(119, 28)
         Me.btnListo.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
@@ -76,7 +79,7 @@ Partial Class frmSelectConcepto
         Me.grdConceptos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.grdConceptos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.grdConceptos.Location = New System.Drawing.Point(4, 99)
-        Me.grdConceptos.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.grdConceptos.Margin = New System.Windows.Forms.Padding(4)
         Me.grdConceptos.MultiSelect = False
         Me.grdConceptos.Name = "grdConceptos"
         Me.grdConceptos.ReadOnly = True
@@ -88,6 +91,9 @@ Partial Class frmSelectConcepto
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.chkProfesional)
+        Me.GroupBox1.Controls.Add(Me.lblProfesional)
+        Me.GroupBox1.Controls.Add(Me.cmbProfesionales)
         Me.GroupBox1.Controls.Add(Me.cmbFrecuencia)
         Me.GroupBox1.Controls.Add(Me.LabelX2)
         Me.GroupBox1.Controls.Add(Me.LabelX1)
@@ -100,6 +106,48 @@ Partial Class frmSelectConcepto
         Me.GroupBox1.Size = New System.Drawing.Size(703, 91)
         Me.GroupBox1.TabIndex = 3
         Me.GroupBox1.TabStop = False
+        '
+        'chkProfesional
+        '
+        Me.chkProfesional.AutoSize = True
+        Me.chkProfesional.Location = New System.Drawing.Point(337, 49)
+        Me.chkProfesional.Name = "chkProfesional"
+        Me.chkProfesional.Size = New System.Drawing.Size(101, 21)
+        Me.chkProfesional.TabIndex = 5
+        Me.chkProfesional.Text = "Profesional"
+        Me.chkProfesional.UseVisualStyleBackColor = True
+        '
+        'lblProfesional
+        '
+        '
+        '
+        '
+        Me.lblProfesional.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.lblProfesional.Location = New System.Drawing.Point(358, 26)
+        Me.lblProfesional.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.lblProfesional.Name = "lblProfesional"
+        Me.lblProfesional.Size = New System.Drawing.Size(93, 17)
+        Me.lblProfesional.TabIndex = 7
+        Me.lblProfesional.Text = "Profesional"
+        '
+        'cmbProfesionales
+        '
+        Me.cmbProfesionales.FormattingEnabled = True
+        Me.cmbProfesionales.Location = New System.Drawing.Point(358, 48)
+        Me.cmbProfesionales.Name = "cmbProfesionales"
+        Me.cmbProfesionales.Size = New System.Drawing.Size(121, 24)
+        Me.cmbProfesionales.TabIndex = 6
+        '
+        'cmbFrecuencia
+        '
+        Me.cmbFrecuencia.AccessibleName = "*Frecuencia"
+        Me.cmbFrecuencia.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbFrecuencia.FormattingEnabled = True
+        Me.cmbFrecuencia.Items.AddRange(New Object() {"MENSUAL"})
+        Me.cmbFrecuencia.Location = New System.Drawing.Point(169, 48)
+        Me.cmbFrecuencia.Name = "cmbFrecuencia"
+        Me.cmbFrecuencia.Size = New System.Drawing.Size(139, 24)
+        Me.cmbFrecuencia.TabIndex = 4
         '
         'LabelX2
         '
@@ -136,17 +184,6 @@ Partial Class frmSelectConcepto
         Me.txtValor.Size = New System.Drawing.Size(124, 22)
         Me.txtValor.TabIndex = 0
         '
-        'cmbFrecuencia
-        '
-        Me.cmbFrecuencia.AccessibleName = "*Frecuencia"
-        Me.cmbFrecuencia.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbFrecuencia.FormattingEnabled = True
-        Me.cmbFrecuencia.Items.AddRange(New Object() {"MENSUAL"})
-        Me.cmbFrecuencia.Location = New System.Drawing.Point(169, 48)
-        Me.cmbFrecuencia.Name = "cmbFrecuencia"
-        Me.cmbFrecuencia.Size = New System.Drawing.Size(139, 24)
-        Me.cmbFrecuencia.TabIndex = 4
-        '
         'frmSelectConcepto
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -154,7 +191,7 @@ Partial Class frmSelectConcepto
         Me.ClientSize = New System.Drawing.Size(709, 517)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MinimumSize = New System.Drawing.Size(594, 420)
         Me.Name = "frmSelectConcepto"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
@@ -175,4 +212,7 @@ Partial Class frmSelectConcepto
     Friend WithEvents LabelX1 As DevComponents.DotNetBar.LabelX
     Friend WithEvents txtValor As TextBox
     Friend WithEvents cmbFrecuencia As ComboBox
+    Friend WithEvents chkProfesional As CheckBox
+    Friend WithEvents lblProfesional As DevComponents.DotNetBar.LabelX
+    Friend WithEvents cmbProfesionales As ComboBox
 End Class

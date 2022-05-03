@@ -944,7 +944,7 @@ Public Class frmFarmacias_Conceptos
             .Columns(ColumnasDelGrdConceptosPanel.Codigo).Visible = False
             .Columns(ColumnasDelGrdConceptosPanel.ConceptoPago).Visible = False
             .Columns(ColumnasDelGrdConceptosPanel.Frecuencia).Visible = False
-            .Columns(ColumnasDelGrdConceptosPanel.PerteneceA).Visible = False
+            .Columns(ColumnasDelGrdConceptosPanel.CampoAplicable).Visible = False
             .Columns(ColumnasDelGrdConceptosPanel.TipoValor).Visible = False
             .AutoResizeColumns()
         End With
@@ -1539,7 +1539,7 @@ Public Class frmFarmacias_Conceptos
 
     End Sub
 
-    Private Overloads Sub grd_CurrentCellChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles grd.CurrentCellChanged 'comentar
+    Private Overloads Sub grd_CurrentCellChanged(ByVal sender As Object, ByVal e As System.EventArgs) 'Handles grd.CurrentCellChanged 'comentar
         LlenarGrdConceptosPanel()
         LlenarGrdProfesionalesPanel()
     End Sub

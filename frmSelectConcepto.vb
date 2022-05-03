@@ -75,6 +75,10 @@ Public Class frmSelectConcepto
         Permitir = True
         CargarCajas()
         cmbFrecuencia.SelectedIndex = 0
+
+        cmbProfesionales.Visible = False
+        lblProfesional.Visible = False
+
         With grdConceptos
             .Columns(ColumnasDelGrdConceptos.Id).Visible = False
             .Columns(ColumnasDelGrdConceptos.PerteneceA).Visible = False
@@ -142,6 +146,18 @@ Public Class frmSelectConcepto
         End If
         'InformarCantidadRegistros()
         'RaiseEvent ev_CellChanged(sender, e) 'por ahora lo usa el formulario entryline
+    End Sub
+
+    Private Sub chkProfesional_Click(sender As Object, e As EventArgs) Handles chkProfesional.Click
+        If chkProfesional.Checked = True Then
+            cmbProfesionales.Visible = True
+            lblProfesional.Visible = True
+            chkProfesional.Text = ""
+        Else
+            cmbProfesionales.Visible = False
+            lblProfesional.Visible = False
+            chkProfesional.Text = "Profesional"
+        End If
     End Sub
 
     'Private Sub grdPresentaciones_SelectionChanged(sender As Object, e As DataGridViewCellEventArgs) Handles grdPresentaciones.SelectionChanged
