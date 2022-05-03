@@ -1192,6 +1192,8 @@ Public Class frmLiquidaciones
                                               param_idFarmacia, param_pagadoACargoOS, param_pagadoFinal, param_recetasA,
                                               param_recaudadoA, param_aCargoOsA, param_total, param_user, param_res)
 
+                detalle("IdLiquidacion_det") = param_id.Value
+
                 res = param_res.Value
 
                 If (res <= 0) Then
@@ -2327,7 +2329,6 @@ Public Class frmLiquidaciones
                                     Util.MsgStatus(Status1, "No se pudo agregar el registro (Concepto).", My.Resources.Resources.stop_error.ToBitmap, True)
                                     Exit Sub
                                 Case Else
-                                    txtID_TextChanged(e, sender)
                                     res_pago = GenerarPago()
                                     Select Case res_pago
                                         Case Else
@@ -2428,7 +2429,7 @@ Public Class frmLiquidaciones
 
                 SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spHistorialCta_Insert",
                                               param_id, param_idFarmacia, param_detalle, param_debito, param_credito,
-                                              param_user, param_res)
+                                              param_idLiquidacion_det, param_user, param_res)
 
                 res = param_res.Value
 
