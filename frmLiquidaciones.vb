@@ -2327,6 +2327,7 @@ Public Class frmLiquidaciones
                                     Util.MsgStatus(Status1, "No se pudo agregar el registro (Concepto).", My.Resources.Resources.stop_error.ToBitmap, True)
                                     Exit Sub
                                 Case Else
+                                    txtID_TextChanged(e, sender)
                                     res_pago = GenerarPago()
                                     Select Case res_pago
                                         Case Else
