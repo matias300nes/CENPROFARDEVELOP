@@ -111,7 +111,7 @@ Public Class frmSaldos
     Private Sub requestGrdItemData()
         Dim connection As SqlClient.SqlConnection = Nothing
         Dim dt As New DataTable()
-        Dim sql As String = $"exec HistorialCta_SelectByIdFarmacia @IdFarmacia = {txtID.Text}"
+        Dim sql As String = $"exec spHistorialCta_SelectByIdFarmacia @IdFarmacia = {txtID.Text}"
         If txtID.Text <> "" Then
             Try
                 connection = SqlHelper.GetConnection(ConnStringSEI)
@@ -131,6 +131,7 @@ Public Class frmSaldos
     End Sub
 
     Friend Sub refreshData()
+        txtID.Text = ""
         If grdFarmacia.CurrentRow IsNot Nothing Then
             Dim codigo As String = grdFarmacia.CurrentRow.Cells(grdFarmaciaCols.Codigo).Value.ToString
             requestGrdData()
