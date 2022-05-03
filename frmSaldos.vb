@@ -111,7 +111,7 @@ Public Class frmSaldos
     Private Sub requestGrdItemData()
         Dim connection As SqlClient.SqlConnection = Nothing
         Dim dt As New DataTable()
-        Dim sql As String = $"exec HistorialCta_SelectByIdFarmacia @IdFarmacia = {txtID.Text}"
+        Dim sql As String = $"exec spHistorialCta_SelectByIdFarmacia @IdFarmacia = {txtID.Text}"
         If txtID.Text <> "" Then
             Try
                 connection = SqlHelper.GetConnection(ConnStringSEI)
