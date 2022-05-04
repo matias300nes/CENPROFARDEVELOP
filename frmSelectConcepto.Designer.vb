@@ -133,9 +133,9 @@ Partial Class frmSelectConcepto
         'cmbProfesionales
         '
         Me.cmbProfesionales.FormattingEnabled = True
-        Me.cmbProfesionales.Location = New System.Drawing.Point(358, 48)
+        Me.cmbProfesionales.Location = New System.Drawing.Point(358, 46)
         Me.cmbProfesionales.Name = "cmbProfesionales"
-        Me.cmbProfesionales.Size = New System.Drawing.Size(121, 24)
+        Me.cmbProfesionales.Size = New System.Drawing.Size(186, 24)
         Me.cmbProfesionales.TabIndex = 6
         '
         'cmbFrecuencia
