@@ -1189,7 +1189,12 @@ Public Class frmLiquidaciones
                 Dim param_pagoPendiente As New SqlClient.SqlParameter
                 param_pagoPendiente.ParameterName = "@PagoPendiente"
                 param_pagoPendiente.SqlDbType = SqlDbType.Decimal
-                param_pagoPendiente.Value = detalle("A Cargo OS") - aceptado - pagado
+                If cmbTipoPago.SelectedValue = "FINAL" Then
+                    param_pagoPendiente.Value = 0
+                Else
+                    param_pagoPendiente.Value = detalle("A Cargo OS") - aceptado - pagado
+                End If
+
                 param_pagoPendiente.Direction = ParameterDirection.Input
 
                 ''user
