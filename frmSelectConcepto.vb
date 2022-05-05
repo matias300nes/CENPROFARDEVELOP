@@ -69,12 +69,62 @@ Public Class frmSelectConcepto
 
     End Sub
 
+    Private Sub LlenarCmbProfesionales()
+        Dim connection As SqlClient.SqlConnection = Nothing
+        Dim ds As Data.DataSet
+
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+        Catch ex As Exception
+            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End Try
+
+        Try
+
+            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, " SELECT fp.idprofesional AS ID, p.nombre+' '+p.Apellido  AS Profesional
+                                                                            FROM Farmacias_Profesionales fp
+                                                                            JOIN Profesionales p 
+                                                                            ON p.Id = fp.idProfesional")
+            ds.Dispose()
+
+            With cmbProfesionales
+                .DataSource = ds.Tables(0).DefaultView
+                .DisplayMember = "Profesional"
+                .ValueMember = "ID"
+                '.SelectedIndex = "ID"
+            End With
+
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If Not connection Is Nothing Then
+                CType(connection, IDisposable).Dispose()
+            End If
+        End Try
+    End Sub
+
     Private Sub frmNuevaLiquidacion_Load(sender As Object, e As EventArgs) Handles Me.Load
         asignarTags()
         LlenarGrilla()
+        LlenarCmbProfesionales()
         Permitir = True
         CargarCajas()
         cmbFrecuencia.SelectedIndex = 0
+
+        cmbProfesionales.Visible = False
+        lblProfesional.Visible = False
+
         With grdConceptos
             .Columns(ColumnasDelGrdConceptos.Id).Visible = False
             .Columns(ColumnasDelGrdConceptos.PerteneceA).Visible = False
@@ -94,18 +144,26 @@ Public Class frmSelectConcepto
                 ''Llenado de grdConceptosPanel
                 With grdConceptos.CurrentRow
 
+                    Dim idFarm_Concep = DBNull.Value
                     Dim id = .Cells(ColumnasDelGrdConceptos.Id).Value
                     Dim codigo = IIf(.Cells(ColumnasDelGrdConceptos.Codigo).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.Codigo).Value)
                     Dim nombre = IIf(.Cells(ColumnasDelGrdConceptos.Nombre).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.Nombre).Value)
                     Dim descripcion = IIf(.Cells(ColumnasDelGrdConceptos.Descripcion).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.Descripcion).Value)
+                    Dim idProfesional = IIf(chkProfesional.Checked = True, cmbProfesionales.SelectedValue, DBNull.Value)
+                    Dim profesional = IIf(chkProfesional.Checked = True, cmbProfesionales.Text, "")
                     Dim conceptopago = IIf(.Cells(ColumnasDelGrdConceptos.ConceptoPago).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.ConceptoPago).Value)
                     Dim pertenecea = IIf(.Cells(ColumnasDelGrdConceptos.PerteneceA).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.PerteneceA).Value)
+                    If pertenecea = 1 Then
+                        pertenecea = "LIQUIDACIONES"
+                    ElseIf pertenecea = 2 Then
+                        pertenecea = "SALDOS"
+                    End If
                     Dim tipovalor = IIf(.Cells(ColumnasDelGrdConceptos.TipoDeValor).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.TipoDeValor).Value)
                     Dim valor = IIf(txtValor.Text = "", .Cells(ColumnasDelGrdConceptos.Valor).Value, txtValor.Text)
                     Dim frecuencia = cmbFrecuencia.Text
                     Dim campoaplicable = IIf(.Cells(ColumnasDelGrdConceptos.CampoAplicable).Value Is DBNull.Value, "", .Cells(ColumnasDelGrdConceptos.CampoAplicable).Value)
 
-                    frmFarmacias_Conceptos.grdConceptosPanel.Rows.Add(id, codigo, nombre, descripcion, conceptopago, pertenecea, tipovalor, valor, frecuencia, campoaplicable)
+                    frmFarmacias_Conceptos.grdConceptosPanel.Rows.Add(idFarm_Concep, id, codigo, nombre, idProfesional, profesional, descripcion, conceptopago, pertenecea, tipovalor, valor, frecuencia, campoaplicable)
                 End With
 
 
@@ -142,6 +200,18 @@ Public Class frmSelectConcepto
         End If
         'InformarCantidadRegistros()
         'RaiseEvent ev_CellChanged(sender, e) 'por ahora lo usa el formulario entryline
+    End Sub
+
+    Private Sub chkProfesional_Click(sender As Object, e As EventArgs) Handles chkProfesional.Click
+        If chkProfesional.Checked = True Then
+            cmbProfesionales.Visible = True
+            lblProfesional.Visible = True
+            chkProfesional.Text = ""
+        Else
+            cmbProfesionales.Visible = False
+            lblProfesional.Visible = False
+            chkProfesional.Text = "Profesional"
+        End If
     End Sub
 
     'Private Sub grdPresentaciones_SelectionChanged(sender As Object, e As DataGridViewCellEventArgs) Handles grdPresentaciones.SelectionChanged
