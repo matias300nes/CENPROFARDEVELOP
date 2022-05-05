@@ -141,7 +141,7 @@ Public Class frmPresentaciones
     End Function
 
 
-    Private Sub grd_SelectionChanged(sender As Object, e As EventArgs) Handles grd.SelectionChanged 'comentar cuando se necesite ver el diseñador
+    Private Sub grd_SelectionChanged(sender As Object, e As EventArgs) 'Handles grd.SelectionChanged 'comentar cuando se necesite ver el diseñador
         ''DataGridView1.SelectedRows.Count().ToString()
         If grd.SelectedRows.Count() > 1 Then
             btnUnificar.Enabled = True
@@ -173,7 +173,7 @@ Public Class frmPresentaciones
         configurarform()
         asignarTags()
 
-        btnEliminar.Text = "Anular Presentación"
+        btnEliminar.Text = "Anular"
         'rdPendientes.Checked = 1
 
         llenarCmbEstados()
@@ -181,8 +181,10 @@ Public Class frmPresentaciones
         LlenarCmbObraSocial()
         LlenarCmbPlanes()
 
-        If cmbEstado.Text = "" Then
+        If cmbEstado.Text = "" Then 'esta vacio porque no hay registros
             cmbEstado.Text = "PRESENTADO"
+        Else 'existen registros
+            cmbEstado.Text = "PRESENTADO" 'fuerzo la seleccion de presentaciones con estado PRESENTADO
         End If
 
         ''Traigo los encabezados de presentacion
@@ -1050,7 +1052,7 @@ Public Class frmPresentaciones
 
     Private Sub PrepararGridItems()
         Util.LimpiarGridItems(grdItems)
-        Util.LimpiarGridItems(grd)
+        'Util.LimpiarGridItems(grd)
     End Sub
 
     Private Sub AñadirGridItem()
@@ -1994,7 +1996,7 @@ Public Class frmPresentaciones
         txtObservacion.Enabled = True
 
         Util.LimpiarTextBox(Me.Controls)
-        PrepararGridItems()
+        'PrepararGridItems()
 
         'solucion momentanea revisar
         txtObservacion.Text = ""
@@ -2131,7 +2133,7 @@ Public Class frmPresentaciones
 
         Dim ds_liquidaciones As Data.DataSet
         Dim res As Integer
-        If MessageBox.Show("Está seguro que desea eliminar la razón social seleccionada?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
+        If MessageBox.Show("Está seguro que desea eliminar la presentación seleccionada?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
             Exit Sub
         End If
 
@@ -2373,14 +2375,15 @@ Public Class frmPresentaciones
 
     End Sub
 
-    'Private Overloads Sub btnCancelar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCancelar.Click
-    '    cmbEstado.Enabled = True
-    '    Util.LimpiarTextBox(Me.Controls)
-    '    LimpiarGridItems(grdItems)
-    '    LimpiarGridItems(grd)
+    Private Overloads Sub btnCancelar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCancelar.Click
+        cmbEstado.Enabled = True
+        grd.Rows(0).Selected = True
+        grd_CurrentCellChanged(sender, e)
+        btnNuevo.Enabled = True
+        llenarCmbEstados()
 
-    '    bolModo = False
-    'End Sub
+        'bolModo = False
+    End Sub
 
     Private Sub btnCopiarOC_Click(ByVal sender As Object, ByVal e As System.EventArgs)
         Dim UltId As Long
