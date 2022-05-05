@@ -581,6 +581,9 @@ Public Class frmLiquidaciones
 
                     End If
                 Next
+                btnAddConceptos.Enabled = True
+            Else
+                btnAddConceptos.Enabled = False
             End If
         End With
 
@@ -1172,6 +1175,23 @@ Public Class frmLiquidaciones
                 param_total.Value = detalle("subtotal")
                 param_total.Direction = ParameterDirection.Input
 
+                Dim aceptado As Decimal = IIf(detalle("A Cargo OS A") IsNot DBNull.Value, detalle("A Cargo OS A"), 0)
+                Dim pagado As Decimal = IIf(detalle("A Cargo OS P") IsNot DBNull.Value, detalle("A Cargo OS P"), 0)
+
+                ''pagobase
+                Dim param_pagoBase As New SqlClient.SqlParameter
+                param_pagoBase.ParameterName = "@PagoBase"
+                param_pagoBase.SqlDbType = SqlDbType.Decimal
+                param_pagoBase.Value = detalle("A Cargo OS") - pagado
+                param_pagoBase.Direction = ParameterDirection.Input
+
+                ''pagopendiente
+                Dim param_pagoPendiente As New SqlClient.SqlParameter
+                param_pagoPendiente.ParameterName = "@PagoPendiente"
+                param_pagoPendiente.SqlDbType = SqlDbType.Decimal
+                param_pagoPendiente.Value = detalle("A Cargo OS") - aceptado - pagado
+                param_pagoPendiente.Direction = ParameterDirection.Input
+
                 ''user
                 Dim param_user As New SqlClient.SqlParameter
                 param_user.ParameterName = "@user"
@@ -1190,7 +1210,7 @@ Public Class frmLiquidaciones
                 SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spLiquidaciones_Det_Insert_Update",
                                               param_id, param_index, param_idLiquidacion, param_idPresentacion_det,
                                               param_idFarmacia, param_pagadoACargoOS, param_pagadoFinal, param_recetasA,
-                                              param_recaudadoA, param_aCargoOsA, param_total, param_user, param_res)
+                                              param_recaudadoA, param_aCargoOsA, param_total, param_pagoBase, param_pagoPendiente, param_user, param_res)
 
                 detalle("IdLiquidacion_det") = param_id.Value
 
@@ -1521,6 +1541,7 @@ Public Class frmLiquidaciones
         btnCargarPresentacion.Enabled = True
         btnEliminar.Enabled = False
         btnExcelWindow.Enabled = False
+        btnAddConceptos.Enabled = False
         btnLiquidar.Enabled = False
 
         ''Limpieza de labels
