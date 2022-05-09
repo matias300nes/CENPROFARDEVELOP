@@ -93,16 +93,6 @@ Public Class frmPresentaciones
 
 #Region "   Eventos"
 
-    'Private Sub frmPresentaciones_Activated(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Activated
-
-    '    'If bolModo = False Then
-    '    '    rdTodasOC.Checked = True
-    '    '    SQL = "exec spOrdenDeCompra_Select_All @Eliminado = " & IIf(rdAnuladas.Checked = True, 1, 0) & ", @Pendientes = " & IIf(rdPendientes.Checked = True, 1, 0) & ", @PendientesyCumplidas = " & rdTodasOC.Checked
-    '    '    btnActualizar_Click(sender, e)
-    '    'End If
-
-    'End Sub
-
     Private Sub frmPresentaciones_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles Me.KeyDown
         Select Case e.KeyCode
             Case Keys.F3 'nuevo
@@ -149,10 +139,6 @@ Public Class frmPresentaciones
             btnUnificar.Enabled = False
         End If
 
-        'If ExistePlanEnFarmacia() = 0 Then
-        '    btnPrescam.Enabled = False
-        'End If
-
     End Sub
 
     Private Sub frmPresentaciones_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -188,7 +174,6 @@ Public Class frmPresentaciones
         End If
 
         ''Traigo los encabezados de presentacion
-        'SQL = $"exec spPresentaciones_Select_All @Pendientes = {rdPendientes.Checked} ,@Eliminado = {rdAnuladas.Checked} ,@Todos = {rdTodasOC.Checked}"
         SQL = $"exec spPresentaciones_Select_All @Estado = {cmbEstado.Text.Replace(" ", "")} ,@Eliminado = 0"
 
         LlenarGrilla()
@@ -226,6 +211,12 @@ Public Class frmPresentaciones
         With grd
             .Columns(ColumnasDelGrd.IDObraSocial).Visible = False
         End With
+
+        'For Each fila As DataGridViewRow In grdItems.Rows
+        '    If fila.Cells(ColumnasDelGridItems.Plan).Value = "" Then
+
+        '    End If
+        'Next
 
         'With grdItems
         '    .Columns(ColumnasDelGridItems.IdPlan).Visible = False
@@ -581,62 +572,6 @@ Public Class frmPresentaciones
 
     End Sub
 
-    Private Sub BorrarElItemToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BorrarElItemToolStripMenuItem.Click
-        MsgBox($"Hello world: {sender.ToString}")
-        'Dim cell As DataGridViewCell = grdItems.CurrentCell
-        'Dim res As Integer
-
-        'Try
-        '    If bolModo Then
-        '        grdItems.Rows.RemoveAt(cell.RowIndex) 'la borramos directamente
-        '        Contar_Filas()
-        '    Else
-        '        'If bolModo = False And grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.IdMaterial).Value Is DBNull.Value Then
-        '        ' grdItems.Rows.RemoveAt(cell.RowIndex) 'la borramos directamente
-        '        'Contar_Filas()
-        '        'Else
-        '        If grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Status).Value.ToString = "CUMPLIDO" Then
-        '            Util.MsgStatus(Status1, "No se puede borrar el registro. Ya está Cumplido.", My.Resources.stop_error.ToBitmap)
-        '            Util.MsgStatus(Status1, "No se puede borrar el registro. Ya está Cumplido.", My.Resources.stop_error.ToBitmap, True)
-        '        Else
-        '            If grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Cantidad).Value <> IIf(grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Saldo).Value Is DBNull.Value, grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Cantidad).Value, grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.Saldo).Value) Then
-        '                Util.MsgStatus(Status1, "No se puede borrar el registro. Ya tiene Recepciones realizadas.", My.Resources.stop_error.ToBitmap)
-        '                Util.MsgStatus(Status1, "No se puede borrar el registro. Ya tiene Recepciones realizadas.", My.Resources.stop_error.ToBitmap, True)
-        '            Else
-        '                If MessageBox.Show("Esta acción Eliminará el item de forma permanente." + vbCrLf + "¿Está seguro que desea eliminar?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
-        '                    Util.MsgStatus(Status1, "Eliminando el registro...", My.Resources.Resources.indicator_white)
-
-        '                    Dim item As Long = grdItems.Rows(cell.RowIndex).Cells(ColumnasDelGridItems.IdOrdenDeCompra_Det).Value
-
-        '                    grdItems.Rows.RemoveAt(cell.RowIndex) 'la borramos directamente de la grilla..
-        '                    Contar_Filas()
-
-        '                    res = EliminarRegistroItem(CType(txtID.Text, Long), item)
-
-        '                    Select Case res
-        '                        Case -1
-        '                            Util.MsgStatus(Status1, "No se pudo borrar el Item.", My.Resources.stop_error.ToBitmap)
-        '                            Util.MsgStatus(Status1, "No se pudo borrar el Item.", My.Resources.stop_error.ToBitmap, True)
-        '                        Case Else
-        '                            PrepararBotones()
-        '                            btnActualizar_Click(sender, e)
-        '                            'Setear_Grilla()
-        '                            Util.MsgStatus(Status1, "Se ha borrado el Item.", My.Resources.ok.ToBitmap)
-        '                            Util.MsgStatus(Status1, "Se ha borrado el Item.", My.Resources.ok.ToBitmap, True, True)
-        '                    End Select
-        '                Else
-        '                    Util.MsgStatus(Status1, "Acción de eliminar Item cancelada.", My.Resources.stop_error.ToBitmap)
-        '                    Util.MsgStatus(Status1, "Acción de eliminar Item cancelada.", My.Resources.stop_error.ToBitmap, True)
-        '                End If
-        '            End If
-        '        End If
-        '    End If
-        '    'End If
-        'Catch ex As Exception
-
-        'End Try
-
-    End Sub
 
     Private Sub BuscarDescripcionToolStripMenuItem_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles BuscarDescripcionToolStripMenuItem.KeyDown
         If e.KeyCode = Keys.Enter Or e.KeyCode = Keys.Tab Then
@@ -710,96 +645,6 @@ Public Class frmPresentaciones
         End If
     End Sub
 
-    'Protected Overloads Sub grd_CurrentCellChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles grd.CurrentCellChanged 'comentar cuando se necesite ver el diseñador
-    '    If Permitir Then
-    '        'band = 0
-    '        Try
-
-    '            'lblCantidadFilas.Text = grdItems.Rows.Count
-    '            'txtID.Text = grd.CurrentRow.Cells(0).Value
-    '            'txtRecaudado.Text = grd.CurrentRow.Cells(4).Value
-    '            'txtObservacion.Text = grd.CurrentRow.Cells(6).Value
-    '            'Dim filasGrd = grd.Rows.Count - 1
-    '            'If filasGrd = 0 Then
-    '            '    lblStatus.Text = "-"
-    '            'End If
-
-    '            'cmbObraSocial.SelectedValue = grd.CurrentRow.Cells(13).Value
-    '            'txtPeriodo.Text = grd.CurrentRow.Cells(14).Value
-
-    '            'LlenarGrid_Items()
-
-    '        Catch ex As Exception
-    '            'band = 1
-    '        End Try
-    '    End If
-    'End Sub
-
-    'Private Sub rdAnuladas_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdAnuladas.CheckedChanged
-    '    btnGuardar.Enabled = Not rdAnuladas.Checked
-    '    btnEliminar.Enabled = Not rdAnuladas.Checked
-    '    btnNuevo.Enabled = Not rdAnuladas.Checked
-    '    btnCancelar.Enabled = Not rdAnuladas.Checked
-
-    '    SQL = $"exec spPresentaciones_Select_All @Pendientes = {rdPendientes.Checked} ,@Eliminado = {rdAnuladas.Checked} ,@Todos = {rdTodasOC.Checked}"
-    '    Try
-    '        LlenarGrilla()
-
-    '        If grd.Rows.Count > 0 Then
-    '            grdItems.Columns(16).Visible = False
-    '        End If
-    '    Catch ex As Exception
-
-    '    End Try
-
-
-
-    'End Sub
-
-    'Private Sub rdPendientes_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdPendientes.CheckedChanged
-
-    '    If band = 1 Then
-    '        SQL = $"exec spPresentaciones_Select_All @Pendientes = {rdPendientes.Checked} ,@Eliminado = {rdAnuladas.Checked} ,@Todos = {rdTodasOC.Checked}"
-
-    '        Try
-    '            LlenarGrilla()
-
-    '            If grd.Rows.Count > 0 Then
-
-    '                grd.Rows(0).Selected = True
-    '                txtID.Text = grd.Rows(0).Cells(0).Value
-    '                LlenarGrid_Items()
-    '                grdItems.Columns(16).Visible = True
-    '            End If
-
-    '        Catch ex As Exception
-
-    '        End Try
-
-    '    End If
-
-    'End Sub
-
-    'Private Sub rdTodasOC_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdTodasOC.CheckedChanged
-
-    '    If band = 1 Then
-    '        SQL = $"exec spPresentaciones_Select_All @Pendientes = {rdPendientes.Checked} ,@Eliminado = {rdAnuladas.Checked} ,@Todos = {rdTodasOC.Checked}"
-
-    '        Try
-    '            LlenarGrilla()
-
-    '            If grd.Rows.Count > 0 Then
-    '                grdItems.Columns(16).Visible = True
-    '                LlenarGrid_Items()
-    '            End If
-    '        Catch ex As Exception
-
-    '        End Try
-
-
-    '    End If
-
-    'End Sub
 
     Private Sub chkGrillaInferior_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkGrillaInferior.CheckedChanged
         Dim xgrd As Long, ygrd As Long, hgrd As Long, variableajuste As Long
