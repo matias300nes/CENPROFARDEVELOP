@@ -191,6 +191,11 @@ Public Class frmFarmacias_Conceptos
         grdConceptosPanel.Rows.Clear()
         grdProfesionalesPanel.Rows.Clear()
 
+        'limpia el grdCodigo
+        For Each row As DataGridViewRow In grdCodigos.Rows
+            row.Cells(1).Value = Nothing
+        Next
+
         txtCODIGO.Focus()
     End Sub
 
