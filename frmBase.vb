@@ -575,10 +575,13 @@ Public Class frmBase
             ContextMenuStrip1.Items(0).ToolTipText = Me.Filter
             ContextMenuStrip1.Items(1).Text = "Filtro excluyendo la seleccion"
             ContextMenuStrip1.Items(1).ToolTipText = Me.Filter
-            FiltrarporToolStrip.Text = "Filtrar por:"
+
+
             ToolStripTextBox1.Text = "Inmovilizar columnas"
             ColumnName = grd.Columns(CellX).HeaderText
             ColumnType = grd.Columns(CellX).ValueType.ToString
+
+            FiltrarporToolStrip.Text = $"Filtrar por: {ColumnName}"
         End If
 
     End Sub
