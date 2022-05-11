@@ -284,6 +284,11 @@ Public Class frmSaldos
         End If
     End Sub
 
+    Private Sub btnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click
+        Dim frmRptSaldos As New frmRptSaldos(20137, "08-05-2022 15:00", "09-05-2022 15:56:00")
+        frmRptSaldos.ShowDialog()
+    End Sub
+
     'Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
     '    Dim reporte As New frmRtpCheques()
     '    reporte.ShowDialog()

@@ -968,6 +968,12 @@
     <Compile Include="Reportes\frmPresentacionRpt.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Reportes\frmRptSaldos.Designer.vb">
+      <DependentUpon>frmRptSaldos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\frmRptSaldos.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Reportes\frmRtpCheques.Designer.vb">
       <DependentUpon>frmRtpCheques.vb</DependentUpon>
     </Compile>
@@ -2063,12 +2069,16 @@
     <EmbeddedResource Include="Reportes\frmPresentacionRpt.resx">
       <DependentUpon>frmPresentacionRpt.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\frmRptSaldos.resx">
+      <DependentUpon>frmRptSaldos.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reportes\frmRtpCheques.resx">
       <DependentUpon>frmRtpCheques.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reportes\rptCheques.rdlc" />
     <EmbeddedResource Include="Reportes\rptChequesCopia.rdlc" />
     <EmbeddedResource Include="Reportes\rptPresentacion.rdlc" />
+    <EmbeddedResource Include="Reportes\rptSaldos.rdlc" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">
