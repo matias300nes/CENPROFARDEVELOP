@@ -953,7 +953,7 @@ Public Class frmPresentaciones
             .Cells(ColumnasDelGridItems.ID).Value = 0
             .Cells(ColumnasDelGridItems.Nombre).Value = cmbFarmacias.Text
             .Cells(ColumnasDelGridItems.IdFarmacia).Value = cmbFarmacias.SelectedValue
-            .Cells(ColumnasDelGridItems.IdPlan).Value = cmbPlanes.SelectedValue
+            .Cells(ColumnasDelGridItems.IdPlan).Value = IIf(cmbPlanes.SelectedValue Is Nothing, "", cmbPlanes.SelectedValue)
             .Cells(ColumnasDelGridItems.Plan).Value = cmbPlanes.Text
             .Cells(ColumnasDelGridItems.Recetas).Value = txtRecetas.Text
             .Cells(ColumnasDelGridItems.Recaudado).Value = txtImpRecaudado.Text
@@ -1453,7 +1453,7 @@ Public Class frmPresentaciones
                 Dim param_idPlan As New SqlClient.SqlParameter
                 param_idPlan.ParameterName = "@idPlan"
                 param_idPlan.SqlDbType = SqlDbType.BigInt
-                param_idPlan.Value = grdItems.Rows(i).Cells(ColumnasDelGridItems.IdPlan).Value
+                param_idPlan.Value = IIf(grdItems.Rows(i).Cells(ColumnasDelGridItems.IdPlan).Value.ToString = "", DBNull.Value, grdItems.Rows(i).Cells(ColumnasDelGridItems.IdPlan).Value)
                 param_idPlan.Direction = ParameterDirection.Input
 
                 Dim param_IdPresentacion As New SqlClient.SqlParameter
@@ -2612,7 +2612,6 @@ Public Class frmPresentaciones
         Dim frmPrescam As New frmGenerarTxtPrescam
         frmPrescam.ShowDialog()
     End Sub
-
 
 
 #End Region
