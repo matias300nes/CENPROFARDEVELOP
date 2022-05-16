@@ -429,6 +429,7 @@
               <TextRun>
                 <Value>Totales por concepto:</Value>
                 <Style>
+                  <FontSize>12pt</FontSize>
                   <FontWeight>Bold</FontWeight>
                 </Style>
               </TextRun>
@@ -440,7 +441,7 @@
         <Top>2.02586cm</Top>
         <Left>0.63938cm</Left>
         <Height>0.6cm</Height>
-        <Width>3.94939cm</Width>
+        <Width>6.93389cm</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
@@ -458,44 +459,11 @@
             <TablixColumn>
               <Width>2.5cm</Width>
             </TablixColumn>
-            <TablixColumn>
-              <Width>2.5cm</Width>
-            </TablixColumn>
           </TablixColumns>
           <TablixRows>
             <TablixRow>
               <Height>0.6cm</Height>
               <TablixCells>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="Textbox22">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>Debe</Value>
-                              <Style />
-                            </TextRun>
-                          </TextRuns>
-                          <Style />
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>Textbox22</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
-                        </Border>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
                 <TablixCell>
                   <CellContents>
                     <Textbox Name="Textbox31">
@@ -509,14 +477,16 @@
                               <Style />
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Right</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox31</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
-                          <Style>Solid</Style>
+                          <Style>None</Style>
                         </Border>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -533,36 +503,6 @@
               <TablixCells>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Debe1">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>=Fields!Debe.Value</Value>
-                              <Style />
-                            </TextRun>
-                          </TextRuns>
-                          <Style />
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>Debe1</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
-                        </Border>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-                <TablixCell>
-                  <CellContents>
                     <Textbox Name="Textbox32">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
@@ -570,8 +510,10 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Sum(Max(Cdbl(Fields!Debe.Value)),  "Concepto")</Value>
-                              <Style />
+                              <Value>=Sum(Fields!Debe.Value, "Concepto")</Value>
+                              <Style>
+                                <Format>#,0.00;(#,0.00)</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -581,7 +523,7 @@
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
-                          <Style>Solid</Style>
+                          <Style>None</Style>
                         </Border>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -599,14 +541,13 @@
         <TablixColumnHierarchy>
           <TablixMembers>
             <TablixMember />
-            <TablixMember />
           </TablixMembers>
         </TablixColumnHierarchy>
         <TablixRowHierarchy>
           <TablixMembers>
             <TablixMember>
               <TablixHeader>
-                <Size>2.5cm</Size>
+                <Size>6.93389cm</Size>
                 <CellContents>
                   <Textbox Name="Textbox28">
                     <CanGrow>true</CanGrow>
@@ -626,7 +567,7 @@
                     <Style>
                       <Border>
                         <Color>LightGrey</Color>
-                        <Style>Solid</Style>
+                        <Style>None</Style>
                       </Border>
                       <PaddingLeft>2pt</PaddingLeft>
                       <PaddingRight>2pt</PaddingRight>
@@ -639,6 +580,9 @@
               <TablixMembers>
                 <TablixMember />
               </TablixMembers>
+              <Visibility>
+                <Hidden>true</Hidden>
+              </Visibility>
               <KeepWithGroup>After</KeepWithGroup>
             </TablixMember>
             <TablixMember>
@@ -662,7 +606,7 @@
                 </SortExpression>
               </SortExpressions>
               <TablixHeader>
-                <Size>2.5cm</Size>
+                <Size>6.93389cm</Size>
                 <CellContents>
                   <Textbox Name="Concepto2">
                     <CanGrow>true</CanGrow>
@@ -682,7 +626,7 @@
                     <Style>
                       <Border>
                         <Color>LightGrey</Color>
-                        <Style>Solid</Style>
+                        <Style>None</Style>
                       </Border>
                       <PaddingLeft>2pt</PaddingLeft>
                       <PaddingRight>2pt</PaddingRight>
@@ -690,11 +634,16 @@
                       <PaddingBottom>2pt</PaddingBottom>
                     </Style>
                   </Textbox>
+                  <rd:Selected>true</rd:Selected>
                 </CellContents>
               </TablixHeader>
               <TablixMembers>
                 <TablixMember>
-                  <Group Name="Detalles1" />
+                  <Group Name="Detalles1">
+                    <GroupExpressions>
+                      <GroupExpression>=Fields!Total.Value</GroupExpression>
+                    </GroupExpressions>
+                  </Group>
                 </TablixMember>
               </TablixMembers>
             </TablixMember>
@@ -704,7 +653,7 @@
         <Top>2.62651cm</Top>
         <Left>0.63938cm</Left>
         <Height>1.2cm</Height>
-        <Width>7.5cm</Width>
+        <Width>9.43389cm</Width>
         <ZIndex>2</ZIndex>
         <Style>
           <Border>
@@ -746,6 +695,7 @@
                 <TextRun>
                   <Value>Centro de Prop. de Farmacias V. MERC.</Value>
                   <Style>
+                    <FontSize>12pt</FontSize>
                     <FontWeight>Bold</FontWeight>
                   </Style>
                 </TextRun>
@@ -756,8 +706,8 @@
           <rd:DefaultName>Textbox2</rd:DefaultName>
           <Top>0.40217cm</Top>
           <Left>4.20054cm</Left>
-          <Height>0.55767cm</Height>
-          <Width>7.24662cm</Width>
+          <Height>0.74817cm</Height>
+          <Width>9.93479cm</Width>
           <ZIndex>1</ZIndex>
           <Style>
             <Border>
@@ -778,6 +728,7 @@
                 <TextRun>
                   <Value>Asociado:</Value>
                   <Style>
+                    <FontSize>12pt</FontSize>
                     <FontWeight>Bold</FontWeight>
                     <TextDecoration>Underline</TextDecoration>
                   </Style>
@@ -790,7 +741,7 @@
           <Top>1.68274cm</Top>
           <Left>4.1608cm</Left>
           <Height>0.55767cm</Height>
-          <Width>1.93379cm</Width>
+          <Width>2.42768cm</Width>
           <ZIndex>2</ZIndex>
           <Style>
             <Border>
@@ -817,8 +768,8 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox30</rd:DefaultName>
-          <Top>1.64041cm</Top>
-          <Left>6.09459cm</Left>
+          <Top>1.68274cm</Top>
+          <Left>6.41209cm</Left>
           <Height>0.6cm</Height>
           <Width>11.54751cm</Width>
           <ZIndex>3</ZIndex>
