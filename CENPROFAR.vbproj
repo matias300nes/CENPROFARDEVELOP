@@ -316,6 +316,12 @@
     <Compile Include="frmCheques.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmRecetasWeb.Designer.vb">
+      <DependentUpon>frmRecetasWeb.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmRecetasWeb.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmSelectObraSocial.Designer.vb">
       <DependentUpon>frmSelectObraSocial.vb</DependentUpon>
     </Compile>
@@ -1680,6 +1686,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmCheques.resx">
       <DependentUpon>frmCheques.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmRecetasWeb.resx">
+      <DependentUpon>frmRecetasWeb.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSelectObraSocial.resx">
       <DependentUpon>frmSelectObraSocial.vb</DependentUpon>

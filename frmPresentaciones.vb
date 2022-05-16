@@ -131,7 +131,7 @@ Public Class frmPresentaciones
     End Function
 
 
-    Private Sub grd_SelectionChanged(sender As Object, e As EventArgs) Handles grd.SelectionChanged 'comentar cuando se necesite ver el diseñador
+    Private Sub grd_SelectionChanged(sender As Object, e As EventArgs) 'Handles grd.SelectionChanged 'comentar cuando se necesite ver el diseñador
         ''DataGridView1.SelectedRows.Count().ToString()
         If grd.SelectedRows.Count() > 1 Then
             btnUnificar.Enabled = True
@@ -572,6 +572,48 @@ Public Class frmPresentaciones
 
     End Sub
 
+    Private Sub LlenarCmbPeriodos()
+        Dim connection As SqlClient.SqlConnection = Nothing
+        Dim ds As Data.DataSet
+
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+        Catch ex As Exception
+            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End Try
+
+        Try
+
+            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"spPeriodosWeb_SelectAll @idObraSocial = {cmbObraSocial.SelectedValue}")
+            ds.Dispose()
+
+            With cmbPeriodos
+                .DataSource = ds.Tables(0).DefaultView
+                .DisplayMember = "Periodo"
+                .ValueMember = "ID"
+                '.SelectedIndex = "ID"
+            End With
+
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If Not connection Is Nothing Then
+                CType(connection, IDisposable).Dispose()
+            End If
+        End Try
+    End Sub
+
 
     Private Sub BuscarDescripcionToolStripMenuItem_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles BuscarDescripcionToolStripMenuItem.KeyDown
         If e.KeyCode = Keys.Enter Or e.KeyCode = Keys.Tab Then
@@ -639,6 +681,7 @@ Public Class frmPresentaciones
             If cmbObraSocial.SelectedValue IsNot Nothing Then
                 txtIdObrasocial.Text = cmbObraSocial.SelectedValue.ToString
                 LlenarCmbPlanes()
+                LlenarCmbPeriodos()
             End If
 
 
@@ -2611,6 +2654,11 @@ Public Class frmPresentaciones
         Dim dt_txt As New DataTable
         Dim frmPrescam As New frmGenerarTxtPrescam
         frmPrescam.ShowDialog()
+    End Sub
+
+    Private Sub btnRecetasWeb_Click(sender As Object, e As EventArgs) Handles btnRecetasWeb.Click
+        Dim frmRecetasWeb As New frmRecetasWeb
+        frmRecetasWeb.ShowDialog()
     End Sub
 
 
