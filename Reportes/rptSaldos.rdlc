@@ -570,7 +570,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Sum(Cdbl(Fields!Debe.Value))</Value>
+                              <Value>=Sum(Max(Cdbl(Fields!Debe.Value)),  "Concepto")</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -589,6 +589,7 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
+                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
               </TablixCells>
@@ -644,7 +645,6 @@
               <Group Name="Concepto">
                 <GroupExpressions>
                   <GroupExpression>=Fields!Concepto.Value</GroupExpression>
-                  <GroupExpression>=Sum(Fields!Debe.Value, "dsSaldos")</GroupExpression>
                 </GroupExpressions>
                 <Filters>
                   <Filter>
