@@ -131,7 +131,7 @@ Public Class frmPresentaciones
     End Function
 
 
-    Private Sub grd_SelectionChanged(sender As Object, e As EventArgs) 'Handles grd.SelectionChanged 'comentar cuando se necesite ver el diseñador
+    Private Sub grd_SelectionChanged(sender As Object, e As EventArgs) Handles grd.SelectionChanged 'comentar cuando se necesite ver el diseñador
         ''DataGridView1.SelectedRows.Count().ToString()
         If grd.SelectedRows.Count() > 1 Then
             btnUnificar.Enabled = True
@@ -1019,6 +1019,38 @@ Public Class frmPresentaciones
         txtBonificacion.Text = ""
         txtImpTotalAPagar.Text = ""
         cmbFarmacias.Focus()
+    End Sub
+
+    Friend Sub newItem(
+                      nombre As String,
+                      idFarmacia As Long,
+                      idPlan As Long,
+                      plan As String,
+                      recetas As Integer,
+                      recaudado As Decimal,
+                      aCargoOS As Decimal,
+                      bonificacion As Decimal
+                      )
+
+        Dim row As New DataGridViewRow()
+        row.CreateCells(grdItems)
+
+        With row
+            .Cells(ColumnasDelGridItems.ID).Value = 0
+            .Cells(ColumnasDelGridItems.Nombre).Value = nombre
+            .Cells(ColumnasDelGridItems.IdFarmacia).Value = idFarmacia
+            .Cells(ColumnasDelGridItems.IdPlan).Value = idPlan
+            .Cells(ColumnasDelGridItems.Plan).Value = plan
+            .Cells(ColumnasDelGridItems.Recetas).Value = recetas
+            .Cells(ColumnasDelGridItems.Recaudado).Value = recaudado
+            .Cells(ColumnasDelGridItems.ACargoOS).Value = aCargoOS
+            .Cells(ColumnasDelGridItems.Bonificacion).Value = bonificacion
+            .Cells(ColumnasDelGridItems.Total).Value = aCargoOS - bonificacion
+        End With
+
+        grdItems.Rows.Add(row)
+
+        CalcularTotales()
     End Sub
 
     Private Sub LlenarGrid_Items()
@@ -2657,8 +2689,12 @@ Public Class frmPresentaciones
     End Sub
 
     Private Sub btnRecetasWeb_Click(sender As Object, e As EventArgs) Handles btnRecetasWeb.Click
-        Dim frmRecetasWeb As New frmRecetasWeb
+        Dim frmRecetasWeb As New frmRecetasWeb(cmbObraSocial.SelectedValue, cmbPeriodos.SelectedValue)
         frmRecetasWeb.ShowDialog()
+    End Sub
+
+    Private Sub grdItems_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles grdItems.CellDoubleClick
+        MsgBox(sender.ToString)
     End Sub
 
 

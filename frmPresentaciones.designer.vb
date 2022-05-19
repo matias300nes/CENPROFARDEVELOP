@@ -21,12 +21,12 @@ Partial Class frmPresentaciones
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmPresentaciones))
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BorrarElItemToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BuscarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -45,6 +45,7 @@ Partial Class frmPresentaciones
         Me.ToolTipbtnUnificar = New System.Windows.Forms.ToolTip(Me.components)
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.cmbPeriodos = New DevComponents.DotNetBar.Controls.ComboBoxEx()
         Me.btnRecetasWeb = New System.Windows.Forms.Button()
         Me.Label19 = New System.Windows.Forms.Label()
         Me.btnPeriodo = New DevComponents.DotNetBar.ButtonX()
@@ -55,6 +56,7 @@ Partial Class frmPresentaciones
         Me.LbPeriodo_año = New System.Windows.Forms.ListBox()
         Me.LbPeriodo_parte = New System.Windows.Forms.ListBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.Line1 = New DevComponents.DotNetBar.Controls.Line()
         Me.btnPrescam = New System.Windows.Forms.Button()
         Me.btnUnificar = New System.Windows.Forms.Button()
         Me.btnSeparar = New System.Windows.Forms.Button()
@@ -118,8 +120,6 @@ Partial Class frmPresentaciones
         Me.Label10 = New System.Windows.Forms.Label()
         Me.txtImpTotalAPagar = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.txtRecetas = New TextBoxConFormatoVB.FormattedTextBoxVB()
-        Me.Line1 = New DevComponents.DotNetBar.Controls.Line()
-        Me.cmbPeriodos = New DevComponents.DotNetBar.Controls.ComboBoxEx()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.ContextMenuStrip2.SuspendLayout()
         Me.ContextMenuStrip3.SuspendLayout()
@@ -301,6 +301,18 @@ Partial Class frmPresentaciones
         Me.GroupBox1.TabIndex = 1
         Me.GroupBox1.TabStop = False
         '
+        'cmbPeriodos
+        '
+        Me.cmbPeriodos.DisplayMember = "Text"
+        Me.cmbPeriodos.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
+        Me.cmbPeriodos.FormattingEnabled = True
+        Me.cmbPeriodos.ItemHeight = 14
+        Me.cmbPeriodos.Location = New System.Drawing.Point(526, 71)
+        Me.cmbPeriodos.Name = "cmbPeriodos"
+        Me.cmbPeriodos.Size = New System.Drawing.Size(156, 20)
+        Me.cmbPeriodos.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.cmbPeriodos.TabIndex = 356
+        '
         'btnRecetasWeb
         '
         Me.btnRecetasWeb.Location = New System.Drawing.Point(346, 71)
@@ -410,6 +422,16 @@ Partial Class frmPresentaciones
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Herramientas"
         '
+        'Line1
+        '
+        Me.Line1.ForeColor = System.Drawing.SystemColors.ActiveBorder
+        Me.Line1.Location = New System.Drawing.Point(188, 19)
+        Me.Line1.Name = "Line1"
+        Me.Line1.Size = New System.Drawing.Size(18, 27)
+        Me.Line1.TabIndex = 348
+        Me.Line1.Text = "Line1"
+        Me.Line1.VerticalLine = True
+        '
         'btnPrescam
         '
         Me.btnPrescam.Location = New System.Drawing.Point(210, 17)
@@ -466,28 +488,28 @@ Partial Class frmPresentaciones
         '
         Me.grdItems.AllowUserToAddRows = False
         Me.grdItems.AllowUserToDeleteRows = False
-        DataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
-        DataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black
-        Me.grdItems.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black
+        Me.grdItems.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.grdItems.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.grdItems.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.grdItems.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.grdItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.grdItems.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Id, Me.IdFarmacia, Me.CodigoFarmacia, Me.Nombre, Me.IdPlan, Me.Plan, Me.IdPresentacion, Me.Recetas, Me.Recaudad, Me.ACargoOS, Me.Bonificacion, Me.Total, Me.CodFacaf, Me.CodPlan, Me.PorcentajePlan, Me.Eliminar})
-        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle12.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle12.ForeColor = System.Drawing.Color.Blue
-        DataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.grdItems.DefaultCellStyle = DataGridViewCellStyle12
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.Color.Blue
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.grdItems.DefaultCellStyle = DataGridViewCellStyle6
         Me.grdItems.Location = New System.Drawing.Point(346, 111)
         Me.grdItems.Name = "grdItems"
         Me.grdItems.RowHeadersWidth = 51
@@ -540,8 +562,8 @@ Partial Class frmPresentaciones
         '
         'IdPresentacion
         '
-        DataGridViewCellStyle9.NullValue = Nothing
-        Me.IdPresentacion.DefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle3.NullValue = Nothing
+        Me.IdPresentacion.DefaultCellStyle = DataGridViewCellStyle3
         Me.IdPresentacion.HeaderText = "Id Presentación"
         Me.IdPresentacion.MinimumWidth = 6
         Me.IdPresentacion.Name = "IdPresentacion"
@@ -568,9 +590,9 @@ Partial Class frmPresentaciones
         '
         'Bonificacion
         '
-        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle10.NullValue = Nothing
-        Me.Bonificacion.DefaultCellStyle = DataGridViewCellStyle10
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle4.NullValue = Nothing
+        Me.Bonificacion.DefaultCellStyle = DataGridViewCellStyle4
         Me.Bonificacion.HeaderText = "Bonificación"
         Me.Bonificacion.MinimumWidth = 6
         Me.Bonificacion.Name = "Bonificacion"
@@ -578,8 +600,8 @@ Partial Class frmPresentaciones
         '
         'Total
         '
-        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.Total.DefaultCellStyle = DataGridViewCellStyle11
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.Total.DefaultCellStyle = DataGridViewCellStyle5
         Me.Total.HeaderText = "Total"
         Me.Total.MinimumWidth = 6
         Me.Total.Name = "Total"
@@ -1166,28 +1188,6 @@ Partial Class frmPresentaciones
         Me.txtRecetas.Text_3 = Nothing
         Me.txtRecetas.Text_4 = Nothing
         Me.txtRecetas.UserValues = Nothing
-        '
-        'Line1
-        '
-        Me.Line1.ForeColor = System.Drawing.SystemColors.ActiveBorder
-        Me.Line1.Location = New System.Drawing.Point(188, 19)
-        Me.Line1.Name = "Line1"
-        Me.Line1.Size = New System.Drawing.Size(18, 27)
-        Me.Line1.TabIndex = 348
-        Me.Line1.Text = "Line1"
-        Me.Line1.VerticalLine = True
-        '
-        'cmbPeriodos
-        '
-        Me.cmbPeriodos.DisplayMember = "Text"
-        Me.cmbPeriodos.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
-        Me.cmbPeriodos.FormattingEnabled = True
-        Me.cmbPeriodos.ItemHeight = 14
-        Me.cmbPeriodos.Location = New System.Drawing.Point(526, 71)
-        Me.cmbPeriodos.Name = "cmbPeriodos"
-        Me.cmbPeriodos.Size = New System.Drawing.Size(156, 20)
-        Me.cmbPeriodos.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.cmbPeriodos.TabIndex = 356
         '
         'frmPresentaciones
         '
