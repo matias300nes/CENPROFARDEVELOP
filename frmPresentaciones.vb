@@ -95,6 +95,8 @@ Public Class frmPresentaciones
 
     Private Sub frmPresentaciones_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles Me.KeyDown
         Select Case e.KeyCode
+            Case Keys.F2
+                btnAddFarmacia_Click(sender, e)
             Case Keys.F3 'nuevo
                 If bolModo = True Then
                     If MessageBox.Show("No ha guardado la Orden de Compra Nueva que está realizando. ¿Está seguro que desea continuar sin Grabar y hacer una Orde de Compra Nueva?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
@@ -131,7 +133,7 @@ Public Class frmPresentaciones
     End Function
 
 
-    Private Sub grd_SelectionChanged(sender As Object, e As EventArgs) Handles grd.SelectionChanged 'comentar cuando se necesite ver el diseñador
+    Private Sub grd_SelectionChanged(sender As Object, e As EventArgs) 'Handles grd.SelectionChanged 'comentar cuando se necesite ver el diseñador
         ''DataGridView1.SelectedRows.Count().ToString()
         If grd.SelectedRows.Count() > 1 Then
             btnUnificar.Enabled = True
@@ -1029,7 +1031,9 @@ Public Class frmPresentaciones
                       recetas As Integer,
                       recaudado As Decimal,
                       aCargoOS As Decimal,
-                      bonificacion As Decimal
+                      bonificacion As Decimal,
+                      observacion As String,
+                      mensajeWeb As String
                       )
 
         Dim row As New DataGridViewRow()
@@ -2670,17 +2674,17 @@ Public Class frmPresentaciones
 
     End Sub
 
-    Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles btnPeriodo.Click
-        GbPeriodo.Visible = Not GbPeriodo.Visible
-    End Sub
+    'Private Sub ButtonX1_Click(sender As Object, e As EventArgs)
+    '    GbPeriodo.Visible = Not GbPeriodo.Visible
+    'End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        txtPeriodo.Text = IIf(LbPeriodo_parte.Text <> "MENSUAL",
-                                $"{LbPeriodo_parte.Text} {LbPeriodo_Mes.Text}-{LbPeriodo_año.Text}",
-                                $"{LbPeriodo_Mes.Text}-{LbPeriodo_año.Text}"
-                                )
-        GbPeriodo.Visible = Not GbPeriodo.Visible
-    End Sub
+    'Private Sub Button2_Click(sender As Object, e As EventArgs)
+    '    txtPeriodo.Text = IIf(LbPeriodo_parte.Text <> "MENSUAL",
+    '                            $"{LbPeriodo_parte.Text} {LbPeriodo_Mes.Text}-{LbPeriodo_año.Text}",
+    '                            $"{LbPeriodo_Mes.Text}-{LbPeriodo_año.Text}"
+    '                            )
+    '    GbPeriodo.Visible = Not GbPeriodo.Visible
+    'End Sub
 
     Private Sub btnPrescam_Click(sender As Object, e As EventArgs) Handles btnPrescam.Click
         Dim dt_txt As New DataTable
@@ -2695,6 +2699,11 @@ Public Class frmPresentaciones
 
     Private Sub grdItems_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles grdItems.CellDoubleClick
         MsgBox(sender.ToString)
+    End Sub
+
+    Private Sub btnAddFarmacia_Click(sender As Object, e As EventArgs) Handles btnAddFarmacia.Click
+        Dim presentacionesAgregarItem As New frmPresentacionesAgregarItem(idObraSocial:=cmbObraSocial.SelectedValue)
+        presentacionesAgregarItem.ShowDialog()
     End Sub
 
 

@@ -134,6 +134,7 @@ Partial Class frmRecetasWeb
         Me.ClientSize = New System.Drawing.Size(543, 450)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Name = "frmRecetasWeb"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Recetas web"
         Me.TableLayoutPanel1.ResumeLayout(False)
         CType(Me.grdRecetasWeb, System.ComponentModel.ISupportInitialize).EndInit()

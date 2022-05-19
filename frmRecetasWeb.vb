@@ -104,7 +104,9 @@ Public Class frmRecetasWeb
                 recetas:=row(grdCols.Recetas),
                 recaudado:=row(grdCols.Recaudado),
                 aCargoOS:=row(grdCols.ACargoOS),
-                bonificacion:=0
+                bonificacion:=0,
+                observacion:=Nothing,
+                mensajeWeb:=Nothing
             )
         Next
 
