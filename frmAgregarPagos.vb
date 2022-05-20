@@ -77,7 +77,7 @@ Public Class frmAgregarPagos
             btnColumn.UseColumnTextForButtonValue = True
 
             .Columns(gridColumns.importe).DefaultCellStyle.Format = "N2"
-            .Columns(gridColumns.idFarmacia).Visible = False
+            .Columns(gridColumns.idFarmacia).Visible = True
             .Columns(gridColumns.importe).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             '.Columns(gridColumns.razonSocial).Width = 180
             '.Columns(gridColumns.eliminar).Width = 70
@@ -314,7 +314,9 @@ Public Class frmAgregarPagos
         Dim connection As SqlClient.SqlConnection = Nothing
         connection = SqlHelper.GetConnection(ConnStringSEI)
         Dim tran As SqlClient.SqlTransaction = connection.BeginTransaction
-        Dim sociedad As Boolean = cmbFarmacia.SelectedItem.Row(FarmaciaCols.Sociedad)
+        'Dim sociedad As Boolean = cmbFarmacia.SelectedItem.Row(FarmaciaCols.Sociedad)
+
+        Dim sociedad As Boolean = Me.farmacias.Select($"{farmacias.Columns(FarmaciaCols.ID).ColumnName} = '{idFarmacia}'")(0)(FarmaciaCols.Sociedad)
         Try
 
             ''ID
@@ -491,6 +493,7 @@ Public Class frmAgregarPagos
         For Each farmacia As DataRow In farmacias.Rows
             If farmacia(FarmaciaCols.Saldo) > 0 Then
                 Dim newRow As DataRow = dt.NewRow
+                newRow(gridColumns.idFarmacia) = farmacia(FarmaciaCols.ID)
                 newRow(gridColumns.razonSocial) = farmacia(FarmaciaCols.RazonSocial)
                 newRow(gridColumns.farmacia) = farmacia(FarmaciaCols.Nombre)
                 newRow(gridColumns.tipoPago) = farmacia(FarmaciaCols.PreferenciaPago)
