@@ -24,13 +24,13 @@ Partial Class frmRecetasWeb
     Private Sub InitializeComponent()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.btnListo = New DevComponents.DotNetBar.ButtonX()
-        Me.grdRazonSocial = New System.Windows.Forms.DataGridView()
+        Me.grdRecetasWeb = New System.Windows.Forms.DataGridView()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.txtBuscar = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TableLayoutPanel1.SuspendLayout()
-        CType(Me.grdRazonSocial, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.grdRecetasWeb, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -39,7 +39,7 @@ Partial Class frmRecetasWeb
         Me.TableLayoutPanel1.ColumnCount = 1
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel1.Controls.Add(Me.btnListo, 0, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.grdRazonSocial, 0, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.grdRecetasWeb, 0, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.GroupBox1, 0, 0)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
@@ -57,31 +57,31 @@ Partial Class frmRecetasWeb
         Me.btnListo.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
         Me.btnListo.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.btnListo.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.btnListo.Location = New System.Drawing.Point(227, 414)
+        Me.btnListo.Location = New System.Drawing.Point(202, 410)
         Me.btnListo.Name = "btnListo"
-        Me.btnListo.Size = New System.Drawing.Size(89, 23)
+        Me.btnListo.Size = New System.Drawing.Size(138, 32)
         Me.btnListo.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnListo.TabIndex = 2
-        Me.btnListo.Text = "Listo"
+        Me.btnListo.Text = "Importar seleccionados"
         '
-        'grdRazonSocial
+        'grdRecetasWeb
         '
-        Me.grdRazonSocial.AllowUserToAddRows = False
-        Me.grdRazonSocial.AllowUserToDeleteRows = False
-        Me.grdRazonSocial.AllowUserToResizeColumns = False
-        Me.grdRazonSocial.AllowUserToResizeRows = False
-        Me.grdRazonSocial.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
-        Me.grdRazonSocial.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.grdRazonSocial.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.grdRazonSocial.Location = New System.Drawing.Point(3, 53)
-        Me.grdRazonSocial.MultiSelect = False
-        Me.grdRazonSocial.Name = "grdRazonSocial"
-        Me.grdRazonSocial.ReadOnly = True
-        Me.grdRazonSocial.RowHeadersVisible = False
-        Me.grdRazonSocial.RowHeadersWidth = 51
-        Me.grdRazonSocial.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.grdRazonSocial.Size = New System.Drawing.Size(537, 346)
-        Me.grdRazonSocial.TabIndex = 0
+        Me.grdRecetasWeb.AllowUserToAddRows = False
+        Me.grdRecetasWeb.AllowUserToDeleteRows = False
+        Me.grdRecetasWeb.AllowUserToResizeColumns = False
+        Me.grdRecetasWeb.AllowUserToResizeRows = False
+        Me.grdRecetasWeb.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.grdRecetasWeb.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.grdRecetasWeb.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.grdRecetasWeb.Location = New System.Drawing.Point(6, 53)
+        Me.grdRecetasWeb.Margin = New System.Windows.Forms.Padding(6, 3, 6, 3)
+        Me.grdRecetasWeb.MultiSelect = False
+        Me.grdRecetasWeb.Name = "grdRecetasWeb"
+        Me.grdRecetasWeb.RowHeadersVisible = False
+        Me.grdRecetasWeb.RowHeadersWidth = 51
+        Me.grdRecetasWeb.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.grdRecetasWeb.Size = New System.Drawing.Size(531, 346)
+        Me.grdRecetasWeb.TabIndex = 0
         '
         'GroupBox1
         '
@@ -134,9 +134,10 @@ Partial Class frmRecetasWeb
         Me.ClientSize = New System.Drawing.Size(543, 450)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Name = "frmRecetasWeb"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Recetas web"
         Me.TableLayoutPanel1.ResumeLayout(False)
-        CType(Me.grdRazonSocial, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.grdRecetasWeb, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)
@@ -145,7 +146,7 @@ Partial Class frmRecetasWeb
 
     Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
     Friend WithEvents btnListo As DevComponents.DotNetBar.ButtonX
-    Friend WithEvents grdRazonSocial As DataGridView
+    Friend WithEvents grdRecetasWeb As DataGridView
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents Label3 As Label
     Friend WithEvents txtBuscar As TextBox

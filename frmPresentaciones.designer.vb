@@ -20,13 +20,13 @@ Partial Class frmPresentaciones
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmPresentaciones))
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BorrarElItemToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BuscarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -45,16 +45,12 @@ Partial Class frmPresentaciones
         Me.ToolTipbtnUnificar = New System.Windows.Forms.ToolTip(Me.components)
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.txtPeriodo = New System.Windows.Forms.TextBox()
+        Me.cmbPeriodos = New DevComponents.DotNetBar.Controls.ComboBoxEx()
         Me.btnRecetasWeb = New System.Windows.Forms.Button()
         Me.Label19 = New System.Windows.Forms.Label()
-        Me.btnPeriodo = New DevComponents.DotNetBar.ButtonX()
-        Me.txtPeriodo = New System.Windows.Forms.TextBox()
-        Me.GbPeriodo = New System.Windows.Forms.GroupBox()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.LbPeriodo_Mes = New System.Windows.Forms.ListBox()
-        Me.LbPeriodo_año = New System.Windows.Forms.ListBox()
-        Me.LbPeriodo_parte = New System.Windows.Forms.ListBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.Line1 = New DevComponents.DotNetBar.Controls.Line()
         Me.btnPrescam = New System.Windows.Forms.Button()
         Me.btnUnificar = New System.Windows.Forms.Button()
         Me.btnSeparar = New System.Windows.Forms.Button()
@@ -118,15 +114,13 @@ Partial Class frmPresentaciones
         Me.Label10 = New System.Windows.Forms.Label()
         Me.txtImpTotalAPagar = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.txtRecetas = New TextBoxConFormatoVB.FormattedTextBoxVB()
-        Me.Line1 = New DevComponents.DotNetBar.Controls.Line()
-        Me.cmbPeriodos = New DevComponents.DotNetBar.Controls.ComboBoxEx()
+        Me.btnAddFarmacia = New System.Windows.Forms.Button()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.ContextMenuStrip2.SuspendLayout()
         Me.ContextMenuStrip3.SuspendLayout()
         Me.ContextMenuMarcas.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
-        Me.GbPeriodo.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         CType(Me.grdItems, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GbFarmaciaForm.SuspendLayout()
@@ -260,12 +254,11 @@ Partial Class frmPresentaciones
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox1.AutoSize = True
         Me.GroupBox1.BackColor = System.Drawing.Color.Transparent
+        Me.GroupBox1.Controls.Add(Me.btnAddFarmacia)
+        Me.GroupBox1.Controls.Add(Me.txtPeriodo)
         Me.GroupBox1.Controls.Add(Me.cmbPeriodos)
         Me.GroupBox1.Controls.Add(Me.btnRecetasWeb)
         Me.GroupBox1.Controls.Add(Me.Label19)
-        Me.GroupBox1.Controls.Add(Me.btnPeriodo)
-        Me.GroupBox1.Controls.Add(Me.txtPeriodo)
-        Me.GroupBox1.Controls.Add(Me.GbPeriodo)
         Me.GroupBox1.Controls.Add(Me.GroupBox2)
         Me.GroupBox1.Controls.Add(Me.Label9)
         Me.GroupBox1.Controls.Add(Me.cmbEstado)
@@ -301,6 +294,29 @@ Partial Class frmPresentaciones
         Me.GroupBox1.TabIndex = 1
         Me.GroupBox1.TabStop = False
         '
+        'txtPeriodo
+        '
+        Me.txtPeriodo.AccessibleName = "*Periodo"
+        Me.txtPeriodo.BackColor = System.Drawing.SystemColors.Window
+        Me.txtPeriodo.Location = New System.Drawing.Point(897, 37)
+        Me.txtPeriodo.Multiline = True
+        Me.txtPeriodo.Name = "txtPeriodo"
+        Me.txtPeriodo.ReadOnly = True
+        Me.txtPeriodo.Size = New System.Drawing.Size(206, 22)
+        Me.txtPeriodo.TabIndex = 3
+        '
+        'cmbPeriodos
+        '
+        Me.cmbPeriodos.DisplayMember = "Text"
+        Me.cmbPeriodos.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
+        Me.cmbPeriodos.FormattingEnabled = True
+        Me.cmbPeriodos.ItemHeight = 14
+        Me.cmbPeriodos.Location = New System.Drawing.Point(897, 63)
+        Me.cmbPeriodos.Name = "cmbPeriodos"
+        Me.cmbPeriodos.Size = New System.Drawing.Size(156, 20)
+        Me.cmbPeriodos.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.cmbPeriodos.TabIndex = 356
+        '
         'btnRecetasWeb
         '
         Me.btnRecetasWeb.Location = New System.Drawing.Point(346, 71)
@@ -321,80 +337,6 @@ Partial Class frmPresentaciones
         Me.Label19.Text = "Cantidad de Ítems: "
         Me.Label19.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'btnPeriodo
-        '
-        Me.btnPeriodo.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnPeriodo.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.btnPeriodo.Font = New System.Drawing.Font("Microsoft Sans Serif", 5.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnPeriodo.Image = CType(resources.GetObject("btnPeriodo.Image"), System.Drawing.Image)
-        Me.btnPeriodo.Location = New System.Drawing.Point(1093, 40)
-        Me.btnPeriodo.Name = "btnPeriodo"
-        Me.btnPeriodo.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor()
-        Me.btnPeriodo.Size = New System.Drawing.Size(16, 16)
-        Me.btnPeriodo.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnPeriodo.TabIndex = 352
-        '
-        'txtPeriodo
-        '
-        Me.txtPeriodo.AccessibleName = "*Periodo"
-        Me.txtPeriodo.BackColor = System.Drawing.SystemColors.Window
-        Me.txtPeriodo.Location = New System.Drawing.Point(897, 37)
-        Me.txtPeriodo.Multiline = True
-        Me.txtPeriodo.Name = "txtPeriodo"
-        Me.txtPeriodo.ReadOnly = True
-        Me.txtPeriodo.Size = New System.Drawing.Size(215, 22)
-        Me.txtPeriodo.TabIndex = 3
-        '
-        'GbPeriodo
-        '
-        Me.GbPeriodo.Controls.Add(Me.Button2)
-        Me.GbPeriodo.Controls.Add(Me.LbPeriodo_Mes)
-        Me.GbPeriodo.Controls.Add(Me.LbPeriodo_año)
-        Me.GbPeriodo.Controls.Add(Me.LbPeriodo_parte)
-        Me.GbPeriodo.Location = New System.Drawing.Point(897, 54)
-        Me.GbPeriodo.Name = "GbPeriodo"
-        Me.GbPeriodo.Size = New System.Drawing.Size(215, 128)
-        Me.GbPeriodo.TabIndex = 354
-        Me.GbPeriodo.TabStop = False
-        Me.GbPeriodo.Visible = False
-        '
-        'Button2
-        '
-        Me.Button2.Location = New System.Drawing.Point(174, 99)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(35, 23)
-        Me.Button2.TabIndex = 358
-        Me.Button2.Text = "Ok"
-        Me.Button2.UseVisualStyleBackColor = True
-        '
-        'LbPeriodo_Mes
-        '
-        Me.LbPeriodo_Mes.FormattingEnabled = True
-        Me.LbPeriodo_Mes.Items.AddRange(New Object() {"ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMPRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"})
-        Me.LbPeriodo_Mes.Location = New System.Drawing.Point(75, 13)
-        Me.LbPeriodo_Mes.Name = "LbPeriodo_Mes"
-        Me.LbPeriodo_Mes.Size = New System.Drawing.Size(64, 82)
-        Me.LbPeriodo_Mes.TabIndex = 357
-        '
-        'LbPeriodo_año
-        '
-        Me.LbPeriodo_año.FormattingEnabled = True
-        Me.LbPeriodo_año.Items.AddRange(New Object() {"2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027"})
-        Me.LbPeriodo_año.Location = New System.Drawing.Point(145, 13)
-        Me.LbPeriodo_año.Name = "LbPeriodo_año"
-        Me.LbPeriodo_año.Size = New System.Drawing.Size(64, 82)
-        Me.LbPeriodo_año.TabIndex = 356
-        '
-        'LbPeriodo_parte
-        '
-        Me.LbPeriodo_parte.FormattingEnabled = True
-        Me.LbPeriodo_parte.Items.AddRange(New Object() {"1°Q", "2°Q", "MENSUAL"})
-        Me.LbPeriodo_parte.Location = New System.Drawing.Point(5, 13)
-        Me.LbPeriodo_parte.Name = "LbPeriodo_parte"
-        Me.LbPeriodo_parte.ScrollAlwaysVisible = True
-        Me.LbPeriodo_parte.Size = New System.Drawing.Size(64, 82)
-        Me.LbPeriodo_parte.TabIndex = 355
-        '
         'GroupBox2
         '
         Me.GroupBox2.Controls.Add(Me.Line1)
@@ -409,6 +351,16 @@ Partial Class frmPresentaciones
         Me.GroupBox2.TabIndex = 347
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Herramientas"
+        '
+        'Line1
+        '
+        Me.Line1.ForeColor = System.Drawing.SystemColors.ActiveBorder
+        Me.Line1.Location = New System.Drawing.Point(188, 19)
+        Me.Line1.Name = "Line1"
+        Me.Line1.Size = New System.Drawing.Size(18, 27)
+        Me.Line1.TabIndex = 348
+        Me.Line1.Text = "Line1"
+        Me.Line1.VerticalLine = True
         '
         'btnPrescam
         '
@@ -466,28 +418,28 @@ Partial Class frmPresentaciones
         '
         Me.grdItems.AllowUserToAddRows = False
         Me.grdItems.AllowUserToDeleteRows = False
-        DataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
-        DataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black
-        Me.grdItems.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black
+        Me.grdItems.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.grdItems.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.grdItems.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.grdItems.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.grdItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.grdItems.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Id, Me.IdFarmacia, Me.CodigoFarmacia, Me.Nombre, Me.IdPlan, Me.Plan, Me.IdPresentacion, Me.Recetas, Me.Recaudad, Me.ACargoOS, Me.Bonificacion, Me.Total, Me.CodFacaf, Me.CodPlan, Me.PorcentajePlan, Me.Eliminar})
-        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle12.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle12.ForeColor = System.Drawing.Color.Blue
-        DataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.grdItems.DefaultCellStyle = DataGridViewCellStyle12
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.Color.Blue
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.grdItems.DefaultCellStyle = DataGridViewCellStyle6
         Me.grdItems.Location = New System.Drawing.Point(346, 111)
         Me.grdItems.Name = "grdItems"
         Me.grdItems.RowHeadersWidth = 51
@@ -540,8 +492,8 @@ Partial Class frmPresentaciones
         '
         'IdPresentacion
         '
-        DataGridViewCellStyle9.NullValue = Nothing
-        Me.IdPresentacion.DefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle3.NullValue = Nothing
+        Me.IdPresentacion.DefaultCellStyle = DataGridViewCellStyle3
         Me.IdPresentacion.HeaderText = "Id Presentación"
         Me.IdPresentacion.MinimumWidth = 6
         Me.IdPresentacion.Name = "IdPresentacion"
@@ -568,9 +520,9 @@ Partial Class frmPresentaciones
         '
         'Bonificacion
         '
-        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle10.NullValue = Nothing
-        Me.Bonificacion.DefaultCellStyle = DataGridViewCellStyle10
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle4.NullValue = Nothing
+        Me.Bonificacion.DefaultCellStyle = DataGridViewCellStyle4
         Me.Bonificacion.HeaderText = "Bonificación"
         Me.Bonificacion.MinimumWidth = 6
         Me.Bonificacion.Name = "Bonificacion"
@@ -578,8 +530,8 @@ Partial Class frmPresentaciones
         '
         'Total
         '
-        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.Total.DefaultCellStyle = DataGridViewCellStyle11
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.Total.DefaultCellStyle = DataGridViewCellStyle5
         Me.Total.HeaderText = "Total"
         Me.Total.MinimumWidth = 6
         Me.Total.Name = "Total"
@@ -1167,27 +1119,14 @@ Partial Class frmPresentaciones
         Me.txtRecetas.Text_4 = Nothing
         Me.txtRecetas.UserValues = Nothing
         '
-        'Line1
+        'btnAddFarmacia
         '
-        Me.Line1.ForeColor = System.Drawing.SystemColors.ActiveBorder
-        Me.Line1.Location = New System.Drawing.Point(188, 19)
-        Me.Line1.Name = "Line1"
-        Me.Line1.Size = New System.Drawing.Size(18, 27)
-        Me.Line1.TabIndex = 348
-        Me.Line1.Text = "Line1"
-        Me.Line1.VerticalLine = True
-        '
-        'cmbPeriodos
-        '
-        Me.cmbPeriodos.DisplayMember = "Text"
-        Me.cmbPeriodos.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
-        Me.cmbPeriodos.FormattingEnabled = True
-        Me.cmbPeriodos.ItemHeight = 14
-        Me.cmbPeriodos.Location = New System.Drawing.Point(526, 71)
-        Me.cmbPeriodos.Name = "cmbPeriodos"
-        Me.cmbPeriodos.Size = New System.Drawing.Size(156, 20)
-        Me.cmbPeriodos.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.cmbPeriodos.TabIndex = 356
+        Me.btnAddFarmacia.Location = New System.Drawing.Point(513, 71)
+        Me.btnAddFarmacia.Name = "btnAddFarmacia"
+        Me.btnAddFarmacia.Size = New System.Drawing.Size(105, 34)
+        Me.btnAddFarmacia.TabIndex = 357
+        Me.btnAddFarmacia.Text = "Agregar item(F2)"
+        Me.btnAddFarmacia.UseVisualStyleBackColor = True
         '
         'frmPresentaciones
         '
@@ -1210,7 +1149,6 @@ Partial Class frmPresentaciones
         Me.TableLayoutPanel1.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
-        Me.GbPeriodo.ResumeLayout(False)
         Me.GroupBox2.ResumeLayout(False)
         CType(Me.grdItems, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GbFarmaciaForm.ResumeLayout(False)
@@ -1238,13 +1176,7 @@ Partial Class frmPresentaciones
     Friend WithEvents ToolTipbtnUnificar As ToolTip
     Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
     Friend WithEvents GroupBox1 As GroupBox
-    Friend WithEvents btnPeriodo As DevComponents.DotNetBar.ButtonX
     Friend WithEvents txtPeriodo As TextBox
-    Friend WithEvents GbPeriodo As GroupBox
-    Friend WithEvents Button2 As Button
-    Friend WithEvents LbPeriodo_Mes As ListBox
-    Friend WithEvents LbPeriodo_año As ListBox
-    Friend WithEvents LbPeriodo_parte As ListBox
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents btnUnificar As Button
     Friend WithEvents btnSeparar As Button
@@ -1313,4 +1245,5 @@ Partial Class frmPresentaciones
     Friend WithEvents btnRecetasWeb As Button
     Friend WithEvents Line1 As DevComponents.DotNetBar.Controls.Line
     Friend WithEvents cmbPeriodos As DevComponents.DotNetBar.Controls.ComboBoxEx
+    Friend WithEvents btnAddFarmacia As Button
 End Class

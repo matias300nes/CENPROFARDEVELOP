@@ -966,6 +966,12 @@
     <Compile Include="frmSaldos.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmPresentacionesAgregarItem.Designer.vb">
+      <DependentUpon>frmPresentacionesAgregarItem.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmPresentacionesAgregarItem.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Reportes\dsSistema.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -2083,6 +2089,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmSaldos.resx">
       <DependentUpon>frmSaldos.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPresentacionesAgregarItem.resx">
+      <DependentUpon>frmPresentacionesAgregarItem.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reportes\frmPresentacionRpt.resx">
       <DependentUpon>frmPresentacionRpt.vb</DependentUpon>

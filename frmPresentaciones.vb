@@ -95,6 +95,8 @@ Public Class frmPresentaciones
 
     Private Sub frmPresentaciones_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles Me.KeyDown
         Select Case e.KeyCode
+            Case Keys.F2
+                btnAddFarmacia_Click(sender, e)
             Case Keys.F3 'nuevo
                 If bolModo = True Then
                     If MessageBox.Show("No ha guardado la Orden de Compra Nueva que está realizando. ¿Está seguro que desea continuar sin Grabar y hacer una Orde de Compra Nueva?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
@@ -1019,6 +1021,40 @@ Public Class frmPresentaciones
         txtBonificacion.Text = ""
         txtImpTotalAPagar.Text = ""
         cmbFarmacias.Focus()
+    End Sub
+
+    Friend Sub newItem(
+                      nombre As String,
+                      idFarmacia As Long,
+                      idPlan As Long,
+                      plan As String,
+                      recetas As Integer,
+                      recaudado As Decimal,
+                      aCargoOS As Decimal,
+                      bonificacion As Decimal,
+                      observacion As String,
+                      mensajeWeb As String
+                      )
+
+        Dim row As New DataGridViewRow()
+        row.CreateCells(grdItems)
+
+        With row
+            .Cells(ColumnasDelGridItems.ID).Value = 0
+            .Cells(ColumnasDelGridItems.Nombre).Value = nombre
+            .Cells(ColumnasDelGridItems.IdFarmacia).Value = idFarmacia
+            .Cells(ColumnasDelGridItems.IdPlan).Value = idPlan
+            .Cells(ColumnasDelGridItems.Plan).Value = plan
+            .Cells(ColumnasDelGridItems.Recetas).Value = recetas
+            .Cells(ColumnasDelGridItems.Recaudado).Value = recaudado
+            .Cells(ColumnasDelGridItems.ACargoOS).Value = aCargoOS
+            .Cells(ColumnasDelGridItems.Bonificacion).Value = bonificacion
+            .Cells(ColumnasDelGridItems.Total).Value = aCargoOS - bonificacion
+        End With
+
+        grdItems.Rows.Add(row)
+
+        CalcularTotales()
     End Sub
 
     Private Sub LlenarGrid_Items()
@@ -2638,17 +2674,17 @@ Public Class frmPresentaciones
 
     End Sub
 
-    Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles btnPeriodo.Click
-        GbPeriodo.Visible = Not GbPeriodo.Visible
-    End Sub
+    'Private Sub ButtonX1_Click(sender As Object, e As EventArgs)
+    '    GbPeriodo.Visible = Not GbPeriodo.Visible
+    'End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        txtPeriodo.Text = IIf(LbPeriodo_parte.Text <> "MENSUAL",
-                                $"{LbPeriodo_parte.Text} {LbPeriodo_Mes.Text}-{LbPeriodo_año.Text}",
-                                $"{LbPeriodo_Mes.Text}-{LbPeriodo_año.Text}"
-                                )
-        GbPeriodo.Visible = Not GbPeriodo.Visible
-    End Sub
+    'Private Sub Button2_Click(sender As Object, e As EventArgs)
+    '    txtPeriodo.Text = IIf(LbPeriodo_parte.Text <> "MENSUAL",
+    '                            $"{LbPeriodo_parte.Text} {LbPeriodo_Mes.Text}-{LbPeriodo_año.Text}",
+    '                            $"{LbPeriodo_Mes.Text}-{LbPeriodo_año.Text}"
+    '                            )
+    '    GbPeriodo.Visible = Not GbPeriodo.Visible
+    'End Sub
 
     Private Sub btnPrescam_Click(sender As Object, e As EventArgs) Handles btnPrescam.Click
         Dim dt_txt As New DataTable
@@ -2657,8 +2693,17 @@ Public Class frmPresentaciones
     End Sub
 
     Private Sub btnRecetasWeb_Click(sender As Object, e As EventArgs) Handles btnRecetasWeb.Click
-        Dim frmRecetasWeb As New frmRecetasWeb
+        Dim frmRecetasWeb As New frmRecetasWeb(cmbObraSocial.SelectedValue, cmbPeriodos.SelectedValue)
         frmRecetasWeb.ShowDialog()
+    End Sub
+
+    Private Sub grdItems_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles grdItems.CellDoubleClick
+        MsgBox(sender.ToString)
+    End Sub
+
+    Private Sub btnAddFarmacia_Click(sender As Object, e As EventArgs) Handles btnAddFarmacia.Click
+        Dim presentacionesAgregarItem As New frmPresentacionesAgregarItem(idObraSocial:=cmbObraSocial.SelectedValue)
+        presentacionesAgregarItem.ShowDialog()
     End Sub
 
 
