@@ -4,13 +4,47 @@ Imports Utiles.Util
 
 Public Class frmPresentacionesAgregarItem
     Dim idObraSocial As Long
-    Public Sub New(idObraSocial As Long)
+    Dim selectedRow As DataGridViewRow
+    Dim updating As Boolean
+
+    Enum grdCols
+        ID = 0
+        IdFarmacia = 1
+        CodigoFarmacia = 2
+        Nombre = 3
+        IdPlan = 4
+        Plan = 5
+        Observacion = 6
+        mensajeWeb = 7
+        IdPresentacion = 8
+        Recetas = 9
+        Recaudado = 10
+        ACargoOS = 11
+        Bonificacion = 12
+        Total = 13
+        CodFacaf_Farm = 14
+        CodPlan = 15
+        PorcenPlan = 16
+    End Enum
+
+    Public Sub New(idObraSocial As Long, ByRef selectedRow As DataGridViewRow)
 
         ' Esta llamada es exigida por el diseñador.
         InitializeComponent()
 
         ' Agregue cualquier inicialización después de la llamada a InitializeComponent().
         Me.idObraSocial = idObraSocial
+
+        Me.updating = IIf(selectedRow IsNot Nothing, True, False)
+
+        If updating Then
+            lblInfo.Text = "MODIFICACIÓN"
+            btnAgregar.Text = "Modificar (Enter)"
+        Else
+            lblInfo.Text = "NUEVA"
+            btnAgregar.Text = "Agregar (Enter)"
+        End If
+        Me.selectedRow = selectedRow
     End Sub
 
 #Region "Funciones y procedimientos"
@@ -164,6 +198,29 @@ Public Class frmPresentacionesAgregarItem
         cmbFarmacias.Focus()
     End Sub
 
+    ''prellenar formulario con datos (usado en modificacion)
+    Private Sub fillForm(idFarmacia As Long,
+                         recetas As Integer,
+                         recaudado As Decimal,
+                         aCargoOS As Decimal,
+                         bonificacion As Decimal,
+                         idPlan As Long,
+                         observacion As String,
+                         mensajeWeb As String)
+
+        cmbFarmacias.SelectedValue = idFarmacia
+        cmbPlanes.SelectedValue = idPlan
+        txtRecetas.Text = recetas
+        txtImpRecaudado.Text = String.Format("{0:N2}", recaudado)
+        txtImpACargoOs.Text = String.Format("{0:N2}", aCargoOS)
+        txtBonificacion.Text = String.Format("{0:N2}", bonificacion)
+        txtObservacion.Text = observacion
+        txtMensajeWeb.Text = mensajeWeb
+
+        Dim subtotal = aCargoOS - bonificacion
+        lblTotal.Text = String.Format("{0:N2}", subtotal)
+    End Sub
+
 #End Region
 
 #Region "Eventos"
@@ -171,7 +228,23 @@ Public Class frmPresentacionesAgregarItem
     Private Sub PresentacionesAgregarItem_Load(sender As Object, e As EventArgs) Handles Me.Load
         LlenarCmbFarmacia()
         LlenarCmbPlanes()
-        cleanForm()
+
+        If updating Then
+            fillForm(
+                idFarmacia:=selectedRow.Cells(grdCols.IdFarmacia).Value,
+                recetas:=selectedRow.Cells(grdCols.Recetas).Value,
+                recaudado:=selectedRow.Cells(grdCols.Recaudado).Value,
+                aCargoOS:=selectedRow.Cells(grdCols.ACargoOS).Value,
+                bonificacion:=selectedRow.Cells(grdCols.Bonificacion).Value,
+                idPlan:=IIf(selectedRow.Cells(grdCols.IdPlan).Value <> "", selectedRow.Cells(grdCols.IdPlan).Value, Nothing),
+                observacion:=selectedRow.Cells(grdCols.Observacion).Value,
+                mensajeWeb:=selectedRow.Cells(grdCols.mensajeWeb).Value
+            )
+
+            cmbFarmacias.Enabled = False
+        Else
+            cleanForm()
+        End If
     End Sub
 
     Private Sub PresentacionesAgregarItem_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
@@ -218,19 +291,42 @@ Public Class frmPresentacionesAgregarItem
 
     Private Sub btnAgregar_Click(sender As Object, e As EventArgs) Handles btnAgregar.Click
         If checkForm() Then
-            frmPresentaciones.newItem(
-                nombre:=cmbFarmacias.Text,
-                idFarmacia:=cmbFarmacias.SelectedValue,
-                idPlan:=cmbPlanes.SelectedValue,
-                plan:=cmbPlanes.Text,
-                recetas:=Integer.Parse(txtRecetas.Text),
-                recaudado:=Decimal.Parse(txtImpRecaudado.Text),
-                aCargoOS:=Decimal.Parse(txtImpACargoOs.Text),
-                bonificacion:=Decimal.Parse(txtBonificacion.Text),
-                observacion:=txtObservacion.Text,
-                mensajeWeb:=txtMensajeWeb.Text
-            )
-            cleanForm()
+            If updating Then
+                If MessageBox.Show("¿Está seguro que desea modificar la farmacia seleccionada?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
+                    Exit Sub
+                End If
+
+                With selectedRow
+                    .Cells(grdCols.Nombre).Value = cmbFarmacias.Text
+                    .Cells(grdCols.IdFarmacia).Value = cmbFarmacias.SelectedValue
+                    .Cells(grdCols.Recetas).Value = Integer.Parse(txtRecetas.Text)
+                    .Cells(grdCols.Recaudado).Value = Decimal.Parse(txtImpRecaudado.Text)
+                    .Cells(grdCols.ACargoOS).Value = Decimal.Parse(txtImpACargoOs.Text)
+                    .Cells(grdCols.Bonificacion).Value = Decimal.Parse(txtBonificacion.Text)
+                    .Cells(grdCols.IdPlan).Value = cmbPlanes.SelectedValue
+                    .Cells(grdCols.Plan).Value = cmbPlanes.Text
+                    .Cells(grdCols.Observacion).Value = txtObservacion.Text
+                    .Cells(grdCols.mensajeWeb).Value = txtMensajeWeb.Text
+                End With
+
+                Me.Dispose()
+                Me.Close()
+            ElseIf Not updating Then
+                ''add new item
+                frmPresentaciones.newItem(
+                    nombre:=cmbFarmacias.Text,
+                    idFarmacia:=cmbFarmacias.SelectedValue,
+                    idPlan:=cmbPlanes.SelectedValue,
+                    plan:=cmbPlanes.Text,
+                    recetas:=Integer.Parse(txtRecetas.Text),
+                    recaudado:=Decimal.Parse(txtImpRecaudado.Text),
+                    aCargoOS:=Decimal.Parse(txtImpACargoOs.Text),
+                    bonificacion:=Decimal.Parse(txtBonificacion.Text),
+                    observacion:=txtObservacion.Text,
+                    mensajeWeb:=txtMensajeWeb.Text
+                )
+                cleanForm()
+            End If
         End If
     End Sub
 
