@@ -72,15 +72,17 @@ Public Class frmPresentaciones
         Nombre = 3
         IdPlan = 4
         Plan = 5
-        IdPresentacion = 6
-        Recetas = 7
-        Recaudado = 8
-        ACargoOS = 9
-        Bonificacion = 10
-        Total = 11
-        CodFacaf_Farm = 12
-        CodPlan = 13
-        PorcenPlan = 14
+        Observacion = 6
+        mensajeWeb = 7
+        IdPresentacion = 8
+        Recetas = 9
+        Recaudado = 10
+        ACargoOS = 11
+        Bonificacion = 12
+        Total = 13
+        CodFacaf_Farm = 14
+        CodPlan = 15
+        PorcenPlan = 16
         'CodPlan = 14
         'PorcenPlan = 13
     End Enum
@@ -1043,13 +1045,15 @@ Public Class frmPresentaciones
             .Cells(ColumnasDelGridItems.ID).Value = 0
             .Cells(ColumnasDelGridItems.Nombre).Value = nombre
             .Cells(ColumnasDelGridItems.IdFarmacia).Value = idFarmacia
-            .Cells(ColumnasDelGridItems.IdPlan).Value = idPlan
+            .Cells(ColumnasDelGridItems.IdPlan).Value = IIf(idPlan = 0, "", idPlan)
             .Cells(ColumnasDelGridItems.Plan).Value = plan
             .Cells(ColumnasDelGridItems.Recetas).Value = recetas
             .Cells(ColumnasDelGridItems.Recaudado).Value = recaudado
             .Cells(ColumnasDelGridItems.ACargoOS).Value = aCargoOS
             .Cells(ColumnasDelGridItems.Bonificacion).Value = bonificacion
             .Cells(ColumnasDelGridItems.Total).Value = aCargoOS - bonificacion
+            .Cells(ColumnasDelGridItems.Observacion).Value = observacion
+            .Cells(ColumnasDelGridItems.mensajeWeb).Value = mensajeWeb
         End With
 
         grdItems.Rows.Add(row)
@@ -1099,6 +1103,8 @@ Public Class frmPresentaciones
                     dt.Rows(i)(ColumnasDelGridItems.Nombre).ToString(),
                     dt.Rows(i)(ColumnasDelGridItems.IdPlan).ToString(),
                     dt.Rows(i)(ColumnasDelGridItems.Plan).ToString(),
+                    dt.Rows(i)(ColumnasDelGridItems.Observacion).ToString(),
+                    dt.Rows(i)(ColumnasDelGridItems.mensajeWeb).ToString(),
                     dt.Rows(i)(ColumnasDelGridItems.IdPresentacion).ToString(),
                     dt.Rows(i)(ColumnasDelGridItems.Recetas).ToString(),
                     dt.Rows(i)(ColumnasDelGridItems.Recaudado).ToString(),
@@ -1111,10 +1117,6 @@ Public Class frmPresentaciones
                 ' rodrigo 
 
             Next
-
-            Dim data As New GroupedDataTable(dt, "IdFarmacia")
-
-            'grdDebug.DataSource = data.grouped
 
             CalcularTotales()
 
@@ -2698,11 +2700,25 @@ Public Class frmPresentaciones
     End Sub
 
     Private Sub grdItems_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles grdItems.CellDoubleClick
-        MsgBox(sender.ToString)
+        btnModificarItem.PerformClick()
     End Sub
 
     Private Sub btnAddFarmacia_Click(sender As Object, e As EventArgs) Handles btnAddFarmacia.Click
-        Dim presentacionesAgregarItem As New frmPresentacionesAgregarItem(idObraSocial:=cmbObraSocial.SelectedValue)
+        Dim presentacionesAgregarItem As New frmPresentacionesAgregarItem(
+            idObraSocial:=cmbObraSocial.SelectedValue,
+            selectedRow:=Nothing
+        )
+        presentacionesAgregarItem.ShowDialog()
+    End Sub
+
+    Private Sub btnModificarItem_Click(sender As Object, e As EventArgs) Handles btnModificarItem.Click
+        Dim selectedRow = grdItems.CurrentRow()
+
+        Dim presentacionesAgregarItem As New frmPresentacionesAgregarItem(
+            idObraSocial:=cmbObraSocial.SelectedValue,
+            selectedRow:=selectedRow
+        )
+
         presentacionesAgregarItem.ShowDialog()
     End Sub
 

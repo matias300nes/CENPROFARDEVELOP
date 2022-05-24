@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frmPresentacionesAgregarItem
     Inherits System.Windows.Forms.Form
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,9 +20,10 @@ Partial Class frmPresentacionesAgregarItem
     'NOTA: el Diseñador de Windows Forms necesita el siguiente procedimiento
     'Se puede modificar usando el Diseñador de Windows Forms.  
     'No lo modifique con el editor de código.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.GbFarmaciaForm = New System.Windows.Forms.GroupBox()
+        Me.lblInfo = New System.Windows.Forms.Label()
         Me.cmbPlanes = New DevComponents.DotNetBar.Controls.ComboBoxEx()
         Me.cmbFarmacias = New DevComponents.DotNetBar.Controls.ComboBoxEx()
         Me.lblTotal = New System.Windows.Forms.Label()
@@ -51,6 +52,7 @@ Partial Class frmPresentacionesAgregarItem
         Me.GbFarmaciaForm.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GbFarmaciaForm.Controls.Add(Me.lblInfo)
         Me.GbFarmaciaForm.Controls.Add(Me.cmbPlanes)
         Me.GbFarmaciaForm.Controls.Add(Me.cmbFarmacias)
         Me.GbFarmaciaForm.Controls.Add(Me.lblTotal)
@@ -78,6 +80,17 @@ Partial Class frmPresentacionesAgregarItem
         Me.GbFarmaciaForm.TabIndex = 5
         Me.GbFarmaciaForm.TabStop = False
         Me.GbFarmaciaForm.Text = "Presentacion farmacia"
+        '
+        'lblInfo
+        '
+        Me.lblInfo.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblInfo.ForeColor = System.Drawing.SystemColors.ControlDark
+        Me.lblInfo.Location = New System.Drawing.Point(233, 17)
+        Me.lblInfo.Name = "lblInfo"
+        Me.lblInfo.Size = New System.Drawing.Size(158, 15)
+        Me.lblInfo.TabIndex = 391
+        Me.lblInfo.Text = "INFO"
+        Me.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'cmbPlanes
         '
@@ -196,7 +209,7 @@ Partial Class frmPresentacionesAgregarItem
         Me.txtBonificacion.AccessibleName = ""
         Me.txtBonificacion.BackColor = System.Drawing.Color.White
         Me.txtBonificacion.Decimals = CType(2, Byte)
-        Me.txtBonificacion.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
+        Me.txtBonificacion.DecSeparator = Global.Microsoft.VisualBasic.ChrW(46)
         Me.txtBonificacion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtBonificacion.Format = TextBoxConFormatoVB.tbFormats.UnsignedFloatingPointNumber
         Me.txtBonificacion.Location = New System.Drawing.Point(31, 156)
@@ -239,7 +252,7 @@ Partial Class frmPresentacionesAgregarItem
         Me.txtImpRecaudado.AccessibleName = ""
         Me.txtImpRecaudado.BackColor = System.Drawing.Color.White
         Me.txtImpRecaudado.Decimals = CType(2, Byte)
-        Me.txtImpRecaudado.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
+        Me.txtImpRecaudado.DecSeparator = Global.Microsoft.VisualBasic.ChrW(46)
         Me.txtImpRecaudado.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtImpRecaudado.Format = TextBoxConFormatoVB.tbFormats.UnsignedFloatingPointNumber
         Me.txtImpRecaudado.Location = New System.Drawing.Point(116, 104)
@@ -257,7 +270,7 @@ Partial Class frmPresentacionesAgregarItem
         '
         Me.txtImpACargoOs.AccessibleName = ""
         Me.txtImpACargoOs.Decimals = CType(2, Byte)
-        Me.txtImpACargoOs.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
+        Me.txtImpACargoOs.DecSeparator = Global.Microsoft.VisualBasic.ChrW(46)
         Me.txtImpACargoOs.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtImpACargoOs.Format = TextBoxConFormatoVB.tbFormats.UnsignedFloatingPointNumber
         Me.txtImpACargoOs.Location = New System.Drawing.Point(249, 104)
@@ -344,8 +357,11 @@ Partial Class frmPresentacionesAgregarItem
         Me.ClientSize = New System.Drawing.Size(420, 464)
         Me.Controls.Add(Me.GbFarmaciaForm)
         Me.KeyPreview = True
+        Me.MaximizeBox = False
+        Me.MaximumSize = New System.Drawing.Size(436, 503)
+        Me.MinimumSize = New System.Drawing.Size(436, 503)
         Me.Name = "frmPresentacionesAgregarItem"
-        Me.Text = "Agregar farmacia"
+        Me.Text = "Detalle presentación"
         Me.GbFarmaciaForm.ResumeLayout(False)
         Me.GbFarmaciaForm.PerformLayout()
         Me.ResumeLayout(False)
@@ -373,4 +389,5 @@ Partial Class frmPresentacionesAgregarItem
     Friend WithEvents lblTotal As Label
     Friend WithEvents cmbPlanes As DevComponents.DotNetBar.Controls.ComboBoxEx
     Friend WithEvents cmbFarmacias As DevComponents.DotNetBar.Controls.ComboBoxEx
+    Friend WithEvents lblInfo As Label
 End Class
