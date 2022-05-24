@@ -322,6 +322,12 @@
     <Compile Include="frmRecetasWeb.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmFacturaElectronica.Designer.vb">
+      <DependentUpon>frmFacturaElectronica.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmFacturaElectronica.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmSelectObraSocial.Designer.vb">
       <DependentUpon>frmSelectObraSocial.vb</DependentUpon>
     </Compile>
@@ -1695,6 +1701,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmRecetasWeb.resx">
       <DependentUpon>frmRecetasWeb.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmFacturaElectronica.resx">
+      <DependentUpon>frmFacturaElectronica.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSelectObraSocial.resx">
       <DependentUpon>frmSelectObraSocial.vb</DependentUpon>
