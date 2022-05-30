@@ -4,15 +4,22 @@ Imports Utiles.Util
 
 Public Class frmFacturaElectronica
     'Declaro las variables que voy a pasarle al frm
-    Dim idOrigen As Long
+    Dim idOrigen As String
+    Dim obraSocial As String
+    Dim domicilioOS, periodo, TotalACargoOS As String
 
-    Public Sub New(idOrigen As Long)
+    Public Sub New(idOrigen As String, ObraSocial As String, domicilioOS As String, periodo As String, totalACargo As String)
 
         'Esta llamada es exigida por el diseñador.
         InitializeComponent()
 
         'Agregue cualquier inicialización después de la llamada a InitializeComponent().
         Me.idOrigen = idOrigen
+        Me.obraSocial = ObraSocial
+        Me.domicilioOS = domicilioOS
+        Me.periodo = periodo
+        Me.TotalACargoOS = totalACargo
+
 
     End Sub
 
@@ -59,8 +66,8 @@ Public Class frmFacturaElectronica
         Dim importe_iva, importe_subtotal, importe_total
         Dim resbool As Boolean = False
         importe_iva = 0
-        importe_subtotal = 0
-        importe_total = 0
+        importe_subtotal = TotalACargoOS
+        importe_total = TotalACargoOS
 
         If True Then 'preguntar si desea generar la factura, para la obra social
             chkConexion.Checked = ConexionAfip(saveTA, saveTOKEN, saveSING)
@@ -629,8 +636,9 @@ Public Class frmFacturaElectronica
                 cbte_nro = CLng(cbte_nro) ' convertir a entero largo
             End If
 
-
             nroFactura = cbte_nro + 1 'Format(cbte_nro + 1, "0000000000")
+
+
 
             'nro de factura 
             cbt_desde = nroFactura 'param
@@ -1232,13 +1240,16 @@ Public Class frmFacturaElectronica
         LlenarcmbTipoDocumento()
         LlenarcmbCondicionIVA()
         LlenarcmbComprobantes()
-
+        LlenarcmbConceptosFE()
         requestGrdData()
         If txtID.Text <> "" Then
             setStyles()
         End If
 
         getFieldsParametros()
+
+        txtPuntoVta.Text = PTOVTA
+        txtImporte.Text = TotalACargoOS
     End Sub
 
     Private Sub getFieldsParametros()
@@ -1255,27 +1266,16 @@ Public Class frmFacturaElectronica
             Exit Sub
         End Try
         Try
-            ds_Equipos = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT PTOVTA,DescuentoMaximo,TopeFacturacion,NombreEmpresaFactura, ModoPagoPredefinido, CUIT, HOMO, TA,ISNULL(CorreoContador,''), TicketAcceso, Token, Sign FROM PARAMETROS")
-            'lblPVI.Text = ds_Equipos.Tables(0).Rows(0).Item(0).ToString
-            'PTOVTA = ds_Equipos.Tables(0).Rows(0).Item(0).ToString
-            'DescuentoMaximo = ds_Equipos.Tables(0).Rows(0).Item(1).ToString
-            'TopePorcenFac = ds_Equipos.Tables(0).Rows(0).Item(2)
-            Utiles.Empresa = LTrim(RTrim(ds_Equipos.Tables(0).Rows(0).Item(3)))
-            ModoPagoPredefinido = ds_Equipos.Tables(0).Rows(0).Item(4)
-            cuitEmpresa = ds_Equipos.Tables(0).Rows(0).Item(5)
-            HOMO = CBool(ds_Equipos.Tables(0).Rows(0).Item(6))
-            TicketAccesoBool = CBool(ds_Equipos.Tables(0).Rows(0).Item(7))
-            CorreoContador = ds_Equipos.Tables(0).Rows(0).Item(8)
-            saveTA = ds_Equipos.Tables(0).Rows(0).Item(9)
-            saveTOKEN = ds_Equipos.Tables(0).Rows(0).Item(10)
-            saveSING = ds_Equipos.Tables(0).Rows(0).Item(11)
-            ds_Equipos = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT Codigo FROM Almacenes WHERE Nombre LIKE '%SALON%' ")
-            'IDAlmacenSalon = ds_Equipos.Tables(0).Rows(0).Item(0)
-            ds_Equipos = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT PtoVta FROM Parametros_PtoVta WHERE NombreEquipo = '" & SystemInformation.ComputerName.ToString.ToUpper & "'")
-            'lblPVI.Text = ds_Equipos.Tables(0).Rows(0).Item(0).ToString
+            ds_Equipos = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT PTOVTA, NombreEmpresaFactura, CUIT, HOMO, TA, TicketAcceso, Token, Sign FROM PARAMETROS")
             PTOVTA = ds_Equipos.Tables(0).Rows(0).Item(0).ToString
+            Utiles.Empresa = LTrim(RTrim(ds_Equipos.Tables(0).Rows(0).Item(1)))
+            cuitEmpresa = ds_Equipos.Tables(0).Rows(0).Item(2)
+            HOMO = CBool(ds_Equipos.Tables(0).Rows(0).Item(3))
+            TicketAccesoBool = CBool(ds_Equipos.Tables(0).Rows(0).Item(4))
+            saveTA = ds_Equipos.Tables(0).Rows(0).Item(5)
+            saveTOKEN = ds_Equipos.Tables(0).Rows(0).Item(6)
+            saveSING = ds_Equipos.Tables(0).Rows(0).Item(7)
             ds_Equipos.Dispose()
-            'BuscarValores_Facturados()
             Me.Text = "Facturación Electrónica - " & Empresa
             lblModo.Visible = HOMO
             pathComprobantesAFIP = path_raiz & "\Comprobantes Facturas - " + Utiles.Empresa + "\"
