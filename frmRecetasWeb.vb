@@ -40,7 +40,7 @@ Public Class frmRecetasWeb
 	            sum(rw.AcargoOS) as [A Cargo OS]
             FROM Recetas_web rw
             JOIN Farmacias f on f.id = rw.IdFarmacia
-            WHERE rw.Eliminado = 0 and rw.IdPeriodo = 7 and rw.IdObraSocial = 1
+            WHERE rw.Eliminado = 0 and rw.IdPeriodo = {idPeriodo} and rw.IdObraSocial = {idObraSocial}
             GROUP BY rw.IdFarmacia, f.Nombre
         "
         Try
