@@ -58,10 +58,11 @@ Public Class frmPresentaciones
         Fecha = 2
         IDObraSocial = 3
         ObraSocial = 4
-        Periodo = 5
-        Estado = 6
-        total = 7
-        Observaciones = 8
+        idPeriodo = 5
+        Periodo = 6
+        Estado = 7
+        total = 8
+        Observaciones = 9
     End Enum
 
     Enum ColumnasDelGridItems
@@ -167,9 +168,9 @@ Public Class frmPresentaciones
         'rdPendientes.Checked = 1
 
         llenarCmbEstados()
-        LlenarCmbFarmacia()
+        'LlenarCmbFarmacia()
         LlenarCmbObraSocial()
-        LlenarCmbPlanes()
+        'LlenarCmbPlanes()
 
         If cmbEstado.Text = "" Then 'esta vacio porque no hay registros
             cmbEstado.Text = "PRESENTADO"
@@ -194,15 +195,17 @@ Public Class frmPresentaciones
         If grd.RowCount > 0 Then
             grd.Rows(0).Selected = True
             grd.CurrentCell = grd.Rows(0).Cells(1)
-            txtID.Text = grd.Rows(0).Cells(0).Value
-            txtCodigo.Text = grd.Rows(0).Cells(1).Value
-            dtpFECHA.Value = grd.Rows(0).Cells(2).Value
-            cmbObraSocial.SelectedValue = grd.Rows(0).Cells(3).Value
-            cmbObraSocial.Text = grd.Rows(0).Cells(4).Value
-            txtPeriodo.Text = grd.Rows(0).Cells(5).Value
-            lblStatus.Text = grd.Rows(0).Cells(6).Value
-            txtTotal.Text = grd.Rows(0).Cells(7).Value
-            txtObservacion.Text = grd.Rows(0).Cells(8).Value
+            txtID.Text = grd.Rows(0).Cells(ColumnasDelGrd.ID).Value
+            txtCodigo.Text = grd.Rows(0).Cells(ColumnasDelGrd.Codigo).Value
+            dtpFECHA.Value = grd.Rows(0).Cells(ColumnasDelGrd.Fecha).Value
+            cmbObraSocial.SelectedValue = grd.Rows(0).Cells(ColumnasDelGrd.IDObraSocial).Value
+            cmbObraSocial.Text = grd.Rows(0).Cells(ColumnasDelGrd.ObraSocial).Value
+            LlenarCmbPeriodos()
+            cmbPeriodos.SelectedValue = grd.Rows(0).Cells(ColumnasDelGrd.idPeriodo).Value
+            'cmbPeriodos.Text = grd.Rows(0).Cells(5).Value
+            lblStatus.Text = grd.Rows(0).Cells(ColumnasDelGrd.Estado).Value
+            txtTotal.Text = grd.Rows(0).Cells(ColumnasDelGrd.total).Value
+            txtObservacion.Text = grd.Rows(0).Cells(ColumnasDelGrd.Observaciones).Value
         End If
 
         If bolModo = True Then
@@ -214,6 +217,7 @@ Public Class frmPresentaciones
 
         With grd
             .Columns(ColumnasDelGrd.IDObraSocial).Visible = False
+            .Columns(ColumnasDelGrd.idPeriodo).Visible = False
         End With
 
         'For Each fila As DataGridViewRow In grdItems.Rows
@@ -230,83 +234,6 @@ Public Class frmPresentaciones
         btnUnificar.Enabled = False
         Cursor = Cursors.Default
 
-    End Sub
-
-    Private Sub cmbFarmacias_KeyDown(sender As Object, e As KeyEventArgs) Handles cmbFarmacias.KeyDown
-        If e.KeyData = Keys.Enter Then
-            txtRecetas.Focus()
-        End If
-    End Sub
-
-    Private Sub txtImpACargoOs_KeyDown(sender As Object, e As KeyEventArgs) Handles txtImpACargoOs.KeyDown
-        If e.KeyData = Keys.Enter Then
-            If cmbEstado.Text = "PRESENTADO" Or bolModo = True Then
-                AñadirGridItem()
-            End If
-        End If
-    End Sub
-
-    Private Sub txtBonificacion_KeyDown(sender As Object, e As KeyEventArgs) Handles txtBonificacion.KeyDown
-        If e.KeyData = Keys.Enter Then
-            If cmbEstado.Text = "PRESENTADO" Or bolModo = True Then
-                AñadirGridItem()
-            End If
-        End If
-    End Sub
-
-    Private Sub nudBonificacion_KeyDown(sender As Object, e As KeyEventArgs) Handles nudBonificacion.KeyDown
-        If e.KeyData = Keys.Enter Then
-            If cmbEstado.Text = "PRESENTADO" Or bolModo = True Then
-                AñadirGridItem()
-            End If
-        End If
-    End Sub
-
-    Private Sub txtImpACargoOs_LostFocus(sender As Object, e As EventArgs) Handles txtImpACargoOs.LostFocus
-        If txtImpACargoOs.Text <> "" Then
-            Dim subtotal As Decimal = 0
-            Dim aCargoOS As Decimal = Decimal.Parse(txtImpACargoOs.Text)
-            Dim Bonificacion As Decimal = 0
-            If txtBonificacion.Text <> "" Then
-                Bonificacion = Decimal.Parse(txtBonificacion.Text)
-            End If
-            subtotal = aCargoOS - Bonificacion
-            txtImpTotalAPagar.Text = String.Format("{0:N2}", Math.Round(subtotal, 2))
-            txtImpACargoOs.Text = String.Format("{0:N2}", aCargoOS)
-        End If
-    End Sub
-
-    Private Sub txtImpRecaudado_LostFocus(sender As Object, e As EventArgs) Handles txtImpRecaudado.LostFocus
-        If txtImpRecaudado.Text <> "" Then
-            txtImpRecaudado.Text = String.Format("{0:N2}", Decimal.Parse(txtImpRecaudado.Text))
-        End If
-    End Sub
-
-    Private Sub nudBonificacion_ValueChanged(sender As Object, e As EventArgs) Handles nudBonificacion.ValueChanged
-        Dim subtotal As Decimal = 0
-        Dim impBonificacion As Decimal = 0
-        If txtImpACargoOs.Text <> "" Then
-            impBonificacion = Decimal.Parse(txtImpACargoOs.Text) * (Decimal.Parse(nudBonificacion.Value))
-            subtotal = Decimal.Parse(txtImpACargoOs.Text) - (Decimal.Parse(txtImpACargoOs.Text) * (Decimal.Parse(nudBonificacion.Value)))
-        End If
-        txtBonificacion.Text = String.Format("{0:N2}", impBonificacion)
-
-    End Sub
-
-    Private Sub txtBonificacion_LostFocus(sender As Object, e As EventArgs) Handles txtBonificacion.LostFocus
-        If txtBonificacion.Text <> "" And txtImpACargoOs.Text <> "" And txtImpACargoOs.Text <> "0" Then
-            Dim bonificacion As Decimal
-            Dim subtotal As Decimal
-            Dim AcargoOS = Decimal.Parse(txtImpACargoOs.Text)
-            Dim impBonificacion = Decimal.Parse(txtBonificacion.Text)
-            bonificacion = impBonificacion / AcargoOS
-            If bonificacion >= 0 And bonificacion <= 1 Then
-                nudBonificacion.Value = bonificacion
-            End If
-            subtotal = Decimal.Parse(txtImpACargoOs.Text) - impBonificacion
-            txtBonificacion.Text = String.Format("{0:N2}", Decimal.Parse(txtBonificacion.Text))
-            txtImpTotalAPagar.Text = String.Format("{0:N2}", subtotal)
-        End If
     End Sub
 
     Private Sub CalcularTotales()
@@ -437,52 +364,52 @@ Public Class frmPresentaciones
         bolIDOS = True
     End Sub
 
-    Private Sub LlenarCmbFarmacia()
-        Dim connection As SqlClient.SqlConnection = Nothing
-        Dim ds As Data.DataSet
+    'Private Sub LlenarCmbFarmacia()
+    '    Dim connection As SqlClient.SqlConnection = Nothing
+    '    Dim ds As Data.DataSet
 
-        Try
-            connection = SqlHelper.GetConnection(ConnStringSEI)
-        Catch ex As Exception
-            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
-        End Try
+    '    Try
+    '        connection = SqlHelper.GetConnection(ConnStringSEI)
+    '    Catch ex As Exception
+    '        MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+    '        Exit Sub
+    '    End Try
 
-        Try
+    '    Try
 
-            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $" SELECT ID, NOMBRE FROM FARMACIAS WHERE ELIMINADO = 0")
-            ds.Dispose()
+    '        ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $" SELECT ID, NOMBRE FROM FARMACIAS WHERE ELIMINADO = 0")
+    '        ds.Dispose()
 
-            With cmbFarmacias
-                .DataSource = ds.Tables(0).DefaultView
-                .DisplayMember = "NOMBRE"
-                .ValueMember = "ID"
-                .AutoCompleteMode = AutoCompleteMode.SuggestAppend
-                .AutoCompleteSource = AutoCompleteSource.ListItems
-                '.SelectedIndex = "ID"
-            End With
+    '        With cmbFarmacias
+    '            .DataSource = ds.Tables(0).DefaultView
+    '            .DisplayMember = "NOMBRE"
+    '            .ValueMember = "ID"
+    '            .AutoCompleteMode = AutoCompleteMode.SuggestAppend
+    '            .AutoCompleteSource = AutoCompleteSource.ListItems
+    '            '.SelectedIndex = "ID"
+    '        End With
 
-        Catch ex As Exception
-            Dim errMessage As String = ""
-            Dim tempException As Exception = ex
+    '    Catch ex As Exception
+    '        Dim errMessage As String = ""
+    '        Dim tempException As Exception = ex
 
-            While (Not tempException Is Nothing)
-                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
-                tempException = tempException.InnerException
-            End While
+    '        While (Not tempException Is Nothing)
+    '            errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+    '            tempException = tempException.InnerException
+    '        End While
 
-            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
-              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            If Not connection Is Nothing Then
-                CType(connection, IDisposable).Dispose()
-            End If
-        End Try
+    '        MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+    '          + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+    '          "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+    '    Finally
+    '        If Not connection Is Nothing Then
+    '            CType(connection, IDisposable).Dispose()
+    '        End If
+    '    End Try
 
-        IdObraSocial = cmbObraSocial.SelectedValue
-        bolIDOS = True
-    End Sub
+    '    IdObraSocial = cmbObraSocial.SelectedValue
+    '    bolIDOS = True
+    'End Sub
 
     Private Sub LlenarCmbObraSocial()
         Dim connection As SqlClient.SqlConnection = Nothing
@@ -530,51 +457,51 @@ Public Class frmPresentaciones
     End Sub
 
 
-    Private Sub LlenarCmbPlanes()
-        Dim connection As SqlClient.SqlConnection = Nothing
-        Dim ds As Data.DataSet
+    'Private Sub LlenarCmbPlanes()
+    '    Dim connection As SqlClient.SqlConnection = Nothing
+    '    Dim ds As Data.DataSet
 
-        Try
-            connection = SqlHelper.GetConnection(ConnStringSEI)
-        Catch ex As Exception
-            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
-        End Try
+    '    Try
+    '        connection = SqlHelper.GetConnection(ConnStringSEI)
+    '    Catch ex As Exception
+    '        MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+    '        Exit Sub
+    '    End Try
 
-        Try
+    '    Try
 
-            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $" SELECT p.id as Id, p.nombre as Nombre 
-                                                                            FROM Planes p 
-                                                                            INNER JOIN ObrasSociales_Planes osp ON osp.IdPlan = p.Id 
-                                                                            WHERE osp.IdObraSocial = {cmbObraSocial.SelectedValue} AND p.eliminado = 0")
-            ds.Dispose()
+    '        ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $" SELECT p.id as Id, p.nombre as Nombre 
+    '                                                                        FROM Planes p 
+    '                                                                        INNER JOIN ObrasSociales_Planes osp ON osp.IdPlan = p.Id 
+    '                                                                        WHERE osp.IdObraSocial = {cmbObraSocial.SelectedValue} AND p.eliminado = 0")
+    '        ds.Dispose()
 
-            With cmbPlanes
-                .DataSource = ds.Tables(0).DefaultView
-                .DisplayMember = "NOMBRE"
-                .ValueMember = "ID"
-                '.SelectedIndex = "ID"
-            End With
+    '        With cmbPlanes
+    '            .DataSource = ds.Tables(0).DefaultView
+    '            .DisplayMember = "NOMBRE"
+    '            .ValueMember = "ID"
+    '            '.SelectedIndex = "ID"
+    '        End With
 
-        Catch ex As Exception
-            Dim errMessage As String = ""
-            Dim tempException As Exception = ex
+    '    Catch ex As Exception
+    '        Dim errMessage As String = ""
+    '        Dim tempException As Exception = ex
 
-            While (Not tempException Is Nothing)
-                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
-                tempException = tempException.InnerException
-            End While
+    '        While (Not tempException Is Nothing)
+    '            errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+    '            tempException = tempException.InnerException
+    '        End While
 
-            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
-              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            If Not connection Is Nothing Then
-                CType(connection, IDisposable).Dispose()
-            End If
-        End Try
+    '        MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+    '          + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+    '          "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+    '    Finally
+    '        If Not connection Is Nothing Then
+    '            CType(connection, IDisposable).Dispose()
+    '        End If
+    '    End Try
 
-    End Sub
+    'End Sub
 
     Private Sub LlenarCmbPeriodos()
         Dim connection As SqlClient.SqlConnection = Nothing
@@ -684,7 +611,7 @@ Public Class frmPresentaciones
         If band = 1 Then
             If cmbObraSocial.SelectedValue IsNot Nothing Then
                 txtIdObrasocial.Text = cmbObraSocial.SelectedValue.ToString
-                LlenarCmbPlanes()
+                'LlenarCmbPlanes()
                 LlenarCmbPeriodos()
             End If
 
@@ -704,11 +631,10 @@ Public Class frmPresentaciones
         If chkGrillaInferior.Checked = True Then
             chkGrillaInferior.Text = "Disminuir Grilla Inferior"
             chkGrillaInferior.Location = New Point(chkGrillaInferior.Location.X, chkGrillaInferior.Location.Y - variableajuste)
-            GroupBox1.Height = GroupBox1.Height - variableajuste
+            gbMain.Height = gbMain.Height - variableajuste
             grd.Location = New Point(xgrd, ygrd - variableajuste)
             grd.Height = hgrd + variableajuste
             grdItems.Height = grdItems.Height - variableajuste
-            GbFarmaciaForm.Height = GbFarmaciaForm.Height - variableajuste
             Label19.Location = New Point(Label19.Location.X, Label19.Location.Y - variableajuste)
             GroupBox2.Location = New Point(GroupBox2.Location.X, GroupBox2.Location.Y - variableajuste)
             cmbEstado.Location = New Point(cmbEstado.Location.X, cmbEstado.Location.Y - variableajuste)
@@ -731,11 +657,10 @@ Public Class frmPresentaciones
         Else
             chkGrillaInferior.Text = "Aumentar Grilla Inferior"
             chkGrillaInferior.Location = New Point(chkGrillaInferior.Location.X, chkGrillaInferior.Location.Y + variableajuste)
-            GroupBox1.Height = GroupBox1.Height + variableajuste
+            gbMain.Height = gbMain.Height + variableajuste
             grd.Location = New Point(xgrd, ygrd + variableajuste)
             grd.Height = hgrd - variableajuste
             grdItems.Height = grdItems.Height + variableajuste
-            GbFarmaciaForm.Height = GbFarmaciaForm.Height + variableajuste
             Label19.Location = New Point(Label19.Location.X, Label19.Location.Y + variableajuste)
             GroupBox2.Location = New Point(GroupBox2.Location.X, GroupBox2.Location.Y + variableajuste)
             cmbEstado.Location = New Point(cmbEstado.Location.X, cmbEstado.Location.Y + variableajuste)
@@ -787,7 +712,7 @@ Public Class frmPresentaciones
 
     Private Sub configurarform()
         'Me.grd.Location = New Size(TableLayoutPanel1.Location.X, TableLayoutPanel1.Location.Y + TableLayoutPanel1.Size.Height + 7)
-        Me.grd.Location = New Size(TableLayoutPanel1.Location.X, TableLayoutPanel1.Location.Y + TableLayoutPanel1.Size.Height + 5)
+        Me.grd.Location = New Size(gbMain.Location.X, gbMain.Location.Y + gbMain.Size.Height + 5)
 
         If LLAMADO_POR_FORMULARIO Then
             LLAMADO_POR_FORMULARIO = False
@@ -801,7 +726,7 @@ Public Class frmPresentaciones
         Me.WindowState = FormWindowState.Maximized
 
         'Me.grd.Size = New Size(Screen.PrimaryScreen.WorkingArea.Width - 27, Me.Size.Height - 7 - TableLayoutPanel1.Size.Height - TableLayoutPanel1.Location.Y - 50)
-        Me.grd.Size = New Size(Screen.PrimaryScreen.WorkingArea.Width - 27, Me.Size.Height - 3 - TableLayoutPanel1.Size.Height - TableLayoutPanel1.Location.Y - 62) '65)
+        Me.grd.Size = New Size(Screen.PrimaryScreen.WorkingArea.Width - 27, Me.Size.Height - 3 - gbMain.Size.Height - gbMain.Location.Y - 62) '65)
 
     End Sub
 
@@ -842,49 +767,24 @@ Public Class frmPresentaciones
 
 
         If cmbstatus = "PRESENTADO" Then
-            'GbFarmaciaForm.Enabled = True
-            'grdItems.Enabled = True
-            btnAgregarItem.Enabled = True
+            btnAddFarmacia.Enabled = True
             btnGuardar.Enabled = True
             btnNuevo.Enabled = True
         End If
 
         If cmbstatus = "" Then
-            'GbFarmaciaForm.Enabled = True
-            'grdItems.Enabled = True
-            btnAgregarItem.Enabled = True
+            btnAddFarmacia.Enabled = True
             btnGuardar.Enabled = True
             btnNuevo.Enabled = False
         End If
 
         ''edited
         If cmbstatus = "PAGO PARCIAL" Or cmbstatus = "PAGADA" Then
-            btnAgregarItem.Enabled = False
+            btnAddFarmacia.Enabled = False
             btnGuardar.Enabled = False
             btnNuevo.Enabled = True
         End If
         ''edited
-
-
-        'If cmbstatus = "PRESENTADO" Then
-        '    'GbFarmaciaForm.Enabled = True
-        '    'grdItems.Enabled = True
-        '    btnAgregarItem.Enabled = True
-        '    btnGuardar.Enabled = True
-        '    btnNuevo.Enabled = True
-        'End If
-        'If cmbstatus = "" Then
-        '    btnAgregarItem.Enabled = True
-        '    btnGuardar.Enabled = True
-        '    btnNuevo.Enabled = True
-        'End If
-
-        'If cmbstatus <> "PRESENTADO" And cmbstatus <> "" Then
-        '    btnAgregarItem.Enabled = False
-        '    'grdItems.ReadOnly = True
-        '    btnGuardar.Enabled = False
-        '    btnNuevo.Enabled = True
-        'End If
 
     End Sub
 
@@ -895,10 +795,10 @@ Public Class frmPresentaciones
         dtpFECHA.Tag = "2"
         txtIdObrasocial.Tag = "3"
         cmbObraSocial.Tag = "3" ''nacho mati
-        txtPeriodo.Tag = "5"
-        lblStatus.Tag = "6"
-        txtTotal.Tag = "7"
-        txtObservacion.Tag = "8"
+        cmbPeriodos.Tag = "5"
+        lblStatus.Tag = "7"
+        txtTotal.Tag = "8"
+        txtObservacion.Tag = "9"
 
     End Sub
 
@@ -913,8 +813,8 @@ Public Class frmPresentaciones
         'Verificar si todos los combox tienen algo válido
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         If Not (cmbObraSocial.SelectedIndex > -1) Then
-            Util.MsgStatus(Status1, "Ingrese un valor válido en el campo 'Proveedor'.", My.Resources.Resources.alert.ToBitmap)
-            Util.MsgStatus(Status1, "Ingrese un valor válido en el campo 'Proveedor'.", My.Resources.Resources.alert.ToBitmap, True)
+            Util.MsgStatus(Status1, "Ingrese un valor válido en el campo 'Obra social'.", My.Resources.Resources.alert.ToBitmap)
+            Util.MsgStatus(Status1, "Ingrese un valor válido en el campo 'Obra social'.", My.Resources.Resources.alert.ToBitmap, True)
             cmbObraSocial.Focus()
             Exit Sub
         End If
@@ -936,8 +836,8 @@ Public Class frmPresentaciones
         If filas > 0 Then
             bolpoliticas = True
         Else
-            Util.MsgStatus(Status1, "No hay filas de materiales para guardar.", My.Resources.Resources.alert.ToBitmap)
-            Util.MsgStatus(Status1, "No hay filas de materiales para guardar.", My.Resources.Resources.alert.ToBitmap, True)
+            Util.MsgStatus(Status1, "No hay filas de farmacias para guardar.", My.Resources.Resources.alert.ToBitmap)
+            Util.MsgStatus(Status1, "No hay filas de farmacias para guardar.", My.Resources.Resources.alert.ToBitmap, True)
             Exit Sub
         End If
     End Sub
@@ -947,83 +847,6 @@ Public Class frmPresentaciones
         'Util.LimpiarGridItems(grd)
     End Sub
 
-    Private Sub AñadirGridItem()
-        ''CONTROL DE INPUTS
-        If cmbFarmacias.SelectedValue Is DBNull.Value Or cmbFarmacias.SelectedValue = 0 Or cmbFarmacias.Text = "" Then
-            Util.MsgStatus(Status1, "Debe ingresar una farmacia VÁLIDA.", My.Resources.Resources.stop_error.ToBitmap)
-            Util.MsgStatus(Status1, "Debe ingresar una farmacia VÁLIDA.", My.Resources.Resources.stop_error.ToBitmap, True)
-            cmbFarmacias.Focus()
-            Exit Sub
-        End If
-
-        If txtRecetas.Text = "" Or txtRecetas.Text = "0" Then
-            Util.MsgStatus(Status1, "Debe ingresar la cantidad de recetas.", My.Resources.Resources.stop_error.ToBitmap)
-            Util.MsgStatus(Status1, "Debe ingresar la cantidad de recetas.", My.Resources.Resources.stop_error.ToBitmap, True)
-            txtRecetas.Focus()
-            Exit Sub
-        End If
-
-        If txtImpRecaudado.Text = "" Or txtImpRecaudado.Text = "0" Then
-            Util.MsgStatus(Status1, "Debe ingresar el importe 100%.", My.Resources.Resources.stop_error.ToBitmap)
-            Util.MsgStatus(Status1, "Debe ingresar el importe 100%.", My.Resources.Resources.stop_error.ToBitmap, True)
-            txtImpRecaudado.Focus()
-            Exit Sub
-        End If
-
-        If txtImpACargoOs.Text = "" Or txtImpACargoOs.Text = "0" Then
-            Util.MsgStatus(Status1, "Debe ingresar el importe a cargo de la Obra Social.", My.Resources.Resources.stop_error.ToBitmap)
-            Util.MsgStatus(Status1, "Debe ingresar el importe a cargo de la Obra Social.", My.Resources.Resources.stop_error.ToBitmap, True)
-            txtImpACargoOs.Focus()
-            Exit Sub
-        End If
-
-        If txtBonificacion.Text = "" Then
-            Util.MsgStatus(Status1, "Debe ingresar una Bonificación.", My.Resources.Resources.stop_error.ToBitmap)
-            Util.MsgStatus(Status1, "Debe ingresar una Bonificación.", My.Resources.Resources.stop_error.ToBitmap, True)
-            txtBonificacion.Focus()
-            Exit Sub
-        End If
-        'EVITAR REPETIDOS
-        'Dim i As Integer
-        'For i = 0 To grdItems.RowCount - 1
-        '    If cmbFarmacias.Text = grdItems.Rows(i).Cells(ColumnasDelGridItems.Nombre).Value Then
-        '        'Util.MsgStatus(Status1, "La Farmacia '" & cmbFarmacias.Text & "' está repetido en la fila: " & (i + 1).ToString & ".", My.Resources.Resources.alert.ToBitmap, True)
-        '        Util.MsgStatus(Status1, $"La Farmacia {cmbFarmacias.Text} está repetido en la fila: {(i + 1)}.", My.Resources.Resources.alert.ToBitmap, True)
-        '        Exit Sub
-        '    End If
-        'Next
-
-        Dim row As New DataGridViewRow()
-        row.CreateCells(grdItems)
-
-        With row
-            .Cells(ColumnasDelGridItems.ID).Value = 0
-            .Cells(ColumnasDelGridItems.Nombre).Value = cmbFarmacias.Text
-            .Cells(ColumnasDelGridItems.IdFarmacia).Value = cmbFarmacias.SelectedValue
-            .Cells(ColumnasDelGridItems.IdPlan).Value = IIf(cmbPlanes.SelectedValue Is Nothing, "", cmbPlanes.SelectedValue)
-            .Cells(ColumnasDelGridItems.Plan).Value = cmbPlanes.Text
-            .Cells(ColumnasDelGridItems.Recetas).Value = txtRecetas.Text
-            .Cells(ColumnasDelGridItems.Recaudado).Value = txtImpRecaudado.Text
-            .Cells(ColumnasDelGridItems.ACargoOS).Value = txtImpACargoOs.Text
-            .Cells(ColumnasDelGridItems.Bonificacion).Value = txtBonificacion.Text
-            .Cells(ColumnasDelGridItems.Total).Value = txtImpTotalAPagar.Text
-
-        End With
-
-        grdItems.Rows.Add(row)
-
-        CalcularTotales()
-
-        cmbFarmacias.Text = ""
-        cmbFarmacias.SelectedValue = DBNull.Value
-        txtRecetas.Text = ""
-        txtImpRecaudado.Text = ""
-        txtImpACargoOs.Text = ""
-        nudBonificacion.Value = 0
-        txtBonificacion.Text = ""
-        txtImpTotalAPagar.Text = ""
-        cmbFarmacias.Focus()
-    End Sub
 
     Friend Sub newItem(
                       nombre As String,
@@ -1117,6 +940,8 @@ Public Class frmPresentaciones
                 ' rodrigo 
 
             Next
+
+            cmbPeriodos.SelectedValue = grd.CurrentRow.Cells(ColumnasDelGrd.idPeriodo).Value
 
             CalcularTotales()
 
@@ -1437,11 +1262,17 @@ Public Class frmPresentaciones
                 param_observacion.Value = txtObservacion.Text
                 param_observacion.Direction = ParameterDirection.Input
 
+                Dim param_idPeriodo As New SqlClient.SqlParameter
+                param_idPeriodo.ParameterName = "@idPeriodo"
+                param_idPeriodo.SqlDbType = SqlDbType.BigInt
+                param_idPeriodo.Value = cmbPeriodos.SelectedValue
+                param_idPeriodo.Direction = ParameterDirection.Input
+
                 Dim param_periodo As New SqlClient.SqlParameter
                 param_periodo.ParameterName = "@periodo"
                 param_periodo.SqlDbType = SqlDbType.VarChar
                 param_periodo.Size = 100
-                param_periodo.Value = txtPeriodo.Text
+                param_periodo.Value = cmbPeriodos.Text
                 param_periodo.Direction = ParameterDirection.Input
 
                 Dim param_total As New SqlClient.SqlParameter
@@ -1472,7 +1303,7 @@ Public Class frmPresentaciones
                     If bolModo = True Then
                         SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spPresentaciones_Insert",
                                                 param_id, param_codigo, param_fecha, param_IdObraSocial, param_observacion,
-                                                param_periodo, param_total, param_useradd, param_res)
+                                                param_idPeriodo, param_periodo, param_total, param_useradd, param_res)
 
                         txtID.Text = param_id.Value
                         prueba = param_codigo.Value
@@ -1480,7 +1311,7 @@ Public Class frmPresentaciones
                     Else
                         SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spPresentaciones_Update",
                                                 param_id, param_codigo, param_fecha, param_IdObraSocial, param_observacion,
-                                                param_periodo, param_total, param_useradd, param_res)
+                                                param_idPeriodo, param_periodo, param_total, param_useradd, param_res)
 
                     End If
 
@@ -1534,8 +1365,25 @@ Public Class frmPresentaciones
                 Dim param_idPlan As New SqlClient.SqlParameter
                 param_idPlan.ParameterName = "@idPlan"
                 param_idPlan.SqlDbType = SqlDbType.BigInt
-                param_idPlan.Value = IIf(grdItems.Rows(i).Cells(ColumnasDelGridItems.IdPlan).Value.ToString = "", DBNull.Value, grdItems.Rows(i).Cells(ColumnasDelGridItems.IdPlan).Value)
+                param_idPlan.Value = DBNull.Value
+                If grdItems.Rows(i).Cells(ColumnasDelGridItems.IdPlan).Value Is Nothing Then
+                    If grdItems.Rows(i).Cells(ColumnasDelGridItems.IdPlan).Value <> "" Then
+                        param_idPlan.Value = grdItems.Rows(i).Cells(ColumnasDelGridItems.IdPlan).Value
+                    End If
+                End If
                 param_idPlan.Direction = ParameterDirection.Input
+
+                Dim param_Observacion As New SqlClient.SqlParameter
+                param_Observacion.ParameterName = "@observacion"
+                param_Observacion.SqlDbType = SqlDbType.VarChar
+                param_Observacion.Value = grdItems.Rows(i).Cells(ColumnasDelGridItems.Observacion).Value
+                param_Observacion.Direction = ParameterDirection.Input
+
+                Dim param_MensajeWeb As New SqlClient.SqlParameter
+                param_MensajeWeb.ParameterName = "@mensajeWeb"
+                param_MensajeWeb.SqlDbType = SqlDbType.VarChar
+                param_MensajeWeb.Value = grdItems.Rows(i).Cells(ColumnasDelGridItems.mensajeWeb).Value
+                param_MensajeWeb.Direction = ParameterDirection.Input
 
                 Dim param_IdPresentacion As New SqlClient.SqlParameter
                 param_IdPresentacion.ParameterName = "@idPresentacion"
@@ -1595,9 +1443,9 @@ Public Class frmPresentaciones
                 Try
 
                     SqlHelper.ExecuteNonQuery(tran, CommandType.StoredProcedure, "spPresentaciones_Det_Insert_Update",
-                                                  param_id, param_IdFarmacia, param_idPlan, param_IdPresentacion, param_Recetas,
-                                                  param_Recaudado, param_AcargoOS, param_Bonificacion, param_Total,
-                                                  param_eliminado, param_user, param_res)
+                                                  param_id, param_IdFarmacia, param_idPlan, param_Observacion, param_MensajeWeb,
+                                                  param_IdPresentacion, param_Recetas, param_Recaudado, param_AcargoOS, param_Bonificacion,
+                                                  param_Total, param_eliminado, param_user, param_res)
 
                     res = param_res.Value
 
@@ -1926,7 +1774,8 @@ Public Class frmPresentaciones
 
         'solucion momentanea revisar
         txtObservacion.Text = ""
-        txtPeriodo.Text = ""
+        cmbPeriodos.Text = ""
+        cmbPeriodos.SelectedItem = Nothing
         txtCodigo.Text = ""
         cmbObraSocial.Text = ""
         Util.LimpiarGridItems(grdItems)
@@ -2329,11 +2178,6 @@ Public Class frmPresentaciones
 
     End Sub
 
-    Private Sub btnAgregarItem_Click(sender As Object, e As EventArgs) Handles btnAgregarItem.Click
-        AñadirGridItem()
-    End Sub
-
-
     Private Sub cmbEstado_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbEstado.SelectedIndexChanged
         Dim estado = cmbEstado.Text
         If estado <> "" Then
@@ -2436,7 +2280,7 @@ Public Class frmPresentaciones
             Dim condicion As String = ""
             Dim sql As String = ""
             Dim obrasocial = cmbObraSocial.Text
-            Dim periodo = txtPeriodo.Text
+            Dim periodo = cmbPeriodos.SelectedValue
             Dim observacion = txtObservacion.Text
             Try
                 connection = SqlHelper.GetConnection(ConnStringSEI)
@@ -2465,48 +2309,68 @@ Public Class frmPresentaciones
 
                 If result = DialogResult.Yes Then
                     sql = $"select
-	                                                                                0					as ID,			   -- 0
-	                                                                                pd.IdFarmacia			As IdFarmacia,	   -- 1
-	                                                                                f.Codigo				AS CodigoFarmacia, -- 2
-	                                                                                f.nombre				As Farmacia,       -- 3
-	                                                                                null					As IdPresentacion, -- 4
-	                                                                                sum(pd.recetas)			as Recetas,        -- 5
-	                                                                                sum(pd.Recaudado)		as Recaudado,	   -- 6
-	                                                                                sum(pd.AcargoOS)		as 'A Cargo Os',   -- 7
-	                                                                                sum(pd.Bonificacion)	as Bonificación,   -- 8
-	                                                                                sum(pd.total)			As Total           -- 9	
-                                                                                from Presentaciones_det Pd
-	                                                                                JOIN Presentaciones p ON pd.IdPresentacion = p.id
-	                                                                                join Farmacias f on f.ID = pd.IdFarmacia
-                                                                                where pd.Eliminado = 0 and ({condicion})
-                                                                                group by
-	                                                                                pd.IdFarmacia,
-	                                                                                f.Codigo,
-	                                                                                f.Nombre"
+	                            0					as ID,			   -- 0
+	                            pd.IdFarmacia			As IdFarmacia,	   -- 1
+	                            f.Codigo				AS CodigoFarmacia, -- 2
+	                            f.nombre				As Farmacia,       -- 3
+                                pl.Id				    as idPlan,			-- 4	
+	                            pl.Nombre			    as 'Plan',			-- 5
+	                            max(pd.Observacion)		    as Observacion,	-- 6
+	                            max(pd.MensajeWeb)		    as MensajeWeb,	-- 7
+	                            null					As IdPresentacion, -- 8
+	                            sum(pd.recetas)			as Recetas,        -- 9
+	                            sum(pd.Recaudado)		as Recaudado,	   -- 10
+	                            sum(pd.AcargoOS)		as 'A Cargo Os',   -- 11
+	                            sum(pd.Bonificacion)	as Bonificación,   -- 12
+	                            sum(pd.total)			As Total,           -- 13
+                                f.CodFACAF			As CodFacaf,			-- 14
+	                            pl.Codigo			As CodPlan				-- 15
+                            from Presentaciones_det Pd
+	                            JOIN Presentaciones p ON pd.IdPresentacion = p.id
+	                            join Farmacias f on f.ID = pd.IdFarmacia
+                                LEFT JOIN Planes pl 
+	                                ON pl.ID = pd.IdPlan
+                            where pd.Eliminado = 0 and ({condicion})
+                            group by
+	                            pd.IdFarmacia,
+	                            f.Codigo,
+	                            f.Nombre,
+                                pl.id,
+                                pl.nombre,
+                                f.CodFACAF,
+                                pl.Codigo"
 
 
                 Else
                     sql = $"select
-	                                                                                0				as ID,			   -- 0
-	                                                                                pd.IdFarmacia		As IdFarmacia,	   -- 1
-	                                                                                f.Codigo			AS CodigoFarmacia, -- 2
-	                                                                                f.nombre			As Farmacia,       -- 3
-	                                                                                null				As IdPresentacion, -- 4
-	                                                                                pd.recetas			as Recetas,        -- 5
-	                                                                                pd.Recaudado		as Recaudado,	   -- 6
-	                                                                                pd.AcargoOS			as 'A Cargo Os',   -- 7
-	                                                                                pd.Bonificacion		as Bonificación,   -- 8
-	                                                                                pd.total			As Total           -- 9	
-                                                                                from Presentaciones_det Pd
-	                                                                                JOIN Presentaciones p ON pd.IdPresentacion = p.id
-	                                                                                join Farmacias f on f.ID = pd.IdFarmacia
-                                                                                where pd.Eliminado = 0 and ({condicion})"
+	                            0					as ID,			   -- 0
+	                            pd.IdFarmacia			As IdFarmacia,	   -- 1
+	                            f.Codigo				AS CodigoFarmacia, -- 2
+	                            f.nombre				As Farmacia,       -- 3
+                                pl.Id				    as idPlan,			-- 4	
+	                            pl.Nombre			    as 'Plan',			-- 5
+	                            pd.Observacion	    as Observacion,	-- 6
+	                            pd.MensajeWeb		    as MensajeWeb,	-- 7
+	                            null					As IdPresentacion, -- 8
+	                            pd.recetas			as Recetas,        -- 9
+	                            pd.Recaudado		as Recaudado,	   -- 10
+	                            pd.AcargoOS		as 'A Cargo Os',   -- 11
+	                            pd.Bonificacion	as Bonificación,   -- 12
+	                            pd.total			As Total,           -- 13
+                                f.CodFACAF			As CodFacaf,			-- 14
+	                            pl.Codigo			As CodPlan				-- 15
+                            from Presentaciones_det Pd
+	                            JOIN Presentaciones p ON pd.IdPresentacion = p.id
+	                            join Farmacias f on f.ID = pd.IdFarmacia
+                                LEFT JOIN Planes pl 
+	                                ON pl.ID = pd.IdPlan
+                            where pd.Eliminado = 0 and ({condicion})"
                 End If
                 dsRowsSelected = SqlHelper.ExecuteDataset(connection, CommandType.Text, sql)
                 dsRowsSelected.Dispose()
                 btnNuevo_Click(sender, e)
                 cmbObraSocial.Text = obrasocial
-                txtPeriodo.Text = periodo
+                cmbPeriodos.SelectedValue = periodo
                 txtObservacion.Text = "UNIFICADA - " + obrasocial
                 Dim dt = dsRowsSelected.Tables(0)
                 Dim i As Integer
@@ -2572,12 +2436,18 @@ Public Class frmPresentaciones
             Dim dt_Items As New DataTable
             Dim obrasocial = cmbObraSocial.Text
             Dim observaciones = txtObservacion.Text
-            Dim periodo = txtPeriodo.Text
+            Dim periodo = cmbPeriodos.SelectedValue
 
             dt_Items.Columns.Add("Id")
             dt_Items.Columns.Add("IdFarmacia")
             dt_Items.Columns.Add("CodigoFarmacia")
             dt_Items.Columns.Add("Nombre")
+
+            dt_Items.Columns.Add("IdPlan")
+            dt_Items.Columns.Add("Plan")
+            dt_Items.Columns.Add("observacion")
+            dt_Items.Columns.Add("MensajeWeb")
+
             dt_Items.Columns.Add("IdPresentacion")
             dt_Items.Columns.Add("Recetas")
             dt_Items.Columns.Add("Recaudado")
@@ -2602,6 +2472,12 @@ Public Class frmPresentaciones
                     row("IdFarmacia") = fila.Cells(ColumnasDelGridItems.IdFarmacia).Value.ToString
                     row("CodigoFarmacia") = fila.Cells(ColumnasDelGridItems.CodigoFarmacia).Value.ToString
                     row("Nombre") = fila.Cells(ColumnasDelGridItems.Nombre).Value.ToString
+
+                    row("IdPlan") = fila.Cells(ColumnasDelGridItems.IdPlan).Value
+                    row("Plan") = fila.Cells(ColumnasDelGridItems.Plan).Value.ToString
+                    row("observacion") = fila.Cells(ColumnasDelGridItems.Observacion).Value.ToString
+                    row("MensajeWeb") = fila.Cells(ColumnasDelGridItems.mensajeWeb).Value.ToString
+
                     row("Idpresentacion") = 0 'fila.Cells(ColumnasDelGridItems.IdPresentacion).Value.ToString
                     row("Recetas") = fila.Cells(ColumnasDelGridItems.Recetas).Value.ToString
                     row("Recaudado") = fila.Cells(ColumnasDelGridItems.Recaudado).Value.ToString
@@ -2638,6 +2514,10 @@ Public Class frmPresentaciones
                         row("IdFarmacia"),
                         row("CodigoFarmacia"),
                         row("Nombre"),
+                        row("IdPlan"),
+                        row("Plan"),
+                        row("observacion"),
+                        row("MensajeWeb"),
                         row("Idpresentacion"),
                         row("Recetas"),
                         row("Recaudado"),
@@ -2647,7 +2527,7 @@ Public Class frmPresentaciones
                 Next
 
                 cmbObraSocial.Text = obrasocial
-                txtPeriodo.Text = periodo
+                cmbPeriodos.SelectedValue = periodo
                 txtObservacion.Text = observaciones
                 CalcularTotales()
                 'btnGuardar_Click(sender, e)
@@ -2695,8 +2575,13 @@ Public Class frmPresentaciones
     End Sub
 
     Private Sub btnRecetasWeb_Click(sender As Object, e As EventArgs) Handles btnRecetasWeb.Click
-        Dim frmRecetasWeb As New frmRecetasWeb(cmbObraSocial.SelectedValue, cmbPeriodos.SelectedValue)
-        frmRecetasWeb.ShowDialog()
+        If cmbObraSocial.SelectedValue IsNot Nothing And cmbPeriodos.SelectedValue IsNot Nothing Then
+            Dim frmRecetasWeb As New frmRecetasWeb(cmbObraSocial.SelectedValue, cmbPeriodos.SelectedValue)
+            frmRecetasWeb.ShowDialog()
+        Else
+            MessageBox.Show("Para importar cargas de presentacion web debe seleccionar Obra Social y Período.",
+              "Seleccione OS-Período", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End If
     End Sub
 
     Private Sub grdItems_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles grdItems.CellDoubleClick

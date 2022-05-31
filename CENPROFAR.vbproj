@@ -2227,6 +2227,11 @@
       <DependentUpon>conexionDb.edmx</DependentUpon>
       <LastGenOutput>conexionDb.vb</LastGenOutput>
     </Content>
+    <None Include="Resources\printing.png" />
+    <None Include="Resources\facaf.png" />
+    <None Include="Resources\add.png" />
+    <None Include="Resources\change.png" />
+    <None Include="Resources\web.png" />
     <Content Include="SqlServerTypes\Loader.cs" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
