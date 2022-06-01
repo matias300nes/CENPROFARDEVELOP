@@ -940,8 +940,15 @@ Public Class frmPresentaciones
                 ' rodrigo 
 
             Next
-
-            cmbPeriodos.SelectedValue = grd.CurrentRow.Cells(ColumnasDelGrd.idPeriodo).Value
+            If grd.CurrentRow IsNot Nothing Then
+                With grd.CurrentRow.Cells(ColumnasDelGrd.idPeriodo)
+                    If .Value.ToString <> "" Then
+                        cmbPeriodos.SelectedValue = grd.CurrentRow.Cells(ColumnasDelGrd.idPeriodo).Value
+                    Else
+                        cmbPeriodos.SelectedItem = Nothing
+                    End If
+                End With
+            End If
 
             CalcularTotales()
 
@@ -1081,22 +1088,13 @@ Public Class frmPresentaciones
         End If
     End Sub
 
-    Private Sub Imprimir(ByVal Presupuesto As Boolean)
-        'nbreformreportes = "Orden de Compra / Presupuesto"
-
-        'Dim cnn As New SqlConnection(ConnStringSEI)
-        'Dim Rpt As New frmReportes
-
-        'If Presupuesto Then
-        '    Rpt.NombreArchivoPDF = "Solicitud de Cotización " & txtCODIGO.Text & " - " & cmbPROVEEDORES.Text.ToString
-        'Else
-        '    Rpt.NombreArchivoPDF = "Orden de Compra " & txtCODIGO.Text & " - " & cmbPROVEEDORES.Text.ToString
-        'End If
-
-        'Rpt.OrdenesDeCompra_Maestro_App(txtCODIGO.Text, 0, Rpt, My.Application.Info.AssemblyName.ToString, Presupuesto)
-
-        'cnn = Nothing
-
+    Private Sub ImprimirPresentacion()
+        If txtID.Text <> "" Then
+            Dim frmPresentacionRpt As New frmPresentacionRpt(Long.Parse(txtID.Text))
+            frmPresentacionRpt.ShowDialog()
+        Else
+            MessageBox.Show("Para poder imprimir un reporte, debe guardar la presentación.", "Presentación sin guardar", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End If
     End Sub
 
 
@@ -2121,33 +2119,7 @@ Public Class frmPresentaciones
     End Sub
 
     Private Sub btnImprimir_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnImprimir.Click
-        Dim frmPresentacionRpt As New frmPresentacionRpt(Long.Parse(txtID.Text))
-        frmPresentacionRpt.ShowDialog()
-
-        'Dim rpt As New frmReportes()
-        'Dim param As New frmParametros
-        'Dim cnn As New SqlConnection(ConnStringSEI)
-        'Dim codigo As String
-        'Dim Solicitud As Boolean
-
-        'nbreformreportes = "Ordenes de Compra"
-
-        'param.AgregarParametros("Código :", "STRING", "", False, txtCODIGO.Text.ToString, "", cnn)
-        'param.ShowDialog()
-
-        'If cerroparametrosconaceptar = True Then
-
-        '    codigo = param.ObtenerParametros(0)
-
-        '    rpt.NombreArchivoPDF = "Orden de Compra " & codigo & " - " & BuscarProveedor(codigo, Solicitud)
-
-        '    rpt.OrdenesDeCompraPorkys_Maestro_App(codigo, rpt, My.Application.Info.AssemblyName.ToString, Solicitud)
-
-        '    cerroparametrosconaceptar = False
-        '    param = Nothing
-        '    cnn = Nothing
-        'End If
-
+        ImprimirPresentacion()
     End Sub
 
     Private Overloads Sub btnCancelar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCancelar.Click
@@ -2606,6 +2578,17 @@ Public Class frmPresentaciones
 
         presentacionesAgregarItem.ShowDialog()
     End Sub
+
+    Private Sub btnOpenPeriodos_Click(sender As Object, e As EventArgs) Handles btnOpenPeriodos.Click
+        Dim frmPeriodos As New frmPeriodoPresentaciones()
+        frmPeriodos.ShowDialog()
+
+    End Sub
+
+    Private Sub btnImprimirRpt_Click(sender As Object, e As EventArgs) Handles btnImprimirRpt.Click
+        ImprimirPresentacion()
+    End Sub
+
 
 
 #End Region

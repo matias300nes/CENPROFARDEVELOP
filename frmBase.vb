@@ -824,7 +824,9 @@ Public Class frmBase
         quitarfiltro = True
         Bandera_filtro = False 'dg 29-07-10
         Try
-            dt_aux.Dispose()
+            If dt_aux IsNot Nothing Then
+                dt_aux.Dispose()
+            End If
         Catch ex As Exception
 
         End Try

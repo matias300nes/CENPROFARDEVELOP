@@ -44,10 +44,11 @@ Partial Class frmPresentaciones
         Me.ToolTipbtnSeparar = New System.Windows.Forms.ToolTip(Me.components)
         Me.ToolTipbtnUnificar = New System.Windows.Forms.ToolTip(Me.components)
         Me.gbMain = New System.Windows.Forms.GroupBox()
+        Me.btnOpenPeriodos = New System.Windows.Forms.Button()
         Me.gpTools = New System.Windows.Forms.GroupBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Line4 = New DevComponents.DotNetBar.Controls.Line()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.btnImprimirRpt = New System.Windows.Forms.Button()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.btnPrescam = New System.Windows.Forms.Button()
         Me.Line3 = New DevComponents.DotNetBar.Controls.Line()
@@ -106,6 +107,7 @@ Partial Class frmPresentaciones
         Me.txtID = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.dtpFECHA = New System.Windows.Forms.DateTimePicker()
         Me.Label3 = New System.Windows.Forms.Label()
+        Me.BasicToolTip = New System.Windows.Forms.ToolTip(Me.components)
         Me.ContextMenuStrip1.SuspendLayout()
         Me.ContextMenuStrip2.SuspendLayout()
         Me.ContextMenuStrip3.SuspendLayout()
@@ -226,6 +228,7 @@ Partial Class frmPresentaciones
         Me.gbMain.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.gbMain.BackColor = System.Drawing.Color.Transparent
+        Me.gbMain.Controls.Add(Me.btnOpenPeriodos)
         Me.gbMain.Controls.Add(Me.gpTools)
         Me.gbMain.Controls.Add(Me.cmbPeriodos)
         Me.gbMain.Controls.Add(Me.Label19)
@@ -259,16 +262,26 @@ Partial Class frmPresentaciones
         Me.gbMain.ForeColor = System.Drawing.Color.Blue
         Me.gbMain.Location = New System.Drawing.Point(3, 30)
         Me.gbMain.Name = "gbMain"
-        Me.gbMain.Size = New System.Drawing.Size(1461, 480)
+        Me.gbMain.Size = New System.Drawing.Size(1555, 480)
         Me.gbMain.TabIndex = 1
         Me.gbMain.TabStop = False
+        '
+        'btnOpenPeriodos
+        '
+        Me.btnOpenPeriodos.Image = Global.CENPROFAR.My.Resources.Resources.ver
+        Me.btnOpenPeriodos.Location = New System.Drawing.Point(910, 11)
+        Me.btnOpenPeriodos.Name = "btnOpenPeriodos"
+        Me.btnOpenPeriodos.Size = New System.Drawing.Size(26, 23)
+        Me.btnOpenPeriodos.TabIndex = 360
+        Me.BasicToolTip.SetToolTip(Me.btnOpenPeriodos, "Ir a pantalla de periodos de presentación.")
+        Me.btnOpenPeriodos.UseVisualStyleBackColor = True
         '
         'gpTools
         '
         Me.gpTools.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.gpTools.Controls.Add(Me.Label10)
         Me.gpTools.Controls.Add(Me.Line4)
-        Me.gpTools.Controls.Add(Me.Button1)
+        Me.gpTools.Controls.Add(Me.btnImprimirRpt)
         Me.gpTools.Controls.Add(Me.Label6)
         Me.gpTools.Controls.Add(Me.btnPrescam)
         Me.gpTools.Controls.Add(Me.Line3)
@@ -278,7 +291,7 @@ Partial Class frmPresentaciones
         Me.gpTools.Controls.Add(Me.btnRecetasWeb)
         Me.gpTools.Controls.Add(Me.btnModificarItem)
         Me.gpTools.Controls.Add(Me.btnAddFarmacia)
-        Me.gpTools.Location = New System.Drawing.Point(1142, 87)
+        Me.gpTools.Location = New System.Drawing.Point(1144, 87)
         Me.gpTools.Name = "gpTools"
         Me.gpTools.Size = New System.Drawing.Size(214, 322)
         Me.gpTools.TabIndex = 359
@@ -304,19 +317,19 @@ Partial Class frmPresentaciones
         Me.Line4.TabIndex = 365
         Me.Line4.Text = "Line4"
         '
-        'Button1
+        'btnImprimirRpt
         '
-        Me.Button1.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Button1.Image = Global.CENPROFAR.My.Resources.Resources.printing
-        Me.Button1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Button1.Location = New System.Drawing.Point(14, 223)
-        Me.Button1.Name = "Button1"
-        Me.Button1.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Button1.Size = New System.Drawing.Size(84, 31)
-        Me.Button1.TabIndex = 364
-        Me.Button1.Text = "Imprimir"
-        Me.Button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.btnImprimirRpt.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.btnImprimirRpt.Image = Global.CENPROFAR.My.Resources.Resources.printing
+        Me.btnImprimirRpt.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.btnImprimirRpt.Location = New System.Drawing.Point(14, 223)
+        Me.btnImprimirRpt.Name = "btnImprimirRpt"
+        Me.btnImprimirRpt.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.btnImprimirRpt.Size = New System.Drawing.Size(84, 31)
+        Me.btnImprimirRpt.TabIndex = 364
+        Me.btnImprimirRpt.Text = "Imprimir"
+        Me.btnImprimirRpt.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.btnImprimirRpt.UseVisualStyleBackColor = True
         '
         'Label6
         '
@@ -400,6 +413,7 @@ Partial Class frmPresentaciones
         Me.btnModificarItem.TabIndex = 358
         Me.btnModificarItem.Text = "Modificar"
         Me.btnModificarItem.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.BasicToolTip.SetToolTip(Me.btnModificarItem, "Modificar presentación de recetas.")
         Me.btnModificarItem.UseVisualStyleBackColor = True
         '
         'btnAddFarmacia
@@ -412,6 +426,7 @@ Partial Class frmPresentaciones
         Me.btnAddFarmacia.TabIndex = 357
         Me.btnAddFarmacia.Text = "Agregar (F2)"
         Me.btnAddFarmacia.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.BasicToolTip.SetToolTip(Me.btnAddFarmacia, "Añadir presentación de recetas.")
         Me.btnAddFarmacia.UseVisualStyleBackColor = True
         '
         'cmbPeriodos
@@ -431,7 +446,7 @@ Partial Class frmPresentaciones
         Me.Label19.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label19.AutoSize = True
         Me.Label19.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label19.Location = New System.Drawing.Point(983, 72)
+        Me.Label19.Location = New System.Drawing.Point(992, 72)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(98, 13)
         Me.Label19.TabIndex = 186
@@ -529,7 +544,7 @@ Partial Class frmPresentaciones
         Me.grdItems.Name = "grdItems"
         Me.grdItems.RowHeadersVisible = False
         Me.grdItems.RowHeadersWidth = 51
-        Me.grdItems.Size = New System.Drawing.Size(1115, 315)
+        Me.grdItems.Size = New System.Drawing.Size(1122, 315)
         Me.grdItems.TabIndex = 13
         '
         'Id
@@ -795,7 +810,7 @@ Partial Class frmPresentaciones
         Me.lblCantidadFilas.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblCantidadFilas.AutoSize = True
         Me.lblCantidadFilas.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblCantidadFilas.Location = New System.Drawing.Point(1079, 72)
+        Me.lblCantidadFilas.Location = New System.Drawing.Point(1088, 72)
         Me.lblCantidadFilas.Name = "lblCantidadFilas"
         Me.lblCantidadFilas.Size = New System.Drawing.Size(46, 13)
         Me.lblCantidadFilas.TabIndex = 185
@@ -987,7 +1002,7 @@ Partial Class frmPresentaciones
         Me.AccessibleName = "OrdenDeCompra"
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1374, 609)
+        Me.ClientSize = New System.Drawing.Size(1362, 609)
         Me.Controls.Add(Me.gbMain)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4)
@@ -1082,10 +1097,12 @@ Partial Class frmPresentaciones
     Friend WithEvents gpTools As GroupBox
     Friend WithEvents Label10 As Label
     Friend WithEvents Line4 As DevComponents.DotNetBar.Controls.Line
-    Friend WithEvents Button1 As Button
+    Friend WithEvents btnImprimirRpt As Button
     Friend WithEvents Label6 As Label
     Friend WithEvents Line3 As DevComponents.DotNetBar.Controls.Line
     Friend WithEvents Label5 As Label
     Friend WithEvents Label1 As Label
     Friend WithEvents Line2 As DevComponents.DotNetBar.Controls.Line
+    Friend WithEvents btnOpenPeriodos As Button
+    Friend WithEvents BasicToolTip As ToolTip
 End Class

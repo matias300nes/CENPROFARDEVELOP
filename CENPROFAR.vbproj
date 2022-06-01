@@ -2232,6 +2232,7 @@
     <None Include="Resources\add.png" />
     <None Include="Resources\change.png" />
     <None Include="Resources\web.png" />
+    <None Include="Resources\ver.png" />
     <Content Include="SqlServerTypes\Loader.cs" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
