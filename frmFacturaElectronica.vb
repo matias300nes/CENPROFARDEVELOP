@@ -4,21 +4,19 @@ Imports Utiles.Util
 
 Public Class frmFacturaElectronica
     'Declaro las variables que voy a pasarle al frm
-    Dim idOrigen As String
-    Dim obraSocial As String
-    Dim domicilioOS, periodo, TotalACargoOS As String
+    Dim idOrigen, IdObraSocial, Periodo, TotalACargoOS, NombreOS, DireccionOS As String
 
-    Public Sub New(idOrigen As String, ObraSocial As String, domicilioOS As String, periodo As String, totalACargo As String)
+
+    Public Sub New(idOrigen As String, IdObraSocial As String, Periodo As String, TotalACargoOS As String)
 
         'Esta llamada es exigida por el diseñador.
         InitializeComponent()
 
         'Agregue cualquier inicialización después de la llamada a InitializeComponent().
         Me.idOrigen = idOrigen
-        Me.obraSocial = ObraSocial
-        Me.domicilioOS = domicilioOS
-        Me.periodo = periodo
-        Me.TotalACargoOS = totalACargo
+        Me.IdObraSocial = IdObraSocial
+        Me.Periodo = Periodo
+        Me.TotalACargoOS = TotalACargoOS
 
 
     End Sub
@@ -1366,17 +1364,16 @@ Public Class frmFacturaElectronica
             setStyles()
         End If
 
-        getFieldsParametros()
+        getFields()
 
-        lblObraSocial.Text = obraSocial
         txtPuntoVta.Text = PTOVTA
         txtImporte.Text = TotalACargoOS
     End Sub
 
-    Private Sub getFieldsParametros()
+    Private Sub getFields()
 
         '------------------------------------------------------Parametros
-        Dim ds_Equipos As Data.DataSet
+        Dim ds_General As Data.DataSet
         Dim connection As SqlClient.SqlConnection = Nothing
         Try
 
@@ -1387,19 +1384,28 @@ Public Class frmFacturaElectronica
             Exit Sub
         End Try
         Try
-            ds_Equipos = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT PTOVTA, NombreEmpresaFactura, CUIT, HOMO, TA, TicketAcceso, Token, Sign FROM PARAMETROS")
-            PTOVTA = ds_Equipos.Tables(0).Rows(0).Item(0).ToString
-            Utiles.Empresa = LTrim(RTrim(ds_Equipos.Tables(0).Rows(0).Item(1)))
-            cuitEmpresa = ds_Equipos.Tables(0).Rows(0).Item(2)
-            HOMO = CBool(ds_Equipos.Tables(0).Rows(0).Item(3))
-            TicketAccesoBool = CBool(ds_Equipos.Tables(0).Rows(0).Item(4))
-            saveTA = ds_Equipos.Tables(0).Rows(0).Item(5)
-            saveTOKEN = ds_Equipos.Tables(0).Rows(0).Item(6)
-            saveSING = ds_Equipos.Tables(0).Rows(0).Item(7)
-            ds_Equipos.Dispose()
+            ''traigo datos de tabla parametros
+            ds_General = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT PTOVTA, NombreEmpresaFactura, CUIT, HOMO, TA, TicketAcceso, Token, Sign FROM PARAMETROS")
+            PTOVTA = ds_General.Tables(0).Rows(0).Item(0).ToString
+            Utiles.Empresa = LTrim(RTrim(ds_General.Tables(0).Rows(0).Item(1)))
+            cuitEmpresa = ds_General.Tables(0).Rows(0).Item(2)
+            HOMO = CBool(ds_General.Tables(0).Rows(0).Item(3))
+            TicketAccesoBool = CBool(ds_General.Tables(0).Rows(0).Item(4))
+            saveTA = ds_General.Tables(0).Rows(0).Item(5)
+            saveTOKEN = ds_General.Tables(0).Rows(0).Item(6)
+            saveSING = ds_General.Tables(0).Rows(0).Item(7)
+            ds_General.Dispose()
             Me.Text = "Facturación Electrónica - " & Empresa
             lblModo.Visible = HOMO
             pathComprobantesAFIP = path_raiz & "\Comprobantes Facturas - " + Utiles.Empresa + "\"
+
+            ''traigo datos de tabla obras sociales
+            ds_General = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT Nombre, Domicilio, Cuit FROM ObrasSociales WHERE ID = {IdObraSocial}")
+            lblObraSocial.Text = ds_General.Tables(0).Rows(0).Item(0).ToString
+            txtDomicilio.Text = ds_General.Tables(0).Rows(0).Item(1).ToString
+            txtCuit.Text = ds_General.Tables(0).Rows(0).Item(2).ToString
+
+            ''traer nrocomprobante de la ultima factura 
 
         Catch ex As Exception
             MessageBox.Show("Se produjo un error al leer los datos de la table Parámetros", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -1587,6 +1593,8 @@ Public Class frmFacturaElectronica
             txtNroComprobanteNotaCred.Enabled = False
         End If
     End Sub
+
+
 
     'Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
     '    Dim reporte As New frmRtpCheques()
