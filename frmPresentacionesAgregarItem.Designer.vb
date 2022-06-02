@@ -74,9 +74,11 @@ Partial Class frmPresentacionesAgregarItem
         Me.GbFarmaciaForm.Controls.Add(Me.Label10)
         Me.GbFarmaciaForm.Controls.Add(Me.txtRecetas)
         Me.GbFarmaciaForm.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GbFarmaciaForm.Location = New System.Drawing.Point(10, 9)
+        Me.GbFarmaciaForm.Location = New System.Drawing.Point(13, 11)
+        Me.GbFarmaciaForm.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GbFarmaciaForm.Name = "GbFarmaciaForm"
-        Me.GbFarmaciaForm.Size = New System.Drawing.Size(399, 446)
+        Me.GbFarmaciaForm.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GbFarmaciaForm.Size = New System.Drawing.Size(532, 549)
         Me.GbFarmaciaForm.TabIndex = 5
         Me.GbFarmaciaForm.TabStop = False
         Me.GbFarmaciaForm.Text = "Presentacion farmacia"
@@ -85,9 +87,10 @@ Partial Class frmPresentacionesAgregarItem
         '
         Me.lblInfo.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblInfo.ForeColor = System.Drawing.SystemColors.ControlDark
-        Me.lblInfo.Location = New System.Drawing.Point(233, 17)
+        Me.lblInfo.Location = New System.Drawing.Point(311, 21)
+        Me.lblInfo.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblInfo.Name = "lblInfo"
-        Me.lblInfo.Size = New System.Drawing.Size(158, 15)
+        Me.lblInfo.Size = New System.Drawing.Size(211, 18)
         Me.lblInfo.TabIndex = 391
         Me.lblInfo.Text = "INFO"
         Me.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -98,10 +101,11 @@ Partial Class frmPresentacionesAgregarItem
         Me.cmbPlanes.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
         Me.cmbPlanes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbPlanes.FormattingEnabled = True
-        Me.cmbPlanes.ItemHeight = 16
-        Me.cmbPlanes.Location = New System.Drawing.Point(166, 156)
+        Me.cmbPlanes.ItemHeight = 20
+        Me.cmbPlanes.Location = New System.Drawing.Point(221, 192)
+        Me.cmbPlanes.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbPlanes.Name = "cmbPlanes"
-        Me.cmbPlanes.Size = New System.Drawing.Size(201, 22)
+        Me.cmbPlanes.Size = New System.Drawing.Size(267, 26)
         Me.cmbPlanes.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.cmbPlanes.TabIndex = 6
         '
@@ -110,10 +114,11 @@ Partial Class frmPresentacionesAgregarItem
         Me.cmbFarmacias.DisplayMember = "Text"
         Me.cmbFarmacias.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
         Me.cmbFarmacias.FormattingEnabled = True
-        Me.cmbFarmacias.ItemHeight = 16
-        Me.cmbFarmacias.Location = New System.Drawing.Point(31, 49)
+        Me.cmbFarmacias.ItemHeight = 20
+        Me.cmbFarmacias.Location = New System.Drawing.Point(41, 60)
+        Me.cmbFarmacias.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbFarmacias.Name = "cmbFarmacias"
-        Me.cmbFarmacias.Size = New System.Drawing.Size(203, 22)
+        Me.cmbFarmacias.Size = New System.Drawing.Size(269, 26)
         Me.cmbFarmacias.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.cmbFarmacias.TabIndex = 1
         '
@@ -123,19 +128,21 @@ Partial Class frmPresentacionesAgregarItem
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblTotal.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblTotal.ForeColor = System.Drawing.Color.DarkGreen
-        Me.lblTotal.Location = New System.Drawing.Point(131, 348)
+        Me.lblTotal.Location = New System.Drawing.Point(175, 428)
+        Me.lblTotal.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblTotal.Name = "lblTotal"
-        Me.lblTotal.Size = New System.Drawing.Size(235, 24)
+        Me.lblTotal.Size = New System.Drawing.Size(313, 30)
         Me.lblTotal.TabIndex = 390
         Me.lblTotal.Text = "$ [Total]"
         Me.lblTotal.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'txtObservacion
         '
-        Me.txtObservacion.Location = New System.Drawing.Point(30, 213)
+        Me.txtObservacion.Location = New System.Drawing.Point(40, 262)
+        Me.txtObservacion.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtObservacion.MaxLength = 300
         Me.txtObservacion.Name = "txtObservacion"
-        Me.txtObservacion.Size = New System.Drawing.Size(336, 22)
+        Me.txtObservacion.Size = New System.Drawing.Size(447, 26)
         Me.txtObservacion.TabIndex = 7
         '
         'Label3
@@ -144,9 +151,10 @@ Partial Class frmPresentacionesAgregarItem
         Me.Label3.BackColor = System.Drawing.Color.Transparent
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label3.Location = New System.Drawing.Point(27, 194)
+        Me.Label3.Location = New System.Drawing.Point(36, 239)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(88, 16)
+        Me.Label3.Size = New System.Drawing.Size(108, 20)
         Me.Label3.TabIndex = 348
         Me.Label3.Text = "Observación:"
         '
@@ -156,17 +164,19 @@ Partial Class frmPresentacionesAgregarItem
         Me.Label2.BackColor = System.Drawing.Color.Transparent
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label2.Location = New System.Drawing.Point(28, 253)
+        Me.Label2.Location = New System.Drawing.Point(37, 311)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(176, 16)
+        Me.Label2.Size = New System.Drawing.Size(219, 20)
         Me.Label2.TabIndex = 347
         Me.Label2.Text = "Mensaje para usuarios web:"
         '
         'btnCerrar
         '
-        Me.btnCerrar.Location = New System.Drawing.Point(92, 394)
+        Me.btnCerrar.Location = New System.Drawing.Point(123, 485)
+        Me.btnCerrar.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnCerrar.Name = "btnCerrar"
-        Me.btnCerrar.Size = New System.Drawing.Size(75, 32)
+        Me.btnCerrar.Size = New System.Drawing.Size(100, 39)
         Me.btnCerrar.TabIndex = 10
         Me.btnCerrar.Text = "Cerrar"
         Me.btnCerrar.UseVisualStyleBackColor = True
@@ -175,9 +185,10 @@ Partial Class frmPresentacionesAgregarItem
         '
         Me.btnAgregar.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
         Me.btnAgregar.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.btnAgregar.Location = New System.Drawing.Point(196, 394)
+        Me.btnAgregar.Location = New System.Drawing.Point(261, 485)
+        Me.btnAgregar.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnAgregar.Name = "btnAgregar"
-        Me.btnAgregar.Size = New System.Drawing.Size(117, 32)
+        Me.btnAgregar.Size = New System.Drawing.Size(156, 39)
         Me.btnAgregar.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnAgregar.TabIndex = 9
         Me.btnAgregar.Text = "Agregar (Enter)"
@@ -185,11 +196,12 @@ Partial Class frmPresentacionesAgregarItem
         '
         'txtMensajeWeb
         '
-        Me.txtMensajeWeb.Location = New System.Drawing.Point(30, 272)
+        Me.txtMensajeWeb.Location = New System.Drawing.Point(40, 335)
+        Me.txtMensajeWeb.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtMensajeWeb.MaxLength = 300
         Me.txtMensajeWeb.Multiline = True
         Me.txtMensajeWeb.Name = "txtMensajeWeb"
-        Me.txtMensajeWeb.Size = New System.Drawing.Size(337, 48)
+        Me.txtMensajeWeb.Size = New System.Drawing.Size(448, 58)
         Me.txtMensajeWeb.TabIndex = 8
         '
         'Label11
@@ -198,9 +210,10 @@ Partial Class frmPresentacionesAgregarItem
         Me.Label11.BackColor = System.Drawing.Color.Transparent
         Me.Label11.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label11.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label11.Location = New System.Drawing.Point(162, 136)
+        Me.Label11.Location = New System.Drawing.Point(216, 167)
+        Me.Label11.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(38, 16)
+        Me.Label11.Size = New System.Drawing.Size(47, 20)
         Me.Label11.TabIndex = 342
         Me.Label11.Text = "Plan:"
         '
@@ -212,10 +225,11 @@ Partial Class frmPresentacionesAgregarItem
         Me.txtBonificacion.DecSeparator = Global.Microsoft.VisualBasic.ChrW(46)
         Me.txtBonificacion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtBonificacion.Format = TextBoxConFormatoVB.tbFormats.UnsignedFloatingPointNumber
-        Me.txtBonificacion.Location = New System.Drawing.Point(31, 156)
+        Me.txtBonificacion.Location = New System.Drawing.Point(41, 192)
+        Me.txtBonificacion.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtBonificacion.MaxLength = 100
         Me.txtBonificacion.Name = "txtBonificacion"
-        Me.txtBonificacion.Size = New System.Drawing.Size(118, 22)
+        Me.txtBonificacion.Size = New System.Drawing.Size(156, 26)
         Me.txtBonificacion.TabIndex = 5
         Me.txtBonificacion.Text_1 = Nothing
         Me.txtBonificacion.Text_2 = Nothing
@@ -229,9 +243,10 @@ Partial Class frmPresentacionesAgregarItem
         Me.Label13.BackColor = System.Drawing.Color.Transparent
         Me.Label13.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label13.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label13.Location = New System.Drawing.Point(31, 30)
+        Me.Label13.Location = New System.Drawing.Point(41, 37)
+        Me.Label13.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(70, 16)
+        Me.Label13.Size = New System.Drawing.Size(85, 20)
         Me.Label13.TabIndex = 304
         Me.Label13.Text = "Farmacia*"
         '
@@ -241,9 +256,10 @@ Partial Class frmPresentacionesAgregarItem
         Me.Label12.BackColor = System.Drawing.Color.Transparent
         Me.Label12.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label12.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label12.Location = New System.Drawing.Point(113, 85)
+        Me.Label12.Location = New System.Drawing.Point(151, 105)
+        Me.Label12.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(74, 16)
+        Me.Label12.Size = New System.Drawing.Size(93, 20)
         Me.Label12.TabIndex = 305
         Me.Label12.Text = "Imp. 100%*"
         '
@@ -255,10 +271,11 @@ Partial Class frmPresentacionesAgregarItem
         Me.txtImpRecaudado.DecSeparator = Global.Microsoft.VisualBasic.ChrW(46)
         Me.txtImpRecaudado.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtImpRecaudado.Format = TextBoxConFormatoVB.tbFormats.UnsignedFloatingPointNumber
-        Me.txtImpRecaudado.Location = New System.Drawing.Point(116, 104)
+        Me.txtImpRecaudado.Location = New System.Drawing.Point(155, 128)
+        Me.txtImpRecaudado.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtImpRecaudado.MaxLength = 100
         Me.txtImpRecaudado.Name = "txtImpRecaudado"
-        Me.txtImpRecaudado.Size = New System.Drawing.Size(118, 22)
+        Me.txtImpRecaudado.Size = New System.Drawing.Size(156, 26)
         Me.txtImpRecaudado.TabIndex = 3
         Me.txtImpRecaudado.Text_1 = Nothing
         Me.txtImpRecaudado.Text_2 = Nothing
@@ -273,10 +290,11 @@ Partial Class frmPresentacionesAgregarItem
         Me.txtImpACargoOs.DecSeparator = Global.Microsoft.VisualBasic.ChrW(46)
         Me.txtImpACargoOs.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtImpACargoOs.Format = TextBoxConFormatoVB.tbFormats.UnsignedFloatingPointNumber
-        Me.txtImpACargoOs.Location = New System.Drawing.Point(249, 104)
+        Me.txtImpACargoOs.Location = New System.Drawing.Point(332, 128)
+        Me.txtImpACargoOs.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtImpACargoOs.MaxLength = 100
         Me.txtImpACargoOs.Name = "txtImpACargoOs"
-        Me.txtImpACargoOs.Size = New System.Drawing.Size(118, 22)
+        Me.txtImpACargoOs.Size = New System.Drawing.Size(156, 26)
         Me.txtImpACargoOs.TabIndex = 4
         Me.txtImpACargoOs.Text_1 = Nothing
         Me.txtImpACargoOs.Text_2 = Nothing
@@ -290,9 +308,10 @@ Partial Class frmPresentacionesAgregarItem
         Me.Label6.BackColor = System.Drawing.Color.Transparent
         Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label6.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label6.Location = New System.Drawing.Point(28, 136)
+        Me.Label6.Location = New System.Drawing.Point(37, 167)
+        Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(86, 16)
+        Me.Label6.Size = New System.Drawing.Size(107, 20)
         Me.Label6.TabIndex = 339
         Me.Label6.Text = "Bonificación*"
         '
@@ -302,9 +321,10 @@ Partial Class frmPresentacionesAgregarItem
         Me.Label16.BackColor = System.Drawing.Color.Transparent
         Me.Label16.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label16.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label16.Location = New System.Drawing.Point(248, 84)
+        Me.Label16.Location = New System.Drawing.Point(331, 103)
+        Me.Label16.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(86, 16)
+        Me.Label16.Size = New System.Drawing.Size(109, 20)
         Me.Label16.TabIndex = 330
         Me.Label16.Text = "Imp. A/c O.S*"
         '
@@ -314,9 +334,10 @@ Partial Class frmPresentacionesAgregarItem
         Me.Label5.BackColor = System.Drawing.Color.Transparent
         Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label5.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label5.Location = New System.Drawing.Point(28, 353)
+        Me.Label5.Location = New System.Drawing.Point(37, 434)
+        Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(88, 16)
+        Me.Label5.Size = New System.Drawing.Size(110, 20)
         Me.Label5.TabIndex = 337
         Me.Label5.Text = "Imp. A Pagar:"
         '
@@ -326,9 +347,10 @@ Partial Class frmPresentacionesAgregarItem
         Me.Label10.BackColor = System.Drawing.Color.Transparent
         Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label10.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label10.Location = New System.Drawing.Point(30, 85)
+        Me.Label10.Location = New System.Drawing.Point(40, 105)
+        Me.Label10.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(75, 16)
+        Me.Label10.Size = New System.Drawing.Size(95, 20)
         Me.Label10.TabIndex = 335
         Me.Label10.Text = "N° recetas*"
         '
@@ -339,10 +361,11 @@ Partial Class frmPresentacionesAgregarItem
         Me.txtRecetas.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtRecetas.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtRecetas.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
-        Me.txtRecetas.Location = New System.Drawing.Point(30, 104)
+        Me.txtRecetas.Location = New System.Drawing.Point(40, 128)
+        Me.txtRecetas.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtRecetas.MaxLength = 4
         Me.txtRecetas.Name = "txtRecetas"
-        Me.txtRecetas.Size = New System.Drawing.Size(70, 22)
+        Me.txtRecetas.Size = New System.Drawing.Size(92, 26)
         Me.txtRecetas.TabIndex = 2
         Me.txtRecetas.Text_1 = Nothing
         Me.txtRecetas.Text_2 = Nothing
@@ -352,15 +375,17 @@ Partial Class frmPresentacionesAgregarItem
         '
         'frmPresentacionesAgregarItem
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(420, 464)
+        Me.ClientSize = New System.Drawing.Size(557, 561)
         Me.Controls.Add(Me.GbFarmaciaForm)
         Me.KeyPreview = True
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.MaximizeBox = False
-        Me.MaximumSize = New System.Drawing.Size(436, 503)
-        Me.MinimumSize = New System.Drawing.Size(436, 503)
+        Me.MaximumSize = New System.Drawing.Size(575, 608)
+        Me.MinimumSize = New System.Drawing.Size(575, 608)
         Me.Name = "frmPresentacionesAgregarItem"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Detalle presentación"
         Me.GbFarmaciaForm.ResumeLayout(False)
         Me.GbFarmaciaForm.PerformLayout()

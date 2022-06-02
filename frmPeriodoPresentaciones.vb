@@ -292,8 +292,15 @@ Public Class frmPeriodoPresentaciones
             LLAMADO_POR_FORMULARIO = False
         End If
 
-        Me.Top = 0
+        'Me.Top = 0
+        If Me.Parent Is Nothing Then
+            Me.CenterToParent()
+        Else
+            Me.Top = 0
+        End If
+
         Me.Left = (Screen.PrimaryScreen.WorkingArea.Width - Me.Width) \ 2
+
     End Sub
 
     Private Sub asignarTags()
@@ -365,7 +372,7 @@ Public Class frmPeriodoPresentaciones
         Try
 
             'ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT Id, Nombre FROM Grupos WHERE IdMandataria = {cmbMandatarias.SelectedValue}")
-            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT Id, Nombre FROM Grupos g INNER JOIN Grupos_OS g_os ON g_os.idgrupo = g.id WHERE g.IdMandataria = {cmbMandatarias.SelectedValue} AND g.Eliminado = 0")
+            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT DISTINCT Id, Nombre FROM Grupos g INNER JOIN Grupos_OS g_os ON g_os.idgrupo = g.id WHERE g.IdMandataria = {cmbMandatarias.SelectedValue} AND g.Eliminado = 0")
             ds.Dispose()
 
             With cmbGrupos

@@ -9,7 +9,17 @@ Public Class frmGrupos
     Dim cmbLlenado As Boolean = False
     Dim bolpoliticas As Boolean
     Dim Sql As String
+    Dim dtGrupos_Os As New DataTable
+    Dim grdFilled As Boolean = False
     Dim ds As DataSet
+    Dim dv As DataView
+
+    Enum columnasDelGrdGrupos_OS
+        IdMandataria = 0
+        Mandataria = 1
+        ObraSocial = 2
+        Grupo = 3
+    End Enum
 
 #Region "Procedimientos Formularios"
 
@@ -26,15 +36,23 @@ Public Class frmGrupos
 
         asignarTags()
 
-        LlenarGrilla()
+
         If cmbMandataria.Items.Count > 0 Then
             cmbMandataria.SelectedIndex = 0
         End If
-        grdGrupos_Os.Columns(0).Visible = False
-        grdGrupos_Os.AutoResizeColumns()
+
+
+
 
 
         cmbMandataria_SelectedValueChanged(sender, e)
+        grdGrupos_Os.DataSource = Nothing 'comentar
+        dtGrupos_Os.Clear() 'comentar
+        LlenarGrilla()
+
+        grdGrupos_Os.Columns(columnasDelGrdGrupos_OS.IdMandataria).Visible = False
+        grdGrupos_Os.Columns(columnasDelGrdGrupos_OS.Mandataria).Visible = False
+        grdGrupos_Os.AutoResizeColumns()
     End Sub
 
 #End Region
@@ -202,7 +220,7 @@ Public Class frmGrupos
         If cmbMandataria.SelectedValue IsNot Nothing Then
             Sql = $"exec spGrupos_GruposOS_Select_All_By_IDMandataria @idmandataria = {cmbMandataria.SelectedValue}"
             'GetDataset()
-            Dim dtGrupos_Os As New DataTable
+
             Dim connection = Nothing
             Try
                 connection = SqlHelper.GetConnection(ConnStringSEI)
@@ -213,8 +231,15 @@ Public Class frmGrupos
                 Dim da As New SqlDataAdapter(cmd)
 
                 da.Fill(dtGrupos_Os)
+                If dtGrupos_Os.Rows.Count > 0 Then
+                    dv = New DataView(dtGrupos_Os)
+                    dv.RowFilter = $"[Grupo] = {cmbGrupo.Text}"
+                    grdGrupos_Os.DataSource = dv
+                    'grdGrupos_Os.DataSource = dtGrupos_Os
+                Else
+                    grdGrupos_Os.DataSource = Nothing
+                End If
 
-                grdGrupos_Os.DataSource = dtGrupos_Os
             Catch ex As Exception
                 MsgBox(ex.Message)
             Finally
@@ -242,8 +267,8 @@ Public Class frmGrupos
         End With
 
         grdGrupos_Os.Font = New Font("Microsoft Sans Serif", 9, FontStyle.Regular)
-        'grdGrupos_Os.DataSource = ds.Tables(0)
 
+        grdFilled = True
     End Sub
 
     Private Function EliminarRegistro() As Integer
@@ -321,6 +346,8 @@ Public Class frmGrupos
         Dim cargarObraSocial As New frmSelectObraSocial
         cargarObraSocial.ShowDialog()
         cmbMandataria_SelectedValueChanged(sender, e)
+        grdGrupos_Os.DataSource = Nothing 'comentar
+        dtGrupos_Os.Clear() 'comentar
         LlenarGrilla()
     End Sub
 
@@ -389,6 +416,8 @@ Public Class frmGrupos
             End If
 
             If cmbMandataria.SelectedValue IsNot Nothing Then
+                grdGrupos_Os.DataSource = Nothing 'comentar
+                dtGrupos_Os.Clear() 'comentar
                 Sql = $"exec spGrupos_GruposOS_Select_All_By_IDMandataria @idmandataria = {cmbMandataria.SelectedValue}"
                 LlenarGrilla()
             End If
@@ -401,6 +430,13 @@ Public Class frmGrupos
         Else
             btnAgregarOS.Enabled = True
         End If
+
+        If grdFilled = True Then
+            dv.RowFilter = $"[Grupo] = {cmbGrupo.Text}"
+
+            grdGrupos_Os.DataSource = dv
+        End If
+
     End Sub
 
 #End Region

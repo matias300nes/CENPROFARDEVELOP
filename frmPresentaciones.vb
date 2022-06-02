@@ -136,7 +136,7 @@ Public Class frmPresentaciones
     End Function
 
 
-    Private Sub grd_SelectionChanged(sender As Object, e As EventArgs) Handles grd.SelectionChanged 'comentar cuando se necesite ver el diseñador
+    Private Sub grd_SelectionChanged(sender As Object, e As EventArgs) 'Handles grd.SelectionChanged 'comentar cuando se necesite ver el diseñador
         ''DataGridView1.SelectedRows.Count().ToString()
         If grd.SelectedRows.Count() > 1 Then
             btnUnificar.Enabled = True
@@ -2587,6 +2587,14 @@ Public Class frmPresentaciones
 
     Private Sub btnImprimirRpt_Click(sender As Object, e As EventArgs) Handles btnImprimirRpt.Click
         ImprimirPresentacion()
+    End Sub
+
+    Private Sub btnFacturar_Click(sender As Object, e As EventArgs) Handles btnFacturar.Click
+        Dim frmFacturaElectronica As New frmFacturaElectronica(idOrigen:=txtID.Text,
+                                               IdObraSocial:=cmbObraSocial.SelectedValue,
+                                               Periodo:=cmbPeriodos.Text,
+                                               TotalACargoOS:=txtACargoOS.Text)
+        frmFacturaElectronica.ShowDialog()
     End Sub
 
 
