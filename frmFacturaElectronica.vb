@@ -4,21 +4,19 @@ Imports Utiles.Util
 
 Public Class frmFacturaElectronica
     'Declaro las variables que voy a pasarle al frm
-    Dim idOrigen As String
-    Dim obraSocial As String
-    Dim domicilioOS, periodo, TotalACargoOS As String
+    Dim idOrigen, IdObraSocial, Periodo, TotalACargoOS, NombreOS, DireccionOS As String
 
-    Public Sub New(idOrigen As String, ObraSocial As String, domicilioOS As String, periodo As String, totalACargo As String)
+
+    Public Sub New(idOrigen As String, IdObraSocial As String, Periodo As String, TotalACargoOS As String)
 
         'Esta llamada es exigida por el diseñador.
         InitializeComponent()
 
         'Agregue cualquier inicialización después de la llamada a InitializeComponent().
         Me.idOrigen = idOrigen
-        Me.obraSocial = ObraSocial
-        Me.domicilioOS = domicilioOS
-        Me.periodo = periodo
-        Me.TotalACargoOS = totalACargo
+        Me.IdObraSocial = IdObraSocial
+        Me.Periodo = Periodo
+        Me.TotalACargoOS = TotalACargoOS
 
 
     End Sub
@@ -65,15 +63,18 @@ Public Class frmFacturaElectronica
     Private Sub btnGenerarFE_Click(sender As Object, e As EventArgs) Handles btnGenerarFE.Click
         Dim importe_iva, importe_subtotal, importe_total
         Dim resbool As Boolean = False
-        importe_iva = 0
+
+        importe_iva = "0.00"
         importe_subtotal = TotalACargoOS
         importe_total = TotalACargoOS
+        TipoDoc = cmbDocTipo.SelectedValue
+
 
         If True Then 'preguntar si desea generar la factura, para la obra social
             chkConexion.Checked = ConexionAfip(saveTA, saveTOKEN, saveSING)
             If chkConexion.Checked Then
                 'debo comprobar el caso de que eligan tarjeta de credito o tarjeta de debito
-                resbool = GenerarFE(sender, e, CInt(cmbTipoComprobante.SelectedValue), CInt(PTOVTA), TipoDoc, txtCuit.Text, importe_iva, importe_subtotal, importe_total, 1, txtID.Text)
+                resbool = GenerarFE(sender, e, CInt(cmbTipoComprobante.SelectedValue), CInt(PTOVTA), TipoDoc, txtCuit.Text, importe_iva, importe_subtotal, importe_total, cmbConceptosFE.SelectedValue)
                 If resbool = False Then
                     MsgBox("No se pudo generar la factura electrónica.", MsgBoxStyle.Critical)
                     Cancelar_Tran()
@@ -105,6 +106,7 @@ Public Class frmFacturaElectronica
 
     'VALORES DE REFERENCIA
     Dim ref_email As String, ref_direccion As String
+
 
 
     Dim HOMO As Boolean '= False
@@ -603,7 +605,7 @@ Public Class frmFacturaElectronica
 
     End Function
 
-    Public Function GenerarFE(sender As Object, e As EventArgs, ByVal tipo_comprobante As Integer, ByVal punto_venta As Integer, ByVal tipo_documento As Integer, ByVal num_documento As String, ByVal import_iva As String, ByVal subtotal As String, ByVal total As String, ByVal concept As Integer, ByVal IdFactura As Long) As Boolean
+    Public Function GenerarFE(sender As Object, e As EventArgs, ByVal tipo_comprobante As Integer, ByVal punto_venta As Integer, ByVal tipo_documento As Integer, ByVal num_documento As String, ByVal import_iva As String, ByVal subtotal As String, ByVal total As String, ByVal concept As Integer) As Boolean
         Try
 
 
@@ -664,10 +666,11 @@ Public Class frmFacturaElectronica
                 tipo_cbte = TipoComp.FacturaC Or
                 tipo_cbte = TipoComp.NotaDebitoC Or
              tipo_cbte = TipoComp.NotaCreditoC Then
-
-                imp_tot_conc = FormatNumber(CDbl(subtotal), 2) 'param
-                imp_tot_conc = Replace(Replace(imp_tot_conc, ".", ""), ",", ".")
-                imp_neto = "0.00"
+                'para comprobantes tipo C el impTotConcep debe ser cero
+                imp_tot_conc = FormatNumber(CDbl(subtotal), 2) 'FormatNumber(CDbl(0), 2)  'param
+                imp_tot_conc = "0.00" 'Replace(imp_tot_conc, ",", "") 'Replace(Replace(imp_tot_conc, ".", ""), ",", ".")
+                imp_neto = FormatNumber(CDbl(total), 2) 'param '"0.00"
+                imp_neto = Replace(imp_total, ",", "")
             End If
 
             'imp_iva = FormatNumber(CDec(txtIva21.Text) + CDec(txtIva10.Text), 2) 'param
@@ -678,7 +681,7 @@ Public Class frmFacturaElectronica
             'imp_total = FormatNumber(CDbl(txtTotal.Text), 2) 'param
             'imp_total = Replace(Replace(imp_total, ".", ""), ",", ".")
             imp_total = FormatNumber(CDbl(total), 2) 'param
-            imp_total = Replace(Replace(imp_total, ".", ""), ",", ".")
+            imp_total = Replace(imp_total, ",", "") 'Replace(Replace(imp_total, ".", ""), ",", ".")
 
             fecha_cbte = Format(dtpFECHA.Value.Date, "yyyyMMdd")
 
@@ -855,7 +858,7 @@ Public Class frmFacturaElectronica
                 Dim CodigoBarra As String
                 CodigoBarra = cuitEmpresa.ToString + cmbTipoComprobante.SelectedValue.ToString.PadLeft(2, "00").ToString + punto_vta + CaeGenerado + FechaGenerado
                 'CodigoBarra = DigitoVerificador(CodigoBarra)
-                Select Case InsertFacturacion_FEAFIP(wsfev1.CAE.ToString, wsfev1.Vencimiento.ToString, CodigoBarra, IdFactura, tipo_comprobante)
+                Select Case Insert_FacturaElectronica(wsfev1.CAE.ToString, wsfev1.Vencimiento.ToString, CodigoBarra, tipo_comprobante)
                     Case Is <= 0
                         MessageBox.Show("Se produjo un error al insertar el CAE y el vencimiento en el sistema local.", "Control de errores", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End Select
@@ -923,7 +926,7 @@ Public Class frmFacturaElectronica
 
     End Function
 
-    Public Function InsertFacturacion_FEAFIP(ByVal numeroCAE As String, ByVal vtoCAE As String, ByVal CodigoBarra As String, ByVal IdFactura As Long, ByVal CodComprobante As Integer) As Integer
+    Public Function Insert_FacturaElectronica(ByVal numeroCAE As String, ByVal vtoCAE As String, ByVal CodigoBarra As String, ByVal CodComprobante As Integer) As Integer
         Dim res As Integer = 0
 
         Dim connection As SqlClient.SqlConnection = Nothing
@@ -938,10 +941,96 @@ Public Class frmFacturaElectronica
         Try
             Try
                 Dim param_id As New SqlClient.SqlParameter
-                param_id.ParameterName = "@idFacturacion"
+                param_id.ParameterName = "@ID"
                 param_id.SqlDbType = SqlDbType.BigInt
-                param_id.Value = IdFactura
+                param_id.Value = DBNull.Value
                 param_id.Direction = ParameterDirection.Input
+
+                Dim param_nroIdentificador As New SqlClient.SqlParameter
+                param_nroIdentificador.ParameterName = "@NroIdentificador"
+                param_nroIdentificador.SqlDbType = SqlDbType.Int
+                param_nroIdentificador.Value = 1 'Obra Social
+                param_nroIdentificador.Direction = ParameterDirection.Input
+
+                Dim param_IdOrigen As New SqlClient.SqlParameter
+                param_IdOrigen.ParameterName = "@IDOrigen"
+                param_IdOrigen.SqlDbType = SqlDbType.BigInt
+                param_IdOrigen.Value = idOrigen 'indica desde donde viene la factura
+                param_IdOrigen.Direction = ParameterDirection.Input
+
+                Dim param_PtoVta As New SqlClient.SqlParameter
+                param_PtoVta.ParameterName = "@PtoVta"
+                param_PtoVta.SqlDbType = SqlDbType.Int
+                param_PtoVta.Value = PTOVTA
+                param_PtoVta.Direction = ParameterDirection.Input
+
+                Dim param_NroFac As New SqlClient.SqlParameter
+                param_NroFac.ParameterName = "@NroFac"
+                param_NroFac.SqlDbType = SqlDbType.BigInt
+                param_NroFac.Value = nroFactura
+                param_NroFac.Direction = ParameterDirection.Input
+
+                Dim param_CondicionIVA As New SqlClient.SqlParameter
+                param_CondicionIVA.ParameterName = "@CondicionIVA"
+                param_CondicionIVA.SqlDbType = SqlDbType.Int
+                param_CondicionIVA.Value = cmbCondicionIVA.SelectedValue
+                param_CondicionIVA.Direction = ParameterDirection.Input
+
+                Dim param_DireccionFiscal As New SqlClient.SqlParameter
+                param_DireccionFiscal.ParameterName = "@DireccionFiscal"
+                param_DireccionFiscal.SqlDbType = SqlDbType.VarChar
+                param_DireccionFiscal.Size = 100
+                param_DireccionFiscal.Value = txtDomicilio.Text
+                param_DireccionFiscal.Direction = ParameterDirection.Input
+
+                Dim param_Cuit As New SqlClient.SqlParameter
+                param_Cuit.ParameterName = "@Cuit"
+                param_Cuit.SqlDbType = SqlDbType.BigInt
+                param_Cuit.Value = Long.Parse(txtCuit.Text)
+                param_Cuit.Direction = ParameterDirection.Input
+
+                Dim param_fecha As New SqlClient.SqlParameter
+                param_fecha.ParameterName = "@Fecha"
+                param_fecha.SqlDbType = SqlDbType.DateTime
+                param_fecha.Value = dtpFECHA.Value 'fecha
+                param_fecha.Direction = ParameterDirection.Input
+
+                Dim param_subtotal As New SqlClient.SqlParameter
+                param_subtotal.ParameterName = "@Subtotal"
+                param_subtotal.SqlDbType = SqlDbType.Decimal
+                param_subtotal.Value = imp_total
+                param_subtotal.Direction = ParameterDirection.Input
+
+                Dim param_iva As New SqlClient.SqlParameter
+                param_iva.ParameterName = "@Iva"
+                param_iva.SqlDbType = SqlDbType.Decimal
+                param_iva.Value = 0
+                param_iva.Direction = ParameterDirection.Input
+
+                Dim param_montoIva As New SqlClient.SqlParameter
+                param_montoIva.ParameterName = "@MontoIVA"
+                param_montoIva.SqlDbType = SqlDbType.Decimal
+                param_montoIva.Value = imp_iva
+                param_montoIva.Direction = ParameterDirection.Input
+
+                Dim param_total As New SqlClient.SqlParameter
+                param_total.ParameterName = "@Total"
+                param_total.SqlDbType = SqlDbType.Decimal
+                param_total.Value = imp_total
+                param_total.Direction = ParameterDirection.Input
+
+                Dim param_totalOrig As New SqlClient.SqlParameter
+                param_totalOrig.ParameterName = "@TotalOrig"
+                param_totalOrig.SqlDbType = SqlDbType.Decimal
+                param_totalOrig.Value = imp_total
+                param_totalOrig.Direction = ParameterDirection.Input
+
+                Dim param_observacion As New SqlClient.SqlParameter
+                param_observacion.ParameterName = "@Observacion"
+                param_observacion.SqlDbType = SqlDbType.VarChar
+                param_observacion.Size = 250
+                param_observacion.Value = "prueba" 'imp_total
+                param_observacion.Direction = ParameterDirection.Input
 
                 Dim param_cae As New SqlClient.SqlParameter
                 param_cae.ParameterName = "@cae"
@@ -964,23 +1053,48 @@ Public Class frmFacturaElectronica
                 param_CodigoBarra.Value = CodigoBarra
                 param_CodigoBarra.Direction = ParameterDirection.Input
 
-                Dim param_ComprobanteNro As New SqlClient.SqlParameter
-                param_ComprobanteNro.ParameterName = "@ComprobanteNro"
-                param_ComprobanteNro.SqlDbType = SqlDbType.BigInt
-                param_ComprobanteNro.Value = nroFactura
-                param_ComprobanteNro.Direction = ParameterDirection.Input
+                Dim param_FechaVtoPago As New SqlClient.SqlParameter
+                param_FechaVtoPago.ParameterName = "@Fecha_Vto_Pago"
+                param_FechaVtoPago.SqlDbType = SqlDbType.Date
+                param_FechaVtoPago.Value = dtpVtoPago.Value.Date 'fecha_venc_pago
+                param_FechaVtoPago.Direction = ParameterDirection.Input
 
-                Dim param_ComprobanteTipo As New SqlClient.SqlParameter
-                param_ComprobanteTipo.ParameterName = "@ComprobanteTipo"
-                param_ComprobanteTipo.SqlDbType = SqlDbType.Int
-                param_ComprobanteTipo.Value = CodComprobante
-                param_ComprobanteTipo.Direction = ParameterDirection.Input
+                Dim param_FechaServDesde As New SqlClient.SqlParameter
+                param_FechaServDesde.ParameterName = "@Fecha_Serv_Desde"
+                param_FechaServDesde.SqlDbType = SqlDbType.Date
+                param_FechaServDesde.Value = dtpDesde.Value.Date 'fecha_serv_desde
+                param_FechaServDesde.Direction = ParameterDirection.Input
 
-                Dim param_ConceptoTipo As New SqlClient.SqlParameter
-                param_ConceptoTipo.ParameterName = "@ConceptoTipo"
-                param_ConceptoTipo.SqlDbType = SqlDbType.Int
-                param_ConceptoTipo.Value = 1
-                param_ConceptoTipo.Direction = ParameterDirection.Input
+                Dim param_FechaServHasta As New SqlClient.SqlParameter
+                param_FechaServHasta.ParameterName = "@Fecha_Serv_Hasta"
+                param_FechaServHasta.SqlDbType = SqlDbType.Date
+                param_FechaServHasta.Value = dtpHasta.Value.Date 'fecha_serv_hasta
+                param_FechaServHasta.Direction = ParameterDirection.Input
+
+                Dim param_comprobanteTipo As New SqlClient.SqlParameter
+                param_comprobanteTipo.ParameterName = "@ComprobanteTipo"
+                param_comprobanteTipo.SqlDbType = SqlDbType.Int
+                param_comprobanteTipo.Value = cmbTipoComprobante.SelectedValue
+                param_comprobanteTipo.Direction = ParameterDirection.Input
+
+                Dim param_conceptoTipo As New SqlClient.SqlParameter
+                param_conceptoTipo.ParameterName = "@ConceptoTipo"
+                param_conceptoTipo.SqlDbType = SqlDbType.Int
+                param_conceptoTipo.Value = cmbConceptosFE.SelectedValue
+                param_conceptoTipo.Direction = ParameterDirection.Input
+
+                Dim param_formaPago As New SqlClient.SqlParameter
+                param_formaPago.ParameterName = "@FormaPago"
+                param_formaPago.SqlDbType = SqlDbType.VarChar
+                param_formaPago.Size = 50
+                param_formaPago.Value = cmbFormaPago.Text
+                param_formaPago.Direction = ParameterDirection.Input
+
+                Dim param_useradd As New SqlClient.SqlParameter
+                param_useradd.ParameterName = "@useradd"
+                param_useradd.SqlDbType = SqlDbType.BigInt
+                param_useradd.Value = UserID
+                param_useradd.Direction = ParameterDirection.Input
 
                 Dim param_res As New SqlClient.SqlParameter
                 param_res.ParameterName = "@res"
@@ -989,8 +1103,12 @@ Public Class frmFacturaElectronica
                 param_res.Direction = ParameterDirection.InputOutput
 
                 Try
-                    SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spVentas_Salon_Update_FEAFIP",
-                                              param_id, param_cae, param_Venc_CAE, param_CodigoBarra, param_ComprobanteNro, param_ComprobanteTipo, param_ConceptoTipo, param_res)
+                    'recordar agregar parametro id 
+                    SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spFacturasElectronicas_Insert", param_id, param_nroIdentificador, param_IdOrigen, param_PtoVta, param_NroFac, param_CondicionIVA,
+                                                                                                                        param_DireccionFiscal, param_Cuit, param_fecha, param_subtotal, param_iva, param_montoIva,
+                                                                                                                        param_total, param_totalOrig, param_observacion, param_cae, param_Venc_CAE, param_CodigoBarra,
+                                                                                                                        param_FechaVtoPago, param_FechaServDesde, param_FechaServHasta, param_comprobanteTipo, param_conceptoTipo,
+                                                                                                                        param_formaPago, param_useradd, param_res)
 
                     res = param_res.Value
 
@@ -998,7 +1116,7 @@ Public Class frmFacturaElectronica
                     Throw ex
                 End Try
 
-                InsertFacturacion_FEAFIP = res
+                Insert_FacturaElectronica = res
 
             Catch ex2 As Exception
                 Throw ex2
@@ -1098,9 +1216,9 @@ Public Class frmFacturaElectronica
                 Exit Sub
             End If
 
-            If cmbObrasSociales.Text.Length > 30 Or cmbObrasSociales.Text.Length = 0 Then
+            If lblObraSocial.Text.Length > 30 Or lblObraSocial.Text.Length = 0 Then
                 MsgBox("El Nombre del cliente no cumple con el requisito de 30 caracteres. Por favor, controle el dato.", MsgBoxStyle.Information, "Atención")
-                cmbObrasSociales.Focus()
+                lblObraSocial.Focus()
                 Exit Sub
             End If
         End If
@@ -1246,16 +1364,16 @@ Public Class frmFacturaElectronica
             setStyles()
         End If
 
-        getFieldsParametros()
+        getFields()
 
         txtPuntoVta.Text = PTOVTA
         txtImporte.Text = TotalACargoOS
     End Sub
 
-    Private Sub getFieldsParametros()
+    Private Sub getFields()
 
         '------------------------------------------------------Parametros
-        Dim ds_Equipos As Data.DataSet
+        Dim ds_General As Data.DataSet
         Dim connection As SqlClient.SqlConnection = Nothing
         Try
 
@@ -1266,19 +1384,28 @@ Public Class frmFacturaElectronica
             Exit Sub
         End Try
         Try
-            ds_Equipos = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT PTOVTA, NombreEmpresaFactura, CUIT, HOMO, TA, TicketAcceso, Token, Sign FROM PARAMETROS")
-            PTOVTA = ds_Equipos.Tables(0).Rows(0).Item(0).ToString
-            Utiles.Empresa = LTrim(RTrim(ds_Equipos.Tables(0).Rows(0).Item(1)))
-            cuitEmpresa = ds_Equipos.Tables(0).Rows(0).Item(2)
-            HOMO = CBool(ds_Equipos.Tables(0).Rows(0).Item(3))
-            TicketAccesoBool = CBool(ds_Equipos.Tables(0).Rows(0).Item(4))
-            saveTA = ds_Equipos.Tables(0).Rows(0).Item(5)
-            saveTOKEN = ds_Equipos.Tables(0).Rows(0).Item(6)
-            saveSING = ds_Equipos.Tables(0).Rows(0).Item(7)
-            ds_Equipos.Dispose()
+            ''traigo datos de tabla parametros
+            ds_General = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT PTOVTA, NombreEmpresaFactura, CUIT, HOMO, TA, TicketAcceso, Token, Sign FROM PARAMETROS")
+            PTOVTA = ds_General.Tables(0).Rows(0).Item(0).ToString
+            Utiles.Empresa = LTrim(RTrim(ds_General.Tables(0).Rows(0).Item(1)))
+            cuitEmpresa = ds_General.Tables(0).Rows(0).Item(2)
+            HOMO = CBool(ds_General.Tables(0).Rows(0).Item(3))
+            TicketAccesoBool = CBool(ds_General.Tables(0).Rows(0).Item(4))
+            saveTA = ds_General.Tables(0).Rows(0).Item(5)
+            saveTOKEN = ds_General.Tables(0).Rows(0).Item(6)
+            saveSING = ds_General.Tables(0).Rows(0).Item(7)
+            ds_General.Dispose()
             Me.Text = "Facturación Electrónica - " & Empresa
             lblModo.Visible = HOMO
             pathComprobantesAFIP = path_raiz & "\Comprobantes Facturas - " + Utiles.Empresa + "\"
+
+            ''traigo datos de tabla obras sociales
+            ds_General = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT Nombre, Domicilio, Cuit FROM ObrasSociales WHERE ID = {IdObraSocial}")
+            lblObraSocial.Text = ds_General.Tables(0).Rows(0).Item(0).ToString
+            txtDomicilio.Text = ds_General.Tables(0).Rows(0).Item(1).ToString
+            txtCuit.Text = ds_General.Tables(0).Rows(0).Item(2).ToString
+
+            ''traer nrocomprobante de la ultima factura 
 
         Catch ex As Exception
             MessageBox.Show("Se produjo un error al leer los datos de la table Parámetros", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -1458,6 +1585,16 @@ Public Class frmFacturaElectronica
 
 
     End Sub
+
+    Private Sub chkNotaCredito_Click(sender As Object, e As EventArgs) Handles chkNotaCredito.Click
+        If chkNotaCredito.Checked = True Then
+            txtNroComprobanteNotaCred.Enabled = True
+        Else
+            txtNroComprobanteNotaCred.Enabled = False
+        End If
+    End Sub
+
+
 
     'Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
     '    Dim reporte As New frmRtpCheques()
