@@ -49,10 +49,7 @@ Public Class frmGrupos
         grdGrupos_Os.DataSource = Nothing 'comentar
         dtGrupos_Os.Clear() 'comentar
         LlenarGrilla()
-
-        grdGrupos_Os.Columns(columnasDelGrdGrupos_OS.IdMandataria).Visible = False
-        grdGrupos_Os.Columns(columnasDelGrdGrupos_OS.Mandataria).Visible = False
-        grdGrupos_Os.AutoResizeColumns()
+        GrillaStyles()
     End Sub
 
 #End Region
@@ -271,6 +268,12 @@ Public Class frmGrupos
         grdFilled = True
     End Sub
 
+    Protected Sub GrillaStyles()
+        grdGrupos_Os.Columns(columnasDelGrdGrupos_OS.IdMandataria).Visible = False
+        grdGrupos_Os.Columns(columnasDelGrdGrupos_OS.Mandataria).Visible = False
+        grdGrupos_Os.AutoResizeColumns()
+    End Sub
+
     Private Function EliminarRegistro() As Integer
 
         'Dim connection As SqlClient.SqlConnection = Nothing
@@ -349,6 +352,7 @@ Public Class frmGrupos
         grdGrupos_Os.DataSource = Nothing 'comentar
         dtGrupos_Os.Clear() 'comentar
         LlenarGrilla()
+        GrillaStyles()
     End Sub
 
     Private Sub LlenarCmbMandatarias()
@@ -420,6 +424,7 @@ Public Class frmGrupos
                 dtGrupos_Os.Clear() 'comentar
                 Sql = $"exec spGrupos_GruposOS_Select_All_By_IDMandataria @idmandataria = {cmbMandataria.SelectedValue}"
                 LlenarGrilla()
+                GrillaStyles()
             End If
         End If
     End Sub

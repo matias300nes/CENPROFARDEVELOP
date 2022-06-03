@@ -201,12 +201,21 @@ Public Class frmPresentaciones
             cmbObraSocial.SelectedValue = grd.Rows(0).Cells(ColumnasDelGrd.IDObraSocial).Value
             cmbObraSocial.Text = grd.Rows(0).Cells(ColumnasDelGrd.ObraSocial).Value
             LlenarCmbPeriodos()
-            cmbPeriodos.SelectedValue = grd.Rows(0).Cells(ColumnasDelGrd.idPeriodo).Value
+            'cmbPeriodos.SelectedValue = grd.Rows(0).Cells(ColumnasDelGrd.idPeriodo).Value
+            With grd.Rows(0).Cells(ColumnasDelGrd.idPeriodo)
+                If .Value.ToString <> "" Then
+                    cmbPeriodos.SelectedValue = grd.Rows(0).Cells(ColumnasDelGrd.idPeriodo).Value
+                Else
+                    cmbPeriodos.SelectedItem = Nothing
+                End If
+            End With
             'cmbPeriodos.Text = grd.Rows(0).Cells(5).Value
             lblStatus.Text = grd.Rows(0).Cells(ColumnasDelGrd.Estado).Value
             txtTotal.Text = grd.Rows(0).Cells(ColumnasDelGrd.total).Value
             txtObservacion.Text = grd.Rows(0).Cells(ColumnasDelGrd.Observaciones).Value
         End If
+
+
 
         If bolModo = True Then
             LlenarGrid_Items()
@@ -214,6 +223,8 @@ Public Class frmPresentaciones
         Else
             LlenarGrid_Items()
         End If
+
+
 
         With grd
             .Columns(ColumnasDelGrd.IDObraSocial).Visible = False
