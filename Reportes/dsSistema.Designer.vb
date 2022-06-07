@@ -375,6 +375,8 @@ Partial Public Class dsSistema
         
         Private columnApagar As Global.System.Data.DataColumn
         
+        Private columnCodigoFacaf As Global.System.Data.DataColumn
+        
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
         Public Sub New()
@@ -499,6 +501,14 @@ Partial Public Class dsSistema
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
+        Public ReadOnly Property CodigoFacafColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnCodigoFacaf
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0"),  _
          Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
@@ -535,9 +545,9 @@ Partial Public Class dsSistema
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
-        Public Overloads Function AddspRPT_PresentacionRow(ByVal ObraSocial As String, ByVal Cuit As Long, ByVal Fecha As Date, ByVal Período As String, ByVal Item As Long, ByVal Farmacia As String, ByVal Recetas As Integer, ByVal ImpTotal As Decimal, ByVal ImpEntidad As Decimal, ByVal Bonificación As Decimal, ByVal Apagar As Decimal) As spRPT_PresentacionRow
+        Public Overloads Function AddspRPT_PresentacionRow(ByVal ObraSocial As String, ByVal Cuit As Long, ByVal Fecha As Date, ByVal Período As String, ByVal Item As Long, ByVal Farmacia As String, ByVal Recetas As Integer, ByVal ImpTotal As Decimal, ByVal ImpEntidad As Decimal, ByVal Bonificación As Decimal, ByVal Apagar As Decimal, ByVal CodigoFacaf As String) As spRPT_PresentacionRow
             Dim rowspRPT_PresentacionRow As spRPT_PresentacionRow = CType(Me.NewRow,spRPT_PresentacionRow)
-            Dim columnValuesArray() As Object = New Object() {ObraSocial, Cuit, Fecha, Período, Item, Farmacia, Recetas, ImpTotal, ImpEntidad, Bonificación, Apagar}
+            Dim columnValuesArray() As Object = New Object() {ObraSocial, Cuit, Fecha, Período, Item, Farmacia, Recetas, ImpTotal, ImpEntidad, Bonificación, Apagar, CodigoFacaf}
             rowspRPT_PresentacionRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowspRPT_PresentacionRow)
             Return rowspRPT_PresentacionRow
@@ -571,6 +581,7 @@ Partial Public Class dsSistema
             Me.columnImpEntidad = MyBase.Columns("ImpEntidad")
             Me.columnBonificación = MyBase.Columns("Bonificación")
             Me.columnApagar = MyBase.Columns("Apagar")
+            Me.columnCodigoFacaf = MyBase.Columns("CodigoFacaf")
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -602,10 +613,13 @@ Partial Public Class dsSistema
             MyBase.Columns.Add(Me.columnBonificación)
             Me.columnApagar = New Global.System.Data.DataColumn("Apagar", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnApagar)
+            Me.columnCodigoFacaf = New Global.System.Data.DataColumn("CodigoFacaf", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnCodigoFacaf)
             Me.columnObraSocial.MaxLength = 100
             Me.columnPeríodo.MaxLength = 100
             Me.columnItem.ReadOnly = true
             Me.columnFarmacia.MaxLength = 300
+            Me.columnCodigoFacaf.ReadOnly = true
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -1683,6 +1697,21 @@ Partial Public Class dsSistema
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
+        Public Property CodigoFacaf() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tablespRPT_Presentacion.CodigoFacafColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("El valor de la columna 'CodigoFacaf' de la tabla 'spRPT_Presentacion' es DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespRPT_Presentacion.CodigoFacafColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
         Public Function IsObraSocialNull() As Boolean
             Return Me.IsNull(Me.tablespRPT_Presentacion.ObraSocialColumn)
         End Function
@@ -1811,6 +1840,18 @@ Partial Public Class dsSistema
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
         Public Sub SetApagarNull()
             Me(Me.tablespRPT_Presentacion.ApagarColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
+        Public Function IsCodigoFacafNull() As Boolean
+            Return Me.IsNull(Me.tablespRPT_Presentacion.CodigoFacafColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
+        Public Sub SetCodigoFacafNull()
+            Me(Me.tablespRPT_Presentacion.CodigoFacafColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
     
@@ -2647,6 +2688,7 @@ Namespace dsSistemaTableAdapters
             tableMapping.ColumnMappings.Add("ImpEntidad", "ImpEntidad")
             tableMapping.ColumnMappings.Add("Bonificación", "Bonificación")
             tableMapping.ColumnMappings.Add("Apagar", "Apagar")
+            tableMapping.ColumnMappings.Add("CodigoFacaf", "CodigoFacaf")
             Me._adapter.TableMappings.Add(tableMapping)
         End Sub
         
@@ -2667,18 +2709,24 @@ Namespace dsSistemaTableAdapters
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.StoredProcedure
             Me._commandCollection(0).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@RETURN_VALUE", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.ReturnValue, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(0).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@idpresentacion", Global.System.Data.SqlDbType.BigInt, 8, Global.System.Data.ParameterDirection.Input, 19, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._commandCollection(0).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@chkConCodFacaf", Global.System.Data.SqlDbType.Bit, 1, Global.System.Data.ParameterDirection.Input, 1, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, true)>  _
-        Public Overloads Overridable Function Fill(ByVal dataTable As dsSistema.spRPT_PresentacionDataTable, ByVal idpresentacion As Global.System.Nullable(Of Long)) As Integer
+        Public Overloads Overridable Function Fill(ByVal dataTable As dsSistema.spRPT_PresentacionDataTable, ByVal idpresentacion As Global.System.Nullable(Of Long), ByVal chkConCodFacaf As Global.System.Nullable(Of Boolean)) As Integer
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
             If (idpresentacion.HasValue = true) Then
                 Me.Adapter.SelectCommand.Parameters(1).Value = CType(idpresentacion.Value,Long)
             Else
                 Me.Adapter.SelectCommand.Parameters(1).Value = Global.System.DBNull.Value
+            End If
+            If (chkConCodFacaf.HasValue = true) Then
+                Me.Adapter.SelectCommand.Parameters(2).Value = CType(chkConCodFacaf.Value,Boolean)
+            Else
+                Me.Adapter.SelectCommand.Parameters(2).Value = Global.System.DBNull.Value
             End If
             If (Me.ClearBeforeFill = true) Then
                 dataTable.Clear
@@ -2691,12 +2739,17 @@ Namespace dsSistemaTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], true)>  _
-        Public Overloads Overridable Function GetData(ByVal idpresentacion As Global.System.Nullable(Of Long)) As dsSistema.spRPT_PresentacionDataTable
+        Public Overloads Overridable Function GetData(ByVal idpresentacion As Global.System.Nullable(Of Long), ByVal chkConCodFacaf As Global.System.Nullable(Of Boolean)) As dsSistema.spRPT_PresentacionDataTable
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
             If (idpresentacion.HasValue = true) Then
                 Me.Adapter.SelectCommand.Parameters(1).Value = CType(idpresentacion.Value,Long)
             Else
                 Me.Adapter.SelectCommand.Parameters(1).Value = Global.System.DBNull.Value
+            End If
+            If (chkConCodFacaf.HasValue = true) Then
+                Me.Adapter.SelectCommand.Parameters(2).Value = CType(chkConCodFacaf.Value,Boolean)
+            Else
+                Me.Adapter.SelectCommand.Parameters(2).Value = Global.System.DBNull.Value
             End If
             Dim dataTable As dsSistema.spRPT_PresentacionDataTable = New dsSistema.spRPT_PresentacionDataTable()
             Me.Adapter.Fill(dataTable)

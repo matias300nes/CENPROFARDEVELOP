@@ -6,25 +6,28 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>1.19686cm</Width>
+              <Width>0.68149cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>4.72458cm</Width>
+              <Width>1.75025cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.70837cm</Width>
+              <Width>4.66285cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.49487cm</Width>
+              <Width>1.73873cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.49487cm</Width>
+              <Width>2.43314cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.49487cm</Width>
+              <Width>2.43314cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.49487cm</Width>
+              <Width>1.47656cm</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>2.43314cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -40,7 +43,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Item</Value>
+                              <Value />
                               <Style>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -50,6 +53,39 @@
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox1</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <BackgroundColor>Khaki</BackgroundColor>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox28">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>Cód FACAF</Value>
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox28</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -205,7 +241,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Bonificación</Value>
+                              <Value>Bonif.</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -288,6 +324,38 @@
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Item</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>None</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="CodigoFacaf">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!CodigoFacaf.Value</Value>
+                              <Style>
+                                <Language>es-MX</Language>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>CodigoFacaf</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -511,6 +579,7 @@
             <TablixMember />
             <TablixMember />
             <TablixMember />
+            <TablixMember />
           </TablixMembers>
         </TablixColumnHierarchy>
         <TablixRowHierarchy>
@@ -553,9 +622,9 @@
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
         <Top>3.21cm</Top>
-        <Left>15.7538cm</Left>
+        <Left>15.81553cm</Left>
         <Height>0.6cm</Height>
-        <Width>2.49487cm</Width>
+        <Width>2.43314cm</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
@@ -587,7 +656,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
         <Top>3.21cm</Top>
-        <Left>3.40257cm</Left>
+        <Left>4.99007cm</Left>
         <Height>0.6cm</Height>
         <Width>2.70411cm</Width>
         <ZIndex>2</ZIndex>
@@ -603,9 +672,9 @@
       </Textbox>
       <Line Name="Line1">
         <Top>3.08788cm</Top>
-        <Left>6.56082cm</Left>
+        <Left>7.73397cm</Left>
         <Height>0cm</Height>
-        <Width>11.68785cm</Width>
+        <Width>10.5147cm</Width>
         <ZIndex>3</ZIndex>
         <Style>
           <Border>
@@ -631,9 +700,9 @@
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
         <Top>3.21cm</Top>
-        <Left>13.25893cm</Left>
+        <Left>14.33897cm</Left>
         <Height>0.6cm</Height>
-        <Width>2.49487cm</Width>
+        <Width>1.48256cm</Width>
         <ZIndex>4</ZIndex>
         <Style>
           <Border>
@@ -664,9 +733,9 @@
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
         <Top>3.21cm</Top>
-        <Left>10.72878cm</Left>
+        <Left>11.90584cm</Left>
         <Height>0.6cm</Height>
-        <Width>2.49487cm</Width>
+        <Width>2.43314cm</Width>
         <ZIndex>5</ZIndex>
         <Style>
           <Border>
@@ -697,9 +766,9 @@
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
         <Top>3.21cm</Top>
-        <Left>8.26919cm</Left>
+        <Left>9.4727cm</Left>
         <Height>0.6cm</Height>
-        <Width>2.45959cm</Width>
+        <Width>2.43314cm</Width>
         <ZIndex>6</ZIndex>
         <Style>
           <Border>
@@ -730,9 +799,9 @@
         </Paragraphs>
         <rd:DefaultName>Textbox19</rd:DefaultName>
         <Top>3.21cm</Top>
-        <Left>6.56082cm</Left>
+        <Left>7.73397cm</Left>
         <Height>0.6cm</Height>
-        <Width>1.70837cm</Width>
+        <Width>1.73873cm</Width>
         <ZIndex>7</ZIndex>
         <Style>
           <Border>
@@ -1374,10 +1443,14 @@
           <DataField>Apagar</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
+        <Field Name="CodigoFacaf">
+          <DataField>CodigoFacaf</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>dsSistema</rd:DataSetName>
-        <rd:SchemaPath>E:\CENPROFAR\Reportes\dsSistema.xsd</rd:SchemaPath>
+        <rd:SchemaPath>G:\CENPROFAR-GIT\Reportes\dsSistema.xsd</rd:SchemaPath>
         <rd:TableName>spRPT_Presentacion</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>

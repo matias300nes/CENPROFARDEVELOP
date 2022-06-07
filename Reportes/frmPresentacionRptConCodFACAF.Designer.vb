@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class frmPresentacionRpt
+Partial Class frmPresentacionRptConCodFACAF
     Inherits System.Windows.Forms.Form
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
@@ -23,7 +23,7 @@ Partial Class frmPresentacionRpt
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim ReportDataSource2 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
+        Dim ReportDataSource5 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
         Me.spRPT_PresentacionBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.dsSistema = New CENPROFAR.dsSistema()
         Me.ReportViewer1 = New Microsoft.Reporting.WinForms.ReportViewer()
@@ -46,12 +46,11 @@ Partial Class frmPresentacionRpt
         'ReportViewer1
         '
         Me.ReportViewer1.Dock = System.Windows.Forms.DockStyle.Fill
-        ReportDataSource2.Name = "dsPresentacion"
-        ReportDataSource2.Value = Me.spRPT_PresentacionBindingSource
-        Me.ReportViewer1.LocalReport.DataSources.Add(ReportDataSource2)
-        Me.ReportViewer1.LocalReport.ReportEmbeddedResource = "CENPROFAR.rptPresentacion.rdlc"
+        ReportDataSource5.Name = "dsPresentacion"
+        ReportDataSource5.Value = Me.spRPT_PresentacionBindingSource
+        Me.ReportViewer1.LocalReport.DataSources.Add(ReportDataSource5)
+        Me.ReportViewer1.LocalReport.ReportEmbeddedResource = "CENPROFAR.rptPresentacionConCodFACAF.rdlc"
         Me.ReportViewer1.Location = New System.Drawing.Point(0, 0)
-        Me.ReportViewer1.Margin = New System.Windows.Forms.Padding(4)
         Me.ReportViewer1.Name = "ReportViewer1"
         Me.ReportViewer1.ServerReport.BearerToken = Nothing
         Me.ReportViewer1.Size = New System.Drawing.Size(1067, 554)
@@ -67,21 +66,20 @@ Partial Class frmPresentacionRpt
         Me.chkCodFacaf.Location = New System.Drawing.Point(875, 5)
         Me.chkCodFacaf.Name = "chkCodFacaf"
         Me.chkCodFacaf.Size = New System.Drawing.Size(150, 21)
-        Me.chkCodFacaf.TabIndex = 1
+        Me.chkCodFacaf.TabIndex = 2
         Me.chkCodFacaf.Text = "Con Código FACAF"
         Me.chkCodFacaf.UseVisualStyleBackColor = True
         '
-        'frmPresentacionRpt
+        'frmPresentacionRptConCodFACAF
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1067, 554)
         Me.Controls.Add(Me.chkCodFacaf)
         Me.Controls.Add(Me.ReportViewer1)
-        Me.Margin = New System.Windows.Forms.Padding(4)
-        Me.Name = "frmPresentacionRpt"
+        Me.Name = "frmPresentacionRptConCodFACAF"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
-        Me.Text = "frmPresentacionRpt"
+        Me.Text = "frmPresentacionRptConCodFACAF"
         CType(Me.spRPT_PresentacionBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dsSistema, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
