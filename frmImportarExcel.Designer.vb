@@ -469,6 +469,7 @@ Partial Class frmImportarExcel
         Me.grdDetalleLiquidacionFiltrada.Location = New System.Drawing.Point(11, 293)
         Me.grdDetalleLiquidacionFiltrada.Margin = New System.Windows.Forms.Padding(2)
         Me.grdDetalleLiquidacionFiltrada.Name = "grdDetalleLiquidacionFiltrada"
+        Me.grdDetalleLiquidacionFiltrada.ReadOnly = True
         Me.grdDetalleLiquidacionFiltrada.RowHeadersWidth = 51
         Me.grdDetalleLiquidacionFiltrada.RowTemplate.Height = 24
         Me.grdDetalleLiquidacionFiltrada.Size = New System.Drawing.Size(1007, 219)
@@ -483,6 +484,7 @@ Partial Class frmImportarExcel
         Me.grdDetalleLiquidacion.Location = New System.Drawing.Point(11, 30)
         Me.grdDetalleLiquidacion.Margin = New System.Windows.Forms.Padding(2)
         Me.grdDetalleLiquidacion.Name = "grdDetalleLiquidacion"
+        Me.grdDetalleLiquidacion.ReadOnly = True
         Me.grdDetalleLiquidacion.RowHeadersWidth = 51
         Me.grdDetalleLiquidacion.RowTemplate.Height = 24
         Me.grdDetalleLiquidacion.Size = New System.Drawing.Size(1007, 219)
