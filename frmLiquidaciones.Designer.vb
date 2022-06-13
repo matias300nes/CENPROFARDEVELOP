@@ -174,7 +174,7 @@ Partial Class frmLiquidaciones
         Me.GroupBox1.ForeColor = System.Drawing.Color.Black
         Me.GroupBox1.Location = New System.Drawing.Point(0, 30)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(1426, 438)
+        Me.GroupBox1.Size = New System.Drawing.Size(1358, 438)
         Me.GroupBox1.TabIndex = 65
         Me.GroupBox1.TabStop = False
         '
@@ -191,7 +191,7 @@ Partial Class frmLiquidaciones
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1403, 303)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1346, 303)
         Me.TableLayoutPanel1.TabIndex = 417
         '
         'SuperGrdResultado
@@ -227,7 +227,7 @@ Partial Class frmLiquidaciones
         Background7.Color1 = System.Drawing.Color.Transparent
         Me.SuperGrdResultado.PrimaryGrid.DefaultVisualStyles.RowStyles.Default.Background = Background7
         Me.SuperGrdResultado.PrimaryGrid.SelectionGranularity = DevComponents.DotNetBar.SuperGrid.SelectionGranularity.Row
-        Me.SuperGrdResultado.Size = New System.Drawing.Size(1105, 283)
+        Me.SuperGrdResultado.Size = New System.Drawing.Size(1059, 283)
         Me.SuperGrdResultado.TabIndex = 381
         Me.SuperGrdResultado.Text = "SuperGridControl1"
         '
@@ -245,10 +245,10 @@ Partial Class frmLiquidaciones
         Me.GroupBox4.Controls.Add(Me.btnExcelWindow)
         Me.GroupBox4.Controls.Add(Me.Label1)
         Me.GroupBox4.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GroupBox4.Location = New System.Drawing.Point(1137, 4)
+        Me.GroupBox4.Location = New System.Drawing.Point(1091, 4)
         Me.GroupBox4.Margin = New System.Windows.Forms.Padding(10, 4, 10, 10)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(256, 289)
+        Me.GroupBox4.Size = New System.Drawing.Size(245, 289)
         Me.GroupBox4.TabIndex = 386
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Resúmen"
@@ -267,7 +267,6 @@ Partial Class frmLiquidaciones
         Me.btnTotalesConcepto.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
         Me.btnTotalesConcepto.BackColor = System.Drawing.Color.Transparent
         Me.btnTotalesConcepto.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.btnTotalesConcepto.Enabled = False
         Me.btnTotalesConcepto.Location = New System.Drawing.Point(122, 91)
         Me.btnTotalesConcepto.Name = "btnTotalesConcepto"
         Me.btnTotalesConcepto.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(3)
@@ -312,7 +311,7 @@ Partial Class frmLiquidaciones
         Me.btnLiquidar.Location = New System.Drawing.Point(56, 249)
         Me.btnLiquidar.Name = "btnLiquidar"
         Me.btnLiquidar.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(3)
-        Me.btnLiquidar.Size = New System.Drawing.Size(154, 28)
+        Me.btnLiquidar.Size = New System.Drawing.Size(143, 28)
         Me.btnLiquidar.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnLiquidar.TabIndex = 393
         Me.btnLiquidar.Text = "Liquidar"
@@ -335,7 +334,7 @@ Partial Class frmLiquidaciones
         Me.lblTotal.ForeColor = System.Drawing.Color.DarkGreen
         Me.lblTotal.Location = New System.Drawing.Point(7, 210)
         Me.lblTotal.Name = "lblTotal"
-        Me.lblTotal.Size = New System.Drawing.Size(236, 24)
+        Me.lblTotal.Size = New System.Drawing.Size(225, 24)
         Me.lblTotal.TabIndex = 389
         Me.lblTotal.Text = "$ [Total]"
         Me.lblTotal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -458,7 +457,7 @@ Partial Class frmLiquidaciones
         Me.lblCantidadItems.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblCantidadItems.AutoSize = True
         Me.lblCantidadItems.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.lblCantidadItems.Location = New System.Drawing.Point(971, 88)
+        Me.lblCantidadItems.Location = New System.Drawing.Point(903, 88)
         Me.lblCantidadItems.Name = "lblCantidadItems"
         Me.lblCantidadItems.Size = New System.Drawing.Size(52, 13)
         Me.lblCantidadItems.TabIndex = 270
@@ -470,7 +469,7 @@ Partial Class frmLiquidaciones
         Me.lblCantLiq.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblCantLiq.AutoSize = True
         Me.lblCantLiq.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.lblCantLiq.Location = New System.Drawing.Point(968, 414)
+        Me.lblCantLiq.Location = New System.Drawing.Point(900, 414)
         Me.lblCantLiq.Name = "lblCantLiq"
         Me.lblCantLiq.Size = New System.Drawing.Size(52, 13)
         Me.lblCantLiq.TabIndex = 387
@@ -492,7 +491,7 @@ Partial Class frmLiquidaciones
         Me.Label19.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label19.AutoSize = True
         Me.Label19.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.Label19.Location = New System.Drawing.Point(838, 414)
+        Me.Label19.Location = New System.Drawing.Point(770, 414)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(134, 13)
         Me.Label19.TabIndex = 271
@@ -670,7 +669,7 @@ Partial Class frmLiquidaciones
         Me.Label15.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label15.AutoSize = True
         Me.Label15.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.Label15.Location = New System.Drawing.Point(875, 88)
+        Me.Label15.Location = New System.Drawing.Point(807, 88)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(98, 13)
         Me.Label15.TabIndex = 388

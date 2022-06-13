@@ -2624,7 +2624,9 @@ Public Class frmLiquidaciones
     End Sub
 
     Private Sub btnTotalesConcepto_Click(sender As Object, e As EventArgs) Handles btnTotalesConcepto.Click
-        Dim TotalesConcepto As New frmLiquidacionesTotConceptos
-        TotalesConcepto.ShowDialog()
+        If gl_dataset IsNot Nothing Then
+            Dim TotalesConcepto As New frmLiquidacionesTotConceptos(dtConceptos:=gl_dataset.Tables(1))
+            TotalesConcepto.ShowDialog()
+        End If
     End Sub
 End Class
