@@ -90,49 +90,53 @@ Public Class frmPeriodoPresentaciones
 
         Dim res As Integer
 
+
         Util.MsgStatus(Status1, "Guardando el registro...", My.Resources.Resources.indicator_white)
 
-        If ReglasNegocio() Then
-            Verificar_Datos()
-            If bolpoliticas Then
-                If bolModo Then
-                    ' If ALTA Then
-                    res = AgregarRegistro()
-                    Select Case res
-                        Case -2
-                            Util.MsgStatus(Status1, "El registro ya existe.", My.Resources.Resources.stop_error.ToBitmap)
-                        Case -1
-                            Util.MsgStatus(Status1, "No se pudo actualizar el registro.", My.Resources.Resources.stop_error.ToBitmap)
-                        Case 0
-                            Util.MsgStatus(Status1, "No se pudo agregar el registro.", My.Resources.Resources.stop_error.ToBitmap)
-                        Case Else
-                            Util.MsgStatus(Status1, "Se ha actualizado el registro.", My.Resources.Resources.ok.ToBitmap)
-                            btnActualizar_Click(sender, e)
-                    End Select
-                    'Else
-                    ' Util.MsgStatus(Status1, "No tiene permiso para Agregar registros.", My.Resources.stop_error.ToBitmap)
-                    'End If
-                Else
-                    'If MODIFICA Then
-                    res = ActualizarRegistro()
-                    Select Case res
-                        Case -3
-                            Util.MsgStatus(Status1, "Ya existe otro Registro con este mismo Código.", My.Resources.stop_error.ToBitmap)
-                        Case -2
-                            Util.MsgStatus(Status1, "El registro ya existe.", My.Resources.Resources.stop_error.ToBitmap)
-                        Case -1
-                            Util.MsgStatus(Status1, "No se pudo actualizar el registro.", My.Resources.Resources.stop_error.ToBitmap)
-                        Case 0
-                            Util.MsgStatus(Status1, "No se pudo agregar el registro.", My.Resources.Resources.stop_error.ToBitmap)
-                        Case Else
-                            Util.MsgStatus(Status1, "Se ha actualizado el registro.", My.Resources.Resources.ok.ToBitmap)
-                    End Select
-                    '    Else
-                    '    Util.MsgStatus(Status1, "No tiene permiso para modificar registros.", My.Resources.stop_error.ToBitmap)
-                    'End If
+            If ReglasNegocio() Then
+                Verificar_Datos()
+                If bolpoliticas Then
+                    If bolModo Then
+                        ' If ALTA Then
+                        res = AgregarRegistro()
+                        Select Case res
+                            Case -2
+                                Util.MsgStatus(Status1, "El registro ya existe.", My.Resources.Resources.stop_error.ToBitmap)
+                            Case -1
+                                Util.MsgStatus(Status1, "No se pudo actualizar el registro.", My.Resources.Resources.stop_error.ToBitmap)
+                            Case 0
+                                Util.MsgStatus(Status1, "No se pudo agregar el registro.", My.Resources.Resources.stop_error.ToBitmap)
+                            Case Else
+                                Util.MsgStatus(Status1, "Se ha actualizado el registro.", My.Resources.Resources.ok.ToBitmap)
+                                btnActualizar_Click(sender, e)
+                        End Select
+                        'Else
+                        ' Util.MsgStatus(Status1, "No tiene permiso para Agregar registros.", My.Resources.stop_error.ToBitmap)
+                        'End If
+                    Else
+                        'If MODIFICA Then
+                        res = ActualizarRegistro()
+                        Select Case res
+                            Case -3
+                                Util.MsgStatus(Status1, "Ya existe otro Registro con este mismo Código.", My.Resources.stop_error.ToBitmap)
+                            Case -2
+                                Util.MsgStatus(Status1, "El registro ya existe.", My.Resources.Resources.stop_error.ToBitmap)
+                            Case -1
+                                Util.MsgStatus(Status1, "No se pudo actualizar el registro.", My.Resources.Resources.stop_error.ToBitmap)
+                            Case 0
+                                Util.MsgStatus(Status1, "No se pudo agregar el registro.", My.Resources.Resources.stop_error.ToBitmap)
+                            Case Else
+                                Util.MsgStatus(Status1, "Se ha actualizado el registro.", My.Resources.Resources.ok.ToBitmap)
+                        End Select
+                        '    Else
+                        '    Util.MsgStatus(Status1, "No tiene permiso para modificar registros.", My.Resources.stop_error.ToBitmap)
+                        'End If
+                    End If
                 End If
             End If
-        End If
+
+
+
     End Sub
 
     Private Sub btnNuevo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNuevo.Click
@@ -308,8 +312,8 @@ Public Class frmPeriodoPresentaciones
         txtCODIGO.Tag = "1"
         cmbMandatarias.Tag = "2"
         cmbGrupos.Tag = "4"
-        txtPeriodo.Tag = "5"
-        dtpFechaLimite.Tag = "6"
+        txtPeriodo.Tag = "6"
+        dtpFechaLimite.Tag = "7"
     End Sub
 
     Private Sub LlenarCmbMandatarias()
@@ -542,96 +546,108 @@ Public Class frmPeriodoPresentaciones
     End Function
 
     Private Function ActualizarRegistro() As Integer
-        Dim connection As SqlClient.SqlConnection = Nothing
-        Dim res As Integer = 0
 
-        Try
+        Dim result As DialogResult = MessageBox.Show($"¿Está seguro que desea actualizar el periodo de presentación?",
+                                  "Actualizar",
+                                  MessageBoxButtons.YesNo)
+
+        If result = DialogResult.Yes Then
+
+
+            Dim connection As SqlClient.SqlConnection = Nothing
+            Dim res As Integer = 0
+
             Try
-                connection = SqlHelper.GetConnection(ConnStringSEI)
-            Catch ex As Exception
-                MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Exit Function
-            End Try
-
-            Try
-                Dim param_id As New SqlClient.SqlParameter
-                param_id.ParameterName = "@id"
-                param_id.SqlDbType = SqlDbType.BigInt
-                param_id.Value = txtID.Text
-                param_id.Direction = ParameterDirection.InputOutput
-
-                Dim param_cmbMandatarias As New SqlClient.SqlParameter
-                param_cmbMandatarias.ParameterName = "@idMandataria"
-                param_cmbMandatarias.SqlDbType = SqlDbType.BigInt
-                param_cmbMandatarias.Value = cmbMandatarias.SelectedValue
-                param_cmbMandatarias.Direction = ParameterDirection.Input
-
-                Dim param_grupo As New SqlClient.SqlParameter
-                param_grupo.ParameterName = "@idGrupo"
-                param_grupo.SqlDbType = SqlDbType.BigInt
-                param_grupo.Value = cmbGrupos.SelectedValue
-                param_grupo.Direction = ParameterDirection.Input
-
-                Dim param_periodo As New SqlClient.SqlParameter
-                param_periodo.ParameterName = "@periodo"
-                param_periodo.SqlDbType = SqlDbType.VarChar
-                param_periodo.Size = 50
-                param_periodo.Value = txtPeriodo.Text.ToUpper
-                param_periodo.Direction = ParameterDirection.Input
-
-                Dim param_FechaLimite As New SqlClient.SqlParameter
-                param_FechaLimite.ParameterName = "@fechalimite"
-                param_FechaLimite.SqlDbType = SqlDbType.DateTime
-                param_FechaLimite.Value = dtpFechaLimite.Value
-                param_FechaLimite.Direction = ParameterDirection.Input
-
-                Dim param_userupd As New SqlClient.SqlParameter
-                param_userupd.ParameterName = "@userupd"
-                param_userupd.SqlDbType = SqlDbType.Int
-                param_userupd.Value = UserID
-                param_userupd.Direction = ParameterDirection.Input
-
-                Dim param_res As New SqlClient.SqlParameter
-                param_res.ParameterName = "@res"
-                param_res.SqlDbType = SqlDbType.Int
-                param_res.Value = DBNull.Value
-                param_res.Direction = ParameterDirection.InputOutput
+                Try
+                    connection = SqlHelper.GetConnection(ConnStringSEI)
+                Catch ex As Exception
+                    MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Exit Function
+                End Try
 
                 Try
-                    SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spPeriodoPresentaciones_Update", param_id, param_cmbMandatarias, param_grupo,
-                                              param_periodo, param_FechaLimite, param_userupd, param_res)
-                    res = param_res.Value
+                    Dim param_id As New SqlClient.SqlParameter
+                    param_id.ParameterName = "@id"
+                    param_id.SqlDbType = SqlDbType.BigInt
+                    param_id.Value = txtID.Text
+                    param_id.Direction = ParameterDirection.InputOutput
+
+                    Dim param_cmbMandatarias As New SqlClient.SqlParameter
+                    param_cmbMandatarias.ParameterName = "@idMandataria"
+                    param_cmbMandatarias.SqlDbType = SqlDbType.BigInt
+                    param_cmbMandatarias.Value = cmbMandatarias.SelectedValue
+                    param_cmbMandatarias.Direction = ParameterDirection.Input
+
+                    Dim param_grupo As New SqlClient.SqlParameter
+                    param_grupo.ParameterName = "@idGrupo"
+                    param_grupo.SqlDbType = SqlDbType.BigInt
+                    param_grupo.Value = cmbGrupos.SelectedValue
+                    param_grupo.Direction = ParameterDirection.Input
+
+                    Dim param_periodo As New SqlClient.SqlParameter
+                    param_periodo.ParameterName = "@periodo"
+                    param_periodo.SqlDbType = SqlDbType.VarChar
+                    param_periodo.Size = 50
+                    param_periodo.Value = txtPeriodo.Text.ToUpper
+                    param_periodo.Direction = ParameterDirection.Input
+
+                    Dim param_FechaLimite As New SqlClient.SqlParameter
+                    param_FechaLimite.ParameterName = "@fechalimite"
+                    param_FechaLimite.SqlDbType = SqlDbType.DateTime
+                    param_FechaLimite.Value = dtpFechaLimite.Value
+                    param_FechaLimite.Direction = ParameterDirection.Input
+
+                    Dim param_userupd As New SqlClient.SqlParameter
+                    param_userupd.ParameterName = "@userupd"
+                    param_userupd.SqlDbType = SqlDbType.Int
+                    param_userupd.Value = UserID
+                    param_userupd.Direction = ParameterDirection.Input
+
+                    Dim param_res As New SqlClient.SqlParameter
+                    param_res.ParameterName = "@res"
+                    param_res.SqlDbType = SqlDbType.Int
+                    param_res.Value = DBNull.Value
+                    param_res.Direction = ParameterDirection.InputOutput
+
+                    Try
+                        SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spPeriodoPresentaciones_Update", param_id, param_cmbMandatarias, param_grupo,
+                                                  param_periodo, param_FechaLimite, param_userupd, param_res)
+                        res = param_res.Value
 
 
-                    PrepararBotones()
-                    ActualizarRegistro = res
-                    If res > 0 Then ActualizarGrilla(grd, Me)
+                        PrepararBotones()
+                        ActualizarRegistro = res
+                        If res > 0 Then ActualizarGrilla(grd, Me)
 
 
-                Catch ex As Exception
-                    Throw ex
+                    Catch ex As Exception
+                        Throw ex
+                    End Try
+                Finally
+
                 End Try
+            Catch ex As Exception
+                Dim errMessage As String = ""
+                Dim tempException As Exception = ex
+
+                While (Not tempException Is Nothing)
+                    errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                    tempException = tempException.InnerException
+                End While
+
+                MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+                  + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+                  "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
             Finally
-
+                If Not connection Is Nothing Then
+                    CType(connection, IDisposable).Dispose()
+                End If
             End Try
-        Catch ex As Exception
-            Dim errMessage As String = ""
-            Dim tempException As Exception = ex
-
-            While (Not tempException Is Nothing)
-                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
-                tempException = tempException.InnerException
-            End While
-
-            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
-              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
-
-        Finally
-            If Not connection Is Nothing Then
-                CType(connection, IDisposable).Dispose()
-            End If
-        End Try
+        Else
+            Util.MsgStatus(Status1, "Operación cancelada por el usuario.", My.Resources.Resources.stop_error.ToBitmap)
+            Exit Function
+        End If
     End Function
 
     Private Function EliminarRegistro() As Integer

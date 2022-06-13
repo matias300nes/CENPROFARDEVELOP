@@ -124,18 +124,18 @@ Partial Class frmPresentaciones
         Me.ContextMenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BorrarElItemToolStripMenuItem, Me.BuscarToolStripMenuItem, Me.BuscarDescripcionToolStripMenuItem, Me.BuscarDescripcionToolStripMenuItem2, Me.BuscarDescripcionToolStripMenuItem3})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(361, 129)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(361, 148)
         '
         'BorrarElItemToolStripMenuItem
         '
         Me.BorrarElItemToolStripMenuItem.Name = "BorrarElItemToolStripMenuItem"
-        Me.BorrarElItemToolStripMenuItem.Size = New System.Drawing.Size(360, 22)
+        Me.BorrarElItemToolStripMenuItem.Size = New System.Drawing.Size(360, 24)
         Me.BorrarElItemToolStripMenuItem.Text = "Borrar el Item"
         '
         'BuscarToolStripMenuItem
         '
         Me.BuscarToolStripMenuItem.Name = "BuscarToolStripMenuItem"
-        Me.BuscarToolStripMenuItem.Size = New System.Drawing.Size(360, 22)
+        Me.BuscarToolStripMenuItem.Size = New System.Drawing.Size(360, 24)
         Me.BuscarToolStripMenuItem.Text = "Buscar..."
         Me.BuscarToolStripMenuItem.Visible = False
         '
@@ -145,7 +145,7 @@ Partial Class frmPresentaciones
         Me.BuscarDescripcionToolStripMenuItem.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.BuscarDescripcionToolStripMenuItem.DropDownWidth = 500
         Me.BuscarDescripcionToolStripMenuItem.Name = "BuscarDescripcionToolStripMenuItem"
-        Me.BuscarDescripcionToolStripMenuItem.Size = New System.Drawing.Size(300, 23)
+        Me.BuscarDescripcionToolStripMenuItem.Size = New System.Drawing.Size(300, 28)
         Me.BuscarDescripcionToolStripMenuItem.Sorted = True
         Me.BuscarDescripcionToolStripMenuItem.Text = "Buscar Descripcion"
         Me.BuscarDescripcionToolStripMenuItem.Visible = False
@@ -156,7 +156,7 @@ Partial Class frmPresentaciones
         Me.BuscarDescripcionToolStripMenuItem2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.BuscarDescripcionToolStripMenuItem2.DropDownWidth = 500
         Me.BuscarDescripcionToolStripMenuItem2.Name = "BuscarDescripcionToolStripMenuItem2"
-        Me.BuscarDescripcionToolStripMenuItem2.Size = New System.Drawing.Size(300, 23)
+        Me.BuscarDescripcionToolStripMenuItem2.Size = New System.Drawing.Size(300, 28)
         Me.BuscarDescripcionToolStripMenuItem2.Sorted = True
         Me.BuscarDescripcionToolStripMenuItem2.Text = "Buscar Descripcion"
         Me.BuscarDescripcionToolStripMenuItem2.Visible = False
@@ -167,7 +167,7 @@ Partial Class frmPresentaciones
         Me.BuscarDescripcionToolStripMenuItem3.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.BuscarDescripcionToolStripMenuItem3.DropDownWidth = 500
         Me.BuscarDescripcionToolStripMenuItem3.Name = "BuscarDescripcionToolStripMenuItem3"
-        Me.BuscarDescripcionToolStripMenuItem3.Size = New System.Drawing.Size(300, 23)
+        Me.BuscarDescripcionToolStripMenuItem3.Size = New System.Drawing.Size(300, 28)
         Me.BuscarDescripcionToolStripMenuItem3.Sorted = True
         Me.BuscarDescripcionToolStripMenuItem3.Text = "Buscar Descripcion"
         Me.BuscarDescripcionToolStripMenuItem3.Visible = False
@@ -207,13 +207,13 @@ Partial Class frmPresentaciones
         Me.ContextMenuMarcas.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.ContextMenuMarcas.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ActivarNuevaMarcaToolStripMenuItem, Me.cmbMarcaCompra})
         Me.ContextMenuMarcas.Name = "ContextMenuStrip1"
-        Me.ContextMenuMarcas.Size = New System.Drawing.Size(361, 180)
+        Me.ContextMenuMarcas.Size = New System.Drawing.Size(361, 182)
         '
         'ActivarNuevaMarcaToolStripMenuItem
         '
         Me.ActivarNuevaMarcaToolStripMenuItem.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ActivarNuevaMarcaToolStripMenuItem.Name = "ActivarNuevaMarcaToolStripMenuItem"
-        Me.ActivarNuevaMarcaToolStripMenuItem.Size = New System.Drawing.Size(360, 22)
+        Me.ActivarNuevaMarcaToolStripMenuItem.Size = New System.Drawing.Size(360, 24)
         Me.ActivarNuevaMarcaToolStripMenuItem.Text = "Activar Nueva Marca"
         '
         'cmbMarcaCompra
@@ -261,18 +261,21 @@ Partial Class frmPresentaciones
         Me.gbMain.Controls.Add(Me.dtpFECHA)
         Me.gbMain.Controls.Add(Me.Label3)
         Me.gbMain.ForeColor = System.Drawing.Color.Blue
-        Me.gbMain.Location = New System.Drawing.Point(3, 30)
+        Me.gbMain.Location = New System.Drawing.Point(4, 37)
+        Me.gbMain.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbMain.Name = "gbMain"
-        Me.gbMain.Size = New System.Drawing.Size(1589, 480)
+        Me.gbMain.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.gbMain.Size = New System.Drawing.Size(2119, 591)
         Me.gbMain.TabIndex = 1
         Me.gbMain.TabStop = False
         '
         'btnOpenPeriodos
         '
         Me.btnOpenPeriodos.Image = Global.CENPROFAR.My.Resources.Resources.ver
-        Me.btnOpenPeriodos.Location = New System.Drawing.Point(910, 11)
+        Me.btnOpenPeriodos.Location = New System.Drawing.Point(1213, 14)
+        Me.btnOpenPeriodos.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnOpenPeriodos.Name = "btnOpenPeriodos"
-        Me.btnOpenPeriodos.Size = New System.Drawing.Size(26, 23)
+        Me.btnOpenPeriodos.Size = New System.Drawing.Size(35, 28)
         Me.btnOpenPeriodos.TabIndex = 360
         Me.BasicToolTip.SetToolTip(Me.btnOpenPeriodos, "Ir a pantalla de periodos de presentación.")
         Me.btnOpenPeriodos.UseVisualStyleBackColor = True
@@ -293,9 +296,11 @@ Partial Class frmPresentaciones
         Me.gpTools.Controls.Add(Me.btnRecetasWeb)
         Me.gpTools.Controls.Add(Me.btnModificarItem)
         Me.gpTools.Controls.Add(Me.btnAddFarmacia)
-        Me.gpTools.Location = New System.Drawing.Point(804, 87)
+        Me.gpTools.Location = New System.Drawing.Point(1072, 107)
+        Me.gpTools.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gpTools.Name = "gpTools"
-        Me.gpTools.Size = New System.Drawing.Size(214, 322)
+        Me.gpTools.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.gpTools.Size = New System.Drawing.Size(285, 396)
         Me.gpTools.TabIndex = 359
         Me.gpTools.TabStop = False
         Me.gpTools.Text = "Cuadro de herramientas"
@@ -304,9 +309,10 @@ Partial Class frmPresentaciones
         '
         Me.btnFacturar.ForeColor = System.Drawing.SystemColors.ControlText
         Me.btnFacturar.Image = CType(resources.GetObject("btnFacturar.Image"), System.Drawing.Image)
-        Me.btnFacturar.Location = New System.Drawing.Point(73, 270)
+        Me.btnFacturar.Location = New System.Drawing.Point(97, 332)
+        Me.btnFacturar.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnFacturar.Name = "btnFacturar"
-        Me.btnFacturar.Size = New System.Drawing.Size(76, 31)
+        Me.btnFacturar.Size = New System.Drawing.Size(101, 38)
         Me.btnFacturar.TabIndex = 367
         Me.btnFacturar.Text = "Facturar"
         Me.btnFacturar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
@@ -317,18 +323,20 @@ Partial Class frmPresentaciones
         '
         Me.Label10.AutoSize = True
         Me.Label10.ForeColor = System.Drawing.SystemColors.InfoText
-        Me.Label10.Location = New System.Drawing.Point(17, 37)
+        Me.Label10.Location = New System.Drawing.Point(23, 46)
+        Me.Label10.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(96, 13)
+        Me.Label10.Size = New System.Drawing.Size(127, 17)
         Me.Label10.TabIndex = 366
         Me.Label10.Text = "Items presentación"
         '
         'Line4
         '
         Me.Line4.ForeColor = System.Drawing.SystemColors.ActiveBorder
-        Me.Line4.Location = New System.Drawing.Point(121, 35)
+        Me.Line4.Location = New System.Drawing.Point(161, 43)
+        Me.Line4.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Line4.Name = "Line4"
-        Me.Line4.Size = New System.Drawing.Size(72, 19)
+        Me.Line4.Size = New System.Drawing.Size(96, 23)
         Me.Line4.TabIndex = 365
         Me.Line4.Text = "Line4"
         '
@@ -337,10 +345,11 @@ Partial Class frmPresentaciones
         Me.btnImprimirRpt.ForeColor = System.Drawing.SystemColors.ControlText
         Me.btnImprimirRpt.Image = Global.CENPROFAR.My.Resources.Resources.printing
         Me.btnImprimirRpt.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.btnImprimirRpt.Location = New System.Drawing.Point(14, 223)
+        Me.btnImprimirRpt.Location = New System.Drawing.Point(19, 274)
+        Me.btnImprimirRpt.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnImprimirRpt.Name = "btnImprimirRpt"
         Me.btnImprimirRpt.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.btnImprimirRpt.Size = New System.Drawing.Size(84, 31)
+        Me.btnImprimirRpt.Size = New System.Drawing.Size(112, 38)
         Me.btnImprimirRpt.TabIndex = 364
         Me.btnImprimirRpt.Text = "Imprimir"
         Me.btnImprimirRpt.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
@@ -350,9 +359,10 @@ Partial Class frmPresentaciones
         '
         Me.Label6.AutoSize = True
         Me.Label6.ForeColor = System.Drawing.SystemColors.InfoText
-        Me.Label6.Location = New System.Drawing.Point(17, 202)
+        Me.Label6.Location = New System.Drawing.Point(23, 249)
+        Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(50, 13)
+        Me.Label6.Size = New System.Drawing.Size(66, 17)
         Me.Label6.TabIndex = 363
         Me.Label6.Text = "Reportes"
         '
@@ -360,9 +370,10 @@ Partial Class frmPresentaciones
         '
         Me.btnPrescam.ForeColor = System.Drawing.SystemColors.ControlText
         Me.btnPrescam.Image = Global.CENPROFAR.My.Resources.Resources.facaf
-        Me.btnPrescam.Location = New System.Drawing.Point(121, 224)
+        Me.btnPrescam.Location = New System.Drawing.Point(161, 276)
+        Me.btnPrescam.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnPrescam.Name = "btnPrescam"
-        Me.btnPrescam.Size = New System.Drawing.Size(76, 31)
+        Me.btnPrescam.Size = New System.Drawing.Size(101, 38)
         Me.btnPrescam.TabIndex = 347
         Me.btnPrescam.Text = "Prescam"
         Me.btnPrescam.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
@@ -371,9 +382,10 @@ Partial Class frmPresentaciones
         'Line3
         '
         Me.Line3.ForeColor = System.Drawing.SystemColors.ActiveBorder
-        Me.Line3.Location = New System.Drawing.Point(73, 200)
+        Me.Line3.Location = New System.Drawing.Point(97, 246)
+        Me.Line3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Line3.Name = "Line3"
-        Me.Line3.Size = New System.Drawing.Size(120, 19)
+        Me.Line3.Size = New System.Drawing.Size(160, 23)
         Me.Line3.TabIndex = 362
         Me.Line3.Text = "Line3"
         '
@@ -381,9 +393,10 @@ Partial Class frmPresentaciones
         '
         Me.Label5.AutoSize = True
         Me.Label5.ForeColor = System.Drawing.SystemColors.InfoText
-        Me.Label5.Location = New System.Drawing.Point(17, 121)
+        Me.Label5.Location = New System.Drawing.Point(23, 149)
+        Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(103, 13)
+        Me.Label5.Size = New System.Drawing.Size(135, 17)
         Me.Label5.TabIndex = 361
         Me.Label5.Text = "Presentaciones web"
         '
@@ -391,18 +404,20 @@ Partial Class frmPresentaciones
         '
         Me.Label1.AutoSize = True
         Me.Label1.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.Label1.Location = New System.Drawing.Point(127, 151)
+        Me.Label1.Location = New System.Drawing.Point(169, 186)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(60, 13)
+        Me.Label1.Size = New System.Drawing.Size(80, 17)
         Me.Label1.TabIndex = 360
         Me.Label1.Text = "0 Registros"
         '
         'Line2
         '
         Me.Line2.ForeColor = System.Drawing.SystemColors.ActiveBorder
-        Me.Line2.Location = New System.Drawing.Point(121, 119)
+        Me.Line2.Location = New System.Drawing.Point(161, 146)
+        Me.Line2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Line2.Name = "Line2"
-        Me.Line2.Size = New System.Drawing.Size(72, 19)
+        Me.Line2.Size = New System.Drawing.Size(96, 23)
         Me.Line2.TabIndex = 359
         Me.Line2.Text = "Line2"
         '
@@ -410,9 +425,10 @@ Partial Class frmPresentaciones
         '
         Me.btnRecetasWeb.ForeColor = System.Drawing.SystemColors.ControlText
         Me.btnRecetasWeb.Image = Global.CENPROFAR.My.Resources.Resources.web
-        Me.btnRecetasWeb.Location = New System.Drawing.Point(14, 142)
+        Me.btnRecetasWeb.Location = New System.Drawing.Point(19, 175)
+        Me.btnRecetasWeb.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnRecetasWeb.Name = "btnRecetasWeb"
-        Me.btnRecetasWeb.Size = New System.Drawing.Size(105, 31)
+        Me.btnRecetasWeb.Size = New System.Drawing.Size(140, 38)
         Me.btnRecetasWeb.TabIndex = 355
         Me.btnRecetasWeb.Text = "Recetas web"
         Me.btnRecetasWeb.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
@@ -422,9 +438,10 @@ Partial Class frmPresentaciones
         '
         Me.btnModificarItem.ForeColor = System.Drawing.SystemColors.ControlText
         Me.btnModificarItem.Image = Global.CENPROFAR.My.Resources.Resources.change
-        Me.btnModificarItem.Location = New System.Drawing.Point(121, 57)
+        Me.btnModificarItem.Location = New System.Drawing.Point(161, 70)
+        Me.btnModificarItem.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnModificarItem.Name = "btnModificarItem"
-        Me.btnModificarItem.Size = New System.Drawing.Size(76, 31)
+        Me.btnModificarItem.Size = New System.Drawing.Size(101, 38)
         Me.btnModificarItem.TabIndex = 358
         Me.btnModificarItem.Text = "Modificar"
         Me.btnModificarItem.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
@@ -435,9 +452,10 @@ Partial Class frmPresentaciones
         '
         Me.btnAddFarmacia.ForeColor = System.Drawing.SystemColors.ControlText
         Me.btnAddFarmacia.Image = Global.CENPROFAR.My.Resources.Resources.add
-        Me.btnAddFarmacia.Location = New System.Drawing.Point(14, 57)
+        Me.btnAddFarmacia.Location = New System.Drawing.Point(19, 70)
+        Me.btnAddFarmacia.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnAddFarmacia.Name = "btnAddFarmacia"
-        Me.btnAddFarmacia.Size = New System.Drawing.Size(99, 31)
+        Me.btnAddFarmacia.Size = New System.Drawing.Size(132, 38)
         Me.btnAddFarmacia.TabIndex = 357
         Me.btnAddFarmacia.Text = "Agregar (F2)"
         Me.btnAddFarmacia.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
@@ -446,13 +464,15 @@ Partial Class frmPresentaciones
         '
         'cmbPeriodos
         '
+        Me.cmbPeriodos.AccessibleName = "*Periodo"
         Me.cmbPeriodos.DisplayMember = "Text"
         Me.cmbPeriodos.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
         Me.cmbPeriodos.FormattingEnabled = True
         Me.cmbPeriodos.ItemHeight = 14
-        Me.cmbPeriodos.Location = New System.Drawing.Point(851, 36)
+        Me.cmbPeriodos.Location = New System.Drawing.Point(1135, 44)
+        Me.cmbPeriodos.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbPeriodos.Name = "cmbPeriodos"
-        Me.cmbPeriodos.Size = New System.Drawing.Size(213, 20)
+        Me.cmbPeriodos.Size = New System.Drawing.Size(283, 20)
         Me.cmbPeriodos.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.cmbPeriodos.TabIndex = 356
         '
@@ -461,9 +481,10 @@ Partial Class frmPresentaciones
         Me.Label19.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label19.AutoSize = True
         Me.Label19.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label19.Location = New System.Drawing.Point(500, 72)
+        Me.Label19.Location = New System.Drawing.Point(667, 89)
+        Me.Label19.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(98, 13)
+        Me.Label19.Size = New System.Drawing.Size(129, 17)
         Me.Label19.TabIndex = 186
         Me.Label19.Text = "Cantidad de Ítems: "
         Me.Label19.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -472,11 +493,11 @@ Partial Class frmPresentaciones
         '
         Me.GroupBox2.Controls.Add(Me.btnUnificar)
         Me.GroupBox2.Controls.Add(Me.btnSeparar)
-        Me.GroupBox2.Location = New System.Drawing.Point(453, 414)
-        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(2)
+        Me.GroupBox2.Location = New System.Drawing.Point(604, 510)
+        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(2)
-        Me.GroupBox2.Size = New System.Drawing.Size(235, 58)
+        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.GroupBox2.Size = New System.Drawing.Size(313, 71)
         Me.GroupBox2.TabIndex = 347
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Separar / Unificar Presentaciónes"
@@ -484,9 +505,10 @@ Partial Class frmPresentaciones
         'btnUnificar
         '
         Me.btnUnificar.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.btnUnificar.Location = New System.Drawing.Point(23, 18)
+        Me.btnUnificar.Location = New System.Drawing.Point(31, 22)
+        Me.btnUnificar.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnUnificar.Name = "btnUnificar"
-        Me.btnUnificar.Size = New System.Drawing.Size(76, 31)
+        Me.btnUnificar.Size = New System.Drawing.Size(101, 38)
         Me.btnUnificar.TabIndex = 340
         Me.btnUnificar.Text = "Unificar"
         Me.btnUnificar.UseVisualStyleBackColor = True
@@ -494,9 +516,10 @@ Partial Class frmPresentaciones
         'btnSeparar
         '
         Me.btnSeparar.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.btnSeparar.Location = New System.Drawing.Point(134, 18)
+        Me.btnSeparar.Location = New System.Drawing.Point(179, 22)
+        Me.btnSeparar.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnSeparar.Name = "btnSeparar"
-        Me.btnSeparar.Size = New System.Drawing.Size(76, 31)
+        Me.btnSeparar.Size = New System.Drawing.Size(101, 38)
         Me.btnSeparar.TabIndex = 346
         Me.btnSeparar.Text = "Separar"
         Me.btnSeparar.UseVisualStyleBackColor = True
@@ -505,10 +528,9 @@ Partial Class frmPresentaciones
         '
         Me.Label9.AutoSize = True
         Me.Label9.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label9.Location = New System.Drawing.Point(194, 423)
-        Me.Label9.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label9.Location = New System.Drawing.Point(259, 521)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(40, 13)
+        Me.Label9.Size = New System.Drawing.Size(52, 17)
         Me.Label9.TabIndex = 345
         Me.Label9.Text = "Estado"
         '
@@ -522,9 +544,10 @@ Partial Class frmPresentaciones
         Me.cmbEstado.FormattingEnabled = True
         Me.cmbEstado.IntegralHeight = False
         Me.cmbEstado.Items.AddRange(New Object() {"TODAS", "PENDIENTES", "PARA LIQUIDAR", "LIQUIDADAS", "PAGAS"})
-        Me.cmbEstado.Location = New System.Drawing.Point(196, 439)
+        Me.cmbEstado.Location = New System.Drawing.Point(261, 540)
+        Me.cmbEstado.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbEstado.Name = "cmbEstado"
-        Me.cmbEstado.Size = New System.Drawing.Size(210, 24)
+        Me.cmbEstado.Size = New System.Drawing.Size(279, 28)
         Me.cmbEstado.TabIndex = 343
         '
         'grdItems
@@ -555,11 +578,12 @@ Partial Class frmPresentaciones
         DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.grdItems.DefaultCellStyle = DataGridViewCellStyle6
-        Me.grdItems.Location = New System.Drawing.Point(12, 94)
+        Me.grdItems.Location = New System.Drawing.Point(16, 116)
+        Me.grdItems.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.grdItems.Name = "grdItems"
         Me.grdItems.RowHeadersVisible = False
         Me.grdItems.RowHeadersWidth = 51
-        Me.grdItems.Size = New System.Drawing.Size(778, 315)
+        Me.grdItems.Size = New System.Drawing.Size(1037, 388)
         Me.grdItems.TabIndex = 13
         '
         'Id
@@ -711,19 +735,21 @@ Partial Class frmPresentaciones
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label2.Location = New System.Drawing.Point(11, 14)
+        Me.Label2.Location = New System.Drawing.Point(15, 17)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(52, 16)
+        Me.Label2.Size = New System.Drawing.Size(61, 20)
         Me.Label2.TabIndex = 341
         Me.Label2.Text = "Código"
         '
         'txtCodigo
         '
         Me.txtCodigo.Enabled = False
-        Me.txtCodigo.Location = New System.Drawing.Point(12, 35)
+        Me.txtCodigo.Location = New System.Drawing.Point(16, 43)
+        Me.txtCodigo.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtCodigo.Name = "txtCodigo"
         Me.txtCodigo.ReadOnly = True
-        Me.txtCodigo.Size = New System.Drawing.Size(98, 20)
+        Me.txtCodigo.Size = New System.Drawing.Size(129, 22)
         Me.txtCodigo.TabIndex = 340
         '
         'Label15
@@ -731,9 +757,10 @@ Partial Class frmPresentaciones
         Me.Label15.AutoSize = True
         Me.Label15.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label15.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label15.Location = New System.Drawing.Point(848, 14)
+        Me.Label15.Location = New System.Drawing.Point(1131, 17)
+        Me.Label15.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(61, 16)
+        Me.Label15.Size = New System.Drawing.Size(72, 20)
         Me.Label15.TabIndex = 296
         Me.Label15.Text = "Período*"
         '
@@ -742,9 +769,10 @@ Partial Class frmPresentaciones
         Me.Label20.AutoSize = True
         Me.Label20.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label20.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label20.Location = New System.Drawing.Point(854, 420)
+        Me.Label20.Location = New System.Drawing.Point(1139, 517)
+        Me.Label20.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(80, 15)
+        Me.Label20.Size = New System.Drawing.Size(98, 18)
         Me.Label20.TabIndex = 214
         Me.Label20.Text = "A Cargo OS"
         '
@@ -756,10 +784,11 @@ Partial Class frmPresentaciones
         Me.txtACargoOS.DecSeparator = Global.Microsoft.VisualBasic.ChrW(46)
         Me.txtACargoOS.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtACargoOS.Format = TextBoxConFormatoVB.tbFormats.SignedFloatingPointNumber
-        Me.txtACargoOS.Location = New System.Drawing.Point(857, 438)
+        Me.txtACargoOS.Location = New System.Drawing.Point(1143, 539)
+        Me.txtACargoOS.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtACargoOS.Name = "txtACargoOS"
         Me.txtACargoOS.ReadOnly = True
-        Me.txtACargoOS.Size = New System.Drawing.Size(100, 21)
+        Me.txtACargoOS.Size = New System.Drawing.Size(132, 24)
         Me.txtACargoOS.TabIndex = 213
         Me.txtACargoOS.Text_1 = Nothing
         Me.txtACargoOS.Text_2 = Nothing
@@ -773,9 +802,10 @@ Partial Class frmPresentaciones
         Me.Label18.AutoSize = True
         Me.Label18.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label18.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label18.Location = New System.Drawing.Point(967, 419)
+        Me.Label18.Location = New System.Drawing.Point(1289, 516)
+        Me.Label18.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(39, 15)
+        Me.Label18.Size = New System.Drawing.Size(46, 18)
         Me.Label18.TabIndex = 212
         Me.Label18.Text = "Total"
         '
@@ -787,10 +817,11 @@ Partial Class frmPresentaciones
         Me.txtTotal.DecSeparator = Global.Microsoft.VisualBasic.ChrW(46)
         Me.txtTotal.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtTotal.Format = TextBoxConFormatoVB.tbFormats.SignedFloatingPointNumber
-        Me.txtTotal.Location = New System.Drawing.Point(969, 438)
+        Me.txtTotal.Location = New System.Drawing.Point(1292, 539)
+        Me.txtTotal.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtTotal.Name = "txtTotal"
         Me.txtTotal.ReadOnly = True
-        Me.txtTotal.Size = New System.Drawing.Size(100, 21)
+        Me.txtTotal.Size = New System.Drawing.Size(132, 24)
         Me.txtTotal.TabIndex = 211
         Me.txtTotal.Text_1 = Nothing
         Me.txtTotal.Text_2 = Nothing
@@ -804,9 +835,10 @@ Partial Class frmPresentaciones
         Me.Label14.AutoSize = True
         Me.Label14.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label14.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label14.Location = New System.Drawing.Point(499, 14)
+        Me.Label14.Location = New System.Drawing.Point(665, 17)
+        Me.Label14.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(85, 16)
+        Me.Label14.Size = New System.Drawing.Size(103, 20)
         Me.Label14.TabIndex = 197
         Me.Label14.Text = "Observación"
         '
@@ -815,9 +847,10 @@ Partial Class frmPresentaciones
         Me.chkGrillaInferior.AutoSize = True
         Me.chkGrillaInferior.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.chkGrillaInferior.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.chkGrillaInferior.Location = New System.Drawing.Point(32, 442)
+        Me.chkGrillaInferior.Location = New System.Drawing.Point(43, 544)
+        Me.chkGrillaInferior.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkGrillaInferior.Name = "chkGrillaInferior"
-        Me.chkGrillaInferior.Size = New System.Drawing.Size(156, 17)
+        Me.chkGrillaInferior.Size = New System.Drawing.Size(200, 21)
         Me.chkGrillaInferior.TabIndex = 187
         Me.chkGrillaInferior.Text = "Aumentar Grilla Inferior"
         Me.chkGrillaInferior.UseVisualStyleBackColor = True
@@ -827,9 +860,10 @@ Partial Class frmPresentaciones
         Me.lblCantidadFilas.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblCantidadFilas.AutoSize = True
         Me.lblCantidadFilas.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblCantidadFilas.Location = New System.Drawing.Point(600, 72)
+        Me.lblCantidadFilas.Location = New System.Drawing.Point(800, 89)
+        Me.lblCantidadFilas.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblCantidadFilas.Name = "lblCantidadFilas"
-        Me.lblCantidadFilas.Size = New System.Drawing.Size(46, 13)
+        Me.lblCantidadFilas.Size = New System.Drawing.Size(60, 17)
         Me.lblCantidadFilas.TabIndex = 185
         Me.lblCantidadFilas.Text = "Subtotal"
         Me.lblCantidadFilas.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -841,10 +875,11 @@ Partial Class frmPresentaciones
         Me.txtIdObrasocial.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtIdObrasocial.Enabled = False
         Me.txtIdObrasocial.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.txtIdObrasocial.Location = New System.Drawing.Point(467, 14)
+        Me.txtIdObrasocial.Location = New System.Drawing.Point(623, 17)
+        Me.txtIdObrasocial.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtIdObrasocial.MaxLength = 8
         Me.txtIdObrasocial.Name = "txtIdObrasocial"
-        Me.txtIdObrasocial.Size = New System.Drawing.Size(23, 20)
+        Me.txtIdObrasocial.Size = New System.Drawing.Size(29, 22)
         Me.txtIdObrasocial.TabIndex = 179
         Me.txtIdObrasocial.Text_1 = Nothing
         Me.txtIdObrasocial.Text_2 = Nothing
@@ -858,9 +893,10 @@ Partial Class frmPresentaciones
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label4.Location = New System.Drawing.Point(741, 420)
+        Me.Label4.Location = New System.Drawing.Point(988, 517)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(96, 15)
+        Me.Label4.Size = New System.Drawing.Size(111, 18)
         Me.Label4.TabIndex = 131
         Me.Label4.Text = "Importe 100%"
         '
@@ -872,10 +908,11 @@ Partial Class frmPresentaciones
         Me.txtRecaudado.DecSeparator = Global.Microsoft.VisualBasic.ChrW(46)
         Me.txtRecaudado.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtRecaudado.Format = TextBoxConFormatoVB.tbFormats.SignedFloatingPointNumber
-        Me.txtRecaudado.Location = New System.Drawing.Point(744, 438)
+        Me.txtRecaudado.Location = New System.Drawing.Point(992, 539)
+        Me.txtRecaudado.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtRecaudado.Name = "txtRecaudado"
         Me.txtRecaudado.ReadOnly = True
-        Me.txtRecaudado.Size = New System.Drawing.Size(100, 21)
+        Me.txtRecaudado.Size = New System.Drawing.Size(132, 24)
         Me.txtRecaudado.TabIndex = 130
         Me.txtRecaudado.Text_1 = Nothing
         Me.txtRecaudado.Text_2 = Nothing
@@ -888,9 +925,10 @@ Partial Class frmPresentaciones
         '
         Me.lblStatus.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblStatus.ForeColor = System.Drawing.Color.Green
-        Me.lblStatus.Location = New System.Drawing.Point(1074, 34)
+        Me.lblStatus.Location = New System.Drawing.Point(1432, 42)
+        Me.lblStatus.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblStatus.Name = "lblStatus"
-        Me.lblStatus.Size = New System.Drawing.Size(128, 23)
+        Me.lblStatus.Size = New System.Drawing.Size(171, 28)
         Me.lblStatus.TabIndex = 127
         Me.lblStatus.Text = "-------------"
         Me.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -904,9 +942,10 @@ Partial Class frmPresentaciones
         Me.cmbObraSocial.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbObraSocial.FormattingEnabled = True
         Me.cmbObraSocial.IntegralHeight = False
-        Me.cmbObraSocial.Location = New System.Drawing.Point(245, 34)
+        Me.cmbObraSocial.Location = New System.Drawing.Point(327, 42)
+        Me.cmbObraSocial.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbObraSocial.Name = "cmbObraSocial"
-        Me.cmbObraSocial.Size = New System.Drawing.Size(245, 24)
+        Me.cmbObraSocial.Size = New System.Drawing.Size(325, 28)
         Me.cmbObraSocial.TabIndex = 1
         '
         'lblEstadoPresentacion
@@ -914,9 +953,10 @@ Partial Class frmPresentaciones
         Me.lblEstadoPresentacion.AutoSize = True
         Me.lblEstadoPresentacion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblEstadoPresentacion.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblEstadoPresentacion.Location = New System.Drawing.Point(1074, 14)
+        Me.lblEstadoPresentacion.Location = New System.Drawing.Point(1432, 17)
+        Me.lblEstadoPresentacion.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblEstadoPresentacion.Name = "lblEstadoPresentacion"
-        Me.lblEstadoPresentacion.Size = New System.Drawing.Size(51, 16)
+        Me.lblEstadoPresentacion.Size = New System.Drawing.Size(61, 20)
         Me.lblEstadoPresentacion.TabIndex = 123
         Me.lblEstadoPresentacion.Text = "Estado"
         '
@@ -928,9 +968,10 @@ Partial Class frmPresentaciones
         Me.txtObservacion.DecSeparator = Global.Microsoft.VisualBasic.ChrW(46)
         Me.txtObservacion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtObservacion.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
-        Me.txtObservacion.Location = New System.Drawing.Point(502, 35)
+        Me.txtObservacion.Location = New System.Drawing.Point(669, 43)
+        Me.txtObservacion.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtObservacion.Name = "txtObservacion"
-        Me.txtObservacion.Size = New System.Drawing.Size(337, 22)
+        Me.txtObservacion.Size = New System.Drawing.Size(448, 26)
         Me.txtObservacion.TabIndex = 2
         Me.txtObservacion.Text_1 = Nothing
         Me.txtObservacion.Text_2 = Nothing
@@ -941,9 +982,10 @@ Partial Class frmPresentaciones
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(-72, 56)
+        Me.Label8.Location = New System.Drawing.Point(-96, 69)
+        Me.Label8.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(30, 13)
+        Me.Label8.Size = New System.Drawing.Size(38, 17)
         Me.Label8.TabIndex = 118
         Me.Label8.Text = "Nota"
         '
@@ -953,9 +995,10 @@ Partial Class frmPresentaciones
         Me.chkEliminado.AutoSize = True
         Me.chkEliminado.Enabled = False
         Me.chkEliminado.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.chkEliminado.Location = New System.Drawing.Point(14, 66)
+        Me.chkEliminado.Location = New System.Drawing.Point(19, 81)
+        Me.chkEliminado.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkEliminado.Name = "chkEliminado"
-        Me.chkEliminado.Size = New System.Drawing.Size(71, 17)
+        Me.chkEliminado.Size = New System.Drawing.Size(91, 21)
         Me.chkEliminado.TabIndex = 6
         Me.chkEliminado.Text = "Eliminado"
         Me.chkEliminado.UseVisualStyleBackColor = True
@@ -966,9 +1009,10 @@ Partial Class frmPresentaciones
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label7.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label7.Location = New System.Drawing.Point(242, 14)
+        Me.Label7.Location = New System.Drawing.Point(323, 17)
+        Me.Label7.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(84, 16)
+        Me.Label7.Size = New System.Drawing.Size(103, 20)
         Me.Label7.TabIndex = 108
         Me.Label7.Text = "Obra Social*"
         '
@@ -979,10 +1023,11 @@ Partial Class frmPresentaciones
         Me.txtID.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtID.Enabled = False
         Me.txtID.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
-        Me.txtID.Location = New System.Drawing.Point(90, 16)
+        Me.txtID.Location = New System.Drawing.Point(120, 20)
+        Me.txtID.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtID.MaxLength = 8
         Me.txtID.Name = "txtID"
-        Me.txtID.Size = New System.Drawing.Size(20, 20)
+        Me.txtID.Size = New System.Drawing.Size(25, 22)
         Me.txtID.TabIndex = 50
         Me.txtID.Text_1 = Nothing
         Me.txtID.Text_2 = Nothing
@@ -995,11 +1040,12 @@ Partial Class frmPresentaciones
         '
         Me.dtpFECHA.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtpFECHA.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpFECHA.Location = New System.Drawing.Point(127, 35)
+        Me.dtpFECHA.Location = New System.Drawing.Point(169, 43)
+        Me.dtpFECHA.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.dtpFECHA.MaxDate = New Date(2099, 12, 31, 0, 0, 0, 0)
         Me.dtpFECHA.MinDate = New Date(2000, 1, 1, 0, 0, 0, 0)
         Me.dtpFECHA.Name = "dtpFECHA"
-        Me.dtpFECHA.Size = New System.Drawing.Size(102, 22)
+        Me.dtpFECHA.Size = New System.Drawing.Size(135, 26)
         Me.dtpFECHA.TabIndex = 0
         Me.dtpFECHA.Tag = "202"
         '
@@ -1008,21 +1054,22 @@ Partial Class frmPresentaciones
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label3.Location = New System.Drawing.Point(124, 14)
+        Me.Label3.Location = New System.Drawing.Point(165, 17)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(46, 16)
+        Me.Label3.Size = New System.Drawing.Size(55, 20)
         Me.Label3.TabIndex = 52
         Me.Label3.Text = "Fecha"
         '
         'frmPresentaciones
         '
         Me.AccessibleName = "OrdenDeCompra"
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1028, 609)
+        Me.ClientSize = New System.Drawing.Size(1371, 750)
         Me.Controls.Add(Me.gbMain)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(4)
+        Me.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.Name = "frmPresentaciones"
         Me.ShowIcon = False
         Me.Text = "Presentaciones"
