@@ -6,21 +6,40 @@ Imports Utiles.Util
 Public Class frmGenerarTxtPrescam
     Enum ColumnasDelGridItems
         ''NACHO
+        'ID = 0
+        'IdFarmacia = 1
+        'CodigoFarmacia = 2
+        'Nombre = 3
+        'IdPlan = 4
+        'Plan = 5
+        'IdPresentacion = 6
+        'Recetas = 7
+        'Recaudado = 8
+        'ACargoOS = 9
+        'Bonificacion = 10
+        'Total = 11
+        'CodFacaf_Farm = 12
+        'CodPlan = 13
+        'PorcenPlan = 14
         ID = 0
         IdFarmacia = 1
         CodigoFarmacia = 2
         Nombre = 3
         IdPlan = 4
         Plan = 5
-        IdPresentacion = 6
-        Recetas = 7
-        Recaudado = 8
-        ACargoOS = 9
-        Bonificacion = 10
-        Total = 11
-        CodFacaf_Farm = 12
-        CodPlan = 13
-        PorcenPlan = 14
+        Observacion = 6
+        mensajeWeb = 7
+        IdPresentacion = 8
+        Recetas = 9
+        Recaudado = 10
+        ACargoOS = 11
+        Bonificacion = 12
+        Total = 13
+        CodFacaf_Farm = 14
+        CodPlan = 15
+        PorcenPlan = 16
+        'CodPlan = 14
+        'PorcenPlan = 13
     End Enum
 
 
