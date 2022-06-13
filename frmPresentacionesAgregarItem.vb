@@ -307,6 +307,7 @@ Public Class frmPresentacionesAgregarItem
                     .Cells(grdCols.Plan).Value = cmbPlanes.Text
                     .Cells(grdCols.Observacion).Value = txtObservacion.Text
                     .Cells(grdCols.mensajeWeb).Value = txtMensajeWeb.Text
+                    .Cells(grdCols.Total).Value = Decimal.Parse(txtImpACargoOs.Text) - Decimal.Parse(txtBonificacion.Text)
                 End With
 
                 Me.Dispose()
