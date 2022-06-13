@@ -2623,4 +2623,8 @@ Public Class frmLiquidaciones
 
     End Sub
 
+    Private Sub btnTotalesConcepto_Click(sender As Object, e As EventArgs) Handles btnTotalesConcepto.Click
+        Dim TotalesConcepto As New frmLiquidacionesTotConceptos
+        TotalesConcepto.ShowDialog()
+    End Sub
 End Class

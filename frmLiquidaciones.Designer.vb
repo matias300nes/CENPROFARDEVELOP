@@ -39,14 +39,16 @@ Partial Class frmLiquidaciones
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.SuperGrdResultado = New DevComponents.DotNetBar.SuperGrid.SuperGridControl()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.btnTotalesConcepto = New DevComponents.DotNetBar.ButtonX()
         Me.chkConceptosFinales = New System.Windows.Forms.CheckBox()
         Me.btnAddConceptos = New DevComponents.DotNetBar.ButtonX()
-        Me.lblTransferencia = New System.Windows.Forms.Label()
         Me.btnLiquidar = New DevComponents.DotNetBar.ButtonX()
-        Me.Label1 = New System.Windows.Forms.Label()
+        Me.lblTransferencia = New System.Windows.Forms.Label()
         Me.lblTotal = New System.Windows.Forms.Label()
         Me.Label23 = New System.Windows.Forms.Label()
         Me.btnExcelWindow = New DevComponents.DotNetBar.ButtonX()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.lblFecha_liquidado = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.lblFecha_creacion = New System.Windows.Forms.Label()
@@ -172,7 +174,7 @@ Partial Class frmLiquidaciones
         Me.GroupBox1.ForeColor = System.Drawing.Color.Black
         Me.GroupBox1.Location = New System.Drawing.Point(0, 30)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(1553, 438)
+        Me.GroupBox1.Size = New System.Drawing.Size(1426, 438)
         Me.GroupBox1.TabIndex = 65
         Me.GroupBox1.TabStop = False
         '
@@ -189,7 +191,7 @@ Partial Class frmLiquidaciones
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1381, 303)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1403, 303)
         Me.TableLayoutPanel1.TabIndex = 417
         '
         'SuperGrdResultado
@@ -225,34 +227,60 @@ Partial Class frmLiquidaciones
         Background7.Color1 = System.Drawing.Color.Transparent
         Me.SuperGrdResultado.PrimaryGrid.DefaultVisualStyles.RowStyles.Default.Background = Background7
         Me.SuperGrdResultado.PrimaryGrid.SelectionGranularity = DevComponents.DotNetBar.SuperGrid.SelectionGranularity.Row
-        Me.SuperGrdResultado.Size = New System.Drawing.Size(1087, 283)
+        Me.SuperGrdResultado.Size = New System.Drawing.Size(1105, 283)
         Me.SuperGrdResultado.TabIndex = 381
         Me.SuperGrdResultado.Text = "SuperGridControl1"
         '
         'GroupBox4
         '
         Me.GroupBox4.CausesValidation = False
+        Me.GroupBox4.Controls.Add(Me.Label3)
+        Me.GroupBox4.Controls.Add(Me.btnTotalesConcepto)
         Me.GroupBox4.Controls.Add(Me.chkConceptosFinales)
         Me.GroupBox4.Controls.Add(Me.btnAddConceptos)
-        Me.GroupBox4.Controls.Add(Me.lblTransferencia)
         Me.GroupBox4.Controls.Add(Me.btnLiquidar)
-        Me.GroupBox4.Controls.Add(Me.Label1)
+        Me.GroupBox4.Controls.Add(Me.lblTransferencia)
         Me.GroupBox4.Controls.Add(Me.lblTotal)
         Me.GroupBox4.Controls.Add(Me.Label23)
         Me.GroupBox4.Controls.Add(Me.btnExcelWindow)
+        Me.GroupBox4.Controls.Add(Me.Label1)
         Me.GroupBox4.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GroupBox4.Location = New System.Drawing.Point(1119, 4)
+        Me.GroupBox4.Location = New System.Drawing.Point(1137, 4)
         Me.GroupBox4.Margin = New System.Windows.Forms.Padding(10, 4, 10, 10)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(252, 289)
+        Me.GroupBox4.Size = New System.Drawing.Size(256, 289)
         Me.GroupBox4.TabIndex = 386
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Resúmen"
         '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(22, 70)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(61, 13)
+        Me.Label3.TabIndex = 428
+        Me.Label3.Text = "Conceptos:"
+        '
+        'btnTotalesConcepto
+        '
+        Me.btnTotalesConcepto.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnTotalesConcepto.BackColor = System.Drawing.Color.Transparent
+        Me.btnTotalesConcepto.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
+        Me.btnTotalesConcepto.Enabled = False
+        Me.btnTotalesConcepto.Location = New System.Drawing.Point(122, 91)
+        Me.btnTotalesConcepto.Name = "btnTotalesConcepto"
+        Me.btnTotalesConcepto.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(3)
+        Me.btnTotalesConcepto.Size = New System.Drawing.Size(73, 25)
+        Me.btnTotalesConcepto.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnTotalesConcepto.TabIndex = 427
+        Me.btnTotalesConcepto.Text = "Ver totales"
+        Me.btnTotalesConcepto.TextColor = System.Drawing.SystemColors.WindowText
+        '
         'chkConceptosFinales
         '
         Me.chkConceptosFinales.AutoSize = True
-        Me.chkConceptosFinales.Location = New System.Drawing.Point(25, 125)
+        Me.chkConceptosFinales.Location = New System.Drawing.Point(23, 137)
         Me.chkConceptosFinales.Name = "chkConceptosFinales"
         Me.chkConceptosFinales.Size = New System.Drawing.Size(151, 17)
         Me.chkConceptosFinales.TabIndex = 426
@@ -264,23 +292,14 @@ Partial Class frmLiquidaciones
         Me.btnAddConceptos.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
         Me.btnAddConceptos.BackColor = System.Drawing.Color.Transparent
         Me.btnAddConceptos.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.btnAddConceptos.Location = New System.Drawing.Point(23, 74)
+        Me.btnAddConceptos.Location = New System.Drawing.Point(23, 91)
         Me.btnAddConceptos.Name = "btnAddConceptos"
         Me.btnAddConceptos.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(3)
-        Me.btnAddConceptos.Size = New System.Drawing.Size(109, 25)
+        Me.btnAddConceptos.Size = New System.Drawing.Size(84, 25)
         Me.btnAddConceptos.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnAddConceptos.TabIndex = 425
-        Me.btnAddConceptos.Text = "Agregar conceptos"
+        Me.btnAddConceptos.Text = "Agregar"
         Me.btnAddConceptos.TextColor = System.Drawing.SystemColors.WindowText
-        '
-        'lblTransferencia
-        '
-        Me.lblTransferencia.AutoSize = True
-        Me.lblTransferencia.Location = New System.Drawing.Point(98, 167)
-        Me.lblTransferencia.Name = "lblTransferencia"
-        Me.lblTransferencia.Size = New System.Drawing.Size(84, 13)
-        Me.lblTransferencia.TabIndex = 424
-        Me.lblTransferencia.Text = "$[Transferencia]"
         '
         'btnLiquidar
         '
@@ -293,20 +312,20 @@ Partial Class frmLiquidaciones
         Me.btnLiquidar.Location = New System.Drawing.Point(56, 249)
         Me.btnLiquidar.Name = "btnLiquidar"
         Me.btnLiquidar.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(3)
-        Me.btnLiquidar.Size = New System.Drawing.Size(150, 28)
+        Me.btnLiquidar.Size = New System.Drawing.Size(154, 28)
         Me.btnLiquidar.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnLiquidar.TabIndex = 393
         Me.btnLiquidar.Text = "Liquidar"
         Me.btnLiquidar.TextColor = System.Drawing.SystemColors.WindowText
         '
-        'Label1
+        'lblTransferencia
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(20, 166)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(75, 13)
-        Me.Label1.TabIndex = 423
-        Me.Label1.Text = "Transferencia:"
+        Me.lblTransferencia.AutoSize = True
+        Me.lblTransferencia.Location = New System.Drawing.Point(98, 168)
+        Me.lblTransferencia.Name = "lblTransferencia"
+        Me.lblTransferencia.Size = New System.Drawing.Size(84, 13)
+        Me.lblTransferencia.TabIndex = 424
+        Me.lblTransferencia.Text = "$[Transferencia]"
         '
         'lblTotal
         '
@@ -316,7 +335,7 @@ Partial Class frmLiquidaciones
         Me.lblTotal.ForeColor = System.Drawing.Color.DarkGreen
         Me.lblTotal.Location = New System.Drawing.Point(7, 210)
         Me.lblTotal.Name = "lblTotal"
-        Me.lblTotal.Size = New System.Drawing.Size(232, 24)
+        Me.lblTotal.Size = New System.Drawing.Size(236, 24)
         Me.lblTotal.TabIndex = 389
         Me.lblTotal.Text = "$ [Total]"
         Me.lblTotal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -337,14 +356,24 @@ Partial Class frmLiquidaciones
         Me.btnExcelWindow.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
         Me.btnExcelWindow.BackColor = System.Drawing.Color.Transparent
         Me.btnExcelWindow.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.btnExcelWindow.Location = New System.Drawing.Point(23, 33)
+        Me.btnExcelWindow.Image = CType(resources.GetObject("btnExcelWindow.Image"), System.Drawing.Image)
+        Me.btnExcelWindow.Location = New System.Drawing.Point(23, 32)
         Me.btnExcelWindow.Name = "btnExcelWindow"
         Me.btnExcelWindow.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor(3)
-        Me.btnExcelWindow.Size = New System.Drawing.Size(109, 25)
+        Me.btnExcelWindow.Size = New System.Drawing.Size(117, 25)
         Me.btnExcelWindow.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnExcelWindow.TabIndex = 382
-        Me.btnExcelWindow.Text = "Importar Planilla"
+        Me.btnExcelWindow.Text = "Imp. Excel"
         Me.btnExcelWindow.TextColor = System.Drawing.SystemColors.WindowText
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(20, 168)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(75, 13)
+        Me.Label1.TabIndex = 423
+        Me.Label1.Text = "Transferencia:"
         '
         'lblFecha_liquidado
         '
@@ -429,7 +458,7 @@ Partial Class frmLiquidaciones
         Me.lblCantidadItems.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblCantidadItems.AutoSize = True
         Me.lblCantidadItems.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.lblCantidadItems.Location = New System.Drawing.Point(1098, 88)
+        Me.lblCantidadItems.Location = New System.Drawing.Point(971, 88)
         Me.lblCantidadItems.Name = "lblCantidadItems"
         Me.lblCantidadItems.Size = New System.Drawing.Size(52, 13)
         Me.lblCantidadItems.TabIndex = 270
@@ -441,7 +470,7 @@ Partial Class frmLiquidaciones
         Me.lblCantLiq.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblCantLiq.AutoSize = True
         Me.lblCantLiq.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.lblCantLiq.Location = New System.Drawing.Point(1095, 414)
+        Me.lblCantLiq.Location = New System.Drawing.Point(968, 414)
         Me.lblCantLiq.Name = "lblCantLiq"
         Me.lblCantLiq.Size = New System.Drawing.Size(52, 13)
         Me.lblCantLiq.TabIndex = 387
@@ -463,7 +492,7 @@ Partial Class frmLiquidaciones
         Me.Label19.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label19.AutoSize = True
         Me.Label19.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.Label19.Location = New System.Drawing.Point(965, 414)
+        Me.Label19.Location = New System.Drawing.Point(838, 414)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(134, 13)
         Me.Label19.TabIndex = 271
@@ -641,7 +670,7 @@ Partial Class frmLiquidaciones
         Me.Label15.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label15.AutoSize = True
         Me.Label15.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.Label15.Location = New System.Drawing.Point(1002, 88)
+        Me.Label15.Location = New System.Drawing.Point(875, 88)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(98, 13)
         Me.Label15.TabIndex = 388
@@ -752,4 +781,6 @@ Partial Class frmLiquidaciones
     Friend WithEvents lblcmbObrasSociales As Label
     Friend WithEvents btnAddConceptos As DevComponents.DotNetBar.ButtonX
     Friend WithEvents chkConceptosFinales As CheckBox
+    Friend WithEvents Label3 As Label
+    Friend WithEvents btnTotalesConcepto As DevComponents.DotNetBar.ButtonX
 End Class

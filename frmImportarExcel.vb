@@ -148,6 +148,37 @@ Public Class frmImportarExcel
 
     End Sub
 
+    Private Sub calculateGrdTotals()
+        Dim dt As DataTable = grdDetalleLiquidacionFiltrada.DataSource
+        If dt.Rows.Count < 1 Then
+            Exit Sub
+        End If
+        Dim totalRow As DataRow = dt.NewRow
+        Dim colTotal
+        totalRow(3) = "TOTAL:"
+        For i As Integer = 4 To dt.Columns.Count - 1
+            colTotal = 0
+            For j As Integer = 0 To dt.Rows.Count - 1
+                colTotal += dt.Rows(j)(i)
+            Next
+            totalRow(i) = colTotal
+        Next
+
+        dt.Rows.Add(totalRow)
+        'totalRow.DefaultCellStyle.BackColor = Color.Red
+        'grdDetalleLiquidacionFiltrada.Rows.Add(totalRow)
+
+
+        Dim viewrow As DataGridViewRow
+        viewrow = grdDetalleLiquidacionFiltrada.Rows(dt.Rows.Count - 1)
+
+        With viewrow.DefaultCellStyle
+            .BackColor = Color.FromArgb(160, 160, 160)
+            .ForeColor = Color.White
+            .Font = New Font("Microsoft Sans Serif", 8, FontStyle.Bold)
+        End With
+    End Sub
+
     Private Sub Get_excel_templates()
         Dim connection As SqlClient.SqlConnection = Nothing
         Dim ds
@@ -634,8 +665,12 @@ Public Class frmImportarExcel
 
         grdDetalleLiquidacionFiltrada.DataSource = dt_grouped
 
+
+
         btnListo.Enabled = True
         ' DataGridView1.BringToFront()
+
+        calculateGrdTotals()
     End Sub
 
     Private Sub BtnScan_Click(sender As Object, e As EventArgs) Handles btnScan.Click
@@ -646,6 +681,9 @@ Public Class frmImportarExcel
         Dim i As Integer
         Dim rowArray
         Dim dtGrdData As DataTable = grdDetalleLiquidacionFiltrada.DataSource
+
+        ''Elimino fila de totales para que no de conflictos al preparar datos
+        dtGrdData.Rows(dtGrdData.Rows.Count - 1).Delete()
 
         Dim dtAceptados As New DataTable()
         dtAceptados.Columns.Add("IdDetalle", GetType(Long))
@@ -673,7 +711,10 @@ Public Class frmImportarExcel
             row("A Cargo OS") = item("A Cargo OS")
             'MsgBox(row("Recaudado").ToString)
             'MsgBox(row("A Cargo OS").ToString)
-            dtAceptados.Rows.Add(row)
+
+            If row("IdDetalle") IsNot DBNull.Value Then
+                dtAceptados.Rows.Add(row)
+            End If
         Next
         frmLiquidaciones.addAceptadosFromExcel(dtAceptados)
 
@@ -700,7 +741,7 @@ Public Class frmImportarExcel
                     row("valor") = Math.Round(Decimal.Parse(grdDetalleLiquidacionFiltrada.Rows(j).Cells(i).Value) * -1, 2, MidpointRounding.ToEven)
                     row("edit") = True
                     row("estado") = "insert"
-                    If (row("valor") <> 0) Then
+                    If (row("valor") <> 0 And row("IdDetalle") IsNot DBNull.Value) Then
                         dtConceptos.Rows.Add(row)
                     End If
 

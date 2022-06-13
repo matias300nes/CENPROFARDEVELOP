@@ -220,6 +220,12 @@
     <Compile Include="frmAplicarConceptos.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmLiquidacionesTotConceptos.Designer.vb">
+      <DependentUpon>frmLiquidacionesTotConceptos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmLiquidacionesTotConceptos.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmPlanes.Designer.vb">
       <DependentUpon>frmPlanes.vb</DependentUpon>
     </Compile>
@@ -1647,6 +1653,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmAplicarConceptos.resx">
       <DependentUpon>frmAplicarConceptos.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLiquidacionesTotConceptos.resx">
+      <DependentUpon>frmLiquidacionesTotConceptos.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmPlanes.resx">
       <DependentUpon>frmPlanes.vb</DependentUpon>
