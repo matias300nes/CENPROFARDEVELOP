@@ -20,6 +20,7 @@ Public Class frmSelectObraSocial
         ObraSocial = 1
         Mandataria = 2
         Grupo = 3
+        IdGrupo = 4
     End Enum
 
     Private Sub asignarTags()
@@ -72,6 +73,7 @@ Public Class frmSelectObraSocial
 
         With grdObrasSociales
             .Columns(ColumnasDelGrdObrasSociales.IdOS).Visible = False
+            .Columns(ColumnasDelGrdObrasSociales.IdGrupo).Visible = False
             .AutoResizeColumns()
         End With
     End Sub
@@ -270,7 +272,7 @@ Public Class frmSelectObraSocial
                 Dim param_idGrupo As New SqlClient.SqlParameter
                 param_idGrupo.ParameterName = "@idgrupo"
                 param_idGrupo.SqlDbType = SqlDbType.BigInt
-                param_idGrupo.Value = grdObrasSociales.CurrentRow.Cells(3).Value
+                param_idGrupo.Value = grdObrasSociales.CurrentRow.Cells(ColumnasDelGrdObrasSociales.IdGrupo).Value
                 param_idGrupo.Direction = ParameterDirection.Input
 
                 Dim param_userdel As New SqlClient.SqlParameter
