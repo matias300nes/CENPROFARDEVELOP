@@ -16,13 +16,15 @@ Public Class frmSelectPresentacion
         ID = 0
         Codigo = 1
         Fecha = 2
-        IdObraSocial = 3
+        IDObraSocial = 3
         ObraSocial = 4
-        Periodo = 5
-        Estado = 6
-        Total = 7
-        Observaciones = 8
+        idPeriodo = 5
+        Periodo = 6
+        Estado = 7
+        total = 8
+        Observaciones = 9
     End Enum
+
 
     Private Sub LlenarGrilla()
         Dim dtPresentaciones As New DataTable
