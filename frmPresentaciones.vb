@@ -695,7 +695,7 @@ Public Class frmPresentaciones
 
     Private Sub grdItems_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles grdItems.CellContentClick
         If grdItems.Columns(e.ColumnIndex).Name = "Eliminar" And e.RowIndex > -1 Then
-            If cmbEstado.Text = "PRESENTADO" Then
+            If cmbEstado.Text = "PRESENTADO" Or txtID.Text = "" Then
                 Dim result As DialogResult = MessageBox.Show($"Desea eliminar el item {grdItems.Rows(e.RowIndex).Cells(ColumnasDelGridItems.Nombre).Value}?",
                                   "Eliminar",
                                   MessageBoxButtons.YesNo)
