@@ -779,12 +779,14 @@ Public Class frmPresentaciones
 
         If cmbstatus = "PRESENTADO" Then
             btnAddFarmacia.Enabled = True
+            btnModificarItem.Enabled = True
             btnGuardar.Enabled = True
             btnNuevo.Enabled = True
         End If
 
         If cmbstatus = "" Then
             btnAddFarmacia.Enabled = True
+            btnModificarItem.Enabled = True
             btnGuardar.Enabled = True
             btnNuevo.Enabled = False
         End If
@@ -792,6 +794,7 @@ Public Class frmPresentaciones
         ''edited
         If cmbstatus = "PAGO PARCIAL" Or cmbstatus = "PAGADA" Then
             btnAddFarmacia.Enabled = False
+            btnModificarItem.Enabled = False
             btnGuardar.Enabled = False
             btnNuevo.Enabled = True
         End If
@@ -1100,6 +1103,9 @@ Public Class frmPresentaciones
     End Sub
 
     Private Sub ImprimirPresentacion()
+        If txtID.Text = "" Or lblEstadoPresentacion.Text = "PRESENTADO" Then
+            btnGuardar.PerformClick()
+        End If
         If txtID.Text <> "" Then
             Dim frmPresentacionRpt As New frmPresentacionRpt(Long.Parse(txtID.Text))
             frmPresentacionRpt.ShowDialog()

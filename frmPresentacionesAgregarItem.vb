@@ -4,8 +4,11 @@ Imports Utiles.Util
 
 Public Class frmPresentacionesAgregarItem
     Dim idObraSocial As Long
+    Dim ObraSocial As String
+    Dim PorcentajeOS As Decimal
     Dim selectedRow As DataGridViewRow
     Dim updating As Boolean
+    Dim rdbChecked As RadioButton
 
     Enum grdCols
         ID = 0
@@ -92,6 +95,44 @@ Public Class frmPresentacionesAgregarItem
         End Try
     End Sub
 
+    Private Sub GetOsData()
+        Dim connection As SqlClient.SqlConnection = Nothing
+        Dim ds As Data.DataSet
+
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+        Catch ex As Exception
+            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End Try
+
+        Try
+
+            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT ID, Nombre, Bonificacion as Porcentaje FROM ObrasSociales WHERE id = {idObraSocial}")
+            ds.Dispose()
+
+            Me.ObraSocial = ds.Tables(0).Rows(0)("Nombre")
+            Me.PorcentajeOS = ds.Tables(0).Rows(0)("Porcentaje")
+
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+              + Environment.NewLine + "Si el problema persiste contáctese con KAIZEN Software Factory a través del correo soporte@kaizensoftware.com.ar", errMessage),
+              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If Not connection Is Nothing Then
+                CType(connection, IDisposable).Dispose()
+            End If
+        End Try
+    End Sub
+
     Private Sub LlenarCmbPlanes()
         Dim connection As SqlClient.SqlConnection = Nothing
         Dim ds As Data.DataSet
@@ -105,7 +146,7 @@ Public Class frmPresentacionesAgregarItem
 
         Try
 
-            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $" SELECT p.id as Id, p.nombre as Nombre 
+            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $" SELECT p.id as Id, p.Nombre, p.Porcentaje as Porcentaje
                                                                             FROM Planes p 
                                                                             INNER JOIN ObrasSociales_Planes osp ON osp.IdPlan = p.Id 
                                                                             WHERE osp.IdObraSocial = {idObraSocial} AND p.eliminado = 0")
@@ -194,7 +235,8 @@ Public Class frmPresentacionesAgregarItem
         txtObservacion.Text = ""
         txtMensajeWeb.Text = ""
         lblTotal.Text = 0
-
+        cleanPorcentajeControls()
+        btnCleanPlan.Visible = False
         cmbFarmacias.Focus()
     End Sub
 
@@ -221,13 +263,44 @@ Public Class frmPresentacionesAgregarItem
         lblTotal.Text = String.Format("{0:N2}", subtotal)
     End Sub
 
+    Private Function calcularBonificacion(NombrePorcentaje As String, porcentaje As Decimal, rdbName As String)
+        If porcentaje > 0.00 And porcentaje <= 1 Then
+            lblNombrePorcentaje.Text = NombrePorcentaje
+            txtPorcentaje.Text = porcentaje
+
+            If rdbName = rdbACargoOS.Name And txtImpACargoOs.Text <> "" Then
+
+                txtBonificacion.Text = String.Format("{0:N2}", Decimal.Parse(txtImpACargoOs.Text) * porcentaje)
+
+                lblTotal.Text = String.Format("{0:N2}", Math.Round(
+                                              Decimal.Parse(txtImpACargoOs.Text) - Decimal.Parse(txtBonificacion.Text), 2))
+
+            ElseIf rdbName = rdbRecaudado.Name And txtImpRecaudado.Text <> "" Then
+
+                txtBonificacion.Text = String.Format("{0:N2}", Decimal.Parse(txtImpRecaudado.Text) * porcentaje)
+
+                lblTotal.Text = String.Format("{0:N2}", Math.Round(
+                                              Decimal.Parse(txtImpACargoOs.Text) - Decimal.Parse(txtBonificacion.Text), 2))
+
+            End If
+        End If
+    End Function
+
+    Private Sub cleanPorcentajeControls()
+        txtPorcentaje.Text = ""
+        lblNombrePorcentaje.Text = ""
+    End Sub
+
 #End Region
 
 #Region "Eventos"
 
     Private Sub PresentacionesAgregarItem_Load(sender As Object, e As EventArgs) Handles Me.Load
+        GetOsData()
         LlenarCmbFarmacia()
         LlenarCmbPlanes()
+
+        rdbChecked = rdbACargoOS
 
         If updating Then
             fillForm(
@@ -260,6 +333,12 @@ Public Class frmPresentacionesAgregarItem
     Private Sub txtImpRecaudado_LostFocus(sender As Object, e As EventArgs) Handles txtImpRecaudado.LostFocus
         If txtImpRecaudado.Text <> "" Then
             txtImpRecaudado.Text = String.Format("{0:N2}", Decimal.Parse(txtImpRecaudado.Text))
+
+            If cmbPlanes.SelectedItem IsNot Nothing Then
+                calcularBonificacion(cmbPlanes.SelectedItem.row(1), cmbPlanes.SelectedItem.row(2), rdbChecked.Name)
+            Else
+                calcularBonificacion(ObraSocial, PorcentajeOS, rdbChecked.Name)
+            End If
         End If
     End Sub
 
@@ -267,6 +346,13 @@ Public Class frmPresentacionesAgregarItem
         If txtImpACargoOs.Text <> "" Then
             Dim subtotal As Decimal = 0
             Dim aCargoOS As Decimal = Decimal.Parse(txtImpACargoOs.Text)
+
+            If cmbPlanes.SelectedItem IsNot Nothing Then
+                calcularBonificacion(cmbPlanes.SelectedItem.row(1), cmbPlanes.SelectedItem.row(2), rdbChecked.Name)
+            Else
+                calcularBonificacion(ObraSocial, PorcentajeOS, rdbChecked.Name)
+            End If
+
             Dim Bonificacion As Decimal = 0
             If txtBonificacion.Text <> "" Then
                 Bonificacion = Decimal.Parse(txtBonificacion.Text)
@@ -335,6 +421,59 @@ Public Class frmPresentacionesAgregarItem
         Me.Dispose()
         Me.Close()
     End Sub
+
+    Private Sub btnCleanPlan_Click(sender As Object, e As EventArgs) Handles btnCleanPlan.Click
+        cmbPlanes.SelectedItem = Nothing
+        btnCleanPlan.Visible = False
+        calcularBonificacion(ObraSocial, PorcentajeOS, rdbChecked.Name)
+
+    End Sub
+
+    Private Sub cmbPlanes_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbPlanes.SelectedIndexChanged
+        If cmbPlanes.SelectedItem IsNot Nothing Then
+            btnCleanPlan.Visible = True
+
+            If cmbPlanes.SelectedItem IsNot Nothing Then
+                calcularBonificacion(cmbPlanes.SelectedItem.row(1), cmbPlanes.SelectedItem.row(2), rdbChecked.Name)
+            Else
+                calcularBonificacion(ObraSocial, PorcentajeOS, rdbChecked.Name)
+            End If
+        End If
+    End Sub
+
+    Private Sub rdbRecaudado_CheckedChanged(sender As Object, e As EventArgs) Handles rdbRecaudado.CheckedChanged
+        If rdbRecaudado.Checked Then
+            rdbChecked = rdbRecaudado
+
+            If cmbPlanes.SelectedItem IsNot Nothing Then
+                calcularBonificacion(cmbPlanes.SelectedItem.row(1), cmbPlanes.SelectedItem.row(2), rdbRecaudado.Name)
+            Else
+                calcularBonificacion(ObraSocial, PorcentajeOS, rdbRecaudado.Name)
+            End If
+        End If
+
+    End Sub
+
+    Private Sub rdbACargoOS_CheckedChanged(sender As Object, e As EventArgs) Handles rdbACargoOS.CheckedChanged
+        If rdbACargoOS.Checked Then
+            rdbChecked = rdbACargoOS
+
+            If cmbPlanes.SelectedItem IsNot Nothing Then
+                calcularBonificacion(cmbPlanes.SelectedItem.row(1), cmbPlanes.SelectedItem.row(2), rdbACargoOS.Name)
+            Else
+                calcularBonificacion(ObraSocial, PorcentajeOS, rdbACargoOS.Name)
+            End If
+        End If
+
+    End Sub
+
+    Private Sub txtBonificacion_KeyDown(sender As Object, e As KeyEventArgs) Handles txtBonificacion.KeyDown
+        If e.KeyCode <> Keys.Enter And e.KeyCode <> Keys.Tab Then
+            cleanPorcentajeControls()
+        End If
+    End Sub
+
+
 
 #End Region
 End Class
