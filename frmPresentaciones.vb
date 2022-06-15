@@ -1103,7 +1103,7 @@ Public Class frmPresentaciones
     End Sub
 
     Private Sub ImprimirPresentacion()
-        If txtID.Text = "" Or lblEstadoPresentacion.Text = "PRESENTADO" Then
+        If txtID.Text = "" Or lblStatus.Text = "PRESENTADO" Then
             btnGuardar.PerformClick()
         End If
         If txtID.Text <> "" Then
