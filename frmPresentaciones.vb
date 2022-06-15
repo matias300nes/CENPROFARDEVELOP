@@ -1103,10 +1103,13 @@ Public Class frmPresentaciones
     End Sub
 
     Private Sub ImprimirPresentacion()
-        If txtID.Text = "" Or lblStatus.Text = "PRESENTADO" Then
-            btnGuardar.PerformClick()
-        End If
+        'Dim tempID = Long.Parse(txtID.Text)
+        'If txtID.Text = "" Or lblStatus.Text = "PRESENTADO" Then
+        '    btnGuardar.PerformClick()
+        'End If
+
         If txtID.Text <> "" Then
+
             Dim frmPresentacionRpt As New frmPresentacionRpt(Long.Parse(txtID.Text))
             frmPresentacionRpt.ShowDialog()
         Else
