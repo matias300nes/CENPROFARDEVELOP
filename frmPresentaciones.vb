@@ -136,7 +136,7 @@ Public Class frmPresentaciones
     End Function
 
 
-    Private Sub grd_SelectionChanged(sender As Object, e As EventArgs) 'Handles grd.SelectionChanged 'comentar cuando se necesite ver el diseñador
+    Private Sub grd_SelectionChanged(sender As Object, e As EventArgs) Handles grd.SelectionChanged 'comentar cuando se necesite ver el diseñador
         ''DataGridView1.SelectedRows.Count().ToString()
         If grd.SelectedRows.Count() > 1 Then
             btnUnificar.Enabled = True
@@ -695,7 +695,7 @@ Public Class frmPresentaciones
 
     Private Sub grdItems_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles grdItems.CellContentClick
         If grdItems.Columns(e.ColumnIndex).Name = "Eliminar" And e.RowIndex > -1 Then
-            If cmbEstado.Text = "PRESENTADO" Then
+            If cmbEstado.Text = "PRESENTADO" Or txtID.Text = "" Then
                 Dim result As DialogResult = MessageBox.Show($"Desea eliminar el item {grdItems.Rows(e.RowIndex).Cells(ColumnasDelGridItems.Nombre).Value}?",
                                   "Eliminar",
                                   MessageBoxButtons.YesNo)
@@ -779,12 +779,14 @@ Public Class frmPresentaciones
 
         If cmbstatus = "PRESENTADO" Then
             btnAddFarmacia.Enabled = True
+            btnModificarItem.Enabled = True
             btnGuardar.Enabled = True
             btnNuevo.Enabled = True
         End If
 
         If cmbstatus = "" Then
             btnAddFarmacia.Enabled = True
+            btnModificarItem.Enabled = True
             btnGuardar.Enabled = True
             btnNuevo.Enabled = False
         End If
@@ -792,6 +794,7 @@ Public Class frmPresentaciones
         ''edited
         If cmbstatus = "PAGO PARCIAL" Or cmbstatus = "PAGADA" Then
             btnAddFarmacia.Enabled = False
+            btnModificarItem.Enabled = False
             btnGuardar.Enabled = False
             btnNuevo.Enabled = True
         End If
@@ -1100,6 +1103,9 @@ Public Class frmPresentaciones
     End Sub
 
     Private Sub ImprimirPresentacion()
+        If txtID.Text = "" Or lblEstadoPresentacion.Text = "PRESENTADO" Then
+            btnGuardar.PerformClick()
+        End If
         If txtID.Text <> "" Then
             Dim frmPresentacionRpt As New frmPresentacionRpt(Long.Parse(txtID.Text))
             frmPresentacionRpt.ShowDialog()
