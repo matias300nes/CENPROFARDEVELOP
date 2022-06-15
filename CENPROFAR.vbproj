@@ -196,6 +196,12 @@
     <Compile Include="frmAddConceptosLiq.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmComisionCenprofarPorFarmacia.Designer.vb">
+      <DependentUpon>frmComisionCenprofarPorFarmacia.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmComisionCenprofarPorFarmacia.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmGenerarTxtPrescam.Designer.vb">
       <DependentUpon>frmGenerarTxtPrescam.vb</DependentUpon>
     </Compile>
@@ -332,6 +338,12 @@
       <DependentUpon>frmFacturaElectronica.vb</DependentUpon>
     </Compile>
     <Compile Include="frmFacturaElectronica.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSeleccionMesyAnioAFacturar.Designer.vb">
+      <DependentUpon>frmSeleccionMesyAnioAFacturar.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmSeleccionMesyAnioAFacturar.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmSelectObraSocial.Designer.vb">
@@ -1642,6 +1654,9 @@
     <EmbeddedResource Include="frmAddConceptosLiq.resx">
       <DependentUpon>frmAddConceptosLiq.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmComisionCenprofarPorFarmacia.resx">
+      <DependentUpon>frmComisionCenprofarPorFarmacia.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmGenerarTxtPrescam.resx">
       <DependentUpon>frmGenerarTxtPrescam.vb</DependentUpon>
     </EmbeddedResource>
@@ -1719,6 +1734,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmFacturaElectronica.resx">
       <DependentUpon>frmFacturaElectronica.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSeleccionMesyAnioAFacturar.resx">
+      <DependentUpon>frmSeleccionMesyAnioAFacturar.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSelectObraSocial.resx">
       <DependentUpon>frmSelectObraSocial.vb</DependentUpon>

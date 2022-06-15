@@ -4327,4 +4327,9 @@ Pedidos:
         frmPlanes.MdiParent = Me
         frmPlanes.Show()
     End Sub
+
+    Private Sub FacturaAAsociadosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FacturaAAsociadosToolStripMenuItem.Click
+        frmComisionCenprofarPorFarmacia.MdiParent = Me
+        frmComisionCenprofarPorFarmacia.Show()
+    End Sub
 End Class

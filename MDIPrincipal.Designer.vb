@@ -26,17 +26,20 @@ Partial Class MDIPrincipal
         Me.AuxiliaresToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator23 = New System.Windows.Forms.ToolStripSeparator()
         Me.RazonesSocialesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.FarmaciasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ConceptosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ProfesionalesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.FarmaciasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator15 = New System.Windows.Forms.ToolStripSeparator()
         Me.PlanesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ObrasSocialesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator14 = New System.Windows.Forms.ToolStripSeparator()
         Me.MandatariasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GruposToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PeriodoPresentacionesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator()
         Me.PresentacionesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.LiquidacionesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator19 = New System.Windows.Forms.ToolStripSeparator()
         Me.ChequesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SaldosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator24 = New System.Windows.Forms.ToolStripSeparator()
@@ -145,9 +148,7 @@ Partial Class MDIPrincipal
         Me.ToolStripStatusLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolTip = New System.Windows.Forms.ToolTip(Me.components)
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.ToolStripSeparator14 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ToolStripSeparator15 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ToolStripSeparator19 = New System.Windows.Forms.ToolStripSeparator()
+        Me.FacturaAAsociadosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip.SuspendLayout()
         Me.ToolStrip.SuspendLayout()
         Me.StatusStrip.SuspendLayout()
@@ -166,7 +167,7 @@ Partial Class MDIPrincipal
         '
         'AuxiliaresToolStripMenuItem
         '
-        Me.AuxiliaresToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripSeparator23, Me.RazonesSocialesToolStripMenuItem, Me.ConceptosToolStripMenuItem, Me.ProfesionalesToolStripMenuItem, Me.FarmaciasToolStripMenuItem, Me.ToolStripSeparator15, Me.PlanesToolStripMenuItem, Me.ObrasSocialesToolStripMenuItem, Me.ToolStripSeparator14, Me.MandatariasToolStripMenuItem, Me.GruposToolStripMenuItem, Me.PeriodoPresentacionesToolStripMenuItem, Me.ToolStripSeparator5, Me.PresentacionesToolStripMenuItem, Me.LiquidacionesToolStripMenuItem, Me.ToolStripSeparator19, Me.ChequesToolStripMenuItem, Me.SaldosToolStripMenuItem, Me.ToolStripSeparator24, Me.AsistenteDeImportacionToolStripMenuItem, Me.ToolStripMenuItem1, Me.ToolStripSeparator21, Me.SalirToolStripMenuItem})
+        Me.AuxiliaresToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripSeparator23, Me.RazonesSocialesToolStripMenuItem, Me.ConceptosToolStripMenuItem, Me.ProfesionalesToolStripMenuItem, Me.FarmaciasToolStripMenuItem, Me.ToolStripSeparator15, Me.PlanesToolStripMenuItem, Me.ObrasSocialesToolStripMenuItem, Me.ToolStripSeparator14, Me.MandatariasToolStripMenuItem, Me.GruposToolStripMenuItem, Me.PeriodoPresentacionesToolStripMenuItem, Me.ToolStripSeparator5, Me.PresentacionesToolStripMenuItem, Me.LiquidacionesToolStripMenuItem, Me.ToolStripSeparator19, Me.ChequesToolStripMenuItem, Me.SaldosToolStripMenuItem, Me.FacturaAAsociadosToolStripMenuItem, Me.ToolStripSeparator24, Me.AsistenteDeImportacionToolStripMenuItem, Me.ToolStripMenuItem1, Me.ToolStripSeparator21, Me.SalirToolStripMenuItem})
         Me.AuxiliaresToolStripMenuItem.Name = "AuxiliaresToolStripMenuItem"
         Me.AuxiliaresToolStripMenuItem.Size = New System.Drawing.Size(59, 24)
         Me.AuxiliaresToolStripMenuItem.Text = "Inicio"
@@ -183,13 +184,6 @@ Partial Class MDIPrincipal
         Me.RazonesSocialesToolStripMenuItem.Size = New System.Drawing.Size(258, 26)
         Me.RazonesSocialesToolStripMenuItem.Text = "Razones Sociales"
         '
-        'FarmaciasToolStripMenuItem
-        '
-        Me.FarmaciasToolStripMenuItem.Image = Global.CENPROFAR.My.Resources.Resources.farmacia
-        Me.FarmaciasToolStripMenuItem.Name = "FarmaciasToolStripMenuItem"
-        Me.FarmaciasToolStripMenuItem.Size = New System.Drawing.Size(258, 26)
-        Me.FarmaciasToolStripMenuItem.Text = "Farmacias..."
-        '
         'ConceptosToolStripMenuItem
         '
         Me.ConceptosToolStripMenuItem.Image = CType(resources.GetObject("ConceptosToolStripMenuItem.Image"), System.Drawing.Image)
@@ -204,6 +198,18 @@ Partial Class MDIPrincipal
         Me.ProfesionalesToolStripMenuItem.Size = New System.Drawing.Size(258, 26)
         Me.ProfesionalesToolStripMenuItem.Text = "Profesionales"
         '
+        'FarmaciasToolStripMenuItem
+        '
+        Me.FarmaciasToolStripMenuItem.Image = Global.CENPROFAR.My.Resources.Resources.farmacia
+        Me.FarmaciasToolStripMenuItem.Name = "FarmaciasToolStripMenuItem"
+        Me.FarmaciasToolStripMenuItem.Size = New System.Drawing.Size(258, 26)
+        Me.FarmaciasToolStripMenuItem.Text = "Farmacias..."
+        '
+        'ToolStripSeparator15
+        '
+        Me.ToolStripSeparator15.Name = "ToolStripSeparator15"
+        Me.ToolStripSeparator15.Size = New System.Drawing.Size(255, 6)
+        '
         'PlanesToolStripMenuItem
         '
         Me.PlanesToolStripMenuItem.Image = CType(resources.GetObject("PlanesToolStripMenuItem.Image"), System.Drawing.Image)
@@ -217,6 +223,11 @@ Partial Class MDIPrincipal
         Me.ObrasSocialesToolStripMenuItem.Name = "ObrasSocialesToolStripMenuItem"
         Me.ObrasSocialesToolStripMenuItem.Size = New System.Drawing.Size(258, 26)
         Me.ObrasSocialesToolStripMenuItem.Text = "Obras Sociales..."
+        '
+        'ToolStripSeparator14
+        '
+        Me.ToolStripSeparator14.Name = "ToolStripSeparator14"
+        Me.ToolStripSeparator14.Size = New System.Drawing.Size(255, 6)
         '
         'MandatariasToolStripMenuItem
         '
@@ -257,6 +268,11 @@ Partial Class MDIPrincipal
         Me.LiquidacionesToolStripMenuItem.Name = "LiquidacionesToolStripMenuItem"
         Me.LiquidacionesToolStripMenuItem.Size = New System.Drawing.Size(258, 26)
         Me.LiquidacionesToolStripMenuItem.Text = "Liquidaciones..."
+        '
+        'ToolStripSeparator19
+        '
+        Me.ToolStripSeparator19.Name = "ToolStripSeparator19"
+        Me.ToolStripSeparator19.Size = New System.Drawing.Size(255, 6)
         '
         'ChequesToolStripMenuItem
         '
@@ -998,20 +1014,11 @@ Partial Class MDIPrincipal
         '
         Me.Timer1.Interval = 1200000
         '
-        'ToolStripSeparator14
+        'FacturaAAsociadosToolStripMenuItem
         '
-        Me.ToolStripSeparator14.Name = "ToolStripSeparator14"
-        Me.ToolStripSeparator14.Size = New System.Drawing.Size(255, 6)
-        '
-        'ToolStripSeparator15
-        '
-        Me.ToolStripSeparator15.Name = "ToolStripSeparator15"
-        Me.ToolStripSeparator15.Size = New System.Drawing.Size(255, 6)
-        '
-        'ToolStripSeparator19
-        '
-        Me.ToolStripSeparator19.Name = "ToolStripSeparator19"
-        Me.ToolStripSeparator19.Size = New System.Drawing.Size(255, 6)
+        Me.FacturaAAsociadosToolStripMenuItem.Name = "FacturaAAsociadosToolStripMenuItem"
+        Me.FacturaAAsociadosToolStripMenuItem.Size = New System.Drawing.Size(258, 26)
+        Me.FacturaAAsociadosToolStripMenuItem.Text = "Factura a Asociados"
         '
         'MDIPrincipal
         '
@@ -1167,4 +1174,5 @@ Partial Class MDIPrincipal
     Friend WithEvents ToolStripSeparator15 As ToolStripSeparator
     Friend WithEvents ToolStripSeparator14 As ToolStripSeparator
     Friend WithEvents ToolStripSeparator19 As ToolStripSeparator
+    Friend WithEvents FacturaAAsociadosToolStripMenuItem As ToolStripMenuItem
 End Class

@@ -2,25 +2,9 @@
 Imports Microsoft.ApplicationBlocks.Data
 Imports Utiles.Util
 
-Public Class frmFacturaElectronica
+Public Class frmComisionCenprofarPorFarmacia
     'Declaro las variables que voy a pasarle al frm
-    Dim idOrigen, IdObraSocial, Periodo, TotalACargoOS, NombreOS, DireccionOS As String
-
-
-    Public Sub New(idOrigen As String, IdObraSocial As String, Periodo As String, TotalACargoOS As String)
-
-        'Esta llamada es exigida por el diseñador.
-        InitializeComponent()
-
-        'Agregue cualquier inicialización después de la llamada a InitializeComponent().
-        Me.idOrigen = idOrigen
-        Me.IdObraSocial = IdObraSocial
-        Me.Periodo = Periodo
-        Me.TotalACargoOS = TotalACargoOS
-
-
-    End Sub
-
+    Dim idOrigen, IdObraSocial, Periodo, TotalACargoOS, NombreOS, DireccionOS, MesComision, AnioComision As String
 
     'Varible de transaccion
     Dim tran As SqlClient.SqlTransaction
@@ -60,47 +44,83 @@ Public Class frmFacturaElectronica
 
     Dim banNota As Integer, bandComp As Integer
 
+    Private Sub CalcularTotales()
+        ''CALCULA LOS TOTALES DE LA GRIDITEMS
+        Dim i As Integer
+        Dim count As Integer = 0
+        Dim Recaudado As Decimal = 0
+        Dim ACargoOS As Decimal = 0
+        Dim Total As Decimal = 0
+
+        For i = 0 To grdFarmacia.Rows.Count - 1
+            With grdFarmacia.Rows(i)
+                If .Visible = True Then
+                    Total += .Cells(11).Value
+                    count += 1
+                End If
+            End With
+        Next
+        txtTotal.Text = String.Format("{0:N2}", Total)
+        'lblCantidadFilas.Text = count
+    End Sub
+
     Private Sub btnGenerarFE_Click(sender As Object, e As EventArgs) Handles btnGenerarFE.Click
         Dim importe_iva, importe_subtotal, importe_total
         Dim resbool As Boolean = False
+        Dim i As Integer
 
-        importe_iva = "0.00"
-        importe_subtotal = TotalACargoOS
-        importe_total = TotalACargoOS
-        TipoDoc = cmbDocTipo.SelectedValue
+        importe_subtotal = 0
+        importe_total = 0
+
+        For i = 0 To grdFarmacia.Rows.Count - 1
+            With grdFarmacia.Rows(i)
+                If .Visible = True Then
+                    importe_subtotal = .Cells(11).Value
+                    importe_total = .Cells(11).Value
+                    'count += 1
+                    importe_iva = "0.00"
+                    'importe_subtotal = TotalACargoOS
+                    'importe_total = TotalACargoOS
+                    TipoDoc = cmbDocTipo.SelectedValue
 
 
-        If True Then 'preguntar si desea generar la factura, para la obra social
-            chkConexion.Checked = ConexionAfip(saveTA, saveTOKEN, saveSING)
-            If chkConexion.Checked Then
-                'debo comprobar el caso de que eligan tarjeta de credito o tarjeta de debito
-                resbool = GenerarFE(sender, e, CInt(cmbTipoComprobante.SelectedValue), CInt(PTOVTA), TipoDoc, txtCuit.Text, importe_iva, importe_subtotal, importe_total, cmbConceptosFE.SelectedValue)
-                If resbool = False Then
-                    MsgBox("No se pudo generar la factura electrónica.", MsgBoxStyle.Critical)
-                    Cancelar_Tran()
-                    'txtCodigoBarra.Focus()
-                    Exit Sub
-                Else
-                    ValorCae = ""
-                    ValorFac = ""
-                    ValorVen = ""
+                    If True Then 'preguntar si desea generar la factura, para la obra social
+                        chkConexion.Checked = ConexionAfip(saveTA, saveTOKEN, saveSING)
+                        If chkConexion.Checked Then
+                            'debo comprobar el caso de que eligan tarjeta de credito o tarjeta de debito
+                            resbool = GenerarFE(sender, e, CInt(cmbTipoComprobante.SelectedValue), CInt(PTOVTA), TipoDoc, txtCuit.Text, importe_iva, importe_subtotal, importe_total, cmbConceptosFE.SelectedValue)
+                            If resbool = False Then
+                                MsgBox("No se pudo generar la factura electrónica.", MsgBoxStyle.Critical)
+                                Cancelar_Tran()
+                                'txtCodigoBarra.Focus()
+                                Exit Sub
+                            Else
+                                ValorCae = ""
+                                ValorFac = ""
+                                ValorVen = ""
+                            End If
+                        Else
+                            MsgBox("Se perdió la conexión con Servidor de AFIP. Por favor intente más tarde", MsgBoxStyle.Information)
+                            Cancelar_Tran()
+                            'txtCodigoBarra.Focus()
+                            Exit Sub
+                        End If
+                    Else
+                        'cierro la transaccion
+                        Cerrar_Tran()
+                    End If
+
+                    ' cerrar la conexion si está abierta.
+                    '
+                    If Not conn_del_form Is Nothing Then
+                        CType(conn_del_form, IDisposable).Dispose()
+                    End If
                 End If
-            Else
-                MsgBox("Se perdió la conexión con Servidor de AFIP. Por favor intente más tarde", MsgBoxStyle.Information)
-                Cancelar_Tran()
-                'txtCodigoBarra.Focus()
-                Exit Sub
-            End If
-        Else
-            'cierro la transaccion
-            Cerrar_Tran()
-        End If
+            End With
+        Next
 
-        ' cerrar la conexion si está abierta.
-        '
-        If Not conn_del_form Is Nothing Then
-            CType(conn_del_form, IDisposable).Dispose()
-        End If
+
+
 
     End Sub
 
@@ -208,7 +228,7 @@ Public Class frmFacturaElectronica
     Private Sub requestGrdData()
         dtFarmacias = New DataTable()
         Dim connection As SqlClient.SqlConnection = Nothing
-        Dim sql As String = "exec spSaldos_Select_All @Eliminado = 0"
+        Dim sql As String = $"exec spComisionCentroPorFarmacia_Select_All @Eliminado = 0, @mes = 'mayo', @anio = '{Today.Year.ToString}'"
         Try
             connection = SqlHelper.GetConnection(ConnStringSEI)
         Catch ex As Exception
@@ -245,6 +265,27 @@ Public Class frmFacturaElectronica
         'End If
 
     End Sub
+
+    'Private Sub requestGrdComision()
+    '    Dim connection As SqlClient.SqlConnection = Nothing
+    '    Dim dt As New DataTable()
+    '    Dim sql As String = $"exec spComisionCentroPorFarmacia_Select_All @Eliminado = 0, @idfarmacia = 20134, @mes = '', @anio = ''"
+    '    If txtID.Text <> "" Then
+    '        Try
+    '            connection = SqlHelper.GetConnection(ConnStringSEI)
+
+    '            Dim cmd As New SqlCommand(sql, connection)
+    '            Dim da As New SqlDataAdapter(cmd)
+
+    '            da.Fill(dt)
+
+    '            'grdHistorial.DataSource = dt
+    '        Catch ex As Exception
+    '            MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+    '            Exit Sub
+    '        End Try
+    '    End If
+    'End Sub
 
     '----------------Funciones Afip--------------------
     Private Sub LlenarcmbCondicionIVA()
@@ -303,10 +344,10 @@ Public Class frmFacturaElectronica
         Try
             'If chkNotaCredito.Checked = False Then
             ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT Codigo,Descripcion FROM Comprobantes WHERE Habilitado = 1")
-                'Else
-                '    ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT Codigo,Descripcion FROM Comprobantes WHERE Habilitado = 1")
-                'End If
-                ds.Dispose()
+            'Else
+            '    ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT Codigo,Descripcion FROM Comprobantes WHERE Habilitado = 1")
+            'End If
+            ds.Dispose()
 
             With cmbTipoComprobante
                 .DataSource = ds.Tables(0).DefaultView
@@ -1359,6 +1400,8 @@ Public Class frmFacturaElectronica
         LlenarcmbCondicionIVA()
         LlenarcmbComprobantes()
         LlenarcmbConceptosFE()
+        Dim frmAnioyMes As New frmSeleccionMesyAnioAFacturar()
+        frmAnioyMes.ShowDialog()
         'requestGrdData()
         If txtID.Text <> "" Then
             'setStyles()
@@ -1369,6 +1412,7 @@ Public Class frmFacturaElectronica
         txtPuntoVta.Text = PTOVTA
         txtImporte.Text = TotalACargoOS
     End Sub
+
 
     Private Sub getFields()
 
@@ -1399,11 +1443,11 @@ Public Class frmFacturaElectronica
             lblModo.Visible = HOMO
             pathComprobantesAFIP = path_raiz & "\Comprobantes Facturas - " + Utiles.Empresa + "\"
 
-            ''traigo datos de tabla obras sociales
-            ds_General = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT Nombre, Domicilio, Cuit FROM ObrasSociales WHERE ID = {IdObraSocial}")
-            lblObraSocial.Text = ds_General.Tables(0).Rows(0).Item(0).ToString
-            txtDomicilio.Text = ds_General.Tables(0).Rows(0).Item(1).ToString
-            txtCuit.Text = ds_General.Tables(0).Rows(0).Item(2).ToString
+            ''traigo datos de tabla razones sociales
+            'ds_General = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT Nombre, Domicilio, Cuit FROM ObrasSociales WHERE ID = {IdObraSocial}")
+            lblObraSocial.Text = grdFarmacia.Rows(0).Cells(5).Value.ToString 'ds_General.Tables(0).Rows(0).Item(0).ToString
+            txtDomicilio.Text = grdFarmacia.Rows(0).Cells(7).Value.ToString 'ds_General.Tables(0).Rows(0).Item(1).ToString
+            txtCuit.Text = grdFarmacia.Rows(0).Cells(6).Value.ToString 'ds_General.Tables(0).Rows(0).Item(2).ToString
 
             ''traer nrocomprobante de la ultima factura 
 
@@ -1458,23 +1502,27 @@ Public Class frmFacturaElectronica
         End If
     End Sub
 
-    Private Sub grdFarmacia_SelectionChanged(sender As Object, e As EventArgs) Handles grdFarmacia.SelectionChanged
+    Private Sub grdFarmacia_SelectionChanged(sender As Object, e As EventArgs) Handles grdFarmacia.SelectionChanged 'comentar
 
-        If grdFarmacia.CurrentRow IsNot Nothing Then
-            If grdFarmacia.CurrentRow.Cells(0).Value.ToString <> txtID.Text Then
-                txtID.Text = grdFarmacia.CurrentRow.Cells(0).Value
-            End If
-        End If
+        'DESCOMENTAR
 
-        If grdFarmacia.SelectedRows.Count > 1 Then
-            btnSelection.Text = "Seleccionar marcados"
-        Else
-            If dtFarmacias.Select("[Selección] = 1").Length > 0 Then
-                btnSelection.Text = "Deseleccionar todo"
-            Else
-                btnSelection.Text = "Seleccionar todo"
-            End If
-        End If
+        'If grdFarmacia.CurrentRow IsNot Nothing Then
+        '    If grdFarmacia.CurrentRow.Cells(0).Value.ToString <> txtID.Text Then
+        '        txtID.Text = grdFarmacia.CurrentRow.Cells(0).Value
+        '    End If
+        'End If
+
+        'If grdFarmacia.SelectedRows.Count > 1 Then
+        '    btnSelection.Text = "Seleccionar marcados"
+        'Else
+        '    If dtFarmacias.Select("[Selección] = 1").Length > 0 Then
+        '        btnSelection.Text = "Deseleccionar todo"
+        '    Else
+        '        btnSelection.Text = "Seleccionar todo"
+        '    End If
+        'End If
+
+        CalcularTotales()
     End Sub
 
 
@@ -1491,7 +1539,7 @@ Public Class frmFacturaElectronica
 
     End Sub
 
-    Private Sub btnPago_Click(sender As Object, e As EventArgs)
+    Private Sub btnGenerarComisiones_Click(sender As Object, e As EventArgs) Handles btnGenerarComisiones.Click
         ''me aseguro de que quede la fila seleccionada
         Dim temprow As DataGridViewCell = Nothing
         If grdFarmacia.CurrentCell IsNot Nothing Then
@@ -1504,8 +1552,9 @@ Public Class frmFacturaElectronica
             Dim dv As New DataView(dtFarmacias)
             dv.RowFilter = $"[Selección] = 1"
 
-            Dim AgregarCheques As New frmAgregarPagos(dv.ToTable())
-            AgregarCheques.ShowDialog()
+            'Dim frmAnioyMes As New frmSeleccionMesyAnioAFacturar(dv.ToTable())
+            Dim frmAnioyMes As New frmSeleccionMesyAnioAFacturar()
+            frmAnioyMes.ShowDialog()
         Else
             MsgBox("Debe seleccionar al menos una razón social para poder realizar el pago.")
         End If
@@ -1593,6 +1642,8 @@ Public Class frmFacturaElectronica
             txtNroComprobanteNotaCred.Enabled = False
         End If
     End Sub
+
+
 
 
 
