@@ -42,6 +42,7 @@ Partial Class MDIPrincipal
         Me.ToolStripSeparator19 = New System.Windows.Forms.ToolStripSeparator()
         Me.ChequesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SaldosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.FacturaAAsociadosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator24 = New System.Windows.Forms.ToolStripSeparator()
         Me.AsistenteDeImportacionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
@@ -148,7 +149,6 @@ Partial Class MDIPrincipal
         Me.ToolStripStatusLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolTip = New System.Windows.Forms.ToolTip(Me.components)
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.FacturaAAsociadosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip.SuspendLayout()
         Me.ToolStrip.SuspendLayout()
         Me.StatusStrip.SuspendLayout()
@@ -287,6 +287,13 @@ Partial Class MDIPrincipal
         Me.SaldosToolStripMenuItem.Name = "SaldosToolStripMenuItem"
         Me.SaldosToolStripMenuItem.Size = New System.Drawing.Size(258, 26)
         Me.SaldosToolStripMenuItem.Text = "Saldos..."
+        '
+        'FacturaAAsociadosToolStripMenuItem
+        '
+        Me.FacturaAAsociadosToolStripMenuItem.Name = "FacturaAAsociadosToolStripMenuItem"
+        Me.FacturaAAsociadosToolStripMenuItem.Size = New System.Drawing.Size(258, 26)
+        Me.FacturaAAsociadosToolStripMenuItem.Text = "Factura a Asociados"
+        Me.FacturaAAsociadosToolStripMenuItem.Visible = False
         '
         'ToolStripSeparator24
         '
@@ -1013,12 +1020,6 @@ Partial Class MDIPrincipal
         'Timer1
         '
         Me.Timer1.Interval = 1200000
-        '
-        'FacturaAAsociadosToolStripMenuItem
-        '
-        Me.FacturaAAsociadosToolStripMenuItem.Name = "FacturaAAsociadosToolStripMenuItem"
-        Me.FacturaAAsociadosToolStripMenuItem.Size = New System.Drawing.Size(258, 26)
-        Me.FacturaAAsociadosToolStripMenuItem.Text = "Factura a Asociados"
         '
         'MDIPrincipal
         '
