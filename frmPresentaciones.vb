@@ -702,8 +702,12 @@ Public Class frmPresentaciones
 
                 If result = DialogResult.Yes Then
                     'MsgBox(bolModo)
+                    btnImprimir.Enabled = False
+                    btnImprimirRpt.Enabled = False
                     If grdItems.Rows(e.RowIndex).Cells(ColumnasDelGridItems.ID).Value = 0 Then
                         grdItems.Rows.RemoveAt(e.RowIndex) 'la borramos directamente
+                        btnImprimir.Enabled = False
+                        btnImprimirRpt.Enabled = False
                     Else
                         grdItems.Rows(e.RowIndex).Visible = False
                     End If
@@ -1818,6 +1822,8 @@ Public Class frmPresentaciones
             CargarCajas()
             PrepararBotones()
             Me.Cursor = Cursors.Default
+            btnImprimir.Enabled = True
+            btnImprimirRpt.Enabled = True
             'GrillaActualizar()
         End If
 
@@ -2148,7 +2154,8 @@ Public Class frmPresentaciones
         grd_CurrentCellChanged(sender, e)
         btnNuevo.Enabled = True
         llenarCmbEstados()
-
+        btnImprimir.Enabled = True
+        btnImprimirRpt.Enabled = True
         'bolModo = False
     End Sub
 
@@ -2616,7 +2623,6 @@ Public Class frmPresentaciones
                                                TotalACargoOS:=txtACargoOS.Text)
         frmFacturaElectronica.ShowDialog()
     End Sub
-
 
 
 #End Region
