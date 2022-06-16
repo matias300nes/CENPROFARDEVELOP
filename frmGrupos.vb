@@ -269,9 +269,14 @@ Public Class frmGrupos
     End Sub
 
     Protected Sub GrillaStyles()
-        grdGrupos_Os.Columns(columnasDelGrdGrupos_OS.IdMandataria).Visible = False
-        grdGrupos_Os.Columns(columnasDelGrdGrupos_OS.Mandataria).Visible = False
-        grdGrupos_Os.AutoResizeColumns()
+
+        If grdGrupos_Os.RowCount > 0 Then
+            grdGrupos_Os.Columns(columnasDelGrdGrupos_OS.IdMandataria).Visible = False
+            grdGrupos_Os.Columns(columnasDelGrdGrupos_OS.Mandataria).Visible = False
+            grdGrupos_Os.AutoResizeColumns()
+        End If
+
+
     End Sub
 
     Private Function EliminarRegistro() As Integer
