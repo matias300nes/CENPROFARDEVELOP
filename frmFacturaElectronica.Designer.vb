@@ -23,7 +23,7 @@ Partial Class frmFacturaElectronica
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmFacturaElectronica))
-        Me.grdFarmacia = New System.Windows.Forms.DataGridView()
+        Me.grdFEObrasSociales = New System.Windows.Forms.DataGridView()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.txtBuscar = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -52,7 +52,7 @@ Partial Class frmFacturaElectronica
         Me.Label12 = New System.Windows.Forms.Label()
         Me.txtImporte = New System.Windows.Forms.TextBox()
         Me.Label13 = New System.Windows.Forms.Label()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.txtobservacion = New System.Windows.Forms.TextBox()
         Me.chkNotaCredito = New System.Windows.Forms.CheckBox()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.txtNroComprobanteNotaCred = New System.Windows.Forms.TextBox()
@@ -75,27 +75,27 @@ Partial Class frmFacturaElectronica
         Me.Label22 = New System.Windows.Forms.Label()
         Me.cmbDocTipo = New System.Windows.Forms.ComboBox()
         Me.lblObraSocial = New System.Windows.Forms.Label()
-        CType(Me.grdFarmacia, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.grdFEObrasSociales, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicConexion, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'grdFarmacia
+        'grdFEObrasSociales
         '
-        Me.grdFarmacia.AllowUserToAddRows = False
-        Me.grdFarmacia.AllowUserToDeleteRows = False
-        Me.grdFarmacia.AllowUserToResizeRows = False
-        Me.grdFarmacia.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.grdFEObrasSociales.AllowUserToAddRows = False
+        Me.grdFEObrasSociales.AllowUserToDeleteRows = False
+        Me.grdFEObrasSociales.AllowUserToResizeRows = False
+        Me.grdFEObrasSociales.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.grdFarmacia.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
-        Me.grdFarmacia.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.grdFarmacia.Location = New System.Drawing.Point(23, 351)
-        Me.grdFarmacia.Margin = New System.Windows.Forms.Padding(4)
-        Me.grdFarmacia.Name = "grdFarmacia"
-        Me.grdFarmacia.RowHeadersVisible = False
-        Me.grdFarmacia.RowHeadersWidth = 51
-        Me.grdFarmacia.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.grdFarmacia.Size = New System.Drawing.Size(1064, 258)
-        Me.grdFarmacia.TabIndex = 0
+        Me.grdFEObrasSociales.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.grdFEObrasSociales.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.grdFEObrasSociales.Location = New System.Drawing.Point(23, 304)
+        Me.grdFEObrasSociales.Margin = New System.Windows.Forms.Padding(4)
+        Me.grdFEObrasSociales.Name = "grdFEObrasSociales"
+        Me.grdFEObrasSociales.RowHeadersVisible = False
+        Me.grdFEObrasSociales.RowHeadersWidth = 51
+        Me.grdFEObrasSociales.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.grdFEObrasSociales.Size = New System.Drawing.Size(1064, 258)
+        Me.grdFEObrasSociales.TabIndex = 0
         '
         'Label1
         '
@@ -109,7 +109,7 @@ Partial Class frmFacturaElectronica
         '
         'txtBuscar
         '
-        Me.txtBuscar.Location = New System.Drawing.Point(89, 324)
+        Me.txtBuscar.Location = New System.Drawing.Point(89, 277)
         Me.txtBuscar.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBuscar.Name = "txtBuscar"
         Me.txtBuscar.Size = New System.Drawing.Size(291, 22)
@@ -118,7 +118,7 @@ Partial Class frmFacturaElectronica
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(23, 327)
+        Me.Label3.Location = New System.Drawing.Point(23, 280)
         Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(56, 17)
@@ -130,7 +130,7 @@ Partial Class frmFacturaElectronica
         Me.lblSeleccionados.AutoSize = True
         Me.lblSeleccionados.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblSeleccionados.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblSeleccionados.Location = New System.Drawing.Point(201, 624)
+        Me.lblSeleccionados.Location = New System.Drawing.Point(201, 577)
         Me.lblSeleccionados.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblSeleccionados.Name = "lblSeleccionados"
         Me.lblSeleccionados.Size = New System.Drawing.Size(112, 17)
@@ -149,7 +149,7 @@ Partial Class frmFacturaElectronica
         '
         'btnSelection
         '
-        Me.btnSelection.Location = New System.Drawing.Point(21, 618)
+        Me.btnSelection.Location = New System.Drawing.Point(21, 571)
         Me.btnSelection.Margin = New System.Windows.Forms.Padding(4)
         Me.btnSelection.Name = "btnSelection"
         Me.btnSelection.Size = New System.Drawing.Size(171, 28)
@@ -168,10 +168,10 @@ Partial Class frmFacturaElectronica
         Me.btnPrint.Image = Global.CENPROFAR.My.Resources.Resources.btnimprimir
         Me.btnPrint.ImageFixedSize = New System.Drawing.Size(20, 20)
         Me.btnPrint.ImagePosition = DevComponents.DotNetBar.eImagePosition.Right
-        Me.btnPrint.Location = New System.Drawing.Point(973, 320)
+        Me.btnPrint.Location = New System.Drawing.Point(974, 270)
         Me.btnPrint.Margin = New System.Windows.Forms.Padding(4)
         Me.btnPrint.Name = "btnPrint"
-        Me.btnPrint.Size = New System.Drawing.Size(112, 30)
+        Me.btnPrint.Size = New System.Drawing.Size(112, 29)
         Me.btnPrint.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnPrint.TabIndex = 398
         Me.btnPrint.Text = "Imprimir"
@@ -181,7 +181,7 @@ Partial Class frmFacturaElectronica
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(548, 325)
+        Me.Label4.Location = New System.Drawing.Point(548, 278)
         Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(87, 17)
@@ -192,7 +192,7 @@ Partial Class frmFacturaElectronica
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(764, 325)
+        Me.Label5.Location = New System.Drawing.Point(764, 278)
         Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(74, 17)
@@ -203,7 +203,7 @@ Partial Class frmFacturaElectronica
         'dtpFechaInicio
         '
         Me.dtpFechaInicio.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpFechaInicio.Location = New System.Drawing.Point(642, 322)
+        Me.dtpFechaInicio.Location = New System.Drawing.Point(642, 275)
         Me.dtpFechaInicio.Name = "dtpFechaInicio"
         Me.dtpFechaInicio.Size = New System.Drawing.Size(111, 22)
         Me.dtpFechaInicio.TabIndex = 403
@@ -212,7 +212,7 @@ Partial Class frmFacturaElectronica
         'dtpFechaFin
         '
         Me.dtpFechaFin.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpFechaFin.Location = New System.Drawing.Point(845, 322)
+        Me.dtpFechaFin.Location = New System.Drawing.Point(845, 275)
         Me.dtpFechaFin.Name = "dtpFechaFin"
         Me.dtpFechaFin.Size = New System.Drawing.Size(111, 22)
         Me.dtpFechaFin.TabIndex = 404
@@ -224,7 +224,7 @@ Partial Class frmFacturaElectronica
         Me.btnGenerarFE.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnGenerarFE.BackColor = System.Drawing.SystemColors.Control
         Me.btnGenerarFE.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.btnGenerarFE.Location = New System.Drawing.Point(974, 626)
+        Me.btnGenerarFE.Location = New System.Drawing.Point(974, 579)
         Me.btnGenerarFE.Margin = New System.Windows.Forms.Padding(4)
         Me.btnGenerarFE.Name = "btnGenerarFE"
         Me.btnGenerarFE.Size = New System.Drawing.Size(113, 31)
@@ -236,7 +236,7 @@ Partial Class frmFacturaElectronica
         'chkConexion
         '
         Me.chkConexion.AutoSize = True
-        Me.chkConexion.Location = New System.Drawing.Point(320, 624)
+        Me.chkConexion.Location = New System.Drawing.Point(320, 577)
         Me.chkConexion.Name = "chkConexion"
         Me.chkConexion.Size = New System.Drawing.Size(88, 21)
         Me.chkConexion.TabIndex = 406
@@ -249,7 +249,7 @@ Partial Class frmFacturaElectronica
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label2.Location = New System.Drawing.Point(23, 300)
+        Me.Label2.Location = New System.Drawing.Point(23, 253)
         Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(120, 17)
@@ -363,7 +363,7 @@ Partial Class frmFacturaElectronica
         'Label12
         '
         Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(890, 188)
+        Me.Label12.Location = New System.Drawing.Point(591, 185)
         Me.Label12.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(55, 17)
@@ -372,7 +372,7 @@ Partial Class frmFacturaElectronica
         '
         'txtImporte
         '
-        Me.txtImporte.Location = New System.Drawing.Point(893, 209)
+        Me.txtImporte.Location = New System.Drawing.Point(594, 206)
         Me.txtImporte.Margin = New System.Windows.Forms.Padding(4)
         Me.txtImporte.Name = "txtImporte"
         Me.txtImporte.Size = New System.Drawing.Size(147, 22)
@@ -381,26 +381,26 @@ Partial Class frmFacturaElectronica
         'Label13
         '
         Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(322, 189)
+        Me.Label13.Location = New System.Drawing.Point(23, 186)
         Me.Label13.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(88, 17)
         Me.Label13.TabIndex = 423
         Me.Label13.Text = "Observación"
         '
-        'TextBox2
+        'txtobservacion
         '
-        Me.TextBox2.Location = New System.Drawing.Point(325, 211)
-        Me.TextBox2.Margin = New System.Windows.Forms.Padding(4)
-        Me.TextBox2.Multiline = True
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(560, 21)
-        Me.TextBox2.TabIndex = 422
+        Me.txtobservacion.Location = New System.Drawing.Point(26, 208)
+        Me.txtobservacion.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtobservacion.Multiline = True
+        Me.txtobservacion.Name = "txtobservacion"
+        Me.txtobservacion.Size = New System.Drawing.Size(560, 21)
+        Me.txtobservacion.TabIndex = 422
         '
         'chkNotaCredito
         '
         Me.chkNotaCredito.AutoSize = True
-        Me.chkNotaCredito.Location = New System.Drawing.Point(31, 211)
+        Me.chkNotaCredito.Location = New System.Drawing.Point(767, 206)
         Me.chkNotaCredito.Name = "chkNotaCredito"
         Me.chkNotaCredito.Size = New System.Drawing.Size(109, 21)
         Me.chkNotaCredito.TabIndex = 424
@@ -410,7 +410,7 @@ Partial Class frmFacturaElectronica
         'Label14
         '
         Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(144, 189)
+        Me.Label14.Location = New System.Drawing.Point(880, 184)
         Me.Label14.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(120, 17)
@@ -419,7 +419,7 @@ Partial Class frmFacturaElectronica
         '
         'txtNroComprobanteNotaCred
         '
-        Me.txtNroComprobanteNotaCred.Location = New System.Drawing.Point(147, 210)
+        Me.txtNroComprobanteNotaCred.Location = New System.Drawing.Point(883, 205)
         Me.txtNroComprobanteNotaCred.Margin = New System.Windows.Forms.Padding(4)
         Me.txtNroComprobanteNotaCred.Name = "txtNroComprobanteNotaCred"
         Me.txtNroComprobanteNotaCred.Size = New System.Drawing.Size(162, 22)
@@ -445,7 +445,7 @@ Partial Class frmFacturaElectronica
         '
         'PicConexion
         '
-        Me.PicConexion.Location = New System.Drawing.Point(935, 629)
+        Me.PicConexion.Location = New System.Drawing.Point(935, 582)
         Me.PicConexion.Name = "PicConexion"
         Me.PicConexion.Size = New System.Drawing.Size(36, 31)
         Me.PicConexion.TabIndex = 429
@@ -475,7 +475,7 @@ Partial Class frmFacturaElectronica
         Me.lblModo.BackColor = System.Drawing.Color.Transparent
         Me.lblModo.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblModo.ForeColor = System.Drawing.Color.Red
-        Me.lblModo.Location = New System.Drawing.Point(415, 624)
+        Me.lblModo.Location = New System.Drawing.Point(415, 577)
         Me.lblModo.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblModo.Name = "lblModo"
         Me.lblModo.Size = New System.Drawing.Size(232, 24)
@@ -550,7 +550,7 @@ Partial Class frmFacturaElectronica
         'cmbFormaPago
         '
         Me.cmbFormaPago.FormattingEnabled = True
-        Me.cmbFormaPago.Items.AddRange(New Object() {"CONTADO", "T. DÉBITO", "T. CRÉDITO", "CUENTA CORRIENTE", "CHEQUE", "TICKET", "OTRA"})
+        Me.cmbFormaPago.Items.AddRange(New Object() {"CONTADO"})
         Me.cmbFormaPago.Location = New System.Drawing.Point(388, 150)
         Me.cmbFormaPago.Name = "cmbFormaPago"
         Me.cmbFormaPago.Size = New System.Drawing.Size(149, 24)
@@ -607,7 +607,7 @@ Partial Class frmFacturaElectronica
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1112, 670)
+        Me.ClientSize = New System.Drawing.Size(1112, 619)
         Me.Controls.Add(Me.lblObraSocial)
         Me.Controls.Add(Me.Label22)
         Me.Controls.Add(Me.cmbDocTipo)
@@ -631,7 +631,7 @@ Partial Class frmFacturaElectronica
         Me.Controls.Add(Me.txtNroComprobanteNotaCred)
         Me.Controls.Add(Me.chkNotaCredito)
         Me.Controls.Add(Me.Label13)
-        Me.Controls.Add(Me.TextBox2)
+        Me.Controls.Add(Me.txtobservacion)
         Me.Controls.Add(Me.Label12)
         Me.Controls.Add(Me.txtImporte)
         Me.Controls.Add(Me.Label10)
@@ -659,21 +659,21 @@ Partial Class frmFacturaElectronica
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.txtBuscar)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.grdFarmacia)
+        Me.Controls.Add(Me.grdFEObrasSociales)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MinimumSize = New System.Drawing.Size(994, 47)
         Me.Name = "frmFacturaElectronica"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Factura Electrónica"
-        CType(Me.grdFarmacia, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.grdFEObrasSociales, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicConexion, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
 
-    Friend WithEvents grdFarmacia As DataGridView
+    Friend WithEvents grdFEObrasSociales As DataGridView
     Friend WithEvents Label1 As Label
     Friend WithEvents txtBuscar As TextBox
     Friend WithEvents Label3 As Label
@@ -702,7 +702,7 @@ Partial Class frmFacturaElectronica
     Friend WithEvents Label12 As Label
     Friend WithEvents txtImporte As TextBox
     Friend WithEvents Label13 As Label
-    Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents txtobservacion As TextBox
     Friend WithEvents chkNotaCredito As CheckBox
     Friend WithEvents Label14 As Label
     Friend WithEvents txtNroComprobanteNotaCred As TextBox

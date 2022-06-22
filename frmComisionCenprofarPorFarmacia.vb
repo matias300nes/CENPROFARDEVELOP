@@ -990,7 +990,7 @@ Public Class frmComisionCenprofarPorFarmacia
                 Dim param_nroIdentificador As New SqlClient.SqlParameter
                 param_nroIdentificador.ParameterName = "@NroIdentificador"
                 param_nroIdentificador.SqlDbType = SqlDbType.Int
-                param_nroIdentificador.Value = 1 'Obra Social
+                param_nroIdentificador.Value = 1 'Farmacia
                 param_nroIdentificador.Direction = ParameterDirection.Input
 
                 Dim param_IdOrigen As New SqlClient.SqlParameter

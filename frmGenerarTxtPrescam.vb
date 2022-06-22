@@ -141,39 +141,41 @@ Public Class frmGenerarTxtPrescam
 
                 For Each grdrow As DataGridViewRow In frmPresentaciones.grdItems.Rows
                     'Conversiones
-                    nombrePlan = grdrow.Cells(ColumnasDelGridItems.Plan).Value
-                    farmacia = grdrow.Cells(ColumnasDelGridItems.Nombre).Value
+                    If grdrow.Visible = True Then
+                        nombrePlan = grdrow.Cells(ColumnasDelGridItems.Plan).Value
+                        farmacia = grdrow.Cells(ColumnasDelGridItems.Nombre).Value
 
-                    codPlan = IIf(grdrow.Cells(ColumnasDelGridItems.CodPlan).Value = "" Or grdrow.Cells(ColumnasDelGridItems.CodPlan).Value Is Nothing, "00", grdrow.Cells(ColumnasDelGridItems.CodPlan).Value)
-                    codPlan = Integer.Parse(codPlan, NumberStyles.AllowDecimalPoint)
-                    strCodPlan = Format(codPlan, "00")
+                        codPlan = IIf(grdrow.Cells(ColumnasDelGridItems.CodPlan).Value = "" Or grdrow.Cells(ColumnasDelGridItems.CodPlan).Value Is Nothing, "00", grdrow.Cells(ColumnasDelGridItems.CodPlan).Value)
+                        codPlan = Integer.Parse(codPlan, NumberStyles.AllowDecimalPoint)
+                        strCodPlan = Format(codPlan, "00")
 
-                    porcentajePlan = IIf(grdrow.Cells(ColumnasDelGridItems.PorcenPlan).Value = "" Or grdrow.Cells(ColumnasDelGridItems.PorcenPlan).Value Is Nothing, "00", grdrow.Cells(ColumnasDelGridItems.PorcenPlan).Value)
-                    porcentajePlan = porcentajePlan * 100
-                    porcentajePlan = Decimal.Parse(porcentajePlan, NumberStyles.AllowThousands)
-                    strporcentajePlan = Format(porcentajePlan, "000000")
+                        porcentajePlan = IIf(grdrow.Cells(ColumnasDelGridItems.PorcenPlan).Value = "" Or grdrow.Cells(ColumnasDelGridItems.PorcenPlan).Value Is Nothing, "00", grdrow.Cells(ColumnasDelGridItems.PorcenPlan).Value)
+                        porcentajePlan = porcentajePlan * 100
+                        porcentajePlan = Decimal.Parse(porcentajePlan, NumberStyles.AllowThousands)
+                        strporcentajePlan = Format(porcentajePlan, "000000")
 
-                    recetas = grdrow.Cells(ColumnasDelGridItems.Recetas).Value
-                    strRecetas = Format(Integer.Parse(recetas), "000000")
+                        recetas = grdrow.Cells(ColumnasDelGridItems.Recetas).Value
+                        strRecetas = Format(Integer.Parse(recetas), "000000")
 
-                    impTot = grdrow.Cells(ColumnasDelGridItems.Recaudado).Value
-                    impTot = impTot * 100
-                    impTot = Decimal.Parse(impTot, NumberStyles.AllowDecimalPoint)
-                    strImpTot = Format(impTot, "000000000000")
+                        impTot = grdrow.Cells(ColumnasDelGridItems.Recaudado).Value
+                        impTot = impTot * 100
+                        impTot = Decimal.Parse(impTot, NumberStyles.AllowDecimalPoint)
+                        strImpTot = Format(impTot, "000000000000")
 
-                    impACargoOs = grdrow.Cells(ColumnasDelGridItems.ACargoOS).Value
-                    impACargoOs = impACargoOs * 100
-                    impACargoOs = Decimal.Parse(impACargoOs, NumberStyles.AllowDecimalPoint)
-                    strImpACargoOs = Format(impACargoOs, "000000000000")
-                    '                       
-                    'Armado de txt
-                    objStreamWriter.WriteLine($"{grdrow.Cells(ColumnasDelGridItems.CodFacaf_Farm).Value}{CodFacaf_OS.PadLeft(3)}{obraSocial.PadRight(40)}{strCodPlan}{nombrePlan.PadRight(30)}{strporcentajePlan}{(Periodo.ToString + txtAAMM.Text)}{farmacia.PadRight(40)}000016{centroFarmacias.PadRight(50)}{strRecetas}{strImpTot}{strImpACargoOs}")
-                    objStreamWriter.WriteLine()
-
+                        impACargoOs = grdrow.Cells(ColumnasDelGridItems.ACargoOS).Value
+                        impACargoOs = impACargoOs * 100
+                        impACargoOs = Decimal.Parse(impACargoOs, NumberStyles.AllowDecimalPoint)
+                        strImpACargoOs = Format(impACargoOs, "000000000000")
+                        '                       
+                        'Armado de txt
+                        objStreamWriter.WriteLine($"{grdrow.Cells(ColumnasDelGridItems.CodFacaf_Farm).Value}{CodFacaf_OS.PadLeft(3)}{obraSocial.PadRight(40)}{strCodPlan}{nombrePlan.PadRight(30)}{strporcentajePlan}{(Periodo.ToString + txtAAMM.Text)}{farmacia.PadRight(40)}000016{centroFarmacias.PadRight(50)}{strRecetas}{strImpTot}{strImpACargoOs}")
+                        objStreamWriter.WriteLine()
+                    End If
                 Next
                 MsgBox("Txt generado con éxito!", MsgBoxStyle.Information, "Atención")
                 'Close the file.
                 objStreamWriter.Close()
+                Me.Close()
 
                 'myStream.Close()
             End If

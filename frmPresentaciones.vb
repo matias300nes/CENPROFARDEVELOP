@@ -702,12 +702,12 @@ Public Class frmPresentaciones
 
                 If result = DialogResult.Yes Then
                     'MsgBox(bolModo)
-                    btnImprimir.Enabled = False
-                    btnImprimirRpt.Enabled = False
+                    'btnImprimir.Enabled = False
+                    'btnImprimirRpt.Enabled = False
                     If grdItems.Rows(e.RowIndex).Cells(ColumnasDelGridItems.ID).Value = 0 Then
                         grdItems.Rows.RemoveAt(e.RowIndex) 'la borramos directamente
-                        btnImprimir.Enabled = False
-                        btnImprimirRpt.Enabled = False
+                        'btnImprimir.Enabled = False
+                        'btnImprimirRpt.Enabled = False
                     Else
                         grdItems.Rows(e.RowIndex).Visible = False
                     End If
@@ -1112,13 +1112,17 @@ Public Class frmPresentaciones
         '    btnGuardar.PerformClick()
         'End If
 
-        If txtID.Text <> "" Then
 
-            Dim frmPresentacionRpt As New frmPresentacionRpt(Long.Parse(txtID.Text))
-            frmPresentacionRpt.ShowDialog()
-        Else
-            MessageBox.Show("Para poder imprimir un reporte, debe guardar la presentación.", "Presentación sin guardar", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        If Guardar(1) Then
+            If txtID.Text <> "" Then
+
+                Dim frmPresentacionRpt As New frmPresentacionRpt(Long.Parse(txtID.Text))
+                frmPresentacionRpt.ShowDialog()
+            Else
+                MessageBox.Show("Para poder imprimir un reporte, debe guardar la presentación.", "Presentación sin guardar", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
         End If
+
     End Sub
 
 
@@ -1822,8 +1826,8 @@ Public Class frmPresentaciones
             CargarCajas()
             PrepararBotones()
             Me.Cursor = Cursors.Default
-            btnImprimir.Enabled = True
-            btnImprimirRpt.Enabled = True
+            'btnImprimir.Enabled = True
+            'btnImprimirRpt.Enabled = True
             'GrillaActualizar()
         End If
 
@@ -1832,8 +1836,32 @@ Public Class frmPresentaciones
 
 
     Private Sub btnGuardar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGuardar.Click
+
+        Guardar(0)
+
+    End Sub
+
+    Private Sub Actualizar()
+        If MDIPrincipal.NoActualizarBase = False Then
+            'SQL = $"exec spPresentaciones_Select_All @Estado = {cmbEstado.Text.Replace(" ", "")} ,@Eliminado = 0"
+            SQL = $"exec spPresentaciones_Select_All @Estado = {cmbEstado.Text.Replace(" ", "")} ,@Eliminado = 0"
+            Me.Cursor = Cursors.WaitCursor
+            LlenarGrilla()
+            Permitir = True
+            CargarCajas()
+            PrepararBotones()
+            Me.Cursor = Cursors.Default
+            'btnImprimir.Enabled = True
+            'btnImprimirRpt.Enabled = True
+            'GrillaActualizar()
+        End If
+    End Sub
+
+
+    Private Function Guardar(esImpresion As Boolean) As Boolean
         Dim res As Integer, res_item As Integer
         Dim registro As Integer
+        Dim retornoFuncion
 
         Util.MsgStatus(Status1, "Guardando el registro...", My.Resources.Resources.indicator_white)
 
@@ -1848,8 +1876,9 @@ Public Class frmPresentaciones
         End If
 
         ''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        retornoFuncion = ReglasNegocio()
 
-        If ReglasNegocio() Then
+        If retornoFuncion Then
             Verificar_Datos()
             If bolpoliticas Then
                 Util.MsgStatus(Status1, "Guardando el registro...", My.Resources.Resources.indicator_white)
@@ -1909,7 +1938,11 @@ Public Class frmPresentaciones
                                 bolModo = False
                                 PrepararBotones()
                                 MDIPrincipal.NoActualizarBase = False
-                                btnActualizar_Click(sender, e)
+                                If esImpresion = 0 Then 'si no es impresion
+                                    Actualizar() 'btnActualizar_Click(sender, e)
+                                End If
+
+                                Return retornoFuncion
 
                                 'btnCopiarOC.Enabled = True
                                 'btnFinalizar.Enabled = True
@@ -1925,8 +1958,9 @@ Public Class frmPresentaciones
                 End If
             End If 'if ALTa
         End If 'If bolpoliticas Then
+        Return retornoFuncion
+    End Function
 
-    End Sub
 
     Private Sub btnEliminar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEliminar.Click
 
@@ -2154,8 +2188,8 @@ Public Class frmPresentaciones
         grd_CurrentCellChanged(sender, e)
         btnNuevo.Enabled = True
         llenarCmbEstados()
-        btnImprimir.Enabled = True
-        btnImprimirRpt.Enabled = True
+        'btnImprimir.Enabled = True
+        'btnImprimirRpt.Enabled = True
         'bolModo = False
     End Sub
 
@@ -2568,9 +2602,13 @@ Public Class frmPresentaciones
     'End Sub
 
     Private Sub btnPrescam_Click(sender As Object, e As EventArgs) Handles btnPrescam.Click
-        Dim dt_txt As New DataTable
-        Dim frmPrescam As New frmGenerarTxtPrescam
-        frmPrescam.ShowDialog()
+        If Guardar(1) Then
+
+            Dim dt_txt As New DataTable
+            Dim frmPrescam As New frmGenerarTxtPrescam
+            frmPrescam.ShowDialog()
+
+        End If
     End Sub
 
     Private Sub btnRecetasWeb_Click(sender As Object, e As EventArgs) Handles btnRecetasWeb.Click

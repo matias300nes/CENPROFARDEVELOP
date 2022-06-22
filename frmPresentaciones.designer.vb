@@ -262,9 +262,9 @@ Partial Class frmPresentaciones
         Me.gbMain.Controls.Add(Me.Label3)
         Me.gbMain.ForeColor = System.Drawing.Color.Blue
         Me.gbMain.Location = New System.Drawing.Point(4, 37)
-        Me.gbMain.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.gbMain.Margin = New System.Windows.Forms.Padding(4)
         Me.gbMain.Name = "gbMain"
-        Me.gbMain.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.gbMain.Padding = New System.Windows.Forms.Padding(4)
         Me.gbMain.Size = New System.Drawing.Size(2141, 591)
         Me.gbMain.TabIndex = 1
         Me.gbMain.TabStop = False
@@ -273,7 +273,7 @@ Partial Class frmPresentaciones
         '
         Me.btnOpenPeriodos.Image = Global.CENPROFAR.My.Resources.Resources.ver
         Me.btnOpenPeriodos.Location = New System.Drawing.Point(1213, 14)
-        Me.btnOpenPeriodos.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnOpenPeriodos.Margin = New System.Windows.Forms.Padding(4)
         Me.btnOpenPeriodos.Name = "btnOpenPeriodos"
         Me.btnOpenPeriodos.Size = New System.Drawing.Size(35, 28)
         Me.btnOpenPeriodos.TabIndex = 360
@@ -297,9 +297,9 @@ Partial Class frmPresentaciones
         Me.gpTools.Controls.Add(Me.btnModificarItem)
         Me.gpTools.Controls.Add(Me.btnAddFarmacia)
         Me.gpTools.Location = New System.Drawing.Point(1095, 107)
-        Me.gpTools.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.gpTools.Margin = New System.Windows.Forms.Padding(4)
         Me.gpTools.Name = "gpTools"
-        Me.gpTools.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.gpTools.Padding = New System.Windows.Forms.Padding(4)
         Me.gpTools.Size = New System.Drawing.Size(285, 396)
         Me.gpTools.TabIndex = 359
         Me.gpTools.TabStop = False
@@ -310,7 +310,7 @@ Partial Class frmPresentaciones
         Me.btnFacturar.ForeColor = System.Drawing.SystemColors.ControlText
         Me.btnFacturar.Image = CType(resources.GetObject("btnFacturar.Image"), System.Drawing.Image)
         Me.btnFacturar.Location = New System.Drawing.Point(97, 332)
-        Me.btnFacturar.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnFacturar.Margin = New System.Windows.Forms.Padding(4)
         Me.btnFacturar.Name = "btnFacturar"
         Me.btnFacturar.Size = New System.Drawing.Size(101, 38)
         Me.btnFacturar.TabIndex = 367
@@ -334,7 +334,7 @@ Partial Class frmPresentaciones
         '
         Me.Line4.ForeColor = System.Drawing.SystemColors.ActiveBorder
         Me.Line4.Location = New System.Drawing.Point(161, 43)
-        Me.Line4.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Line4.Margin = New System.Windows.Forms.Padding(4)
         Me.Line4.Name = "Line4"
         Me.Line4.Size = New System.Drawing.Size(96, 23)
         Me.Line4.TabIndex = 365
@@ -346,7 +346,7 @@ Partial Class frmPresentaciones
         Me.btnImprimirRpt.Image = Global.CENPROFAR.My.Resources.Resources.printing
         Me.btnImprimirRpt.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.btnImprimirRpt.Location = New System.Drawing.Point(19, 274)
-        Me.btnImprimirRpt.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnImprimirRpt.Margin = New System.Windows.Forms.Padding(4)
         Me.btnImprimirRpt.Name = "btnImprimirRpt"
         Me.btnImprimirRpt.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.btnImprimirRpt.Size = New System.Drawing.Size(112, 38)
@@ -371,7 +371,7 @@ Partial Class frmPresentaciones
         Me.btnPrescam.ForeColor = System.Drawing.SystemColors.ControlText
         Me.btnPrescam.Image = Global.CENPROFAR.My.Resources.Resources.facaf
         Me.btnPrescam.Location = New System.Drawing.Point(161, 276)
-        Me.btnPrescam.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnPrescam.Margin = New System.Windows.Forms.Padding(4)
         Me.btnPrescam.Name = "btnPrescam"
         Me.btnPrescam.Size = New System.Drawing.Size(101, 38)
         Me.btnPrescam.TabIndex = 347
@@ -383,7 +383,7 @@ Partial Class frmPresentaciones
         '
         Me.Line3.ForeColor = System.Drawing.SystemColors.ActiveBorder
         Me.Line3.Location = New System.Drawing.Point(97, 246)
-        Me.Line3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Line3.Margin = New System.Windows.Forms.Padding(4)
         Me.Line3.Name = "Line3"
         Me.Line3.Size = New System.Drawing.Size(160, 23)
         Me.Line3.TabIndex = 362
@@ -415,7 +415,7 @@ Partial Class frmPresentaciones
         '
         Me.Line2.ForeColor = System.Drawing.SystemColors.ActiveBorder
         Me.Line2.Location = New System.Drawing.Point(161, 146)
-        Me.Line2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Line2.Margin = New System.Windows.Forms.Padding(4)
         Me.Line2.Name = "Line2"
         Me.Line2.Size = New System.Drawing.Size(96, 23)
         Me.Line2.TabIndex = 359
@@ -426,7 +426,7 @@ Partial Class frmPresentaciones
         Me.btnRecetasWeb.ForeColor = System.Drawing.SystemColors.ControlText
         Me.btnRecetasWeb.Image = Global.CENPROFAR.My.Resources.Resources.web
         Me.btnRecetasWeb.Location = New System.Drawing.Point(19, 175)
-        Me.btnRecetasWeb.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnRecetasWeb.Margin = New System.Windows.Forms.Padding(4)
         Me.btnRecetasWeb.Name = "btnRecetasWeb"
         Me.btnRecetasWeb.Size = New System.Drawing.Size(140, 38)
         Me.btnRecetasWeb.TabIndex = 355
@@ -439,7 +439,7 @@ Partial Class frmPresentaciones
         Me.btnModificarItem.ForeColor = System.Drawing.SystemColors.ControlText
         Me.btnModificarItem.Image = Global.CENPROFAR.My.Resources.Resources.change
         Me.btnModificarItem.Location = New System.Drawing.Point(161, 70)
-        Me.btnModificarItem.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnModificarItem.Margin = New System.Windows.Forms.Padding(4)
         Me.btnModificarItem.Name = "btnModificarItem"
         Me.btnModificarItem.Size = New System.Drawing.Size(101, 38)
         Me.btnModificarItem.TabIndex = 358
@@ -453,7 +453,7 @@ Partial Class frmPresentaciones
         Me.btnAddFarmacia.ForeColor = System.Drawing.SystemColors.ControlText
         Me.btnAddFarmacia.Image = Global.CENPROFAR.My.Resources.Resources.add
         Me.btnAddFarmacia.Location = New System.Drawing.Point(19, 70)
-        Me.btnAddFarmacia.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnAddFarmacia.Margin = New System.Windows.Forms.Padding(4)
         Me.btnAddFarmacia.Name = "btnAddFarmacia"
         Me.btnAddFarmacia.Size = New System.Drawing.Size(132, 38)
         Me.btnAddFarmacia.TabIndex = 357
@@ -470,7 +470,7 @@ Partial Class frmPresentaciones
         Me.cmbPeriodos.FormattingEnabled = True
         Me.cmbPeriodos.ItemHeight = 14
         Me.cmbPeriodos.Location = New System.Drawing.Point(1135, 44)
-        Me.cmbPeriodos.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.cmbPeriodos.Margin = New System.Windows.Forms.Padding(4)
         Me.cmbPeriodos.Name = "cmbPeriodos"
         Me.cmbPeriodos.Size = New System.Drawing.Size(283, 20)
         Me.cmbPeriodos.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
@@ -506,7 +506,7 @@ Partial Class frmPresentaciones
         '
         Me.btnUnificar.ForeColor = System.Drawing.SystemColors.ControlText
         Me.btnUnificar.Location = New System.Drawing.Point(31, 22)
-        Me.btnUnificar.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnUnificar.Margin = New System.Windows.Forms.Padding(4)
         Me.btnUnificar.Name = "btnUnificar"
         Me.btnUnificar.Size = New System.Drawing.Size(101, 38)
         Me.btnUnificar.TabIndex = 340
@@ -517,7 +517,7 @@ Partial Class frmPresentaciones
         '
         Me.btnSeparar.ForeColor = System.Drawing.SystemColors.ControlText
         Me.btnSeparar.Location = New System.Drawing.Point(179, 22)
-        Me.btnSeparar.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnSeparar.Margin = New System.Windows.Forms.Padding(4)
         Me.btnSeparar.Name = "btnSeparar"
         Me.btnSeparar.Size = New System.Drawing.Size(101, 38)
         Me.btnSeparar.TabIndex = 346
@@ -545,7 +545,7 @@ Partial Class frmPresentaciones
         Me.cmbEstado.IntegralHeight = False
         Me.cmbEstado.Items.AddRange(New Object() {"TODAS", "PENDIENTES", "PARA LIQUIDAR", "LIQUIDADAS", "PAGAS"})
         Me.cmbEstado.Location = New System.Drawing.Point(261, 540)
-        Me.cmbEstado.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.cmbEstado.Margin = New System.Windows.Forms.Padding(4)
         Me.cmbEstado.Name = "cmbEstado"
         Me.cmbEstado.Size = New System.Drawing.Size(279, 28)
         Me.cmbEstado.TabIndex = 343
@@ -579,7 +579,7 @@ Partial Class frmPresentaciones
         DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.grdItems.DefaultCellStyle = DataGridViewCellStyle6
         Me.grdItems.Location = New System.Drawing.Point(16, 116)
-        Me.grdItems.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.grdItems.Margin = New System.Windows.Forms.Padding(4)
         Me.grdItems.Name = "grdItems"
         Me.grdItems.RowHeadersVisible = False
         Me.grdItems.RowHeadersWidth = 51
@@ -746,7 +746,7 @@ Partial Class frmPresentaciones
         '
         Me.txtCodigo.Enabled = False
         Me.txtCodigo.Location = New System.Drawing.Point(16, 43)
-        Me.txtCodigo.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtCodigo.Margin = New System.Windows.Forms.Padding(4)
         Me.txtCodigo.Name = "txtCodigo"
         Me.txtCodigo.ReadOnly = True
         Me.txtCodigo.Size = New System.Drawing.Size(129, 22)
@@ -785,7 +785,7 @@ Partial Class frmPresentaciones
         Me.txtACargoOS.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtACargoOS.Format = TextBoxConFormatoVB.tbFormats.SignedFloatingPointNumber
         Me.txtACargoOS.Location = New System.Drawing.Point(1143, 539)
-        Me.txtACargoOS.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtACargoOS.Margin = New System.Windows.Forms.Padding(4)
         Me.txtACargoOS.Name = "txtACargoOS"
         Me.txtACargoOS.ReadOnly = True
         Me.txtACargoOS.Size = New System.Drawing.Size(132, 24)
@@ -818,7 +818,7 @@ Partial Class frmPresentaciones
         Me.txtTotal.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtTotal.Format = TextBoxConFormatoVB.tbFormats.SignedFloatingPointNumber
         Me.txtTotal.Location = New System.Drawing.Point(1292, 539)
-        Me.txtTotal.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtTotal.Margin = New System.Windows.Forms.Padding(4)
         Me.txtTotal.Name = "txtTotal"
         Me.txtTotal.ReadOnly = True
         Me.txtTotal.Size = New System.Drawing.Size(132, 24)
@@ -848,7 +848,7 @@ Partial Class frmPresentaciones
         Me.chkGrillaInferior.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.chkGrillaInferior.ForeColor = System.Drawing.SystemColors.ControlText
         Me.chkGrillaInferior.Location = New System.Drawing.Point(43, 544)
-        Me.chkGrillaInferior.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.chkGrillaInferior.Margin = New System.Windows.Forms.Padding(4)
         Me.chkGrillaInferior.Name = "chkGrillaInferior"
         Me.chkGrillaInferior.Size = New System.Drawing.Size(200, 21)
         Me.chkGrillaInferior.TabIndex = 187
@@ -876,7 +876,7 @@ Partial Class frmPresentaciones
         Me.txtIdObrasocial.Enabled = False
         Me.txtIdObrasocial.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
         Me.txtIdObrasocial.Location = New System.Drawing.Point(623, 17)
-        Me.txtIdObrasocial.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtIdObrasocial.Margin = New System.Windows.Forms.Padding(4)
         Me.txtIdObrasocial.MaxLength = 8
         Me.txtIdObrasocial.Name = "txtIdObrasocial"
         Me.txtIdObrasocial.Size = New System.Drawing.Size(29, 22)
@@ -909,7 +909,7 @@ Partial Class frmPresentaciones
         Me.txtRecaudado.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtRecaudado.Format = TextBoxConFormatoVB.tbFormats.SignedFloatingPointNumber
         Me.txtRecaudado.Location = New System.Drawing.Point(992, 539)
-        Me.txtRecaudado.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtRecaudado.Margin = New System.Windows.Forms.Padding(4)
         Me.txtRecaudado.Name = "txtRecaudado"
         Me.txtRecaudado.ReadOnly = True
         Me.txtRecaudado.Size = New System.Drawing.Size(132, 24)
@@ -943,7 +943,7 @@ Partial Class frmPresentaciones
         Me.cmbObraSocial.FormattingEnabled = True
         Me.cmbObraSocial.IntegralHeight = False
         Me.cmbObraSocial.Location = New System.Drawing.Point(327, 42)
-        Me.cmbObraSocial.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.cmbObraSocial.Margin = New System.Windows.Forms.Padding(4)
         Me.cmbObraSocial.Name = "cmbObraSocial"
         Me.cmbObraSocial.Size = New System.Drawing.Size(325, 28)
         Me.cmbObraSocial.TabIndex = 1
@@ -969,7 +969,7 @@ Partial Class frmPresentaciones
         Me.txtObservacion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtObservacion.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphaNumeric
         Me.txtObservacion.Location = New System.Drawing.Point(669, 43)
-        Me.txtObservacion.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtObservacion.Margin = New System.Windows.Forms.Padding(4)
         Me.txtObservacion.Name = "txtObservacion"
         Me.txtObservacion.Size = New System.Drawing.Size(448, 26)
         Me.txtObservacion.TabIndex = 2
@@ -996,7 +996,7 @@ Partial Class frmPresentaciones
         Me.chkEliminado.Enabled = False
         Me.chkEliminado.ForeColor = System.Drawing.SystemColors.ControlText
         Me.chkEliminado.Location = New System.Drawing.Point(19, 81)
-        Me.chkEliminado.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.chkEliminado.Margin = New System.Windows.Forms.Padding(4)
         Me.chkEliminado.Name = "chkEliminado"
         Me.chkEliminado.Size = New System.Drawing.Size(91, 21)
         Me.chkEliminado.TabIndex = 6
@@ -1024,7 +1024,7 @@ Partial Class frmPresentaciones
         Me.txtID.Enabled = False
         Me.txtID.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
         Me.txtID.Location = New System.Drawing.Point(120, 20)
-        Me.txtID.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtID.Margin = New System.Windows.Forms.Padding(4)
         Me.txtID.MaxLength = 8
         Me.txtID.Name = "txtID"
         Me.txtID.Size = New System.Drawing.Size(25, 22)
@@ -1041,7 +1041,7 @@ Partial Class frmPresentaciones
         Me.dtpFECHA.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtpFECHA.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
         Me.dtpFECHA.Location = New System.Drawing.Point(169, 43)
-        Me.dtpFECHA.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.dtpFECHA.Margin = New System.Windows.Forms.Padding(4)
         Me.dtpFECHA.MaxDate = New Date(2099, 12, 31, 0, 0, 0, 0)
         Me.dtpFECHA.MinDate = New Date(2000, 1, 1, 0, 0, 0, 0)
         Me.dtpFECHA.Name = "dtpFECHA"
@@ -1069,7 +1069,7 @@ Partial Class frmPresentaciones
         Me.ClientSize = New System.Drawing.Size(1371, 750)
         Me.Controls.Add(Me.gbMain)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.Margin = New System.Windows.Forms.Padding(5)
         Me.Name = "frmPresentaciones"
         Me.ShowIcon = False
         Me.Text = "Presentaciones"

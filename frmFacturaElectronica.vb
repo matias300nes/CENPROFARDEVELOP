@@ -120,6 +120,41 @@ Public Class frmFacturaElectronica
     Dim DesdeCmbCliente As Boolean
     '-----------------FIN VARIABLES AFIP----------------------
 
+
+
+    Dim dtFarmacias As DataTable
+
+#Region "enums"
+    Enum grdFEObrasSocialesCols
+        ID = 0
+        Criterio = 1
+        Seleccion = 2
+        NroIdentificador = 3
+        NroFactura = 4
+        Fecha = 5
+        ObraSocial = 6
+        Periodo = 7
+        Cuit = 8
+        DireccionFiscal = 9
+        TipoComprobante = 10
+        Observacion = 11
+        CAE = 12
+        Venc_CAE = 13
+        Fecha_Vto_Pago = 14
+        CodigoBarra = 15
+        Total = 16
+    End Enum
+
+    Enum grdHistorialCols
+        ID = 0
+        Fecha = 1
+        Detalle = 2
+        Debito = 3
+        Credito = 4
+        Total = 5
+        Saldo = 6
+    End Enum
+
     Enum TipoComp
 
         FacturaA = 1
@@ -134,68 +169,32 @@ Public Class frmFacturaElectronica
         FacturaM = 51
         NotaDebitoM = 52
         NotaCreditoM = 53
+        FacturaCreditoElectronicaC = 211
+        NotaDebitoElectronicaC = 212
+        NotaCreditoElectronicaC = 213
 
-    End Enum
-
-    Dim dtFarmacias As DataTable
-
-#Region "enums"
-    Enum grdFarmaciaCols
-        ID = 0
-        Seleccion = 1
-        Codigo = 2
-        Nombre = 3
-        IdRazonSocial = 4
-        RazonSocial = 5
-        Cuit = 6
-        CBU = 7
-        Banco = 8
-        NroCta = 9
-        Sociedad = 10
-        PreferenciaPago = 11
-        Saldo = 12
-        Telefono = 13
-        Email = 14
-    End Enum
-
-    Enum grdHistorialCols
-        ID = 0
-        Fecha = 1
-        Detalle = 2
-        Debito = 3
-        Credito = 4
-        Total = 5
-        Saldo = 6
     End Enum
 #End Region
 
 #Region "Funciones y procedimientos"
     Private Sub setStyles()
-        With grdFarmacia
+        With grdFEObrasSociales
             ''ocultar columnas
-            .Columns(grdFarmaciaCols.ID).Visible = False
-            .Columns(grdFarmaciaCols.Cuit).Visible = False
-            .Columns(grdFarmaciaCols.Telefono).Visible = False
-            .Columns(grdFarmaciaCols.Email).Visible = False
-            .Columns(grdFarmaciaCols.IdRazonSocial).Visible = False
-            .Columns(grdFarmaciaCols.CBU).Visible = False
-            .Columns(grdFarmaciaCols.NroCta).Visible = False
-            .Columns(grdFarmaciaCols.Banco).Visible = False
-            .Columns(grdFarmaciaCols.Sociedad).Visible = False
-
-
+            .Columns(grdFEObrasSocialesCols.ID).Visible = False
+            .Columns(grdFEObrasSocialesCols.Criterio).Visible = False
+            .Columns(grdFEObrasSocialesCols.NroIdentificador).Visible = False
             ''cambiar width
-            '.Columns(grdFarmaciaCols.Seleccion).Width = 50
-            '.Columns(grdFarmaciaCols.Codigo).Width = 70
-            ''.Columns(grdFarmaciaCols.Nombre).Width = 200
-            '.Columns(grdFarmaciaCols.PreferenciaPago).Width = 70
-            '.Columns(grdFarmaciaCols.Saldo).Width = 100
+            '.Columns(grdFEObrasSocialesCols.Seleccion).Width = 50
+            '.Columns(grdFEObrasSocialesCols.Codigo).Width = 70
+            ''.Columns(grdFEObrasSocialesCols.Nombre).Width = 200
+            '.Columns(grdFEObrasSocialesCols.PreferenciaPago).Width = 70
+            '.Columns(grdFEObrasSocialesCols.Saldo).Width = 100
 
-            .Columns(grdFarmaciaCols.Saldo).DefaultCellStyle.Format = "c"
+            '.Columns(grdFEObrasSocialesCols.Saldo).DefaultCellStyle.Format = "c"
 
             ''Bloqueo la edicion para todas las columnas
             For Each col As DataGridViewColumn In .Columns
-                If col.Index <> .Columns(grdFarmaciaCols.Seleccion).Index Then
+                If col.Index <> .Columns(grdFEObrasSocialesCols.Seleccion).Index Then
                     col.ReadOnly = True
                 End If
             Next
@@ -208,7 +207,7 @@ Public Class frmFacturaElectronica
     Private Sub requestGrdData()
         dtFarmacias = New DataTable()
         Dim connection As SqlClient.SqlConnection = Nothing
-        Dim sql As String = "exec spSaldos_Select_All @Eliminado = 0"
+        Dim sql As String = "exec spFacturasElectronicas_Select_All_Control @Eliminado = 0, @nroIdentificador = 0, @mes = '', @anio = ''"
         Try
             connection = SqlHelper.GetConnection(ConnStringSEI)
         Catch ex As Exception
@@ -221,7 +220,7 @@ Public Class frmFacturaElectronica
 
         da.Fill(dtFarmacias)
 
-        grdFarmacia.DataSource = dtFarmacias
+        grdFEObrasSociales.DataSource = dtFarmacias
     End Sub
 
     Private Sub requestGrdItemData()
@@ -303,10 +302,10 @@ Public Class frmFacturaElectronica
         Try
             'If chkNotaCredito.Checked = False Then
             ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT Codigo,Descripcion FROM Comprobantes WHERE Habilitado = 1")
-                'Else
-                '    ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT Codigo,Descripcion FROM Comprobantes WHERE Habilitado = 1")
-                'End If
-                ds.Dispose()
+            'Else
+            '    ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT Codigo,Descripcion FROM Comprobantes WHERE Habilitado = 1")
+            'End If
+            ds.Dispose()
 
             With cmbTipoComprobante
                 .DataSource = ds.Tables(0).DefaultView
@@ -665,13 +664,18 @@ Public Class frmFacturaElectronica
                 tipo_cbte = TipoComp.NotaDebitoB Or
                 tipo_cbte = TipoComp.FacturaC Or
                 tipo_cbte = TipoComp.NotaDebitoC Or
-             tipo_cbte = TipoComp.NotaCreditoC Then
+                tipo_cbte = TipoComp.NotaCreditoC Or
+                tipo_cbte = TipoComp.FacturaCreditoElectronicaC Or
+                tipo_cbte = TipoComp.NotaDebitoElectronicaC Or
+                tipo_cbte = TipoComp.NotaCreditoElectronicaC Then
                 'para comprobantes tipo C el impTotConcep debe ser cero
                 imp_tot_conc = FormatNumber(CDbl(subtotal), 2) 'FormatNumber(CDbl(0), 2)  'param
                 imp_tot_conc = "0.00" 'Replace(imp_tot_conc, ",", "") 'Replace(Replace(imp_tot_conc, ".", ""), ",", ".")
                 imp_neto = FormatNumber(CDbl(total), 2) 'param '"0.00"
                 imp_neto = Replace(total, ",", "")
             End If
+
+
 
             'imp_iva = FormatNumber(CDec(txtIva21.Text) + CDec(txtIva10.Text), 2) 'param
             'imp_iva = Replace(Replace(imp_iva, ".", ""), ",", ".")
@@ -711,6 +715,21 @@ Public Class frmFacturaElectronica
                     imp_iva, imp_trib, imp_op_ex, fecha_cbte, fecha_venc_pago,
                     fecha_serv_desde, fecha_serv_hasta,
                     moneda_id, moneda_ctz)
+
+            If tipo_cbte = TipoComp.FacturaCreditoElectronicaC Then
+
+                wsfev1.AgregarOpcional(2101, "2850590940090418135201")  ' CBU
+                wsfev1.AgregarOpcional(2102, "pyafipws")                ' alias
+                wsfev1.AgregarOpcional(27, "SCA")                       ' tipo de transmisión (desde el 01/04/2021)
+                'SCA = Sistema de Circulacion Abierta 
+
+                If tipo_cbte = TipoComp.NotaDebitoElectronicaC Or 'Nota de credito para una FCE
+                tipo_cbte = TipoComp.NotaCreditoElectronicaC Then
+                    wsfev1.AgregarOpcional(22, "S")                     ' Anulación
+                End If
+
+            End If
+
 
             'Dim i As Integer
             'Dim CantidadFilas As Integer
@@ -922,6 +941,11 @@ Public Class frmFacturaElectronica
 
             GenerarFE = False
 
+            Dim er
+            For Each er In wsfev1.Errores
+                MsgBox(er)
+            Next
+
         End Try
 
     End Function
@@ -949,7 +973,7 @@ Public Class frmFacturaElectronica
                 Dim param_nroIdentificador As New SqlClient.SqlParameter
                 param_nroIdentificador.ParameterName = "@NroIdentificador"
                 param_nroIdentificador.SqlDbType = SqlDbType.Int
-                param_nroIdentificador.Value = 1 'Obra Social
+                param_nroIdentificador.Value = 0 'Obra Social
                 param_nroIdentificador.Direction = ParameterDirection.Input
 
                 Dim param_IdOrigen As New SqlClient.SqlParameter
@@ -964,11 +988,11 @@ Public Class frmFacturaElectronica
                 param_PtoVta.Value = PTOVTA
                 param_PtoVta.Direction = ParameterDirection.Input
 
-                Dim param_NroFac As New SqlClient.SqlParameter
-                param_NroFac.ParameterName = "@NroFac"
-                param_NroFac.SqlDbType = SqlDbType.BigInt
-                param_NroFac.Value = nroFactura
-                param_NroFac.Direction = ParameterDirection.Input
+                Dim param_CodigoFac As New SqlClient.SqlParameter
+                param_CodigoFac.ParameterName = "@CodigoFac"
+                param_CodigoFac.SqlDbType = SqlDbType.BigInt
+                param_CodigoFac.Value = nroFactura
+                param_CodigoFac.Direction = ParameterDirection.Input
 
                 Dim param_CondicionIVA As New SqlClient.SqlParameter
                 param_CondicionIVA.ParameterName = "@CondicionIVA"
@@ -1029,7 +1053,7 @@ Public Class frmFacturaElectronica
                 param_observacion.ParameterName = "@Observacion"
                 param_observacion.SqlDbType = SqlDbType.VarChar
                 param_observacion.Size = 250
-                param_observacion.Value = "prueba" 'imp_total
+                param_observacion.Value = txtobservacion.Text
                 param_observacion.Direction = ParameterDirection.Input
 
                 Dim param_cae As New SqlClient.SqlParameter
@@ -1104,7 +1128,7 @@ Public Class frmFacturaElectronica
 
                 Try
                     'recordar agregar parametro id 
-                    SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spFacturasElectronicas_Insert", param_id, param_nroIdentificador, param_IdOrigen, param_PtoVta, param_NroFac, param_CondicionIVA,
+                    SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spFacturasElectronicas_Insert", param_id, param_nroIdentificador, param_IdOrigen, param_PtoVta, param_CodigoFac, param_CondicionIVA,
                                                                                                                         param_DireccionFiscal, param_Cuit, param_fecha, param_subtotal, param_iva, param_montoIva,
                                                                                                                         param_total, param_totalOrig, param_observacion, param_cae, param_Venc_CAE, param_CodigoBarra,
                                                                                                                         param_FechaVtoPago, param_FechaServDesde, param_FechaServHasta, param_comprobanteTipo, param_conceptoTipo,
@@ -1147,22 +1171,24 @@ Public Class frmFacturaElectronica
     '----------------FIN Funciones Afip--------------------
 
 
+
+
     Friend Sub refreshData()
-        txtID.Text = ""
-        If grdFarmacia.CurrentRow IsNot Nothing Then
-            Dim codigo As String = grdFarmacia.CurrentRow.Cells(grdFarmaciaCols.Codigo).Value.ToString
-            requestGrdData()
-            For Each row As DataGridViewRow In grdFarmacia.Rows
-                If row.Cells(grdFarmaciaCols.Codigo).Value = codigo Then
-                    grdFarmacia.ClearSelection()
-                    row.Selected = True
-                    grdFarmacia.CurrentCell = grdFarmacia.Rows(row.Index).Cells(grdFarmaciaCols.Codigo)
-                    txtID.Text = row.Cells(grdFarmaciaCols.ID).Value
-                End If
-            Next
-        Else
-            requestGrdData()
-        End If
+        'txtID.Text = ""
+        'If grdFEObrasSociales.CurrentRow IsNot Nothing Then
+        '    Dim codigo As String = grdFEObrasSociales.CurrentRow.Cells(grdFEObrasSocialesCols.ID).Value
+        '    requestGrdData()
+        '    For Each row As DataGridViewRow In grdFEObrasSociales.Rows
+        '        If row.Cells(grdFEObrasSocialesCols.ID).Value = codigo Then
+        '            grdFEObrasSociales.ClearSelection()
+        '            row.Selected = True
+        '            grdFEObrasSociales.CurrentCell = grdFEObrasSociales.Rows(row.Index).Cells(grdFEObrasSocialesCols.Codigo)
+        '            txtID.Text = row.Cells(grdFEObrasSocialesCols.ID).Value
+        '        End If
+        '    Next
+        'Else
+        '    requestGrdData()
+        'End If
 
     End Sub
 
@@ -1331,7 +1357,7 @@ Public Class frmFacturaElectronica
     ''Revisa si almenos un registro tiene un checkbox activado
     Private Function checkSelected() As Boolean
         For Each row As DataRow In dtFarmacias.Rows
-            If row(grdFarmaciaCols.Seleccion) = True Then
+            If row(grdFEObrasSocialesCols.Seleccion) = True Then
                 Return True
             End If
         Next
@@ -1342,12 +1368,12 @@ Public Class frmFacturaElectronica
         ''refresco la seleccion para impactar datos
         Dim temprow As DataGridViewCell = Nothing
         Dim cant As Integer = 0
-        If grdFarmacia.CurrentCell IsNot Nothing Then
-            temprow = grdFarmacia.CurrentCell
-            grdFarmacia.CurrentCell = Nothing
+        If grdFEObrasSociales.CurrentCell IsNot Nothing Then
+            temprow = grdFEObrasSociales.CurrentCell
+            grdFEObrasSociales.CurrentCell = Nothing
         End If
-        grdFarmacia.CurrentCell = temprow
-        cant = dtFarmacias.Select($"{dtFarmacias.Columns(grdFarmaciaCols.Seleccion).ColumnName} = True").Length
+        grdFEObrasSociales.CurrentCell = temprow
+        cant = dtFarmacias.Select($"{dtFarmacias.Columns(grdFEObrasSocialesCols.Seleccion).ColumnName} = True").Length
         lblSeleccionados.Text = cant.ToString + IIf(cant <> 1, " Seleccionados", " Seleccionado")
     End Sub
 
@@ -1359,13 +1385,13 @@ Public Class frmFacturaElectronica
         LlenarcmbCondicionIVA()
         LlenarcmbComprobantes()
         LlenarcmbConceptosFE()
-        'requestGrdData()
-        If txtID.Text <> "" Then
-            'setStyles()
+        requestGrdData()
+        If grdFEObrasSociales.Rows.Count > 0 Then
+            setStyles()
         End If
 
         getFields()
-
+        chkNotaCredito.Checked = False
         txtPuntoVta.Text = PTOVTA
         txtImporte.Text = TotalACargoOS
     End Sub
@@ -1458,15 +1484,15 @@ Public Class frmFacturaElectronica
         End If
     End Sub
 
-    Private Sub grdFarmacia_SelectionChanged(sender As Object, e As EventArgs) Handles grdFarmacia.SelectionChanged
+    Private Sub grdFarmacia_SelectionChanged(sender As Object, e As EventArgs) Handles grdFEObrasSociales.SelectionChanged
 
-        If grdFarmacia.CurrentRow IsNot Nothing Then
-            If grdFarmacia.CurrentRow.Cells(0).Value.ToString <> txtID.Text Then
-                txtID.Text = grdFarmacia.CurrentRow.Cells(0).Value
+        If grdFEObrasSociales.CurrentRow IsNot Nothing Then
+            If grdFEObrasSociales.CurrentRow.Cells(0).Value.ToString <> txtID.Text Then
+                txtID.Text = grdFEObrasSociales.CurrentRow.Cells(0).Value
             End If
         End If
 
-        If grdFarmacia.SelectedRows.Count > 1 Then
+        If grdFEObrasSociales.SelectedRows.Count > 1 Then
             btnSelection.Text = "Seleccionar marcados"
         Else
             If dtFarmacias.Select("[Selección] = 1").Length > 0 Then
@@ -1487,18 +1513,18 @@ Public Class frmFacturaElectronica
         ''buscador
         Dim dv As New DataView(dtFarmacias)
         dv.RowFilter = $"[Rázon Social] LIKE '%{txtBuscar.Text}%' or Farmacia LIKE '%{txtBuscar.Text}%'"
-        grdFarmacia.DataSource = dv
+        grdFEObrasSociales.DataSource = dv
 
     End Sub
 
     Private Sub btnPago_Click(sender As Object, e As EventArgs)
         ''me aseguro de que quede la fila seleccionada
         Dim temprow As DataGridViewCell = Nothing
-        If grdFarmacia.CurrentCell IsNot Nothing Then
-            temprow = grdFarmacia.CurrentCell
-            grdFarmacia.CurrentCell = Nothing
+        If grdFEObrasSociales.CurrentCell IsNot Nothing Then
+            temprow = grdFEObrasSociales.CurrentCell
+            grdFEObrasSociales.CurrentCell = Nothing
         End If
-        grdFarmacia.CurrentCell = temprow
+        grdFEObrasSociales.CurrentCell = temprow
 
         If checkSelected() Then
             Dim dv As New DataView(dtFarmacias)
@@ -1514,18 +1540,18 @@ Public Class frmFacturaElectronica
 
     Private Sub btnSelection_Click(sender As Object, e As EventArgs) Handles btnSelection.Click
         If btnSelection.Text = "Seleccionar todo" Then
-            For Each row As DataGridViewRow In grdFarmacia.Rows
-                row.Cells(grdFarmaciaCols.Seleccion).Value = True
+            For Each row As DataGridViewRow In grdFEObrasSociales.Rows
+                row.Cells(grdFEObrasSocialesCols.Seleccion).Value = True
             Next
             btnSelection.Text = "Deseleccionar todo"
         ElseIf btnSelection.Text = "Deseleccionar todo" Then
-            For Each row As DataGridViewRow In grdFarmacia.Rows
-                row.Cells(grdFarmaciaCols.Seleccion).Value = False
+            For Each row As DataGridViewRow In grdFEObrasSociales.Rows
+                row.Cells(grdFEObrasSocialesCols.Seleccion).Value = False
             Next
-            btnSelection.Text = IIf(grdFarmacia.SelectedRows.Count > 1, "Seleccionar marcados", "Seleccionar todo")
+            btnSelection.Text = IIf(grdFEObrasSociales.SelectedRows.Count > 1, "Seleccionar marcados", "Seleccionar todo")
         ElseIf btnSelection.Text = "Seleccionar marcados" Then
-            For Each row As DataGridViewRow In grdFarmacia.SelectedRows
-                row.Cells(grdFarmaciaCols.Seleccion).Value = True
+            For Each row As DataGridViewRow In grdFEObrasSociales.SelectedRows
+                row.Cells(grdFEObrasSocialesCols.Seleccion).Value = True
             Next
             btnSelection.Text = "Deseleccionar todo"
         End If
@@ -1536,11 +1562,11 @@ Public Class frmFacturaElectronica
 
         ''me aseguro de que quede la fila seleccionada
         Dim temprow As DataGridViewCell = Nothing
-        If grdFarmacia.CurrentCell IsNot Nothing Then
-            temprow = grdFarmacia.CurrentCell
-            grdFarmacia.CurrentCell = Nothing
+        If grdFEObrasSociales.CurrentCell IsNot Nothing Then
+            temprow = grdFEObrasSociales.CurrentCell
+            grdFEObrasSociales.CurrentCell = Nothing
         End If
-        grdFarmacia.CurrentCell = temprow
+        grdFEObrasSociales.CurrentCell = temprow
 
         If checkSelected() Then
             Dim dv As New DataView(dtFarmacias)
@@ -1553,8 +1579,8 @@ Public Class frmFacturaElectronica
         End If
     End Sub
 
-    Private Sub grdFarmacia_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles grdFarmacia.CellContentClick
-        If e.ColumnIndex = grdFarmaciaCols.Seleccion Then
+    Private Sub grdFarmacia_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles grdFEObrasSociales.CellContentClick
+        If e.ColumnIndex = grdFEObrasSocialesCols.Seleccion Then
             countSelected()
         End If
     End Sub
@@ -1570,7 +1596,7 @@ Public Class frmFacturaElectronica
             dv.ToTable()
 
             For Each rowDt As DataRow In dv.ToTable().Rows
-                Dim frmRptSaldos As New frmRptSaldos(rowDt(grdFarmaciaCols.ID), dtpFechaInicio.Value, dtpFechaFin.Value)
+                Dim frmRptSaldos As New frmRptSaldos(rowDt(grdFEObrasSocialesCols.ID), dtpFechaInicio.Value, dtpFechaFin.Value)
                 frmRptSaldos.ShowDialog()
             Next
 
