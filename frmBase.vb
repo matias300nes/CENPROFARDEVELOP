@@ -565,7 +565,7 @@ Public Class frmBase
     Private Sub grd_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles grd.MouseUp
         If e.Button = Windows.Forms.MouseButtons.Right Then
             If grd.RowCount <> 0 Then
-                If CellY <> -1 Then FilterValue = grd.Rows(CellY).Cells(CellX).Value.ToString
+                If CellY <> -1 And CellY <= grd.Rows.Count Then FilterValue = grd.Rows(CellY).Cells(CellX).Value.ToString
             End If
             Dim p As Point = New Point(e.X, e.Y)
 
