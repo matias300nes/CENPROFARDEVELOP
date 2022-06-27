@@ -5,7 +5,7 @@ Imports Utiles.Util
 Public Class frmFacturaElectronica
     'Declaro las variables que voy a pasarle al frm
     Dim idOrigen, IdObraSocial, Periodo, TotalACargoOS, NombreOS, DireccionOS As String
-
+    Dim ptovtaSAVED, importeSAVED, obrasocialSAVED, domicilioSAVED, cuitSAVED, idOrigenSAVED, idObraSocialSAVED, periodoSAVED As String
 
     Public Sub New(idOrigen As String, IdObraSocial As String, Periodo As String, TotalACargoOS As String)
 
@@ -17,6 +17,11 @@ Public Class frmFacturaElectronica
         Me.IdObraSocial = IdObraSocial
         Me.Periodo = Periodo
         Me.TotalACargoOS = TotalACargoOS
+        ''almaceno las variables 
+        Me.idOrigenSAVED = Me.idOrigen
+        Me.idObraSocialSAVED = Me.IdObraSocial
+        Me.periodoSAVED = Me.Periodo
+        Me.importeSAVED = Me.TotalACargoOS
 
 
     End Sub
@@ -374,6 +379,50 @@ Public Class frmFacturaElectronica
         End Try
     End Sub
 
+    Private Sub LlenarcmbNroComprobanteNotaCred()
+        Dim connection As SqlClient.SqlConnection = Nothing
+        Dim ds As Data.DataSet
+
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+        Catch ex As Exception
+            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End Try
+
+        Try
+            If cmbTipoComprobante.Text <> "System.Data.DataRowView" And cmbTipoComprobante.SelectedValue.ToString <> "System.Data.DataRowView" Then
+                ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT CodigoFac FROM FacturasElectronicas WHERE ComprobanteTipo = {cmbTipoComprobante.SelectedValue} AND NroIdentificador = 0")
+
+                ds.Dispose()
+
+                With cmbNroComprobanteNotaCred
+                    .DataSource = ds.Tables(0).DefaultView
+                    .DisplayMember = "CodigoFac"
+                    .ValueMember = "CodigoFac"
+                End With
+            End If
+
+
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            MessageBox.Show(String.Format("Se provocó un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If Not connection Is Nothing Then
+                CType(connection, IDisposable).Dispose()
+            End If
+        End Try
+    End Sub
+
     Private Sub LlenarcmbTipoDocumento()
         Dim connection As SqlClient.SqlConnection = Nothing
         Dim ds As Data.DataSet
@@ -414,6 +463,30 @@ Public Class frmFacturaElectronica
                 CType(connection, IDisposable).Dispose()
             End If
         End Try
+    End Sub
+
+    Private Sub inicializarVariablesyTextbox(ptovtaSAVED As String, importeSAVED As String, obrasocialSAVED As String, domicilioSAVED As String, cuitSAVED As String, idOrigenSAVED As String, idObraSocialSAVED As String, periodoSAVED As String)
+        'recupera los datos de la factura que se estaba por realizar en caso de que quieran hacer una nota de credito
+        txtPuntoVta.Text = ptovtaSAVED
+        txtImporte.Text = importeSAVED
+        lblObraSocial.Text = obrasocialSAVED
+        txtDomicilio.Text = domicilioSAVED
+        txtCuit.Text = cuitSAVED
+        idOrigen = idOrigenSAVED
+        IdObraSocial = idObraSocialSAVED
+        Periodo = periodoSAVED
+    End Sub
+
+    Private Sub vaciarVariablesyTextbox()
+        'recupera los datos de la factura que se estaba por realizar en caso de que quieran hacer una nota de credito
+        txtPuntoVta.Text = ""
+        txtImporte.Text = ""
+        lblObraSocial.Text = ""
+        txtDomicilio.Text = ""
+        txtCuit.Text = ""
+        idOrigen = ""
+        IdObraSocial = ""
+        Periodo = ""
     End Sub
 
 
@@ -607,7 +680,7 @@ Public Class frmFacturaElectronica
     Public Function GenerarFE(sender As Object, e As EventArgs, ByVal tipo_comprobante As Integer, ByVal punto_venta As Integer, ByVal tipo_documento As Integer, ByVal num_documento As String, ByVal import_iva As String, ByVal subtotal As String, ByVal total As String, ByVal concept As Integer) As Boolean
         Try
 
-
+            Dim cuit
             Dim CaeGenerado As String
             Dim FechaGenerado As String
 
@@ -716,7 +789,7 @@ Public Class frmFacturaElectronica
                     fecha_serv_desde, fecha_serv_hasta,
                     moneda_id, moneda_ctz)
 
-            If tipo_cbte = TipoComp.FacturaCreditoElectronicaC Then
+            If tipo_cbte = TipoComp.FacturaCreditoElectronicaC Or tipo_cbte = TipoComp.NotaCreditoElectronicaC Then
 
                 wsfev1.AgregarOpcional(2101, "2850590940090418135201")  ' CBU
                 wsfev1.AgregarOpcional(2102, "pyafipws")                ' alias
@@ -726,6 +799,15 @@ Public Class frmFacturaElectronica
                 If tipo_cbte = TipoComp.NotaDebitoElectronicaC Or 'Nota de credito para una FCE
                 tipo_cbte = TipoComp.NotaCreditoElectronicaC Then
                     wsfev1.AgregarOpcional(22, "S")                     ' Anulación
+
+                    tipo = CInt(cmbTipoComprobante.SelectedValue)
+                    pto_vta = txtPuntoVta.Text
+                    pto_vta = Long.Parse(pto_vta)
+                    nro = CInt(cmbNroComprobanteNotaCred.Text)
+                    cuit = "20291813128" 'deberia ir el cuit del emisor?
+                    cuit = Long.Parse(cuit)
+                    'AgregarCmpAsoc(tipo_cbte_asoc, punto_vta_asoc, cbte_nro_asoc, cuit, fecha)
+                    ok = wsfev1.AgregarCmpAsoc(tipo, pto_vta, nro, cuit, fecha)
                 End If
 
             End If
@@ -810,23 +892,15 @@ Public Class frmFacturaElectronica
             End If
 
             ' Agrego los comprobantes asociados: ' solo nc/nd
-            'If CInt(tipo_cbte) = "2" Or _
-            '    CInt(tipo_cbte) = "3" Or _
-            '    CInt(tipo_cbte) = "7" Or _
-            '    CInt(tipo_cbte) = "8" Or _
-            '    CInt(tipo_cbte) = "52" Or _
-            '    CInt(tipo_cbte) = "53" Then
-            '    'cambiar la variable que sigue
-            '    'tipo toma el valor del nro del tipo de comprobante
-            '    'tipo = CInt(CmbComprobantes.SelectedValue)
-            '    tipo = tipo_cbte
-            '    'pto_vta = PTOVTA
-            '    pto_vta = punto_venta
-            '    'NroFactura
-            '    'nro = CInt(CmbComprobantes.Text)
-            '    'nro = num_factura
-            '    ok = wsfev1.AgregarCmpAsoc(tipo, pto_vta, nro)
-            'End If
+            If tipo_cbte = TipoComp.NotaDebitoC Or
+                tipo_cbte = TipoComp.NotaCreditoC Then
+
+                tipo = CInt(cmbTipoComprobante.SelectedValue)
+                pto_vta = txtPuntoVta.Text
+                nro = CInt(cmbNroComprobanteNotaCred.Text)
+
+                ok = wsfev1.AgregarCmpAsoc(tipo, pto_vta, nro)
+            End If
 
 
             '-----------------------------------------------------------------------------
@@ -918,11 +992,15 @@ Public Class frmFacturaElectronica
                 If WSAA.Excepcion <> "" Then
                     ' muestro al usuario solo el mensaje de error, no la traza:
                     MsgBox(WSAA.Excepcion, vbCritical, "Excepción")
+                    MsgBox(WSAA.XmlRequest)
+                    MsgBox(WSAA.XmlResponse)
                 End If
 
                 'Error/obs
                 If wsfev1.ErrMsg <> "" Then
                     MsgBox(wsfev1.ErrMsg, vbExclamation, "Errores")
+                    MsgBox(wsfev1.XmlRequest)
+                    MsgBox(wsfev1.XmlResponse)
                 End If
 
                 If wsfev1.Obs <> "" Then
@@ -1385,15 +1463,18 @@ Public Class frmFacturaElectronica
         LlenarcmbCondicionIVA()
         LlenarcmbComprobantes()
         LlenarcmbConceptosFE()
+        LlenarcmbNroComprobanteNotaCred()
         requestGrdData()
         If grdFEObrasSociales.Rows.Count > 0 Then
             setStyles()
         End If
 
         getFields()
-        chkNotaCredito.Checked = False
+        chkNotaCredito_Click(sender, e)
         txtPuntoVta.Text = PTOVTA
         txtImporte.Text = TotalACargoOS
+        ''almaceno las variables
+        ptovtaSAVED = txtPuntoVta.Text
     End Sub
 
     Private Sub getFields()
@@ -1431,6 +1512,11 @@ Public Class frmFacturaElectronica
             txtDomicilio.Text = ds_General.Tables(0).Rows(0).Item(1).ToString
             txtCuit.Text = ds_General.Tables(0).Rows(0).Item(2).ToString
 
+            ''almaceno variables
+            obrasocialSAVED = lblObraSocial.Text
+            domicilioSAVED = txtDomicilio.Text
+            cuitSAVED = txtCuit.Text
+
             ''traer nrocomprobante de la ultima factura 
 
         Catch ex As Exception
@@ -1449,6 +1535,55 @@ Public Class frmFacturaElectronica
             PicConexion.Image = My.Resources.Red_Ball_icon
             chkConexion.Checked = False
         End If
+        'dejo el cursor en flecha
+        Me.Cursor = Cursors.Arrow
+        '-----------------------------------------------------------------------------
+    End Sub
+
+    Private Sub getFacturaNotaCred()
+
+        Dim ptovtaSQL, importeSQL, obrasocialSQL, domicilioSQL, cuitSQL, idOrigenSQL, idObraSocialSQL, periodoSQL As String
+
+        '------------------------------------------------------Parametros
+        Dim ds_General As Data.DataSet
+        Dim connection As SqlClient.SqlConnection = Nothing
+        Try
+
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+
+        Catch ex As Exception
+            MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End Try
+        Try
+            ''traigo datos de tabla parametros
+            ds_General = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT PtoVta, TotalOrig, os.Nombre, os.Domicilio, os.Cuit, fe.IDOrigen, os.ID, pp.Periodo FROM FacturasElectronicas fe
+                                                                                    INNER JOIN Presentaciones p
+                                                                                    ON p.ID = fe.IDOrigen
+                                                                                    INNER JOIN ObrasSociales os
+                                                                                    ON os.ID = p.IDObraSocial
+                                                                                    INNER JOIN PeriodoPresentaciones pp
+                                                                                    ON pp.Id = p.IdPeriodo
+                                                                                    WHERE CodigoFac = {cmbNroComprobanteNotaCred.SelectedValue} and ComprobanteTipo = {cmbTipoComprobante.SelectedValue}
+                                                                                    AND fe.NroIdentificador = 0")
+            ptovtaSQL = ds_General.Tables(0).Rows(0).Item(0).ToString
+            importeSQL = ds_General.Tables(0).Rows(0).Item(1).ToString
+            obrasocialSQL = ds_General.Tables(0).Rows(0).Item(2).ToString
+            domicilioSQL = ds_General.Tables(0).Rows(0).Item(3).ToString
+            cuitSQL = ds_General.Tables(0).Rows(0).Item(4).ToString
+            idOrigenSQL = ds_General.Tables(0).Rows(0).Item(5).ToString
+            idObraSocialSQL = ds_General.Tables(0).Rows(0).Item(6).ToString
+            periodoSQL = ds_General.Tables(0).Rows(0).Item(7).ToString
+
+            inicializarVariablesyTextbox(ptovtaSQL, importeSQL, obrasocialSQL, domicilioSQL, cuitSQL, idOrigenSQL, idObraSocialSQL, periodoSQL)
+
+            ds_General.Dispose()
+
+        Catch ex As Exception
+            MessageBox.Show("Se produjo un error al leer los datos de la table Parámetros", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End Try
+
         'dejo el cursor en flecha
         Me.Cursor = Cursors.Arrow
         '-----------------------------------------------------------------------------
@@ -1614,11 +1749,29 @@ Public Class frmFacturaElectronica
 
     Private Sub chkNotaCredito_Click(sender As Object, e As EventArgs) Handles chkNotaCredito.Click
         If chkNotaCredito.Checked = True Then
-            txtNroComprobanteNotaCred.Enabled = True
+            cmbNroComprobanteNotaCred.Enabled = True
+            lblNroComprobanteNotaCred.Enabled = True
+            vaciarVariablesyTextbox()
         Else
-            txtNroComprobanteNotaCred.Enabled = False
+            cmbNroComprobanteNotaCred.Enabled = False
+            lblNroComprobanteNotaCred.Enabled = False
+            inicializarVariablesyTextbox(ptovtaSAVED, importeSAVED, obrasocialSAVED, domicilioSAVED, cuitSAVED, idOrigenSAVED, idObraSocialSAVED, periodoSAVED)
         End If
     End Sub
+
+    Private Sub cmbTipoComprobante_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbTipoComprobante.SelectedIndexChanged
+        LlenarcmbNroComprobanteNotaCred()
+    End Sub
+
+    Private Sub cmbNroComprobanteNotaCred_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbNroComprobanteNotaCred.SelectedIndexChanged
+        If chkNotaCredito.Checked = True Then
+            getFacturaNotaCred()
+        End If
+    End Sub
+
+
+
+
 
 
 

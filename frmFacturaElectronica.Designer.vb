@@ -54,8 +54,7 @@ Partial Class frmFacturaElectronica
         Me.Label13 = New System.Windows.Forms.Label()
         Me.txtobservacion = New System.Windows.Forms.TextBox()
         Me.chkNotaCredito = New System.Windows.Forms.CheckBox()
-        Me.Label14 = New System.Windows.Forms.Label()
-        Me.txtNroComprobanteNotaCred = New System.Windows.Forms.TextBox()
+        Me.lblNroComprobanteNotaCred = New System.Windows.Forms.Label()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.cmbCondicionIVA = New System.Windows.Forms.ComboBox()
         Me.PicConexion = New System.Windows.Forms.PictureBox()
@@ -75,6 +74,9 @@ Partial Class frmFacturaElectronica
         Me.Label22 = New System.Windows.Forms.Label()
         Me.cmbDocTipo = New System.Windows.Forms.ComboBox()
         Me.lblObraSocial = New System.Windows.Forms.Label()
+        Me.Label23 = New System.Windows.Forms.Label()
+        Me.btnAnularFE = New DevComponents.DotNetBar.ButtonX()
+        Me.cmbNroComprobanteNotaCred = New System.Windows.Forms.ComboBox()
         CType(Me.grdFEObrasSociales, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicConexion, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -94,18 +96,19 @@ Partial Class frmFacturaElectronica
         Me.grdFEObrasSociales.RowHeadersVisible = False
         Me.grdFEObrasSociales.RowHeadersWidth = 51
         Me.grdFEObrasSociales.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.grdFEObrasSociales.Size = New System.Drawing.Size(1064, 258)
+        Me.grdFEObrasSociales.Size = New System.Drawing.Size(1063, 258)
         Me.grdFEObrasSociales.TabIndex = 0
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(23, 18)
+        Me.Label1.Location = New System.Drawing.Point(390, 280)
         Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(73, 17)
         Me.Label1.TabIndex = 2
         Me.Label1.Text = "Farmacias"
+        Me.Label1.Visible = False
         '
         'txtBuscar
         '
@@ -140,12 +143,13 @@ Partial Class frmFacturaElectronica
         '
         'txtID
         '
-        Me.txtID.Location = New System.Drawing.Point(101, 15)
+        Me.txtID.Location = New System.Drawing.Point(468, 277)
         Me.txtID.Margin = New System.Windows.Forms.Padding(4)
         Me.txtID.Name = "txtID"
         Me.txtID.ReadOnly = True
         Me.txtID.Size = New System.Drawing.Size(75, 22)
         Me.txtID.TabIndex = 392
+        Me.txtID.Visible = False
         '
         'btnSelection
         '
@@ -224,7 +228,7 @@ Partial Class frmFacturaElectronica
         Me.btnGenerarFE.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnGenerarFE.BackColor = System.Drawing.SystemColors.Control
         Me.btnGenerarFE.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.btnGenerarFE.Location = New System.Drawing.Point(974, 579)
+        Me.btnGenerarFE.Location = New System.Drawing.Point(973, 579)
         Me.btnGenerarFE.Margin = New System.Windows.Forms.Padding(4)
         Me.btnGenerarFE.Name = "btnGenerarFE"
         Me.btnGenerarFE.Size = New System.Drawing.Size(113, 31)
@@ -252,9 +256,9 @@ Partial Class frmFacturaElectronica
         Me.Label2.Location = New System.Drawing.Point(23, 253)
         Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(120, 17)
+        Me.Label2.Size = New System.Drawing.Size(148, 17)
         Me.Label2.TabIndex = 407
-        Me.Label2.Text = "Facturas Emitidas"
+        Me.Label2.Text = "FACTURAS EMITIDAS"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label6
@@ -316,6 +320,7 @@ Partial Class frmFacturaElectronica
         '
         'cmbTipoComprobante
         '
+        Me.cmbTipoComprobante.DropDownWidth = 287
         Me.cmbTipoComprobante.FormattingEnabled = True
         Me.cmbTipoComprobante.Location = New System.Drawing.Point(814, 150)
         Me.cmbTipoComprobante.Name = "cmbTipoComprobante"
@@ -407,23 +412,15 @@ Partial Class frmFacturaElectronica
         Me.chkNotaCredito.Text = "Nota Crédito"
         Me.chkNotaCredito.UseVisualStyleBackColor = True
         '
-        'Label14
+        'lblNroComprobanteNotaCred
         '
-        Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(880, 184)
-        Me.Label14.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(120, 17)
-        Me.Label14.TabIndex = 426
-        Me.Label14.Text = "Nro Comprobante"
-        '
-        'txtNroComprobanteNotaCred
-        '
-        Me.txtNroComprobanteNotaCred.Location = New System.Drawing.Point(883, 205)
-        Me.txtNroComprobanteNotaCred.Margin = New System.Windows.Forms.Padding(4)
-        Me.txtNroComprobanteNotaCred.Name = "txtNroComprobanteNotaCred"
-        Me.txtNroComprobanteNotaCred.Size = New System.Drawing.Size(162, 22)
-        Me.txtNroComprobanteNotaCred.TabIndex = 425
+        Me.lblNroComprobanteNotaCred.AutoSize = True
+        Me.lblNroComprobanteNotaCred.Location = New System.Drawing.Point(880, 184)
+        Me.lblNroComprobanteNotaCred.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblNroComprobanteNotaCred.Name = "lblNroComprobanteNotaCred"
+        Me.lblNroComprobanteNotaCred.Size = New System.Drawing.Size(120, 17)
+        Me.lblNroComprobanteNotaCred.TabIndex = 426
+        Me.lblNroComprobanteNotaCred.Text = "Nro Comprobante"
         '
         'Label15
         '
@@ -603,11 +600,47 @@ Partial Class frmFacturaElectronica
         Me.lblObraSocial.TabIndex = 970
         Me.lblObraSocial.Text = "Obra Social"
         '
+        'Label23
+        '
+        Me.Label23.AutoSize = True
+        Me.Label23.Location = New System.Drawing.Point(23, 18)
+        Me.Label23.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label23.Name = "Label23"
+        Me.Label23.Size = New System.Drawing.Size(152, 17)
+        Me.Label23.TabIndex = 971
+        Me.Label23.Text = "DATOS OBRA SOCIAL"
+        '
+        'btnAnularFE
+        '
+        Me.btnAnularFE.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnAnularFE.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnAnularFE.BackColor = System.Drawing.SystemColors.Control
+        Me.btnAnularFE.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
+        Me.btnAnularFE.Location = New System.Drawing.Point(801, 582)
+        Me.btnAnularFE.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnAnularFE.Name = "btnAnularFE"
+        Me.btnAnularFE.Size = New System.Drawing.Size(113, 31)
+        Me.btnAnularFE.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnAnularFE.TabIndex = 972
+        Me.btnAnularFE.Text = "Anular FE"
+        Me.btnAnularFE.TextColor = System.Drawing.SystemColors.InfoText
+        '
+        'cmbNroComprobanteNotaCred
+        '
+        Me.cmbNroComprobanteNotaCred.FormattingEnabled = True
+        Me.cmbNroComprobanteNotaCred.Location = New System.Drawing.Point(883, 205)
+        Me.cmbNroComprobanteNotaCred.Name = "cmbNroComprobanteNotaCred"
+        Me.cmbNroComprobanteNotaCred.Size = New System.Drawing.Size(117, 24)
+        Me.cmbNroComprobanteNotaCred.TabIndex = 973
+        '
         'frmFacturaElectronica
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1112, 619)
+        Me.ClientSize = New System.Drawing.Size(1111, 619)
+        Me.Controls.Add(Me.cmbNroComprobanteNotaCred)
+        Me.Controls.Add(Me.btnAnularFE)
+        Me.Controls.Add(Me.Label23)
         Me.Controls.Add(Me.lblObraSocial)
         Me.Controls.Add(Me.Label22)
         Me.Controls.Add(Me.cmbDocTipo)
@@ -627,8 +660,7 @@ Partial Class frmFacturaElectronica
         Me.Controls.Add(Me.PicConexion)
         Me.Controls.Add(Me.Label15)
         Me.Controls.Add(Me.cmbCondicionIVA)
-        Me.Controls.Add(Me.Label14)
-        Me.Controls.Add(Me.txtNroComprobanteNotaCred)
+        Me.Controls.Add(Me.lblNroComprobanteNotaCred)
         Me.Controls.Add(Me.chkNotaCredito)
         Me.Controls.Add(Me.Label13)
         Me.Controls.Add(Me.txtobservacion)
@@ -704,8 +736,7 @@ Partial Class frmFacturaElectronica
     Friend WithEvents Label13 As Label
     Friend WithEvents txtobservacion As TextBox
     Friend WithEvents chkNotaCredito As CheckBox
-    Friend WithEvents Label14 As Label
-    Friend WithEvents txtNroComprobanteNotaCred As TextBox
+    Friend WithEvents lblNroComprobanteNotaCred As Label
     Friend WithEvents Label15 As Label
     Friend WithEvents cmbCondicionIVA As ComboBox
     Friend WithEvents PicConexion As PictureBox
@@ -725,4 +756,7 @@ Partial Class frmFacturaElectronica
     Friend WithEvents Label22 As Label
     Friend WithEvents cmbDocTipo As ComboBox
     Friend WithEvents lblObraSocial As Label
+    Friend WithEvents Label23 As Label
+    Friend WithEvents btnAnularFE As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents cmbNroComprobanteNotaCred As ComboBox
 End Class
