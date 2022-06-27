@@ -1,4 +1,6 @@
-﻿Public Class frmPresentacionRptConCodFACAF
+﻿Imports System.ComponentModel
+
+Public Class frmPresentacionRptConCodFACAF
     Dim idpresentacion As Long
     Dim estadoChek As Boolean
 
@@ -35,5 +37,11 @@
             Close()
             frmPresentacionRpt.ShowDialog()
         End If
+    End Sub
+
+    Private Sub frmPresentacionRptConCodFACAF_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+        frmPresentaciones.btnActualizar_Click(sender, e)
+        'fuerzo actualizado una vez cierro el frm, sino, al cambiar de fila
+        '"borra" el registro insertado, necesita forzar actualizado
     End Sub
 End Class

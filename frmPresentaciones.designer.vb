@@ -467,12 +467,13 @@ Partial Class frmPresentaciones
         Me.cmbPeriodos.AccessibleName = "*Periodo"
         Me.cmbPeriodos.DisplayMember = "Text"
         Me.cmbPeriodos.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
+        Me.cmbPeriodos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbPeriodos.FormattingEnabled = True
-        Me.cmbPeriodos.ItemHeight = 14
+        Me.cmbPeriodos.ItemHeight = 16
         Me.cmbPeriodos.Location = New System.Drawing.Point(1135, 44)
         Me.cmbPeriodos.Margin = New System.Windows.Forms.Padding(4)
         Me.cmbPeriodos.Name = "cmbPeriodos"
-        Me.cmbPeriodos.Size = New System.Drawing.Size(283, 20)
+        Me.cmbPeriodos.Size = New System.Drawing.Size(283, 22)
         Me.cmbPeriodos.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.cmbPeriodos.TabIndex = 356
         '

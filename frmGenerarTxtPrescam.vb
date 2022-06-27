@@ -1,4 +1,5 @@
-﻿Imports System.Globalization
+﻿Imports System.ComponentModel
+Imports System.Globalization
 Imports System.IO
 Imports Microsoft.ApplicationBlocks.Data
 Imports Utiles.Util
@@ -241,4 +242,7 @@ Public Class frmGenerarTxtPrescam
 
     End Function
 
+    Private Sub frmGenerarTxtPrescam_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+        frmPresentaciones.btnActualizar_Click(sender, e)
+    End Sub
 End Class
