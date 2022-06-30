@@ -79,6 +79,7 @@ Public Class frmSelectObraSocial
     End Sub
 
     Private Sub btnListo_Click(sender As Object, e As EventArgs) Handles btnAñadir.Click
+        Dim Res As Integer
 
         If ReglasNegocio() Then
 
@@ -90,14 +91,30 @@ Public Class frmSelectObraSocial
                     Dim mandataria = frmGrupos.cmbMandataria.SelectedValue
                     Dim grupo = frmGrupos.cmbGrupo.SelectedValue
                     'deberia insertar en tabla grupos_os el idOS y el idGrupo
-                    InsertarGrupos_OS(idObraSocial, grupo)
+                    Res = InsertarGrupos_OS(idObraSocial, grupo)
+                    Select Case Res
+                        Case -2
+                            MsgBox("El registro ya existe.", MsgBoxStyle.Information, "Atención")
+                        Case -1
+                            MsgBox("No se pudo borrar el registro.", MsgBoxStyle.Information, "Atención")
+                        Case 0
+                            MsgBox("El registro se insertó de forma correcta.", MsgBoxStyle.Information, "Atención")
+                        Case 1
+                            MsgBox("El registro se insertó de forma correcta.", MsgBoxStyle.Information, "Atención")
+                        Case Else
+                            'MsgBox("Se ha borrado el registro.", MsgBoxStyle.Information, "Atención")
+                            LlenarGrilla()
+                    End Select
+
+
 
                     'frmFarmacias_Conceptos.grdConceptosPanel.Rows.Add(id)
                 End With
 
 
-                Me.Dispose()
-                Me.Close()
+                'Me.Dispose()
+                'Me.Close()
+                LlenarGrilla()
 
             Else
                 MsgBox("Seleccione una Obra Social para poder continuar.")
@@ -109,14 +126,15 @@ Public Class frmSelectObraSocial
 
     End Sub
 
-    Private Sub InsertarGrupos_OS(ByVal idOS As Long, ByVal idGrupo As Long)
+    Private Function InsertarGrupos_OS(ByVal idOS As Long, ByVal idGrupo As Long) As Integer
 
         Dim connection As SqlClient.SqlConnection = Nothing
+        Dim Res As Integer
         Try
             connection = SqlHelper.GetConnection(ConnStringSEI)
         Catch ex As Exception
             MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
+            Exit Function
         End Try
 
 
@@ -150,6 +168,8 @@ Public Class frmSelectObraSocial
 
                 Try
                     SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spGrupos_OS_Insert", param_idGrupo, param_idOS, param_useradd, param_res)
+                    Res = param_res.Value
+                    Return Res
                 Catch ex As Exception
                     Throw ex
                 End Try
@@ -179,7 +199,7 @@ Public Class frmSelectObraSocial
         End Try
 
 
-    End Sub
+    End Function
 
 
     Private Sub chkAgrupar_CheckedChanged(sender As Object, e As EventArgs)

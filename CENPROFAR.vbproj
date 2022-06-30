@@ -196,6 +196,12 @@
     <Compile Include="frmAddConceptosLiq.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmComisionCenprofarPorFarmacia_old.Designer.vb">
+      <DependentUpon>frmComisionCenprofarPorFarmacia_old.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmComisionCenprofarPorFarmacia_old.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmComisionCenprofarPorFarmacia.Designer.vb">
       <DependentUpon>frmComisionCenprofarPorFarmacia.vb</DependentUpon>
     </Compile>
@@ -1653,6 +1659,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmAddConceptosLiq.resx">
       <DependentUpon>frmAddConceptosLiq.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmComisionCenprofarPorFarmacia_old.resx">
+      <DependentUpon>frmComisionCenprofarPorFarmacia_old.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmComisionCenprofarPorFarmacia.resx">
       <DependentUpon>frmComisionCenprofarPorFarmacia.vb</DependentUpon>

@@ -4,7 +4,8 @@ Imports Utiles.Util
 
 Public Class frmFacturaElectronica
     'Declaro las variables que voy a pasarle al frm
-    Dim idOrigen, IdObraSocial, Periodo, TotalACargoOS, NombreOS, DireccionOS As String
+    Dim idOrigen, IdObraSocial, Periodo, TotalACargoOS, NombreOS, DireccionOS, nroIdentificador, mes, anio As String
+    Dim idPeriodo As Integer
     Dim ptovtaSAVED, importeSAVED, obrasocialSAVED, domicilioSAVED, cuitSAVED, idOrigenSAVED, idObraSocialSAVED, periodoSAVED As String
 
     Public Sub New(idOrigen As String, IdObraSocial As String, Periodo As String, TotalACargoOS As String)
@@ -23,6 +24,19 @@ Public Class frmFacturaElectronica
         Me.periodoSAVED = Me.Periodo
         Me.importeSAVED = Me.TotalACargoOS
 
+
+    End Sub
+
+    Public Sub New(nroIdentificador As String, idPeriodo As Long, mes As String, anio As String)
+
+        'Esta llamada es exigida por el diseñador.
+        InitializeComponent()
+
+        'Agregue cualquier inicialización después de la llamada a InitializeComponent().
+        Me.nroIdentificador = nroIdentificador
+        Me.mes = mes
+        Me.anio = anio
+        Me.idPeriodo = idPeriodo
 
     End Sub
 
@@ -212,7 +226,13 @@ Public Class frmFacturaElectronica
     Private Sub requestGrdData()
         dtFarmacias = New DataTable()
         Dim connection As SqlClient.SqlConnection = Nothing
-        Dim sql As String = "exec spFacturasElectronicas_Select_All_Control @Eliminado = 0, @nroIdentificador = 0, @mes = '', @anio = ''"
+        Dim sql As String
+        If mes <> "" And anio <> "" And nroIdentificador = 1 Then
+            sql = $"exec spFacturasElectronicas_Select_All_Control @Eliminado = 0, @nroIdentificador = {nroIdentificador}, @mes = {mes}, @anio = {anio}"
+        Else
+            sql = "exec spFacturasElectronicas_Select_All_Control @Eliminado = 0, @nroIdentificador = 0, @mes = '', @anio = ''"
+        End If
+
         Try
             connection = SqlHelper.GetConnection(ConnStringSEI)
         Catch ex As Exception
@@ -1051,7 +1071,7 @@ Public Class frmFacturaElectronica
                 Dim param_nroIdentificador As New SqlClient.SqlParameter
                 param_nroIdentificador.ParameterName = "@NroIdentificador"
                 param_nroIdentificador.SqlDbType = SqlDbType.Int
-                param_nroIdentificador.Value = 0 'Obra Social
+                param_nroIdentificador.Value = IIf(nroIdentificador = 1, 1, 0) '0 'Obra Social
                 param_nroIdentificador.Direction = ParameterDirection.Input
 
                 Dim param_IdOrigen As New SqlClient.SqlParameter
@@ -1059,6 +1079,12 @@ Public Class frmFacturaElectronica
                 param_IdOrigen.SqlDbType = SqlDbType.BigInt
                 param_IdOrigen.Value = idOrigen 'indica desde donde viene la factura
                 param_IdOrigen.Direction = ParameterDirection.Input
+
+                Dim param_idPeriodo As New SqlClient.SqlParameter
+                param_idPeriodo.ParameterName = "@IdPeriodo"
+                param_idPeriodo.SqlDbType = SqlDbType.BigInt
+                param_idPeriodo.Value = IIf(nroIdentificador = 1, idPeriodo, DBNull.Value)
+                param_idPeriodo.Direction = ParameterDirection.Input
 
                 Dim param_PtoVta As New SqlClient.SqlParameter
                 param_PtoVta.ParameterName = "@PtoVta"

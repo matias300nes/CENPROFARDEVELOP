@@ -1,9 +1,8 @@
 ﻿Imports System.Data.SqlClient
-Imports System.Globalization
 Imports Microsoft.ApplicationBlocks.Data
 Imports Utiles.Util
 
-Public Class frmComisionCenprofarPorFarmacia
+Public Class frmComisionCenprofarPorFarmacia_old
     'Declaro las variables que voy a pasarle al frm
     Dim idOrigen, IdObraSocial, Periodo, TotalACargoOS, NombreOS, DireccionOS, MesComision, AnioComision As String
     Dim ptovtaSAVED, importeSAVED, obrasocialSAVED, domicilioSAVED, cuitSAVED, idOrigenSAVED, idObraSocialSAVED, periodoSAVED As String
@@ -31,13 +30,6 @@ Public Class frmComisionCenprofarPorFarmacia
             moneda_id, moneda_ctz
     Dim tipo, pto_vta, nro, fecha, cbte_nro
     Dim idIVA, Desc, base_imp, alic, importe
-
-    Private Sub chkVerFacturasEmitidas_CheckedChanged(sender As Object, e As EventArgs) Handles chkVerFacturasEmitidas.CheckedChanged
-        'Dim frmFacturaElectronica As New frmFacturaElectronica(1, 8, "mayo", "2022")
-        'frmFacturaElectronica.ShowDialog()
-
-    End Sub
-
     Dim cae
     'almaceno nro de factura 
     Dim nroFactura
@@ -73,49 +65,30 @@ Public Class frmComisionCenprofarPorFarmacia
     End Sub
 
     Private Sub btnGenerarFE_Click(sender As Object, e As EventArgs) Handles btnGenerarFE.Click
-        Dim importe_iva, importe_subtotal, importe_total, cuit, direccion, idperiodo
+        Dim importe_iva, importe_subtotal, importe_total
         Dim resbool As Boolean = False
         Dim i As Integer
-        Dim tipoComprobante ' 011 FACTURAS C / 211 FACTURA DE CREDITO ELECTRONICA MIPYMES (FCE) C
-        Dim conceptosFE = 2 ' SERVICIOS
-        Dim condicionIVA = 1 'IVA Responsable Inscripto 'es imp tener en cuenta si todas las farmacias manejan esta condicion o hay excepciones
-        ' en caso de que si, hay que manejar la condicion de cada farmacias desde el abm de razones sociales
+
         importe_subtotal = 0
         importe_total = 0
 
-        For i = 0 To grdFarmacia.Rows.Count - 1 'recorro la grilla con las farmacias a facturar
+        For i = 0 To grdFarmacia.Rows.Count - 1
             With grdFarmacia.Rows(i)
                 If .Visible = True Then
-                    importe_subtotal = .Cells(grdFarmaciaCols.ComisionCenprofar).Value
-                    importe_total = .Cells(grdFarmaciaCols.ComisionCenprofar).Value
-                    idperiodo = .Cells(grdFarmaciaCols.IdPeriodo).Value
+                    importe_subtotal = .Cells(11).Value
+                    importe_total = .Cells(11).Value
                     'count += 1
                     importe_iva = "0.00"
                     'importe_subtotal = TotalACargoOS
                     'importe_total = TotalACargoOS
+                    TipoDoc = cmbDocTipo.SelectedValue
 
-                    TipoDoc = 80 'cuit
 
-                    'controlo que tipo de comprobante aplico
-                    If importe_total >= 299555 Then
-                        tipoComprobante = 211  'FACTURA DE CREDITO ELECTRONICA MIPYMES (FCE) C
-                    Else
-                        tipoComprobante = 11   'FACTURAS C
-                    End If
-                    cuit = IIf(.Cells(grdFarmaciaCols.Cuit).Value Is DBNull.Value, "", .Cells(grdFarmaciaCols.Cuit).Value)
-
-                    If cuit.ToString.Length <> 11 And cuit.ToString.Length <> 8 Then
-                        MsgBox("Verifique la los digitos del documento porfavor!")
-                        Cancelar_Tran()
-                        Exit Sub
-                    End If
-                    direccion = IIf(.Cells(grdFarmaciaCols.Direccion).Value Is DBNull.Value, "", .Cells(grdFarmaciaCols.Direccion).Value)
-                    idOrigen = .Cells(grdFarmaciaCols.ID).Value
                     If True Then 'preguntar si desea generar la factura, para la obra social
                         chkConexion.Checked = ConexionAfip(saveTA, saveTOKEN, saveSING)
                         If chkConexion.Checked Then
                             'debo comprobar el caso de que eligan tarjeta de credito o tarjeta de debito
-                            resbool = GenerarFE(sender, e, tipoComprobante, CInt(PTOVTA), TipoDoc, cuit, importe_iva, importe_subtotal, importe_total, conceptosFE, condicionIVA, direccion)
+                            resbool = GenerarFE(sender, e, CInt(cmbTipoComprobante.SelectedValue), CInt(PTOVTA), TipoDoc, txtCuit.Text, importe_iva, importe_subtotal, importe_total, cmbConceptosFE.SelectedValue)
                             If resbool = False Then
                                 MsgBox("No se pudo generar la factura electrónica.", MsgBoxStyle.Critical)
                                 Cancelar_Tran()
@@ -193,17 +166,19 @@ Public Class frmComisionCenprofarPorFarmacia
     Enum grdFarmaciaCols
         ID = 0
         Seleccion = 1
-        Código = 2
-        Farmacia = 3
+        Codigo = 2
+        Nombre = 3
         IdRazonSocial = 4
         RazonSocial = 5
         Cuit = 6
-        Direccion = 7
-        CBU = 8
-        Banco = 9
-        NroCta = 10
-        IdPeriodo = 11
-        ComisionCenprofar = 12
+        CBU = 7
+        Banco = 8
+        NroCta = 9
+        Sociedad = 10
+        PreferenciaPago = 11
+        Saldo = 12
+        Telefono = 13
+        Email = 14
     End Enum
 
     Enum grdHistorialCols
@@ -223,14 +198,13 @@ Public Class frmComisionCenprofarPorFarmacia
             ''ocultar columnas
             .Columns(grdFarmaciaCols.ID).Visible = False
             .Columns(grdFarmaciaCols.Cuit).Visible = False
-            '.Columns(grdFarmaciaCols.Telefono).Visible = False
-            '.Columns(grdFarmaciaCols.Email).Visible = False
+            .Columns(grdFarmaciaCols.Telefono).Visible = False
+            .Columns(grdFarmaciaCols.Email).Visible = False
             .Columns(grdFarmaciaCols.IdRazonSocial).Visible = False
             .Columns(grdFarmaciaCols.CBU).Visible = False
             .Columns(grdFarmaciaCols.NroCta).Visible = False
             .Columns(grdFarmaciaCols.Banco).Visible = False
-            .Columns(grdFarmaciaCols.IdPeriodo).Visible = False
-            '.Columns(grdFarmaciaCols.Sociedad).Visible = False
+            .Columns(grdFarmaciaCols.Sociedad).Visible = False
 
 
             ''cambiar width
@@ -240,7 +214,7 @@ Public Class frmComisionCenprofarPorFarmacia
             '.Columns(grdFarmaciaCols.PreferenciaPago).Width = 70
             '.Columns(grdFarmaciaCols.Saldo).Width = 100
 
-            '.Columns(grdFarmaciaCols.Saldo).DefaultCellStyle.Format = "c"
+            .Columns(grdFarmaciaCols.Saldo).DefaultCellStyle.Format = "c"
 
             ''Bloqueo la edicion para todas las columnas
             For Each col As DataGridViewColumn In .Columns
@@ -317,6 +291,243 @@ Public Class frmComisionCenprofarPorFarmacia
     'End Sub
 
     '----------------Funciones Afip--------------------
+    Private Sub LlenarcmbCondicionIVA()
+        Dim connection As SqlClient.SqlConnection = Nothing
+        Dim ds As Data.DataSet
+
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+        Catch ex As Exception
+            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End Try
+
+        Try
+
+            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT Codigo,Descripcion FROM Responsables WHERE Habilitado = 1  ORDER BY Descripcion")
+            ds.Dispose()
+
+            With cmbCondicionIVA
+                .DataSource = ds.Tables(0).DefaultView
+                .DisplayMember = "Descripcion"
+                .ValueMember = "Codigo"
+            End With
+
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            MessageBox.Show(String.Format("Se provocó un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If Not connection Is Nothing Then
+                CType(connection, IDisposable).Dispose()
+            End If
+        End Try
+    End Sub
+
+
+    Private Sub LlenarcmbComprobantes()
+        Dim connection As SqlClient.SqlConnection = Nothing
+        Dim ds As Data.DataSet
+
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+        Catch ex As Exception
+            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End Try
+
+        Try
+            'If chkNotaCredito.Checked = False Then
+            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT Codigo,Descripcion FROM Comprobantes WHERE Habilitado = 1")
+            'Else
+            '    ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT Codigo,Descripcion FROM Comprobantes WHERE Habilitado = 1")
+            'End If
+            ds.Dispose()
+
+            With cmbTipoComprobante
+                .DataSource = ds.Tables(0).DefaultView
+                .DisplayMember = "Descripcion"
+                .ValueMember = "Codigo"
+            End With
+
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            MessageBox.Show(String.Format("Se provocó un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If Not connection Is Nothing Then
+                CType(connection, IDisposable).Dispose()
+            End If
+        End Try
+    End Sub
+
+    Private Sub LlenarcmbConceptosFE()
+        Dim connection As SqlClient.SqlConnection = Nothing
+        Dim ds As Data.DataSet
+
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+        Catch ex As Exception
+            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End Try
+
+        Try
+
+            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT Codigo, UPPER(Descripcion) AS Descripcion FROM ConceptosFE WHERE Habilitado = 1")
+
+            ds.Dispose()
+
+            With cmbConceptosFE
+                .DataSource = ds.Tables(0).DefaultView
+                .DisplayMember = "Descripcion"
+                .ValueMember = "Codigo"
+            End With
+
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            MessageBox.Show(String.Format("Se provocó un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If Not connection Is Nothing Then
+                CType(connection, IDisposable).Dispose()
+            End If
+        End Try
+    End Sub
+
+    Private Sub LlenarcmbNroComprobanteNotaCred()
+        Dim connection As SqlClient.SqlConnection = Nothing
+        Dim ds As Data.DataSet
+
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+        Catch ex As Exception
+            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End Try
+
+        Try
+            If cmbTipoComprobante.Text <> "System.Data.DataRowView" And cmbTipoComprobante.SelectedValue.ToString <> "System.Data.DataRowView" Then
+                ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT CodigoFac FROM FacturasElectronicas WHERE ComprobanteTipo = {cmbTipoComprobante.SelectedValue} AND NroIdentificador = 1")
+
+                ds.Dispose()
+
+                With cmbNroComprobanteNotaCred
+                    .DataSource = ds.Tables(0).DefaultView
+                    .DisplayMember = "CodigoFac"
+                    .ValueMember = "CodigoFac"
+                End With
+            End If
+
+
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            MessageBox.Show(String.Format("Se provocó un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If Not connection Is Nothing Then
+                CType(connection, IDisposable).Dispose()
+            End If
+        End Try
+    End Sub
+
+    Private Sub LlenarcmbTipoDocumento()
+        Dim connection As SqlClient.SqlConnection = Nothing
+        Dim ds As Data.DataSet
+
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+        Catch ex As Exception
+            MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End Try
+
+        Try
+
+            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, "SELECT Codigo, Descripcion FROM TipoDocumento WHERE Habilitado = 1")
+
+            ds.Dispose()
+
+            With cmbDocTipo
+                .DataSource = ds.Tables(0).DefaultView
+                .DisplayMember = "Descripcion"
+                .ValueMember = "Codigo"
+            End With
+
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            MessageBox.Show(String.Format("Se provocó un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If Not connection Is Nothing Then
+                CType(connection, IDisposable).Dispose()
+            End If
+        End Try
+    End Sub
+
+    Private Sub inicializarVariablesyTextbox(ptovtaSAVED As String, importeSAVED As String, obrasocialSAVED As String, domicilioSAVED As String, cuitSAVED As String, idOrigenSAVED As String, idObraSocialSAVED As String, periodoSAVED As String)
+        'recupera los datos de la factura que se estaba por realizar en caso de que quieran hacer una nota de credito
+        txtPuntoVta.Text = ptovtaSAVED
+        txtImporte.Text = importeSAVED
+        lblObraSocial.Text = obrasocialSAVED
+        txtDomicilio.Text = domicilioSAVED
+        txtCuit.Text = cuitSAVED
+        idOrigen = idOrigenSAVED
+        IdObraSocial = idObraSocialSAVED
+        Periodo = periodoSAVED
+    End Sub
+    Private Sub vaciarVariablesyTextbox()
+        'recupera los datos de la factura que se estaba por realizar en caso de que quieran hacer una nota de credito
+        txtPuntoVta.Text = ""
+        txtImporte.Text = ""
+        lblObraSocial.Text = ""
+        txtDomicilio.Text = ""
+        txtCuit.Text = ""
+        idOrigen = ""
+        IdObraSocial = ""
+        Periodo = ""
+    End Sub
+
 
     Public Function ConexionAfip(ByVal TicketAcceso As Object, ByVal Token As Object, ByVal Sign As Object) As Boolean
 
@@ -505,7 +716,7 @@ Public Class frmComisionCenprofarPorFarmacia
 
     End Function
 
-    Public Function GenerarFE(sender As Object, e As EventArgs, ByVal tipo_comprobante As Integer, ByVal punto_venta As Integer, ByVal tipo_documento As Integer, ByVal num_documento As String, ByVal import_iva As String, ByVal subtotal As String, ByVal total As String, ByVal concept As Integer, ByVal condicionIva As Integer, ByVal domicilio As String) As Boolean
+    Public Function GenerarFE(sender As Object, e As EventArgs, ByVal tipo_comprobante As Integer, ByVal punto_venta As Integer, ByVal tipo_documento As Integer, ByVal num_documento As String, ByVal import_iva As String, ByVal subtotal As String, ByVal total As String, ByVal concept As Integer) As Boolean
         Try
 
             Dim cuit
@@ -519,7 +730,7 @@ Public Class frmComisionCenprofarPorFarmacia
 
             punto_vta = punto_venta 'param
 
-            fecha = Format(dtpFecha.Value.Date, "yyyyMMdd") 'param
+            fecha = Format(dtpFECHA.Value.Date, "yyyyMMdd") 'param
             'concepto en este caso es siempre producto
             concepto = concept 'param
             tipo_doc = tipo_documento 'param
@@ -587,23 +798,18 @@ Public Class frmComisionCenprofarPorFarmacia
             imp_total = FormatNumber(CDbl(total), 2) 'param
             imp_total = Replace(imp_total, ",", "") 'Replace(Replace(imp_total, ".", ""), ",", ".")
 
-            fecha_cbte = Format(dtpFecha.Value.Date, "yyyyMMdd")
+            fecha_cbte = Format(dtpFECHA.Value.Date, "yyyyMMdd")
 
             ' Fechas del período del servicio facturado (solo si concepto = 1?)
-            If CInt(concept) = 2 Or CInt(concept) = 3 Then
+            If CInt(cmbConceptosFE.SelectedValue) = 2 Or CInt(cmbConceptosFE.SelectedValue) = 3 Then
                 If TipoComp.NotaCreditoA Or TipoComp.NotaCreditoB Or TipoComp.NotaDebitoA Or TipoComp.NotaDebitoB Or
                     TipoComp.NotaDebitoM Or TipoComp.NotaDebitoM Then
                     fecha_venc_pago = Format(Today.Date, "yyyyMMdd")
                 Else
-                    'controlar si es asi en fce
-                    If CInt(tipo_cbte) = 11 Then
-                        fecha_venc_pago = Format(dtpFecha.Value.Date, "yyyyMMdd") 'Format(dtpVtoPago.Value.Date, "yyyyMMdd")
-                    ElseIf CInt(tipo_cbte) = 211 Then ''si es 211
-                        fecha_venc_pago = Format(dtpFecha.Value.Date.AddMonths(1), "yyyyMMdd") 'Format(dtpVtoPago.Value.Date, "yyyyMMdd") 'suma 30 dias
-                    End If
+                    fecha_venc_pago = Format(dtpVtoPago.Value.Date, "yyyyMMdd")
                 End If
-                fecha_serv_desde = Format(dtpFecha.Value.Date, "yyyyMMdd") 'Format(dtpDesde.Value.Date, "yyyyMMdd")
-                fecha_serv_hasta = fecha_venc_pago 'Format(dtpHasta.Value.Date, "yyyyMMdd")
+                fecha_serv_desde = Format(dtpDesde.Value.Date, "yyyyMMdd")
+                fecha_serv_hasta = Format(dtpHasta.Value.Date, "yyyyMMdd")
             Else
                 fecha_venc_pago = ""
                 fecha_serv_desde = ""
@@ -633,8 +839,8 @@ Public Class frmComisionCenprofarPorFarmacia
                 tipo_cbte = TipoComp.NotaCreditoElectronicaC Then
                     wsfev1.AgregarOpcional(22, "S")                     ' Anulación
 
-                    tipo = CInt(tipo_cbte)
-                    pto_vta = pto_vta
+                    tipo = CInt(cmbTipoComprobante.SelectedValue)
+                    pto_vta = txtPuntoVta.Text
                     pto_vta = Long.Parse(pto_vta)
                     nro = CInt(cmbNroComprobanteNotaCred.Text)
                     cuit = "20291813128" 'deberia ir el cuit del emisor?
@@ -790,9 +996,9 @@ Public Class frmComisionCenprofarPorFarmacia
                 MsgBox("Factura Aceptada" + Chr(13) + "CAE: " + wsfev1.CAE.ToString + Chr(13) + "Vencimiento: " + wsfev1.Vencimiento.ToString)
 
                 Dim CodigoBarra As String
-                CodigoBarra = cuitEmpresa.ToString + tipo_cbte.ToString.PadLeft(2, "00").ToString + punto_vta + CaeGenerado + FechaGenerado
+                CodigoBarra = cuitEmpresa.ToString + cmbTipoComprobante.SelectedValue.ToString.PadLeft(2, "00").ToString + punto_vta + CaeGenerado + FechaGenerado
                 'CodigoBarra = DigitoVerificador(CodigoBarra)
-                Select Case Insert_FacturaElectronica(wsfev1.CAE.ToString, wsfev1.Vencimiento.ToString, CodigoBarra, tipo_comprobante, condicionIva, nro_doc, domicilio, fecha_venc_pago, fecha_serv_desde, fecha_serv_hasta, tipo_cbte, concepto, "CONTADO")
+                Select Case Insert_FacturaElectronica(wsfev1.CAE.ToString, wsfev1.Vencimiento.ToString, CodigoBarra, tipo_comprobante)
                     Case Is <= 0
                         MessageBox.Show("Se produjo un error al insertar el CAE y el vencimiento en el sistema local.", "Control de errores", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End Select
@@ -860,24 +1066,10 @@ Public Class frmComisionCenprofarPorFarmacia
 
     End Function
 
-    Public Function Insert_FacturaElectronica(ByVal numeroCAE As String, ByVal vtoCAE As String, ByVal CodigoBarra As String, ByVal CodComprobante As Integer, ByVal condicioniva As Integer, ByVal cuit As String, ByVal domicilio As String, ByVal vtopago As String, ByVal desde As String, ByVal hasta As String, ByVal tipocomp As String, ByVal concepto As String, ByVal formapago As String) As Integer
+    Public Function Insert_FacturaElectronica(ByVal numeroCAE As String, ByVal vtoCAE As String, ByVal CodigoBarra As String, ByVal CodComprobante As Integer) As Integer
         Dim res As Integer = 0
-        Dim esES As New CultureInfo("es-ES")
+
         Dim connection As SqlClient.SqlConnection = Nothing
-
-        Dim fechaservdesde, fechaservhasta, fechavencpago As Date
-
-        Date.TryParseExact(fecha_serv_hasta, "yyyyMMdd", esES,
-                            DateTimeStyles.None, fechavencpago)
-        fecha_venc_pago = fechavencpago.ToString("yyyy-MM-dd")
-
-        Date.TryParseExact(fecha_serv_desde, "yyyyMMdd", esES,
-                            DateTimeStyles.None, fechaservdesde)
-        fecha_serv_desde = fechaservdesde.ToString("yyyy-MM-dd")
-
-        Date.TryParseExact(fecha_serv_hasta, "yyyyMMdd", esES,
-                            DateTimeStyles.None, fechaservhasta)
-        fecha_serv_hasta = fechaservhasta.ToString("yyyy-MM-dd")
 
         Try
             connection = SqlHelper.GetConnection(ConnStringSEI)
@@ -921,26 +1113,26 @@ Public Class frmComisionCenprofarPorFarmacia
                 Dim param_CondicionIVA As New SqlClient.SqlParameter
                 param_CondicionIVA.ParameterName = "@CondicionIVA"
                 param_CondicionIVA.SqlDbType = SqlDbType.Int
-                param_CondicionIVA.Value = condicioniva
+                param_CondicionIVA.Value = cmbCondicionIVA.SelectedValue
                 param_CondicionIVA.Direction = ParameterDirection.Input
 
                 Dim param_DireccionFiscal As New SqlClient.SqlParameter
                 param_DireccionFiscal.ParameterName = "@DireccionFiscal"
                 param_DireccionFiscal.SqlDbType = SqlDbType.VarChar
                 param_DireccionFiscal.Size = 100
-                param_DireccionFiscal.Value = domicilio
+                param_DireccionFiscal.Value = txtDomicilio.Text
                 param_DireccionFiscal.Direction = ParameterDirection.Input
 
                 Dim param_Cuit As New SqlClient.SqlParameter
                 param_Cuit.ParameterName = "@Cuit"
                 param_Cuit.SqlDbType = SqlDbType.BigInt
-                param_Cuit.Value = Long.Parse(cuit)
+                param_Cuit.Value = Long.Parse(txtCuit.Text)
                 param_Cuit.Direction = ParameterDirection.Input
 
                 Dim param_fecha As New SqlClient.SqlParameter
                 param_fecha.ParameterName = "@Fecha"
                 param_fecha.SqlDbType = SqlDbType.DateTime
-                param_fecha.Value = dtpFecha.Value 'fecha
+                param_fecha.Value = dtpFECHA.Value 'fecha
                 param_fecha.Direction = ParameterDirection.Input
 
                 Dim param_subtotal As New SqlClient.SqlParameter
@@ -1004,38 +1196,38 @@ Public Class frmComisionCenprofarPorFarmacia
                 Dim param_FechaVtoPago As New SqlClient.SqlParameter
                 param_FechaVtoPago.ParameterName = "@Fecha_Vto_Pago"
                 param_FechaVtoPago.SqlDbType = SqlDbType.Date
-                param_FechaVtoPago.Value = fechavencpago 'fecha_venc_pago
+                param_FechaVtoPago.Value = dtpVtoPago.Value.Date 'fecha_venc_pago
                 param_FechaVtoPago.Direction = ParameterDirection.Input
 
                 Dim param_FechaServDesde As New SqlClient.SqlParameter
                 param_FechaServDesde.ParameterName = "@Fecha_Serv_Desde"
                 param_FechaServDesde.SqlDbType = SqlDbType.Date
-                param_FechaServDesde.Value = fechaservdesde 'fecha_serv_desde
+                param_FechaServDesde.Value = dtpDesde.Value.Date 'fecha_serv_desde
                 param_FechaServDesde.Direction = ParameterDirection.Input
 
                 Dim param_FechaServHasta As New SqlClient.SqlParameter
                 param_FechaServHasta.ParameterName = "@Fecha_Serv_Hasta"
                 param_FechaServHasta.SqlDbType = SqlDbType.Date
-                param_FechaServHasta.Value = fechaservhasta 'fecha_serv_hasta
+                param_FechaServHasta.Value = dtpHasta.Value.Date 'fecha_serv_hasta
                 param_FechaServHasta.Direction = ParameterDirection.Input
 
                 Dim param_comprobanteTipo As New SqlClient.SqlParameter
                 param_comprobanteTipo.ParameterName = "@ComprobanteTipo"
                 param_comprobanteTipo.SqlDbType = SqlDbType.Int
-                param_comprobanteTipo.Value = tipo_cbte
+                param_comprobanteTipo.Value = cmbTipoComprobante.SelectedValue
                 param_comprobanteTipo.Direction = ParameterDirection.Input
 
                 Dim param_conceptoTipo As New SqlClient.SqlParameter
                 param_conceptoTipo.ParameterName = "@ConceptoTipo"
                 param_conceptoTipo.SqlDbType = SqlDbType.Int
-                param_conceptoTipo.Value = concepto
+                param_conceptoTipo.Value = cmbConceptosFE.SelectedValue
                 param_conceptoTipo.Direction = ParameterDirection.Input
 
                 Dim param_formaPago As New SqlClient.SqlParameter
                 param_formaPago.ParameterName = "@FormaPago"
                 param_formaPago.SqlDbType = SqlDbType.VarChar
                 param_formaPago.Size = 50
-                param_formaPago.Value = formapago
+                param_formaPago.Value = cmbFormaPago.Text
                 param_formaPago.Direction = ParameterDirection.Input
 
                 Dim param_useradd As New SqlClient.SqlParameter
@@ -1097,113 +1289,181 @@ Public Class frmComisionCenprofarPorFarmacia
 
     Friend Sub refreshData()
         txtID.Text = ""
-        'If grdFarmacia.CurrentRow IsNot Nothing Then
-        '    Dim codigo As String = grdFarmacia.CurrentRow.Cells(grdFarmaciaCols.Codigo).Value.ToString
-        '    requestGrdData()
-        '    For Each row As DataGridViewRow In grdFarmacia.Rows
-        '        If row.Cells(grdFarmaciaCols.Codigo).Value = codigo Then
-        '            grdFarmacia.ClearSelection()
-        '            row.Selected = True
-        '            grdFarmacia.CurrentCell = grdFarmacia.Rows(row.Index).Cells(grdFarmaciaCols.Codigo)
-        '            txtID.Text = row.Cells(grdFarmaciaCols.ID).Value
-        '        End If
-        '    Next
-        'Else
-        '    requestGrdData()
-        'End If
+        If grdFarmacia.CurrentRow IsNot Nothing Then
+            Dim codigo As String = grdFarmacia.CurrentRow.Cells(grdFarmaciaCols.Codigo).Value.ToString
+            requestGrdData()
+            For Each row As DataGridViewRow In grdFarmacia.Rows
+                If row.Cells(grdFarmaciaCols.Codigo).Value = codigo Then
+                    grdFarmacia.ClearSelection()
+                    row.Selected = True
+                    grdFarmacia.CurrentCell = grdFarmacia.Rows(row.Index).Cells(grdFarmaciaCols.Codigo)
+                    txtID.Text = row.Cells(grdFarmaciaCols.ID).Value
+                End If
+            Next
+        Else
+            requestGrdData()
+        End If
 
     End Sub
 
     Private Sub Verificar_Datos()
-        ''DESOMENTAR TODO
-        ''bolpoliticas = False
 
-        ''----------------------------------CONTROLO EL TOTAL
-        'If txtImporte.Text = "" Or CDbl(txtImporte.Text) <= 0 Then
-        '    MsgBox("El Total de la venta realizado no es correcto. Por favor, controle el dato.", MsgBoxStyle.Information, "Atención")
+        'bolpoliticas = False
+
+        '----------------------------------CONTROLO EL TOTAL
+        If txtImporte.Text = "" Or CDbl(txtImporte.Text) <= 0 Then
+            MsgBox("El Total de la venta realizado no es correcto. Por favor, controle el dato.", MsgBoxStyle.Information, "Atención")
+            Exit Sub
+        End If
+        '---------------------------------CONTROLO DESCUENTO
+        'me fijo si se plico un descuento global sin monto
+        'If chkDescuentoGlobal.Checked And txtDescuento.Text = "" Then
+        '    chkDescuentoGlobal.Checked = False
+        'End If
+
+        'control de Responsables y Comprobante
+        'If chkDevolucion.Checked = False Then
+        If cmbTipoComprobante.SelectedValue.ToString = "001" And cmbCondicionIVA.SelectedValue.ToString <> "1" Then
+            MsgBox("La concición de IVA o el tipo de factura seleccionada no es correcto. Por favor, controle el dato.", MsgBoxStyle.Information, "Atención")
+            Exit Sub
+        Else
+            If cmbTipoComprobante.SelectedValue.ToString = "006" And cmbCondicionIVA.SelectedValue.ToString = "1" Then
+                MsgBox("La concición de IVA o el tipo de factura seleccionada no es correcto. Por favor, controle el dato.", MsgBoxStyle.Information, "Atención")
+                Exit Sub
+            End If
+        End If
+        'Else
+        If cmbTipoComprobante.SelectedValue.ToString = "003" And cmbCondicionIVA.SelectedValue.ToString <> "1" Then
+            MsgBox("La concición de IVA o el tipo de factura seleccionada no es correcto. Por favor, controle el dato.", MsgBoxStyle.Information, "Atención")
+            Exit Sub
+        Else
+            If cmbTipoComprobante.SelectedValue.ToString = "008" And cmbCondicionIVA.SelectedValue.ToString = "1" Then
+                MsgBox("La concición de IVA o el tipo de factura seleccionada no es correcto. Por favor, controle el dato.", MsgBoxStyle.Information, "Atención")
+                Exit Sub
+            End If
+        End If
+        'End If
+
+        If cmbCondicionIVA.SelectedValue = "5" And txtCuit.Text = "" Then
+            txtCuit.Text = "11111111"
+        End If
+
+        '------------------------------controlo datos del cliente
+        If cmbTipoComprobante.SelectedValue.ToString = "001" Or cmbTipoComprobante.SelectedValue.ToString = "003" Then
+            If txtCuit.Text.Length <> 11 Then
+                MsgBox("El nro de CUIT no cumple con el requisito de 11 dígitos. Por favor, controle el dato.", MsgBoxStyle.Information, "Atención")
+                txtCuit.Focus()
+                Exit Sub
+            End If
+
+            If lblObraSocial.Text.Length > 30 Or lblObraSocial.Text.Length = 0 Then
+                MsgBox("El Nombre del cliente no cumple con el requisito de 30 caracteres. Por favor, controle el dato.", MsgBoxStyle.Information, "Atención")
+                lblObraSocial.Focus()
+                Exit Sub
+            End If
+        End If
+
+        '--------------------------------CONTROLO EL RESTO
+
+        '----------------------------------CONTROLO DATOS DE CLIENTES
+        If Not cmbCondicionIVA.Text = "CONSUMIDOR FINAL" Then
+            Select Case cmbTipoComprobante.Text
+                Case "CUIL"
+                    If txtCuit.Text.Length <> 11 Then
+                        MsgBox("El nro de CUIL no cumple con el requisito de 11 dígitos. Por favor, controle el dato.", MsgBoxStyle.Information, "Atención")
+                        txtCuit.Focus()
+                        Exit Sub
+                    End If
+                Case "CUIT"
+                    If txtCuit.Text.Length <> 11 Then
+                        MsgBox("El nro de CUIT no cumple con el requisito de 11 dígitos. Por favor, controle el dato.", MsgBoxStyle.Information, "Atención")
+                        txtCuit.Focus()
+                        Exit Sub
+                    End If
+                Case "DNI"
+                    If txtCuit.Text.Length <> 7 Or txtCuit.Text.Length <> 8 Then
+                        MsgBox("El nro de DNI no cumple con el requisito de 8 dígitos. Por favor, controle el dato.", MsgBoxStyle.Information, "Atención")
+                        txtCuit.Focus()
+                        Exit Sub
+                    End If
+            End Select
+        Else
+            If txtCuit.Text <> "" Then
+                If txtCuit.Text.Length <> 11 Or txtCuit.Text <> 8 Or txtCuit.Text.Length <> 7 Then
+                    MsgBox("El nro de DNI/CUIT no cumple con el requisito de 11 dígitos. Por favor, controle el dato.", MsgBoxStyle.Information, "Atención")
+                    txtCuit.Focus()
+                    Exit Sub
+                End If
+            End If
+        End If
+        '--------------------------CONTROLO GRILLA
+        'Dim i As Integer, j As Integer, filas As Integer ', state As Integer
+
+        'Util.MsgStatus(Status1, "Verificando los datos...", My.Resources.Resources.indicator_white)
+
+        ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        ''Verificar si se terminó de editar la celda...
+        ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        'If editando_celda Then
+        '    Util.MsgStatus(Status1, "Use [Enter] o [Tab] para salir del modo edición, antes de guardar.", My.Resources.Resources.alert.ToBitmap)
+        '    Util.MsgStatus(Status1, "Use [Enter] o [Tab] para salir del modo edición, antes de guardar.", My.Resources.Resources.alert.ToBitmap, True)
         '    Exit Sub
         'End If
-        ''---------------------------------CONTROLO DESCUENTO
-        ''me fijo si se plico un descuento global sin monto
-        ''If chkDescuentoGlobal.Checked And txtDescuento.Text = "" Then
-        ''    chkDescuentoGlobal.Checked = False
-        ''End If
 
-        ''control de Responsables y Comprobante
-        ''If chkDevolucion.Checked = False Then
-        'If cmbTipoComprobante.SelectedValue.ToString = "001" And cmbCondicionIVA.SelectedValue.ToString <> "1" Then
-        '    MsgBox("La concición de IVA o el tipo de factura seleccionada no es correcto. Por favor, controle el dato.", MsgBoxStyle.Information, "Atención")
-        '    Exit Sub
-        'Else
-        '    If cmbTipoComprobante.SelectedValue.ToString = "006" And cmbCondicionIVA.SelectedValue.ToString = "1" Then
-        '        MsgBox("La concición de IVA o el tipo de factura seleccionada no es correcto. Por favor, controle el dato.", MsgBoxStyle.Information, "Atención")
-        '        Exit Sub
-        '    End If
-        'End If
-        ''Else
-        'If cmbTipoComprobante.SelectedValue.ToString = "003" And cmbCondicionIVA.SelectedValue.ToString <> "1" Then
-        '    MsgBox("La concición de IVA o el tipo de factura seleccionada no es correcto. Por favor, controle el dato.", MsgBoxStyle.Information, "Atención")
-        '    Exit Sub
-        'Else
-        '    If cmbTipoComprobante.SelectedValue.ToString = "008" And cmbCondicionIVA.SelectedValue.ToString = "1" Then
-        '        MsgBox("La concición de IVA o el tipo de factura seleccionada no es correcto. Por favor, controle el dato.", MsgBoxStyle.Information, "Atención")
-        '        Exit Sub
-        '    End If
-        'End If
-        ''End If
+        ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        ''verificar que no hay nada en la grilla sin datos
+        ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        'j = grdItems.RowCount - 1
+        'filas = 0
+        'For i = 0 To j
+        '    'state = grdItems.Rows.GetRowState(i)
+        '    'la fila está vacía ?
+        '    If fila_vacia(i) Then
+        '        Try
+        '            'encotramos una fila vacia...borrarla y ver si hay mas
+        '            grdItems.Rows.RemoveAt(i)
 
-        'If cmbCondicionIVA.SelectedValue = "5" And txtCuit.Text = "" Then
-        '    txtCuit.Text = "11111111"
-        'End If
+        '            j = j - 1 ' se reduce la cantidad de filas en 1
+        '            i = i - 1 ' se reduce para recorrer la fila que viene 
+        '        Catch ex As Exception
+        '        End Try
 
-        ''------------------------------controlo datos del cliente
-        'If cmbTipoComprobante.SelectedValue.ToString = "001" Or cmbTipoComprobante.SelectedValue.ToString = "003" Then
-        '    If txtCuit.Text.Length <> 11 Then
-        '        MsgBox("El nro de CUIT no cumple con el requisito de 11 dígitos. Por favor, controle el dato.", MsgBoxStyle.Information, "Atención")
-        '        txtCuit.Focus()
-        '        Exit Sub
-        '    End If
-
-        '    If lblObraSocial.Text.Length > 30 Or lblObraSocial.Text.Length = 0 Then
-        '        MsgBox("El Nombre del cliente no cumple con el requisito de 30 caracteres. Por favor, controle el dato.", MsgBoxStyle.Information, "Atención")
-        '        lblObraSocial.Focus()
-        '        Exit Sub
-        '    End If
-        'End If
-
-        ''--------------------------------CONTROLO EL RESTO
-
-        ''----------------------------------CONTROLO DATOS DE CLIENTES
-        'If Not cmbCondicionIVA.Text = "CONSUMIDOR FINAL" Then
-        '    Select Case cmbTipoComprobante.Text
-        '        Case "CUIL"
-        '            If txtCuit.Text.Length <> 11 Then
-        '                MsgBox("El nro de CUIL no cumple con el requisito de 11 dígitos. Por favor, controle el dato.", MsgBoxStyle.Information, "Atención")
-        '                txtCuit.Focus()
-        '                Exit Sub
-        '            End If
-        '        Case "CUIT"
-        '            If txtCuit.Text.Length <> 11 Then
-        '                MsgBox("El nro de CUIT no cumple con el requisito de 11 dígitos. Por favor, controle el dato.", MsgBoxStyle.Information, "Atención")
-        '                txtCuit.Focus()
-        '                Exit Sub
-        '            End If
-        '        Case "DNI"
-        '            If txtCuit.Text.Length <> 7 Or txtCuit.Text.Length <> 8 Then
-        '                MsgBox("El nro de DNI no cumple con el requisito de 8 dígitos. Por favor, controle el dato.", MsgBoxStyle.Information, "Atención")
-        '                txtCuit.Focus()
-        '                Exit Sub
-        '            End If
-        '    End Select
-        'Else
-        '    If txtCuit.Text <> "" Then
-        '        If txtCuit.Text.Length <> 11 Or txtCuit.Text <> 8 Or txtCuit.Text.Length <> 7 Then
-        '            MsgBox("El nro de DNI/CUIT no cumple con el requisito de 11 dígitos. Por favor, controle el dato.", MsgBoxStyle.Information, "Atención")
-        '            txtCuit.Focus()
+        '    Else
+        '        filas = filas + 1
+        '        'idmaterial es valido?
+        '        If grdItems.Rows(i).Cells(ColumnasDelGridItems.CodMaterial).Value Is System.DBNull.Value Then
+        '            Util.MsgStatus(Status1, "Falta completar el material en la fila: " & (i + 1).ToString, My.Resources.Resources.alert.ToBitmap)
+        '            Util.MsgStatus(Status1, "Falta completar el material en la fila: " & (i + 1).ToString, My.Resources.Resources.alert.ToBitmap, True)
+        '            Exit Sub
+        '        End If
+        '        'Descripcion del material es válida ?
+        '        If grdItems.Rows(i).Cells(ColumnasDelGridItems.CodMaterial).Value.ToString.ToLower = "No Existe".ToLower Then
+        '            Util.MsgStatus(Status1, "El material ingresado no es válido en la fila: " & (i + 1).ToString, My.Resources.Resources.alert.ToBitmap)
+        '            Util.MsgStatus(Status1, "El material ingresado no es válido en la fila: " & (i + 1).ToString, My.Resources.Resources.alert.ToBitmap, True)
         '            Exit Sub
         '        End If
         '    End If
+
+        '    'controlo los valores de descuento
+        '    If grdItems.Rows(i).Cells(ColumnasDelGridItems.Descuento).Value Is DBNull.Value Then
+        '        grdItems.Rows(i).Cells(ColumnasDelGridItems.Descuento).Value = 0
+        '    End If
+
+        'Next i
+
+
+        'If chkDevolucion.Checked Then
+        '    txtTotalVista.Text = "-" + txtTotalVista.Text
+        '    txtSubtotalVista.Text = "-" + txtSubtotalVista.Text
+        '    txtIVAVista.Text = "-" + txtIVAVista.Text
+        '    txtTotalOriginal.Text = "-" + txtTotalOriginal.Text
+        '    lblValorDescontado.Text = IIf(CDbl(lblValorDescontado.Text) > 0, "-" + lblValorDescontado.Text, lblValorDescontado.Text)
+        '    txtContado.Text = IIf(CDbl(txtContado.Text) > 0, "-" + txtContado.Text, txtContado.Text)
+        '    txtTarjetas1ImporteFinal.Text = IIf(CDbl(txtTarjetas1ImporteFinal.Text) > 0, "-" + txtTarjetas1ImporteFinal.Text, txtTarjetas1ImporteFinal.Text)
+        '    txtTarjetas2ImporteFinal.Text = IIf(CDbl(txtTarjetas2ImporteFinal.Text) > 0, "-" + txtTarjetas2ImporteFinal.Text, txtTarjetas2ImporteFinal.Text)
         'End If
+
+        'bolpoliticas = True
 
     End Sub
 
@@ -1235,11 +1495,11 @@ Public Class frmComisionCenprofarPorFarmacia
 
 #Region "Eventos"
     Private Sub frmSaldos_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'LlenarcmbTipoDocumento()
-        'LlenarcmbCondicionIVA()
-        'LlenarcmbComprobantes()
-        'LlenarcmbConceptosFE()
-        'LlenarcmbNroComprobanteNotaCred()
+        LlenarcmbTipoDocumento()
+        LlenarcmbCondicionIVA()
+        LlenarcmbComprobantes()
+        LlenarcmbConceptosFE()
+        LlenarcmbNroComprobanteNotaCred()
         Dim frmAnioyMes As New frmSeleccionMesyAnioAFacturar()
         frmAnioyMes.ShowDialog()
         'requestGrdData()
@@ -1249,8 +1509,8 @@ Public Class frmComisionCenprofarPorFarmacia
 
         getFields()
         chkNotaCredito_Click(sender, e)
-        'txtPuntoVta.Text = PTOVTA
-        'txtImporte.Text = TotalACargoOS
+        txtPuntoVta.Text = PTOVTA
+        txtImporte.Text = TotalACargoOS
     End Sub
 
 
@@ -1285,9 +1545,9 @@ Public Class frmComisionCenprofarPorFarmacia
 
             ''traigo datos de tabla razones sociales
             'ds_General = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT Nombre, Domicilio, Cuit FROM ObrasSociales WHERE ID = {IdObraSocial}")
-            'lblObraSocial.Text = grdFarmacia.Rows(0).Cells(5).Value.ToString 'ds_General.Tables(0).Rows(0).Item(0).ToString
-            'txtDomicilio.Text = grdFarmacia.Rows(0).Cells(7).Value.ToString 'ds_General.Tables(0).Rows(0).Item(1).ToString
-            'txtCuit.Text = grdFarmacia.Rows(0).Cells(6).Value.ToString 'ds_General.Tables(0).Rows(0).Item(2).ToString
+            lblObraSocial.Text = grdFarmacia.Rows(0).Cells(5).Value.ToString 'ds_General.Tables(0).Rows(0).Item(0).ToString
+            txtDomicilio.Text = grdFarmacia.Rows(0).Cells(7).Value.ToString 'ds_General.Tables(0).Rows(0).Item(1).ToString
+            txtCuit.Text = grdFarmacia.Rows(0).Cells(6).Value.ToString 'ds_General.Tables(0).Rows(0).Item(2).ToString
 
             ''traer nrocomprobante de la ultima factura 
 
@@ -1479,17 +1739,17 @@ Public Class frmComisionCenprofarPorFarmacia
         If chkNotaCredito.Checked = True Then
             cmbNroComprobanteNotaCred.Enabled = True
             lblNroComprobanteNotaCred.Enabled = True
-            'vaciarVariablesyTextbox()
+            vaciarVariablesyTextbox()
         Else
             cmbNroComprobanteNotaCred.Enabled = False
             lblNroComprobanteNotaCred.Enabled = False
-            'inicializarVariablesyTextbox(ptovtaSAVED, importeSAVED, obrasocialSAVED, domicilioSAVED, cuitSAVED, idOrigenSAVED, idObraSocialSAVED, periodoSAVED)
+            inicializarVariablesyTextbox(ptovtaSAVED, importeSAVED, obrasocialSAVED, domicilioSAVED, cuitSAVED, idOrigenSAVED, idObraSocialSAVED, periodoSAVED)
         End If
     End Sub
 
 
-    Private Sub cmbTipoComprobante_SelectedIndexChanged(sender As Object, e As EventArgs)
-        'LlenarcmbNroComprobanteNotaCred()
+    Private Sub cmbTipoComprobante_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbTipoComprobante.SelectedIndexChanged
+        LlenarcmbNroComprobanteNotaCred()
     End Sub
 
 
