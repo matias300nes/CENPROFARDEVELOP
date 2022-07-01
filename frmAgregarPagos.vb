@@ -270,7 +270,8 @@ Public Class frmAgregarPagos
                 res = param_res.Value
 
                 If res = 1 Then
-                    agregarRegistro(pago(gridColumns.idFarmacia), pago(gridColumns.tipoPago).ToString.ToUpper, pago(gridColumns.NroCheque), pago(gridColumns.importe), pago(gridColumns.farmacia), pago(gridColumns.razonSocial))
+                    Dim nroCheq As String = IIf(pago(gridColumns.NroCheque) Is DBNull.Value, "", pago(gridColumns.NroCheque))
+                    agregarRegistro(pago(gridColumns.idFarmacia), pago(gridColumns.tipoPago).ToString.ToUpper, nroCheq, pago(gridColumns.importe), pago(gridColumns.farmacia), pago(gridColumns.razonSocial))
                 End If
 
                 If (res <= 0) Then
@@ -331,7 +332,7 @@ Public Class frmAgregarPagos
             param_NroCheque.ParameterName = "@NroCheque"
             param_NroCheque.SqlDbType = SqlDbType.VarChar
             param_NroCheque.Size = 10
-            param_NroCheque.Value = IIf(NroCheque <> "", NroCheque, DBNull.Value)
+            param_NroCheque.Value = IIf(NroCheque <> "", NroCheque, "")
             param_NroCheque.Direction = ParameterDirection.Input
 
             ''fecha emision

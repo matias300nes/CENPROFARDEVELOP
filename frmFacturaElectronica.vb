@@ -4,8 +4,9 @@ Imports Utiles.Util
 
 Public Class frmFacturaElectronica
     'Declaro las variables que voy a pasarle al frm
-    Dim idOrigen, IdObraSocial, Periodo, TotalACargoOS, NombreOS, DireccionOS, nroIdentificador, mes, anio As String
-    Dim idPeriodo As Integer
+    Dim idOrigen, IdObraSocial, Periodo, TotalACargoOS, NombreOS, DireccionOS, mes, anio As String
+    Dim idPeriodo As Long
+    Dim nroIdentificador As Integer = 0
     Dim ptovtaSAVED, importeSAVED, obrasocialSAVED, domicilioSAVED, cuitSAVED, idOrigenSAVED, idObraSocialSAVED, periodoSAVED As String
 
     Public Sub New(idOrigen As String, IdObraSocial As String, Periodo As String, TotalACargoOS As String)
@@ -27,8 +28,8 @@ Public Class frmFacturaElectronica
 
     End Sub
 
-    Public Sub New(nroIdentificador As String, idPeriodo As Long, mes As String, anio As String)
-
+    Public Sub New(nroIdentificador As Integer, idPeriodo As Long, mes As String, anio As String)
+        frmComisionCenprofarPorFarmacia.chkVerFacturasEmitidas.Checked = False
         'Esta llamada es exigida por el diseñador.
         InitializeComponent()
 
@@ -412,7 +413,7 @@ Public Class frmFacturaElectronica
 
         Try
             If cmbTipoComprobante.Text <> "System.Data.DataRowView" And cmbTipoComprobante.SelectedValue.ToString <> "System.Data.DataRowView" Then
-                ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT CodigoFac FROM FacturasElectronicas WHERE ComprobanteTipo = {cmbTipoComprobante.SelectedValue} AND NroIdentificador = 0")
+                ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT CodigoFac FROM FacturasElectronicas WHERE ComprobanteTipo = {cmbTipoComprobante.SelectedValue} AND NroIdentificador = {nroIdentificador}")
 
                 ds.Dispose()
 

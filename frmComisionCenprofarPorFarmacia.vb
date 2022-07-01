@@ -33,8 +33,11 @@ Public Class frmComisionCenprofarPorFarmacia
     Dim idIVA, Desc, base_imp, alic, importe
 
     Private Sub chkVerFacturasEmitidas_CheckedChanged(sender As Object, e As EventArgs) Handles chkVerFacturasEmitidas.CheckedChanged
-        'Dim frmFacturaElectronica As New frmFacturaElectronica(1, 8, "mayo", "2022")
-        'frmFacturaElectronica.ShowDialog()
+        If chkVerFacturasEmitidas.Checked = True Then
+            Dim frmFacturaElectronica As New frmFacturaElectronica(1, 8, "mayo", "2022")
+            frmFacturaElectronica.ShowDialog()
+        End If
+
 
     End Sub
 
@@ -63,7 +66,7 @@ Public Class frmComisionCenprofarPorFarmacia
         For i = 0 To grdFarmacia.Rows.Count - 1
             With grdFarmacia.Rows(i)
                 If .Visible = True Then
-                    Total += .Cells(11).Value
+                    Total += .Cells(grdFarmaciaCols.ComisionCenprofar).Value
                     count += 1
                 End If
             End With
@@ -1243,9 +1246,11 @@ Public Class frmComisionCenprofarPorFarmacia
         Dim frmAnioyMes As New frmSeleccionMesyAnioAFacturar()
         frmAnioyMes.ShowDialog()
         'requestGrdData()
-        If txtID.Text <> "" Then
-            'setStyles()
+
+        If grdFarmacia.Rows.Count > 0 Then
+            setStyles()
         End If
+
 
         getFields()
         chkNotaCredito_Click(sender, e)
