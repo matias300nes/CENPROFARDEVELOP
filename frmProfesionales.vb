@@ -173,17 +173,17 @@ Public Class frmProfesionales
 
     Private Sub btnEliminar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEliminar.Click
         Dim res As Integer
-        Dim ds_Almacen As Data.DataSet
+        Dim ds_Profesional As Data.DataSet
         If MessageBox.Show("Está seguro que desea eliminar el Profesional seleccionado?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
             Exit Sub
         End If
 
         Try
-            ds_Almacen = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, "SELECT  IDAlmacen FROM Materiales where IDAlmacen = '" & txtID.Text & "'")
-            ds_Almacen.Dispose()
+            ds_Profesional = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, $"SELECT  Idprofesional FROM Farmacias_Profesionales where idProfesional = {txtID.Text}")
+            ds_Profesional.Dispose()
 
-            If ds_Almacen.Tables(0).Rows.Count > 0 Then
-                MsgBox("No se puede eliminar un Profesional que esté asociado a un material. Por favor verifique.", MsgBoxStyle.Information, "Atención")
+            If ds_Profesional.Tables(0).Rows.Count > 0 Then
+                MsgBox("No se puede eliminar un Profesional que esté asociado a una farmacia. Por favor verifique.", MsgBoxStyle.Information, "Atención")
                 Exit Sub
             End If
 
@@ -251,7 +251,7 @@ Public Class frmProfesionales
         Dim connection As SqlClient.SqlConnection = Nothing
         Dim ds_Update As Data.DataSet
 
-        If MessageBox.Show("Está por activar nuevamente el Profesional: " & grd.CurrentRow.Cells(2).Value.ToString & ". Desea continuar?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
+        If MessageBox.Show($"Está por activar nuevamente el Profesional: {grd.CurrentRow.Cells(2).Value.ToString } {grd.CurrentRow.Cells(3).Value.ToString}. Desea continuar?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
             Exit Sub
         End If
 
@@ -265,10 +265,10 @@ Public Class frmProfesionales
 
         Try
 
-            ds_Update = SqlHelper.ExecuteDataset(connection, CommandType.Text, "UPDATE Almacenes SET Eliminado = 0 WHERE id = " & grd.CurrentRow.Cells(0).Value)
+            ds_Update = SqlHelper.ExecuteDataset(connection, CommandType.Text, "UPDATE Profesionales SET Eliminado = 0 WHERE id = " & grd.CurrentRow.Cells(0).Value)
             ds_Update.Dispose()
 
-            SQL = "exec spAlmacenes_Select_All @Eliminado = 1"
+            SQL = "exec spProfesionales_Select_All 1"
 
             LlenarGrilla()
 
