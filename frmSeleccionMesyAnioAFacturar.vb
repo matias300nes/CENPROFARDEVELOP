@@ -77,6 +77,11 @@ Public Class frmSeleccionMesyAnioAFacturar
             Exit Sub
         End Try
 
+        If mes <> "" And anio <> "" Then
+            frmComisionCenprofarPorFarmacia.txtMes.Text = mes
+            frmComisionCenprofarPorFarmacia.txtAnio.Text = anio
+        End If
+
         Dim cmd As New SqlCommand(sql, connection)
         Dim da As New SqlDataAdapter(cmd)
 

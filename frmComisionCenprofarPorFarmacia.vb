@@ -34,7 +34,7 @@ Public Class frmComisionCenprofarPorFarmacia
 
     Private Sub chkVerFacturasEmitidas_CheckedChanged(sender As Object, e As EventArgs) Handles chkVerFacturasEmitidas.CheckedChanged
         If chkVerFacturasEmitidas.Checked = True Then
-            Dim frmFacturaElectronica As New frmFacturaElectronica(1, 8, "mayo", "2022")
+            Dim frmFacturaElectronica As New frmFacturaElectronica(1, grdFarmacia.Rows(0).Cells(grdFarmaciaCols.IdPeriodo).Value, txtMes.Text, txtAnio.Text)
             frmFacturaElectronica.ShowDialog()
         End If
 

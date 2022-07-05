@@ -165,6 +165,27 @@ Public Class frmFacturaElectronica
         Total = 16
     End Enum
 
+    Enum grdFEAAsociadosCols
+        ID = 0
+        Criterio = 1
+        Seleccion = 2
+        NroIdentificador = 3
+        NroFactura = 4
+        Fecha = 5
+        Farmacia = 6
+        RazonSocial = 7
+        Periodo = 8
+        Cuit = 9
+        DireccionFiscal = 10
+        TipoComprobante = 11
+        Observacion = 12
+        CAE = 13
+        Venc_CAE = 14
+        Fecha_Vto_Pago = 15
+        CodigoBarra = 16
+        Total = 17
+    End Enum
+
     Enum grdHistorialCols
         ID = 0
         Fecha = 1
@@ -200,17 +221,47 @@ Public Class frmFacturaElectronica
     Private Sub setStyles()
         With grdFEObrasSociales
             ''ocultar columnas
-            .Columns(grdFEObrasSocialesCols.ID).Visible = False
-            .Columns(grdFEObrasSocialesCols.Criterio).Visible = False
-            .Columns(grdFEObrasSocialesCols.NroIdentificador).Visible = False
-            ''cambiar width
-            '.Columns(grdFEObrasSocialesCols.Seleccion).Width = 50
-            '.Columns(grdFEObrasSocialesCols.Codigo).Width = 70
-            ''.Columns(grdFEObrasSocialesCols.Nombre).Width = 200
-            '.Columns(grdFEObrasSocialesCols.PreferenciaPago).Width = 70
-            '.Columns(grdFEObrasSocialesCols.Saldo).Width = 100
 
-            '.Columns(grdFEObrasSocialesCols.Saldo).DefaultCellStyle.Format = "c"
+            If nroIdentificador = 0 Then
+                .Columns(grdFEObrasSocialesCols.ID).Visible = False
+                .Columns(grdFEObrasSocialesCols.Criterio).Visible = False
+                .Columns(grdFEObrasSocialesCols.NroIdentificador).Visible = False
+                .Columns(grdFEAAsociadosCols.NroIdentificador).Visible = False
+                .Columns(grdFEAAsociadosCols.Periodo).Visible = False
+                .Columns(grdFEAAsociadosCols.Cuit).Visible = False
+                .Columns(grdFEAAsociadosCols.CodigoBarra).Visible = False
+                .Columns(grdFEAAsociadosCols.DireccionFiscal).Visible = False
+                .Columns(grdFEAAsociadosCols.Observacion).Visible = False
+
+                ''cambiar width
+                '.Columns(grdFEObrasSocialesCols.Seleccion).Width = 50
+                '.Columns(grdFEObrasSocialesCols.Codigo).Width = 70
+                ''.Columns(grdFEObrasSocialesCols.Nombre).Width = 200
+                '.Columns(grdFEObrasSocialesCols.PreferenciaPago).Width = 70
+                '.Columns(grdFEObrasSocialesCols.Saldo).Width = 100
+
+                '.Columns(grdFEObrasSocialesCols.Saldo).DefaultCellStyle.Format = "c"
+            ElseIf nroIdentificador = 1 Then
+                .Columns(grdFEAAsociadosCols.ID).Visible = False
+                .Columns(grdFEAAsociadosCols.Criterio).Visible = False
+                .Columns(grdFEAAsociadosCols.RazonSocial).Visible = False
+                .Columns(grdFEAAsociadosCols.NroIdentificador).Visible = False
+                .Columns(grdFEAAsociadosCols.Periodo).Visible = False
+                .Columns(grdFEAAsociadosCols.Cuit).Visible = False
+                .Columns(grdFEAAsociadosCols.CodigoBarra).Visible = False
+                .Columns(grdFEAAsociadosCols.DireccionFiscal).Visible = False
+                .Columns(grdFEAAsociadosCols.Observacion).Visible = False
+                ''cambiar width
+                '.Columns(grdFEAAsociadosCols.Seleccion).Width = 50
+                '.Columns(grdFEAAsociadosCols.Codigo).Width = 70
+                ''.Columns(grdFEAAsociadosCols.Nombre).Width = 200
+                '.Columns(grdFEAAsociadosCols.PreferenciaPago).Width = 70
+                '.Columns(grdFEAAsociadosCols.Saldo).Width = 100
+
+                '.Columns(grdFEObrasSocialesCols.Saldo).DefaultCellStyle.Format = "c"
+            End If
+
+
 
             ''Bloqueo la edicion para todas las columnas
             For Each col As DataGridViewColumn In .Columns
@@ -1534,15 +1585,20 @@ Public Class frmFacturaElectronica
             pathComprobantesAFIP = path_raiz & "\Comprobantes Facturas - " + Utiles.Empresa + "\"
 
             ''traigo datos de tabla obras sociales
-            ds_General = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT Nombre, Domicilio, Cuit FROM ObrasSociales WHERE ID = {IdObraSocial}")
-            lblObraSocial.Text = ds_General.Tables(0).Rows(0).Item(0).ToString
-            txtDomicilio.Text = ds_General.Tables(0).Rows(0).Item(1).ToString
-            txtCuit.Text = ds_General.Tables(0).Rows(0).Item(2).ToString
 
-            ''almaceno variables
-            obrasocialSAVED = lblObraSocial.Text
-            domicilioSAVED = txtDomicilio.Text
-            cuitSAVED = txtCuit.Text
+            If nroIdentificador = 0 Then
+                ds_General = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT Nombre, Domicilio, Cuit FROM ObrasSociales WHERE ID = {IdObraSocial}")
+                lblObraSocial.Text = ds_General.Tables(0).Rows(0).Item(0).ToString
+                txtDomicilio.Text = ds_General.Tables(0).Rows(0).Item(1).ToString
+                txtCuit.Text = ds_General.Tables(0).Rows(0).Item(2).ToString
+
+                ''almaceno variables
+                obrasocialSAVED = lblObraSocial.Text
+                domicilioSAVED = txtDomicilio.Text
+                cuitSAVED = txtCuit.Text
+            End If
+
+
 
             ''traer nrocomprobante de la ultima factura 
 

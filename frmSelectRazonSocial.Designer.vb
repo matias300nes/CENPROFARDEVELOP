@@ -43,13 +43,13 @@ Partial Class frmSelectRazonSocial
         Me.TableLayoutPanel1.Controls.Add(Me.GroupBox1, 0, 0)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
-        Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(2)
+        Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 3
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 62.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 48.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(532, 420)
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 59.0!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(709, 517)
         Me.TableLayoutPanel1.TabIndex = 4
         '
         'btnListo
@@ -57,9 +57,10 @@ Partial Class frmSelectRazonSocial
         Me.btnListo.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
         Me.btnListo.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.btnListo.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.btnListo.Location = New System.Drawing.Point(221, 384)
+        Me.btnListo.Location = New System.Drawing.Point(295, 473)
+        Me.btnListo.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnListo.Name = "btnListo"
-        Me.btnListo.Size = New System.Drawing.Size(89, 23)
+        Me.btnListo.Size = New System.Drawing.Size(119, 28)
         Me.btnListo.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnListo.TabIndex = 2
         Me.btnListo.Text = "Listo"
@@ -73,14 +74,15 @@ Partial Class frmSelectRazonSocial
         Me.grdRazonSocial.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.grdRazonSocial.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.grdRazonSocial.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.grdRazonSocial.Location = New System.Drawing.Point(3, 53)
+        Me.grdRazonSocial.Location = New System.Drawing.Point(4, 66)
+        Me.grdRazonSocial.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.grdRazonSocial.MultiSelect = False
         Me.grdRazonSocial.Name = "grdRazonSocial"
         Me.grdRazonSocial.ReadOnly = True
         Me.grdRazonSocial.RowHeadersVisible = False
         Me.grdRazonSocial.RowHeadersWidth = 51
         Me.grdRazonSocial.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.grdRazonSocial.Size = New System.Drawing.Size(526, 316)
+        Me.grdRazonSocial.Size = New System.Drawing.Size(701, 388)
         Me.grdRazonSocial.TabIndex = 0
         '
         'GroupBox1
@@ -89,11 +91,11 @@ Partial Class frmSelectRazonSocial
         Me.GroupBox1.Controls.Add(Me.txtBuscar)
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GroupBox1.Location = New System.Drawing.Point(2, 2)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(2)
+        Me.GroupBox1.Location = New System.Drawing.Point(3, 2)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(2)
-        Me.GroupBox1.Size = New System.Drawing.Size(528, 46)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.GroupBox1.Size = New System.Drawing.Size(703, 58)
         Me.GroupBox1.TabIndex = 3
         Me.GroupBox1.TabStop = False
         '
@@ -101,9 +103,10 @@ Partial Class frmSelectRazonSocial
         '
         Me.Label3.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(297, 20)
+        Me.Label3.Location = New System.Drawing.Point(395, 25)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(43, 13)
+        Me.Label3.Size = New System.Drawing.Size(56, 17)
         Me.Label3.TabIndex = 11
         Me.Label3.Text = "Buscar:"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -111,32 +114,35 @@ Partial Class frmSelectRazonSocial
         'txtBuscar
         '
         Me.txtBuscar.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtBuscar.Location = New System.Drawing.Point(346, 17)
-        Me.txtBuscar.MaximumSize = New System.Drawing.Size(172, 20)
+        Me.txtBuscar.Location = New System.Drawing.Point(460, 21)
+        Me.txtBuscar.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtBuscar.MaximumSize = New System.Drawing.Size(228, 20)
         Me.txtBuscar.Name = "txtBuscar"
-        Me.txtBuscar.Size = New System.Drawing.Size(172, 20)
+        Me.txtBuscar.Size = New System.Drawing.Size(228, 20)
         Me.txtBuscar.TabIndex = 10
         '
         'Label1
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(14, 17)
+        Me.Label1.Location = New System.Drawing.Point(19, 21)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(179, 18)
+        Me.Label1.Size = New System.Drawing.Size(225, 24)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Seleccionar Razón Social"
         '
         'frmSelectRazonSocial
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(532, 420)
+        Me.ClientSize = New System.Drawing.Size(709, 517)
         Me.Controls.Add(Me.TableLayoutPanel1)
-        Me.MinimumSize = New System.Drawing.Size(450, 400)
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.MinimumSize = New System.Drawing.Size(594, 481)
         Me.Name = "frmSelectRazonSocial"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
-        Me.Text = "frmSelectRazonSocial"
+        Me.Text = "Seleccionar Razón Social"
         Me.TableLayoutPanel1.ResumeLayout(False)
         CType(Me.grdRazonSocial, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)

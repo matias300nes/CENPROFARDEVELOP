@@ -174,7 +174,7 @@ Public Class frmProfesionales
     Private Sub btnEliminar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEliminar.Click
         Dim res As Integer
         Dim ds_Almacen As Data.DataSet
-        If MessageBox.Show("Está seguro que desea eliminar el Depósito seleccionado?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
+        If MessageBox.Show("Está seguro que desea eliminar el Profesional seleccionado?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
             Exit Sub
         End If
 
@@ -183,7 +183,7 @@ Public Class frmProfesionales
             ds_Almacen.Dispose()
 
             If ds_Almacen.Tables(0).Rows.Count > 0 Then
-                MsgBox("No se puede eliminar un Depósito que esté asociado a un material. Por favor verifique.", MsgBoxStyle.Information, "Atención")
+                MsgBox("No se puede eliminar un Profesional que esté asociado a un material. Por favor verifique.", MsgBoxStyle.Information, "Atención")
                 Exit Sub
             End If
 
@@ -251,7 +251,7 @@ Public Class frmProfesionales
         Dim connection As SqlClient.SqlConnection = Nothing
         Dim ds_Update As Data.DataSet
 
-        If MessageBox.Show("Está por activar nuevamente el depósito: " & grd.CurrentRow.Cells(2).Value.ToString & ". Desea continuar?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
+        If MessageBox.Show("Está por activar nuevamente el Profesional: " & grd.CurrentRow.Cells(2).Value.ToString & ". Desea continuar?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
             Exit Sub
         End If
 
@@ -276,7 +276,7 @@ Public Class frmProfesionales
                 btnActivar.Enabled = False
             End If
 
-            Util.MsgStatus(Status1, "El depósito se activó correctamente.", My.Resources.ok.ToBitmap)
+            Util.MsgStatus(Status1, "El Profesional se activó correctamente.", My.Resources.ok.ToBitmap)
 
         Catch ex As Exception
             Dim errMessage As String = ""
@@ -769,13 +769,7 @@ Public Class frmProfesionales
         End Try
     End Function
 
-    Private Sub txtCelular_TextChanged(sender As Object, e As EventArgs) Handles txtCelular.TextChanged
 
-    End Sub
-
-    Private Sub Label2_Click(sender As Object, e As EventArgs) Handles Label2.Click
-
-    End Sub
 
 #End Region
 

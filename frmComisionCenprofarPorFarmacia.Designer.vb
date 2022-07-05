@@ -47,6 +47,8 @@ Partial Class frmComisionCenprofarPorFarmacia
         Me.lblNroComprobanteNotaCred = New System.Windows.Forms.Label()
         Me.chkVerFacturasEmitidas = New System.Windows.Forms.CheckBox()
         Me.dtpFecha = New System.Windows.Forms.DateTimePicker()
+        Me.txtMes = New System.Windows.Forms.TextBox()
+        Me.txtAnio = New System.Windows.Forms.TextBox()
         CType(Me.grdFarmacia, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicConexion, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -318,6 +320,22 @@ Partial Class frmComisionCenprofarPorFarmacia
         Me.dtpFecha.Size = New System.Drawing.Size(110, 22)
         Me.dtpFecha.TabIndex = 978
         '
+        'txtMes
+        '
+        Me.txtMes.Location = New System.Drawing.Point(343, 491)
+        Me.txtMes.Name = "txtMes"
+        Me.txtMes.Size = New System.Drawing.Size(100, 22)
+        Me.txtMes.TabIndex = 979
+        Me.txtMes.Visible = False
+        '
+        'txtAnio
+        '
+        Me.txtAnio.Location = New System.Drawing.Point(449, 491)
+        Me.txtAnio.Name = "txtAnio"
+        Me.txtAnio.Size = New System.Drawing.Size(100, 22)
+        Me.txtAnio.TabIndex = 980
+        Me.txtAnio.Visible = False
+        '
         'frmComisionCenprofarPorFarmacia
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -347,6 +365,8 @@ Partial Class frmComisionCenprofarPorFarmacia
         Me.Controls.Add(Me.txtBuscar)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.grdFarmacia)
+        Me.Controls.Add(Me.txtMes)
+        Me.Controls.Add(Me.txtAnio)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MinimumSize = New System.Drawing.Size(994, 47)
@@ -384,4 +404,6 @@ Partial Class frmComisionCenprofarPorFarmacia
     Friend WithEvents lblNroComprobanteNotaCred As Label
     Friend WithEvents chkVerFacturasEmitidas As CheckBox
     Friend WithEvents dtpFecha As DateTimePicker
+    Friend WithEvents txtMes As TextBox
+    Friend WithEvents txtAnio As TextBox
 End Class

@@ -186,14 +186,12 @@ Public Class frmLiquidaciones
     End Sub
 
     Private Sub frmRecepciones_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-
+        btnImprimir.Visible = False
+        ToolStrip_lblCodMaterial.Visible = False
+        txtBusquedaMAT.Visible = False
         'lblTotal.Visible = False
         lblcmbObrasSociales.Visible = True
         Cursor = Cursors.WaitCursor
-
-        ToolStrip_lblCodMaterial.Visible = True
-        txtBusquedaMAT.Visible = True
-
         ''Agrego tipos de pago al combobox
         Dim dtTipoPago As New DataTable
         With dtTipoPago
