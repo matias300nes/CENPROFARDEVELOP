@@ -285,9 +285,7 @@ Public Class frmSaldos
     End Sub
 
     Private Sub btnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click
-        '"08-05-2022 15:00"
-        '"09-05-2022 15:56:00"
-        '20137
+
         If checkSelected() Then
             Dim dv As New DataView(dtFarmacias)
             dv.RowFilter = $"[Selección] = 1"
@@ -298,23 +296,10 @@ Public Class frmSaldos
                 Dim frmRptSaldos As New frmRptSaldos(rowDt(grdFarmaciaCols.ID), dtpFechaInicio.Value, dtpFechaFin.Value)
                 frmRptSaldos.ShowDialog()
             Next
-
-            'Dim frmRptSaldos As New frmRptSaldos(20137, "08-05-2022 15:00", "09-05-2022 15:56:00")
-            'frmRptSaldos.ShowDialog()
-
-            'Dim AgregarCheques As New frmAgregarPagos(dv.ToTable())
-            'AgregarCheques.ShowDialog()
         Else
-            MsgBox("Debe seleccionar al menos una razón social para poder realizar el pago.")
+            MsgBox("Debe seleccionar al menos una farmacia para poder imprimir un reporte.")
         End If
-
-
     End Sub
-
-    'Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
-    '    Dim reporte As New frmRtpCheques()
-    '    reporte.ShowDialog()
-    'End Sub
 
 #End Region
 End Class
