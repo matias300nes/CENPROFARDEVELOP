@@ -82,10 +82,11 @@ Public Class frmSelectConcepto
 
         Try
 
-            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, " SELECT fp.idprofesional AS ID, p.nombre+' '+p.Apellido  AS Profesional
+            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $" SELECT fp.idprofesional AS ID, p.nombre+' '+p.Apellido  AS Profesional
                                                                             FROM Farmacias_Profesionales fp
                                                                             JOIN Profesionales p 
-                                                                            ON p.Id = fp.idProfesional")
+                                                                            ON p.Id = fp.idProfesional
+                                                                            WHERE fp.idFarmacia = {frmFarmacias_Conceptos.txtID.Text}")
             ds.Dispose()
 
             With cmbProfesionales
