@@ -276,10 +276,40 @@ Public Class frmFarmacias_Conceptos
 
     Private Sub btnEliminar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEliminar.Click
         Dim res As Integer
-
+        Dim ds_Farmacia As Data.DataSet
         If MessageBox.Show("Está seguro que desea eliminar la Farmacia seleccionada?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
             Exit Sub
         End If
+
+
+        Try
+            ds_Farmacia = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, $"SELECT f.ID FROM Farmacias f
+                                                                                      INNER JOIN Farmacias_Profesionales fp
+                                                                                      ON fp.idFarmacia = f.id
+                                                                                      INNER JOIN Farmacias_Conceptos fc
+                                                                                      ON fc.idFarmacia = fp.idFarmacia
+                                                                                      WHERE f.ID = {txtID.Text}")
+            ds_Farmacia.Dispose()
+
+            If ds_Farmacia.Tables(0).Rows.Count > 0 Then
+                MsgBox("No se puede eliminar una Farmacia que está asociada a un profesional o concepto. Por favor verifíque.", MsgBoxStyle.Information, "Atención")
+                Exit Sub
+            End If
+
+        Catch ex As Exception
+            Dim errMessage As String = ""
+            Dim tempException As Exception = ex
+
+            While (Not tempException Is Nothing)
+                errMessage += tempException.Message + Environment.NewLine + Environment.NewLine
+                tempException = tempException.InnerException
+            End While
+
+            MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
+              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage),
+              "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
 
         'If BAJA_FISICA Then
         Util.MsgStatus(Status1, "Eliminando el registro...", My.Resources.Resources.indicator_white)
@@ -313,7 +343,7 @@ Public Class frmFarmacias_Conceptos
         Dim connection As SqlClient.SqlConnection = Nothing
         Dim ds_Update As Data.DataSet
 
-        If MessageBox.Show("Está por activar nuevamente la Farmacia: " & grd.CurrentRow.Cells(2).Value.ToString & ". Desea continuar?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
+        If MessageBox.Show($"Está por activar nuevamente la Farmacia: {grd.CurrentRow.Cells(GridItemsCols.Farmacia).Value.ToString}. Desea continuar?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
             Exit Sub
         End If
 
@@ -327,7 +357,7 @@ Public Class frmFarmacias_Conceptos
 
         Try
 
-            ds_Update = SqlHelper.ExecuteDataset(connection, CommandType.Text, "UPDATE Farmacias SET Eliminado = 0 WHERE id = " & grd.CurrentRow.Cells(0).Value)
+            ds_Update = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"UPDATE Farmacias SET Eliminado = 0 WHERE id = {grd.CurrentRow.Cells(GridItemsCols.ID).Value}")
             ds_Update.Dispose()
 
 

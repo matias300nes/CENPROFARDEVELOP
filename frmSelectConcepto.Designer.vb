@@ -33,7 +33,7 @@ Partial Class frmSelectConcepto
         Me.cmbFrecuencia = New System.Windows.Forms.ComboBox()
         Me.LabelX2 = New DevComponents.DotNetBar.LabelX()
         Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
-        Me.txtValor = New System.Windows.Forms.TextBox()
+        Me.txtValor = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.TableLayoutPanel1.SuspendLayout()
         CType(Me.grdConceptos, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
@@ -91,13 +91,13 @@ Partial Class frmSelectConcepto
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.txtValor)
         Me.GroupBox1.Controls.Add(Me.chkProfesional)
         Me.GroupBox1.Controls.Add(Me.lblProfesional)
         Me.GroupBox1.Controls.Add(Me.cmbProfesionales)
         Me.GroupBox1.Controls.Add(Me.cmbFrecuencia)
         Me.GroupBox1.Controls.Add(Me.LabelX2)
         Me.GroupBox1.Controls.Add(Me.LabelX1)
-        Me.GroupBox1.Controls.Add(Me.txtValor)
         Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox1.Location = New System.Drawing.Point(3, 2)
         Me.GroupBox1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -132,6 +132,7 @@ Partial Class frmSelectConcepto
         '
         'cmbProfesionales
         '
+        Me.cmbProfesionales.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbProfesionales.FormattingEnabled = True
         Me.cmbProfesionales.Location = New System.Drawing.Point(358, 46)
         Me.cmbProfesionales.Name = "cmbProfesionales"
@@ -178,11 +179,20 @@ Partial Class frmSelectConcepto
         'txtValor
         '
         Me.txtValor.AccessibleName = "*Valor"
+        Me.txtValor.Decimals = CType(2, Byte)
+        Me.txtValor.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
+        Me.txtValor.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
         Me.txtValor.Location = New System.Drawing.Point(28, 48)
-        Me.txtValor.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.txtValor.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtValor.MaxLength = 4
         Me.txtValor.Name = "txtValor"
-        Me.txtValor.Size = New System.Drawing.Size(124, 22)
-        Me.txtValor.TabIndex = 0
+        Me.txtValor.Size = New System.Drawing.Size(116, 22)
+        Me.txtValor.TabIndex = 8
+        Me.txtValor.Text_1 = Nothing
+        Me.txtValor.Text_2 = Nothing
+        Me.txtValor.Text_3 = Nothing
+        Me.txtValor.Text_4 = Nothing
+        Me.txtValor.UserValues = Nothing
         '
         'frmSelectConcepto
         '
@@ -210,9 +220,9 @@ Partial Class frmSelectConcepto
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents LabelX2 As DevComponents.DotNetBar.LabelX
     Friend WithEvents LabelX1 As DevComponents.DotNetBar.LabelX
-    Friend WithEvents txtValor As TextBox
     Friend WithEvents cmbFrecuencia As ComboBox
     Friend WithEvents chkProfesional As CheckBox
     Friend WithEvents lblProfesional As DevComponents.DotNetBar.LabelX
     Friend WithEvents cmbProfesionales As ComboBox
+    Friend WithEvents txtValor As TextBoxConFormatoVB.FormattedTextBoxVB
 End Class
