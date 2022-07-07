@@ -396,6 +396,8 @@ Public Class frmPresentacionesAgregarItem
                     .Cells(grdCols.Total).Value = Decimal.Parse(txtImpACargoOs.Text) - Decimal.Parse(txtBonificacion.Text)
                 End With
 
+                frmPresentaciones.CalcularTotales()
+
                 Me.Dispose()
                 Me.Close()
             ElseIf Not updating Then

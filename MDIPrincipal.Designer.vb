@@ -293,6 +293,7 @@ Partial Class MDIPrincipal
         Me.FacturaAAsociadosToolStripMenuItem.Name = "FacturaAAsociadosToolStripMenuItem"
         Me.FacturaAAsociadosToolStripMenuItem.Size = New System.Drawing.Size(258, 26)
         Me.FacturaAAsociadosToolStripMenuItem.Text = "Factura a Asociados"
+        Me.FacturaAAsociadosToolStripMenuItem.Visible = False
         '
         'ToolStripSeparator24
         '

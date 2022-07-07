@@ -9,6 +9,7 @@ Imports ExcelDataReader
 Imports DevComponents.DotNetBar.SuperGrid
 Imports DevComponents.DotNetBar.Controls
 Imports DevComponents.DotNetBar.SuperGrid.Style
+Imports System.ComponentModel
 
 Public Class frmSeleccionMesyAnioAFacturar
 
@@ -62,6 +63,7 @@ Public Class frmSeleccionMesyAnioAFacturar
 
 
     Private Sub frmNuevaLiquidacion_Load(sender As Object, e As EventArgs) Handles Me.Load
+        txtMes.Focus()
         asignarTags()
         Permitir = True
     End Sub
@@ -84,16 +86,23 @@ Public Class frmSeleccionMesyAnioAFacturar
 
         Dim cmd As New SqlCommand(sql, connection)
         Dim da As New SqlDataAdapter(cmd)
-
         da.Fill(dtfarmacias)
 
-        frmComisionCenprofarPorFarmacia.grdFarmacia.DataSource = dtfarmacias
+        Dim dv As New DataView(dtfarmacias)
+        dv.RowFilter = $"[CAE] IS NULL"
+
+        frmComisionCenprofarPorFarmacia.grdFarmacia.DataSource = dv
         Me.Close()
     End Sub
 
     Private Sub btnListo_Click(sender As Object, e As EventArgs) Handles btnListo.Click
         ''llamo al sp con los datos de mes y año
-        requestGrdData(txtMes.Text, txtAnio.Text)
+        If txtMes.Text = "" Or txtAnio.Text = "" Then
+            MsgBox("Debe completar los campos obligatorios, por favor verifíque.")
+        Else
+            requestGrdData(txtMes.Text, txtAnio.Text)
+        End If
     End Sub
+
 
 End Class

@@ -247,7 +247,7 @@ Public Class frmPresentaciones
 
     End Sub
 
-    Private Sub CalcularTotales()
+    Friend Sub CalcularTotales()
         ''CALCULA LOS TOTALES DE LA GRIDITEMS
         Dim i As Integer
         Dim count As Integer = 0

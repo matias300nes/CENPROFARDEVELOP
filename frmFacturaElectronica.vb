@@ -28,7 +28,7 @@ Public Class frmFacturaElectronica
 
     End Sub
 
-    Public Sub New(nroIdentificador As Integer, idPeriodo As Long, mes As String, anio As String)
+    Public Sub New(nroIdentificador As Integer, mes As String, anio As String)
         frmComisionCenprofarPorFarmacia.chkVerFacturasEmitidas.Checked = False
         'Esta llamada es exigida por el diseñador.
         InitializeComponent()
@@ -37,7 +37,6 @@ Public Class frmFacturaElectronica
         Me.nroIdentificador = nroIdentificador
         Me.mes = mes
         Me.anio = anio
-        Me.idPeriodo = idPeriodo
 
     End Sub
 
@@ -234,6 +233,7 @@ Public Class frmFacturaElectronica
                 .Columns(grdFEAAsociadosCols.Observacion).Visible = False
 
                 ''cambiar width
+                .Columns(grdFEObrasSocialesCols.Seleccion).Width = 50
                 '.Columns(grdFEObrasSocialesCols.Seleccion).Width = 50
                 '.Columns(grdFEObrasSocialesCols.Codigo).Width = 70
                 ''.Columns(grdFEObrasSocialesCols.Nombre).Width = 200
@@ -1135,7 +1135,7 @@ Public Class frmFacturaElectronica
                 Dim param_idPeriodo As New SqlClient.SqlParameter
                 param_idPeriodo.ParameterName = "@IdPeriodo"
                 param_idPeriodo.SqlDbType = SqlDbType.BigInt
-                param_idPeriodo.Value = IIf(nroIdentificador = 1, idPeriodo, DBNull.Value)
+                param_idPeriodo.Value = IIf(nroIdentificador = 1, periodoSAVED, DBNull.Value)
                 param_idPeriodo.Direction = ParameterDirection.Input
 
                 Dim param_PtoVta As New SqlClient.SqlParameter
@@ -1640,7 +1640,9 @@ Public Class frmFacturaElectronica
         End Try
         Try
             ''traigo datos de tabla parametros
-            ds_General = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT PtoVta, TotalOrig, os.Nombre, os.Domicilio, os.Cuit, fe.IDOrigen, os.ID, pp.Periodo FROM FacturasElectronicas fe
+
+            If nroIdentificador = 0 Then
+                ds_General = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT PtoVta, TotalOrig, os.Nombre, os.Domicilio, os.Cuit, fe.IDOrigen, os.ID, pp.Periodo FROM FacturasElectronicas fe
                                                                                     INNER JOIN Presentaciones p
                                                                                     ON p.ID = fe.IDOrigen
                                                                                     INNER JOIN ObrasSociales os
@@ -1649,16 +1651,29 @@ Public Class frmFacturaElectronica
                                                                                     ON pp.Id = p.IdPeriodo
                                                                                     WHERE CodigoFac = {cmbNroComprobanteNotaCred.SelectedValue} and ComprobanteTipo = {cmbTipoComprobante.SelectedValue}
                                                                                     AND fe.NroIdentificador = 0")
-            ptovtaSQL = ds_General.Tables(0).Rows(0).Item(0).ToString
-            importeSQL = ds_General.Tables(0).Rows(0).Item(1).ToString
-            obrasocialSQL = ds_General.Tables(0).Rows(0).Item(2).ToString
-            domicilioSQL = ds_General.Tables(0).Rows(0).Item(3).ToString
-            cuitSQL = ds_General.Tables(0).Rows(0).Item(4).ToString
-            idOrigenSQL = ds_General.Tables(0).Rows(0).Item(5).ToString
-            idObraSocialSQL = ds_General.Tables(0).Rows(0).Item(6).ToString
-            periodoSQL = ds_General.Tables(0).Rows(0).Item(7).ToString
+            ElseIf nroIdentificador = 1 Then
+                ds_General = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT PtoVta, TotalOrig, f.Nombre, rs.Domicilio, rs.Cuit, fe.IDOrigen, f.ID, fe.IdPeriodo FROM FacturasElectronicas fe
+                                                                                    INNER JOIN Farmacias f
+                                                                                    ON f.ID = fe.IDOrigen
+                                                                                    INNER JOIN RazonesSociales rs
+                                                                                    ON rs.ID = f.idRazonSocial
+                                                                                    WHERE CodigoFac = {cmbNroComprobanteNotaCred.SelectedValue} and ComprobanteTipo = {cmbTipoComprobante.SelectedValue}
+                                                                                    AND fe.NroIdentificador = 1")
+            End If
 
-            inicializarVariablesyTextbox(ptovtaSQL, importeSQL, obrasocialSQL, domicilioSQL, cuitSQL, idOrigenSQL, idObraSocialSQL, periodoSQL)
+            If ds_General.Tables(0).Rows.Count > 0 Then
+                ptovtaSQL = ds_General.Tables(0).Rows(0).Item(0).ToString
+                importeSQL = ds_General.Tables(0).Rows(0).Item(1).ToString
+                obrasocialSQL = ds_General.Tables(0).Rows(0).Item(2).ToString
+                domicilioSQL = ds_General.Tables(0).Rows(0).Item(3).ToString
+                cuitSQL = ds_General.Tables(0).Rows(0).Item(4).ToString
+                idOrigenSQL = ds_General.Tables(0).Rows(0).Item(5).ToString
+                idObraSocialSQL = ds_General.Tables(0).Rows(0).Item(6).ToString
+                periodoSQL = ds_General.Tables(0).Rows(0).Item(7).ToString
+                inicializarVariablesyTextbox(ptovtaSQL, importeSQL, obrasocialSQL, domicilioSQL, cuitSQL, idOrigenSQL, idObraSocialSQL, periodoSQL)
+            Else
+                vaciarVariablesyTextbox()
+            End If
 
             ds_General.Dispose()
 
