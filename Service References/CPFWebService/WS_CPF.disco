@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<discovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/disco/">
+  <contractRef ref="https://w280432.ferozo.com/WS_CPF.asmx?wsdl" docRef="https://w280432.ferozo.com/WS_CPF.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
+  <soap address="https://w280432.ferozo.com/WS_CPF.asmx" xmlns:q1="http://tempuri.org/" binding="q1:WS_CPFSoap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <soap address="https://w280432.ferozo.com/WS_CPF.asmx" xmlns:q2="http://tempuri.org/" binding="q2:WS_CPFSoap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+</discovery>
