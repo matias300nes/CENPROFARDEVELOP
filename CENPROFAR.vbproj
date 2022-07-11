@@ -19,7 +19,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <ApplicationIcon>icons8-configuración-del-administrador-48.ico</ApplicationIcon>
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -206,6 +206,12 @@
       <DependentUpon>frmComisionCenprofarPorFarmacia.vb</DependentUpon>
     </Compile>
     <Compile Include="frmComisionCenprofarPorFarmacia.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDeveloper.Designer.vb">
+      <DependentUpon>frmDeveloper.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmDeveloper.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmGenerarTxtPrescam.Designer.vb">
@@ -1028,6 +1034,11 @@
     <Compile Include="Reportes\frmRtpCheques.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Service References\CPFWebService\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Service References\WS_Porkys\Reference.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1666,6 +1677,9 @@
     <EmbeddedResource Include="frmComisionCenprofarPorFarmacia.resx">
       <DependentUpon>frmComisionCenprofarPorFarmacia.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmDeveloper.resx">
+      <DependentUpon>frmDeveloper.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmGenerarTxtPrescam.resx">
       <DependentUpon>frmGenerarTxtPrescam.vb</DependentUpon>
     </EmbeddedResource>
@@ -2193,6 +2207,7 @@
     <None Include="Reportes\dsSistema.xss">
       <DependentUpon>dsSistema.xsd</DependentUpon>
     </None>
+    <None Include="Service References\CPFWebService\WS_CPF.wsdl" />
     <None Include="Service References\WS_Porkys\ws_porkys.wsdl" />
   </ItemGroup>
   <ItemGroup>
@@ -2279,6 +2294,13 @@
     <None Include="Resources\change.png" />
     <None Include="Resources\web.png" />
     <None Include="Resources\ver.png" />
+    <None Include="Service References\CPFWebService\WS_CPF.disco" />
+    <None Include="Service References\CPFWebService\configuration91.svcinfo" />
+    <None Include="Service References\CPFWebService\configuration.svcinfo" />
+    <None Include="Service References\CPFWebService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
     <Content Include="SqlServerTypes\Loader.cs" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
@@ -2406,6 +2428,7 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadataStorage Include="Service References\CPFWebService\" />
     <WCFMetadataStorage Include="Service References\WS_Porkys\" />
   </ItemGroup>
   <ItemGroup>

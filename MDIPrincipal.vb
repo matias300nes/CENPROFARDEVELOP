@@ -4333,4 +4333,9 @@ Pedidos:
         frmComisionCenprofarPorFarmacia.Show()
 
     End Sub
+
+    Private Sub DeveloperToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DeveloperToolStripMenuItem.Click
+        frmDeveloper.MdiParent = Me
+        frmDeveloper.Show()
+    End Sub
 End Class
