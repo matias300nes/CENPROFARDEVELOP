@@ -22,13 +22,14 @@ Partial Class frmPlanes
         Me.txtID = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.GroupPanel1 = New DevComponents.DotNetBar.Controls.GroupPanel()
+        Me.nudPorcentaje = New System.Windows.Forms.NumericUpDown()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.txtCODIGO = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.txtNombre = New System.Windows.Forms.TextBox()
-        Me.txtPorcentaje = New System.Windows.Forms.TextBox()
         Me.GroupPanel1.SuspendLayout()
+        CType(Me.nudPorcentaje, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'chkEliminados
@@ -83,6 +84,7 @@ Partial Class frmPlanes
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupPanel1.CanvasColor = System.Drawing.SystemColors.Control
         Me.GroupPanel1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007
+        Me.GroupPanel1.Controls.Add(Me.nudPorcentaje)
         Me.GroupPanel1.Controls.Add(Me.Label4)
         Me.GroupPanel1.Controls.Add(Me.Label15)
         Me.GroupPanel1.Controls.Add(Me.chkEliminados)
@@ -91,7 +93,6 @@ Partial Class frmPlanes
         Me.GroupPanel1.Controls.Add(Me.Label11)
         Me.GroupPanel1.Controls.Add(Me.txtCODIGO)
         Me.GroupPanel1.Controls.Add(Me.txtNombre)
-        Me.GroupPanel1.Controls.Add(Me.txtPorcentaje)
         Me.GroupPanel1.DisabledBackColor = System.Drawing.Color.Empty
         Me.GroupPanel1.Location = New System.Drawing.Point(15, 36)
         Me.GroupPanel1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -127,6 +128,17 @@ Partial Class frmPlanes
         Me.GroupPanel1.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.GroupPanel1.TabIndex = 258
         '
+        'nudPorcentaje
+        '
+        Me.nudPorcentaje.AccessibleName = "*Porcentaje"
+        Me.nudPorcentaje.DecimalPlaces = 2
+        Me.nudPorcentaje.Increment = New Decimal(New Integer() {1, 0, 0, 65536})
+        Me.nudPorcentaje.Location = New System.Drawing.Point(464, 27)
+        Me.nudPorcentaje.Margin = New System.Windows.Forms.Padding(4)
+        Me.nudPorcentaje.Name = "nudPorcentaje"
+        Me.nudPorcentaje.Size = New System.Drawing.Size(97, 22)
+        Me.nudPorcentaje.TabIndex = 277
+        '
         'Label4
         '
         Me.Label4.AutoSize = True
@@ -135,9 +147,9 @@ Partial Class frmPlanes
         Me.Label4.Location = New System.Drawing.Point(31, 9)
         Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(52, 17)
+        Me.Label4.Size = New System.Drawing.Size(71, 21)
         Me.Label4.TabIndex = 276
-        Me.Label4.Text = "Código"
+        Me.Label4.Text = "Código*"
         '
         'Label15
         '
@@ -148,9 +160,9 @@ Partial Class frmPlanes
         Me.Label15.Location = New System.Drawing.Point(461, 8)
         Me.Label15.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(76, 17)
+        Me.Label15.Size = New System.Drawing.Size(101, 21)
         Me.Label15.TabIndex = 275
-        Me.Label15.Text = "Porcentaje"
+        Me.Label15.Text = "Porcentaje*"
         '
         'Label11
         '
@@ -166,7 +178,7 @@ Partial Class frmPlanes
         '
         'txtCODIGO
         '
-        Me.txtCODIGO.AccessibleName = ""
+        Me.txtCODIGO.AccessibleName = "*Codigo"
         Me.txtCODIGO.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.txtCODIGO.Decimals = CType(2, Byte)
         Me.txtCODIGO.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
@@ -192,17 +204,6 @@ Partial Class frmPlanes
         Me.txtNombre.Size = New System.Drawing.Size(261, 22)
         Me.txtNombre.TabIndex = 1
         '
-        'txtPorcentaje
-        '
-        Me.txtPorcentaje.AccessibleName = ""
-        Me.txtPorcentaje.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtPorcentaje.Location = New System.Drawing.Point(464, 29)
-        Me.txtPorcentaje.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.txtPorcentaje.Name = "txtPorcentaje"
-        Me.txtPorcentaje.Size = New System.Drawing.Size(104, 22)
-        Me.txtPorcentaje.TabIndex = 2
-        '
         'frmPlanes
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -217,6 +218,7 @@ Partial Class frmPlanes
         Me.Controls.SetChildIndex(Me.GroupPanel1, 0)
         Me.GroupPanel1.ResumeLayout(False)
         Me.GroupPanel1.PerformLayout()
+        CType(Me.nudPorcentaje, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -231,7 +233,7 @@ Partial Class frmPlanes
     Friend WithEvents Label15 As Label
     Friend WithEvents Label11 As Label
     Friend WithEvents txtNombre As TextBox
-    Friend WithEvents txtPorcentaje As TextBox
     Friend WithEvents Label4 As Label
     Friend WithEvents txtCODIGO As TextBoxConFormatoVB.FormattedTextBoxVB
+    Friend WithEvents nudPorcentaje As NumericUpDown
 End Class

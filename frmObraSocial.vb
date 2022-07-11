@@ -35,6 +35,7 @@ Public Class frmObraSocial
         IdLocalidad = 10
         IdProvincia = 11
         Localidad = 12
+        NombreRadioButton = 13
     End Enum
 
 #End Region
@@ -52,6 +53,29 @@ Public Class frmObraSocial
 
     Private Sub frmObraSocial_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         'AsignarPermisos(UserID, Me.Name, ALTA, MODIFICA, BAJA, BAJA_FISICA)
+
+        Dim dtAplicarBonificacionA As New DataTable
+        With dtAplicarBonificacionA
+            .Columns.Add("DisplayMember")
+            .Columns.Add("ValueMember")
+
+            Dim row1 As DataRow = .NewRow()
+            row1("DisplayMember") = "Imp. Recaudado"
+            row1("ValueMember") = "0"
+            .Rows.Add(row1)
+
+            Dim row2 As DataRow = .NewRow()
+            row2("DisplayMember") = "Imp. A Cargo OS"
+            row2("ValueMember") = "1"
+            .Rows.Add(row2)
+        End With
+
+        With cmbAplicarBonificacionA
+            .DataSource = dtAplicarBonificacionA
+            .DisplayMember = "DisplayMember"
+            .ValueMember = "ValueMember"
+        End With
+
         configurarform()
         asignarTags()
 
@@ -104,6 +128,29 @@ Public Class frmObraSocial
 
     Private Overloads Sub grd_CurrentCellChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles grd.CurrentCellChanged 'comentar
         LlenargrdPlanesPanel()
+        'Dim ds_General As Data.DataSet
+
+        'If txtID.Text <> "" Then
+        '    Dim connection As SqlClient.SqlConnection = Nothing
+        '    Try
+
+        '        connection = SqlHelper.GetConnection(ConnStringSEI)
+
+        '    Catch ex As Exception
+        '        MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        '        Exit Sub
+        '    End Try
+        '    Try
+        '        ''traigo datos de tabla parametros
+        '        ds_General = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT NombreRadioButton FROM ObrasSociales WHERE id = {txtID.Text}")
+        '        IIf(ds_General.Tables(0).Rows(0).Item(0).ToString = "rdbACargoOS", rdbACargoOS.Checked = True, rdbRecaudado.Checked = True)
+
+
+        '    Catch ex As Exception
+        '        MessageBox.Show("Se produjo un error al leer los datos de la tabla Obra Social", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        '        Exit Sub
+        '    End Try
+        'End If
     End Sub
 
 #End Region
@@ -478,9 +525,17 @@ Public Class frmObraSocial
                 Dim param_bonificacion As New SqlClient.SqlParameter
                 param_bonificacion.ParameterName = "@bonificacion"
                 param_bonificacion.SqlDbType = SqlDbType.Decimal
-                param_bonificacion.Size = 10
+                'param_bonificacion.Size = 10 ''nacho 11/07/2022
                 param_bonificacion.Value = Decimal.Parse(nudBonificacion.Value)
                 param_bonificacion.Direction = ParameterDirection.Input
+
+
+                Dim param_AplicarBonificacionA As New SqlClient.SqlParameter
+                param_AplicarBonificacionA.ParameterName = "@AplicarBonificacionA"
+                param_AplicarBonificacionA.SqlDbType = SqlDbType.Int
+                param_AplicarBonificacionA.Value = cmbAplicarBonificacionA.SelectedValue
+                param_AplicarBonificacionA.Direction = ParameterDirection.Input
+
 
                 Dim param_res As New SqlClient.SqlParameter
                 param_res.ParameterName = "@res"
@@ -491,7 +546,7 @@ Public Class frmObraSocial
                 Try
                     SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spObrasSociales_Insert", param_id,
                                               param_codigo, param_codFACAF, param_nombre, param_descripcion, param_domicilio,
-                                              param_localidad, param_telefono, param_email, param_cuit, param_bonificacion,
+                                              param_localidad, param_telefono, param_email, param_cuit, param_bonificacion, param_AplicarBonificacionA,
                                               param_res)
 
                     txtID.Text = param_id.Value
@@ -622,16 +677,22 @@ Public Class frmObraSocial
                 Dim param_bonificacion As New SqlClient.SqlParameter
                 param_bonificacion.ParameterName = "@bonificacion"
                 param_bonificacion.SqlDbType = SqlDbType.Decimal
-                param_bonificacion.Size = 10
+                ''param_bonificacion.Size = 10 ''nacho 11/07/2022
                 param_bonificacion.Value = Decimal.Parse(nudBonificacion.Value)
                 param_bonificacion.Direction = ParameterDirection.Input
+
+                Dim param_AplicarBonificacionA As New SqlClient.SqlParameter
+                param_AplicarBonificacionA.ParameterName = "@AplicarBonificacionA"
+                param_AplicarBonificacionA.SqlDbType = SqlDbType.Int
+                param_AplicarBonificacionA.Value = cmbAplicarBonificacionA.SelectedValue
+                param_AplicarBonificacionA.Direction = ParameterDirection.Input
 
                 ''------------------------------------------------
 
 
                 SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spObrasSociales_Update", param_id,
                                               param_nombre, param_codFACAF, param_telefono, param_email, param_cuit,
-                                              param_descripcion, param_domicilio, param_localidad, param_bonificacion, param_res)
+                                              param_descripcion, param_domicilio, param_localidad, param_bonificacion, param_AplicarBonificacionA, param_res)
 
                 ActualizarRegistro = param_res.Value
                 If param_res.Value = 1 Then
@@ -751,6 +812,7 @@ Public Class frmObraSocial
             .Columns(ObrasSocialesCols.Domicilio).Visible = False
             .Columns(ObrasSocialesCols.IdProvincia).Visible = False
             .Columns(ObrasSocialesCols.Bonificacion).Visible = False
+            .Columns(ObrasSocialesCols.NombreRadioButton).Visible = False
 
             .AutoResizeColumns()
         End With
@@ -801,6 +863,7 @@ Public Class frmObraSocial
         txtDomicilio.Tag = "9"
         cmbLocalidad.Tag = "10"
         cmbProvincia.Tag = "11"
+        cmbAplicarBonificacionA.Tag = "13"
 
     End Sub
 

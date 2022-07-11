@@ -264,23 +264,26 @@ Public Class frmPresentacionesAgregarItem
     End Sub
 
     Private Function calcularBonificacion(NombrePorcentaje As String, porcentaje As Decimal, rdbName As String)
-        If porcentaje > 0.00 And porcentaje <= 1 Then
+        If porcentaje > 0.00 And porcentaje <= 100 Then
             lblNombrePorcentaje.Text = NombrePorcentaje
             txtPorcentaje.Text = porcentaje
 
             If rdbName = rdbACargoOS.Name And txtImpACargoOs.Text <> "" Then
 
-                txtBonificacion.Text = String.Format("{0:N2}", Decimal.Parse(txtImpACargoOs.Text) * porcentaje)
+                txtBonificacion.Text = String.Format("{0:N2}", Decimal.Parse(txtImpACargoOs.Text) * (porcentaje / 100))
 
                 lblTotal.Text = String.Format("{0:N2}", Math.Round(
                                               Decimal.Parse(txtImpACargoOs.Text) - Decimal.Parse(txtBonificacion.Text), 2))
 
             ElseIf rdbName = rdbRecaudado.Name And txtImpRecaudado.Text <> "" Then
 
-                txtBonificacion.Text = String.Format("{0:N2}", Decimal.Parse(txtImpRecaudado.Text) * porcentaje)
+                txtBonificacion.Text = String.Format("{0:N2}", Decimal.Parse(txtImpRecaudado.Text) * (porcentaje / 100))
 
-                lblTotal.Text = String.Format("{0:N2}", Math.Round(
-                                              Decimal.Parse(txtImpACargoOs.Text) - Decimal.Parse(txtBonificacion.Text), 2))
+                If txtImpACargoOs.Text <> "" Then
+                    lblTotal.Text = String.Format("{0:N2}", Math.Round(
+                              Decimal.Parse(txtImpACargoOs.Text) - Decimal.Parse(txtBonificacion.Text), 2))
+                End If
+
 
             End If
         End If
