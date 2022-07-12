@@ -2163,6 +2163,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Reportes\rptCheques.rdlc" />
     <EmbeddedResource Include="Reportes\rptChequesCopia.rdlc" />
+    <EmbeddedResource Include="Reportes\rptFacturaC.rdlc" />
     <EmbeddedResource Include="Reportes\rptPresentacionConCodFACAF.rdlc" />
     <EmbeddedResource Include="Reportes\rptPresentacion.rdlc" />
     <EmbeddedResource Include="Reportes\rptSaldos.rdlc" />

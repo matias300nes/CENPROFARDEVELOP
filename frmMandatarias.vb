@@ -153,6 +153,7 @@ Public Class frmMandatarias
                     '    Util.MsgStatus(Status1, "No tiene permiso para modificar registros.", My.Resources.stop_error.ToBitmap)
                     'End If
                 End If
+                LlenarCmbProvincias()
             End If
         End If
     End Sub
@@ -171,17 +172,21 @@ Public Class frmMandatarias
 
     Private Sub btnEliminar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEliminar.Click
         Dim res As Integer
-        Dim ds_Almacen As Data.DataSet
-        If MessageBox.Show("Está seguro que desea eliminar el Depósito seleccionado?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
+        Dim ds_Mandataria As Data.DataSet
+        If MessageBox.Show("Está seguro que desea eliminar la Mandataria seleccionada?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
             Exit Sub
         End If
 
         Try
-            ds_Almacen = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, "SELECT  IDAlmacen FROM Materiales where IDAlmacen = '" & txtID.Text & "'")
-            ds_Almacen.Dispose()
+            ds_Mandataria = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, $"SELECT m.Id 
+                                                                                        FROM Mandatarias m
+                                                                                        INNER JOIN Grupos g
+                                                                                        ON g.IdMandataria = m.Id
+                                                                                        WHERE m.Id = {txtID.Text}")
+            ds_Mandataria.Dispose()
 
-            If ds_Almacen.Tables(0).Rows.Count > 0 Then
-                MsgBox("No se puede eliminar un Depósito que esté asociado a un material. Por favor verifique.", MsgBoxStyle.Information, "Atención")
+            If ds_Mandataria.Tables(0).Rows.Count > 0 Then
+                MsgBox("No se puede eliminar una Mandataria que tenga al menos un Grupo. Por favor verifique.", MsgBoxStyle.Information, "Atención")
                 Exit Sub
             End If
 
@@ -249,7 +254,7 @@ Public Class frmMandatarias
         Dim connection As SqlClient.SqlConnection = Nothing
         Dim ds_Update As Data.DataSet
 
-        If MessageBox.Show("Está por activar nuevamente el depósito: " & grd.CurrentRow.Cells(2).Value.ToString & ". Desea continuar?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
+        If MessageBox.Show("Está por activar nuevamente la mandataria: " & grd.CurrentRow.Cells(colsGrid.Mandataria).Value.ToString & ". Desea continuar?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
             Exit Sub
         End If
 
@@ -263,10 +268,10 @@ Public Class frmMandatarias
 
         Try
 
-            ds_Update = SqlHelper.ExecuteDataset(connection, CommandType.Text, "UPDATE Almacenes SET Eliminado = 0 WHERE id = " & grd.CurrentRow.Cells(0).Value)
+            ds_Update = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"UPDATE Mandatarias SET Eliminado = 0 WHERE id = {grd.CurrentRow.Cells(0).Value}")
             ds_Update.Dispose()
 
-            SQL = "exec spAlmacenes_Select_All @Eliminado = 1"
+            SQL = "exec spMandatarias_Select_All @Eliminado = 1"
 
             LlenarGrilla()
 
@@ -411,7 +416,7 @@ Public Class frmMandatarias
     End Sub
 
 
-    Private Sub cmbLocalidad_SelectedValueChanged(sender As Object, e As EventArgs)
+    Private Sub cmbLocalidad_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbLocalidad.SelectedValueChanged
 
         If TypeOf cmbLocalidad.SelectedValue Is Long Then
 
@@ -433,7 +438,7 @@ Public Class frmMandatarias
     End Sub
 
 
-    Private Sub cmbProvincia_SelectedValueChanged(sender As Object, e As EventArgs)
+    Private Sub cmbProvincia_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbProvincia.SelectedValueChanged
         If llenandoCombo = True Then
             ''LLENAR COMBOBOX LOCALIDADES
 
@@ -445,7 +450,7 @@ Public Class frmMandatarias
 
     End Sub
 
-    Private Sub txtCodigoPostal_LostFocus(sender As Object, e As EventArgs)
+    Private Sub txtCodigoPostal_LostFocus(sender As Object, e As EventArgs) Handles txtCodigoPostal.LostFocus
         If txtCodigoPostal.Text.Length = 4 Then
 
             Dim dv As New DataView(dsGeo.Tables("Localidades"))
@@ -752,6 +757,11 @@ Public Class frmMandatarias
             End If
         End Try
     End Function
+
+    Private Sub txtCodigoPostal_TextChanged(sender As Object, e As EventArgs) Handles txtCodigoPostal.TextChanged
+
+    End Sub
+
 
 #End Region
 
