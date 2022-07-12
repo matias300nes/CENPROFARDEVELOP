@@ -129,7 +129,7 @@ Public Class frmMandatarias
                             Util.MsgStatus(Status1, "No se pudo agregar el registro.", My.Resources.Resources.stop_error.ToBitmap)
                         Case Else
                             Util.MsgStatus(Status1, "Se ha actualizado el registro.", My.Resources.Resources.ok.ToBitmap)
-                            btnActualizar_Click(sender, e)
+
                     End Select
                     'Else
                     ' Util.MsgStatus(Status1, "No tiene permiso para Agregar registros.", My.Resources.stop_error.ToBitmap)
@@ -154,6 +154,7 @@ Public Class frmMandatarias
                     'End If
                 End If
                 LlenarCmbProvincias()
+                btnActualizar_Click(sender, e)
             End If
         End If
     End Sub
@@ -327,8 +328,8 @@ Public Class frmMandatarias
         txtNombre.Tag = "2"
         txtDireccion.Tag = "3"
         txtCodigoPostal.Tag = "4"
-        cmbLocalidad.Tag = "5"
-        cmbProvincia.Tag = "7"
+        cmbLocalidad.Tag = "7"
+        cmbProvincia.Tag = "5"
         txtTelefono.Tag = "9"
         txtCelular.Tag = "10"
     End Sub
@@ -556,6 +557,7 @@ Public Class frmMandatarias
                         Util.AgregarGrilla(grd, Me, Permitir)
                         bolModo = False
                         PrepararBotones()
+
                     End If
                     AgregarRegistro = res
 
