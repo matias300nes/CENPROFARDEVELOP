@@ -159,6 +159,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ApplicationEvents.vb" />
+    <Compile Include="Classes\WebServiceUtils.vb" />
     <Compile Include="CommManager.vb" />
     <Compile Include="conexionDb.Context.vb">
       <AutoGen>True</AutoGen>

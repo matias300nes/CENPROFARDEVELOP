@@ -30,24 +30,25 @@ Partial Class frmDeveloper
         Me.txtPassword = New System.Windows.Forms.TextBox()
         Me.txtUser = New System.Windows.Forms.TextBox()
         Me.gbPanel = New System.Windows.Forms.GroupBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.ComboBox2 = New System.Windows.Forms.ComboBox()
+        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
         Me.TCResults = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.grdResult = New System.Windows.Forms.DataGridView()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.txtResult = New System.Windows.Forms.TextBox()
         Me.btnRun = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.txtQuery = New System.Windows.Forms.TextBox()
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
-        Me.ComboBox2 = New System.Windows.Forms.ComboBox()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.txtResult = New System.Windows.Forms.TextBox()
-        Me.grdResult = New System.Windows.Forms.DataGridView()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.gbUser.SuspendLayout()
         Me.gbPanel.SuspendLayout()
         Me.TCResults.SuspendLayout()
         Me.TabPage1.SuspendLayout()
-        Me.TabPage2.SuspendLayout()
         CType(Me.grdResult, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TabPage2.SuspendLayout()
         Me.SuspendLayout()
         '
         'gbUser
@@ -124,6 +125,7 @@ Partial Class frmDeveloper
         Me.gbPanel.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.gbPanel.Controls.Add(Me.Button1)
         Me.gbPanel.Controls.Add(Me.Label3)
         Me.gbPanel.Controls.Add(Me.Label2)
         Me.gbPanel.Controls.Add(Me.ComboBox2)
@@ -139,6 +141,46 @@ Partial Class frmDeveloper
         Me.gbPanel.TabStop = False
         Me.gbPanel.Text = "Panel"
         Me.gbPanel.Visible = False
+        '
+        'Label3
+        '
+        Me.Label3.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(561, 13)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(43, 13)
+        Me.Label3.TabIndex = 9
+        Me.Label3.Text = "Method"
+        '
+        'Label2
+        '
+        Me.Label2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(423, 13)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(38, 13)
+        Me.Label2.TabIndex = 8
+        Me.Label2.Text = "Server"
+        '
+        'ComboBox2
+        '
+        Me.ComboBox2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ComboBox2.FormattingEnabled = True
+        Me.ComboBox2.Items.AddRange(New Object() {"Sql_Get"})
+        Me.ComboBox2.Location = New System.Drawing.Point(564, 29)
+        Me.ComboBox2.Name = "ComboBox2"
+        Me.ComboBox2.Size = New System.Drawing.Size(121, 21)
+        Me.ComboBox2.TabIndex = 7
+        '
+        'ComboBox1
+        '
+        Me.ComboBox1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ComboBox1.FormattingEnabled = True
+        Me.ComboBox1.Items.AddRange(New Object() {"Local", "Web"})
+        Me.ComboBox1.Location = New System.Drawing.Point(426, 29)
+        Me.ComboBox1.Name = "ComboBox1"
+        Me.ComboBox1.Size = New System.Drawing.Size(121, 21)
+        Me.ComboBox1.TabIndex = 6
         '
         'TCResults
         '
@@ -164,6 +206,16 @@ Partial Class frmDeveloper
         Me.TabPage1.Text = "Table"
         Me.TabPage1.UseVisualStyleBackColor = True
         '
+        'grdResult
+        '
+        Me.grdResult.BackgroundColor = System.Drawing.SystemColors.ControlLightLight
+        Me.grdResult.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.grdResult.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.grdResult.Location = New System.Drawing.Point(3, 3)
+        Me.grdResult.Name = "grdResult"
+        Me.grdResult.Size = New System.Drawing.Size(716, 137)
+        Me.grdResult.TabIndex = 0
+        '
         'TabPage2
         '
         Me.TabPage2.Controls.Add(Me.txtResult)
@@ -174,6 +226,15 @@ Partial Class frmDeveloper
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "XML"
         Me.TabPage2.UseVisualStyleBackColor = True
+        '
+        'txtResult
+        '
+        Me.txtResult.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.txtResult.Location = New System.Drawing.Point(3, 3)
+        Me.txtResult.Multiline = True
+        Me.txtResult.Name = "txtResult"
+        Me.txtResult.Size = New System.Drawing.Size(716, 137)
+        Me.txtResult.TabIndex = 10
         '
         'btnRun
         '
@@ -204,64 +265,14 @@ Partial Class frmDeveloper
         Me.txtQuery.Size = New System.Drawing.Size(730, 167)
         Me.txtQuery.TabIndex = 0
         '
-        'ComboBox1
+        'Button1
         '
-        Me.ComboBox1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Items.AddRange(New Object() {"Local", "Web"})
-        Me.ComboBox1.Location = New System.Drawing.Point(426, 29)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(121, 21)
-        Me.ComboBox1.TabIndex = 6
-        '
-        'ComboBox2
-        '
-        Me.ComboBox2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ComboBox2.FormattingEnabled = True
-        Me.ComboBox2.Items.AddRange(New Object() {"Sql_Get"})
-        Me.ComboBox2.Location = New System.Drawing.Point(564, 29)
-        Me.ComboBox2.Name = "ComboBox2"
-        Me.ComboBox2.Size = New System.Drawing.Size(121, 21)
-        Me.ComboBox2.TabIndex = 7
-        '
-        'Label2
-        '
-        Me.Label2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(423, 13)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(38, 13)
-        Me.Label2.TabIndex = 8
-        Me.Label2.Text = "Server"
-        '
-        'Label3
-        '
-        Me.Label3.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(561, 13)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(43, 13)
-        Me.Label3.TabIndex = 9
-        Me.Label3.Text = "Method"
-        '
-        'txtResult
-        '
-        Me.txtResult.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtResult.Location = New System.Drawing.Point(3, 3)
-        Me.txtResult.Multiline = True
-        Me.txtResult.Name = "txtResult"
-        Me.txtResult.Size = New System.Drawing.Size(716, 137)
-        Me.txtResult.TabIndex = 10
-        '
-        'grdResult
-        '
-        Me.grdResult.BackgroundColor = System.Drawing.SystemColors.ControlLightLight
-        Me.grdResult.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.grdResult.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.grdResult.Location = New System.Drawing.Point(3, 3)
-        Me.grdResult.Name = "grdResult"
-        Me.grdResult.Size = New System.Drawing.Size(716, 137)
-        Me.grdResult.TabIndex = 0
+        Me.Button1.Location = New System.Drawing.Point(124, 25)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 23)
+        Me.Button1.TabIndex = 10
+        Me.Button1.Text = "Button1"
+        Me.Button1.UseVisualStyleBackColor = True
         '
         'frmDeveloper
         '
@@ -279,9 +290,9 @@ Partial Class frmDeveloper
         Me.gbPanel.PerformLayout()
         Me.TCResults.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
+        CType(Me.grdResult, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage2.ResumeLayout(False)
         Me.TabPage2.PerformLayout()
-        CType(Me.grdResult, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -306,4 +317,5 @@ Partial Class frmDeveloper
     Friend WithEvents ComboBox1 As ComboBox
     Friend WithEvents grdResult As DataGridView
     Friend WithEvents txtResult As TextBox
+    Friend WithEvents Button1 As Button
 End Class
