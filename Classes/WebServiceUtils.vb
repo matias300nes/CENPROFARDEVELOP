@@ -6,7 +6,7 @@ Imports System.Globalization
 
 Module WebServiceUtils
     Public Function updateTable(listTableNames() As String) As String
-        Dim status As String = "Success"
+        Dim status As String
         For Each tableName As String In listTableNames
             status += updateTable(tableName) + ", "
         Next
@@ -60,7 +60,7 @@ Module WebServiceUtils
                     If dt.Rows(i)(j) IsNot DBNull.Value Then
                         currentValue = $"'{dt.Rows(i)(j).ToString}'"
                         If dt.Rows(i)(j).GetType() = GetType(DateTime) Then
-                            currentValue = $"'{DateTime.Parse(dt.Rows(i)(j)).ToString("dd/MM/yyyy hh:mm : ss tt", CultureInfo.InvariantCulture)}'"
+                            currentValue = $"'{DateTime.Parse(dt.Rows(i)(j)).ToString("MM/dd/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture)}'"
                         End If
                     Else
                         currentValue = "null"
@@ -94,7 +94,7 @@ Module WebServiceUtils
                     If dt.Rows(i)(j) IsNot DBNull.Value Then
                         currentValue = $"'{dt.Rows(i)(j).ToString}'"
                         If dt.Rows(i)(j).GetType() = GetType(DateTime) Then
-                            currentValue = $"'{DateTime.Parse(dt.Rows(i)(j)).ToString("dd/MM/yyyy hh:mm : ss tt", CultureInfo.InvariantCulture)}'"
+                            currentValue = $"'{DateTime.Parse(dt.Rows(i)(j)).ToString("MM/dd/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture)}'"
                         End If
                     Else
                         currentValue = "null"
@@ -122,7 +122,19 @@ Module WebServiceUtils
 
     Private Sub createColumnSync(tableName As String)
         Dim Sql = $"ALTER TABLE [dbo].[{tableName}]
-                    ADD [webSyncStatus] INT NOT NULL DEFAULT(1);"
+                        ADD [webSyncStatus] INT NOT NULL DEFAULT(1);
+
+                    IF NOT EXISTS(SELECT * FROM SYS.triggers WHERE name = 'tr_{tableName}_WebSync')
+                    BEGIN
+	                    CREATE TRIGGER [dbo].[tr_{tableName}_WebSync] ON [dbo].[{tableName}]
+                        FOR UPDATE
+	                    AS 
+	                    SELECT * INTO #Tmp_Inserted FROM Inserted 
+	                    SELECT * INTO #Tmp_Deleted FROM Deleted  
+	                    exec spSyncWebStauts_needUpdate [{tableName}]
+	                    Drop Table #Tmp_Inserted 
+	                    Drop Table #Tmp_Deleted
+                    END"
         Dim connection As SqlConnection
         Try
             connection = SqlHelper.GetConnection(ConnStringSEI)
