@@ -108,7 +108,7 @@ Public Class frmAddConceptosLiq
         Dim dv As New DataView(dt)
         dv.RowFilter = $"[Pertenece a] = 1" ''1 = conceptos de liquidacion
 
-        dtConceptos = dv.Table
+        dtConceptos = dv.ToTable()
 
         With grdConceptos
             .DataSource = dtConceptos
