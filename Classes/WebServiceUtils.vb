@@ -6,6 +6,9 @@ Imports System.Globalization
 
 Module WebServiceUtils
     Public Function updateTable(listTableNames() As String) As String
+        If Not On_Production Then
+            Return "App is not configured as production"
+        End If
         Dim status As String
         For Each tableName As String In listTableNames
             status += updateTable(tableName) + ", "
@@ -13,6 +16,9 @@ Module WebServiceUtils
         Return status
     End Function
     Public Function updateTable(tableName As String) As String
+        If Not On_Production Then
+            Return "App is not configured as production"
+        End If
         Dim WebService As New CPFWebService.WS_CPFSoapClient()
         Dim Sql As String
         Dim connection As SqlConnection

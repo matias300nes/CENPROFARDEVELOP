@@ -9,6 +9,7 @@ Module Modulo_WEB
     'esta variable la utilizo para descargar siempre el stock del otro almacen 
     Public otroAlmacen As Integer
     Public ConexionWEB As SqlConnection
+    Public On_Production As Boolean
     '-----FALTAN TABLAS Y SP DE PEDIDOSWEB----
     'declaro el nombre de las tablas en produccion de la WEB
     Public NameTable_Materiales As String = "Materiales"

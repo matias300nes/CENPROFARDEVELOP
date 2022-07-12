@@ -171,7 +171,7 @@ logindenuevo:
 
         Dim ds As Data.DataSet
 
-        ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, "select NombreEmpresaFactura, ModoPagoPredefinido, CUIT, HOMO, TA, PTOVTA, ISNULL(CorreoContador,''), RazonSocial, a.Codigo as CodigoAlmacen " & _
+        ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, "select NombreEmpresaFactura, ModoPagoPredefinido, CUIT, HOMO, TA, PTOVTA, ISNULL(CorreoContador,''), RazonSocial, a.Codigo as CodigoAlmacen, p.Produccion" &
                                       " FROM parametros p JOIN Almacenes a ON a.nombre = p.Razonsocial COLLATE SQL_Latin1_General_CP1_CI_AS ")
 
         ds.Dispose()
@@ -186,6 +186,8 @@ logindenuevo:
         sucursal = ds.Tables(0).Rows(0).Item(7).ToString
 
         Utiles.numero_almacen = ds.Tables(0).Rows(0).Item(8).ToString
+        On_Production = ds.Tables(0).Rows(0).Item(9)
+
 
         'MsgBox(numero_almacen.ToString)
 

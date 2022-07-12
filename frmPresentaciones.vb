@@ -514,7 +514,7 @@ Public Class frmPresentaciones
 
     'End Sub
 
-    Private Sub LlenarCmbPeriodos()
+    Friend Sub LlenarCmbPeriodos()
         Dim connection As SqlClient.SqlConnection = Nothing
         Dim ds As Data.DataSet
 
