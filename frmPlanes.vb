@@ -312,7 +312,7 @@ Public Class frmPlanes
         txtID.Tag = "0"
         txtCODIGO.Tag = "1"
         txtNombre.Tag = "2"
-        txtPorcentaje.Tag = "3"
+        nudPorcentaje.Tag = "3"
     End Sub
 
     Private Sub Verificar_Datos()
@@ -364,7 +364,7 @@ Public Class frmPlanes
                 Dim param_porcentaje As New SqlClient.SqlParameter
                 param_porcentaje.ParameterName = "@porcentaje"
                 param_porcentaje.SqlDbType = SqlDbType.Decimal
-                param_porcentaje.Value = txtPorcentaje.Text
+                param_porcentaje.Value = Decimal.Parse(nudPorcentaje.Value)
                 param_porcentaje.Direction = ParameterDirection.Input
 
                 Dim param_useradd As New SqlClient.SqlParameter
@@ -454,7 +454,7 @@ Public Class frmPlanes
                 Dim param_porcentaje As New SqlClient.SqlParameter
                 param_porcentaje.ParameterName = "@porcentaje"
                 param_porcentaje.SqlDbType = SqlDbType.Decimal
-                param_porcentaje.Value = CDbl(txtPorcentaje.Text)
+                param_porcentaje.Value = Decimal.Parse(nudPorcentaje.Value)
                 param_porcentaje.Direction = ParameterDirection.Input
 
                 Dim param_userupd As New SqlClient.SqlParameter

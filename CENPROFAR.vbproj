@@ -19,7 +19,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <ApplicationIcon>icons8-configuración-del-administrador-48.ico</ApplicationIcon>
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
-    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -2164,6 +2164,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Reportes\rptCheques.rdlc" />
     <EmbeddedResource Include="Reportes\rptChequesCopia.rdlc" />
+    <EmbeddedResource Include="Reportes\rptFacturaC.rdlc" />
     <EmbeddedResource Include="Reportes\rptPresentacionConCodFACAF.rdlc" />
     <EmbeddedResource Include="Reportes\rptPresentacion.rdlc" />
     <EmbeddedResource Include="Reportes\rptSaldos.rdlc" />
