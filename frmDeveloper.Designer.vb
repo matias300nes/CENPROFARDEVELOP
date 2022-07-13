@@ -44,16 +44,19 @@ Partial Class frmDeveloper
         Me.tbPanel = New System.Windows.Forms.TabControl()
         Me.TabPage4 = New System.Windows.Forms.TabPage()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
+        Me.pgProgreso = New System.Windows.Forms.ProgressBar()
+        Me.btnTruncate = New System.Windows.Forms.Button()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.txtUtilsResponse = New System.Windows.Forms.TextBox()
+        Me.btnActualizar = New System.Windows.Forms.Button()
+        Me.cmbTablasWeb = New System.Windows.Forms.ComboBox()
+        Me.Label6 = New System.Windows.Forms.Label()
         Me.btnTruncateAll = New System.Windows.Forms.Button()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.btnActualizarTodo = New System.Windows.Forms.Button()
-        Me.Label6 = New System.Windows.Forms.Label()
-        Me.cmbTablasWeb = New System.Windows.Forms.ComboBox()
-        Me.btnActualizar = New System.Windows.Forms.Button()
-        Me.txtUtilsResponse = New System.Windows.Forms.TextBox()
-        Me.Label7 = New System.Windows.Forms.Label()
-        Me.btnTruncate = New System.Windows.Forms.Button()
-        Me.pgProgreso = New System.Windows.Forms.ProgressBar()
+        Me.grdCambios = New System.Windows.Forms.DataGridView()
+        Me.btnReloadCambios = New System.Windows.Forms.Button()
+        Me.Label5 = New System.Windows.Forms.Label()
         Me.gbUser.SuspendLayout()
         Me.TCResults.SuspendLayout()
         Me.TabPage1.SuspendLayout()
@@ -62,6 +65,7 @@ Partial Class frmDeveloper
         Me.tbPanel.SuspendLayout()
         Me.TabPage4.SuspendLayout()
         Me.TabPage3.SuspendLayout()
+        CType(Me.grdCambios, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'gbUser
@@ -259,6 +263,9 @@ Partial Class frmDeveloper
         '
         'tbPanel
         '
+        Me.tbPanel.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.tbPanel.Controls.Add(Me.TabPage4)
         Me.tbPanel.Controls.Add(Me.TabPage3)
         Me.tbPanel.Location = New System.Drawing.Point(12, 82)
@@ -288,6 +295,9 @@ Partial Class frmDeveloper
         '
         'TabPage3
         '
+        Me.TabPage3.Controls.Add(Me.Label5)
+        Me.TabPage3.Controls.Add(Me.btnReloadCambios)
+        Me.TabPage3.Controls.Add(Me.grdCambios)
         Me.TabPage3.Controls.Add(Me.pgProgreso)
         Me.TabPage3.Controls.Add(Me.btnTruncate)
         Me.TabPage3.Controls.Add(Me.Label7)
@@ -305,9 +315,74 @@ Partial Class frmDeveloper
         Me.TabPage3.Text = "DB Web utils"
         Me.TabPage3.UseVisualStyleBackColor = True
         '
+        'pgProgreso
+        '
+        Me.pgProgreso.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.pgProgreso.Location = New System.Drawing.Point(39, 273)
+        Me.pgProgreso.Name = "pgProgreso"
+        Me.pgProgreso.Size = New System.Drawing.Size(664, 13)
+        Me.pgProgreso.TabIndex = 10
+        '
+        'btnTruncate
+        '
+        Me.btnTruncate.Location = New System.Drawing.Point(252, 119)
+        Me.btnTruncate.Name = "btnTruncate"
+        Me.btnTruncate.Size = New System.Drawing.Size(70, 23)
+        Me.btnTruncate.TabIndex = 9
+        Me.btnTruncate.Text = "Truncate"
+        Me.btnTruncate.UseVisualStyleBackColor = True
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Location = New System.Drawing.Point(36, 169)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(58, 13)
+        Me.Label7.TabIndex = 8
+        Me.Label7.Text = "Response:"
+        '
+        'txtUtilsResponse
+        '
+        Me.txtUtilsResponse.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtUtilsResponse.Location = New System.Drawing.Point(39, 185)
+        Me.txtUtilsResponse.Multiline = True
+        Me.txtUtilsResponse.Name = "txtUtilsResponse"
+        Me.txtUtilsResponse.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtUtilsResponse.Size = New System.Drawing.Size(682, 101)
+        Me.txtUtilsResponse.TabIndex = 7
+        '
+        'btnActualizar
+        '
+        Me.btnActualizar.Location = New System.Drawing.Point(177, 119)
+        Me.btnActualizar.Name = "btnActualizar"
+        Me.btnActualizar.Size = New System.Drawing.Size(70, 23)
+        Me.btnActualizar.TabIndex = 6
+        Me.btnActualizar.Text = "Actualizar"
+        Me.btnActualizar.UseVisualStyleBackColor = True
+        '
+        'cmbTablasWeb
+        '
+        Me.cmbTablasWeb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbTablasWeb.FormattingEnabled = True
+        Me.cmbTablasWeb.Location = New System.Drawing.Point(39, 120)
+        Me.cmbTablasWeb.Name = "cmbTablasWeb"
+        Me.cmbTablasWeb.Size = New System.Drawing.Size(131, 21)
+        Me.cmbTablasWeb.TabIndex = 5
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(100, 82)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(127, 13)
+        Me.Label6.TabIndex = 4
+        Me.Label6.Text = "Truncar tablas de la web:"
+        '
         'btnTruncateAll
         '
-        Me.btnTruncateAll.Location = New System.Drawing.Point(212, 73)
+        Me.btnTruncateAll.Location = New System.Drawing.Point(233, 78)
         Me.btnTruncateAll.Name = "btnTruncateAll"
         Me.btnTruncateAll.Size = New System.Drawing.Size(90, 23)
         Me.btnTruncateAll.TabIndex = 2
@@ -317,7 +392,7 @@ Partial Class frmDeveloper
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(25, 38)
+        Me.Label4.Location = New System.Drawing.Point(46, 43)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(181, 13)
         Me.Label4.TabIndex = 1
@@ -325,77 +400,43 @@ Partial Class frmDeveloper
         '
         'btnActualizarTodo
         '
-        Me.btnActualizarTodo.Location = New System.Drawing.Point(212, 34)
+        Me.btnActualizarTodo.Location = New System.Drawing.Point(233, 39)
         Me.btnActualizarTodo.Name = "btnActualizarTodo"
         Me.btnActualizarTodo.Size = New System.Drawing.Size(90, 23)
         Me.btnActualizarTodo.TabIndex = 0
         Me.btnActualizarTodo.Text = "Actualizar todo"
         Me.btnActualizarTodo.UseVisualStyleBackColor = True
         '
-        'Label6
+        'grdCambios
         '
-        Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(79, 77)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(127, 13)
-        Me.Label6.TabIndex = 4
-        Me.Label6.Text = "Truncar tablas de la web:"
+        Me.grdCambios.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.grdCambios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.grdCambios.Location = New System.Drawing.Point(361, 39)
+        Me.grdCambios.Name = "grdCambios"
+        Me.grdCambios.ReadOnly = True
+        Me.grdCambios.RowHeadersVisible = False
+        Me.grdCambios.Size = New System.Drawing.Size(360, 102)
+        Me.grdCambios.TabIndex = 11
         '
-        'cmbTablasWeb
+        'btnReloadCambios
         '
-        Me.cmbTablasWeb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbTablasWeb.FormattingEnabled = True
-        Me.cmbTablasWeb.Location = New System.Drawing.Point(18, 115)
-        Me.cmbTablasWeb.Name = "cmbTablasWeb"
-        Me.cmbTablasWeb.Size = New System.Drawing.Size(131, 21)
-        Me.cmbTablasWeb.TabIndex = 5
+        Me.btnReloadCambios.FlatAppearance.BorderSize = 0
+        Me.btnReloadCambios.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnReloadCambios.Image = Global.CENPROFAR.My.Resources.Resources.change
+        Me.btnReloadCambios.Location = New System.Drawing.Point(695, 11)
+        Me.btnReloadCambios.Name = "btnReloadCambios"
+        Me.btnReloadCambios.Size = New System.Drawing.Size(26, 25)
+        Me.btnReloadCambios.TabIndex = 12
+        Me.btnReloadCambios.UseVisualStyleBackColor = True
         '
-        'btnActualizar
+        'Label5
         '
-        Me.btnActualizar.Location = New System.Drawing.Point(156, 114)
-        Me.btnActualizar.Name = "btnActualizar"
-        Me.btnActualizar.Size = New System.Drawing.Size(70, 23)
-        Me.btnActualizar.TabIndex = 6
-        Me.btnActualizar.Text = "Actualizar"
-        Me.btnActualizar.UseVisualStyleBackColor = True
-        '
-        'txtUtilsResponse
-        '
-        Me.txtUtilsResponse.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtUtilsResponse.Location = New System.Drawing.Point(335, 34)
-        Me.txtUtilsResponse.Multiline = True
-        Me.txtUtilsResponse.Name = "txtUtilsResponse"
-        Me.txtUtilsResponse.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtUtilsResponse.Size = New System.Drawing.Size(420, 101)
-        Me.txtUtilsResponse.TabIndex = 7
-        '
-        'Label7
-        '
-        Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(332, 18)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(58, 13)
-        Me.Label7.TabIndex = 8
-        Me.Label7.Text = "Response:"
-        '
-        'btnTruncate
-        '
-        Me.btnTruncate.Location = New System.Drawing.Point(231, 114)
-        Me.btnTruncate.Name = "btnTruncate"
-        Me.btnTruncate.Size = New System.Drawing.Size(70, 23)
-        Me.btnTruncate.TabIndex = 9
-        Me.btnTruncate.Text = "Truncate"
-        Me.btnTruncate.UseVisualStyleBackColor = True
-        '
-        'pgProgreso
-        '
-        Me.pgProgreso.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.pgProgreso.Location = New System.Drawing.Point(335, 122)
-        Me.pgProgreso.Name = "pgProgreso"
-        Me.pgProgreso.Size = New System.Drawing.Size(402, 13)
-        Me.pgProgreso.TabIndex = 10
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(358, 17)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(47, 13)
+        Me.Label5.TabIndex = 13
+        Me.Label5.Text = "Cambios"
         '
         'frmDeveloper
         '
@@ -419,6 +460,7 @@ Partial Class frmDeveloper
         Me.TabPage4.PerformLayout()
         Me.TabPage3.ResumeLayout(False)
         Me.TabPage3.PerformLayout()
+        CType(Me.grdCambios, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -455,4 +497,7 @@ Partial Class frmDeveloper
     Friend WithEvents txtUtilsResponse As TextBox
     Friend WithEvents btnTruncate As Button
     Friend WithEvents pgProgreso As ProgressBar
+    Friend WithEvents Label5 As Label
+    Friend WithEvents btnReloadCambios As Button
+    Friend WithEvents grdCambios As DataGridView
 End Class

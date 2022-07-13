@@ -16,7 +16,6 @@ Module WebServiceUtils
         "Localidades",
         "Mandatarias",
         "ObrasSociales",
-        "ObrasSociales_Planes",
         "PeriodoPresentaciones",
         "Presentaciones",
         "Presentaciones_det",
@@ -25,6 +24,29 @@ Module WebServiceUtils
         "Recetas_web",
         "UsuariosWeb"
     }
+
+    Public Function viewChanges() As DataTable
+        Dim ds As DataSet
+        Dim connection = SqlHelper.GetConnection(ConnStringSEI)
+        Dim Sql As String = ""
+        For Each table As String In WebTables
+            Sql += IIf(Sql.Length > 0, " union ", "")
+            Sql += $"SELECT 
+	                    '{table}' as Tabla,
+	                    count(case webSyncStatus when 1 then 1 else null end) as [Insert],
+	                    count(case webSyncStatus when 2 then 1 else null end) as [Update]
+                    FROM {table}"
+        Next
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, Sql)
+            ds.Dispose()
+            Return ds.Tables(0)
+        Catch ex As Exception
+            Return Nothing
+        End Try
+
+    End Function
 
 
     Public Function updateTable(listTableNames() As String) As String
@@ -135,20 +157,22 @@ Module WebServiceUtils
                 query = ""
                 pairs = ""
                 For j As Integer = 0 To dt.Columns.Count - 1
-                    If dt.Rows(i)(j) IsNot DBNull.Value Then
-                        currentValue = $"'{dt.Rows(i)(j).ToString}'"
-                        If dt.Rows(i)(j).GetType() = GetType(DateTime) Then
-                            currentValue = $"'{DateTime.Parse(dt.Rows(i)(j)).ToString("MM/dd/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture)}'"
+                    If dt.Columns(j).ColumnName.ToUpper <> "ID" Then
+                        If dt.Rows(i)(j) IsNot DBNull.Value Then
+                            currentValue = $"'{dt.Rows(i)(j).ToString}'"
+                            If dt.Rows(i)(j).GetType() = GetType(DateTime) Then
+                                currentValue = $"'{DateTime.Parse(dt.Rows(i)(j)).ToString("MM/dd/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture)}'"
+                            End If
+                        Else
+                            currentValue = "null"
                         End If
-                    Else
-                        currentValue = "null"
+                        If dt.Columns(j).ColumnName = "webSyncStatus" Then
+                            currentValue = "'0'" ''synced
+                        End If
+                        pairs += $"[{dt.Columns(j).ColumnName}] = {currentValue}" + IIf(j < dt.Columns.Count - 1, ",", "")
                     End If
-                    If dt.Columns(j).ColumnName = "webSyncStatus" Then
-                        currentValue = "'0'" ''synced
-                    End If
-                    pairs += $"[{dt.Columns(j).ColumnName}] = {currentValue}" + IIf(j < dt.Columns.Count - 1, ",", "")
                 Next
-                query = $"{turnOnIdentity} UPDATE {tableName} SET {pairs} WHERE ID = {dt.Rows(i)(0)}; {turnOffIdentity}"
+                query = $"UPDATE {tableName} SET {pairs} WHERE ID = {dt.Rows(i)(0)};"
                 webStatus = WebService.Sql_Set(query)
 
                 If webStatus = "Success" Then
@@ -208,16 +232,37 @@ Module WebServiceUtils
     End Sub
 
     Public Function truncateWeb(Optional progressBar As ProgressBar = Nothing) As String
+        Dim connection As SqlConnection = SqlHelper.GetConnection(ConnStringSEI)
         Dim query As String = ""
         Dim WebService As New CPFWebService.WS_CPFSoapClient()
         For Each table As String In WebTables
             query = $"truncate table {table};"
             Try
                 WebService.Sql_Get(query)
+                SqlHelper.ExecuteNonQuery(connection, CommandType.Text, $"
+                    update {table} set webSyncStatus = 1
+
+                ")
             Catch ex As Exception
                 Return ex.Message
             End Try
         Next
+        Return "Success"
+    End Function
+
+    Public Function truncateTable(tableName As String, Optional progressBar As ProgressBar = Nothing) As String
+        Dim connection As SqlConnection = SqlHelper.GetConnection(ConnStringSEI)
+        Dim query As String = ""
+        Dim WebService As New CPFWebService.WS_CPFSoapClient()
+        query = $"truncate table {tableName};"
+        Try
+            WebService.Sql_Get(query)
+            SqlHelper.ExecuteNonQuery(connection, CommandType.Text, $"
+                    update {tableName} set webSyncStatus = 1
+                ")
+        Catch ex As Exception
+            Return ex.Message
+        End Try
         Return "Success"
     End Function
 End Module

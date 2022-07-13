@@ -1,4 +1,8 @@
-﻿Public Class frmDeveloper
+﻿Imports System.Data.SqlClient
+Imports Microsoft.ApplicationBlocks.Data
+Imports Utiles.Util
+
+Public Class frmDeveloper
 
     Private Sub btnIniciar_Click(sender As Object, e As EventArgs) Handles btnIniciar.Click
         lblStatus.Visible = True
@@ -34,9 +38,7 @@
                               MessageBoxButtons.YesNo)
 
         If result = DialogResult.Yes Then
-            For Each table As String In WebServiceUtils.WebTables
-                txtUtilsResponse.Text = WebServiceUtils.updateTable(table)
-            Next
+            txtUtilsResponse.Text = WebServiceUtils.updateTable(WebServiceUtils.WebTables)
         End If
     End Sub
 
@@ -53,7 +55,7 @@
 
     Private Sub btnActualizar_Click(sender As Object, e As EventArgs) Handles btnActualizar.Click
         Dim result As DialogResult = MessageBox.Show(
-                      $"Está seguro que desea sincronizar las tablas con la web?",
+                      $"Está seguro que desea sincronizar la tabla {cmbTablasWeb.Text} con la web?",
                       "Confirmar sincronización",
                       MessageBoxButtons.YesNo)
 
@@ -63,20 +65,18 @@
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles btnTruncate.Click
-        Dim WebService As New CPFWebService.WS_CPFSoapClient()
+
         Dim result As DialogResult = MessageBox.Show(
                       $"Está seguro que desea truncar las tablas con la web?",
                       "Confirmar truncar",
                       MessageBoxButtons.YesNo)
 
         If result = DialogResult.Yes Then
-            Try
-                Dim query = $"truncate table {cmbTablasWeb.Text};"
-                WebService.Sql_Get(query)
-                txtUtilsResponse.Text = "Success"
-            Catch ex As Exception
-                txtUtilsResponse.Text = ex.Message
-            End Try
+            txtUtilsResponse.Text = WebServiceUtils.truncateTable(cmbTablasWeb.Text)
         End If
+    End Sub
+
+    Private Sub btnReloadCambios_Click(sender As Object, e As EventArgs) Handles btnReloadCambios.Click
+        grdCambios.DataSource = WebServiceUtils.viewChanges()
     End Sub
 End Class

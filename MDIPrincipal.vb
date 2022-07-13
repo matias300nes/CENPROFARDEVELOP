@@ -169,24 +169,23 @@ logindenuevo:
 
         connection = SqlHelper.GetConnection(ConnStringSEI)
 
-        'Dim ds As Data.DataSet
+        Dim ds As Data.DataSet
 
-        'ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, "select NombreEmpresaFactura, ModoPagoPredefinido, CUIT, HOMO, TA, PTOVTA, ISNULL(CorreoContador,''), RazonSocial, a.Codigo as CodigoAlmacen, p.Produccion" &
-        '                              " FROM parametros p JOIN Almacenes a ON a.nombre = p.Razonsocial COLLATE SQL_Latin1_General_CP1_CI_AS ")
+        ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, "select NombreEmpresaFactura, ModoPagoPredefinido, CUIT, HOMO, TA, PTOVTA, ISNULL(CorreoContador,''), RazonSocial, p.Produccion FROM parametros p")
 
-        'ds.Dispose()
+        ds.Dispose()
 
         'Utiles.Empresa = LTrim(RTrim(ds.Tables(0).Rows(0).Item(0)))
-        ''ModoPagoPredefinido = ds.Tables(0).Rows(0).Item(1)
-        ''cuitEmpresa = ds.Tables(0).Rows(0).Item(2)
-        ''HOMO = CBool(ds.Tables(0).Rows(0).Item(3))
-        ''TicketAcceso = CBool(ds.Tables(0).Rows(0).Item(4))
-        ''PTOVTA = ds.Tables(0).Rows(0).Item(5)
-        ''CorreoContador = ds.Tables(0).Rows(0).Item(6)
+        'ModoPagoPredefinido = ds.Tables(0).Rows(0).Item(1)
+        'cuitEmpresa = ds.Tables(0).Rows(0).Item(2)
+        'HOMO = CBool(ds.Tables(0).Rows(0).Item(3))
+        'TicketAcceso = CBool(ds.Tables(0).Rows(0).Item(4))
+        'PTOVTA = ds.Tables(0).Rows(0).Item(5)
+        'CorreoContador = ds.Tables(0).Rows(0).Item(6)
         'sucursal = ds.Tables(0).Rows(0).Item(7).ToString
 
         'Utiles.numero_almacen = ds.Tables(0).Rows(0).Item(8).ToString
-        'On_Production = ds.Tables(0).Rows(0).Item(9)
+        On_Production = ds.Tables(0).Rows(0).Item(8)
 
 
         ''MsgBox(numero_almacen.ToString)
