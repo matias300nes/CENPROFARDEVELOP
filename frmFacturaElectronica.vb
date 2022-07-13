@@ -149,19 +149,21 @@ Public Class frmFacturaElectronica
         Criterio = 1
         Seleccion = 2
         NroIdentificador = 3
-        NroFactura = 4
-        Fecha = 5
-        ObraSocial = 6
-        Periodo = 7
-        Cuit = 8
-        DireccionFiscal = 9
-        TipoComprobante = 10
-        Observacion = 11
-        CAE = 12
-        Venc_CAE = 13
-        Fecha_Vto_Pago = 14
-        CodigoBarra = 15
-        Total = 16
+        CodigoFac = 4
+        IdOrigen = 5
+        NroFactura = 6
+        Fecha = 7
+        ObraSocial = 8
+        Periodo = 9
+        Cuit = 10
+        DireccionFiscal = 11
+        TipoComprobante = 12
+        Observacion = 13
+        CAE = 14
+        Venc_CAE = 15
+        Fecha_Vto_Pago = 16
+        CodigoBarra = 17
+        Total = 18
     End Enum
 
     Enum grdFEAAsociadosCols
@@ -169,20 +171,22 @@ Public Class frmFacturaElectronica
         Criterio = 1
         Seleccion = 2
         NroIdentificador = 3
-        NroFactura = 4
-        Fecha = 5
-        Farmacia = 6
-        RazonSocial = 7
-        Periodo = 8
-        Cuit = 9
-        DireccionFiscal = 10
-        TipoComprobante = 11
-        Observacion = 12
-        CAE = 13
-        Venc_CAE = 14
-        Fecha_Vto_Pago = 15
-        CodigoBarra = 16
-        Total = 17
+        CodigoFac = 4
+        IdOrigen = 5
+        NroFactura = 6
+        Fecha = 7
+        Farmacia = 8
+        RazonSocial = 9
+        Periodo = 10
+        Cuit = 11
+        DireccionFiscal = 12
+        TipoComprobante = 13
+        Observacion = 14
+        CAE = 15
+        Venc_CAE = 16
+        Fecha_Vto_Pago = 17
+        CodigoBarra = 18
+        Total = 19
     End Enum
 
     Enum grdHistorialCols
@@ -231,6 +235,8 @@ Public Class frmFacturaElectronica
                 .Columns(grdFEAAsociadosCols.CodigoBarra).Visible = False
                 .Columns(grdFEAAsociadosCols.DireccionFiscal).Visible = False
                 .Columns(grdFEAAsociadosCols.Observacion).Visible = False
+                .Columns(grdFEAAsociadosCols.IdOrigen).Visible = False
+                .Columns(grdFEAAsociadosCols.CodigoFac).Visible = False
 
                 ''cambiar width
                 .Columns(grdFEObrasSocialesCols.Seleccion).Width = 50
@@ -251,6 +257,8 @@ Public Class frmFacturaElectronica
                 .Columns(grdFEAAsociadosCols.CodigoBarra).Visible = False
                 .Columns(grdFEAAsociadosCols.DireccionFiscal).Visible = False
                 .Columns(grdFEAAsociadosCols.Observacion).Visible = False
+                .Columns(grdFEAAsociadosCols.IdOrigen).Visible = False
+                .Columns(grdFEAAsociadosCols.CodigoFac).Visible = False
                 ''cambiar width
                 '.Columns(grdFEAAsociadosCols.Seleccion).Width = 50
                 '.Columns(grdFEAAsociadosCols.Codigo).Width = 70
@@ -1284,7 +1292,7 @@ Public Class frmFacturaElectronica
 
                 Try
                     'recordar agregar parametro id 
-                    SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spFacturasElectronicas_Insert", param_id, param_nroIdentificador, param_IdOrigen, param_PtoVta, param_CodigoFac, param_CondicionIVA,
+                    SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spFacturasElectronicas_Insert", param_id, param_nroIdentificador, param_IdOrigen, param_idPeriodo, param_PtoVta, param_CodigoFac, param_CondicionIVA,
                                                                                                                         param_DireccionFiscal, param_Cuit, param_fecha, param_subtotal, param_iva, param_montoIva,
                                                                                                                         param_total, param_totalOrig, param_observacion, param_cae, param_Venc_CAE, param_CodigoBarra,
                                                                                                                         param_FechaVtoPago, param_FechaServDesde, param_FechaServHasta, param_comprobanteTipo, param_conceptoTipo,
@@ -1722,6 +1730,7 @@ Public Class frmFacturaElectronica
         If grdFEObrasSociales.CurrentRow IsNot Nothing Then
             If grdFEObrasSociales.CurrentRow.Cells(0).Value.ToString <> txtID.Text Then
                 txtID.Text = grdFEObrasSociales.CurrentRow.Cells(0).Value
+                txtIdOrigen.Text = grdFEObrasSociales.CurrentRow.Cells(grdFEObrasSocialesCols.IdOrigen).Value
             End If
         End If
 
@@ -1829,8 +1838,13 @@ Public Class frmFacturaElectronica
             dv.ToTable()
 
             For Each rowDt As DataRow In dv.ToTable().Rows
-                Dim frmRptSaldos As New frmRptSaldos(rowDt(grdFEObrasSocialesCols.ID), dtpFechaInicio.Value, dtpFechaFin.Value)
-                frmRptSaldos.ShowDialog()
+                If txtID.Text <> "" Then
+
+                    Dim frmFacturaC As New frmRptFacturaC(0, nroIdentificador, "", "", txtIdOrigen.Text)
+                    frmFacturaC.ShowDialog()
+                Else
+                    MessageBox.Show("Para poder imprimir un reporte, debe guardar la presentación.", "Presentación sin guardar", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End If
             Next
 
             'Dim frmRptSaldos As New frmRptSaldos(20137, "08-05-2022 15:00", "09-05-2022 15:56:00")

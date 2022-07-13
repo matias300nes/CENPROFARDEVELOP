@@ -77,6 +77,7 @@ Partial Class frmFacturaElectronica
         Me.Label23 = New System.Windows.Forms.Label()
         Me.btnAnularFE = New DevComponents.DotNetBar.ButtonX()
         Me.cmbNroComprobanteNotaCred = New System.Windows.Forms.ComboBox()
+        Me.txtIdOrigen = New System.Windows.Forms.TextBox()
         CType(Me.grdFEObrasSociales, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicConexion, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -108,7 +109,6 @@ Partial Class frmFacturaElectronica
         Me.Label1.Size = New System.Drawing.Size(73, 17)
         Me.Label1.TabIndex = 2
         Me.Label1.Text = "Farmacias"
-        Me.Label1.Visible = False
         '
         'txtBuscar
         '
@@ -149,7 +149,6 @@ Partial Class frmFacturaElectronica
         Me.txtID.ReadOnly = True
         Me.txtID.Size = New System.Drawing.Size(75, 22)
         Me.txtID.TabIndex = 392
-        Me.txtID.Visible = False
         '
         'btnSelection
         '
@@ -180,7 +179,6 @@ Partial Class frmFacturaElectronica
         Me.btnPrint.TabIndex = 398
         Me.btnPrint.Text = "Imprimir"
         Me.btnPrint.TextColor = System.Drawing.SystemColors.InfoText
-        Me.btnPrint.Visible = False
         '
         'Label4
         '
@@ -633,11 +631,21 @@ Partial Class frmFacturaElectronica
         Me.cmbNroComprobanteNotaCred.Size = New System.Drawing.Size(117, 24)
         Me.cmbNroComprobanteNotaCred.TabIndex = 973
         '
+        'txtIdOrigen
+        '
+        Me.txtIdOrigen.Location = New System.Drawing.Point(468, 247)
+        Me.txtIdOrigen.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtIdOrigen.Name = "txtIdOrigen"
+        Me.txtIdOrigen.ReadOnly = True
+        Me.txtIdOrigen.Size = New System.Drawing.Size(75, 22)
+        Me.txtIdOrigen.TabIndex = 974
+        '
         'frmFacturaElectronica
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1111, 619)
+        Me.Controls.Add(Me.txtIdOrigen)
         Me.Controls.Add(Me.cmbNroComprobanteNotaCred)
         Me.Controls.Add(Me.btnAnularFE)
         Me.Controls.Add(Me.Label23)
@@ -759,4 +767,5 @@ Partial Class frmFacturaElectronica
     Friend WithEvents Label23 As Label
     Friend WithEvents btnAnularFE As DevComponents.DotNetBar.ButtonX
     Friend WithEvents cmbNroComprobanteNotaCred As ComboBox
+    Friend WithEvents txtIdOrigen As TextBox
 End Class

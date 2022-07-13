@@ -1023,6 +1023,12 @@
     <Compile Include="Reportes\frmPresentacionRptConCodFACAF.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Reportes\frmRptFacturaC.Designer.vb">
+      <DependentUpon>frmRptFacturaC.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\frmRptFacturaC.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Reportes\frmRptSaldos.Designer.vb">
       <DependentUpon>frmRptSaldos.vb</DependentUpon>
     </Compile>
@@ -2155,6 +2161,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Reportes\frmPresentacionRptConCodFACAF.resx">
       <DependentUpon>frmPresentacionRptConCodFACAF.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\frmRptFacturaC.resx">
+      <DependentUpon>frmRptFacturaC.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reportes\frmRptSaldos.resx">
       <DependentUpon>frmRptSaldos.vb</DependentUpon>

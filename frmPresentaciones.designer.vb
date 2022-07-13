@@ -317,7 +317,6 @@ Partial Class frmPresentaciones
         Me.btnFacturar.Text = "Facturar"
         Me.btnFacturar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.btnFacturar.UseVisualStyleBackColor = True
-        Me.btnFacturar.Visible = False
         '
         'Label10
         '

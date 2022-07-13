@@ -4445,13 +4445,14 @@ Namespace dsSistemaTableAdapters
             Me._commandCollection(0).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@nroIdentificador", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(0).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@mes", Global.System.Data.SqlDbType.VarChar, 30, Global.System.Data.ParameterDirection.Input, 0, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(0).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@anio", Global.System.Data.SqlDbType.VarChar, 30, Global.System.Data.ParameterDirection.Input, 0, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._commandCollection(0).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@IdOrigen", Global.System.Data.SqlDbType.BigInt, 8, Global.System.Data.ParameterDirection.Input, 19, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, true)>  _
-        Public Overloads Overridable Function Fill(ByVal dataTable As dsSistema.spRPT_FacturasElectronicas_EmitidasDataTable, ByVal Eliminado As Global.System.Nullable(Of Boolean), ByVal nroIdentificador As Global.System.Nullable(Of Integer), ByVal mes As String, ByVal anio As String) As Integer
+        Public Overloads Overridable Function Fill(ByVal dataTable As dsSistema.spRPT_FacturasElectronicas_EmitidasDataTable, ByVal Eliminado As Global.System.Nullable(Of Boolean), ByVal nroIdentificador As Global.System.Nullable(Of Integer), ByVal mes As String, ByVal anio As String, ByVal IdOrigen As Global.System.Nullable(Of Long)) As Integer
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
             If (Eliminado.HasValue = true) Then
                 Me.Adapter.SelectCommand.Parameters(1).Value = CType(Eliminado.Value,Boolean)
@@ -4472,6 +4473,11 @@ Namespace dsSistemaTableAdapters
                 Me.Adapter.SelectCommand.Parameters(4).Value = Global.System.DBNull.Value
             Else
                 Me.Adapter.SelectCommand.Parameters(4).Value = CType(anio,String)
+            End If
+            If (IdOrigen.HasValue = true) Then
+                Me.Adapter.SelectCommand.Parameters(5).Value = CType(IdOrigen.Value,Long)
+            Else
+                Me.Adapter.SelectCommand.Parameters(5).Value = Global.System.DBNull.Value
             End If
             If (Me.ClearBeforeFill = true) Then
                 dataTable.Clear
@@ -4484,7 +4490,7 @@ Namespace dsSistemaTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], true)>  _
-        Public Overloads Overridable Function GetData(ByVal Eliminado As Global.System.Nullable(Of Boolean), ByVal nroIdentificador As Global.System.Nullable(Of Integer), ByVal mes As String, ByVal anio As String) As dsSistema.spRPT_FacturasElectronicas_EmitidasDataTable
+        Public Overloads Overridable Function GetData(ByVal Eliminado As Global.System.Nullable(Of Boolean), ByVal nroIdentificador As Global.System.Nullable(Of Integer), ByVal mes As String, ByVal anio As String, ByVal IdOrigen As Global.System.Nullable(Of Long)) As dsSistema.spRPT_FacturasElectronicas_EmitidasDataTable
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
             If (Eliminado.HasValue = true) Then
                 Me.Adapter.SelectCommand.Parameters(1).Value = CType(Eliminado.Value,Boolean)
@@ -4505,6 +4511,11 @@ Namespace dsSistemaTableAdapters
                 Me.Adapter.SelectCommand.Parameters(4).Value = Global.System.DBNull.Value
             Else
                 Me.Adapter.SelectCommand.Parameters(4).Value = CType(anio,String)
+            End If
+            If (IdOrigen.HasValue = true) Then
+                Me.Adapter.SelectCommand.Parameters(5).Value = CType(IdOrigen.Value,Long)
+            Else
+                Me.Adapter.SelectCommand.Parameters(5).Value = Global.System.DBNull.Value
             End If
             Dim dataTable As dsSistema.spRPT_FacturasElectronicas_EmitidasDataTable = New dsSistema.spRPT_FacturasElectronicas_EmitidasDataTable()
             Me.Adapter.Fill(dataTable)

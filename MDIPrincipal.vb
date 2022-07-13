@@ -169,59 +169,59 @@ logindenuevo:
 
         connection = SqlHelper.GetConnection(ConnStringSEI)
 
-        Dim ds As Data.DataSet
+        'Dim ds As Data.DataSet
 
-        ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, "select NombreEmpresaFactura, ModoPagoPredefinido, CUIT, HOMO, TA, PTOVTA, ISNULL(CorreoContador,''), RazonSocial, a.Codigo as CodigoAlmacen, p.Produccion" &
-                                      " FROM parametros p JOIN Almacenes a ON a.nombre = p.Razonsocial COLLATE SQL_Latin1_General_CP1_CI_AS ")
+        'ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, "select NombreEmpresaFactura, ModoPagoPredefinido, CUIT, HOMO, TA, PTOVTA, ISNULL(CorreoContador,''), RazonSocial, a.Codigo as CodigoAlmacen, p.Produccion" &
+        '                              " FROM parametros p JOIN Almacenes a ON a.nombre = p.Razonsocial COLLATE SQL_Latin1_General_CP1_CI_AS ")
 
-        ds.Dispose()
+        'ds.Dispose()
 
-        Utiles.Empresa = LTrim(RTrim(ds.Tables(0).Rows(0).Item(0)))
-        'ModoPagoPredefinido = ds.Tables(0).Rows(0).Item(1)
-        'cuitEmpresa = ds.Tables(0).Rows(0).Item(2)
-        'HOMO = CBool(ds.Tables(0).Rows(0).Item(3))
-        'TicketAcceso = CBool(ds.Tables(0).Rows(0).Item(4))
-        'PTOVTA = ds.Tables(0).Rows(0).Item(5)
-        'CorreoContador = ds.Tables(0).Rows(0).Item(6)
-        sucursal = ds.Tables(0).Rows(0).Item(7).ToString
+        'Utiles.Empresa = LTrim(RTrim(ds.Tables(0).Rows(0).Item(0)))
+        ''ModoPagoPredefinido = ds.Tables(0).Rows(0).Item(1)
+        ''cuitEmpresa = ds.Tables(0).Rows(0).Item(2)
+        ''HOMO = CBool(ds.Tables(0).Rows(0).Item(3))
+        ''TicketAcceso = CBool(ds.Tables(0).Rows(0).Item(4))
+        ''PTOVTA = ds.Tables(0).Rows(0).Item(5)
+        ''CorreoContador = ds.Tables(0).Rows(0).Item(6)
+        'sucursal = ds.Tables(0).Rows(0).Item(7).ToString
 
-        Utiles.numero_almacen = ds.Tables(0).Rows(0).Item(8).ToString
-        On_Production = ds.Tables(0).Rows(0).Item(9)
+        'Utiles.numero_almacen = ds.Tables(0).Rows(0).Item(8).ToString
+        'On_Production = ds.Tables(0).Rows(0).Item(9)
 
 
-        'MsgBox(numero_almacen.ToString)
+        ''MsgBox(numero_almacen.ToString)
 
 
         'Controlo que sucursal es para ver que parte del menu muestro y que parte no 
-        If sucursal.Contains("PERON") Then
+        'If sucursal.Contains("PERON") Then
 
-            'ProveedoresToolStripMenuItem.Visible = False
-            'ListaPreciosToolStripMenuItem.Visible = False
-            'MarcasToolStripMenuItem.Visible = False
-            'FamiliasToolStripMenuItem.Visible = False
-            'UnidadesToolStripMenuItem1.Visible = False
-            OrdenDeCompraToolStripMenuItem.Visible = False
-            RecepcionesDeMaterialToolStripMenuItem.Visible = False
-            DepósitoToolStripMenuItem.Visible = False
-            PresupuestoToolStripMenuItem.Visible = False
-            ContabilidadToolStripMenuItem.Visible = False
-            RRHHToolStripMenuItem.Visible = False
-            InformesToolStripMenuItem1.Visible = False
-            SeguridadToolStripMenuItem.Visible = False
-            ContabilidadToolStripMenuItem.Visible = False
-            'ToolStripSeparator15.Visible = False
-            VentasToolStripMenuItem.Text = "Ventas Depósito Perón"
-            EnvíosDePedidosToolStripMenuItem.Visible = False
-            VentasDepósitoToolStripMenuItem.Visible = False
-            ReportesDepositoToolStripMenuItem.Visible = False
-            TransferenciasToolStripMenuItem.Visible = False
-            MovSalonToolStripMenuItem.Visible = False
-            DevoluciónAProveedoresToolStripMenuItem.Visible = False
-            AbrirNotif = True
-        Else
-            'VentasToolStripMenuItem.Enabled = False
-            VentasToolStripMenuItem.Text = "Ventas Salón"
-        End If
+        '    'ProveedoresToolStripMenuItem.Visible = False
+        '    'ListaPreciosToolStripMenuItem.Visible = False
+        '    'MarcasToolStripMenuItem.Visible = False
+        '    'FamiliasToolStripMenuItem.Visible = False
+        '    'UnidadesToolStripMenuItem1.Visible = False
+        '    OrdenDeCompraToolStripMenuItem.Visible = False
+        '    RecepcionesDeMaterialToolStripMenuItem.Visible = False
+        '    DepósitoToolStripMenuItem.Visible = False
+        '    PresupuestoToolStripMenuItem.Visible = False
+        '    ContabilidadToolStripMenuItem.Visible = False
+        '    RRHHToolStripMenuItem.Visible = False
+        '    InformesToolStripMenuItem1.Visible = False
+        '    SeguridadToolStripMenuItem.Visible = False
+        '    ContabilidadToolStripMenuItem.Visible = False
+        '    'ToolStripSeparator15.Visible = False
+        '    VentasToolStripMenuItem.Text = "Ventas Depósito Perón"
+        '    EnvíosDePedidosToolStripMenuItem.Visible = False
+        '    VentasDepósitoToolStripMenuItem.Visible = False
+        '    ReportesDepositoToolStripMenuItem.Visible = False
+        '    TransferenciasToolStripMenuItem.Visible = False
+        '    MovSalonToolStripMenuItem.Visible = False
+        '    DevoluciónAProveedoresToolStripMenuItem.Visible = False
+        '    AbrirNotif = True
+        'Else
+        '    'VentasToolStripMenuItem.Enabled = False
+        '    VentasToolStripMenuItem.Text = "Ventas Salón"
+        'End If
 
         If Util.ObtenerDatosDelUserId(UserID, EmpleadoLogueado, nombre, pass_actual, Util.ConnStringSEI) > 0 Then
             ToolStripStatusLabel.Text = "Equipo: " & GetUserID() & " - Usuario: " & EmpleadoLogueado & " " & nombre
@@ -234,21 +234,21 @@ logindenuevo:
                 RecepcionesDeMaterialToolStripMenuItem.Enabled = False
                 AjustesDeInventarioToolStripMenuItem.Enabled = False
             Else
-                If sucursal.Contains("PERON") Then
-                    ContabilidadToolStripMenuItem.Visible = True
-                    InformesToolStripMenuItem1.Visible = True
-                    RRHHToolStripMenuItem.Visible = True
-                    DeudaDeClientesToolStripMenuItem.Enabled = False
-                    JornadasDeTrabajoToolStripMenuItem.Enabled = True
-                    OrdenDeCompraToolStripMenuItem.Enabled = True
-                    'ProveedoresToolStripMenuItem.Visible = True
-                    'ListaPreciosToolStripMenuItem.Visible = True
-                    'MarcasToolStripMenuItem.Visible = True
-                    'FamiliasToolStripMenuItem.Visible = True
-                    'UnidadesToolStripMenuItem1.Visible = True
-                    'PromocionesToolStripMenuItem.Visible = True
+                'If sucursal.Contains("PERON") Then
+                '    ContabilidadToolStripMenuItem.Visible = True
+                '    InformesToolStripMenuItem1.Visible = True
+                '    RRHHToolStripMenuItem.Visible = True
+                '    DeudaDeClientesToolStripMenuItem.Enabled = False
+                '    JornadasDeTrabajoToolStripMenuItem.Enabled = True
+                '    OrdenDeCompraToolStripMenuItem.Enabled = True
+                '    'ProveedoresToolStripMenuItem.Visible = True
+                '    'ListaPreciosToolStripMenuItem.Visible = True
+                '    'MarcasToolStripMenuItem.Visible = True
+                '    'FamiliasToolStripMenuItem.Visible = True
+                '    'UnidadesToolStripMenuItem1.Visible = True
+                '    'PromocionesToolStripMenuItem.Visible = True
 
-                End If
+                'End If
                 AjustesDeInventarioToolStripMenuItem.Enabled = True
                 'MovimientosDelDíaToolStripMenuItem_Click(sender, e)
                 'AbrirNotif = True
