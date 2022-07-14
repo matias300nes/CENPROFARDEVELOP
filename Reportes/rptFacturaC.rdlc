@@ -372,7 +372,7 @@
         <Top>3.0245cm</Top>
         <Left>0.78805cm</Left>
         <Height>1.2cm</Height>
-        <Width>17.71744cm</Width>
+        <Width>17.71742cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1839,7 +1839,7 @@
       </Style>
     </PageHeader>
     <PageFooter>
-      <Height>3.06917cm</Height>
+      <Height>3.12963cm</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
@@ -1968,6 +1968,22 @@
             <PaddingBottom>2pt</PaddingBottom>
           </Style>
         </Textbox>
+        <Image Name="Image2">
+          <Source>Database</Source>
+          <Value>=First(Fields!NroFactura.Value, "dsFacturasEmitidas") + First(Fields!ObraSocial.Value, "dsFacturasEmitidas") + First(Fields!TipoComprobante.Value, "dsFacturasEmitidas")</Value>
+          <MIMEType>image/bmp</MIMEType>
+          <Sizing>FitProportional</Sizing>
+          <Top>0.85401cm</Top>
+          <Left>0.609cm</Left>
+          <Height>1.5cm</Height>
+          <Width>2.19138cm</Width>
+          <ZIndex>4</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+          </Style>
+        </Image>
       </ReportItems>
       <Style>
         <Border>
