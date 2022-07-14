@@ -53,6 +53,8 @@ Public Class frmConceptos
         CargarCajas()
         PrepararBotones()
 
+        btnImprimir.Visible = False
+
         With grd
             .Columns(gridcols.CampoAplicable).Visible = False
             .Columns(gridcols.Pertenece).Visible = False

@@ -36,6 +36,9 @@ Public Class frmPlanes
 
     Private Sub frmPlanes_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         'AsignarPermisos(UserID, Me.Name, ALTA, MODIFICA, BAJA, BAJA_FISICA)
+
+        btnImprimir.Visible = False
+
         configurarform()
         asignarTags()
         SQL = "exec spPlanes_Select_All 0"

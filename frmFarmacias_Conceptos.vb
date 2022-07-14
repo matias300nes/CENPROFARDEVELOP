@@ -83,6 +83,8 @@ Public Class frmFarmacias_Conceptos
 
     Private Sub frmFarmacias_Conceptos_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
+        btnImprimir.Visible = False
+
         Dim dtPreferenciaPago As New DataTable
         With dtPreferenciaPago
             .Columns.Add("DisplayMember")

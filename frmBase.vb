@@ -1109,7 +1109,7 @@ Public Class frmBase
 
     Private Sub frmBase_Activated(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Activated
 
-        Me.ToolStrip_lblCambio.Text = " 1 u$$ = $ " & ObtenerMoneda_ValorCambioDolar(ConnStringSEI)
+        'Me.ToolStrip_lblCambio.Text = " 1 u$$ = $ " & ObtenerMoneda_ValorCambioDolar(ConnStringSEI)
 
         'Dim connection As SqlClient.SqlConnection = Nothing
 

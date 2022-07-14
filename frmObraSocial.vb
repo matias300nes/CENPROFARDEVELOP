@@ -54,6 +54,8 @@ Public Class frmObraSocial
     Private Sub frmObraSocial_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         'AsignarPermisos(UserID, Me.Name, ALTA, MODIFICA, BAJA, BAJA_FISICA)
 
+        btnImprimir.Visible = False
+
         Dim dtAplicarBonificacionA As New DataTable
         With dtAplicarBonificacionA
             .Columns.Add("DisplayMember")
@@ -126,7 +128,7 @@ Public Class frmObraSocial
         End If
     End Sub
 
-    Private Overloads Sub grd_CurrentCellChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles grd.CurrentCellChanged 'comentar
+    Private Overloads Sub grd_CurrentCellChanged(ByVal sender As Object, ByVal e As System.EventArgs) 'Handles grd.CurrentCellChanged 'comentar
         LlenargrdPlanesPanel()
         'Dim ds_General As Data.DataSet
 

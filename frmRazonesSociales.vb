@@ -88,6 +88,8 @@ Public Class frmRazonesSociales
         CargarCajas()
         PrepararBotones()
 
+        btnImprimir.Visible = False
+
         With grd
             .Columns(gridcols.Id).Visible = False
             .Columns(gridcols.IdLocalidad).Visible = False

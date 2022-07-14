@@ -176,7 +176,7 @@ Partial Class frmProfesionales
         Me.cmbLocalidad.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed
         Me.cmbLocalidad.FormattingEnabled = True
         Me.cmbLocalidad.ItemHeight = 14
-        Me.cmbLocalidad.Location = New System.Drawing.Point(595, 93)
+        Me.cmbLocalidad.Location = New System.Drawing.Point(595, 90)
         Me.cmbLocalidad.Margin = New System.Windows.Forms.Padding(4)
         Me.cmbLocalidad.Name = "cmbLocalidad"
         Me.cmbLocalidad.Size = New System.Drawing.Size(160, 20)
@@ -204,7 +204,7 @@ Partial Class frmProfesionales
         Me.cmbProvincia.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbProvincia.FormattingEnabled = True
         Me.cmbProvincia.ItemHeight = 14
-        Me.cmbProvincia.Location = New System.Drawing.Point(427, 93)
+        Me.cmbProvincia.Location = New System.Drawing.Point(427, 90)
         Me.cmbProvincia.Margin = New System.Windows.Forms.Padding(4)
         Me.cmbProvincia.Name = "cmbProvincia"
         Me.cmbProvincia.Size = New System.Drawing.Size(160, 20)

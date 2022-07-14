@@ -54,8 +54,9 @@ Public Class frmProfesionales
         Permitir = True
         CargarCajas()
         PrepararBotones()
-        'grd.Columns(5).Visible = False
-        'grd.Columns(7).Visible = False
+
+
+        btnImprimir.Visible = False
 
         With grd
             .Columns(ColumnasDelGrdProfesionales.Id).Visible = False
@@ -414,7 +415,7 @@ Public Class frmProfesionales
     End Sub
 
 
-    Private Sub cmbLocalidad_SelectedValueChanged(sender As Object, e As EventArgs)
+    Private Sub cmbLocalidad_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbLocalidad.SelectedValueChanged
 
         If TypeOf cmbLocalidad.SelectedValue Is Long Then
 
@@ -436,7 +437,7 @@ Public Class frmProfesionales
     End Sub
 
 
-    Private Sub cmbProvincia_SelectedValueChanged(sender As Object, e As EventArgs)
+    Private Sub cmbProvincia_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbProvincia.SelectedValueChanged
         If llenandoCombo = True Then
             ''LLENAR COMBOBOX LOCALIDADES
 
@@ -448,7 +449,7 @@ Public Class frmProfesionales
 
     End Sub
 
-    Private Sub txtCodigoPostal_LostFocus(sender As Object, e As EventArgs)
+    Private Sub txtCodigoPostal_LostFocus(sender As Object, e As EventArgs) Handles txtCodigoPostal.LostFocus
         If txtCodigoPostal.Text.Length = 4 Then
 
             Dim dv As New DataView(dsGeo.Tables("Localidades"))

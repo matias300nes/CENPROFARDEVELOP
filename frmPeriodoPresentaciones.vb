@@ -8,6 +8,18 @@ Imports ReportesNet
 
 Public Class frmPeriodoPresentaciones
 
+    Enum grdColumns
+        Id = 0
+        Codigo = 1
+        IdMandataria = 2
+        Mandataria = 3
+        IdGrupo = 4
+        Grupo = 5
+        Periodo = 6
+        FechaLimite = 7
+    End Enum
+
+
     Dim bolpoliticas As Boolean
     Dim cmbLlenado As Boolean = False
 
@@ -30,12 +42,20 @@ Public Class frmPeriodoPresentaciones
 
     Private Sub frmConceptos_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         'AsignarPermisos(UserID, Me.Name, ALTA, MODIFICA, BAJA, BAJA_FISICA)
+
+        btnImprimir.Visible = False
+
         configurarform()
         LlenarCmbMandatarias()
         LlenarCmbGrupos()
         asignarTags()
         SQL = "exec spPeriodoPresentaciones_Select_All @Eliminado = 0"
         LlenarGrilla()
+        If grd.Rows.Count > 0 Then
+            setStyles()
+        End If
+
+
         Permitir = True
         CargarCajas()
         PrepararBotones()
@@ -162,17 +182,19 @@ Public Class frmPeriodoPresentaciones
 
     Private Sub btnEliminar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEliminar.Click
         Dim res As Integer
-        Dim ds_Almacen As Data.DataSet
-        If MessageBox.Show("Está seguro que desea eliminar el Depósito seleccionado?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
+        Dim ds_PeriodoPresentacion As Data.DataSet
+        If MessageBox.Show("Está seguro que desea eliminar el Periodo seleccionado?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
             Exit Sub
         End If
 
         Try
-            ds_Almacen = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, "SELECT  IDAlmacen FROM Materiales where IDAlmacen = '" & txtID.Text & "'")
-            ds_Almacen.Dispose()
+            ds_PeriodoPresentacion = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, $"SELECT IdPeriodo 
+                                                                                    FROM Presentaciones
+                                                                                    WHERE IdPeriodo = {txtID.Text}")
+            ds_PeriodoPresentacion.Dispose()
 
-            If ds_Almacen.Tables(0).Rows.Count > 0 Then
-                MsgBox("No se puede eliminar un Depósito que esté asociado a un material. Por favor verifique.", MsgBoxStyle.Information, "Atención")
+            If ds_PeriodoPresentacion.Tables(0).Rows.Count > 0 Then
+                MsgBox("No se puede eliminar un Periodo que esté asociado a una Presentación. Por favor verifique.", MsgBoxStyle.Information, "Atención")
                 Exit Sub
             End If
 
@@ -214,25 +236,25 @@ Public Class frmPeriodoPresentaciones
 
     Private Sub btnImprimir_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnImprimir.Click
 
-        Dim paramalmacenes As New frmParametros
-        Dim cnn As New SqlConnection(ConnStringSEI)
-        Dim codigo As String
-        Dim reportealmacenes As New frmReportes
+        'Dim paramalmacenes As New frmParametros
+        'Dim cnn As New SqlConnection(ConnStringSEI)
+        'Dim codigo As String
+        'Dim reportealmacenes As New frmReportes
 
-        'nbreformreportes = "Listado de Almacenes por Código"
+        ''nbreformreportes = "Listado de Almacenes por Código"
 
-        paramalmacenes.AgregarParametros("Código :", "STRING", "", False, txtCODIGO.Text.ToString, "", cnn)
-        paramalmacenes.ShowDialog()
-        ''cerroparametrosconaceptar VARIABLE GLOBAL PARA SABER SI EL FORMULARIO PARAMETROS
-        ''SE CERRO DESDE EL BOTON Cerrar o DESDE EL BOTON ACEPTAR SIEMPRE QUE SE UTILICEN PARAMETROS USAR EL IF DE MAS ABAJO
-        If cerroparametrosconaceptar = True Then
-            ''OBTENGO LOS PARAMETROS QUE LE VOY A PASAR A LA FUNCION..
-            codigo = paramalmacenes.ObtenerParametros(0)
-            'reportealmacenes.MostrarMaestroAlmacenes(codigo, reportealmacenes)
-            cerroparametrosconaceptar = False
-            paramalmacenes = Nothing
-            'cnn = Nothing
-        End If
+        'paramalmacenes.AgregarParametros("Código :", "STRING", "", False, txtCODIGO.Text.ToString, "", cnn)
+        'paramalmacenes.ShowDialog()
+        '''cerroparametrosconaceptar VARIABLE GLOBAL PARA SABER SI EL FORMULARIO PARAMETROS
+        '''SE CERRO DESDE EL BOTON Cerrar o DESDE EL BOTON ACEPTAR SIEMPRE QUE SE UTILICEN PARAMETROS USAR EL IF DE MAS ABAJO
+        'If cerroparametrosconaceptar = True Then
+        '    ''OBTENGO LOS PARAMETROS QUE LE VOY A PASAR A LA FUNCION..
+        '    codigo = paramalmacenes.ObtenerParametros(0)
+        '    'reportealmacenes.MostrarMaestroAlmacenes(codigo, reportealmacenes)
+        '    cerroparametrosconaceptar = False
+        '    paramalmacenes = Nothing
+        '    'cnn = Nothing
+        'End If
 
     End Sub
 
@@ -240,7 +262,7 @@ Public Class frmPeriodoPresentaciones
         Dim connection As SqlClient.SqlConnection = Nothing
         Dim ds_Update As Data.DataSet
 
-        If MessageBox.Show("Está por activar nuevamente el depósito: " & grd.CurrentRow.Cells(2).Value.ToString & ". Desea continuar?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
+        If MessageBox.Show($"Está por activar nuevamente el Periodo: {grd.CurrentRow.Cells(grdColumns.Periodo).Value.ToString}. Desea continuar?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
             Exit Sub
         End If
 
@@ -254,7 +276,7 @@ Public Class frmPeriodoPresentaciones
 
         Try
 
-            ds_Update = SqlHelper.ExecuteDataset(connection, CommandType.Text, "UPDATE Almacenes SET Eliminado = 0 WHERE id = " & grd.CurrentRow.Cells(0).Value)
+            ds_Update = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"UPDATE PeriodoPresentaciones SET Eliminado = 0 WHERE id = {grd.CurrentRow.Cells(grdColumns.Id).Value}")
             ds_Update.Dispose()
 
             SQL = "exec spPeriodoPresentaciones_Select_All @Eliminado = 1"
@@ -265,7 +287,7 @@ Public Class frmPeriodoPresentaciones
                 btnActivar.Enabled = False
             End If
 
-            Util.MsgStatus(Status1, "El depósito se activó correctamente.", My.Resources.ok.ToBitmap)
+            Util.MsgStatus(Status1, "El Periodo se activó correctamente.", My.Resources.ok.ToBitmap)
 
         Catch ex As Exception
             Dim errMessage As String = ""
@@ -320,6 +342,10 @@ Public Class frmPeriodoPresentaciones
         cmbGrupos.Tag = "4"
         txtPeriodo.Tag = "6"
         dtpFechaLimite.Tag = "7"
+    End Sub
+
+    Private Sub setStyles()
+        grd.Columns(grdColumns.IdGrupo).Visible = False
     End Sub
 
     Private Sub LlenarCmbMandatarias()
@@ -382,7 +408,12 @@ Public Class frmPeriodoPresentaciones
         Try
 
             'ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT Id, Nombre FROM Grupos WHERE IdMandataria = {cmbMandatarias.SelectedValue}")
-            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT DISTINCT Id, Nombre FROM Grupos g INNER JOIN Grupos_OS g_os ON g_os.idgrupo = g.id WHERE g.IdMandataria = {cmbMandatarias.SelectedValue} AND g.Eliminado = 0")
+            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT DISTINCT g.Id, g.Nombre 
+                                                                        FROM Grupos g 
+                                                                        INNER JOIN Grupos_OS g_os 
+                                                                        ON g_os.idgrupo = g.id
+                                                                        WHERE g.IdMandataria = {cmbMandatarias.SelectedValue} 
+                                                                        AND g.Eliminado = 0")
             ds.Dispose()
 
             With cmbGrupos
@@ -691,7 +722,7 @@ Public Class frmPeriodoPresentaciones
 
                 Try
 
-                    SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spConceptos_Delete", param_id, param_userdel, param_res)
+                    SqlHelper.ExecuteNonQuery(connection, CommandType.StoredProcedure, "spPeriodoPresentaciones_Delete", param_id, param_userdel, param_res)
                     res = param_res.Value
 
                     If res > 0 Then Util.BorrarGrilla(grd)

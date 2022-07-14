@@ -245,7 +245,7 @@ Partial Class frmObraSocial
         Me.cmbAplicarBonificacionA.Name = "cmbAplicarBonificacionA"
         Me.cmbAplicarBonificacionA.Size = New System.Drawing.Size(192, 20)
         Me.cmbAplicarBonificacionA.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.cmbAplicarBonificacionA.TabIndex = 397
+        Me.cmbAplicarBonificacionA.TabIndex = 11
         '
         'Label4
         '
@@ -372,7 +372,7 @@ Partial Class frmObraSocial
         Me.txtCodigoPostal.MaxLength = 4
         Me.txtCodigoPostal.Name = "txtCodigoPostal"
         Me.txtCodigoPostal.Size = New System.Drawing.Size(89, 22)
-        Me.txtCodigoPostal.TabIndex = 1
+        Me.txtCodigoPostal.TabIndex = 6
         Me.txtCodigoPostal.Text_1 = Nothing
         Me.txtCodigoPostal.Text_2 = Nothing
         Me.txtCodigoPostal.Text_3 = Nothing
@@ -411,7 +411,7 @@ Partial Class frmObraSocial
         Me.cmbLocalidad.Name = "cmbLocalidad"
         Me.cmbLocalidad.Size = New System.Drawing.Size(160, 20)
         Me.cmbLocalidad.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.cmbLocalidad.TabIndex = 3
+        Me.cmbLocalidad.TabIndex = 8
         '
         'txtTelefono
         '
@@ -444,7 +444,7 @@ Partial Class frmObraSocial
         Me.cmbProvincia.Name = "cmbProvincia"
         Me.cmbProvincia.Size = New System.Drawing.Size(185, 20)
         Me.cmbProvincia.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.cmbProvincia.TabIndex = 2
+        Me.cmbProvincia.TabIndex = 7
         '
         'txtCodigoFacaf
         '
@@ -507,7 +507,7 @@ Partial Class frmObraSocial
         Me.nudBonificacion.Margin = New System.Windows.Forms.Padding(4)
         Me.nudBonificacion.Name = "nudBonificacion"
         Me.nudBonificacion.Size = New System.Drawing.Size(97, 22)
-        Me.nudBonificacion.TabIndex = 8
+        Me.nudBonificacion.TabIndex = 10
         '
         'Label8
         '
@@ -553,7 +553,7 @@ Partial Class frmObraSocial
         Me.txtDomicilio.MaxLength = 200
         Me.txtDomicilio.Name = "txtDomicilio"
         Me.txtDomicilio.Size = New System.Drawing.Size(233, 22)
-        Me.txtDomicilio.TabIndex = 0
+        Me.txtDomicilio.TabIndex = 5
         '
         'txtDescripcion
         '
@@ -563,7 +563,7 @@ Partial Class frmObraSocial
         Me.txtDescripcion.Multiline = True
         Me.txtDescripcion.Name = "txtDescripcion"
         Me.txtDescripcion.Size = New System.Drawing.Size(375, 22)
-        Me.txtDescripcion.TabIndex = 5
+        Me.txtDescripcion.TabIndex = 9
         '
         'Label12
         '
