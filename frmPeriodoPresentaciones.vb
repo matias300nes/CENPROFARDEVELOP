@@ -153,7 +153,10 @@ Public Class frmPeriodoPresentaciones
                     'End If
                 End If
                 Try
-                    frmPresentaciones.LlenarCmbPeriodos()
+                    If frmPresentaciones.cmbObraSocial.SelectedValue IsNot Nothing Then
+                        frmPresentaciones.LlenarCmbPeriodos()
+                    End If
+
                 Catch ex As Exception
 
                 End Try
