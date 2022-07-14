@@ -116,7 +116,7 @@ Partial Class frmAcercade
         Me.LabelCopyright.Name = "LabelCopyright"
         Me.LabelCopyright.Size = New System.Drawing.Size(281, 17)
         Me.LabelCopyright.TabIndex = 0
-        Me.LabelCopyright.Text = "Copyright Mercedes IT 2012"
+        Me.LabelCopyright.Text = "Copyright Kaizen Software 2012"
         Me.LabelCopyright.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'LabelCompanyName
@@ -128,7 +128,7 @@ Partial Class frmAcercade
         Me.LabelCompanyName.Name = "LabelCompanyName"
         Me.LabelCompanyName.Size = New System.Drawing.Size(281, 17)
         Me.LabelCompanyName.TabIndex = 0
-        Me.LabelCompanyName.Text = "Mercedes IT"
+        Me.LabelCompanyName.Text = "Kaizen Software"
         Me.LabelCompanyName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'TextBoxDescription

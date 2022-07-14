@@ -66,7 +66,7 @@ Public Class frmReportes
         Catch ex As Exception
             MsgBox(ex.Message)
             MsgBox("No se pudo encontrar el Reporte en  " + reportFilePath & vbCrLf & _
-                    "Comuniquese con Mercedes IT, enviando un correo a soporte@mercedesit.com", MsgBoxStyle.Information + MsgBoxStyle.OkOnly, "Advertencia")
+                    "Comuniquese con Kaizen Software, enviando un correo a soporte@kaizensoftware.com.ar", MsgBoxStyle.Information + MsgBoxStyle.OkOnly, "Advertencia")
             Return False
             Exit Function
         End Try
@@ -473,7 +473,7 @@ Public Class frmReportes
     '        End While
 
     '        MessageBox.Show(String.Format("Se produjo un problema al procesar el archivo, por favor, valide el siguiente mensaje de error: {0}" _
-    '          + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+    '          + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software a través del correo soporte@kaizensoftware.com.ar", errMessage), _
     '          "Error en la Aplicación - Nombre de Archivo No Admitido", MessageBoxButtons.OK, MessageBoxIcon.Error)
     '    End Try
 
@@ -601,7 +601,7 @@ Public Class frmReportes
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar el archivo, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software a través del correo soporte@kaizensoftware.com.ar", errMessage), _
               "Error en la Aplicación - Nombre de Archivo No Admitido", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
@@ -731,7 +731,7 @@ Public Class frmReportes
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar el archivo, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software a través del correo soporte@kaizensoftware.com.ar", errMessage), _
               "Error en la Aplicación - Nombre de Archivo No Admitido", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 

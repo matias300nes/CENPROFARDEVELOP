@@ -1173,7 +1173,7 @@ Public Class frmMateriales
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software a través del correo soporte@kaizensoftware.com.ar", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         End Try
@@ -1217,7 +1217,7 @@ Public Class frmMateriales
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software a través del correo soporte@kaizensoftware.com.ar", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             If Not connection Is Nothing Then
@@ -1270,7 +1270,7 @@ Public Class frmMateriales
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software a través del correo soporte@kaizensoftware.com.ar", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             If Not connection Is Nothing Then
@@ -1325,7 +1325,7 @@ Public Class frmMateriales
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software a través del correo soporte@kaizensoftware.com.ar", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             If Not connection Is Nothing Then
@@ -1380,7 +1380,7 @@ Public Class frmMateriales
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software a través del correo soporte@kaizensoftware.com.ar", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             If Not connection Is Nothing Then
@@ -1583,7 +1583,7 @@ Public Class frmMateriales
               "2) El archivo de Excel debe tener una hoja que se llama ""Lista de Precios""" & vbCrLf & _
               "3) Cumple con los requisitos de nombres en cada columna. " & vbCrLf & _
               " Puede consultar el ejemplo haciendo clic en el ícono que está a la derecha de ""Importar Productos desde Excel""." & vbCrLf & vbCrLf & _
-              " Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              " Si el problema persiste contáctese con Kaizen Software a través del correo soporte@kaizensoftware.com.ar", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
             CargarExcel2 = False
@@ -1682,7 +1682,7 @@ Public Class frmMateriales
               "2) El archivo de Excel debe tener una hoja que se llama ""Lista de Precios""" & vbCrLf & _
               "3) Cumple con los requisitos de nombres en cada columna. " & vbCrLf & _
               " Puede consultar el ejemplo haciendo clic en el ícono que está a la derecha de ""Importar Productos desde Excel""." & vbCrLf & vbCrLf & _
-              " Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              " Si el problema persiste contáctese con Kaizen Software a través del correo soporte@kaizensoftware.com.ar", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
             CargarExcel_ActualizarPreciosOCSch = False
@@ -1723,7 +1723,7 @@ Public Class frmMateriales
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software a través del correo soporte@kaizensoftware.com.ar", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             If Not connection Is Nothing Then
@@ -1849,7 +1849,7 @@ Public Class frmMateriales
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software a través del correo soporte@kaizensoftware.com.ar", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             If Not connection Is Nothing Then
@@ -2287,7 +2287,7 @@ Public Class frmMateriales
                 AgregarActualizar_Registro = -11
             Else
                 MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software a través del correo soporte@kaizensoftware.com.ar", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
         End Try
@@ -2367,7 +2367,7 @@ Public Class frmMateriales
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software a través del correo soporte@kaizensoftware.com.ar", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             If Not connection Is Nothing Then
@@ -2448,7 +2448,7 @@ Public Class frmMateriales
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software a través del correo soporte@kaizensoftware.com.ar", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             If Not connection Is Nothing Then
@@ -2516,7 +2516,7 @@ Public Class frmMateriales
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software a través del correo soporte@kaizensoftware.com.ar", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             If Not connection Is Nothing Then
@@ -2972,7 +2972,7 @@ Public Class frmMateriales
     '        End While
 
     '        MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-    '          + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+    '          + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software a través del correo soporte@kaizensoftware.com.ar", errMessage), _
     '          "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
     '    Finally
     '        If Not connection Is Nothing Then
@@ -3025,7 +3025,7 @@ Public Class frmMateriales
     '        End While
 
     '        MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-    '          + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+    '          + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software a través del correo soporte@kaizensoftware.com.ar", errMessage), _
     '          "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
     '    Finally
     '        If Not connection Is Nothing Then
@@ -3182,7 +3182,7 @@ Public Class frmMateriales
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software a través del correo soporte@kaizensoftware.com.ar", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             If Not connection Is Nothing Then

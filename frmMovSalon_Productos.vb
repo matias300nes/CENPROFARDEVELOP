@@ -574,7 +574,7 @@ Public Class frmMovSalon_Productos
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software a través del correo soporte@kaizensoftware.com.ar", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         Finally
@@ -621,7 +621,7 @@ Public Class frmMovSalon_Productos
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software a través del correo soporte@kaizensoftware.com.ar", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         Finally
@@ -822,7 +822,7 @@ Public Class frmMovSalon_Productos
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software a través del correo soporte@kaizensoftware.com.ar", errMessage), _
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         End Try

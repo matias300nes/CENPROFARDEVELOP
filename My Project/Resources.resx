@@ -121,11 +121,11 @@
   <data name="obraSocial" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\obraSocial.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="btnsalir" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\btnsalir.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="btncargacontinua" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\btncargacontinua.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ArchivoExcel_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ArchivoExcel_2.JPG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="PorkysU" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PorkysU.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -169,20 +169,14 @@
   <data name="btnnuevo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\btnnuevo.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ArchivoExcel_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ArchivoExcel_2.JPG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="btnactualizar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\btnactualizar.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="word2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\word2.ico;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Remito" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Remito.ico;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="empleados" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\empleados.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="CandadoCerrado" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CandadoCerrado.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="_exit" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\exit.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -199,14 +193,26 @@
   <data name="icono_ayuda" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icono_ayuda.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ver" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ver.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="btnsiguiente" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\btnsiguiente.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Presupuestos" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Presupuestos.ico;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btnprimero" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\btnprimero.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="FondodePantalla_mit1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\FondodePantalla_mit.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="liquidacion" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\liquidacion.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="facaf" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\facaf.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Productos" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Productos.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -216,6 +222,9 @@
   </data>
   <data name="presentacion" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\presentacion.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FondodePantalla" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FondodePantalla.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Presupuestos2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Presupuestos.ico;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -256,14 +265,11 @@
   <data name="add" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="btnprimero" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\btnprimero.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="web" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\web.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ms_excel" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ms-excel.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="web" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\web.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="indicator_white" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\indicator.white.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -283,9 +289,6 @@
   <data name="Acercade" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Acercade.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Presentacion3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Presentacion3.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="change" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\change.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -295,8 +298,8 @@
   <data name="Pagos" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Pagos.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="btnactualizar" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\btnactualizar.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="empleados" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\empleados.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Ventas16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Ventas16.ico;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -319,14 +322,14 @@
   <data name="Porkys" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Porkys.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="stop_error" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\stop-error.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="IconoEnvio" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\IconoEnvio.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="CandadoCerrado" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CandadoCerrado.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="excel_noticia" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\excel-noticia.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IconoEnvio" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconoEnvio.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="SincroFALLA" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SincroFALLA.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -355,14 +358,14 @@
   <data name="SincroOK" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SincroOK.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Presupuestos" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Presupuestos.ico;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="stop_error" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\stop-error.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="facaf" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\facaf.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="btnsalir" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\btnsalir.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="FondodePantalla" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\FondodePantalla.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Presentacion3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Presentacion3.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="FondodePantalla_mit" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\FondodePantalla_mit.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -379,7 +382,7 @@
   <data name="SincroPendiente" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SincroPendiente.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ver" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ver.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="FONDO SISTEMA KAIZEN" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FONDO SISTEMA KAIZEN.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -320,7 +320,7 @@ Public Class frmBase
             End While
 
             MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-              + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+              + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software a través del correo soporte@kaizensoftware.com.ar", errMessage),
               "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         End Try
@@ -515,7 +515,7 @@ Public Class frmBase
             Me.Cursor = Cursors.Default
             'GrillaActualizar()
         End If
-  
+
 
     End Sub
 
@@ -548,7 +548,7 @@ Public Class frmBase
     End Sub
 
     Protected Function paginarDataDridView(ByVal d As DataTable, ByVal inicial As Integer, ByVal final As Integer) As System.Data.DataTable
-     
+
         dtnew.Dispose()
         dtnew = d.Clone
         If d.Rows.Count - 1 < final Then
@@ -742,13 +742,13 @@ Public Class frmBase
 
                     ' sort and filter data
                     If Filter.Trim = "" Then
-                        Filter = "[" & ColumnName & "] " & Simbolo & " " & ComillaAbre & parametro2 & ComillaCierre & _
-                            " AND [" & ColumnName & "] " & Simbolo & " " & ComillaAbre & parametro1 & ComillaCierre & _
+                        Filter = "[" & ColumnName & "] " & Simbolo & " " & ComillaAbre & parametro2 & ComillaCierre &
+                            " AND [" & ColumnName & "] " & Simbolo & " " & ComillaAbre & parametro1 & ComillaCierre &
                             " AND [" & ColumnName & "] " & Simbolo & " " & ComillaAbre & parametro3 & ComillaCierre
 
                     Else
-                        Filter += "AND [" & ColumnName & "] " & Simbolo & " " & ComillaAbre & parametro2 & ComillaCierre & _
-                            " AND [" & ColumnName & "] " & Simbolo & " " & ComillaAbre & parametro1 & ComillaCierre & _
+                        Filter += "AND [" & ColumnName & "] " & Simbolo & " " & ComillaAbre & parametro2 & ComillaCierre &
+                            " AND [" & ColumnName & "] " & Simbolo & " " & ComillaAbre & parametro1 & ComillaCierre &
                             " AND [" & ColumnName & "] " & Simbolo & " " & ComillaAbre & parametro3 & ComillaCierre
 
                     End If
@@ -756,12 +756,12 @@ Public Class frmBase
                 Else
 
                     If Filter.Trim = "" Then
-                        Filter = "[" & ColumnName & "] " & Simbolo & " " & ComillaAbre & parametro2 & ComillaCierre & _
+                        Filter = "[" & ColumnName & "] " & Simbolo & " " & ComillaAbre & parametro2 & ComillaCierre &
                             " AND [" & ColumnName & "] " & Simbolo & " " & ComillaAbre & parametro1 & ComillaCierre
 
                     Else
-                        Filter += " AND [" & ColumnName & "] " & Simbolo & " " & ComillaAbre & parametro2 & ComillaCierre & _
-                            " AND [" & ColumnName & "] " & Simbolo & " " & ComillaAbre & parametro1 & ComillaCierre & _
+                        Filter += " AND [" & ColumnName & "] " & Simbolo & " " & ComillaAbre & parametro2 & ComillaCierre &
+                            " AND [" & ColumnName & "] " & Simbolo & " " & ComillaAbre & parametro1 & ComillaCierre &
                             " AND [" & ColumnName & "] " & Simbolo & " " & ComillaAbre & parametro3 & ComillaCierre
 
                     End If
@@ -875,7 +875,7 @@ Public Class frmBase
         paginar(d)
         ContextMenuStrip1.Close()
     End Sub
-    
+
     Private Sub PaginaAnterior()
         If ToolStripPagina.SelectedIndex > 0 Then
             ToolStripPagina.SelectedIndex = ToolStripPagina.SelectedIndex - 1
@@ -883,7 +883,7 @@ Public Class frmBase
         End If
     End Sub
 
-  
+
     Private Sub PaginaSiguiente()
         If Not ToolStripPagina.SelectedIndex + 1 > ToolStripPagina.Items.Count - 1 Then
             ToolStripPagina.SelectedIndex = ToolStripPagina.SelectedIndex + 1
@@ -896,7 +896,7 @@ Public Class frmBase
         cambiar_pagina()
     End Sub
 
-   
+
     Private Sub PaginaUltima()
         ToolStripPagina.SelectedIndex = ToolStripPagina.Items.Count - 1
         cambiar_pagina()
@@ -997,22 +997,22 @@ Public Class frmBase
     ''' <param name="SLibro"></param>
     ''' <param name="sHoja"></param>
     ''' <remarks></remarks>
-    Private Sub CargardeExcel( _
-         ByVal dgView As DataGridView, _
-         ByVal SLibro As String, _
+    Private Sub CargardeExcel(
+         ByVal dgView As DataGridView,
+         ByVal SLibro As String,
          ByVal sHoja As String)
 
         'HDR=YES : Con encabezado  
-        Dim cs As String = "Provider=Microsoft.Jet.OLEDB.4.0;" & _
-                           "Data Source=" & SLibro & ";" & _
+        Dim cs As String = "Provider=Microsoft.Jet.OLEDB.4.0;" &
+                           "Data Source=" & SLibro & ";" &
                            "Extended Properties=""Excel 8.0;HDR=YES"""
         Try
             ' cadena de conexión  
             Dim cn As New System.Data.OleDb.OleDbConnection(cs)
 
             If Not System.IO.File.Exists(SLibro) Then
-                MsgBox("No se encontró el Libro: " & _
-                        SLibro, MsgBoxStyle.Critical, _
+                MsgBox("No se encontró el Libro: " &
+                        SLibro, MsgBoxStyle.Critical,
                         "Ruta inválida")
                 Exit Sub
             End If
@@ -1093,7 +1093,7 @@ Public Class frmBase
     '    CargardeExcel(grd, FileName, "HOJA1")
     'End Sub
 
-    
+
     Public Sub btnSalir_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSalir.Click
 
         If bolModo = True Then
@@ -1162,7 +1162,7 @@ Public Class frmBase
         '        tempException = tempException.InnerException
         '    End While
         '    MessageBox.Show(String.Format("Se produjo un problema al procesar la información en la Base de Datos, por favor, valide el siguiente mensaje de error: {0}" _
-        '      + Environment.NewLine + "Si el problema persiste contáctese con MercedesIt a través del correo soporte@mercedesit.com", errMessage), _
+        '      + Environment.NewLine + "Si el problema persiste contáctese con Kaizen Software a través del correo soporte@kaizensoftware.com.ar", errMessage), _
         '      "Error en la Aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error)
         'Finally
         '    If Not connection Is Nothing Then
