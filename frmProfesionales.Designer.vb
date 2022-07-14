@@ -152,6 +152,7 @@ Partial Class frmProfesionales
         '
         'txtCodigoPostal
         '
+        Me.txtCodigoPostal.AccessibleName = "*Cod Postal"
         Me.txtCodigoPostal.Decimals = CType(2, Byte)
         Me.txtCodigoPostal.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtCodigoPostal.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
@@ -253,9 +254,9 @@ Partial Class frmProfesionales
         Me.Label7.Location = New System.Drawing.Point(327, 70)
         Me.Label7.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(75, 17)
+        Me.Label7.Size = New System.Drawing.Size(80, 17)
         Me.Label7.TabIndex = 264
-        Me.Label7.Text = "Cód postal"
+        Me.Label7.Text = "Cód postal*"
         '
         'txtApellido
         '

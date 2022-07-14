@@ -364,6 +364,7 @@ Partial Class frmObraSocial
         '
         'txtCodigoPostal
         '
+        Me.txtCodigoPostal.AccessibleName = "*Cod Postal"
         Me.txtCodigoPostal.Decimals = CType(2, Byte)
         Me.txtCodigoPostal.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtCodigoPostal.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
@@ -495,9 +496,9 @@ Partial Class frmObraSocial
         Me.Label7.Location = New System.Drawing.Point(283, 142)
         Me.Label7.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(94, 17)
+        Me.Label7.Size = New System.Drawing.Size(99, 17)
         Me.Label7.TabIndex = 264
-        Me.Label7.Text = "Código postal"
+        Me.Label7.Text = "Código postal*"
         '
         'nudBonificacion
         '

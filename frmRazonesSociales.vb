@@ -366,8 +366,8 @@ Public Class frmRazonesSociales
         txtEmail.Tag = "9"
         txtTelefono.Tag = "10"
         txtDomicilio.Tag = "11"
-        cmbProvincia.Tag = "13"
-        cmbLocalidad.Tag = "12"
+        cmbProvincia.Tag = "12"
+        cmbLocalidad.Tag = "13"
     End Sub
 
 
