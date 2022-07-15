@@ -93,7 +93,7 @@ Public Class frmFacturaElectronica
             chkConexion.Checked = ConexionAfip(saveTA, saveTOKEN, saveSING)
             If chkConexion.Checked Then
                 'debo comprobar el caso de que eligan tarjeta de credito o tarjeta de debito
-                resbool = GenerarFE(sender, e, CInt(cmbTipoComprobante.SelectedValue), CInt(PTOVTA), TipoDoc, txtCuit.Text, importe_iva, importe_subtotal, importe_total, cmbConceptosFE.SelectedValue)
+                resbool = GenerarFE(sender, e, CInt(cmbTipoComprobante.SelectedValue), CInt(PTOVTA), TipoDoc, txtCuit.Text, importe_iva, importe_subtotal, importe_total, cmbConceptosFE.SelectedValue, cmbCondicionIVA.SelectedValue, txtDomicilio.Text)
                 If resbool = False Then
                     MsgBox("No se pudo generar la factura electrónica.", MsgBoxStyle.Critical)
                     Cancelar_Tran()
@@ -757,7 +757,7 @@ Public Class frmFacturaElectronica
 
     End Function
 
-    Public Function GenerarFE(sender As Object, e As EventArgs, ByVal tipo_comprobante As Integer, ByVal punto_venta As Integer, ByVal tipo_documento As Integer, ByVal num_documento As String, ByVal import_iva As String, ByVal subtotal As String, ByVal total As String, ByVal concept As Integer) As Boolean
+    Friend Function GenerarFE(sender As Object, e As EventArgs, ByVal tipo_comprobante As Integer, ByVal punto_venta As Integer, ByVal tipo_documento As Integer, ByVal num_documento As String, ByVal import_iva As String, ByVal subtotal As String, ByVal total As String, ByVal concept As Integer, ByVal condicionIva As Integer, ByVal domicilio As String) As Boolean
         Try
 
             Dim cuit
@@ -1034,6 +1034,8 @@ Public Class frmFacturaElectronica
                 Select Case Insert_FacturaElectronica(wsfev1.CAE.ToString, wsfev1.Vencimiento.ToString, CodigoBarra, tipo_comprobante)
                     Case Is <= 0
                         MessageBox.Show("Se produjo un error al insertar el CAE y el vencimiento en el sistema local.", "Control de errores", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Case Else
+                        refreshData()
                 End Select
 
                 'Imprimir(nroFactura, cmbTipoComprobante.Text.ToString)
@@ -1339,20 +1341,22 @@ Public Class frmFacturaElectronica
 
     Friend Sub refreshData()
         'txtID.Text = ""
-        'If grdFEObrasSociales.CurrentRow IsNot Nothing Then
-        '    Dim codigo As String = grdFEObrasSociales.CurrentRow.Cells(grdFEObrasSocialesCols.ID).Value
-        '    requestGrdData()
-        '    For Each row As DataGridViewRow In grdFEObrasSociales.Rows
-        '        If row.Cells(grdFEObrasSocialesCols.ID).Value = codigo Then
-        '            grdFEObrasSociales.ClearSelection()
-        '            row.Selected = True
-        '            grdFEObrasSociales.CurrentCell = grdFEObrasSociales.Rows(row.Index).Cells(grdFEObrasSocialesCols.Codigo)
-        '            txtID.Text = row.Cells(grdFEObrasSocialesCols.ID).Value
-        '        End If
-        '    Next
-        'Else
-        '    requestGrdData()
-        'End If
+        If grdFEObrasSociales.CurrentRow IsNot Nothing Then
+            Dim codigo As String = grdFEObrasSociales.CurrentRow.Cells(grdFEObrasSocialesCols.ID).Value
+            requestGrdData()
+            For Each row As DataGridViewRow In grdFEObrasSociales.Rows
+                If row.Cells(grdFEObrasSocialesCols.ID).Value = codigo Then
+                    grdFEObrasSociales.ClearSelection()
+                    'row.Selected = True
+                    'grdFEObrasSociales.CurrentCell = grdFEObrasSociales.Rows(row.Index).Cells(grdFEObrasSocialesCols.Codigo)
+                    'txtID.Text = row.Cells(grdFEObrasSocialesCols.ID).Value
+                End If
+            Next
+            vaciarVariablesyTextbox()
+        Else
+            requestGrdData()
+            vaciarVariablesyTextbox()
+        End If
 
     End Sub
 
@@ -1754,8 +1758,17 @@ Public Class frmFacturaElectronica
     Private Sub txtBuscar_TextChanged(sender As Object, e As EventArgs) Handles txtBuscar.TextChanged
         ''buscador
         Dim dv As New DataView(dtFarmacias)
-        dv.RowFilter = $"[Rázon Social] LIKE '%{txtBuscar.Text}%' or Farmacia LIKE '%{txtBuscar.Text}%'"
-        grdFEObrasSociales.DataSource = dv
+
+        If nroIdentificador = 0 Then
+            dv.RowFilter = $"[ObraSocial] LIKE '%{txtBuscar.Text}%'"
+            grdFEObrasSociales.DataSource = dv
+        ElseIf nroIdentificador = 1 Then
+
+            dv.RowFilter = $"[Farmacia] LIKE '%{txtBuscar.Text}%'"
+            grdFEObrasSociales.DataSource = dv
+        End If
+
+
 
     End Sub
 

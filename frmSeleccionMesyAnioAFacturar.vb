@@ -80,8 +80,8 @@ Public Class frmSeleccionMesyAnioAFacturar
         End Try
 
         If mes <> "" And anio <> "" Then
-            frmComisionCenprofarPorFarmacia.txtMes.Text = mes
-            frmComisionCenprofarPorFarmacia.txtAnio.Text = anio
+            'frmComisionCenprofarPorFarmacia.txtMes.Text = mes
+            'frmComisionCenprofarPorFarmacia.txtAnio.Text = anio
         End If
 
         Dim cmd As New SqlCommand(sql, connection)

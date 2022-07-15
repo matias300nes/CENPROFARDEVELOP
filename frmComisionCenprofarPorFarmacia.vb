@@ -32,18 +32,6 @@ Public Class frmComisionCenprofarPorFarmacia
     Dim tipo, pto_vta, nro, fecha, cbte_nro
     Dim idIVA, Desc, base_imp, alic, importe
 
-    Private Sub chkVerFacturasEmitidas_CheckedChanged(sender As Object, e As EventArgs) Handles chkVerFacturasEmitidas.CheckedChanged
-        If chkVerFacturasEmitidas.Checked = True Then
-            'If grdFarmacia.Rows.Count > 0 Then
-            Dim frmFacturaElectronica As New frmFacturaElectronica(1, txtMes.Text, txtAnio.Text)
-            frmFacturaElectronica.ShowDialog()
-            'End If
-        End If
-
-
-    End Sub
-
-    Dim cae
     'almaceno nro de factura 
     Dim nroFactura
     Dim cae2
@@ -56,114 +44,6 @@ Public Class frmComisionCenprofarPorFarmacia
     Public ValorVen As String
 
     Dim banNota As Integer, bandComp As Integer
-
-    Private Sub CalcularTotales()
-        ''CALCULA LOS TOTALES DE LA GRIDITEMS
-        Dim i As Integer
-        Dim count As Integer = 0
-        Dim Recaudado As Decimal = 0
-        Dim ACargoOS As Decimal = 0
-        Dim Total As Decimal = 0
-
-        For i = 0 To grdFarmacia.Rows.Count - 1
-            With grdFarmacia.Rows(i)
-                If .Visible = True Then
-                    Total += .Cells(grdFarmaciaCols.ComisionCenprofar).Value
-                    count += 1
-                End If
-            End With
-        Next
-        txtTotal.Text = String.Format("{0:N2}", Total)
-        'lblCantidadFilas.Text = count
-    End Sub
-
-    Private Sub btnGenerarFE_Click(sender As Object, e As EventArgs) Handles btnGenerarFE.Click
-        If grdFarmacia.Rows.Count > 0 Then
-
-            Dim importe_iva, importe_subtotal, importe_total, cuit, direccion, idperiodo
-            Dim resbool As Boolean = False
-            Dim i As Integer
-            Dim tipoComprobante ' 011 FACTURAS C / 211 FACTURA DE CREDITO ELECTRONICA MIPYMES (FCE) C
-            Dim conceptosFE = 2 ' SERVICIOS
-            Dim condicionIVA = 1 'IVA Responsable Inscripto 'es imp tener en cuenta si todas las farmacias manejan esta condicion o hay excepciones
-            ' en caso de que si, hay que manejar la condicion de cada farmacias desde el abm de razones sociales
-            importe_subtotal = 0
-            importe_total = 0
-
-            For i = 0 To grdFarmacia.Rows.Count - 1 'recorro la grilla con las farmacias a facturar
-                With grdFarmacia.Rows(i)
-                    If .Visible = True Then
-                        importe_subtotal = .Cells(grdFarmaciaCols.ComisionCenprofar).Value
-                        importe_total = .Cells(grdFarmaciaCols.ComisionCenprofar).Value
-                        idperiodo = .Cells(grdFarmaciaCols.IdPeriodo).Value
-                        'count += 1
-                        importe_iva = "0.00"
-                        'importe_subtotal = TotalACargoOS
-                        'importe_total = TotalACargoOS
-
-                        TipoDoc = 80 'cuit
-
-                        'controlo que tipo de comprobante aplico
-                        If importe_total >= 299555 Then
-                            tipoComprobante = 211  'FACTURA DE CREDITO ELECTRONICA MIPYMES (FCE) C
-                        Else
-                            tipoComprobante = 11   'FACTURAS C
-                        End If
-                        cuit = IIf(.Cells(grdFarmaciaCols.Cuit).Value Is DBNull.Value, "", .Cells(grdFarmaciaCols.Cuit).Value)
-
-                        If cuit.ToString.Length <> 11 And cuit.ToString.Length <> 8 Then
-                            MsgBox("Verifique la los digitos del documento porfavor!")
-                            Cancelar_Tran()
-                            Exit Sub
-                        End If
-                        direccion = IIf(.Cells(grdFarmaciaCols.Direccion).Value Is DBNull.Value, "", .Cells(grdFarmaciaCols.Direccion).Value)
-                        idOrigen = .Cells(grdFarmaciaCols.ID).Value
-                        If True Then 'preguntar si desea generar la factura, para la obra social
-                            chkConexion.Checked = ConexionAfip(saveTA, saveTOKEN, saveSING)
-                            If chkConexion.Checked Then
-                                'debo comprobar el caso de que eligan tarjeta de credito o tarjeta de debito
-                                resbool = GenerarFE(sender, e, tipoComprobante, CInt(PTOVTA), TipoDoc, cuit, importe_iva, importe_subtotal, importe_total, conceptosFE, condicionIVA, direccion)
-                                If resbool = False Then
-                                    MsgBox("No se pudo generar la factura electrónica.", MsgBoxStyle.Critical)
-                                    Cancelar_Tran()
-                                    'txtCodigoBarra.Focus()
-                                    Exit Sub
-                                Else
-                                    requestGrdData()
-                                    ValorCae = ""
-                                    ValorFac = ""
-                                    ValorVen = ""
-                                    ''uso la misma consulta para llenar la grilla de facturas emitidas y voy generando el pdf de las facturas emitidas
-                                End If
-                            Else
-                                MsgBox("Se perdió la conexión con Servidor de AFIP. Por favor intente más tarde", MsgBoxStyle.Information)
-                                Cancelar_Tran()
-                                'txtCodigoBarra.Focus()
-                                Exit Sub
-                            End If
-                        Else
-                            'cierro la transaccion
-                            Cerrar_Tran()
-                        End If
-
-                        ' cerrar la conexion si está abierta.
-                        '
-                        If Not conn_del_form Is Nothing Then
-                            CType(conn_del_form, IDisposable).Dispose()
-                        End If
-                    End If
-                End With
-            Next
-
-        Else
-            MsgBox("No tiene nignuna factura a generar, verifíque.")
-
-        End If
-
-
-
-
-    End Sub
 
     'VALORES DE REFERENCIA
     Dim ref_email As String, ref_direccion As String
@@ -181,6 +61,26 @@ Public Class frmComisionCenprofarPorFarmacia
     Dim DesdeCmbCliente As Boolean
     '-----------------FIN VARIABLES AFIP----------------------
 
+    Dim dtFarmacias As DataTable
+    Dim cae
+
+#Region "enums"
+    Enum grdFarmaciaCols
+        ID = 0
+        Seleccion = 1
+        Código = 2
+        Farmacia = 3
+        IdRazonSocial = 4
+        RazonSocial = 5
+        Cuit = 6
+        Direccion = 7
+        CBU = 8
+        Banco = 9
+        NroCta = 10
+        IdPeriodo = 11
+        ComisionCenprofar = 12
+        Cae = 13
+    End Enum
     Enum TipoComp
 
         FacturaA = 1
@@ -201,25 +101,6 @@ Public Class frmComisionCenprofarPorFarmacia
 
     End Enum
 
-    Dim dtFarmacias As DataTable
-
-#Region "enums"
-    Enum grdFarmaciaCols
-        ID = 0
-        Seleccion = 1
-        Código = 2
-        Farmacia = 3
-        IdRazonSocial = 4
-        RazonSocial = 5
-        Cuit = 6
-        Direccion = 7
-        CBU = 8
-        Banco = 9
-        NroCta = 10
-        IdPeriodo = 11
-        ComisionCenprofar = 12
-        Cae = 13
-    End Enum
 
     Enum grdHistorialCols
         ID = 0
@@ -232,122 +113,7 @@ Public Class frmComisionCenprofarPorFarmacia
     End Enum
 #End Region
 
-#Region "Funciones y procedimientos"
-    Private Sub setStyles()
-        With grdFarmacia
-            ''ocultar columnas
-            .Columns(grdFarmaciaCols.ID).Visible = False
-            .Columns(grdFarmaciaCols.Cuit).Visible = False
-            '.Columns(grdFarmaciaCols.Telefono).Visible = False
-            '.Columns(grdFarmaciaCols.Email).Visible = False
-            .Columns(grdFarmaciaCols.IdRazonSocial).Visible = False
-            .Columns(grdFarmaciaCols.CBU).Visible = False
-            .Columns(grdFarmaciaCols.NroCta).Visible = False
-            .Columns(grdFarmaciaCols.Banco).Visible = False
-            .Columns(grdFarmaciaCols.IdPeriodo).Visible = False
-            '.Columns(grdFarmaciaCols.Cae).Visible = False
-            '.Columns(grdFarmaciaCols.Sociedad).Visible = False
-
-            ocultarFarmaciasFacturadas()
-            ''cambiar width
-            '.Columns(grdFarmaciaCols.Seleccion).Width = 50
-            '.Columns(grdFarmaciaCols.Codigo).Width = 70
-            ''.Columns(grdFarmaciaCols.Nombre).Width = 200
-            '.Columns(grdFarmaciaCols.PreferenciaPago).Width = 70
-            '.Columns(grdFarmaciaCols.Saldo).Width = 100
-
-            '.Columns(grdFarmaciaCols.Saldo).DefaultCellStyle.Format = "c"
-
-            ''Bloqueo la edicion para todas las columnas
-            For Each col As DataGridViewColumn In .Columns
-                If col.Index <> .Columns(grdFarmaciaCols.Seleccion).Index Then
-                    col.ReadOnly = True
-                End If
-            Next
-
-            .AutoResizeColumns()
-        End With
-
-    End Sub
-
-    Private Sub ocultarFarmaciasFacturadas()
-        'For Each fila As DataGridViewRow In grdFarmacia.Rows
-        '    'Or fila.Cells(grdFarmaciaCols.Cae).Value.ToString = ""
-        '    'fila.Cells(grdFarmaciaCols.Cae).Value Is DBNull.Value
-        '    Dim cae = fila.Cells(grdFarmaciaCols.Cae).Value.ToString
-        '    If cae <> "" Then
-        '        fila.
-        '    End If
-        'Next
-    End Sub
-
-    Private Sub requestGrdData()
-        dtFarmacias = New DataTable()
-        Dim connection As SqlClient.SqlConnection = Nothing
-        Dim sql As String = $"exec spComisionCentroPorFarmacia_Select_All @Eliminado = 0, @mes = {txtMes.Text}, @anio = '{txtAnio.Text}'"
-        Try
-            connection = SqlHelper.GetConnection(ConnStringSEI)
-        Catch ex As Exception
-            MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
-        End Try
-
-        Dim cmd As New SqlCommand(sql, connection)
-        Dim da As New SqlDataAdapter(cmd)
-
-        da.Fill(dtFarmacias)
-
-        da.Fill(dtFarmacias)
-
-        Dim dv As New DataView(dtFarmacias)
-        dv.RowFilter = $"[CAE] IS NULL"
-
-        grdFarmacia.DataSource = dv
-    End Sub
-
-    Private Sub requestGrdItemData()
-        'Dim connection As SqlClient.SqlConnection = Nothing
-        'Dim dt As New DataTable()
-        'Dim sql As String = $"exec spHistorialCta_SelectByIdFarmacia @IdFarmacia = {txtID.Text}"
-        'If txtID.Text <> "" Then
-        '    Try
-        '        connection = SqlHelper.GetConnection(ConnStringSEI)
-
-        '        Dim cmd As New SqlCommand(sql, connection)
-        '        Dim da As New SqlDataAdapter(cmd)
-
-        '        da.Fill(dt)
-
-        '        'grdHistorial.DataSource = dt
-        '    Catch ex As Exception
-        '        MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        '        Exit Sub
-        '    End Try
-        'End If
-
-    End Sub
-
-    'Private Sub requestGrdComision()
-    '    Dim connection As SqlClient.SqlConnection = Nothing
-    '    Dim dt As New DataTable()
-    '    Dim sql As String = $"exec spComisionCentroPorFarmacia_Select_All @Eliminado = 0, @idfarmacia = 20134, @mes = '', @anio = ''"
-    '    If txtID.Text <> "" Then
-    '        Try
-    '            connection = SqlHelper.GetConnection(ConnStringSEI)
-
-    '            Dim cmd As New SqlCommand(sql, connection)
-    '            Dim da As New SqlDataAdapter(cmd)
-
-    '            da.Fill(dt)
-
-    '            'grdHistorial.DataSource = dt
-    '        Catch ex As Exception
-    '            MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-    '            Exit Sub
-    '        End Try
-    '    End If
-    'End Sub
-
+#Region "Funciones Afip"
     '----------------Funciones Afip--------------------
 
     Public Function ConexionAfip(ByVal TicketAcceso As Object, ByVal Token As Object, ByVal Sign As Object) As Boolean
@@ -546,13 +312,11 @@ Public Class frmComisionCenprofarPorFarmacia
 
 
 
-            tipo_cbte = tipo_comprobante
-            ' cbte_nro = "" 'param
-
+            tipo_cbte = tipo_comprobante 'param
             punto_vta = punto_venta 'param
 
             fecha = Format(dtpFecha.Value.Date, "yyyyMMdd") 'param
-            'concepto en este caso es siempre producto
+
             concepto = concept 'param
             tipo_doc = tipo_documento 'param
             nro_doc = num_documento 'param
@@ -609,13 +373,9 @@ Public Class frmComisionCenprofarPorFarmacia
                 imp_neto = Replace(total, ",", "")
             End If
 
-            'imp_iva = FormatNumber(CDec(txtIva21.Text) + CDec(txtIva10.Text), 2) 'param
-            'imp_iva = Replace(Replace(imp_iva, ".", ""), ",", ".")
             imp_iva = FormatNumber(CDec(import_iva), 2) 'param
             imp_iva = Replace(Replace(imp_iva, ".", ""), ",", ".")
 
-            'imp_total = FormatNumber(CDbl(txtTotal.Text), 2) 'param
-            'imp_total = Replace(Replace(imp_total, ".", ""), ",", ".")
             imp_total = FormatNumber(CDbl(total), 2) 'param
             imp_total = Replace(imp_total, ",", "") 'Replace(Replace(imp_total, ".", ""), ",", ".")
 
@@ -678,26 +438,8 @@ Public Class frmComisionCenprofarPorFarmacia
             End If
 
 
-            'Dim i As Integer
-            'Dim CantidadFilas As Integer
-
-            'If grdItems.RowCount = 16 Then
-            '    CantidadFilas = grdItems.Rows.Count
-            'Else
-            '    CantidadFilas = grdItems.Rows.Count
-            'End If
-
-            'Dim total10 As Decimal
             Dim total21 As Decimal
-            'total21 toma el valor del subtotal.
             total21 = subtotal
-
-            ' 1 Factura A
-            ' 2 Nota Debito A
-            ' 3 Nota Credito A
-            ' 51 Factura M
-            ' 52 Nota Debito M 
-            ' 53 Nota Credito M
 
             If tipo_cbte = TipoComp.FacturaA Or
                 tipo_cbte = TipoComp.NotaDebitoA Or
@@ -743,14 +485,10 @@ Public Class frmComisionCenprofarPorFarmacia
                 If total21 > 0 Then
                     idIVA = 5 '21% codigo que esta en la tabla condicionIVA
                     base_imp = FormatNumber(CDbl(total21.ToString), 2) 'param
-                    'base_imp = FormatNumber(CDbl(total21), 2) 'param
                     base_imp = Replace(Replace(base_imp, ".", ""), ",", ".")
-                    'importe = FormatNumber(CDbl(imp_iva.ToString), 2) 'param
                     importe = FormatNumber(CDbl(import_iva.ToString), 2) 'param
-                    'importe = FormatNumber(CDbl(imp_iva), 2) 'param
-                    'importe = imp_iva 'param
                     importe = Replace(Replace(importe, ".", ""), ",", ".")
-                    'importe = Replace(importe, ",", ".")
+
                     ok = wsfev1.AgregarIva(idIVA, base_imp, importe)
                 End If
                 '------------------------------------------------------------------------
@@ -1128,29 +866,86 @@ Public Class frmComisionCenprofarPorFarmacia
         End Try
 
     End Function
+#End Region
 
+#Region "Funciones y procedimientos"
+    Private Sub setStyles()
+        With grdFarmacia
+            ''ocultar columnas
+            .Columns(grdFarmaciaCols.ID).Visible = False
+            .Columns(grdFarmaciaCols.Cuit).Visible = False
+            .Columns(grdFarmaciaCols.IdRazonSocial).Visible = False
+            .Columns(grdFarmaciaCols.CBU).Visible = False
+            .Columns(grdFarmaciaCols.NroCta).Visible = False
+            .Columns(grdFarmaciaCols.Banco).Visible = False
+            .Columns(grdFarmaciaCols.IdPeriodo).Visible = False
 
-    '----------------FIN Funciones Afip--------------------
+            ''Bloqueo la edicion para todas las columnas
+            For Each col As DataGridViewColumn In .Columns
+                If col.Index <> .Columns(grdFarmaciaCols.Seleccion).Index Then
+                    col.ReadOnly = True
+                End If
+            Next
 
-
-    Friend Sub refreshData()
-        txtID.Text = ""
-        'If grdFarmacia.CurrentRow IsNot Nothing Then
-        '    Dim codigo As String = grdFarmacia.CurrentRow.Cells(grdFarmaciaCols.Codigo).Value.ToString
-        '    requestGrdData()
-        '    For Each row As DataGridViewRow In grdFarmacia.Rows
-        '        If row.Cells(grdFarmaciaCols.Codigo).Value = codigo Then
-        '            grdFarmacia.ClearSelection()
-        '            row.Selected = True
-        '            grdFarmacia.CurrentCell = grdFarmacia.Rows(row.Index).Cells(grdFarmaciaCols.Codigo)
-        '            txtID.Text = row.Cells(grdFarmaciaCols.ID).Value
-        '        End If
-        '    Next
-        'Else
-        '    requestGrdData()
-        'End If
+            .AutoResizeColumns()
+        End With
 
     End Sub
+
+    Private Sub CalcularTotales()
+        ''CALCULA LOS TOTALES DE LA GRIDITEMS
+        Dim i As Integer
+        Dim count As Integer = 0
+        Dim Recaudado As Decimal = 0
+        Dim ACargoOS As Decimal = 0
+        Dim Total As Decimal = 0
+
+        For i = 0 To grdFarmacia.Rows.Count - 1
+            With grdFarmacia.Rows(i)
+                If .Visible = True Then
+                    Total += .Cells(grdFarmaciaCols.ComisionCenprofar).Value
+                    count += 1
+                End If
+            End With
+        Next
+        txtTotal.Text = String.Format("{0:N2}", Total)
+        'lblCantidadFilas.Text = count
+    End Sub
+
+
+    Private Sub requestGrdData()
+        dtFarmacias = New DataTable()
+        Dim connection As SqlClient.SqlConnection = Nothing
+        Dim sql As String = $"exec spComisionCentroPorFarmacia_Select_All @Eliminado = 0, @mes = {cmbMes.Text}, @anio = '{cmbAnio.Text}'"
+        Try
+            connection = SqlHelper.GetConnection(ConnStringSEI)
+        Catch ex As Exception
+            MessageBox.Show("No se pudo conectar con la Base de Datos. Consulte con su Administrador.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End Try
+
+        Dim cmd As New SqlCommand(sql, connection)
+        Dim da As New SqlDataAdapter(cmd)
+
+        da.Fill(dtFarmacias)
+
+        Dim dv As New DataView(dtFarmacias)
+        dv.RowFilter = $"[CAE] IS NULL"
+
+        grdFarmacia.DataSource = dv
+    End Sub
+
+    Private Sub llenarCmbAños()
+        Dim i As Integer
+
+        For i = 2010 To Today.Year
+            cmbAnio.Items.Add(i)
+        Next
+
+    End Sub
+
+
+
 
     Private Sub Verificar_Datos()
         ''DESOMENTAR TODO
@@ -1272,15 +1067,32 @@ Public Class frmComisionCenprofarPorFarmacia
 #End Region
 
 #Region "Eventos"
+
+    Private Sub chkVerFacturasEmitidas_CheckedChanged(sender As Object, e As EventArgs) Handles chkVerFacturasEmitidas.CheckedChanged
+        If chkVerFacturasEmitidas.Checked = True Then
+            'If grdFarmacia.Rows.Count > 0 Then
+            Dim frmFacturaElectronica As New frmFacturaElectronica(1, cmbMes.Text, cmbAnio.Text)
+            frmFacturaElectronica.ShowDialog()
+            'End If
+        End If
+
+
+    End Sub
+
+    Private Sub btnBuscar_Click(sender As Object, e As EventArgs) Handles btnBuscar.Click
+        If cmbAnio.Text <> "" And cmbMes.Text <> "" Then
+            requestGrdData()
+        Else
+            MsgBox("Porfavor, verifique que los campos Año y Mes no estén vacíos.")
+        End If
+    End Sub
     Private Sub frmSaldos_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'LlenarcmbTipoDocumento()
-        'LlenarcmbCondicionIVA()
-        'LlenarcmbComprobantes()
-        'LlenarcmbConceptosFE()
-        'LlenarcmbNroComprobanteNotaCred()
-        Dim frmAnioyMes As New frmSeleccionMesyAnioAFacturar()
-        frmAnioyMes.ShowDialog()
-        'requestGrdData()
+        llenarCmbAños()
+        'Dim frmAnioyMes As New frmSeleccionMesyAnioAFacturar()
+        'frmAnioyMes.ShowDialog()
+        If cmbAnio.Text <> "" And cmbMes.Text <> "" Then
+            requestGrdData()
+        End If
 
         If grdFarmacia.Rows.Count > 0 Then
             setStyles()
@@ -1293,6 +1105,95 @@ Public Class frmComisionCenprofarPorFarmacia
         'txtImporte.Text = TotalACargoOS
     End Sub
 
+    Private Sub btnGenerarFE_Click(sender As Object, e As EventArgs) Handles btnGenerarFE.Click
+        If grdFarmacia.Rows.Count > 0 Then
+
+            Dim importe_iva, importe_subtotal, importe_total, cuit, direccion, idperiodo
+            Dim resbool As Boolean = False
+            Dim i As Integer
+            Dim tipoComprobante ' 011 FACTURAS C / 211 FACTURA DE CREDITO ELECTRONICA MIPYMES (FCE) C
+            Dim conceptosFE = 2 ' SERVICIOS
+            Dim condicionIVA = 1 'IVA Responsable Inscripto 'es imp tener en cuenta si todas las farmacias manejan esta condicion o hay excepciones
+            ' en caso de que si, hay que manejar la condicion de cada farmacias desde el abm de razones sociales
+            importe_subtotal = 0
+            importe_total = 0
+
+            For i = 0 To grdFarmacia.Rows.Count - 1 'recorro la grilla con las farmacias a facturar
+                With grdFarmacia.Rows(i)
+                    If .Visible = True Then
+                        importe_subtotal = .Cells(grdFarmaciaCols.ComisionCenprofar).Value
+                        importe_total = .Cells(grdFarmaciaCols.ComisionCenprofar).Value
+                        idperiodo = .Cells(grdFarmaciaCols.IdPeriodo).Value
+                        'count += 1
+                        importe_iva = "0.00"
+                        'importe_subtotal = TotalACargoOS
+                        'importe_total = TotalACargoOS
+
+                        TipoDoc = 80 'cuit
+
+                        'controlo que tipo de comprobante aplico
+                        If importe_total >= 299555 Then
+                            tipoComprobante = 211  'FACTURA DE CREDITO ELECTRONICA MIPYMES (FCE) C
+                        Else
+                            tipoComprobante = 11   'FACTURAS C
+                        End If
+                        cuit = IIf(.Cells(grdFarmaciaCols.Cuit).Value Is DBNull.Value, "", .Cells(grdFarmaciaCols.Cuit).Value)
+
+                        If cuit.ToString.Length <> 11 And cuit.ToString.Length <> 8 Then
+                            MsgBox("Verifique la los digitos del documento porfavor!")
+                            Cancelar_Tran()
+                            Exit Sub
+                        End If
+                        direccion = IIf(.Cells(grdFarmaciaCols.Direccion).Value Is DBNull.Value, "", .Cells(grdFarmaciaCols.Direccion).Value)
+                        idOrigen = .Cells(grdFarmaciaCols.ID).Value
+                        If True Then 'preguntar si desea generar la factura, para la obra social
+                            chkConexion.Checked = ConexionAfip(saveTA, saveTOKEN, saveSING)
+                            If chkConexion.Checked Then
+                                Dim frm As New frmFacturaElectronica(1, cmbMes.Text, cmbAnio.Text)
+
+
+                                resbool = GenerarFE(sender, e, tipoComprobante, CInt(PTOVTA), TipoDoc, cuit, importe_iva, importe_subtotal, importe_total, conceptosFE, condicionIVA, direccion)
+                                If resbool = False Then
+                                    MsgBox("No se pudo generar la factura electrónica.", MsgBoxStyle.Critical)
+                                    Cancelar_Tran()
+                                    'txtCodigoBarra.Focus()
+                                    Exit Sub
+                                Else
+                                    requestGrdData()
+                                    ValorCae = ""
+                                    ValorFac = ""
+                                    ValorVen = ""
+                                    ''uso la misma consulta para llenar la grilla de facturas emitidas y voy generando el pdf de las facturas emitidas
+                                End If
+                            Else
+                                MsgBox("Se perdió la conexión con Servidor de AFIP. Por favor intente más tarde", MsgBoxStyle.Information)
+                                Cancelar_Tran()
+                                'txtCodigoBarra.Focus()
+                                Exit Sub
+                            End If
+                        Else
+                            'cierro la transaccion
+                            Cerrar_Tran()
+                        End If
+
+                        ' cerrar la conexion si está abierta.
+                        '
+                        If Not conn_del_form Is Nothing Then
+                            CType(conn_del_form, IDisposable).Dispose()
+                        End If
+                    End If
+                End With
+            Next
+
+        Else
+            MsgBox("No tiene ninguna factura a generar, verifíque.")
+
+        End If
+
+
+
+
+    End Sub
 
     Private Sub getFields()
 
@@ -1405,39 +1306,11 @@ Public Class frmComisionCenprofarPorFarmacia
         CalcularTotales()
     End Sub
 
-
-
-    Private Sub txtID_TextChanged(sender As Object, e As EventArgs) Handles txtID.TextChanged
-        requestGrdItemData()
-    End Sub
-
     Private Sub txtBuscar_TextChanged(sender As Object, e As EventArgs) Handles txtBuscar.TextChanged
         ''buscador
         Dim dv As New DataView(dtFarmacias)
         dv.RowFilter = $"[Rázon Social] LIKE '%{txtBuscar.Text}%' or Farmacia LIKE '%{txtBuscar.Text}%'"
         grdFarmacia.DataSource = dv
-
-    End Sub
-
-    Private Sub btnGenerarComisiones_Click(sender As Object, e As EventArgs) Handles btnGenerarComisiones.Click
-        ''me aseguro de que quede la fila seleccionada
-        Dim temprow As DataGridViewCell = Nothing
-        If grdFarmacia.CurrentCell IsNot Nothing Then
-            temprow = grdFarmacia.CurrentCell
-            grdFarmacia.CurrentCell = Nothing
-        End If
-        grdFarmacia.CurrentCell = temprow
-
-        If checkSelected() Then
-            Dim dv As New DataView(dtFarmacias)
-            dv.RowFilter = $"[Selección] = 1"
-
-            'Dim frmAnioyMes As New frmSeleccionMesyAnioAFacturar(dv.ToTable())
-            Dim frmAnioyMes As New frmSeleccionMesyAnioAFacturar()
-            frmAnioyMes.ShowDialog()
-        Else
-            MsgBox("Debe seleccionar al menos una razón social para poder realizar el pago.")
-        End If
 
     End Sub
 

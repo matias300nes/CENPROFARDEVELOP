@@ -41,14 +41,16 @@ Partial Class frmComisionCenprofarPorFarmacia
         Me.chkNotaCredito = New System.Windows.Forms.CheckBox()
         Me.PicConexion = New System.Windows.Forms.PictureBox()
         Me.lblModo = New System.Windows.Forms.Label()
-        Me.btnGenerarComisiones = New DevComponents.DotNetBar.ButtonX()
         Me.txtTotal = New System.Windows.Forms.TextBox()
         Me.cmbNroComprobanteNotaCred = New System.Windows.Forms.ComboBox()
         Me.lblNroComprobanteNotaCred = New System.Windows.Forms.Label()
         Me.chkVerFacturasEmitidas = New System.Windows.Forms.CheckBox()
         Me.dtpFecha = New System.Windows.Forms.DateTimePicker()
-        Me.txtMes = New System.Windows.Forms.TextBox()
-        Me.txtAnio = New System.Windows.Forms.TextBox()
+        Me.cmbMes = New System.Windows.Forms.ComboBox()
+        Me.cmbAnio = New System.Windows.Forms.ComboBox()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.btnBuscar = New DevComponents.DotNetBar.ButtonX()
         CType(Me.grdFarmacia, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicConexion, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -60,7 +62,7 @@ Partial Class frmComisionCenprofarPorFarmacia
         Me.grdFarmacia.AllowUserToResizeRows = False
         Me.grdFarmacia.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.grdFarmacia.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.grdFarmacia.Location = New System.Drawing.Point(13, 127)
+        Me.grdFarmacia.Location = New System.Drawing.Point(13, 199)
         Me.grdFarmacia.Margin = New System.Windows.Forms.Padding(4)
         Me.grdFarmacia.Name = "grdFarmacia"
         Me.grdFarmacia.RowHeadersVisible = False
@@ -72,7 +74,7 @@ Partial Class frmComisionCenprofarPorFarmacia
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(405, 96)
+        Me.Label1.Location = New System.Drawing.Point(405, 168)
         Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(73, 17)
@@ -82,7 +84,7 @@ Partial Class frmComisionCenprofarPorFarmacia
         '
         'txtBuscar
         '
-        Me.txtBuscar.Location = New System.Drawing.Point(95, 93)
+        Me.txtBuscar.Location = New System.Drawing.Point(95, 165)
         Me.txtBuscar.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBuscar.Name = "txtBuscar"
         Me.txtBuscar.Size = New System.Drawing.Size(302, 22)
@@ -91,7 +93,7 @@ Partial Class frmComisionCenprofarPorFarmacia
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(13, 97)
+        Me.Label3.Location = New System.Drawing.Point(13, 169)
         Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(56, 17)
@@ -103,7 +105,7 @@ Partial Class frmComisionCenprofarPorFarmacia
         Me.lblSeleccionados.AutoSize = True
         Me.lblSeleccionados.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblSeleccionados.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblSeleccionados.Location = New System.Drawing.Point(235, 468)
+        Me.lblSeleccionados.Location = New System.Drawing.Point(235, 540)
         Me.lblSeleccionados.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblSeleccionados.Name = "lblSeleccionados"
         Me.lblSeleccionados.Size = New System.Drawing.Size(112, 17)
@@ -113,7 +115,7 @@ Partial Class frmComisionCenprofarPorFarmacia
         '
         'txtID
         '
-        Me.txtID.Location = New System.Drawing.Point(502, 93)
+        Me.txtID.Location = New System.Drawing.Point(502, 165)
         Me.txtID.Margin = New System.Windows.Forms.Padding(4)
         Me.txtID.Name = "txtID"
         Me.txtID.ReadOnly = True
@@ -123,7 +125,7 @@ Partial Class frmComisionCenprofarPorFarmacia
         '
         'btnSelection
         '
-        Me.btnSelection.Location = New System.Drawing.Point(10, 461)
+        Me.btnSelection.Location = New System.Drawing.Point(10, 533)
         Me.btnSelection.Margin = New System.Windows.Forms.Padding(4)
         Me.btnSelection.Name = "btnSelection"
         Me.btnSelection.Size = New System.Drawing.Size(182, 28)
@@ -140,7 +142,7 @@ Partial Class frmComisionCenprofarPorFarmacia
         Me.btnPrint.Image = Global.CENPROFAR.My.Resources.Resources.btnimprimir
         Me.btnPrint.ImageFixedSize = New System.Drawing.Size(20, 20)
         Me.btnPrint.ImagePosition = DevComponents.DotNetBar.eImagePosition.Right
-        Me.btnPrint.Location = New System.Drawing.Point(963, 83)
+        Me.btnPrint.Location = New System.Drawing.Point(963, 155)
         Me.btnPrint.Margin = New System.Windows.Forms.Padding(4)
         Me.btnPrint.Name = "btnPrint"
         Me.btnPrint.Size = New System.Drawing.Size(123, 30)
@@ -153,7 +155,7 @@ Partial Class frmComisionCenprofarPorFarmacia
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(602, 96)
+        Me.Label4.Location = New System.Drawing.Point(602, 168)
         Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(87, 17)
@@ -164,7 +166,7 @@ Partial Class frmComisionCenprofarPorFarmacia
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(788, 93)
+        Me.Label5.Location = New System.Drawing.Point(788, 165)
         Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(74, 17)
@@ -175,7 +177,7 @@ Partial Class frmComisionCenprofarPorFarmacia
         'dtpFechaInicio
         '
         Me.dtpFechaInicio.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpFechaInicio.Location = New System.Drawing.Point(688, 93)
+        Me.dtpFechaInicio.Location = New System.Drawing.Point(688, 165)
         Me.dtpFechaInicio.Name = "dtpFechaInicio"
         Me.dtpFechaInicio.Size = New System.Drawing.Size(93, 22)
         Me.dtpFechaInicio.TabIndex = 403
@@ -184,7 +186,7 @@ Partial Class frmComisionCenprofarPorFarmacia
         'dtpFechaFin
         '
         Me.dtpFechaFin.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpFechaFin.Location = New System.Drawing.Point(855, 92)
+        Me.dtpFechaFin.Location = New System.Drawing.Point(855, 164)
         Me.dtpFechaFin.Name = "dtpFechaFin"
         Me.dtpFechaFin.Size = New System.Drawing.Size(87, 22)
         Me.dtpFechaFin.TabIndex = 404
@@ -195,7 +197,7 @@ Partial Class frmComisionCenprofarPorFarmacia
         Me.btnGenerarFE.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
         Me.btnGenerarFE.BackColor = System.Drawing.SystemColors.Control
         Me.btnGenerarFE.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.btnGenerarFE.Location = New System.Drawing.Point(977, 479)
+        Me.btnGenerarFE.Location = New System.Drawing.Point(977, 551)
         Me.btnGenerarFE.Margin = New System.Windows.Forms.Padding(4)
         Me.btnGenerarFE.Name = "btnGenerarFE"
         Me.btnGenerarFE.Size = New System.Drawing.Size(124, 31)
@@ -207,7 +209,7 @@ Partial Class frmComisionCenprofarPorFarmacia
         'chkConexion
         '
         Me.chkConexion.AutoSize = True
-        Me.chkConexion.Location = New System.Drawing.Point(384, 468)
+        Me.chkConexion.Location = New System.Drawing.Point(384, 540)
         Me.chkConexion.Name = "chkConexion"
         Me.chkConexion.Size = New System.Drawing.Size(88, 21)
         Me.chkConexion.TabIndex = 406
@@ -220,7 +222,7 @@ Partial Class frmComisionCenprofarPorFarmacia
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label2.Location = New System.Drawing.Point(13, 63)
+        Me.Label2.Location = New System.Drawing.Point(13, 135)
         Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(143, 17)
@@ -231,7 +233,7 @@ Partial Class frmComisionCenprofarPorFarmacia
         'chkNotaCredito
         '
         Me.chkNotaCredito.AutoSize = True
-        Me.chkNotaCredito.Location = New System.Drawing.Point(240, 55)
+        Me.chkNotaCredito.Location = New System.Drawing.Point(240, 127)
         Me.chkNotaCredito.Name = "chkNotaCredito"
         Me.chkNotaCredito.Size = New System.Drawing.Size(109, 21)
         Me.chkNotaCredito.TabIndex = 424
@@ -241,7 +243,7 @@ Partial Class frmComisionCenprofarPorFarmacia
         '
         'PicConexion
         '
-        Me.PicConexion.Location = New System.Drawing.Point(928, 482)
+        Me.PicConexion.Location = New System.Drawing.Point(928, 554)
         Me.PicConexion.Name = "PicConexion"
         Me.PicConexion.Size = New System.Drawing.Size(47, 31)
         Me.PicConexion.TabIndex = 429
@@ -253,7 +255,7 @@ Partial Class frmComisionCenprofarPorFarmacia
         Me.lblModo.BackColor = System.Drawing.Color.Transparent
         Me.lblModo.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblModo.ForeColor = System.Drawing.Color.Red
-        Me.lblModo.Location = New System.Drawing.Point(503, 468)
+        Me.lblModo.Location = New System.Drawing.Point(503, 540)
         Me.lblModo.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblModo.Name = "lblModo"
         Me.lblModo.Size = New System.Drawing.Size(232, 24)
@@ -261,23 +263,9 @@ Partial Class frmComisionCenprofarPorFarmacia
         Me.lblModo.Text = "MODO HOMOLOGACIÓN"
         Me.lblModo.Visible = False
         '
-        'btnGenerarComisiones
-        '
-        Me.btnGenerarComisiones.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnGenerarComisiones.BackColor = System.Drawing.SystemColors.Control
-        Me.btnGenerarComisiones.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.btnGenerarComisiones.Location = New System.Drawing.Point(760, 482)
-        Me.btnGenerarComisiones.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnGenerarComisiones.Name = "btnGenerarComisiones"
-        Me.btnGenerarComisiones.Size = New System.Drawing.Size(124, 31)
-        Me.btnGenerarComisiones.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnGenerarComisiones.TabIndex = 971
-        Me.btnGenerarComisiones.Text = "Generar Comisiones"
-        Me.btnGenerarComisiones.TextColor = System.Drawing.SystemColors.InfoText
-        '
         'txtTotal
         '
-        Me.txtTotal.Location = New System.Drawing.Point(988, 450)
+        Me.txtTotal.Location = New System.Drawing.Point(988, 522)
         Me.txtTotal.Name = "txtTotal"
         Me.txtTotal.Size = New System.Drawing.Size(111, 22)
         Me.txtTotal.TabIndex = 972
@@ -285,7 +273,7 @@ Partial Class frmComisionCenprofarPorFarmacia
         'cmbNroComprobanteNotaCred
         '
         Me.cmbNroComprobanteNotaCred.FormattingEnabled = True
-        Me.cmbNroComprobanteNotaCred.Location = New System.Drawing.Point(467, 53)
+        Me.cmbNroComprobanteNotaCred.Location = New System.Drawing.Point(467, 125)
         Me.cmbNroComprobanteNotaCred.Name = "cmbNroComprobanteNotaCred"
         Me.cmbNroComprobanteNotaCred.Size = New System.Drawing.Size(157, 24)
         Me.cmbNroComprobanteNotaCred.TabIndex = 975
@@ -294,7 +282,7 @@ Partial Class frmComisionCenprofarPorFarmacia
         'lblNroComprobanteNotaCred
         '
         Me.lblNroComprobanteNotaCred.AutoSize = True
-        Me.lblNroComprobanteNotaCred.Location = New System.Drawing.Point(352, 55)
+        Me.lblNroComprobanteNotaCred.Location = New System.Drawing.Point(352, 127)
         Me.lblNroComprobanteNotaCred.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblNroComprobanteNotaCred.Name = "lblNroComprobanteNotaCred"
         Me.lblNroComprobanteNotaCred.Size = New System.Drawing.Size(120, 17)
@@ -305,7 +293,7 @@ Partial Class frmComisionCenprofarPorFarmacia
         'chkVerFacturasEmitidas
         '
         Me.chkVerFacturasEmitidas.AutoSize = True
-        Me.chkVerFacturasEmitidas.Location = New System.Drawing.Point(918, 51)
+        Me.chkVerFacturasEmitidas.Location = New System.Drawing.Point(918, 123)
         Me.chkVerFacturasEmitidas.Name = "chkVerFacturasEmitidas"
         Me.chkVerFacturasEmitidas.Size = New System.Drawing.Size(168, 21)
         Me.chkVerFacturasEmitidas.TabIndex = 977
@@ -315,38 +303,77 @@ Partial Class frmComisionCenprofarPorFarmacia
         'dtpFecha
         '
         Me.dtpFecha.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpFecha.Location = New System.Drawing.Point(17, 29)
+        Me.dtpFecha.Location = New System.Drawing.Point(17, 101)
         Me.dtpFecha.Name = "dtpFecha"
         Me.dtpFecha.Size = New System.Drawing.Size(110, 22)
         Me.dtpFecha.TabIndex = 978
         '
-        'txtMes
+        'cmbMes
         '
-        Me.txtMes.Location = New System.Drawing.Point(343, 491)
-        Me.txtMes.Name = "txtMes"
-        Me.txtMes.Size = New System.Drawing.Size(100, 22)
-        Me.txtMes.TabIndex = 979
-        Me.txtMes.Visible = False
+        Me.cmbMes.FormattingEnabled = True
+        Me.cmbMes.Items.AddRange(New Object() {"ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"})
+        Me.cmbMes.Location = New System.Drawing.Point(16, 44)
+        Me.cmbMes.Name = "cmbMes"
+        Me.cmbMes.Size = New System.Drawing.Size(195, 24)
+        Me.cmbMes.TabIndex = 981
         '
-        'txtAnio
+        'cmbAnio
         '
-        Me.txtAnio.Location = New System.Drawing.Point(449, 491)
-        Me.txtAnio.Name = "txtAnio"
-        Me.txtAnio.Size = New System.Drawing.Size(100, 22)
-        Me.txtAnio.TabIndex = 980
-        Me.txtAnio.Visible = False
+        Me.cmbAnio.FormattingEnabled = True
+        Me.cmbAnio.Location = New System.Drawing.Point(238, 44)
+        Me.cmbAnio.Name = "cmbAnio"
+        Me.cmbAnio.Size = New System.Drawing.Size(195, 24)
+        Me.cmbAnio.TabIndex = 982
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(237, 24)
+        Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(33, 17)
+        Me.Label6.TabIndex = 983
+        Me.Label6.Text = "Año"
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Location = New System.Drawing.Point(14, 24)
+        Me.Label7.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(34, 17)
+        Me.Label7.TabIndex = 984
+        Me.Label7.Text = "Mes"
+        '
+        'btnBuscar
+        '
+        Me.btnBuscar.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnBuscar.BackColor = System.Drawing.SystemColors.Control
+        Me.btnBuscar.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
+        Me.btnBuscar.Location = New System.Drawing.Point(449, 37)
+        Me.btnBuscar.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnBuscar.Name = "btnBuscar"
+        Me.btnBuscar.Size = New System.Drawing.Size(86, 31)
+        Me.btnBuscar.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnBuscar.TabIndex = 985
+        Me.btnBuscar.Text = "Buscar"
+        Me.btnBuscar.TextColor = System.Drawing.SystemColors.InfoText
         '
         'frmComisionCenprofarPorFarmacia
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1112, 524)
+        Me.ClientSize = New System.Drawing.Size(1112, 607)
+        Me.Controls.Add(Me.btnBuscar)
+        Me.Controls.Add(Me.Label7)
+        Me.Controls.Add(Me.Label6)
+        Me.Controls.Add(Me.cmbAnio)
+        Me.Controls.Add(Me.cmbMes)
         Me.Controls.Add(Me.dtpFecha)
         Me.Controls.Add(Me.chkVerFacturasEmitidas)
         Me.Controls.Add(Me.cmbNroComprobanteNotaCred)
         Me.Controls.Add(Me.lblNroComprobanteNotaCred)
         Me.Controls.Add(Me.txtTotal)
-        Me.Controls.Add(Me.btnGenerarComisiones)
         Me.Controls.Add(Me.lblModo)
         Me.Controls.Add(Me.PicConexion)
         Me.Controls.Add(Me.chkNotaCredito)
@@ -365,8 +392,6 @@ Partial Class frmComisionCenprofarPorFarmacia
         Me.Controls.Add(Me.txtBuscar)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.grdFarmacia)
-        Me.Controls.Add(Me.txtMes)
-        Me.Controls.Add(Me.txtAnio)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MinimumSize = New System.Drawing.Size(994, 47)
@@ -398,12 +423,14 @@ Partial Class frmComisionCenprofarPorFarmacia
     Friend WithEvents chkNotaCredito As CheckBox
     Friend WithEvents PicConexion As PictureBox
     Friend WithEvents lblModo As Label
-    Friend WithEvents btnGenerarComisiones As DevComponents.DotNetBar.ButtonX
     Friend WithEvents txtTotal As TextBox
     Friend WithEvents cmbNroComprobanteNotaCred As ComboBox
     Friend WithEvents lblNroComprobanteNotaCred As Label
     Friend WithEvents chkVerFacturasEmitidas As CheckBox
     Friend WithEvents dtpFecha As DateTimePicker
-    Friend WithEvents txtMes As TextBox
-    Friend WithEvents txtAnio As TextBox
+    Friend WithEvents cmbMes As ComboBox
+    Friend WithEvents cmbAnio As ComboBox
+    Friend WithEvents Label6 As Label
+    Friend WithEvents Label7 As Label
+    Friend WithEvents btnBuscar As DevComponents.DotNetBar.ButtonX
 End Class

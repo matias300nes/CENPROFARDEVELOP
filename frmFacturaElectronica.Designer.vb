@@ -75,7 +75,6 @@ Partial Class frmFacturaElectronica
         Me.cmbDocTipo = New System.Windows.Forms.ComboBox()
         Me.lblObraSocial = New System.Windows.Forms.Label()
         Me.Label23 = New System.Windows.Forms.Label()
-        Me.btnAnularFE = New DevComponents.DotNetBar.ButtonX()
         Me.cmbNroComprobanteNotaCred = New System.Windows.Forms.ComboBox()
         Me.txtIdOrigen = New System.Windows.Forms.TextBox()
         CType(Me.grdFEObrasSociales, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -91,7 +90,7 @@ Partial Class frmFacturaElectronica
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.grdFEObrasSociales.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.grdFEObrasSociales.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.grdFEObrasSociales.Location = New System.Drawing.Point(23, 304)
+        Me.grdFEObrasSociales.Location = New System.Drawing.Point(23, 377)
         Me.grdFEObrasSociales.Margin = New System.Windows.Forms.Padding(4)
         Me.grdFEObrasSociales.Name = "grdFEObrasSociales"
         Me.grdFEObrasSociales.RowHeadersVisible = False
@@ -103,7 +102,7 @@ Partial Class frmFacturaElectronica
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(390, 280)
+        Me.Label1.Location = New System.Drawing.Point(390, 353)
         Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(73, 17)
@@ -112,7 +111,7 @@ Partial Class frmFacturaElectronica
         '
         'txtBuscar
         '
-        Me.txtBuscar.Location = New System.Drawing.Point(89, 277)
+        Me.txtBuscar.Location = New System.Drawing.Point(89, 350)
         Me.txtBuscar.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBuscar.Name = "txtBuscar"
         Me.txtBuscar.Size = New System.Drawing.Size(291, 22)
@@ -121,7 +120,7 @@ Partial Class frmFacturaElectronica
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(23, 280)
+        Me.Label3.Location = New System.Drawing.Point(23, 353)
         Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(56, 17)
@@ -133,7 +132,7 @@ Partial Class frmFacturaElectronica
         Me.lblSeleccionados.AutoSize = True
         Me.lblSeleccionados.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblSeleccionados.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblSeleccionados.Location = New System.Drawing.Point(201, 577)
+        Me.lblSeleccionados.Location = New System.Drawing.Point(201, 650)
         Me.lblSeleccionados.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblSeleccionados.Name = "lblSeleccionados"
         Me.lblSeleccionados.Size = New System.Drawing.Size(112, 17)
@@ -143,7 +142,7 @@ Partial Class frmFacturaElectronica
         '
         'txtID
         '
-        Me.txtID.Location = New System.Drawing.Point(468, 277)
+        Me.txtID.Location = New System.Drawing.Point(468, 350)
         Me.txtID.Margin = New System.Windows.Forms.Padding(4)
         Me.txtID.Name = "txtID"
         Me.txtID.ReadOnly = True
@@ -152,7 +151,7 @@ Partial Class frmFacturaElectronica
         '
         'btnSelection
         '
-        Me.btnSelection.Location = New System.Drawing.Point(21, 571)
+        Me.btnSelection.Location = New System.Drawing.Point(21, 644)
         Me.btnSelection.Margin = New System.Windows.Forms.Padding(4)
         Me.btnSelection.Name = "btnSelection"
         Me.btnSelection.Size = New System.Drawing.Size(171, 28)
@@ -163,18 +162,17 @@ Partial Class frmFacturaElectronica
         'btnPrint
         '
         Me.btnPrint.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnPrint.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btnPrint.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.btnPrint.BackColor = System.Drawing.SystemColors.Control
         Me.btnPrint.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
         Me.btnPrint.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnPrint.Image = Global.CENPROFAR.My.Resources.Resources.btnimprimir
         Me.btnPrint.ImageFixedSize = New System.Drawing.Size(20, 20)
         Me.btnPrint.ImagePosition = DevComponents.DotNetBar.eImagePosition.Right
-        Me.btnPrint.Location = New System.Drawing.Point(974, 270)
+        Me.btnPrint.Location = New System.Drawing.Point(973, 643)
         Me.btnPrint.Margin = New System.Windows.Forms.Padding(4)
         Me.btnPrint.Name = "btnPrint"
-        Me.btnPrint.Size = New System.Drawing.Size(112, 29)
+        Me.btnPrint.Size = New System.Drawing.Size(112, 33)
         Me.btnPrint.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnPrint.TabIndex = 398
         Me.btnPrint.Text = "Imprimir"
@@ -183,7 +181,7 @@ Partial Class frmFacturaElectronica
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(548, 278)
+        Me.Label4.Location = New System.Drawing.Point(548, 351)
         Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(87, 17)
@@ -205,7 +203,7 @@ Partial Class frmFacturaElectronica
         'dtpFechaInicio
         '
         Me.dtpFechaInicio.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpFechaInicio.Location = New System.Drawing.Point(642, 275)
+        Me.dtpFechaInicio.Location = New System.Drawing.Point(642, 348)
         Me.dtpFechaInicio.Name = "dtpFechaInicio"
         Me.dtpFechaInicio.Size = New System.Drawing.Size(111, 22)
         Me.dtpFechaInicio.TabIndex = 403
@@ -214,7 +212,7 @@ Partial Class frmFacturaElectronica
         'dtpFechaFin
         '
         Me.dtpFechaFin.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpFechaFin.Location = New System.Drawing.Point(845, 275)
+        Me.dtpFechaFin.Location = New System.Drawing.Point(845, 348)
         Me.dtpFechaFin.Name = "dtpFechaFin"
         Me.dtpFechaFin.Size = New System.Drawing.Size(111, 22)
         Me.dtpFechaFin.TabIndex = 404
@@ -226,7 +224,7 @@ Partial Class frmFacturaElectronica
         Me.btnGenerarFE.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnGenerarFE.BackColor = System.Drawing.SystemColors.Control
         Me.btnGenerarFE.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.btnGenerarFE.Location = New System.Drawing.Point(973, 579)
+        Me.btnGenerarFE.Location = New System.Drawing.Point(973, 268)
         Me.btnGenerarFE.Margin = New System.Windows.Forms.Padding(4)
         Me.btnGenerarFE.Name = "btnGenerarFE"
         Me.btnGenerarFE.Size = New System.Drawing.Size(113, 31)
@@ -238,7 +236,7 @@ Partial Class frmFacturaElectronica
         'chkConexion
         '
         Me.chkConexion.AutoSize = True
-        Me.chkConexion.Location = New System.Drawing.Point(320, 577)
+        Me.chkConexion.Location = New System.Drawing.Point(320, 650)
         Me.chkConexion.Name = "chkConexion"
         Me.chkConexion.Size = New System.Drawing.Size(88, 21)
         Me.chkConexion.TabIndex = 406
@@ -251,7 +249,7 @@ Partial Class frmFacturaElectronica
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label2.Location = New System.Drawing.Point(23, 253)
+        Me.Label2.Location = New System.Drawing.Point(23, 326)
         Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(148, 17)
@@ -440,7 +438,8 @@ Partial Class frmFacturaElectronica
         '
         'PicConexion
         '
-        Me.PicConexion.Location = New System.Drawing.Point(935, 582)
+        Me.PicConexion.BackColor = System.Drawing.Color.Transparent
+        Me.PicConexion.Location = New System.Drawing.Point(935, 269)
         Me.PicConexion.Name = "PicConexion"
         Me.PicConexion.Size = New System.Drawing.Size(36, 31)
         Me.PicConexion.TabIndex = 429
@@ -470,7 +469,7 @@ Partial Class frmFacturaElectronica
         Me.lblModo.BackColor = System.Drawing.Color.Transparent
         Me.lblModo.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblModo.ForeColor = System.Drawing.Color.Red
-        Me.lblModo.Location = New System.Drawing.Point(415, 577)
+        Me.lblModo.Location = New System.Drawing.Point(696, 275)
         Me.lblModo.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblModo.Name = "lblModo"
         Me.lblModo.Size = New System.Drawing.Size(232, 24)
@@ -550,6 +549,7 @@ Partial Class frmFacturaElectronica
         Me.cmbFormaPago.Name = "cmbFormaPago"
         Me.cmbFormaPago.Size = New System.Drawing.Size(149, 24)
         Me.cmbFormaPago.TabIndex = 964
+        Me.cmbFormaPago.Text = "CONTADO"
         '
         'dtpVtoPago
         '
@@ -604,24 +604,9 @@ Partial Class frmFacturaElectronica
         Me.Label23.Location = New System.Drawing.Point(23, 18)
         Me.Label23.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label23.Name = "Label23"
-        Me.Label23.Size = New System.Drawing.Size(152, 17)
+        Me.Label23.Size = New System.Drawing.Size(134, 17)
         Me.Label23.TabIndex = 971
-        Me.Label23.Text = "DATOS OBRA SOCIAL"
-        '
-        'btnAnularFE
-        '
-        Me.btnAnularFE.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnAnularFE.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnAnularFE.BackColor = System.Drawing.SystemColors.Control
-        Me.btnAnularFE.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.btnAnularFE.Location = New System.Drawing.Point(801, 582)
-        Me.btnAnularFE.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnAnularFE.Name = "btnAnularFE"
-        Me.btnAnularFE.Size = New System.Drawing.Size(113, 31)
-        Me.btnAnularFE.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnAnularFE.TabIndex = 972
-        Me.btnAnularFE.Text = "Anular FE"
-        Me.btnAnularFE.TextColor = System.Drawing.SystemColors.InfoText
+        Me.Label23.Text = "FACTURA A EMITIR"
         '
         'cmbNroComprobanteNotaCred
         '
@@ -633,7 +618,7 @@ Partial Class frmFacturaElectronica
         '
         'txtIdOrigen
         '
-        Me.txtIdOrigen.Location = New System.Drawing.Point(468, 247)
+        Me.txtIdOrigen.Location = New System.Drawing.Point(462, 310)
         Me.txtIdOrigen.Margin = New System.Windows.Forms.Padding(4)
         Me.txtIdOrigen.Name = "txtIdOrigen"
         Me.txtIdOrigen.ReadOnly = True
@@ -644,10 +629,9 @@ Partial Class frmFacturaElectronica
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1111, 619)
+        Me.ClientSize = New System.Drawing.Size(1111, 685)
         Me.Controls.Add(Me.txtIdOrigen)
         Me.Controls.Add(Me.cmbNroComprobanteNotaCred)
-        Me.Controls.Add(Me.btnAnularFE)
         Me.Controls.Add(Me.Label23)
         Me.Controls.Add(Me.lblObraSocial)
         Me.Controls.Add(Me.Label22)
@@ -765,7 +749,6 @@ Partial Class frmFacturaElectronica
     Friend WithEvents cmbDocTipo As ComboBox
     Friend WithEvents lblObraSocial As Label
     Friend WithEvents Label23 As Label
-    Friend WithEvents btnAnularFE As DevComponents.DotNetBar.ButtonX
     Friend WithEvents cmbNroComprobanteNotaCred As ComboBox
     Friend WithEvents txtIdOrigen As TextBox
 End Class

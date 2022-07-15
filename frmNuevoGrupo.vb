@@ -118,17 +118,20 @@ Public Class frmNuevoGrupo
         If ReglasNegocio() Then
 
             Dim idMandataria = frmGrupos.cmbMandataria.SelectedValue
-            Dim grupo = CInt(txtGrupo.Text)
+            Dim grupo = "Grupo " + txtGrupo.Text + " - " + cmbTipoGrupo.Text 'CInt(txtGrupo.Text)
             'deberia insertar en tabla grupos_os el idOS y el idGrupo
-            If controlarMandatariaGrupo(idMandataria, grupo) Then
-                MsgBox("No puede cargar una relación ya existente, verifique.", MsgBoxStyle.Information, "Control de Errores")
-                Exit Sub
-            Else
-                InsertarGrupo(idMandataria, grupo)
-                MsgBox("¡Relación cargada con éxito!", MsgBoxStyle.MsgBoxRight, "Control de Errores")
-                Me.Dispose()
-                Me.Close()
-            End If
+            'If controlarMandatariaGrupo(idMandataria, grupo) = 0 Then
+            '    MsgBox("No puede cargar una relación ya existente, verifique.", MsgBoxStyle.Information, "Control de Errores")
+            '    Exit Sub
+            'Else
+
+            InsertarGrupo(idMandataria, grupo)
+
+            Me.Dispose()
+            Me.Close()
+
+
+            'End If
 
         End If
 
@@ -136,7 +139,7 @@ Public Class frmNuevoGrupo
 
     End Sub
 
-    Private Function controlarMandatariaGrupo(ByVal idmandataia As Long, ByVal grupo As Long) As Boolean
+    Private Function controlarMandatariaGrupo(ByVal idmandataia As Long, ByVal grupo As String) As Boolean
         Dim connection As SqlClient.SqlConnection = Nothing
         Dim ds As Data.DataSet
 
@@ -149,7 +152,7 @@ Public Class frmNuevoGrupo
 
         Try
 
-            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT IdMandataria, Nombre FROM Grupos WHERE IDMandataria = {idmandataia} AND Nombre = {grupo} AND eliminado = 0")
+            ds = SqlHelper.ExecuteDataset(connection, CommandType.Text, $"SELECT IdMandataria, Nombre FROM Grupos WHERE IDMandataria = {idmandataia} AND Nombre = '{grupo}' AND eliminado = 0")
             ds.Dispose()
 
             If ds.Tables(0).Rows.Count = 1 Then
@@ -177,7 +180,7 @@ Public Class frmNuevoGrupo
         End Try
     End Function
 
-    Private Sub InsertarGrupo(ByVal idMandataria As Long, ByVal Grupo As Long)
+    Private Sub InsertarGrupo(ByVal idMandataria As Long, ByVal Grupo As String)
 
         Dim connection As SqlClient.SqlConnection = Nothing
         Try
@@ -189,7 +192,7 @@ Public Class frmNuevoGrupo
 
         Try
 
-            If idMandataria > -0 And Grupo > -0 Then
+            If Grupo <> "" Then
 
                 Dim param_idMandataria As New SqlClient.SqlParameter
                 param_idMandataria.ParameterName = "@idMandataria"
@@ -199,8 +202,9 @@ Public Class frmNuevoGrupo
 
                 Dim param_grupo As New SqlClient.SqlParameter
                 param_grupo.ParameterName = "@nombre"
-                param_grupo.SqlDbType = SqlDbType.Int
-                param_grupo.Value = Grupo
+                param_grupo.SqlDbType = SqlDbType.VarChar
+                param_grupo.Size = 100
+                param_grupo.Value = "Grupo " + txtGrupo.Text + " - " + cmbTipoGrupo.Text 'Grupo
                 param_grupo.Direction = ParameterDirection.Input
 
                 Dim param_useradd As New SqlClient.SqlParameter
@@ -223,7 +227,7 @@ Public Class frmNuevoGrupo
                 Catch ex As Exception
                     Throw ex
                 End Try
-
+                MsgBox("¡Relación cargada con éxito!", MsgBoxStyle.MsgBoxRight, "Control de Errores")
                 LlenarGrilla()
             Else
             End If
@@ -302,7 +306,7 @@ Public Class frmNuevoGrupo
 
             If ds_existenOS.Tables(0).Rows.Count > 0 Then 'existen os en grupos
                 'controlo que el grupo no se haya usado para cargar un periodopresentacion
-                ds_existenPeriodPresen = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, $"SELECT idgrupo, idmandataria FROM periodopresentaciones WHERE idgrupo = {grdGruposMandataria.CurrentRow.Cells(0).Value} AND idmandataria = {grdGruposMandataria.CurrentRow.Cells(1).Value}")
+                ds_existenPeriodPresen = SqlHelper.ExecuteDataset(ConnStringSEI, CommandType.Text, $"SELECT idgrupo, idmandataria FROM periodopresentaciones WHERE idgrupo = {grdGruposMandataria.CurrentRow.Cells(0).Value} AND idmandataria = {grdGruposMandataria.CurrentRow.Cells(1).Value} AND ELIMINADO = 0")
                 ds_existenPeriodPresen.Dispose()
 
                 If ds_existenPeriodPresen.Tables(0).Rows.Count > 0 Then 'existen periodopresentacion para ese grupo -> no puedo eliminar

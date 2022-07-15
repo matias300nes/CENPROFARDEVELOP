@@ -230,7 +230,7 @@ Public Class frmGrupos
                 da.Fill(dtGrupos_Os)
                 If dtGrupos_Os.Rows.Count > 0 Then
                     dv = New DataView(dtGrupos_Os)
-                    dv.RowFilter = $"[Grupo] = {cmbGrupo.Text}"
+                    dv.RowFilter = $"[Grupo] = '{cmbGrupo.Text}'"
                     grdGrupos_Os.DataSource = dv
                     'grdGrupos_Os.DataSource = dtGrupos_Os
                 Else
@@ -442,7 +442,7 @@ Public Class frmGrupos
         End If
 
         If grdFilled = True Then
-            dv.RowFilter = $"[Grupo] = {cmbGrupo.Text}"
+            dv.RowFilter = $"[Grupo] = '{cmbGrupo.Text}'"
 
             grdGrupos_Os.DataSource = dv
         End If
