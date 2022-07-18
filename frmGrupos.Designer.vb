@@ -53,10 +53,10 @@ Partial Class frmGrupos
         Me.GroupPanel1.Controls.Add(Me.cmbMandataria)
         Me.GroupPanel1.Controls.Add(Me.cmbGrupo)
         Me.GroupPanel1.DisabledBackColor = System.Drawing.Color.Empty
-        Me.GroupPanel1.Location = New System.Drawing.Point(9, 18)
-        Me.GroupPanel1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.GroupPanel1.Location = New System.Drawing.Point(12, 22)
+        Me.GroupPanel1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.GroupPanel1.Name = "GroupPanel1"
-        Me.GroupPanel1.Size = New System.Drawing.Size(486, 102)
+        Me.GroupPanel1.Size = New System.Drawing.Size(679, 126)
         '
         '
         '
@@ -91,10 +91,10 @@ Partial Class frmGrupos
         '
         Me.btnAgregarOS.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
         Me.btnAgregarOS.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.btnAgregarOS.Location = New System.Drawing.Point(381, 31)
-        Me.btnAgregarOS.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.btnAgregarOS.Location = New System.Drawing.Point(551, 38)
+        Me.btnAgregarOS.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.btnAgregarOS.Name = "btnAgregarOS"
-        Me.btnAgregarOS.Size = New System.Drawing.Size(73, 22)
+        Me.btnAgregarOS.Size = New System.Drawing.Size(97, 27)
         Me.btnAgregarOS.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnAgregarOS.TabIndex = 276
         Me.btnAgregarOS.Text = "Agregar OS"
@@ -103,10 +103,10 @@ Partial Class frmGrupos
         '
         Me.btnAgregarGrupo.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
         Me.btnAgregarGrupo.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.btnAgregarGrupo.Location = New System.Drawing.Point(316, 31)
-        Me.btnAgregarGrupo.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.btnAgregarGrupo.Location = New System.Drawing.Point(464, 38)
+        Me.btnAgregarGrupo.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.btnAgregarGrupo.Name = "btnAgregarGrupo"
-        Me.btnAgregarGrupo.Size = New System.Drawing.Size(56, 22)
+        Me.btnAgregarGrupo.Size = New System.Drawing.Size(75, 27)
         Me.btnAgregarGrupo.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnAgregarGrupo.TabIndex = 275
         Me.btnAgregarGrupo.Text = "+ Grupo"
@@ -116,9 +116,10 @@ Partial Class frmGrupos
         Me.Label14.AutoSize = True
         Me.Label14.BackColor = System.Drawing.Color.Transparent
         Me.Label14.ForeColor = System.Drawing.Color.Blue
-        Me.Label14.Location = New System.Drawing.Point(3, 15)
+        Me.Label14.Location = New System.Drawing.Point(4, 18)
+        Me.Label14.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(60, 13)
+        Me.Label14.Size = New System.Drawing.Size(79, 17)
         Me.Label14.TabIndex = 274
         Me.Label14.Text = "Mandataria"
         '
@@ -127,9 +128,10 @@ Partial Class frmGrupos
         Me.Label13.AutoSize = True
         Me.Label13.BackColor = System.Drawing.Color.Transparent
         Me.Label13.ForeColor = System.Drawing.Color.Blue
-        Me.Label13.Location = New System.Drawing.Point(187, 15)
+        Me.Label13.Location = New System.Drawing.Point(249, 18)
+        Me.Label13.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(36, 13)
+        Me.Label13.Size = New System.Drawing.Size(48, 17)
         Me.Label13.TabIndex = 273
         Me.Label13.Text = "Grupo"
         '
@@ -140,9 +142,10 @@ Partial Class frmGrupos
         Me.chkEliminados.BackColor = System.Drawing.Color.Transparent
         Me.chkEliminados.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.chkEliminados.ForeColor = System.Drawing.Color.Red
-        Me.chkEliminados.Location = New System.Drawing.Point(345, 70)
+        Me.chkEliminados.Location = New System.Drawing.Point(498, 86)
+        Me.chkEliminados.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkEliminados.Name = "chkEliminados"
-        Me.chkEliminados.Size = New System.Drawing.Size(109, 17)
+        Me.chkEliminados.Size = New System.Drawing.Size(138, 21)
         Me.chkEliminados.TabIndex = 257
         Me.chkEliminados.Text = "Ver Eliminados"
         Me.chkEliminados.UseVisualStyleBackColor = False
@@ -154,10 +157,11 @@ Partial Class frmGrupos
         Me.txtID.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
         Me.txtID.Enabled = False
         Me.txtID.Format = TextBoxConFormatoVB.tbFormats.UnsignedNumber
-        Me.txtID.Location = New System.Drawing.Point(111, 11)
+        Me.txtID.Location = New System.Drawing.Point(148, 14)
+        Me.txtID.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtID.MaxLength = 8
         Me.txtID.Name = "txtID"
-        Me.txtID.Size = New System.Drawing.Size(16, 20)
+        Me.txtID.Size = New System.Drawing.Size(20, 22)
         Me.txtID.TabIndex = 50
         Me.txtID.Text_1 = Nothing
         Me.txtID.Text_2 = Nothing
@@ -169,9 +173,10 @@ Partial Class frmGrupos
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(112, -2)
+        Me.Label1.Location = New System.Drawing.Point(149, -2)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(16, 13)
+        Me.Label1.Size = New System.Drawing.Size(19, 17)
         Me.Label1.TabIndex = 50
         Me.Label1.Text = "Id"
         Me.Label1.Visible = False
@@ -180,20 +185,21 @@ Partial Class frmGrupos
         '
         Me.cmbMandataria.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbMandataria.FormattingEnabled = True
-        Me.cmbMandataria.Location = New System.Drawing.Point(5, 32)
-        Me.cmbMandataria.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.cmbMandataria.Location = New System.Drawing.Point(7, 39)
+        Me.cmbMandataria.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.cmbMandataria.Name = "cmbMandataria"
-        Me.cmbMandataria.Size = New System.Drawing.Size(171, 21)
+        Me.cmbMandataria.Size = New System.Drawing.Size(227, 24)
         Me.cmbMandataria.TabIndex = 3
         '
         'cmbGrupo
         '
         Me.cmbGrupo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbGrupo.DropDownWidth = 200
         Me.cmbGrupo.FormattingEnabled = True
-        Me.cmbGrupo.Location = New System.Drawing.Point(187, 32)
-        Me.cmbGrupo.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.cmbGrupo.Location = New System.Drawing.Point(249, 39)
+        Me.cmbGrupo.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.cmbGrupo.Name = "cmbGrupo"
-        Me.cmbGrupo.Size = New System.Drawing.Size(117, 21)
+        Me.cmbGrupo.Size = New System.Drawing.Size(200, 24)
         Me.cmbGrupo.TabIndex = 4
         '
         'grdGrupos_Os
@@ -203,23 +209,23 @@ Partial Class frmGrupos
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.grdGrupos_Os.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.grdGrupos_Os.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.grdGrupos_Os.Location = New System.Drawing.Point(9, 133)
-        Me.grdGrupos_Os.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.grdGrupos_Os.Location = New System.Drawing.Point(12, 164)
+        Me.grdGrupos_Os.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.grdGrupos_Os.Name = "grdGrupos_Os"
         Me.grdGrupos_Os.RowHeadersWidth = 51
         Me.grdGrupos_Os.RowTemplate.Height = 24
-        Me.grdGrupos_Os.Size = New System.Drawing.Size(486, 281)
+        Me.grdGrupos_Os.Size = New System.Drawing.Size(679, 346)
         Me.grdGrupos_Os.TabIndex = 260
         '
         'frmGrupos
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(506, 424)
+        Me.ClientSize = New System.Drawing.Size(706, 522)
         Me.Controls.Add(Me.grdGrupos_Os)
         Me.Controls.Add(Me.GroupPanel1)
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
-        Me.MinimumSize = New System.Drawing.Size(515, 360)
+        Me.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.MinimumSize = New System.Drawing.Size(681, 432)
         Me.Name = "frmGrupos"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Grupos"

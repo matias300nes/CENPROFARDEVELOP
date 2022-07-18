@@ -48,7 +48,7 @@ Partial Class frmPeriodoPresentaciones
         Me.chkEliminados.BackColor = System.Drawing.Color.Transparent
         Me.chkEliminados.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.chkEliminados.ForeColor = System.Drawing.Color.Red
-        Me.chkEliminados.Location = New System.Drawing.Point(936, 76)
+        Me.chkEliminados.Location = New System.Drawing.Point(1025, 76)
         Me.chkEliminados.Margin = New System.Windows.Forms.Padding(4)
         Me.chkEliminados.Name = "chkEliminados"
         Me.chkEliminados.Size = New System.Drawing.Size(138, 21)
@@ -112,7 +112,7 @@ Partial Class frmPeriodoPresentaciones
         Me.GroupPanel1.Location = New System.Drawing.Point(12, 31)
         Me.GroupPanel1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.GroupPanel1.Name = "GroupPanel1"
-        Me.GroupPanel1.Size = New System.Drawing.Size(1112, 229)
+        Me.GroupPanel1.Size = New System.Drawing.Size(1197, 229)
         '
         '
         '
@@ -149,7 +149,7 @@ Partial Class frmPeriodoPresentaciones
         Me.GbPeriodo.Controls.Add(Me.LbPeriodo_Mes)
         Me.GbPeriodo.Controls.Add(Me.LbPeriodo_año)
         Me.GbPeriodo.Controls.Add(Me.LbPeriodo_parte)
-        Me.GbPeriodo.Location = New System.Drawing.Point(595, 60)
+        Me.GbPeriodo.Location = New System.Drawing.Point(684, 60)
         Me.GbPeriodo.Margin = New System.Windows.Forms.Padding(4)
         Me.GbPeriodo.Name = "GbPeriodo"
         Me.GbPeriodo.Padding = New System.Windows.Forms.Padding(4)
@@ -160,7 +160,7 @@ Partial Class frmPeriodoPresentaciones
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(256, 122)
+        Me.Button2.Location = New System.Drawing.Point(259, 122)
         Me.Button2.Margin = New System.Windows.Forms.Padding(4)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(47, 28)
@@ -173,7 +173,7 @@ Partial Class frmPeriodoPresentaciones
         Me.LbPeriodo_Mes.FormattingEnabled = True
         Me.LbPeriodo_Mes.ItemHeight = 16
         Me.LbPeriodo_Mes.Items.AddRange(New Object() {"ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMPRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"})
-        Me.LbPeriodo_Mes.Location = New System.Drawing.Point(111, 16)
+        Me.LbPeriodo_Mes.Location = New System.Drawing.Point(114, 16)
         Me.LbPeriodo_Mes.Margin = New System.Windows.Forms.Padding(4)
         Me.LbPeriodo_Mes.Name = "LbPeriodo_Mes"
         Me.LbPeriodo_Mes.Size = New System.Drawing.Size(93, 100)
@@ -184,7 +184,7 @@ Partial Class frmPeriodoPresentaciones
         Me.LbPeriodo_año.FormattingEnabled = True
         Me.LbPeriodo_año.ItemHeight = 16
         Me.LbPeriodo_año.Items.AddRange(New Object() {"2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027"})
-        Me.LbPeriodo_año.Location = New System.Drawing.Point(213, 16)
+        Me.LbPeriodo_año.Location = New System.Drawing.Point(216, 16)
         Me.LbPeriodo_año.Margin = New System.Windows.Forms.Padding(4)
         Me.LbPeriodo_año.Name = "LbPeriodo_año"
         Me.LbPeriodo_año.Size = New System.Drawing.Size(95, 100)
@@ -195,7 +195,7 @@ Partial Class frmPeriodoPresentaciones
         Me.LbPeriodo_parte.FormattingEnabled = True
         Me.LbPeriodo_parte.ItemHeight = 16
         Me.LbPeriodo_parte.Items.AddRange(New Object() {"1°Q", "2°Q", "MENSUAL"})
-        Me.LbPeriodo_parte.Location = New System.Drawing.Point(7, 16)
+        Me.LbPeriodo_parte.Location = New System.Drawing.Point(10, 16)
         Me.LbPeriodo_parte.Margin = New System.Windows.Forms.Padding(4)
         Me.LbPeriodo_parte.Name = "LbPeriodo_parte"
         Me.LbPeriodo_parte.ScrollAlwaysVisible = True
@@ -210,14 +210,14 @@ Partial Class frmPeriodoPresentaciones
         Me.cmbGrupos.Location = New System.Drawing.Point(473, 36)
         Me.cmbGrupos.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.cmbGrupos.Name = "cmbGrupos"
-        Me.cmbGrupos.Size = New System.Drawing.Size(105, 24)
+        Me.cmbGrupos.Size = New System.Drawing.Size(200, 24)
         Me.cmbGrupos.TabIndex = 359
         '
         'dtpFechaLimite
         '
         Me.dtpFechaLimite.AccessibleName = "*Fecha"
         Me.dtpFechaLimite.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpFechaLimite.Location = New System.Drawing.Point(936, 37)
+        Me.dtpFechaLimite.Location = New System.Drawing.Point(1025, 37)
         Me.dtpFechaLimite.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.dtpFechaLimite.Name = "dtpFechaLimite"
         Me.dtpFechaLimite.Size = New System.Drawing.Size(115, 22)
@@ -229,7 +229,7 @@ Partial Class frmPeriodoPresentaciones
         Me.btnPeriodo.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
         Me.btnPeriodo.Font = New System.Drawing.Font("Microsoft Sans Serif", 5.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnPeriodo.Image = CType(resources.GetObject("btnPeriodo.Image"), System.Drawing.Image)
-        Me.btnPeriodo.Location = New System.Drawing.Point(885, 38)
+        Me.btnPeriodo.Location = New System.Drawing.Point(974, 38)
         Me.btnPeriodo.Margin = New System.Windows.Forms.Padding(4)
         Me.btnPeriodo.Name = "btnPeriodo"
         Me.btnPeriodo.Shape = New DevComponents.DotNetBar.RoundRectangleShapeDescriptor()
@@ -241,7 +241,7 @@ Partial Class frmPeriodoPresentaciones
         '
         Me.txtPeriodo.AccessibleName = "*Periodo"
         Me.txtPeriodo.BackColor = System.Drawing.SystemColors.Window
-        Me.txtPeriodo.Location = New System.Drawing.Point(595, 34)
+        Me.txtPeriodo.Location = New System.Drawing.Point(684, 34)
         Me.txtPeriodo.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPeriodo.Multiline = True
         Me.txtPeriodo.Name = "txtPeriodo"
@@ -278,7 +278,7 @@ Partial Class frmPeriodoPresentaciones
         Me.Label13.AutoSize = True
         Me.Label13.BackColor = System.Drawing.Color.Transparent
         Me.Label13.ForeColor = System.Drawing.Color.Blue
-        Me.Label13.Location = New System.Drawing.Point(591, 17)
+        Me.Label13.Location = New System.Drawing.Point(680, 17)
         Me.Label13.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(62, 17)
@@ -290,7 +290,7 @@ Partial Class frmPeriodoPresentaciones
         Me.Label12.AutoSize = True
         Me.Label12.BackColor = System.Drawing.Color.Transparent
         Me.Label12.ForeColor = System.Drawing.Color.Blue
-        Me.Label12.Location = New System.Drawing.Point(933, 17)
+        Me.Label12.Location = New System.Drawing.Point(1022, 17)
         Me.Label12.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(93, 17)
@@ -344,7 +344,7 @@ Partial Class frmPeriodoPresentaciones
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1139, 532)
+        Me.ClientSize = New System.Drawing.Size(1224, 532)
         Me.Controls.Add(Me.GroupPanel1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(5)

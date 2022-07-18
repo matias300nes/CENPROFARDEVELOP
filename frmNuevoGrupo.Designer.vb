@@ -27,13 +27,13 @@ Partial Class frmNuevoGrupo
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.grdGruposMandataria = New System.Windows.Forms.DataGridView()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.cmbMandataria = New System.Windows.Forms.ComboBox()
         Me.txtGrupo = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.btnEliminar = New DevComponents.DotNetBar.ButtonX()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
-        Me.cmbTipoGrupo = New System.Windows.Forms.ComboBox()
-        Me.Label2 = New System.Windows.Forms.Label()
+        Me.txtTipoGrupo = New TextBoxConFormatoVB.FormattedTextBoxVB()
         Me.TableLayoutPanel1.SuspendLayout()
         CType(Me.grdGruposMandataria, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
@@ -42,8 +42,9 @@ Partial Class frmNuevoGrupo
         'btnListo
         '
         Me.btnListo.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnListo.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnListo.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.btnListo.Location = New System.Drawing.Point(33, 91)
+        Me.btnListo.Location = New System.Drawing.Point(433, 90)
         Me.btnListo.Margin = New System.Windows.Forms.Padding(4)
         Me.btnListo.Name = "btnListo"
         Me.btnListo.Size = New System.Drawing.Size(140, 28)
@@ -90,7 +91,7 @@ Partial Class frmNuevoGrupo
         '
         'GroupBox1
         '
-        Me.GroupBox1.Controls.Add(Me.cmbTipoGrupo)
+        Me.GroupBox1.Controls.Add(Me.txtTipoGrupo)
         Me.GroupBox1.Controls.Add(Me.Label2)
         Me.GroupBox1.Controls.Add(Me.cmbMandataria)
         Me.GroupBox1.Controls.Add(Me.txtGrupo)
@@ -106,6 +107,18 @@ Partial Class frmNuevoGrupo
         Me.GroupBox1.Size = New System.Drawing.Size(613, 144)
         Me.GroupBox1.TabIndex = 3
         Me.GroupBox1.TabStop = False
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.BackColor = System.Drawing.Color.Transparent
+        Me.Label2.ForeColor = System.Drawing.Color.Blue
+        Me.Label2.Location = New System.Drawing.Point(374, 25)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(80, 17)
+        Me.Label2.TabIndex = 280
+        Me.Label2.Text = "Tipo Grupo"
         '
         'cmbMandataria
         '
@@ -140,9 +153,8 @@ Partial Class frmNuevoGrupo
         'btnEliminar
         '
         Me.btnEliminar.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnEliminar.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnEliminar.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.btnEliminar.Location = New System.Drawing.Point(433, 91)
+        Me.btnEliminar.Location = New System.Drawing.Point(33, 90)
         Me.btnEliminar.Margin = New System.Windows.Forms.Padding(4)
         Me.btnEliminar.Name = "btnEliminar"
         Me.btnEliminar.Size = New System.Drawing.Size(140, 28)
@@ -174,28 +186,24 @@ Partial Class frmNuevoGrupo
         Me.Label13.TabIndex = 274
         Me.Label13.Text = "Mandataria*"
         '
-        'cmbTipoGrupo
+        'txtTipoGrupo
         '
-        Me.cmbTipoGrupo.AccessibleName = "*Tipo Grupo"
-        Me.cmbTipoGrupo.FormattingEnabled = True
-        Me.cmbTipoGrupo.Items.AddRange(New Object() {"1°Q", "2°Q", "MENSUAL"})
-        Me.cmbTipoGrupo.Location = New System.Drawing.Point(378, 47)
-        Me.cmbTipoGrupo.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.cmbTipoGrupo.Name = "cmbTipoGrupo"
-        Me.cmbTipoGrupo.Size = New System.Drawing.Size(201, 24)
-        Me.cmbTipoGrupo.TabIndex = 281
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.BackColor = System.Drawing.Color.Transparent
-        Me.Label2.ForeColor = System.Drawing.Color.Blue
-        Me.Label2.Location = New System.Drawing.Point(374, 25)
-        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(85, 17)
-        Me.Label2.TabIndex = 280
-        Me.Label2.Text = "Tipo Grupo*"
+        Me.txtTipoGrupo.AccessibleName = ""
+        Me.txtTipoGrupo.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.txtTipoGrupo.Decimals = CType(2, Byte)
+        Me.txtTipoGrupo.DecSeparator = Global.Microsoft.VisualBasic.ChrW(44)
+        Me.txtTipoGrupo.Format = TextBoxConFormatoVB.tbFormats.SpacedAlphabetic
+        Me.txtTipoGrupo.Location = New System.Drawing.Point(377, 49)
+        Me.txtTipoGrupo.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtTipoGrupo.MaxLength = 100
+        Me.txtTipoGrupo.Name = "txtTipoGrupo"
+        Me.txtTipoGrupo.Size = New System.Drawing.Size(196, 22)
+        Me.txtTipoGrupo.TabIndex = 281
+        Me.txtTipoGrupo.Text_1 = Nothing
+        Me.txtTipoGrupo.Text_2 = Nothing
+        Me.txtTipoGrupo.Text_3 = Nothing
+        Me.txtTipoGrupo.Text_4 = Nothing
+        Me.txtTipoGrupo.UserValues = Nothing
         '
         'frmNuevoGrupo
         '
@@ -227,6 +235,6 @@ Partial Class frmNuevoGrupo
     Friend WithEvents Label13 As Label
     Friend WithEvents txtGrupo As TextBoxConFormatoVB.FormattedTextBoxVB
     Friend WithEvents cmbMandataria As ComboBox
-    Friend WithEvents cmbTipoGrupo As ComboBox
     Friend WithEvents Label2 As Label
+    Friend WithEvents txtTipoGrupo As TextBoxConFormatoVB.FormattedTextBoxVB
 End Class

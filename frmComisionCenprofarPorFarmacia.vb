@@ -29,7 +29,7 @@ Public Class frmComisionCenprofarPorFarmacia
             imp_iva, imp_trib, imp_op_ex, fecha_cbte, fecha_venc_pago,
             fecha_serv_desde, fecha_serv_hasta,
             moneda_id, moneda_ctz
-    Dim tipo, pto_vta, nro, fecha, cbte_nro
+    Public tipo, pto_vta, nro, fecha, cbte_nro
     Dim idIVA, Desc, base_imp, alic, importe
 
     'almaceno nro de factura 
@@ -1151,7 +1151,6 @@ Public Class frmComisionCenprofarPorFarmacia
                             If chkConexion.Checked Then
                                 Dim frm As New frmFacturaElectronica(1, cmbMes.Text, cmbAnio.Text)
 
-
                                 resbool = GenerarFE(sender, e, tipoComprobante, CInt(PTOVTA), TipoDoc, cuit, importe_iva, importe_subtotal, importe_total, conceptosFE, condicionIVA, direccion)
                                 If resbool = False Then
                                     MsgBox("No se pudo generar la factura electrónica.", MsgBoxStyle.Critical)
@@ -1159,7 +1158,10 @@ Public Class frmComisionCenprofarPorFarmacia
                                     'txtCodigoBarra.Focus()
                                     Exit Sub
                                 Else
-                                    requestGrdData()
+
+                                    'Dim frmRptFacturaC As New frmRptFacturaC(0, 1, cmbMes.Text, cmbAnio.Text, .Cells(grdFarmaciaCols.ID).Value)
+                                    'frmRptFacturaC.ShowDialog()
+
                                     ValorCae = ""
                                     ValorFac = ""
                                     ValorVen = ""
@@ -1184,6 +1186,29 @@ Public Class frmComisionCenprofarPorFarmacia
                     End If
                 End With
             Next
+
+
+            If resbool Then
+
+                Dim connection As SqlClient.SqlConnection = Nothing
+
+                Try
+                    connection = SqlHelper.GetConnection(ConnStringSEI)
+                Catch ex As Exception
+                    MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Exit Sub
+                End Try
+                Dim dt_FacturasEmitidasAFarmacias As New DataTable
+                Dim query As String
+                ' query = $"exec spRPT_FacturasElectronicas_Emitidas @Eliminado = 0, @NroIdentificador = 1, @mes = {cmbMes.Text}, @anio = {cmbAnio.Text}, @idOrigen = {}"
+
+                Dim cmd As New SqlCommand(query, connection)
+                Dim da As New SqlDataAdapter(cmd)
+                Dim j As Integer
+
+                da.Fill(dt_FacturasEmitidasAFarmacias)
+                requestGrdData()
+            End If
 
         Else
             MsgBox("No tiene ninguna factura a generar, verifíque.")
@@ -1365,25 +1390,28 @@ Public Class frmComisionCenprofarPorFarmacia
         '"08-05-2022 15:00"
         '"09-05-2022 15:56:00"
         '20137
-        If checkSelected() Then
-            Dim dv As New DataView(dtFarmacias)
-            dv.RowFilter = $"[Selección] = 1"
 
-            dv.ToTable()
+        'Dim frmRptFacturaC As New frmRptFacturaC(0, 1, cmbMes.Text, cmbAnio.Text, )
+        'frmRptFacturaC.ShowDialog()
+        'If checkSelected() Then
+        '    Dim dv As New DataView(dtFarmacias)
+        '    dv.RowFilter = $"[Selección] = 1"
 
-            For Each rowDt As DataRow In dv.ToTable().Rows
-                Dim frmRptSaldos As New frmRptSaldos(rowDt(grdFarmaciaCols.ID), dtpFechaInicio.Value, dtpFechaFin.Value)
-                frmRptSaldos.ShowDialog()
-            Next
+        '    dv.ToTable()
 
-            'Dim frmRptSaldos As New frmRptSaldos(20137, "08-05-2022 15:00", "09-05-2022 15:56:00")
-            'frmRptSaldos.ShowDialog()
+        '    For Each rowDt As DataRow In dv.ToTable().Rows
+        '        Dim frmRptSaldos As New frmRptSaldos(rowDt(grdFarmaciaCols.ID), dtpFechaInicio.Value, dtpFechaFin.Value)
+        '        frmRptSaldos.ShowDialog()
+        '    Next
 
-            'Dim AgregarCheques As New frmAgregarPagos(dv.ToTable())
-            'AgregarCheques.ShowDialog()
-        Else
-            MsgBox("Debe seleccionar al menos una razón social para poder realizar el pago.")
-        End If
+        '    'Dim frmRptSaldos As New frmRptSaldos(20137, "08-05-2022 15:00", "09-05-2022 15:56:00")
+        '    'frmRptSaldos.ShowDialog()
+
+        '    'Dim AgregarCheques As New frmAgregarPagos(dv.ToTable())
+        '    'AgregarCheques.ShowDialog()
+        'Else
+        '    MsgBox("Debe seleccionar al menos una razón social para poder realizar el pago.")
+        'End If
 
 
     End Sub
