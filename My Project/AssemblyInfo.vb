@@ -10,8 +10,8 @@ Imports System.Runtime.InteropServices
 
 <Assembly: AssemblyTitle("Sistema de Administración")> 
 <Assembly: AssemblyDescription("Sistema integral para administración de Ventas, Control de Stock, Presupuestos y sus trabajos correspondientes, como así también, la gestión de Ingresos, Egresos y Gastos de la Organización")> 
-<Assembly: AssemblyCompany("Kaizen Software")> 
-<Assembly: AssemblyProduct("Sistema de Administración")> 
+<Assembly: AssemblyCompany("Kaizen Software")>
+<Assembly: AssemblyProduct("CENPROFAR")>
 <Assembly: AssemblyCopyright("Copyright © Kaizen Software 2012")> 
 <Assembly: AssemblyTrademark("")> 
 

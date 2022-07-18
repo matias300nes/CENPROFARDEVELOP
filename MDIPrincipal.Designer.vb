@@ -162,7 +162,7 @@ Partial Class MDIPrincipal
         Me.MenuStrip.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip.Name = "MenuStrip"
         Me.MenuStrip.Padding = New System.Windows.Forms.Padding(5, 2, 0, 2)
-        Me.MenuStrip.Size = New System.Drawing.Size(1272, 30)
+        Me.MenuStrip.Size = New System.Drawing.Size(1272, 28)
         Me.MenuStrip.TabIndex = 5
         Me.MenuStrip.Text = "MenuStrip"
         '

@@ -118,7 +118,7 @@ Public Class frmNuevoGrupo
         If ReglasNegocio() Then
 
             Dim idMandataria = frmGrupos.cmbMandataria.SelectedValue
-            Dim grupo = "Grupo " + txtGrupo.Text + " - " + cmbTipoGrupo.Text 'CInt(txtGrupo.Text)
+            Dim grupo = IIf(txtTipoGrupo.Text = "", "Grupo " + txtGrupo.Text, "Grupo " + txtGrupo.Text + " - " + txtTipoGrupo.Text.ToUpper) 'CInt(txtGrupo.Text)
             'deberia insertar en tabla grupos_os el idOS y el idGrupo
             'If controlarMandatariaGrupo(idMandataria, grupo) = 0 Then
             '    MsgBox("No puede cargar una relación ya existente, verifique.", MsgBoxStyle.Information, "Control de Errores")
@@ -204,7 +204,7 @@ Public Class frmNuevoGrupo
                 param_grupo.ParameterName = "@nombre"
                 param_grupo.SqlDbType = SqlDbType.VarChar
                 param_grupo.Size = 100
-                param_grupo.Value = "Grupo " + txtGrupo.Text + " - " + cmbTipoGrupo.Text 'Grupo
+                param_grupo.Value = IIf(txtTipoGrupo.Text = "", "Grupo " + txtGrupo.Text, "Grupo " + txtGrupo.Text + " - " + txtTipoGrupo.Text.ToUpper)
                 param_grupo.Direction = ParameterDirection.Input
 
                 Dim param_useradd As New SqlClient.SqlParameter
