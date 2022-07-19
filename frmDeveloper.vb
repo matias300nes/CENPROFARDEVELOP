@@ -38,7 +38,8 @@ Public Class frmDeveloper
                               MessageBoxButtons.YesNo)
 
         If result = DialogResult.Yes Then
-            txtUtilsResponse.Text = WebServiceUtils.updateTable(WebServiceUtils.WebTables)
+            txtUtilsResponse.Text = ""
+            txtUtilsResponse.Text = WebServiceUtils.updateTable(WebServiceUtils.WebTables, pgProgreso)
         End If
     End Sub
 
@@ -49,7 +50,8 @@ Public Class frmDeveloper
                               MessageBoxButtons.YesNo)
 
         If result = DialogResult.Yes Then
-            txtUtilsResponse.Text = WebServiceUtils.truncateWeb()
+            txtUtilsResponse.Text = ""
+            txtUtilsResponse.Text = WebServiceUtils.truncateWeb(pgProgreso)
         End If
     End Sub
 
@@ -60,7 +62,8 @@ Public Class frmDeveloper
                       MessageBoxButtons.YesNo)
 
         If result = DialogResult.Yes And cmbTablasWeb.Text <> "" Then
-            txtUtilsResponse.Text = WebServiceUtils.updateTable(cmbTablasWeb.Text)
+            txtUtilsResponse.Text = ""
+            txtUtilsResponse.Text = WebServiceUtils.updateTable(cmbTablasWeb.Text, pgProgreso)
         End If
     End Sub
 
@@ -72,7 +75,8 @@ Public Class frmDeveloper
                       MessageBoxButtons.YesNo)
 
         If result = DialogResult.Yes Then
-            txtUtilsResponse.Text = WebServiceUtils.truncateTable(cmbTablasWeb.Text)
+            txtUtilsResponse.Text = ""
+            txtUtilsResponse.Text = WebServiceUtils.truncateTable(cmbTablasWeb.Text, pgProgreso)
         End If
     End Sub
 

@@ -49,13 +49,13 @@ Module WebServiceUtils
     End Function
 
 
-    Public Function updateTable(listTableNames() As String) As String
+    Public Function updateTable(listTableNames() As String, Optional progressBar As ProgressBar = Nothing) As String
         If Not On_Production Then
             Return "App is not configured as production"
         End If
         Dim status As String
         For Each tableName As String In listTableNames
-            status += updateTable(tableName) + ", "
+            status += $"{tableName}: {updateTable(tableName, progressBar)}, "
         Next
         Return status
     End Function
@@ -96,6 +96,13 @@ Module WebServiceUtils
             Sql = $"select * from {tableName} where webSyncStatus = 2" 'records to update
             dsUpdate = SqlHelper.ExecuteDataset(tran, CommandType.Text, Sql)
             dsUpdate.Dispose()
+
+            If progressBar IsNot Nothing Then
+                progressBar.Maximum = dsInsert.Tables(0).Rows.Count
+                progressBar.Maximum += dsUpdate.Tables(0).Rows.Count
+                progressBar.Value = 0
+                progressBar.Step = 1
+            End If
         Catch ex As Exception
             If ex.Message.Contains("webSyncStatus") Then
                 createColumnSync(tableName)
@@ -142,6 +149,9 @@ Module WebServiceUtils
                 Else
                     MsgBox(webStatus)
                 End If
+                If progressBar IsNot Nothing Then
+                    progressBar.Value += 1
+                End If
             Next
 
         End If
@@ -179,10 +189,16 @@ Module WebServiceUtils
                     Sql = $"UPDATE {tableName} SET webSyncStatus = 0 WHERE ID = {dt.Rows(i)(0)}"
                     SqlHelper.ExecuteNonQuery(tran, CommandType.Text, Sql)
                 End If
+
+                If progressBar IsNot Nothing Then
+                    progressBar.Value += 1
+                End If
             Next
 
         End If
-
+        If progressBar IsNot Nothing Then
+            progressBar.Value = 0
+        End If
         tran.Commit()
         Return "Success"
 
@@ -235,6 +251,13 @@ Module WebServiceUtils
         Dim connection As SqlConnection = SqlHelper.GetConnection(ConnStringSEI)
         Dim query As String = ""
         Dim WebService As New CPFWebService.WS_CPFSoapClient()
+
+        If progressBar IsNot Nothing Then
+            progressBar.Maximum = WebTables.Length
+            progressBar.Value = 0
+            progressBar.Step = 1
+        End If
+
         For Each table As String In WebTables
             query = $"truncate table {table};"
             Try
@@ -246,7 +269,13 @@ Module WebServiceUtils
             Catch ex As Exception
                 Return ex.Message
             End Try
+            If progressBar IsNot Nothing Then
+                progressBar.Value += 1
+            End If
         Next
+        If progressBar IsNot Nothing Then
+            progressBar.Value = 0
+        End If
         Return "Success"
     End Function
 
@@ -255,11 +284,27 @@ Module WebServiceUtils
         Dim query As String = ""
         Dim WebService As New CPFWebService.WS_CPFSoapClient()
         query = $"truncate table {tableName};"
+
+        If progressBar IsNot Nothing Then
+            progressBar.Maximum = 2
+            progressBar.Value = 0
+            progressBar.Step = 1
+        End If
+
         Try
             WebService.Sql_Get(query)
+
+            If progressBar IsNot Nothing Then
+                progressBar.Value += 1
+            End If
+
             SqlHelper.ExecuteNonQuery(connection, CommandType.Text, $"
                     update {tableName} set webSyncStatus = 1
                 ")
+
+            If progressBar IsNot Nothing Then
+                progressBar.Value = 0
+            End If
         Catch ex As Exception
             Return ex.Message
         End Try
