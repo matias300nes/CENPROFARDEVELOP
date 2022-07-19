@@ -6,19 +6,19 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>2.01233cm</Width>
+              <Width>2.13327cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>6.39027cm</Width>
+              <Width>6.51121cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.70791cm</Width>
+              <Width>1.82885cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.63654cm</Width>
+              <Width>3.75748cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.97037cm</Width>
+              <Width>4.31701cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -50,6 +50,7 @@
                           <Style>Solid</Style>
                           <Width>2pt</Width>
                         </Border>
+                        <BackgroundColor>DarkGray</BackgroundColor>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -83,6 +84,7 @@
                           <Style>Solid</Style>
                           <Width>2pt</Width>
                         </Border>
+                        <BackgroundColor>DarkGray</BackgroundColor>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -116,6 +118,7 @@
                           <Style>Solid</Style>
                           <Width>2pt</Width>
                         </Border>
+                        <BackgroundColor>DarkGray</BackgroundColor>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -149,6 +152,7 @@
                           <Style>Solid</Style>
                           <Width>2pt</Width>
                         </Border>
+                        <BackgroundColor>DarkGray</BackgroundColor>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -182,6 +186,7 @@
                           <Style>Solid</Style>
                           <Width>2pt</Width>
                         </Border>
+                        <BackgroundColor>DarkGray</BackgroundColor>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -369,10 +374,10 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>dsFacturasEmitidas</DataSetName>
-        <Top>3.0245cm</Top>
-        <Left>0.78805cm</Left>
+        <Top>2.73078cm</Top>
+        <Left>0.27517cm</Left>
         <Height>1.2cm</Height>
-        <Width>17.71742cm</Width>
+        <Width>18.54782cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -607,7 +612,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!ObraSocial.Value, "dsFacturasEmitidas")</Value>
+                    <Value>=IIF(First(Fields!NroIdentificador.Value, "dsFacturasEmitidas") = 1, First(Fields!Cliente.Value, "dsFacturasEmitidas") +" "+ First(Fields!RazonSocial.Value, "dsFacturasEmitidas"), First(Fields!Cliente.Value, "dsFacturasEmitidas"))</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -665,7 +670,7 @@
         <Top>0.05439cm</Top>
         <Left>0.2915cm</Left>
         <Height>2.5cm</Height>
-        <Width>18.43967cm</Width>
+        <Width>18.54782cm</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
@@ -809,7 +814,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value EvaluationMode="Constant" />
+                    <Value>=Code.Money2Text(Fields!Total.Value)</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -931,7 +936,7 @@
         <Top>4.40089cm</Top>
         <Left>0.2915cm</Left>
         <Height>3.15617cm</Height>
-        <Width>18.54066cm</Width>
+        <Width>18.54782cm</Width>
         <ZIndex>2</ZIndex>
         <Style>
           <Border>
@@ -940,10 +945,10 @@
         </Style>
       </Rectangle>
     </ReportItems>
-    <Height>82.7404mm</Height>
+    <Height>75.5706mm</Height>
     <Style />
   </Body>
-  <Width>209.5951mm</Width>
+  <Width>190mm</Width>
   <Page>
     <PageHeader>
       <Height>6.7672cm</Height>
@@ -961,6 +966,7 @@
                     <TextRun>
                       <Value>CENTRO PROPIETARIOS DE </Value>
                       <Style>
+                        <FontSize>14pt</FontSize>
                         <FontWeight>Bold</FontWeight>
                       </Style>
                     </TextRun>
@@ -972,6 +978,7 @@
                     <TextRun>
                       <Value>FARMACIAS DE MERCEDES</Value>
                       <Style>
+                        <FontSize>14pt</FontSize>
                         <FontWeight>Bold</FontWeight>
                       </Style>
                     </TextRun>
@@ -982,88 +989,11 @@
               <rd:DefaultName>Textbox1</rd:DefaultName>
               <Top>0.254cm</Top>
               <Left>0.3175cm</Left>
-              <Height>0.981cm</Height>
-              <Width>7.90928cm</Width>
+              <Height>1.27cm</Height>
+              <Width>7.52828cm</Width>
               <Style>
                 <Border>
                   <Style>None</Style>
-                </Border>
-                <PaddingLeft>2pt</PaddingLeft>
-                <PaddingRight>2pt</PaddingRight>
-                <PaddingTop>2pt</PaddingTop>
-                <PaddingBottom>2pt</PaddingBottom>
-              </Style>
-            </Textbox>
-            <Textbox Name="Textbox2">
-              <CanGrow>true</CanGrow>
-              <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>FACTURA ELECTRÓNICA C</Value>
-                      <Style>
-                        <FontWeight>Bold</FontWeight>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style />
-                </Paragraph>
-              </Paragraphs>
-              <rd:DefaultName>Textbox1</rd:DefaultName>
-              <Top>0.254cm</Top>
-              <Left>9.85189cm</Left>
-              <Height>0.981cm</Height>
-              <Width>8.27028cm</Width>
-              <ZIndex>1</ZIndex>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-                <PaddingLeft>2pt</PaddingLeft>
-                <PaddingRight>2pt</PaddingRight>
-                <PaddingTop>2pt</PaddingTop>
-                <PaddingBottom>2pt</PaddingBottom>
-              </Style>
-            </Textbox>
-            <Textbox Name="Textbox3">
-              <CanGrow>true</CanGrow>
-              <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>C</Value>
-                      <Style>
-                        <FontWeight>Bold</FontWeight>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style>
-                    <TextAlign>Center</TextAlign>
-                  </Style>
-                </Paragraph>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>Cód. 11</Value>
-                      <Style>
-                        <FontWeight>Bold</FontWeight>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style />
-                </Paragraph>
-              </Paragraphs>
-              <rd:DefaultName>Textbox3</rd:DefaultName>
-              <Top>0.254cm</Top>
-              <Left>8.29734cm</Left>
-              <Height>0.981cm</Height>
-              <Width>1.484cm</Width>
-              <ZIndex>2</ZIndex>
-              <Style>
-                <Border>
-                  <Style>Solid</Style>
                 </Border>
                 <PaddingLeft>2pt</PaddingLeft>
                 <PaddingRight>2pt</PaddingRight>
@@ -1072,15 +1002,14 @@
               </Style>
             </Textbox>
             <Line Name="Line2">
-              <Top>1.12917cm</Top>
-              <Left>9.00853cm</Left>
-              <Height>4.01574cm</Height>
+              <Top>1.524cm</Top>
+              <Left>8.91682cm</Left>
+              <Height>3.62683cm</Height>
               <Width>0cm</Width>
-              <ZIndex>3</ZIndex>
+              <ZIndex>1</ZIndex>
               <Style>
                 <Border>
                   <Style>Solid</Style>
-                  <Width>2pt</Width>
                 </Border>
               </Style>
             </Line>
@@ -1101,11 +1030,11 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox5</rd:DefaultName>
-              <Top>1.50283cm</Top>
-              <Left>0.3175cm</Left>
+              <Top>1.82033cm</Top>
+              <Left>0.29633cm</Left>
               <Height>0.45183cm</Height>
               <Width>2.5033cm</Width>
-              <ZIndex>4</ZIndex>
+              <ZIndex>2</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -1133,11 +1062,11 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox5</rd:DefaultName>
-              <Top>3.62008cm</Top>
-              <Left>0.3175cm</Left>
+              <Top>3.93758cm</Top>
+              <Left>0.29633cm</Left>
               <Height>0.473cm</Height>
               <Width>4.26953cm</Width>
-              <ZIndex>5</ZIndex>
+              <ZIndex>3</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -1165,11 +1094,11 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox5</rd:DefaultName>
-              <Top>2.55438cm</Top>
-              <Left>0.3175cm</Left>
+              <Top>2.87188cm</Top>
+              <Left>0.29633cm</Left>
               <Height>0.45183cm</Height>
               <Width>3.66033cm</Width>
-              <ZIndex>6</ZIndex>
+              <ZIndex>4</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -1197,11 +1126,11 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox5</rd:DefaultName>
-              <Top>1.524cm</Top>
-              <Left>9.29698cm</Left>
+              <Top>1.8415cm</Top>
+              <Left>9.59331cm</Left>
               <Height>0.473cm</Height>
               <Width>2.6397cm</Width>
-              <ZIndex>7</ZIndex>
+              <ZIndex>5</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -1229,11 +1158,11 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox5</rd:DefaultName>
-              <Top>3.21791cm</Top>
-              <Left>9.29698cm</Left>
+              <Top>3.53541cm</Top>
+              <Left>9.61448cm</Left>
               <Height>0.473cm</Height>
               <Width>1.13687cm</Width>
-              <ZIndex>8</ZIndex>
+              <ZIndex>6</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -1261,11 +1190,11 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox5</rd:DefaultName>
-              <Top>3.69091cm</Top>
-              <Left>9.29698cm</Left>
+              <Top>4.00841cm</Top>
+              <Left>9.61448cm</Left>
               <Height>0.473cm</Height>
               <Width>3.06303cm</Width>
-              <ZIndex>9</ZIndex>
+              <ZIndex>7</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -1293,11 +1222,11 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox5</rd:DefaultName>
-              <Top>4.26974cm</Top>
-              <Left>9.29698cm</Left>
+              <Top>4.58724cm</Top>
+              <Left>9.59331cm</Left>
               <Height>0.473cm</Height>
               <Width>5.3843cm</Width>
-              <ZIndex>10</ZIndex>
+              <ZIndex>8</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -1325,11 +1254,11 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox5</rd:DefaultName>
-              <Top>2.33596cm</Top>
-              <Left>9.29698cm</Left>
+              <Top>2.65346cm</Top>
+              <Left>9.61448cm</Left>
               <Height>0.473cm</Height>
               <Width>2.6397cm</Width>
-              <ZIndex>11</ZIndex>
+              <ZIndex>9</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -1364,11 +1293,11 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox49</rd:DefaultName>
-              <Top>1.48166cm</Top>
-              <Left>2.99719cm</Left>
+              <Top>1.79916cm</Top>
+              <Left>2.97602cm</Left>
               <Height>0.9175cm</Height>
               <Width>5.56917cm</Width>
-              <ZIndex>12</ZIndex>
+              <ZIndex>10</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -1394,11 +1323,11 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox50</rd:DefaultName>
-              <Top>2.56852cm</Top>
-              <Left>3.72626cm</Left>
+              <Top>2.88602cm</Top>
+              <Left>3.70509cm</Left>
               <Height>0.89633cm</Height>
               <Width>5.10589cm</Width>
-              <ZIndex>13</ZIndex>
+              <ZIndex>11</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -1424,11 +1353,11 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox51</rd:DefaultName>
-              <Top>3.64125cm</Top>
-              <Left>4.41064cm</Left>
+              <Top>3.95875cm</Top>
+              <Left>4.38947cm</Left>
               <Height>0.6cm</Height>
               <Width>3.03213cm</Width>
-              <ZIndex>14</ZIndex>
+              <ZIndex>12</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -1454,11 +1383,11 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox52</rd:DefaultName>
-              <Top>1.524cm</Top>
-              <Left>12.11307cm</Left>
+              <Top>1.8415cm</Top>
+              <Left>12.43057cm</Left>
               <Height>0.6cm</Height>
               <Width>4.96405cm</Width>
-              <ZIndex>15</ZIndex>
+              <ZIndex>13</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -1486,11 +1415,11 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox9</rd:DefaultName>
-              <Top>2.33596cm</Top>
-              <Left>12.11307cm</Left>
+              <Top>2.65346cm</Top>
+              <Left>12.43057cm</Left>
               <Height>0.6cm</Height>
               <Width>4.19333cm</Width>
-              <ZIndex>16</ZIndex>
+              <ZIndex>14</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -1516,11 +1445,11 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox31</rd:DefaultName>
-              <Top>3.21791cm</Top>
-              <Left>10.46912cm</Left>
+              <Top>3.53541cm</Top>
+              <Left>10.78662cm</Left>
               <Height>0.43772cm</Height>
               <Width>2.5cm</Width>
-              <ZIndex>17</ZIndex>
+              <ZIndex>15</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -1546,11 +1475,11 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox31</rd:DefaultName>
-              <Top>3.74058cm</Top>
-              <Left>12.23302cm</Left>
+              <Top>4.05808cm</Top>
+              <Left>12.55052cm</Left>
               <Height>0.45861cm</Height>
               <Width>4.86045cm</Width>
-              <ZIndex>18</ZIndex>
+              <ZIndex>16</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -1576,14 +1505,82 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox31</rd:DefaultName>
-              <Top>4.26974cm</Top>
-              <Left>14.50722cm</Left>
+              <Top>4.58724cm</Top>
+              <Left>14.80355cm</Left>
               <Height>0.473cm</Height>
               <Width>3.7231cm</Width>
-              <ZIndex>19</ZIndex>
+              <ZIndex>17</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox2">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=First(Fields!TipoComprobante.Value, "dsFacturasEmitidas")</Value>
+                      <Style>
+                        <FontSize>14pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox2</rd:DefaultName>
+              <Top>0.254cm</Top>
+              <Left>10.62339cm</Left>
+              <Height>1.27cm</Height>
+              <Width>7.52828cm</Width>
+              <ZIndex>18</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox23">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>= "C"+ vbCrLf + "CÓD. " + First(Fields!ComprobanteTipo.Value, "dsFacturasEmitidas").ToString</Value>
+                      <Style>
+                        <FontSize>12pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Center</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox23</rd:DefaultName>
+              <Top>0.254cm</Top>
+              <Left>8.19856cm</Left>
+              <Height>1.27cm</Height>
+              <Width>2cm</Width>
+              <ZIndex>19</ZIndex>
+              <Style>
+                <Border>
+                  <Style>Solid</Style>
                 </Border>
                 <PaddingLeft>2pt</PaddingLeft>
                 <PaddingRight>2pt</PaddingRight>
@@ -1596,7 +1593,7 @@
           <Top>0.28787cm</Top>
           <Left>0.27517cm</Left>
           <Height>5.15083cm</Height>
-          <Width>18.43966cm</Width>
+          <Width>18.54782cm</Width>
           <Style>
             <Border>
               <Style>Solid</Style>
@@ -1823,7 +1820,7 @@
           <Top>5.50333cm</Top>
           <Left>0.27516cm</Left>
           <Height>1.22654cm</Height>
-          <Width>18.43967cm</Width>
+          <Width>18.54782cm</Width>
           <ZIndex>1</ZIndex>
           <Style>
             <Border>
@@ -1839,7 +1836,7 @@
       </Style>
     </PageHeader>
     <PageFooter>
-      <Height>3.12963cm</Height>
+      <Height>3.59889cm</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
@@ -1860,7 +1857,7 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox5</rd:DefaultName>
-          <Top>0.8399cm</Top>
+          <Top>2.7449cm</Top>
           <Left>9.43467cm</Left>
           <Height>0.49416cm</Height>
           <Width>4.04238cm</Width>
@@ -1891,7 +1888,7 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox42</rd:DefaultName>
-          <Top>0.85401cm</Top>
+          <Top>2.75901cm</Top>
           <Left>13.47705cm</Left>
           <Height>0.48005cm</Height>
           <Width>4.70374cm</Width>
@@ -1921,7 +1918,7 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox44</rd:DefaultName>
-          <Top>0.2399cm</Top>
+          <Top>2.1449cm</Top>
           <Left>13.52626cm</Left>
           <Height>0.6cm</Height>
           <Width>4.65453cm</Width>
@@ -1953,7 +1950,7 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox5</rd:DefaultName>
-          <Top>0.26107cm</Top>
+          <Top>2.16607cm</Top>
           <Left>11.91773cm</Left>
           <Height>0.57883cm</Height>
           <Width>1.55932cm</Width>
@@ -1968,22 +1965,41 @@
             <PaddingBottom>2pt</PaddingBottom>
           </Style>
         </Textbox>
-        <Image Name="Image2">
-          <Source>Database</Source>
-          <Value>=First(Fields!NroFactura.Value, "dsFacturasEmitidas") + First(Fields!ObraSocial.Value, "dsFacturasEmitidas") + First(Fields!TipoComprobante.Value, "dsFacturasEmitidas")</Value>
-          <MIMEType>image/bmp</MIMEType>
-          <Sizing>FitProportional</Sizing>
-          <Top>0.85401cm</Top>
-          <Left>0.609cm</Left>
-          <Height>1.5cm</Height>
-          <Width>2.19138cm</Width>
+        <Textbox Name="Textbox4">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>Luego de su aceptación sacta o expresa, esta Factura de Credito Electronica MPуMEs sera transmitida a El Sistema de Circulación Abierta para Facturas de Crédito Electrónicas MIPYMEs para su circulación y negociación incluso en los Mercados de Valores en este caso, a través de un Agente de Depósito Colectivo o agentes que cumplen similares funciones</Value>
+                  <Style>
+                    <Color>Red</Color>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox4</rd:DefaultName>
+          <Top>0.07056cm</Top>
+          <Left>0.27516cm</Left>
+          <Height>1.77801cm</Height>
+          <Width>18.54782cm</Width>
           <ZIndex>4</ZIndex>
+          <Visibility>
+            <Hidden>=IIF(First(Fields!ComprobanteTipo.Value, "dsFacturasEmitidas") = 211, False, True)</Hidden>
+          </Visibility>
           <Style>
             <Border>
               <Style>None</Style>
             </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
           </Style>
-        </Image>
+        </Textbox>
       </ReportItems>
       <Style>
         <Border>
@@ -2109,6 +2125,14 @@
           <DataField>Fecha_Serv_Hasta</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
+        <Field Name="Cliente">
+          <DataField>Cliente</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="RazonSocial">
+          <DataField>RazonSocial</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>dsSistema</rd:DataSetName>
@@ -2120,6 +2144,110 @@
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>
+  <Code>    Public Function Money2Text(ByVal value As Double) As String
+        Dim intPart As Double = Math.Truncate(value)
+        Dim decPart As Double = Math.Round((value - intPart) * 100)
+        Dim word As String = Num2Text(intPart) + " CON " + Num2Text(decPart) + " CENTAVOS"
+        Return word
+    End Function
+
+
+    Public Function Num2Text(ByVal value As Double) As String
+
+        Select Case value
+            Case 0
+                Num2Text = "CERO"
+            Case 1
+                Num2Text = "UN"
+            Case 2
+                Num2Text = "DOS"
+            Case 3
+                Num2Text = "TRES"
+            Case 4
+                Num2Text = "CUATRO"
+            Case 5
+                Num2Text = "CINCO"
+            Case 6
+                Num2Text = "SEIS"
+            Case 7
+                Num2Text = "SIETE"
+            Case 8
+                Num2Text = "OCHO"
+            Case 9
+                Num2Text = "NUEVE"
+            Case 10
+                Num2Text = "DIEZ"
+            Case 11
+                Num2Text = "ONCE"
+            Case 12
+                Num2Text = "DOCE"
+            Case 13
+                Num2Text = "TRECE"
+            Case 14
+                Num2Text = "CATORCE"
+            Case 15
+                Num2Text = "QUINCE"
+            Case Is &lt; 20
+                Num2Text = "DIECI" &amp; Num2Text(value - 10)
+            Case 20
+                Num2Text = "VEINTE"
+            Case Is &lt; 30
+                Num2Text = "VEINTI" &amp; Num2Text(value - 20)
+            Case 30
+                Num2Text = "TREINTA"
+            Case 40
+                Num2Text = "CUARENTA"
+            Case 50
+                Num2Text = "CINCUENTA"
+            Case 60
+                Num2Text = "SESENTA"
+            Case 70
+                Num2Text = "SETENTA"
+            Case 80
+                Num2Text = "OCHENTA"
+            Case 90
+                Num2Text = "NOVENTA"
+            Case Is &lt; 100
+                Num2Text = Num2Text(Int(value \ 10) * 10) &amp; " Y " &amp; Num2Text(value Mod 10)
+            Case 100
+                Num2Text = "CIEN"
+            Case Is &lt; 200
+                Num2Text = "CIENTO " &amp; Num2Text(value - 100)
+            Case 200, 300, 400, 600, 800
+                Num2Text = Num2Text(Int(value \ 100)) &amp; "CIENTOS"
+            Case 500
+                Num2Text = "QUINIENTOS"
+            Case 700
+                Num2Text = "SETECIENTOS"
+            Case 900
+                Num2Text = "NOVECIENTOS"
+            Case Is &lt; 1000
+                Num2Text = Num2Text(Int(value \ 100) * 100) &amp; " " &amp; Num2Text(value Mod 100)
+            Case 1000
+                Num2Text = "MIL"
+            Case Is &lt; 2000
+                Num2Text = "MIL " &amp; Num2Text(value Mod 1000)
+            Case Is &lt; 1000000
+                Num2Text = Num2Text(Int(value \ 1000)) &amp; " MIL"
+                If value Mod 1000 Then Num2Text = Num2Text &amp; " " &amp; Num2Text(value Mod 1000)
+            Case 1000000
+                Num2Text = "UN MILLON"
+            Case Is &lt; 2000000
+                Num2Text = "UN MILLON " &amp; Num2Text(value Mod 1000000)
+            Case Is &lt; 1000000000000.0#
+                Num2Text = Num2Text(Int(value / 1000000)) &amp; " MILLONES "
+                If (value - Int(value / 1000000) * 1000000) Then Num2Text = Num2Text &amp; " " &amp; Num2Text(value - Int(value / 1000000) * 1000000)
+            Case 1000000000000.0#
+                Num2Text = "UN BILLON"
+            Case Is &lt; 2000000000000.0#
+                Num2Text = "UN BILLON " &amp; Num2Text(value - Int(value / 1000000000000.0#) * 1000000000000.0#)
+            Case Else
+                Num2Text = Num2Text(Int(value / 1000000000000.0#)) &amp; " BILLONES"
+                If (value - Int(value / 1000000000000.0#) * 1000000000000.0#) Then Num2Text = Num2Text &amp; " " &amp; Num2Text(value - Int(value / 1000000000000.0#) * 1000000000000.0#)
+        End Select
+
+    End Function
+</Code>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>e1592d1f-fd2d-4392-a9d5-e90bb51c2dcb</rd:ReportID>
 </Report>

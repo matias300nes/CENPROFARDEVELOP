@@ -108,6 +108,8 @@
               <Mapping SourceColumn="Descripcion" DataSetColumn="Descripcion" />
               <Mapping SourceColumn="Fecha_Serv_Desde" DataSetColumn="Fecha_Serv_Desde" />
               <Mapping SourceColumn="Fecha_Serv_Hasta" DataSetColumn="Fecha_Serv_Hasta" />
+              <Mapping SourceColumn="Cliente" DataSetColumn="Cliente" />
+              <Mapping SourceColumn="RazonSocial" DataSetColumn="RazonSocial" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -119,7 +121,7 @@
   <xs:element name="dsSistema" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsSistema" msprop:Generator_UserDSName="dsSistema">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="spRPT_Presentacion" msprop:Generator_TableClassName="spRPT_PresentacionDataTable" msprop:Generator_TableVarName="tablespRPT_Presentacion" msprop:Generator_TablePropName="spRPT_Presentacion" msprop:Generator_RowDeletingName="spRPT_PresentacionRowDeleting" msprop:Generator_RowChangingName="spRPT_PresentacionRowChanging" msprop:Generator_RowEvHandlerName="spRPT_PresentacionRowChangeEventHandler" msprop:Generator_RowDeletedName="spRPT_PresentacionRowDeleted" msprop:Generator_UserTableName="spRPT_Presentacion" msprop:Generator_RowChangedName="spRPT_PresentacionRowChanged" msprop:Generator_RowEvArgName="spRPT_PresentacionRowChangeEvent" msprop:Generator_RowClassName="spRPT_PresentacionRow">
+        <xs:element name="spRPT_Presentacion" msprop:Generator_TableClassName="spRPT_PresentacionDataTable" msprop:Generator_TableVarName="tablespRPT_Presentacion" msprop:Generator_RowChangedName="spRPT_PresentacionRowChanged" msprop:Generator_TablePropName="spRPT_Presentacion" msprop:Generator_RowDeletingName="spRPT_PresentacionRowDeleting" msprop:Generator_RowChangingName="spRPT_PresentacionRowChanging" msprop:Generator_RowEvHandlerName="spRPT_PresentacionRowChangeEventHandler" msprop:Generator_RowDeletedName="spRPT_PresentacionRowDeleted" msprop:Generator_RowClassName="spRPT_PresentacionRow" msprop:Generator_UserTableName="spRPT_Presentacion" msprop:Generator_RowEvArgName="spRPT_PresentacionRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ObraSocial" msprop:Generator_ColumnVarNameInTable="columnObraSocial" msprop:Generator_ColumnPropNameInRow="ObraSocial" msprop:Generator_ColumnPropNameInTable="ObraSocialColumn" msprop:Generator_UserColumnName="ObraSocial" minOccurs="0">
@@ -155,7 +157,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Pagos" msprop:Generator_TableClassName="PagosDataTable" msprop:Generator_TableVarName="tablePagos" msprop:Generator_RowChangedName="PagosRowChanged" msprop:Generator_TablePropName="Pagos" msprop:Generator_RowDeletingName="PagosRowDeleting" msprop:Generator_RowChangingName="PagosRowChanging" msprop:Generator_RowEvHandlerName="PagosRowChangeEventHandler" msprop:Generator_RowDeletedName="PagosRowDeleted" msprop:Generator_RowClassName="PagosRow" msprop:Generator_UserTableName="Pagos" msprop:Generator_RowEvArgName="PagosRowChangeEvent">
+        <xs:element name="Pagos" msprop:Generator_TableClassName="PagosDataTable" msprop:Generator_TableVarName="tablePagos" msprop:Generator_TablePropName="Pagos" msprop:Generator_RowDeletingName="PagosRowDeleting" msprop:Generator_RowChangingName="PagosRowChanging" msprop:Generator_RowEvHandlerName="PagosRowChangeEventHandler" msprop:Generator_RowDeletedName="PagosRowDeleted" msprop:Generator_UserTableName="Pagos" msprop:Generator_RowChangedName="PagosRowChanged" msprop:Generator_RowEvArgName="PagosRowChangeEvent" msprop:Generator_RowClassName="PagosRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Id" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:long" />
@@ -186,7 +188,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="spRPT_Saldos_Prueba" msprop:Generator_TableClassName="spRPT_Saldos_PruebaDataTable" msprop:Generator_TableVarName="tablespRPT_Saldos_Prueba" msprop:Generator_TablePropName="spRPT_Saldos_Prueba" msprop:Generator_RowDeletingName="spRPT_Saldos_PruebaRowDeleting" msprop:Generator_RowChangingName="spRPT_Saldos_PruebaRowChanging" msprop:Generator_RowEvHandlerName="spRPT_Saldos_PruebaRowChangeEventHandler" msprop:Generator_RowDeletedName="spRPT_Saldos_PruebaRowDeleted" msprop:Generator_UserTableName="spRPT_Saldos_Prueba" msprop:Generator_RowChangedName="spRPT_Saldos_PruebaRowChanged" msprop:Generator_RowEvArgName="spRPT_Saldos_PruebaRowChangeEvent" msprop:Generator_RowClassName="spRPT_Saldos_PruebaRow">
+        <xs:element name="spRPT_Saldos_Prueba" msprop:Generator_TableClassName="spRPT_Saldos_PruebaDataTable" msprop:Generator_TableVarName="tablespRPT_Saldos_Prueba" msprop:Generator_RowChangedName="spRPT_Saldos_PruebaRowChanged" msprop:Generator_TablePropName="spRPT_Saldos_Prueba" msprop:Generator_RowDeletingName="spRPT_Saldos_PruebaRowDeleting" msprop:Generator_RowChangingName="spRPT_Saldos_PruebaRowChanging" msprop:Generator_RowEvHandlerName="spRPT_Saldos_PruebaRowChangeEventHandler" msprop:Generator_RowDeletedName="spRPT_Saldos_PruebaRowDeleted" msprop:Generator_RowClassName="spRPT_Saldos_PruebaRow" msprop:Generator_UserTableName="spRPT_Saldos_Prueba" msprop:Generator_RowEvArgName="spRPT_Saldos_PruebaRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Fecha" msprop:Generator_ColumnVarNameInTable="columnFecha" msprop:Generator_ColumnPropNameInRow="Fecha" msprop:Generator_ColumnPropNameInTable="FechaColumn" msprop:Generator_UserColumnName="Fecha" type="xs:dateTime" minOccurs="0" />
@@ -218,10 +220,10 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="spRPT_FacturasElectronicas_Emitidas" msprop:Generator_TableClassName="spRPT_FacturasElectronicas_EmitidasDataTable" msprop:Generator_TableVarName="tablespRPT_FacturasElectronicas_Emitidas" msprop:Generator_TablePropName="spRPT_FacturasElectronicas_Emitidas" msprop:Generator_RowDeletingName="spRPT_FacturasElectronicas_EmitidasRowDeleting" msprop:Generator_RowChangingName="spRPT_FacturasElectronicas_EmitidasRowChanging" msprop:Generator_RowEvHandlerName="spRPT_FacturasElectronicas_EmitidasRowChangeEventHandler" msprop:Generator_RowDeletedName="spRPT_FacturasElectronicas_EmitidasRowDeleted" msprop:Generator_UserTableName="spRPT_FacturasElectronicas_Emitidas" msprop:Generator_RowChangedName="spRPT_FacturasElectronicas_EmitidasRowChanged" msprop:Generator_RowEvArgName="spRPT_FacturasElectronicas_EmitidasRowChangeEvent" msprop:Generator_RowClassName="spRPT_FacturasElectronicas_EmitidasRow">
+        <xs:element name="spRPT_FacturasElectronicas_Emitidas" msprop:Generator_TableClassName="spRPT_FacturasElectronicas_EmitidasDataTable" msprop:Generator_TableVarName="tablespRPT_FacturasElectronicas_Emitidas" msprop:Generator_RowChangedName="spRPT_FacturasElectronicas_EmitidasRowChanged" msprop:Generator_TablePropName="spRPT_FacturasElectronicas_Emitidas" msprop:Generator_RowDeletingName="spRPT_FacturasElectronicas_EmitidasRowDeleting" msprop:Generator_RowChangingName="spRPT_FacturasElectronicas_EmitidasRowChanging" msprop:Generator_RowEvHandlerName="spRPT_FacturasElectronicas_EmitidasRowChangeEventHandler" msprop:Generator_RowDeletedName="spRPT_FacturasElectronicas_EmitidasRowDeleted" msprop:Generator_RowClassName="spRPT_FacturasElectronicas_EmitidasRow" msprop:Generator_UserTableName="spRPT_FacturasElectronicas_Emitidas" msprop:Generator_RowEvArgName="spRPT_FacturasElectronicas_EmitidasRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="ID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:long" />
+              <xs:element name="ID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:long" minOccurs="0" />
               <xs:element name="Criterio" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnCriterio" msprop:Generator_ColumnPropNameInRow="Criterio" msprop:Generator_ColumnPropNameInTable="CriterioColumn" msprop:Generator_UserColumnName="Criterio" type="xs:int" minOccurs="0" />
               <xs:element name="Selección" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnSelección" msprop:Generator_ColumnPropNameInRow="Selección" msprop:Generator_ColumnPropNameInTable="SelecciónColumn" msprop:Generator_UserColumnName="Selección" type="xs:boolean" minOccurs="0" />
               <xs:element name="NroIdentificador" msprop:Generator_ColumnVarNameInTable="columnNroIdentificador" msprop:Generator_ColumnPropNameInRow="NroIdentificador" msprop:Generator_ColumnPropNameInTable="NroIdentificadorColumn" msprop:Generator_UserColumnName="NroIdentificador" type="xs:int" minOccurs="0" />
@@ -316,6 +318,20 @@
               </xs:element>
               <xs:element name="Fecha_Serv_Desde" msprop:Generator_ColumnVarNameInTable="columnFecha_Serv_Desde" msprop:Generator_ColumnPropNameInRow="Fecha_Serv_Desde" msprop:Generator_ColumnPropNameInTable="Fecha_Serv_DesdeColumn" msprop:Generator_UserColumnName="Fecha_Serv_Desde" type="xs:dateTime" minOccurs="0" />
               <xs:element name="Fecha_Serv_Hasta" msprop:Generator_ColumnVarNameInTable="columnFecha_Serv_Hasta" msprop:Generator_ColumnPropNameInRow="Fecha_Serv_Hasta" msprop:Generator_ColumnPropNameInTable="Fecha_Serv_HastaColumn" msprop:Generator_UserColumnName="Fecha_Serv_Hasta" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Cliente" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnCliente" msprop:Generator_ColumnPropNameInRow="Cliente" msprop:Generator_ColumnPropNameInTable="ClienteColumn" msprop:Generator_UserColumnName="Cliente" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="300" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="RazonSocial" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnRazonSocial" msprop:Generator_ColumnPropNameInRow="RazonSocial" msprop:Generator_ColumnPropNameInTable="RazonSocialColumn" msprop:Generator_UserColumnName="RazonSocial" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
