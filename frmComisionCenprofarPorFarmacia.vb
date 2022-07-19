@@ -1159,8 +1159,8 @@ Public Class frmComisionCenprofarPorFarmacia
                                     Exit Sub
                                 Else
 
-                                    'Dim frmRptFacturaC As New frmRptFacturaC(0, 1, cmbMes.Text, cmbAnio.Text, .Cells(grdFarmaciaCols.ID).Value)
-                                    'frmRptFacturaC.ShowDialog()
+                                    Dim frmRptFacturaC As New frmRptFacturaC(0, 1, cmbMes.Text, cmbAnio.Text, .Cells(grdFarmaciaCols.ID).Value)
+                                    frmRptFacturaC.ShowDialog()
 
                                     ValorCae = ""
                                     ValorFac = ""
@@ -1190,23 +1190,23 @@ Public Class frmComisionCenprofarPorFarmacia
 
             If resbool Then
 
-                Dim connection As SqlClient.SqlConnection = Nothing
+                'Dim connection As SqlClient.SqlConnection = Nothing
 
-                Try
-                    connection = SqlHelper.GetConnection(ConnStringSEI)
-                Catch ex As Exception
-                    MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    Exit Sub
-                End Try
-                Dim dt_FacturasEmitidasAFarmacias As New DataTable
-                Dim query As String
-                ' query = $"exec spRPT_FacturasElectronicas_Emitidas @Eliminado = 0, @NroIdentificador = 1, @mes = {cmbMes.Text}, @anio = {cmbAnio.Text}, @idOrigen = {}"
+                'Try
+                '    connection = SqlHelper.GetConnection(ConnStringSEI)
+                'Catch ex As Exception
+                '    MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                '    Exit Sub
+                'End Try
+                'Dim dt_FacturasEmitidasAFarmacias As New DataTable
+                'Dim query As String
+                '' query = $"exec spRPT_FacturasElectronicas_Emitidas @Eliminado = 0, @NroIdentificador = 1, @mes = {cmbMes.Text}, @anio = {cmbAnio.Text}, @idOrigen = {}"
 
-                Dim cmd As New SqlCommand(query, connection)
-                Dim da As New SqlDataAdapter(cmd)
-                Dim j As Integer
+                'Dim cmd As New SqlCommand(query, connection)
+                'Dim da As New SqlDataAdapter(cmd)
+                'Dim j As Integer
 
-                da.Fill(dt_FacturasEmitidasAFarmacias)
+                'da.Fill(dt_FacturasEmitidasAFarmacias)
                 requestGrdData()
             End If
 

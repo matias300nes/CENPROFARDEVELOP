@@ -1184,6 +1184,10 @@ Partial Public Class dsSistema
         
         Private columnFecha_Serv_Hasta As Global.System.Data.DataColumn
         
+        Private columnCliente As Global.System.Data.DataColumn
+        
+        Private columnRazonSocial As Global.System.Data.DataColumn
+        
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
         Public Sub New()
@@ -1404,6 +1408,22 @@ Partial Public Class dsSistema
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
+        Public ReadOnly Property ClienteColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnCliente
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
+        Public ReadOnly Property RazonSocialColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnRazonSocial
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0"),  _
          Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
@@ -1462,9 +1482,11 @@ Partial Public Class dsSistema
                     ByVal ComprobanteTipo As Integer,  _
                     ByVal Descripcion As String,  _
                     ByVal Fecha_Serv_Desde As Date,  _
-                    ByVal Fecha_Serv_Hasta As Date) As spRPT_FacturasElectronicas_EmitidasRow
+                    ByVal Fecha_Serv_Hasta As Date,  _
+                    ByVal Cliente As String,  _
+                    ByVal RazonSocial As String) As spRPT_FacturasElectronicas_EmitidasRow
             Dim rowspRPT_FacturasElectronicas_EmitidasRow As spRPT_FacturasElectronicas_EmitidasRow = CType(Me.NewRow,spRPT_FacturasElectronicas_EmitidasRow)
-            Dim columnValuesArray() As Object = New Object() {Nothing, Criterio, Selección, NroIdentificador, NroFactura, Fecha, ObraSocial, Periodo, Cuit, DireccionFiscal, Localidad, Provincia, TipoComprobante, Observacion, CAE, Venc_CAE, Fecha_Vto_Pago, CodigoBarra, Total, ComprobanteTipo, Descripcion, Fecha_Serv_Desde, Fecha_Serv_Hasta}
+            Dim columnValuesArray() As Object = New Object() {Nothing, Criterio, Selección, NroIdentificador, NroFactura, Fecha, ObraSocial, Periodo, Cuit, DireccionFiscal, Localidad, Provincia, TipoComprobante, Observacion, CAE, Venc_CAE, Fecha_Vto_Pago, CodigoBarra, Total, ComprobanteTipo, Descripcion, Fecha_Serv_Desde, Fecha_Serv_Hasta, Cliente, RazonSocial}
             rowspRPT_FacturasElectronicas_EmitidasRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowspRPT_FacturasElectronicas_EmitidasRow)
             Return rowspRPT_FacturasElectronicas_EmitidasRow
@@ -1516,6 +1538,8 @@ Partial Public Class dsSistema
             Me.columnDescripcion = MyBase.Columns("Descripcion")
             Me.columnFecha_Serv_Desde = MyBase.Columns("Fecha_Serv_Desde")
             Me.columnFecha_Serv_Hasta = MyBase.Columns("Fecha_Serv_Hasta")
+            Me.columnCliente = MyBase.Columns("Cliente")
+            Me.columnRazonSocial = MyBase.Columns("RazonSocial")
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -1567,6 +1591,10 @@ Partial Public Class dsSistema
             MyBase.Columns.Add(Me.columnFecha_Serv_Desde)
             Me.columnFecha_Serv_Hasta = New Global.System.Data.DataColumn("Fecha_Serv_Hasta", GetType(Date), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnFecha_Serv_Hasta)
+            Me.columnCliente = New Global.System.Data.DataColumn("Cliente", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnCliente)
+            Me.columnRazonSocial = New Global.System.Data.DataColumn("RazonSocial", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnRazonSocial)
             Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnID}, true))
             Me.columnID.AutoIncrement = true
             Me.columnID.AutoIncrementSeed = -1
@@ -1588,6 +1616,10 @@ Partial Public Class dsSistema
             Me.columnVenc_CAE.MaxLength = 10
             Me.columnCodigoBarra.MaxLength = 100
             Me.columnDescripcion.MaxLength = 250
+            Me.columnCliente.ReadOnly = true
+            Me.columnCliente.MaxLength = 300
+            Me.columnRazonSocial.ReadOnly = true
+            Me.columnRazonSocial.MaxLength = 100
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -3090,6 +3122,38 @@ Partial Public Class dsSistema
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
+        Public Property Cliente() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tablespRPT_FacturasElectronicas_Emitidas.ClienteColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("El valor de la columna 'Cliente' de la tabla 'spRPT_FacturasElectronicas_Emitidas"& _ 
+                            "' es DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespRPT_FacturasElectronicas_Emitidas.ClienteColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
+        Public Property RazonSocial() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tablespRPT_FacturasElectronicas_Emitidas.RazonSocialColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("El valor de la columna 'RazonSocial' de la tabla 'spRPT_FacturasElectronicas_Emit"& _ 
+                            "idas' es DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespRPT_FacturasElectronicas_Emitidas.RazonSocialColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
         Public Function IsCriterioNull() As Boolean
             Return Me.IsNull(Me.tablespRPT_FacturasElectronicas_Emitidas.CriterioColumn)
         End Function
@@ -3350,6 +3414,30 @@ Partial Public Class dsSistema
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
         Public Sub SetFecha_Serv_HastaNull()
             Me(Me.tablespRPT_FacturasElectronicas_Emitidas.Fecha_Serv_HastaColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
+        Public Function IsClienteNull() As Boolean
+            Return Me.IsNull(Me.tablespRPT_FacturasElectronicas_Emitidas.ClienteColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
+        Public Sub SetClienteNull()
+            Me(Me.tablespRPT_FacturasElectronicas_Emitidas.ClienteColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
+        Public Function IsRazonSocialNull() As Boolean
+            Return Me.IsNull(Me.tablespRPT_FacturasElectronicas_Emitidas.RazonSocialColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
+        Public Sub SetRazonSocialNull()
+            Me(Me.tablespRPT_FacturasElectronicas_Emitidas.RazonSocialColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
     
@@ -4422,6 +4510,8 @@ Namespace dsSistemaTableAdapters
             tableMapping.ColumnMappings.Add("Descripcion", "Descripcion")
             tableMapping.ColumnMappings.Add("Fecha_Serv_Desde", "Fecha_Serv_Desde")
             tableMapping.ColumnMappings.Add("Fecha_Serv_Hasta", "Fecha_Serv_Hasta")
+            tableMapping.ColumnMappings.Add("Cliente", "Cliente")
+            tableMapping.ColumnMappings.Add("RazonSocial", "RazonSocial")
             Me._adapter.TableMappings.Add(tableMapping)
         End Sub
         
