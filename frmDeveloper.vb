@@ -39,7 +39,7 @@ Public Class frmDeveloper
 
         If result = DialogResult.Yes Then
             txtUtilsResponse.Text = ""
-            txtUtilsResponse.Text = WebServiceUtils.updateTable(WebServiceUtils.WebTables, pgProgreso)
+            txtUtilsResponse.Text = WebServiceUtils.syncTable(WebServiceUtils.WebTables, pgProgreso)
         End If
     End Sub
 
@@ -63,7 +63,7 @@ Public Class frmDeveloper
 
         If result = DialogResult.Yes And cmbTablasWeb.Text <> "" Then
             txtUtilsResponse.Text = ""
-            txtUtilsResponse.Text = WebServiceUtils.updateTable(cmbTablasWeb.Text, pgProgreso)
+            txtUtilsResponse.Text = WebServiceUtils.syncTable(cmbTablasWeb.Text, pgProgreso)
         End If
     End Sub
 

@@ -49,17 +49,17 @@ Module WebServiceUtils
     End Function
 
 
-    Public Function updateTable(listTableNames() As String, Optional progressBar As ProgressBar = Nothing) As String
+    Public Function syncTable(listTableNames() As String, Optional progressBar As ProgressBar = Nothing) As String
         If Not On_Production Then
             Return "App is not configured as production"
         End If
         Dim status As String
         For Each tableName As String In listTableNames
-            status += $"{tableName}: {updateTable(tableName, progressBar)}, "
+            status += $"{tableName}: {syncTable(tableName, progressBar)}, "
         Next
         Return status
     End Function
-    Public Function updateTable(tableName As String, Optional progressBar As ProgressBar = Nothing) As String
+    Public Function syncTable(tableName As String, Optional progressBar As ProgressBar = Nothing) As String
         If Not On_Production Then
             Return "App is not configured as production"
         End If
@@ -67,8 +67,10 @@ Module WebServiceUtils
         Dim Sql As String
         Dim connection As SqlConnection
         Dim tran As SqlTransaction
-        Dim dsInsert As DataSet
-        Dim dsUpdate As DataSet
+        Dim dsInsertWeb As DataSet
+        Dim dsUpdateWeb As DataSet
+        Dim dsInsertLocal As DataSet
+        Dim dsUpdateLocal As DataSet
         Dim dt As DataTable = Nothing
         Dim webStatus As String
         Dim TableHasIdentity As Boolean
@@ -90,16 +92,16 @@ Module WebServiceUtils
             tran = connection.BeginTransaction()
 
             Sql = $"select * from {tableName} where webSyncStatus = 1" 'records to insert
-            dsInsert = SqlHelper.ExecuteDataset(tran, CommandType.Text, Sql)
-            dsInsert.Dispose()
+            dsInsertWeb = SqlHelper.ExecuteDataset(tran, CommandType.Text, Sql)
+            dsInsertWeb.Dispose()
 
             Sql = $"select * from {tableName} where webSyncStatus = 2" 'records to update
-            dsUpdate = SqlHelper.ExecuteDataset(tran, CommandType.Text, Sql)
-            dsUpdate.Dispose()
+            dsUpdateWeb = SqlHelper.ExecuteDataset(tran, CommandType.Text, Sql)
+            dsUpdateWeb.Dispose()
 
             If progressBar IsNot Nothing Then
-                progressBar.Maximum = dsInsert.Tables(0).Rows.Count
-                progressBar.Maximum += dsUpdate.Tables(0).Rows.Count
+                progressBar.Maximum = dsInsertWeb.Tables(0).Rows.Count
+                progressBar.Maximum += dsUpdateWeb.Tables(0).Rows.Count
                 progressBar.Value = 0
                 progressBar.Step = 1
             End If
@@ -107,14 +109,14 @@ Module WebServiceUtils
             If ex.Message.Contains("webSyncStatus") Then
                 createColumnSync(tableName)
                 tran?.Commit()
-                Return updateTable(tableName)
+                Return syncTable(tableName)
             End If
             tran?.Rollback()
             Return $"Error, {ex.Message}."
         End Try
 
-        ''INSERT
-        dt = dsInsert.Tables(0)
+        ''INSERT ON WEB
+        dt = dsInsertWeb.Tables(0)
         If dt.Rows.Count > 0 Then
             Dim query As String = ""
             Dim columns As String = ""
@@ -156,8 +158,8 @@ Module WebServiceUtils
 
         End If
 
-        ''UPDATE
-        dt = dsUpdate.Tables(0)
+        ''UPDATE ON WEB
+        dt = dsUpdateWeb.Tables(0)
         If dt.Rows.Count > 0 Then
             Dim query As String = ""
             Dim pairs As String = ""
@@ -196,6 +198,102 @@ Module WebServiceUtils
             Next
 
         End If
+
+        Sql = $"select * from {tableName} where webSyncStatus = 1" 'records to insert
+        dsInsertLocal = WebService.Sql_Get(Sql)
+        Sql = $"select * from {tableName} where webSyncStatus = 2" 'records to update
+        dsUpdateLocal = WebService.Sql_Get(Sql)
+
+        If progressBar IsNot Nothing Then
+            Dim progress As Decimal = 0
+            If progressBar.Maximum <> 0 Then
+                progress = progressBar.Value / progressBar.Maximum
+            End If
+            progressBar.Maximum += Integer.Parse(dsInsertLocal.Tables(0).Rows.Count)
+            progressBar.Maximum += Integer.Parse(dsUpdateLocal.Tables(0).Rows.Count)
+            progressBar.Value = Integer.Parse(progressBar.Maximum * Progress)
+        End If
+
+        ''INSERT ON LOCAL
+        dt = dsInsertLocal.Tables(0)
+        If dt.Rows.Count > 0 Then
+            Dim query As String = ""
+            Dim columns As String = ""
+            Dim values As String = ""
+            Dim currentValue
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                query = ""
+                columns = ""
+                values = ""
+                For j As Integer = 0 To dt.Columns.Count - 1
+                    columns += $"[{dt.Columns(j).ColumnName}]" + IIf(j < dt.Columns.Count - 1, ",", "")
+                    If dt.Rows(i)(j) IsNot DBNull.Value Then
+                        currentValue = $"'{dt.Rows(i)(j).ToString}'"
+                        If dt.Rows(i)(j).GetType() = GetType(DateTime) Then
+                            currentValue = $"'{DateTime.Parse(dt.Rows(i)(j)).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture)}'"
+                        End If
+                    Else
+                        currentValue = "null"
+                    End If
+                    If dt.Columns(j).ColumnName = "webSyncStatus" Then
+                        currentValue = "'0'" ''synced
+                    End If
+                    values += $"{currentValue}" + IIf(j < dt.Columns.Count - 1, ",", "")
+                Next
+                query = $"{turnOnIdentity} INSERT INTO {tableName} ({columns}) VALUES ({values}); {turnOffIdentity}"
+
+                If SqlHelper.ExecuteNonQuery(tran, CommandType.Text, query) > 0 Then
+                    Sql = $"UPDATE {tableName} SET webSyncStatus = 0 WHERE ID = {dt.Rows(i)(0)}"
+                    WebService.Sql_Set(Sql)
+                End If
+                If progressBar IsNot Nothing Then
+                    progressBar.Value += 1
+                End If
+            Next
+
+        End If
+
+        ''UPDATE ON LOCAL
+        dt = dsUpdateLocal.Tables(0)
+        If dt.Rows.Count > 0 Then
+            Dim query As String = ""
+            Dim pairs As String = ""
+            Dim currentValue
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                query = ""
+                pairs = ""
+                For j As Integer = 0 To dt.Columns.Count - 1
+                    If dt.Columns(j).ColumnName.ToUpper <> "ID" Then
+                        If dt.Rows(i)(j) IsNot DBNull.Value Then
+                            currentValue = $"'{dt.Rows(i)(j).ToString}'"
+                            If dt.Rows(i)(j).GetType() = GetType(DateTime) Then
+                                currentValue = $"'{DateTime.Parse(dt.Rows(i)(j)).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture)}'"
+                            End If
+                        Else
+                            currentValue = "null"
+                        End If
+                        If dt.Columns(j).ColumnName = "webSyncStatus" Then
+                            currentValue = "'0'" ''synced
+                        End If
+                        pairs += $"[{dt.Columns(j).ColumnName}] = {currentValue}" + IIf(j < dt.Columns.Count - 1, ",", "")
+                    End If
+                Next
+                query = $"UPDATE {tableName} SET {pairs} WHERE ID = {dt.Rows(i)(0)};"
+
+                If SqlHelper.ExecuteNonQuery(tran, CommandType.Text, query) > 0 Then
+                    Sql = $"UPDATE {tableName} SET webSyncStatus = 0 WHERE ID = {dt.Rows(i)(0)}"
+                    WebService.Sql_Set(Sql)
+                End If
+
+                If progressBar IsNot Nothing Then
+                    progressBar.Value += 1
+                End If
+            Next
+
+        End If
+
         If progressBar IsNot Nothing Then
             progressBar.Value = 0
         End If
