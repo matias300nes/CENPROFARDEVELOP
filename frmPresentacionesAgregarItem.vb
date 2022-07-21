@@ -221,6 +221,13 @@ Public Class frmPresentacionesAgregarItem
             Return False
         End If
 
+        If Decimal.Parse(txtBonificacion.Text) > Decimal.Parse(txtImpACargoOs.Text) Then
+            MessageBox.Show("La bonificación no puede ser mayor que el imp. a cargo OS.",
+              "Error de entrada", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            txtBonificacion.Focus()
+            Return False
+        End If
+
         Return True
     End Function
 

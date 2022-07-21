@@ -12,19 +12,6 @@ Public Class frmAgregarPagos
         eliminar = 6
     End Enum
 
-    'Enum FarmaciaCols
-    '    ID = 0
-    '    Seleccion = 1
-    '    Codigo = 2
-    '    RazonSocial = 3
-    '    Nombre = 4
-    '    PreferenciaPago = 5
-    '    Saldo = 6
-    '    Cuit = 7
-    '    Telefono = 8
-    '    Email = 9
-    'End Enum
-
     Enum FarmaciaCols
         ID = 0
         Seleccion = 1
@@ -77,10 +64,8 @@ Public Class frmAgregarPagos
             btnColumn.UseColumnTextForButtonValue = True
 
             .Columns(gridColumns.importe).DefaultCellStyle.Format = "N2"
-            .Columns(gridColumns.idFarmacia).Visible = True
+            .Columns(gridColumns.idFarmacia).Visible = False
             .Columns(gridColumns.importe).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-            '.Columns(gridColumns.razonSocial).Width = 180
-            '.Columns(gridColumns.eliminar).Width = 70
             .AutoResizeColumns()
         End With
 
@@ -101,12 +86,6 @@ Public Class frmAgregarPagos
         Dim saldototal As Decimal = 0
         For Each farmacia As DataRow In farmacias.Rows
             If farmacia(FarmaciaCols.Saldo) > 0 Then
-                'Dim newRow As DataRow = dt.NewRow
-                'newRow(gridColumns.razonSocial) = farmacia(FarmaciaCols.RazonSocial)
-                'newRow(gridColumns.farmacia) = farmacia(FarmaciaCols.Nombre)
-                'newRow(gridColumns.tipoPago) = farmacia(FarmaciaCols.PreferenciaPago)
-                'newRow(gridColumns.importe) = Decimal.Parse(farmacia(FarmaciaCols.Saldo))
-                'dt.Rows.Add(newRow)
                 saldototal += Decimal.Parse(farmacia(FarmaciaCols.Saldo))
             End If
         Next

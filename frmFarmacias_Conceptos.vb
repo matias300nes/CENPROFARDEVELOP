@@ -1617,6 +1617,12 @@ Public Class frmFarmacias_Conceptos
         selectRazonSocial.ShowDialog()
     End Sub
 
+    Private Sub grdCodigos_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles grdCodigos.CellEndEdit
+        With grdCodigos.Rows(e.RowIndex).Cells(e.ColumnIndex)
+            .Value = .Value.ToString.ToUpper
+        End With
+    End Sub
+
 
 #End Region
 

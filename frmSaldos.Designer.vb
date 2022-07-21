@@ -161,6 +161,7 @@ Partial Class frmSaldos
         Me.txtID.ReadOnly = True
         Me.txtID.Size = New System.Drawing.Size(57, 20)
         Me.txtID.TabIndex = 392
+        Me.txtID.Visible = False
         '
         'btnSelection
         '
@@ -216,7 +217,7 @@ Partial Class frmSaldos
         Me.dtpFechaInicio.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dtpFechaInicio.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
         Me.dtpFechaInicio.Location = New System.Drawing.Point(483, 12)
-        Me.dtpFechaInicio.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.dtpFechaInicio.Margin = New System.Windows.Forms.Padding(2)
         Me.dtpFechaInicio.Name = "dtpFechaInicio"
         Me.dtpFechaInicio.Size = New System.Drawing.Size(84, 20)
         Me.dtpFechaInicio.TabIndex = 403
@@ -226,7 +227,7 @@ Partial Class frmSaldos
         Me.dtpFechaFin.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dtpFechaFin.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
         Me.dtpFechaFin.Location = New System.Drawing.Point(635, 12)
-        Me.dtpFechaFin.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.dtpFechaFin.Margin = New System.Windows.Forms.Padding(2)
         Me.dtpFechaFin.Name = "dtpFechaFin"
         Me.dtpFechaFin.Size = New System.Drawing.Size(84, 20)
         Me.dtpFechaFin.TabIndex = 404
